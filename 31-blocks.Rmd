@@ -1,4 +1,4 @@
-# Reference: Blocks
+# Reference: Blocks {-}
 
 ## Equations
 
