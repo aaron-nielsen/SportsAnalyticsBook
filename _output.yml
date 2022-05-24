@@ -13,5 +13,7 @@ bookdown::gitbook:
     edit: https://github.com/aaron-nielsen/SportsAnalyticsBook/edit/master/%s
     download: ["pdf"]
 bookdown::pdf_book:
- latex_engine: xelatex
- keep_tex: no
+  latex_engine: xelatex
+  citation_package: biblatex
+  keep_tex: yes
+bookdown::epub_book: default

@@ -1,0 +1,333 @@
+--- 
+title: "Sports Analytics"
+author: "Aaron Nielsen, Department of Statistics, Colorado State University"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+biblio-style: apalike
+link-citations: yes
+github-repo: openscapes/series
+description: "Sports Analytics Notes"
+---
+
+# About {-}
+
+This book serves as the course textbook for:
+
+* STAT 351 (Sports Statistics and Analytics 1)
+
+* STAT 451 (Sports Statistics and Analytics 2)
+
+
+This project was first created during the summer of 2022 by:
+
+* Aaron Nielsen
+
+* Levi Kipp
+
+* Ellie Martinez
+
+* Isaac Moorman
+
+<!--chapter:end:index.Rmd-->
+
+# Current Tasks {-}
+
+Updated: "`r Sys.Date()`"
+
+-----
+
+__Team Tasks and Tips__
+
+1. Find datasets from various sports to use as examples for EDA and later chapters
+2. Show how to get basic sumamry statistics from these datasets using dplyr, tidy
+3. Describe and calculate useful team and individual (descriptive statistics). Example: Baseball: calculate AVG, OBP, OPS, WOBA
+4. (High quality) Visualizations using ggplot
+5. Look for relevant "sports" R packages
+6. Include examples from CSU and Colorado sports teams when possible
+7. Sports to be included: Baseball/Softball, Football, Basketball, Soccer, Hockey, Volleyball
+8. Sports to be potentially included: Lacrosse, Cricket, Handball, 
+
+-----
+
+__Aaron:__
+
+Sports: 
+
+Chapters: Currently working to add content to chapters 1-4
+
+-----
+
+__Ellie:__
+
+Sports: Soccer, Volleyball
+
+Chapters: EDA, Probability
+
+-----
+
+__Levi:__
+
+Sports: Basketball, Hockey
+
+Chapters: EDA, Probability
+
+-----
+
+__Isaac:__
+
+Sports: Baseball, Football, Tennis
+
+Chapters: EDA, Scraping
+
+-----
+
+<!--chapter:end:00-tasks.Rmd-->
+
+# Exploratory Data Analysis
+
+## Using dplyr, tidyverse, ggplot
+
+## Baseball
+
+## Football
+
+## Basketball
+
+## Soccer
+
+## Volleyball
+
+## Hockey
+
+<!--chapter:end:01-eda.Rmd-->
+
+# Probability
+
+## Definitions and Axioms
+
+## Theorems and Laws
+
+## Random Variables
+
+<!--chapter:end:02-probability.Rmd-->
+
+# Simulation
+
+<!--chapter:end:03-simulation.Rmd-->
+
+# Statistical Inference
+
+## One Sample and Two Sample t-tests and confidence intervals
+
+<!--chapter:end:04-inference.Rmd-->
+
+# Correlation
+
+<!--chapter:end:05-correlation.Rmd-->
+
+# Linear Regression
+
+<!--chapter:end:06-regression.Rmd-->
+
+# Data Scraping
+
+<!--chapter:end:07-scraping.Rmd-->
+
+# Principal Component Analysis
+
+<!--chapter:end:08-pca.Rmd-->
+
+# Clustering
+
+<!--chapter:end:09-clustering.Rmd-->
+
+# Classification
+
+<!--chapter:end:10-classification.Rmd-->
+
+# Decision Trees
+
+## Random Forests
+
+## Gradient Boosting
+
+<!--chapter:end:11-decision-trees.Rmd-->
+
+# Non-parametric Statistics
+
+<!--chapter:end:12-nonparametric.Rmd-->
+
+# Baseball
+
+<!--chapter:end:13-baseball.Rmd-->
+
+# Football
+
+<!--chapter:end:14-football.Rmd-->
+
+# Basketball
+
+<!--chapter:end:15-basketball.Rmd-->
+
+# Soccer
+
+<!--chapter:end:16-soccer.Rmd-->
+
+# Hockey
+
+<!--chapter:end:17-hockey.Rmd-->
+
+# Volleyball
+
+## Resources
+
+[Women's Volleyball D1 Statistics](https://www.ncaa.com/stats/volleyball-women/d1)
+
+<!--chapter:end:18-volleyball.Rmd-->
+
+# Other Sports
+
+<!--chapter:end:19-other.Rmd-->
+
+# Ellie's stuff
+
+
+<!--chapter:end:20-ellie.Rmd-->
+
+# Levi's stuff
+
+
+<!--chapter:end:21-levi.Rmd-->
+
+# Isaac's stuff
+
+
+<!--chapter:end:22-isaac.Rmd-->
+
+# Aaron's stuff
+
+## Notes for Chapter 2 (Probability)
+
+__Axioms of Probability:__
+
+1. $P(A) \geq 0$
+
+2. $P(\Omega)=1$
+
+3. If $A_1, A_2, \ldots, A_n$ are disjoint events, then $P(\cup_{i=1}^n A_i) = \sum_{i=1}^n P(A_i)$
+
+::: {.theorem name="Bayes theorem"}
+Let $A$ and $B$ be events in $\Omega$ such that $P(B)>0$. Then we have the following:
+$$
+P(A|B) = \frac{P(B|A)P(A)}{P(B)}
+$$
+:::
+
+## Suggested Readings
+
+### Moneyball
+
+Moneyball, Chapter 2, How to Find a Ballplayer [@lewis2004moneyball]
+
+Near the end of the chapter (page 40), Michael Lewis give a list of players the Oakland Athletics hoped to draft. How did these players turn out? Find the WAR for each of the players in their pre-free agency years and compare it against the Rockies draft picks in the same rounds from the same draft.
+
+### Future Value
+
+Future Value, Chapter 7, How to Scout [@longenhagen2020future]
+
+If a player receives a running grade of 40, approximately what proportion of MLB players have a lower have a lower running grade?
+
+For a given tool, about 95\% of all player grades fall between what two bounds? (Consider the middle 95\% of the distribution of grades.)
+
+## Notes for Chapter 4 (Simulation)
+
+### Baseball Simulation Example
+
+```{r setup,warning=F,message=F}
+library(tidyverse)
+```
+
+This is a baseball example for chapter 4.
+
+```{r baseball-sim, message=F}
+set.seed(2022)
+n.sims <- 1000
+hits <- rep(0,n.sims)
+avg <- 0.300
+atbats.mean <- 450
+atbats.sd <- 100
+sim.atbats <- round(rnorm(n.sims,atbats.mean,atbats.sd))
+
+for(i in 1:n.sims){
+  sim.hits <- rbinom(1,sim.atbats[i],avg)
+  hits[i] = sim.hits
+}
+hits.df <- data.frame(Hits=hits)
+hits.df %>% ggplot(aes(x=Hits)) + geom_histogram()
+```
+
+<!--chapter:end:23-aaron.Rmd-->
+
+# Reference: Blocks {-}
+
+## Equations
+
+Here is an equation.
+
+\begin{equation} 
+  f\left(k\right) = \binom{n}{k} p^k\left(1-p\right)^{n-k}
+  (\#eq:binom)
+\end{equation} 
+
+You may refer to using `\@ref(eq:binom)`, like see Equation \@ref(eq:binom).
+
+
+## Theorems and proofs
+
+Labeled theorems can be referenced in text using `\@ref(thm:tri)`, for example, check out this smart theorem \@ref(thm:tri).
+
+::: {.theorem #tri}
+For a right triangle, if $c$ denotes the *length* of the hypotenuse
+and $a$ and $b$ denote the lengths of the **other** two sides, we have
+$$a^2 + b^2 = c^2$$
+:::
+
+Read more here <https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html>.
+
+## Callout blocks
+
+
+The R Markdown Cookbook provides more help on how to use custom blocks to design your own callouts: https://bookdown.org/yihui/rmarkdown-cookbook/custom-blocks.html
+
+<!--chapter:end:31-blocks.Rmd-->
+
+# Reference: Footnotes and citations {-}
+
+## Footnotes
+
+Footnotes are put inside the square brackets after a caret `^[]`. Like this one ^[This is a footnote.]. 
+
+## Citations
+
+Reference items in your bibliography file(s) using `@key`.
+
+For example, we are using the **bookdown** package [@R-bookdown] (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and **knitr** [@xie2015] (this citation was added manually in an external file book.bib). 
+Note that the `.bib` files need to be listed in the index.Rmd with the YAML `bibliography` key.
+
+
+The RStudio Visual Markdown Editor can also make it easier to insert citations: <https://rstudio.github.io/visual-markdown-editing/#/citations>
+
+<!--chapter:end:32-citations.Rmd-->
+
+<!-- `r if (knitr::is_html_output()) ' -->
+<!-- # References {-} -->
+<!-- '` -->
+
+# References
+<div id="refs"></div>
+
+<!--chapter:end:33-references.Rmd-->
+

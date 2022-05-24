@@ -17,6 +17,22 @@ P(A|B) = \frac{P(B|A)P(A)}{P(B)}
 $$
 :::
 
+## Suggested Readings
+
+### Moneyball
+
+Moneyball, Chapter 2, How to Find a Ballplayer [@lewis2004moneyball]
+
+Near the end of the chapter (page 40), Michael Lewis give a list of players the Oakland Athletics hoped to draft. How did these players turn out? Find the WAR for each of the players in their pre-free agency years and compare it against the Rockies draft picks in the same rounds from the same draft.
+
+### Future Value
+
+Future Value, Chapter 7, How to Scout [@longenhagen2020future]
+
+If a player receives a running grade of 40, approximately what proportion of MLB players have a lower have a lower running grade?
+
+For a given tool, about 95\% of all player grades fall between what two bounds? (Consider the middle 95\% of the distribution of grades.)
+
 ## Notes for Chapter 4 (Simulation)
 
 ### Baseball Simulation Example
