@@ -29,4 +29,4 @@ This project was first created during the summer of 2022 by:
 
 * Ellie Martinez
 
-* Isaac Moorman.
+* Isaac Moorman

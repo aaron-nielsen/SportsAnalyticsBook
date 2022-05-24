@@ -41,7 +41,6 @@ aarons-stuff
 notes-for-chapter-2-probability
 notes-for-chapter-4-simulation
 baseball-simulation-example
-current-tasks-1
 reference-blocks
 equations
 theorems-and-proofs
