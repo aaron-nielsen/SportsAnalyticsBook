@@ -1,0 +1,3 @@
+# Statistical Inference
+
+## One Sample and Two Sample t-tests and confidence intervals
