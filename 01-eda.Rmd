@@ -1,6 +1,193 @@
 # Exploratory Data Analysis
 
-## Using dplyr, tidyverse, ggplot
+-----
+
+## Installing R
+
+For this class, you will be using R Studio to complete statistical analyses on your computer. 
+
+To begin using R Studio, you will need to install "R" first and then install "R Studio" on your computer.
+
+***Step 1: Download R*** \
+(a) Visit [https://www.r-project.org/](https://www.r-project.org/) \
+(b) Click **CRAN** under **Download**
+(c) Select any of the mirrors \
+(d) Click the appropriate link for your type of system (Mac, Windows, Linux) \
+(e) Download R on this next page. \
+(For Windows, this will say **install R for the first time**. For Mac, this will be under **Latest release** and will be something like **R-4.1.0.pkg** -- the numbers may differ depending on the most recent version) \
+(f) Install R on your computer \
+       
+***Step 2: Download R Studio*** \
+(a) Visit [https://www.rstudio.com/products/rstudio/download/#download](https://www.rstudio.com/products/rstudio/download/#download) \
+(b) Click to download \
+(c) Install R Studio on your computer \
+
+***Step 3: Verify R Studio is working*** \
+(a)  Open R Studio \
+(b) Let's enter a small dataset and calculate the average to make sure everything is working correctly. \
+(c) In the console, type in the following dataset of Sammy Sosa's season home run totals from 1998--2002: \
+
+```{r}
+sosa.HR <- c(66,63,50,64,49)
+```
+
+(d) In the console, calculate the average season home run total for Sammy Sosa between 1998--2002: \
+
+```{r}
+mean(sosa.HR)
+```
+
+\noindent (e) Did you find Slammin' Sammy's average home run total was 58.4? If so, you should be set up correctly!
+
+-----
+
+## Getting Started With R
+
+For the following examples, let's consider Peyton Manning's career with the Denver Broncos. In his four seasons with the Broncos, Manning's passing yard totals were: 4659, 5477, 4727, 2249. Let's enter this data into R. To enter a vector of data, use the **c()** function.
+
+```{r}
+peyton <- c(4659, 5477, 4727, 2249)
+```
+
+To look at the data you just put in the variable *peyton*, type *peyton* into the console and press enter.
+
+```{r}
+peyton
+```
+
+Some basic function for calculating summary statistics include **mean()**, **median()**, **var()**, and **sd()**.
+
+```{r}
+mean(peyton)
+median(peyton)
+var(peyton)
+sd(peyton)
+```
+
+R allows you to install additional packages (or functions) that aren't offered in the base version of R. To install a package, use **install.packages(<name_of_package>)** and to load a package, use **library(<name_of_package>)**.
+
+One package that we will use frequently is **tidyverse**. This package includes several other packages and functions such as **ggplot** (plotting function), **dplyr** (data manipulation package), and **stringr** (string manipulation package).
+
+```{r,message=F,include=F}
+r = getOption("repos")
+r["CRAN"] = "http://cran.us.r-project.org"
+options(repos = r)
+```
+
+```{r,message=F,eval=F}
+install.packages("tidyverse")
+library("tidyverse")
+```
+
+-----
+
+## Definitions
+
+::: {.definition}
+A ***population*** is a well-defined complete collection of objects.
+:::
+
+::: {.definition}
+A ***sample*** is a subset of the population.
+:::
+
+::: {.example}
+Suppose we are interested in studying Peyton's Manning's season passing yards totals. What would be the population and what is one possible sample?
+::: 
+
+\
+\
+\
+\
+\
+
+::: {.example}
+Suppose we are interested in studying Peyton's Manning's season passing yards totals. What would be the population and what is one possible sample?
+::: 
+
+\
+\
+\
+\
+\
+
+::: {.definition}
+***Quantitative data*** is numeric data or numbers. It can be broken into two further categories: discrete and continuous data. 
+:::
+
+::: {.definition}
+***Discrete data*** is quantitative data with a finite or countably infinite number of values. 
+:::
+
+::: {.definition}
+***Continuous data*** is quantitative data with an uncountably infinite number of values or data taken from an interval.
+:::
+
+::: {.example}
+What are possible discrete and continuous data associated with Peyton Manning?
+:::
+
+\
+\
+\
+\
+\
+
+::: {.definition}
+***Qualitative data*** refers to names, categories, or descriptions. It can also be broken down into
+two further categories, nominal data and ordinal data.
+:::
+
+::: {.definition}
+***Nominal data*** is qualitative data with no natural ordering.
+:::
+
+::: {.definition}
+***Ordinal data*** is qualitative data with a natural ordering.
+:::
+
+::: {.example}
+What are possible nominal and ordinal data associated with Peyton Manning?
+:::
+
+\
+\
+\
+\
+\
+
+-----
+
+
+## Descriptive Statistics
+
+While we will learn about some descriptive statistics that are unique to specific sports, there are some descriptive statistics that are frequently used in many applications.
+
+To begin, let $x_1, x_2, \ldots, x_n$ represent a sample of size $n$, where $x_i$ is the $i^\text{th}$ value in the dataset.
+
+
+::: {.definition}
+The ***sum*** of the data values is given by: $\sum_{i=1}^n x_i = x_1 + x_2 + \ldots + x_n$
+:::
+
+::: {.definition}
+The ***sample mean*** of the dataset is given by $\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i$
+:::
+
+::: {.example}
+Recall that Peyton Manning's season passing yards total while with the Broncos were: 4659, 5477, 4727, 2249. Calculate the sample mean of these values.
+:::
+
+\
+\
+\
+\
+\
+
+
+-----
+
+[NFL Team Passing Statistics, 2021](https://www.pro-football-reference.com/years/2021/index.htm#passing)
 
 ## Baseball
 

@@ -169,7 +169,7 @@
 \chapter*{About}\label{about}}
 \addcontentsline{toc}{chapter}{About}
 
-This book serves as the course textbook for:
+This book serves as the course textbook for the following courses at Colorado State University:
 
 \begin{itemize}
 \item
@@ -178,11 +178,11 @@ This book serves as the course textbook for:
   STAT 451 (Sports Statistics and Analytics 2)
 \end{itemize}
 
-This project was first created during the summer of 2022 by:
+\hfill\break
+
+CSU students contributed to the creation of this book. Many thanks to the following student collaborators:
 
 \begin{itemize}
-\item
-  Aaron Nielsen
 \item
   Levi Kipp
 \item
@@ -259,8 +259,246 @@ Chapters: EDA, Scraping
 \hypertarget{exploratory-data-analysis}{%
 \chapter{Exploratory Data Analysis}\label{exploratory-data-analysis}}
 
-\hypertarget{using-dplyr-tidyverse-ggplot}{%
-\section{Using dplyr, tidyverse, ggplot}\label{using-dplyr-tidyverse-ggplot}}
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{installing-r}{%
+\section{Installing R}\label{installing-r}}
+
+For this class, you will be using R Studio to complete statistical analyses on your computer.
+
+To begin using R Studio, you will need to install ``R'' first and then install ``R Studio'' on your computer.
+
+\textbf{\emph{Step 1: Download R}}\\
+(a) Visit \url{https://www.r-project.org/}\\
+(b) Click \textbf{CRAN} under \textbf{Download}
+(c) Select any of the mirrors\\
+(d) Click the appropriate link for your type of system (Mac, Windows, Linux)\\
+(e) Download R on this next page.\\
+(For Windows, this will say \textbf{install R for the first time}. For Mac, this will be under \textbf{Latest release} and will be something like \textbf{R-4.1.0.pkg} -- the numbers may differ depending on the most recent version)\\
+(f) Install R on your computer\\
+
+\textbf{\emph{Step 2: Download R Studio}}\\
+(a) Visit \url{https://www.rstudio.com/products/rstudio/download/\#download}\\
+(b) Click to download\\
+(c) Install R Studio on your computer\\
+
+\textbf{\emph{Step 3: Verify R Studio is working}}\\
+(a) Open R Studio\\
+(b) Let's enter a small dataset and calculate the average to make sure everything is working correctly.\\
+(c) In the console, type in the following dataset of Sammy Sosa's season home run totals from 1998--2002:\\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sosa.HR }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{66}\NormalTok{,}\DecValTok{63}\NormalTok{,}\DecValTok{50}\NormalTok{,}\DecValTok{64}\NormalTok{,}\DecValTok{49}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  In the console, calculate the average season home run total for Sammy Sosa between 1998--2002:\\
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(sosa.HR)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 58.4
+\end{verbatim}
+
+\noindent (e) Did you find Slammin' Sammy's average home run total was 58.4? If so, you should be set up correctly!
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{getting-started-with-r}{%
+\section{Getting Started With R}\label{getting-started-with-r}}
+
+For the following examples, let's consider Peyton Manning's career with the Denver Broncos. In his four seasons with the Broncos, Manning's passing yard totals were: 4659, 5477, 4727, 2249. Let's enter this data into R. To enter a vector of data, use the \textbf{c()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{peyton }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{4659}\NormalTok{, }\DecValTok{5477}\NormalTok{, }\DecValTok{4727}\NormalTok{, }\DecValTok{2249}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+To look at the data you just put in the variable \emph{peyton}, type \emph{peyton} into the console and press enter.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{peyton}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4659 5477 4727 2249
+\end{verbatim}
+
+Some basic function for calculating summary statistics include \textbf{mean()}, \textbf{median()}, \textbf{var()}, and \textbf{sd()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(peyton)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4278
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{median}\NormalTok{(peyton)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4693
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{var}\NormalTok{(peyton)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1967068
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sd}\NormalTok{(peyton)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1402.522
+\end{verbatim}
+
+R allows you to install additional packages (or functions) that aren't offered in the base version of R. To install a package, use \textbf{install.packages()} and to load a package, use \textbf{library()}.
+
+One package that we will use frequently is \textbf{tidyverse}. This package includes several other packages and functions such as \textbf{ggplot} (plotting function), \textbf{dplyr} (data manipulation package), and \textbf{stringr} (string manipulation package).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{definitions}{%
+\section{Definitions}\label{definitions}}
+
+\begin{definition}
+A \textbf{\emph{population}} is a well-defined complete collection of objects.
+\end{definition}
+
+\begin{definition}
+A \textbf{\emph{sample}} is a subset of the population.
+\end{definition}
+
+\begin{example}
+Suppose we are interested in studying Peyton's Manning's season passing yards totals. What would be the population and what is one possible sample?
+\end{example}
+
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+
+\begin{example}
+Suppose we are interested in studying Peyton's Manning's season passing yards totals. What would be the population and what is one possible sample?
+\end{example}
+
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+
+\begin{definition}
+\textbf{\emph{Quantitative data}} is numeric data or numbers. It can be broken into two further categories: discrete and continuous data.
+\end{definition}
+
+\begin{definition}
+\textbf{\emph{Discrete data}} is quantitative data with a finite or countably infinite number of values.
+\end{definition}
+
+\begin{definition}
+\textbf{\emph{Continuous data}} is quantitative data with an uncountably infinite number of values or data taken from an interval.
+\end{definition}
+
+\begin{example}
+What are possible discrete and continuous data associated with Peyton Manning?
+\end{example}
+
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+
+\begin{definition}
+\textbf{\emph{Qualitative data}} refers to names, categories, or descriptions. It can also be broken down into
+two further categories, nominal data and ordinal data.
+\end{definition}
+
+\begin{definition}
+\textbf{\emph{Nominal data}} is qualitative data with no natural ordering.
+\end{definition}
+
+\begin{definition}
+\textbf{\emph{Ordinal data}} is qualitative data with a natural ordering.
+\end{definition}
+
+\begin{example}
+What are possible nominal and ordinal data associated with Peyton Manning?
+\end{example}
+
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{descriptive-statistics}{%
+\section{Descriptive Statistics}\label{descriptive-statistics}}
+
+While we will learn about some descriptive statistics that are unique to specific sports, there are some descriptive statistics that are frequently used in many applications.
+
+To begin, let \(x_1, x_2, \ldots, x_n\) represent a sample of size \(n\), where \(x_i\) is the \(i^\text{th}\) value in the dataset.
+
+\begin{definition}
+The \textbf{\emph{sum}} of the data values is given by: \(\sum_{i=1}^n x_i = x_1 + x_2 + \ldots + x_n\)
+\end{definition}
+
+\begin{definition}
+The \textbf{\emph{sample mean}} of the dataset is given by \(\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i\)
+\end{definition}
+
+\begin{example}
+Recall that Peyton Manning's season passing yards total while with the Broncos were: 4659, 5477, 4727, 2249. Calculate the sample mean of these values.
+\end{example}
+
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\href{https://www.pro-football-reference.com/years/2021/index.htm\#passing}{NFL Team Passing Statistics, 2021}
 
 \hypertarget{baseball}{%
 \section{Baseball}\label{baseball}}
