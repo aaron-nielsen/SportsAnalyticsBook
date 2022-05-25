@@ -2,7 +2,9 @@
 
 -----
 
-## Installing R
+## Getting Started With R
+
+### Installing R
 
 For this class, you will be using R Studio to complete statistical analyses on your computer. 
 
@@ -37,11 +39,11 @@ sosa.HR <- c(66,63,50,64,49)
 mean(sosa.HR)
 ```
 
-\noindent (e) Did you find Slammin' Sammy's average home run total was 58.4? If so, you should be set up correctly!
+\noindent (e) Did you find Slammin' Sammy's average home run total from 1998--2002 was 58.4? If so, you should be set up correctly!
 
 -----
 
-## Getting Started With R
+### Some R Basics
 
 For the following examples, let's consider Peyton Manning's career with the Denver Broncos. In his four seasons with the Broncos, Manning's passing yard totals were: 4659, 5477, 4727, 2249. Let's enter this data into R. To enter a vector of data, use the **c()** function.
 
@@ -55,16 +57,15 @@ To look at the data you just put in the variable *peyton*, type *peyton* into th
 peyton
 ```
 
-Some basic function for calculating summary statistics include **mean()**, **median()**, **var()**, and **sd()**.
+Some basic function for calculating summary statistics include **summary**, **mean()**, **median()**, **var()**, and **sd()**.
 
 ```{r}
+summary(peyton)
 mean(peyton)
-median(peyton)
-var(peyton)
 sd(peyton)
 ```
 
-R allows you to install additional packages (or functions) that aren't offered in the base version of R. To install a package, use **install.packages(<name_of_package>)** and to load a package, use **library(<name_of_package>)**.
+R allows you to install additional packages (collections of functions) that aren't offered in the base version of R. To install a package, use **install.packages(<name_of_package>)** and to load a package, use **library(<name_of_package>)**.
 
 One package that we will use frequently is **tidyverse**. This package includes several other packages and functions such as **ggplot** (plotting function), **dplyr** (data manipulation package), and **stringr** (string manipulation package).
 
@@ -81,7 +82,9 @@ library("tidyverse")
 
 -----
 
-## Definitions
+## Descriptive Statistics
+
+### Definitions
 
 ::: {.definition}
 A ***population*** is a well-defined complete collection of objects.
@@ -92,7 +95,7 @@ A ***sample*** is a subset of the population.
 :::
 
 ::: {.example}
-Suppose we are interested in studying Peyton's Manning's season passing yards totals. What would be the population and what is one possible sample?
+Suppose we are interested in studying Peyton's Manning's season passing yards totals. How could you define the population and what is one possible sample?
 ::: 
 
 \
@@ -101,15 +104,7 @@ Suppose we are interested in studying Peyton's Manning's season passing yards to
 \
 \
 
-::: {.example}
-Suppose we are interested in studying Peyton's Manning's season passing yards totals. What would be the population and what is one possible sample?
-::: 
 
-\
-\
-\
-\
-\
 
 ::: {.definition}
 ***Quantitative data*** is numeric data or numbers. It can be broken into two further categories: discrete and continuous data. 
@@ -159,20 +154,29 @@ What are possible nominal and ordinal data associated with Peyton Manning?
 -----
 
 
-## Descriptive Statistics
+### Descriptive Statistics
 
 While we will learn about some descriptive statistics that are unique to specific sports, there are some descriptive statistics that are frequently used in many applications.
 
-To begin, let $x_1, x_2, \ldots, x_n$ represent a sample of size $n$, where $x_i$ is the $i^\text{th}$ value in the dataset.
+#### Descriptive Statistics for Quantitative Data
 
+There are different descriptive statistics depending on the type of data you are analyzing. We will begin by looking at descriptive statistics for quantitative data.
+
+To begin, let $x_1, x_2, \ldots, x_n$ represent a numerical dataset with a sample of size $n$, where $x_i$ is the $i^\text{th}$ value in the dataset.
 
 ::: {.definition}
 The ***sum*** of the data values is given by: $\sum_{i=1}^n x_i = x_1 + x_2 + \ldots + x_n$
 :::
 
 ::: {.definition}
-The ***sample mean*** of the dataset is given by $\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i$
+The ***sample mean*** (or sample average), $\bar{x}$, of the numerical dataset is given by $\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i$
 :::
+
+::: {.definition}
+The ***population mean*** (or population average), $\mu$, is the mean value for the entire population.
+:::
+
+The mean can be thought of as a measure of center or more generally, a measure of location.
 
 ::: {.example}
 Recall that Peyton Manning's season passing yards total while with the Broncos were: 4659, 5477, 4727, 2249. Calculate the sample mean of these values.
@@ -184,10 +188,178 @@ Recall that Peyton Manning's season passing yards total while with the Broncos w
 \
 \
 
+```{r mean}
+# Calculate the sample of Peyton Manning's passing yards season totals with Colts
+peyton.broncos <- c(4659, 5477, 4727, 2249)
+mean(peyton.broncos)
+```
+
+In sports statistics, we often have to choose between using a descriptive statistic that summarizes a quantity versus a descriptive statistic that summarizes a rate. For instance, in basketball, we can compare two players based on how many points they score in a game (total quantity) or we can compare two players based on how many points per minute played (rate statistic). Many applications in sports analytics focus more on rate statistics rather than quantity statistics. Why?
+
+We can measure the spread or variability of a dataset using *variance* and *standard devatiation*.
+
+::: {.definition}
+The ***sample variance***, $s^2$, of the numerical dataset is a measure of spread and is given by $s^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2$
+:::
+
+::: {.definition}
+The ***sample standard deviation***, $s$, of the numerical dataset is a measure of spread and is given by $s = \sqrt{s^2} = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2}$
+:::
+
+::: {.definition}
+The ***population variance***, $\sigma^2$, is the variance for an entire population.
+:::
+
+::: {.definition}
+The ***population standard deviation***, $\sigma$, is the standard deviation for an entire population.
+:::
+
+We often prefer to work with standard deviations as a measure of spread as opposed to variance because standard deviations are given in our original units.
+
+```{r var}
+# Calculate the variance and standard deviation of Peyton Manning's passing yards season totals with Broncos
+var(peyton.broncos) # units: yards^2
+sd(peyton.broncos) # units: yards
+```
+
+::: {.definition}
+The **sample median**, $\tilde{x}$, of a numerical dataset is the middle value when the data are ordered from smallest to largest. In other words, let $x_1, x_2, \ldots, x_n$ be the (unordered) dataset and let $x_{(1)},x_{(2)}, \ldots, x_{(n)}$ be the same dataset but ordered from smallest to largest. If $n$ is odd, then $\tilde{x} = x_{(n+1)/2}$ and if $n$ is even, then $\tilde{x} = \frac{1}{2} \cdot \left[x_{\left(\frac{n}{2}\right)} + x_{\left(\frac{n+1}{2}\right)}\right]$.
+:::
+
+
+::: {.example}
+Calculate the sample median of Peyton Manning's season passing yards total while with the Colts (3739, 4135, 4413, 4131, 4200, 4267, 4557, 3747, 4397, 4040, 4002, 4500, 4700). 
+:::
+
+\
+\
+\
+\
+\
+
+Like sample mean, sample median is a measure of center. It gives you an idea of where the ``middle" of your dataset is. 
+
+We can calculate sample mean and sample median in R as follows:
+
+```{r median}
+# Calculate the median of Peyton Manning's passing yards season totals with Broncos and Colts
+peyton.colts <- c(3739, 4135, 4413, 4131, 4200, 4267, 4557, 3747, 4397, 4040, 4002, 4500, 4700)
+median(peyton.broncos)
+median(peyton.colts)
+```
+
+:::{.definition}
+A ***percentile*** is a measure of relative standing. The $p^\text{th}$ percentile is the number where at least
+p\% of the data values are less than or equal to this number.
+:::
+
+:::{.definition}
+A ***quantile*** is a measure of relative standing and are the cut points for breaking a distribution of values into equal sized bins.
+:::
+
+:::{.definition}
+A ***quartile*** is a measure of relative standing and are the cut points for breaking a distribution of values into four equal parts.
+:::
+
+
+```{r perc}
+# Calculate the 10th and 90th percentile of Peyton Manning's passing yards season totals with Colts
+quantile(peyton.colts,0.10)
+quantile(peyton.colts,0.90)
+quantile(peyton.colts,c(0.1,0.9))
+```
+
+**Special percentiles:** \
+1. 25th percentile = 1st quartile = $Q_1$ \
+2. 50th percentile = 2nd quartile = $Q_2$ = $\tilde{x}$ \
+3. 75th percentile = 3rd quartile = $Q_3$ \
+
+:::{.definition}
+***Range*** is a measure of spread, measures the full width of a dataset, and is given by: $Range = Max - Min$.
+:::
+
+:::{.definition}
+***Interquartile range*** is a measure of spread, measures the width of the middle 50\% of a dataset, and is given by: $IQR = Q_3 - Q_1$. 
+:::
+
+:::{.definition}
+A ***five number summary*** describes the center, spread, and edges of a dataset and is given by: $(Min,Q_1,Q_2,Q_3,max)$.
+:::
+
+```{r iqr}
+summary(peyton.colts)
+quantile(peyton.colts,c(0,0.25,0.5,0.75,1))
+```
+
+#### Descriptive Statistics for Qualitative Data
+
+In sports statistics, we also encounter qualitative (categorical) data which is names or labels which has its own descriptive statistics.
+
+
+To begin, let $x_1, x_2, \ldots, x_n$ represent a categorical dataset with a sample of size $n$, where $x_i$ is the $i^\text{th}$ value in the dataset.
+
+::: {.definition}
+The ***proportion*** of sampled data that fall into a category is given by: $p = \frac{\#\text{ in category}}{\#\text{ total}}$
+:::
+
+''Proportion" and "Probability" are often used interchangeably. Both have a minimum value of 0 and a maximum value of 1.
+
+::: {.definition}
+The ***percentage*** of sampled data that fall into a category is given by: $P\% = 100 \cdot p = 100 \cdot \frac{\#\text{ in category}}{\#\text{ total}}$
+:::
+
+Percentages in this context can have a minimum value of 0\% and a maximum value of 100\%.
+
+::: {.example}
+In 2014, Peyton Manning started as quarterback for the Denver Broncos. The result of the Broncos' 16-game season was: \
+Win, Win, Loss, Win, Win, Win, Win, Loss, Win, Loss, Win, Win, Win, Win, Loss, Win
+
+Calculate the proportion and percentage of Broncos' winning games in 2014.
+:::
+
+\
+\
+\
+\
+\
+
+```{r prop}
+broncos2014 <- c("Win", "Win", "Loss", "Win", "Win", "Win", "Win", "Loss", "Win", "Loss", "Win", "Win", "Win", "Win", "Loss", "Win")
+broncos.prop <- sum(broncos2014 == "Win")/length(broncos2014); broncos.prop
+broncos.perc <- 100*broncos.prop; broncos.perc
+```
+
+We can also build a frequency table that summarizes the categories and their occurrences using **table()** in R. Note that **table()** works for quantitative and qualitative data.
+
+```{r freq}
+table(broncos2014)
+```
+
+## Visualizations
+
+Conveying information visually is also an important part in providing a description of a dataset.
+
+R provides some basic plotting functions such as **plot**, **hist**, and **barplot**. These plotting functions are simple and not always very clean looking.
+
+In this class, we will use analogous plotting functions in **ggplot2** that are much improved plotting functions.
+
+If you have already installed the **tidyverse** package, it should have also installed the **ggplot2** package.
+
+```{r setup1}
+# You have likely already installed the tidyverse package but if not, use the following command without the "#"
+# install.packages("tidyverse")
+# install.packages("ggplot2")
+
+# You shouldn't need to load the ggplot2 package separately if the tidyverse package loads properly
+# library(ggplot2)
+
+# Load the tidyverse package (which includes ggplot2)
+library(tidyverse)
+```
 
 -----
 
-[NFL Team Passing Statistics, 2021](https://www.pro-football-reference.com/years/2021/index.htm#passing)
+Possible dataset: [NFL Team Passing Statistics, 2021](https://www.pro-football-reference.com/years/2021/index.htm#passing)
 
 ## Baseball
 

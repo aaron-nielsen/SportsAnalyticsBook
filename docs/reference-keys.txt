@@ -1,9 +1,14 @@
 eq:binom
 exploratory-data-analysis
-installing-r
 getting-started-with-r
-definitions
+installing-r
+some-r-basics
 descriptive-statistics
+definitions
+descriptive-statistics-1
+descriptive-statistics-for-quantitative-data
+descriptive-statistics-for-qualitative-data
+visualizations
 baseball
 football
 basketball
