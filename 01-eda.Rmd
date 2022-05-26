@@ -80,6 +80,18 @@ install.packages("tidyverse")
 library("tidyverse")
 ```
 
+You will also need to know how to load datasets from files. For this class, we will typically provide data files is .csv format.
+
+Here is how to load a file:
+```{r load, message=F}
+# load readr package and load example dataset
+library(readr)
+NFL_2021_Team_Passing <- read_csv("data/NFL_2021_Team_Passing.csv")
+
+# we can look at the header (first few entries) using "head()"
+head(NFL_2021_Team_Passing)
+```
+
 -----
 
 ## Descriptive Statistics
@@ -348,18 +360,128 @@ If you have already installed the **tidyverse** package, it should have also ins
 ```{r setup1}
 # You have likely already installed the tidyverse package but if not, use the following command without the "#"
 # install.packages("tidyverse")
-# install.packages("ggplot2")
-
-# You shouldn't need to load the ggplot2 package separately if the tidyverse package loads properly
-# library(ggplot2)
 
 # Load the tidyverse package (which includes ggplot2)
 library(tidyverse)
 ```
 
------
+Let's load the file ``NFL_2021_Team_Passing.csv" which contains [NFL Team Passing Statistics, 2021](https://www.pro-football-reference.com/years/2021/index.htm#passing)
 
-Possible dataset: [NFL Team Passing Statistics, 2021](https://www.pro-football-reference.com/years/2021/index.htm#passing)
+```{r load2, message=F}
+library(readr)
+NFL_2021_Team_Passing <- read_csv("data/NFL_2021_Team_Passing.csv")
+```
+
+Histograms are one of the most common and basic ways to visualize a dataset's distribution of values. To make a histogram, you will use **ggplot** and **geom_histogram**.
+
+:::{.example}
+Create a histogram of the NFL Team Passing Yards in 2021.
+
+```{r hist, message=F}
+NFL_2021_Team_Passing %>% ggplot(aes(x=Yds)) + geom_histogram()
+```
+
+Notice how **%>%** is used to **pipe** the dataset into ggplot. This is using the pipe function from the **dplyr** package.
+
+By default, **geom_histogram** uses 30 bins but this is customizable. Let's make the bins have a width of 200.
+
+All good visualizations have good labels. Let's improve the axis labels and give the figure a title.
+
+```{r hist2}
+NFL_2021_Team_Passing %>% ggplot(aes(x=Yds)) + 
+  geom_histogram(binwidth = 200) +
+  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021")
+```
+
+We also have numerous options to change the appearance of plots when using **ggplot**. Let's change the bins color to *blue* and change the bin borders to *white*.
+
+```{r hist3}
+NFL_2021_Team_Passing %>% ggplot(aes(x=Yds)) + 
+  geom_histogram(color = "white", fill = "blue", binwidth = 200) +
+  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021")
+```
+:::
+
+We can also create bar plots using ggplot using the **geom_bar** function.
+
+:::{.example}
+Create a bar plot with teams on the horizontal axis and passing touchdowns on the vertical axis.
+
+```{r bar}
+NFL_2021_Team_Passing %>% ggplot(aes(x=Tm,y=Yds)) +
+  geom_bar(stat="identity")
+```
+
+The team labels are a complete mess. Let's fix this and make some adjustments to the axis labels and figure title.
+
+```{r bar2}
+NFL_2021_Team_Passing %>% ggplot(aes(x=Tm,y=Yds)) +
+  geom_bar(stat="identity") +
+  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+We can flip this graph if we like as well. Note that when we flip the graph, our labels get in reverse ordering, so this can be fixed using **fct_rev()** which is part of the **forcats** package.
+
+```{r bar3}
+NFL_2021_Team_Passing %>% 
+  ggplot(aes(x=fct_rev(Tm),y=Yds)) +
+  geom_bar(stat="identity") +
+  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021") +
+  coord_flip()
+```
+
+:::
+
+Another common and useful visualization is a scatterplot which shows the relationship between two numeric variable. In ggplot, you use **geom_point()**.
+
+:::{.example}
+Create a scatterplot of Team Passing Yards and Team Passing Touchdowns from the NFL 2021 dataset.
+
+```{r scatter1}
+NFL_2021_Team_Passing %>%
+  ggplot(aes(x=Yds,y=TD,label=Tm)) + 
+  geom_point() +
+  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021")
+```
+
+We may want to include team labels on this plot, however, it can get messy very quickly with a lot of points. 
+
+```{r scatter2}
+NFL_2021_Team_Passing %>%
+  ggplot(aes(x=Yds,y=TD,label=Tm)) + 
+  geom_point() +
+  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021") +
+  geom_text()
+```
+
+Many sports leagues have around 30 teams, so a clean scatterplot with labels can be tricky to make. Here are some options below.
+
+```{r scatter3}
+# install ggrepel package
+library(ggrepel)
+NFL_2021_Team_Passing %>%
+  ggplot(aes(x=Yds,y=TD,label=Tm)) + 
+  geom_point() +
+  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021") +
+  geom_text_repel()
+```
+
+```{r scatter4}
+NFL_2021_Team_Passing$Abbr <- c("TB","LAC","DAL","KC","LAR","LV","CIN","GB","BUF","AZ","MN","SF",
+                                "BAL","NE","PIT","ATL","MIA","DET","DEN","NYJ","WAS","JAC","SEA",
+                                "TEN","PHI","IND","CLE","HOU","CAR","CHI","NYG","NO")
+NFL_2021_Team_Passing %>%
+  ggplot(aes(x=Yds,y=TD,label=Abbr)) + 
+  geom_point() +
+  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021") +
+  geom_text_repel(box.padding = 0.3) 
+```
+
+
+:::
+
+-----
 
 ## Baseball
 

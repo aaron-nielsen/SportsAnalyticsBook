@@ -17,7 +17,7 @@ This book serves as the course textbook for the following courses at Colorado St
 
 * STAT 351 (Sports Statistics and Analytics 1)
 
-* STAT 451 (Sports Statistics and Analytics 2)
+* STAT 451 (Sports Statistics and Analytics 2
 
 \
 
@@ -28,4 +28,6 @@ CSU students contributed to the creation of this book. Many thanks to the follow
 * Ellie Martinez
 
 * Isaac Moorman
+
+<!-- usethis::use_git() -->
 

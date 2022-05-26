@@ -139,7 +139,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-05-25}
+\date{2022-05-26}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -195,7 +195,7 @@ CSU students contributed to the creation of this book. Many thanks to the follow
 \chapter*{Current Tasks}\label{current-tasks}}
 \addcontentsline{toc}{chapter}{Current Tasks}
 
-Updated: ``2022-05-25''
+Updated: ``2022-05-26''
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -384,6 +384,36 @@ One package that we will use frequently is \textbf{tidyverse}. This package incl
 \FunctionTok{library}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+You will also need to know how to load datasets from files. For this class, we will typically provide data files is .csv format.
+
+Here is how to load a file:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# load readr package and load example dataset}
+\FunctionTok{library}\NormalTok{(readr)}
+\NormalTok{NFL\_2021\_Team\_Passing }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/NFL\_2021\_Team\_Passing.csv"}\NormalTok{)}
+
+\CommentTok{\# we can look at the header (first few entries) using "head()"}
+\FunctionTok{head}\NormalTok{(NFL\_2021\_Team\_Passing)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 25
+##      Rk Tm             G   Cmp   Att `Cmp%`   Yds    TD `TD%`   Int `Int%`   Lng
+##   <dbl> <chr>      <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl> <dbl>
+## 1     1 Tampa Bay~    17   492   731   67.3  5229    43   5.9    12    1.6    62
+## 2     2 Los Angel~    17   443   674   65.7  4800    38   5.6    15    2.2    72
+## 3     3 Dallas Co~    17   444   647   68.6  4800    40   6.2    11    1.7    73
+## 4     4 Kansas Ci~    17   448   675   66.4  4791    37   5.5    13    1.9    75
+## 5     5 Los Angel~    17   406   607   66.9  4642    41   6.8    18    3      79
+## 6     6 Las Vegas~    17   429   628   68.3  4567    23   3.7    14    2.2    61
+## # ... with 13 more variables: `Y/A` <dbl>, `AY/A` <dbl>, `Y/C` <dbl>,
+## #   `Y/G` <dbl>, Rate <dbl>, Sk <dbl>, SKYds <dbl>, `Sk%` <dbl>, `NY/A` <dbl>,
+## #   `ANY/A` <dbl>, `4QC` <dbl>, GWD <dbl>, EXP <dbl>
+\end{verbatim}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -757,10 +787,6 @@ If you have already installed the \textbf{tidyverse} package, it should have als
 \begin{Highlighting}[]
 \CommentTok{\# You have likely already installed the tidyverse package but if not, use the following command without the "\#"}
 \CommentTok{\# install.packages("tidyverse")}
-\CommentTok{\# install.packages("ggplot2")}
-
-\CommentTok{\# You shouldn\textquotesingle{}t need to load the ggplot2 package separately if the tidyverse package loads properly}
-\CommentTok{\# library(ggplot2)}
 
 \CommentTok{\# Load the tidyverse package (which includes ggplot2)}
 \FunctionTok{library}\NormalTok{(tidyverse)}
@@ -772,10 +798,10 @@ If you have already installed the \textbf{tidyverse} package, it should have als
 \end{verbatim}
 
 \begin{verbatim}
-## v ggplot2 3.3.6     v purrr   0.3.4
-## v tibble  3.1.7     v dplyr   1.0.9
-## v tidyr   1.2.0     v stringr 1.4.0
-## v readr   2.1.2     v forcats 0.5.1
+## v ggplot2 3.3.6     v dplyr   1.0.9
+## v tibble  3.1.7     v stringr 1.4.0
+## v tidyr   1.2.0     v forcats 0.5.1
+## v purrr   0.3.4
 \end{verbatim}
 
 \begin{verbatim}
@@ -784,9 +810,167 @@ If you have already installed the \textbf{tidyverse} package, it should have als
 ## x dplyr::lag()    masks stats::lag()
 \end{verbatim}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+Let's load the file ``NFL\_2021\_Team\_Passing.csv'' which contains \href{https://www.pro-football-reference.com/years/2021/index.htm\#passing}{NFL Team Passing Statistics, 2021}
 
-Possible dataset: \href{https://www.pro-football-reference.com/years/2021/index.htm\#passing}{NFL Team Passing Statistics, 2021}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readr)}
+\NormalTok{NFL\_2021\_Team\_Passing }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/NFL\_2021\_Team\_Passing.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Histograms are one of the most common and basic ways to visualize a dataset's distribution of values. To make a histogram, you will use \textbf{ggplot} and \textbf{geom\_histogram}.
+
+\begin{example}
+Create a histogram of the NFL Team Passing Yards in 2021.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NFL\_2021\_Team\_Passing }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Yds)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/hist-1.pdf}
+
+Notice how \textbf{\%\textgreater\%} is used to \textbf{pipe} the dataset into ggplot. This is using the pipe function from the \textbf{dplyr} package.
+
+By default, \textbf{geom\_histogram} uses 30 bins but this is customizable. Let's make the bins have a width of 200.
+
+All good visualizations have good labels. Let's improve the axis labels and give the figure a title.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NFL\_2021\_Team\_Passing }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Yds)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{200}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Team Passing Yards"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Team Passing Touchdowns"}\NormalTok{,}\AttributeTok{title=}\StringTok{"NFL Team Passing Yards, 2021"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/hist2-1.pdf}
+
+We also have numerous options to change the appearance of plots when using \textbf{ggplot}. Let's change the bins color to \emph{blue} and change the bin borders to \emph{white}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NFL\_2021\_Team\_Passing }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Yds)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{binwidth =} \DecValTok{200}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Team Passing Yards"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Team Passing Touchdowns"}\NormalTok{,}\AttributeTok{title=}\StringTok{"NFL Team Passing Yards, 2021"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/hist3-1.pdf}
+\end{example}
+
+We can also create bar plots using ggplot using the \textbf{geom\_bar} function.
+
+\begin{example}
+Create a bar plot with teams on the horizontal axis and passing touchdowns on the vertical axis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NFL\_2021\_Team\_Passing }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Tm,}\AttributeTok{y=}\NormalTok{Yds)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/bar-1.pdf}
+
+The team labels are a complete mess. Let's fix this and make some adjustments to the axis labels and figure title.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NFL\_2021\_Team\_Passing }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Tm,}\AttributeTok{y=}\NormalTok{Yds)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Team Passing Yards"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Team Passing Touchdowns"}\NormalTok{,}\AttributeTok{title=}\StringTok{"NFL Team Passing Yards, 2021"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{, }\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{hjust=}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/bar2-1.pdf}
+
+We can flip this graph if we like as well. Note that when we flip the graph, our labels get in reverse ordering, so this can be fixed using \textbf{fct\_rev()} which is part of the \textbf{forcats} package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NFL\_2021\_Team\_Passing }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{fct\_rev}\NormalTok{(Tm),}\AttributeTok{y=}\NormalTok{Yds)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Team Passing Yards"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Team Passing Touchdowns"}\NormalTok{,}\AttributeTok{title=}\StringTok{"NFL Team Passing Yards, 2021"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/bar3-1.pdf}
+\end{example}
+
+Another common and useful visualization is a scatterplot which shows the relationship between two numeric variable. In ggplot, you use \textbf{geom\_point()}.
+
+\begin{example}
+Create a scatterplot of Team Passing Yards and Team Passing Touchdowns from the NFL 2021 dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NFL\_2021\_Team\_Passing }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Yds,}\AttributeTok{y=}\NormalTok{TD,}\AttributeTok{label=}\NormalTok{Tm)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Team Passing Yards"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Team Passing Touchdowns"}\NormalTok{,}\AttributeTok{title=}\StringTok{"NFL Team Passing Yards, 2021"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/scatter1-1.pdf}
+
+We may want to include team labels on this plot, however, it can get messy very quickly with a lot of points.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NFL\_2021\_Team\_Passing }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Yds,}\AttributeTok{y=}\NormalTok{TD,}\AttributeTok{label=}\NormalTok{Tm)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Team Passing Yards"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Team Passing Touchdowns"}\NormalTok{,}\AttributeTok{title=}\StringTok{"NFL Team Passing Yards, 2021"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/scatter2-1.pdf}
+
+Many sports leagues have around 30 teams, so a clean scatterplot with labels can be tricky to make. Here are some options below.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# install ggrepel package}
+\FunctionTok{library}\NormalTok{(ggrepel)}
+\NormalTok{NFL\_2021\_Team\_Passing }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Yds,}\AttributeTok{y=}\NormalTok{TD,}\AttributeTok{label=}\NormalTok{Tm)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Team Passing Yards"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Team Passing Touchdowns"}\NormalTok{,}\AttributeTok{title=}\StringTok{"NFL Team Passing Yards, 2021"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text\_repel}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: ggrepel: 9 unlabeled data points (too many overlaps). Consider
+## increasing max.overlaps
+\end{verbatim}
+
+\includegraphics{series_files/figure-latex/scatter3-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NFL\_2021\_Team\_Passing}\SpecialCharTok{$}\NormalTok{Abbr }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"TB"}\NormalTok{,}\StringTok{"LAC"}\NormalTok{,}\StringTok{"DAL"}\NormalTok{,}\StringTok{"KC"}\NormalTok{,}\StringTok{"LAR"}\NormalTok{,}\StringTok{"LV"}\NormalTok{,}\StringTok{"CIN"}\NormalTok{,}\StringTok{"GB"}\NormalTok{,}\StringTok{"BUF"}\NormalTok{,}\StringTok{"AZ"}\NormalTok{,}\StringTok{"MN"}\NormalTok{,}\StringTok{"SF"}\NormalTok{,}
+                                \StringTok{"BAL"}\NormalTok{,}\StringTok{"NE"}\NormalTok{,}\StringTok{"PIT"}\NormalTok{,}\StringTok{"ATL"}\NormalTok{,}\StringTok{"MIA"}\NormalTok{,}\StringTok{"DET"}\NormalTok{,}\StringTok{"DEN"}\NormalTok{,}\StringTok{"NYJ"}\NormalTok{,}\StringTok{"WAS"}\NormalTok{,}\StringTok{"JAC"}\NormalTok{,}\StringTok{"SEA"}\NormalTok{,}
+                                \StringTok{"TEN"}\NormalTok{,}\StringTok{"PHI"}\NormalTok{,}\StringTok{"IND"}\NormalTok{,}\StringTok{"CLE"}\NormalTok{,}\StringTok{"HOU"}\NormalTok{,}\StringTok{"CAR"}\NormalTok{,}\StringTok{"CHI"}\NormalTok{,}\StringTok{"NYG"}\NormalTok{,}\StringTok{"NO"}\NormalTok{)}
+\NormalTok{NFL\_2021\_Team\_Passing }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Yds,}\AttributeTok{y=}\NormalTok{TD,}\AttributeTok{label=}\NormalTok{Abbr)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Team Passing Yards"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Team Passing Touchdowns"}\NormalTok{,}\AttributeTok{title=}\StringTok{"NFL Team Passing Yards, 2021"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text\_repel}\NormalTok{(}\AttributeTok{box.padding =} \FloatTok{0.3}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/scatter4-1.pdf}
+\end{example}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{baseball}{%
 \section{Baseball}\label{baseball}}

@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2022-05-25" />
+<meta name="date" content="2022-05-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -320,6 +320,26 @@ div.csl-indent {
 <p>One package that we will use frequently is <strong>tidyverse</strong>. This package includes several other packages and functions such as <strong>ggplot</strong> (plotting function), <strong>dplyr</strong> (data manipulation package), and <strong>stringr</strong> (string manipulation package).</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="exploratory-data-analysis.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
 <span id="cb13-2"><a href="exploratory-data-analysis.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<p>You will also need to know how to load datasets from files. For this class, we will typically provide data files is .csv format.</p>
+<p>Here is how to load a file:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="exploratory-data-analysis.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load readr package and load example dataset</span></span>
+<span id="cb14-2"><a href="exploratory-data-analysis.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb14-3"><a href="exploratory-data-analysis.html#cb14-3" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/NFL_2021_Team_Passing.csv&quot;</span>)</span>
+<span id="cb14-4"><a href="exploratory-data-analysis.html#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="exploratory-data-analysis.html#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># we can look at the header (first few entries) using &quot;head()&quot;</span></span>
+<span id="cb14-6"><a href="exploratory-data-analysis.html#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(NFL_2021_Team_Passing)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 25
+##      Rk Tm             G   Cmp   Att `Cmp%`   Yds    TD `TD%`   Int `Int%`   Lng
+##   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+## 1     1 Tampa Bay…    17   492   731   67.3  5229    43   5.9    12    1.6    62
+## 2     2 Los Angel…    17   443   674   65.7  4800    38   5.6    15    2.2    72
+## 3     3 Dallas Co…    17   444   647   68.6  4800    40   6.2    11    1.7    73
+## 4     4 Kansas Ci…    17   448   675   66.4  4791    37   5.5    13    1.9    75
+## 5     5 Los Angel…    17   406   607   66.9  4642    41   6.8    18    3      79
+## 6     6 Las Vegas…    17   429   628   68.3  4567    23   3.7    14    2.2    61
+## # … with 13 more variables: `Y/A` &lt;dbl&gt;, `AY/A` &lt;dbl&gt;, `Y/C` &lt;dbl&gt;,
+## #   `Y/G` &lt;dbl&gt;, Rate &lt;dbl&gt;, Sk &lt;dbl&gt;, SKYds &lt;dbl&gt;, `Sk%` &lt;dbl&gt;, `NY/A` &lt;dbl&gt;,
+## #   `ANY/A` &lt;dbl&gt;, `4QC` &lt;dbl&gt;, GWD &lt;dbl&gt;, EXP &lt;dbl&gt;</code></pre>
 <hr />
 </div>
 </div>
@@ -407,9 +427,9 @@ two further categories, nominal data and ordinal data.</p>
 <br />
 <br />
 </p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="exploratory-data-analysis.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the sample of Peyton Manning&#39;s passing yards season totals with Colts</span></span>
-<span id="cb14-2"><a href="exploratory-data-analysis.html#cb14-2" aria-hidden="true" tabindex="-1"></a>peyton.broncos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4659</span>, <span class="dv">5477</span>, <span class="dv">4727</span>, <span class="dv">2249</span>)</span>
-<span id="cb14-3"><a href="exploratory-data-analysis.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(peyton.broncos)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="exploratory-data-analysis.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the sample of Peyton Manning&#39;s passing yards season totals with Colts</span></span>
+<span id="cb16-2"><a href="exploratory-data-analysis.html#cb16-2" aria-hidden="true" tabindex="-1"></a>peyton.broncos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4659</span>, <span class="dv">5477</span>, <span class="dv">4727</span>, <span class="dv">2249</span>)</span>
+<span id="cb16-3"><a href="exploratory-data-analysis.html#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(peyton.broncos)</span></code></pre></div>
 <pre><code>## [1] 4278</code></pre>
 <p>In sports statistics, we often have to choose between using a descriptive statistic that summarizes a quantity versus a descriptive statistic that summarizes a rate. For instance, in basketball, we can compare two players based on how many points they score in a game (total quantity) or we can compare two players based on how many points per minute played (rate statistic). Many applications in sports analytics focus more on rate statistics rather than quantity statistics. Why?</p>
 <p>We can measure the spread or variability of a dataset using <em>variance</em> and <em>standard devatiation</em>.</p>
@@ -426,10 +446,10 @@ two further categories, nominal data and ordinal data.</p>
 <p><span id="def:unlabeled-div-19" class="definition"><strong>Definition 1.15  </strong></span>The <strong><em>population standard deviation</em></strong>, <span class="math inline">\(\sigma\)</span>, is the standard deviation for an entire population.</p>
 </div>
 <p>We often prefer to work with standard deviations as a measure of spread as opposed to variance because standard deviations are given in our original units.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="exploratory-data-analysis.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the variance and standard deviation of Peyton Manning&#39;s passing yards season totals with Broncos</span></span>
-<span id="cb16-2"><a href="exploratory-data-analysis.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(peyton.broncos) <span class="co"># units: yards^2</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="exploratory-data-analysis.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the variance and standard deviation of Peyton Manning&#39;s passing yards season totals with Broncos</span></span>
+<span id="cb18-2"><a href="exploratory-data-analysis.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(peyton.broncos) <span class="co"># units: yards^2</span></span></code></pre></div>
 <pre><code>## [1] 1967068</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="exploratory-data-analysis.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(peyton.broncos) <span class="co"># units: yards</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="exploratory-data-analysis.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(peyton.broncos) <span class="co"># units: yards</span></span></code></pre></div>
 <pre><code>## [1] 1402.522</code></pre>
 <div class="definition">
 <p><span id="def:unlabeled-div-20" class="definition"><strong>Definition 1.16  </strong></span>The <strong>sample median</strong>, <span class="math inline">\(\tilde{x}\)</span>, of a numerical dataset is the middle value when the data are ordered from smallest to largest. In other words, let <span class="math inline">\(x_1, x_2, \ldots, x_n\)</span> be the (unordered) dataset and let <span class="math inline">\(x_{(1)},x_{(2)}, \ldots, x_{(n)}\)</span> be the same dataset but ordered from smallest to largest. If <span class="math inline">\(n\)</span> is odd, then <span class="math inline">\(\tilde{x} = x_{(n+1)/2}\)</span> and if <span class="math inline">\(n\)</span> is even, then <span class="math inline">\(\tilde{x} = \frac{1}{2} \cdot \left[x_{\left(\frac{n}{2}\right)} + x_{\left(\frac{n+1}{2}\right)}\right]\)</span>.</p>
@@ -445,11 +465,11 @@ two further categories, nominal data and ordinal data.</p>
 </p>
 <p>Like sample mean, sample median is a measure of center. It gives you an idea of where the ``middle” of your dataset is.</p>
 <p>We can calculate sample mean and sample median in R as follows:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="exploratory-data-analysis.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the median of Peyton Manning&#39;s passing yards season totals with Broncos and Colts</span></span>
-<span id="cb20-2"><a href="exploratory-data-analysis.html#cb20-2" aria-hidden="true" tabindex="-1"></a>peyton.colts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3739</span>, <span class="dv">4135</span>, <span class="dv">4413</span>, <span class="dv">4131</span>, <span class="dv">4200</span>, <span class="dv">4267</span>, <span class="dv">4557</span>, <span class="dv">3747</span>, <span class="dv">4397</span>, <span class="dv">4040</span>, <span class="dv">4002</span>, <span class="dv">4500</span>, <span class="dv">4700</span>)</span>
-<span id="cb20-3"><a href="exploratory-data-analysis.html#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(peyton.broncos)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="exploratory-data-analysis.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the median of Peyton Manning&#39;s passing yards season totals with Broncos and Colts</span></span>
+<span id="cb22-2"><a href="exploratory-data-analysis.html#cb22-2" aria-hidden="true" tabindex="-1"></a>peyton.colts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3739</span>, <span class="dv">4135</span>, <span class="dv">4413</span>, <span class="dv">4131</span>, <span class="dv">4200</span>, <span class="dv">4267</span>, <span class="dv">4557</span>, <span class="dv">3747</span>, <span class="dv">4397</span>, <span class="dv">4040</span>, <span class="dv">4002</span>, <span class="dv">4500</span>, <span class="dv">4700</span>)</span>
+<span id="cb22-3"><a href="exploratory-data-analysis.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(peyton.broncos)</span></code></pre></div>
 <pre><code>## [1] 4693</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="exploratory-data-analysis.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(peyton.colts)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="exploratory-data-analysis.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(peyton.colts)</span></code></pre></div>
 <pre><code>## [1] 4200</code></pre>
 <div class="definition">
 <p><span id="def:unlabeled-div-22" class="definition"><strong>Definition 1.17  </strong></span>A <strong><em>percentile</em></strong> is a measure of relative standing. The <span class="math inline">\(p^\text{th}\)</span> percentile is the number where at least
@@ -461,14 +481,14 @@ p% of the data values are less than or equal to this number.</p>
 <div class="definition">
 <p><span id="def:unlabeled-div-24" class="definition"><strong>Definition 1.19  </strong></span>A <strong><em>quartile</em></strong> is a measure of relative standing and are the cut points for breaking a distribution of values into four equal parts.</p>
 </div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="exploratory-data-analysis.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the 10th and 90th percentile of Peyton Manning&#39;s passing yards season totals with Colts</span></span>
-<span id="cb24-2"><a href="exploratory-data-analysis.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(peyton.colts,<span class="fl">0.10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="exploratory-data-analysis.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the 10th and 90th percentile of Peyton Manning&#39;s passing yards season totals with Colts</span></span>
+<span id="cb26-2"><a href="exploratory-data-analysis.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(peyton.colts,<span class="fl">0.10</span>)</span></code></pre></div>
 <pre><code>##  10% 
 ## 3798</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="exploratory-data-analysis.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(peyton.colts,<span class="fl">0.90</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="exploratory-data-analysis.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(peyton.colts,<span class="fl">0.90</span>)</span></code></pre></div>
 <pre><code>##    90% 
 ## 4545.6</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="exploratory-data-analysis.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(peyton.colts,<span class="fu">c</span>(<span class="fl">0.1</span>,<span class="fl">0.9</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="exploratory-data-analysis.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(peyton.colts,<span class="fu">c</span>(<span class="fl">0.1</span>,<span class="fl">0.9</span>))</span></code></pre></div>
 <pre><code>##    10%    90% 
 ## 3798.0 4545.6</code></pre>
 <p><strong>Special percentiles:</strong><br />
@@ -485,10 +505,10 @@ p% of the data values are less than or equal to this number.</p>
 <div class="definition">
 <p><span id="def:unlabeled-div-27" class="definition"><strong>Definition 1.22  </strong></span>A <strong><em>five number summary</em></strong> describes the center, spread, and edges of a dataset and is given by: <span class="math inline">\((Min,Q_1,Q_2,Q_3,max)\)</span>.</p>
 </div>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="exploratory-data-analysis.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(peyton.colts)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="exploratory-data-analysis.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(peyton.colts)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    3739    4040    4200    4218    4413    4700</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="exploratory-data-analysis.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(peyton.colts,<span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="exploratory-data-analysis.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(peyton.colts,<span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span>,<span class="dv">1</span>))</span></code></pre></div>
 <pre><code>##   0%  25%  50%  75% 100% 
 ## 3739 4040 4200 4413 4700</code></pre>
 </div>
@@ -515,13 +535,13 @@ Win, Win, Loss, Win, Win, Win, Win, Loss, Win, Loss, Win, Win, Win, Win, Loss, W
 <br />
 <br />
 </p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="exploratory-data-analysis.html#cb34-1" aria-hidden="true" tabindex="-1"></a>broncos2014 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Loss&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Loss&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Loss&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Loss&quot;</span>, <span class="st">&quot;Win&quot;</span>)</span>
-<span id="cb34-2"><a href="exploratory-data-analysis.html#cb34-2" aria-hidden="true" tabindex="-1"></a>broncos.prop <span class="ot">&lt;-</span> <span class="fu">sum</span>(broncos2014 <span class="sc">==</span> <span class="st">&quot;Win&quot;</span>)<span class="sc">/</span><span class="fu">length</span>(broncos2014); broncos.prop</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="exploratory-data-analysis.html#cb36-1" aria-hidden="true" tabindex="-1"></a>broncos2014 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Loss&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Loss&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Loss&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Loss&quot;</span>, <span class="st">&quot;Win&quot;</span>)</span>
+<span id="cb36-2"><a href="exploratory-data-analysis.html#cb36-2" aria-hidden="true" tabindex="-1"></a>broncos.prop <span class="ot">&lt;-</span> <span class="fu">sum</span>(broncos2014 <span class="sc">==</span> <span class="st">&quot;Win&quot;</span>)<span class="sc">/</span><span class="fu">length</span>(broncos2014); broncos.prop</span></code></pre></div>
 <pre><code>## [1] 0.75</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="exploratory-data-analysis.html#cb36-1" aria-hidden="true" tabindex="-1"></a>broncos.perc <span class="ot">&lt;-</span> <span class="dv">100</span><span class="sc">*</span>broncos.prop; broncos.perc</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="exploratory-data-analysis.html#cb38-1" aria-hidden="true" tabindex="-1"></a>broncos.perc <span class="ot">&lt;-</span> <span class="dv">100</span><span class="sc">*</span>broncos.prop; broncos.perc</span></code></pre></div>
 <pre><code>## [1] 75</code></pre>
 <p>We can also build a frequency table that summarizes the categories and their occurrences using <strong>table()</strong> in R. Note that <strong>table()</strong> works for quantitative and qualitative data.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="exploratory-data-analysis.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(broncos2014)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="exploratory-data-analysis.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(broncos2014)</span></code></pre></div>
 <pre><code>## broncos2014
 ## Loss  Win 
 ##    4   12</code></pre>
@@ -534,25 +554,97 @@ Win, Win, Loss, Win, Win, Win, Win, Loss, Win, Loss, Win, Win, Win, Win, Loss, W
 <p>R provides some basic plotting functions such as <strong>plot</strong>, <strong>hist</strong>, and <strong>barplot</strong>. These plotting functions are simple and not always very clean looking.</p>
 <p>In this class, we will use analogous plotting functions in <strong>ggplot2</strong> that are much improved plotting functions.</p>
 <p>If you have already installed the <strong>tidyverse</strong> package, it should have also installed the <strong>ggplot2</strong> package.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="exploratory-data-analysis.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You have likely already installed the tidyverse package but if not, use the following command without the &quot;#&quot;</span></span>
-<span id="cb40-2"><a href="exploratory-data-analysis.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;tidyverse&quot;)</span></span>
-<span id="cb40-3"><a href="exploratory-data-analysis.html#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;ggplot2&quot;)</span></span>
-<span id="cb40-4"><a href="exploratory-data-analysis.html#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-5"><a href="exploratory-data-analysis.html#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co"># You shouldn&#39;t need to load the ggplot2 package separately if the tidyverse package loads properly</span></span>
-<span id="cb40-6"><a href="exploratory-data-analysis.html#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co"># library(ggplot2)</span></span>
-<span id="cb40-7"><a href="exploratory-data-analysis.html#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-8"><a href="exploratory-data-analysis.html#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the tidyverse package (which includes ggplot2)</span></span>
-<span id="cb40-9"><a href="exploratory-data-analysis.html#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="exploratory-data-analysis.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You have likely already installed the tidyverse package but if not, use the following command without the &quot;#&quot;</span></span>
+<span id="cb42-2"><a href="exploratory-data-analysis.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;tidyverse&quot;)</span></span>
+<span id="cb42-3"><a href="exploratory-data-analysis.html#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="exploratory-data-analysis.html#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the tidyverse package (which includes ggplot2)</span></span>
+<span id="cb42-5"><a href="exploratory-data-analysis.html#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
-## ✔ tibble  3.1.7     ✔ dplyr   1.0.9
-## ✔ tidyr   1.2.0     ✔ stringr 1.4.0
-## ✔ readr   2.1.2     ✔ forcats 0.5.1</code></pre>
+<pre><code>## ✔ ggplot2 3.3.6     ✔ dplyr   1.0.9
+## ✔ tibble  3.1.7     ✔ stringr 1.4.0
+## ✔ tidyr   1.2.0     ✔ forcats 0.5.1
+## ✔ purrr   0.3.4</code></pre>
 <pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<p>Let’s load the file ``NFL_2021_Team_Passing.csv” which contains <a href="https://www.pro-football-reference.com/years/2021/index.htm#passing">NFL Team Passing Statistics, 2021</a></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="exploratory-data-analysis.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb46-2"><a href="exploratory-data-analysis.html#cb46-2" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/NFL_2021_Team_Passing.csv&quot;</span>)</span></code></pre></div>
+<p>Histograms are one of the most common and basic ways to visualize a dataset’s distribution of values. To make a histogram, you will use <strong>ggplot</strong> and <strong>geom_histogram</strong>.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-31" class="example"><strong>Example 1.7  </strong></span>Create a histogram of the NFL Team Passing Yards in 2021.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="exploratory-data-analysis.html#cb47-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Yds)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<p><img src="series_files/figure-html/hist-1.png" width="672" /></p>
+<p>Notice how <strong>%&gt;%</strong> is used to <strong>pipe</strong> the dataset into ggplot. This is using the pipe function from the <strong>dplyr</strong> package.</p>
+<p>By default, <strong>geom_histogram</strong> uses 30 bins but this is customizable. Let’s make the bins have a width of 200.</p>
+<p>All good visualizations have good labels. Let’s improve the axis labels and give the figure a title.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="exploratory-data-analysis.html#cb48-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Yds)) <span class="sc">+</span> </span>
+<span id="cb48-2"><a href="exploratory-data-analysis.html#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">200</span>) <span class="sc">+</span></span>
+<span id="cb48-3"><a href="exploratory-data-analysis.html#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team Passing Yards&quot;</span>,<span class="at">y=</span><span class="st">&quot;Team Passing Touchdowns&quot;</span>,<span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>)</span></code></pre></div>
+<p><img src="series_files/figure-html/hist2-1.png" width="672" /></p>
+<p>We also have numerous options to change the appearance of plots when using <strong>ggplot</strong>. Let’s change the bins color to <em>blue</em> and change the bin borders to <em>white</em>.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="exploratory-data-analysis.html#cb49-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Yds)) <span class="sc">+</span> </span>
+<span id="cb49-2"><a href="exploratory-data-analysis.html#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">binwidth =</span> <span class="dv">200</span>) <span class="sc">+</span></span>
+<span id="cb49-3"><a href="exploratory-data-analysis.html#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team Passing Yards&quot;</span>,<span class="at">y=</span><span class="st">&quot;Team Passing Touchdowns&quot;</span>,<span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>)</span></code></pre></div>
+<p><img src="series_files/figure-html/hist3-1.png" width="672" /></p>
+</div>
+<p>We can also create bar plots using ggplot using the <strong>geom_bar</strong> function.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-32" class="example"><strong>Example 1.8  </strong></span>Create a bar plot with teams on the horizontal axis and passing touchdowns on the vertical axis.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="exploratory-data-analysis.html#cb50-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Tm,<span class="at">y=</span>Yds)) <span class="sc">+</span></span>
+<span id="cb50-2"><a href="exploratory-data-analysis.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="series_files/figure-html/bar-1.png" width="672" /></p>
+<p>The team labels are a complete mess. Let’s fix this and make some adjustments to the axis labels and figure title.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="exploratory-data-analysis.html#cb51-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Tm,<span class="at">y=</span>Yds)) <span class="sc">+</span></span>
+<span id="cb51-2"><a href="exploratory-data-analysis.html#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb51-3"><a href="exploratory-data-analysis.html#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team Passing Yards&quot;</span>,<span class="at">y=</span><span class="st">&quot;Team Passing Touchdowns&quot;</span>,<span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>) <span class="sc">+</span></span>
+<span id="cb51-4"><a href="exploratory-data-analysis.html#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<p><img src="series_files/figure-html/bar2-1.png" width="672" /></p>
+<p>We can flip this graph if we like as well. Note that when we flip the graph, our labels get in reverse ordering, so this can be fixed using <strong>fct_rev()</strong> which is part of the <strong>forcats</strong> package.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="exploratory-data-analysis.html#cb52-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span> </span>
+<span id="cb52-2"><a href="exploratory-data-analysis.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">fct_rev</span>(Tm),<span class="at">y=</span>Yds)) <span class="sc">+</span></span>
+<span id="cb52-3"><a href="exploratory-data-analysis.html#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb52-4"><a href="exploratory-data-analysis.html#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team Passing Yards&quot;</span>,<span class="at">y=</span><span class="st">&quot;Team Passing Touchdowns&quot;</span>,<span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>) <span class="sc">+</span></span>
+<span id="cb52-5"><a href="exploratory-data-analysis.html#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="series_files/figure-html/bar3-1.png" width="672" /></p>
+</div>
+<p>Another common and useful visualization is a scatterplot which shows the relationship between two numeric variable. In ggplot, you use <strong>geom_point()</strong>.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-33" class="example"><strong>Example 1.9  </strong></span>Create a scatterplot of Team Passing Yards and Team Passing Touchdowns from the NFL 2021 dataset.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="exploratory-data-analysis.html#cb53-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span></span>
+<span id="cb53-2"><a href="exploratory-data-analysis.html#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Yds,<span class="at">y=</span>TD,<span class="at">label=</span>Tm)) <span class="sc">+</span> </span>
+<span id="cb53-3"><a href="exploratory-data-analysis.html#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb53-4"><a href="exploratory-data-analysis.html#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team Passing Yards&quot;</span>,<span class="at">y=</span><span class="st">&quot;Team Passing Touchdowns&quot;</span>,<span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>)</span></code></pre></div>
+<p><img src="series_files/figure-html/scatter1-1.png" width="672" /></p>
+<p>We may want to include team labels on this plot, however, it can get messy very quickly with a lot of points.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="exploratory-data-analysis.html#cb54-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="exploratory-data-analysis.html#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Yds,<span class="at">y=</span>TD,<span class="at">label=</span>Tm)) <span class="sc">+</span> </span>
+<span id="cb54-3"><a href="exploratory-data-analysis.html#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb54-4"><a href="exploratory-data-analysis.html#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team Passing Yards&quot;</span>,<span class="at">y=</span><span class="st">&quot;Team Passing Touchdowns&quot;</span>,<span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>) <span class="sc">+</span></span>
+<span id="cb54-5"><a href="exploratory-data-analysis.html#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>()</span></code></pre></div>
+<p><img src="series_files/figure-html/scatter2-1.png" width="672" /></p>
+<p>Many sports leagues have around 30 teams, so a clean scatterplot with labels can be tricky to make. Here are some options below.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="exploratory-data-analysis.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install ggrepel package</span></span>
+<span id="cb55-2"><a href="exploratory-data-analysis.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb55-3"><a href="exploratory-data-analysis.html#cb55-3" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span></span>
+<span id="cb55-4"><a href="exploratory-data-analysis.html#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Yds,<span class="at">y=</span>TD,<span class="at">label=</span>Tm)) <span class="sc">+</span> </span>
+<span id="cb55-5"><a href="exploratory-data-analysis.html#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb55-6"><a href="exploratory-data-analysis.html#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team Passing Yards&quot;</span>,<span class="at">y=</span><span class="st">&quot;Team Passing Touchdowns&quot;</span>,<span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>) <span class="sc">+</span></span>
+<span id="cb55-7"><a href="exploratory-data-analysis.html#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>()</span></code></pre></div>
+<pre><code>## Warning: ggrepel: 6 unlabeled data points (too many overlaps). Consider
+## increasing max.overlaps</code></pre>
+<p><img src="series_files/figure-html/scatter3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="exploratory-data-analysis.html#cb57-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing<span class="sc">$</span>Abbr <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;TB&quot;</span>,<span class="st">&quot;LAC&quot;</span>,<span class="st">&quot;DAL&quot;</span>,<span class="st">&quot;KC&quot;</span>,<span class="st">&quot;LAR&quot;</span>,<span class="st">&quot;LV&quot;</span>,<span class="st">&quot;CIN&quot;</span>,<span class="st">&quot;GB&quot;</span>,<span class="st">&quot;BUF&quot;</span>,<span class="st">&quot;AZ&quot;</span>,<span class="st">&quot;MN&quot;</span>,<span class="st">&quot;SF&quot;</span>,</span>
+<span id="cb57-2"><a href="exploratory-data-analysis.html#cb57-2" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;BAL&quot;</span>,<span class="st">&quot;NE&quot;</span>,<span class="st">&quot;PIT&quot;</span>,<span class="st">&quot;ATL&quot;</span>,<span class="st">&quot;MIA&quot;</span>,<span class="st">&quot;DET&quot;</span>,<span class="st">&quot;DEN&quot;</span>,<span class="st">&quot;NYJ&quot;</span>,<span class="st">&quot;WAS&quot;</span>,<span class="st">&quot;JAC&quot;</span>,<span class="st">&quot;SEA&quot;</span>,</span>
+<span id="cb57-3"><a href="exploratory-data-analysis.html#cb57-3" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;TEN&quot;</span>,<span class="st">&quot;PHI&quot;</span>,<span class="st">&quot;IND&quot;</span>,<span class="st">&quot;CLE&quot;</span>,<span class="st">&quot;HOU&quot;</span>,<span class="st">&quot;CAR&quot;</span>,<span class="st">&quot;CHI&quot;</span>,<span class="st">&quot;NYG&quot;</span>,<span class="st">&quot;NO&quot;</span>)</span>
+<span id="cb57-4"><a href="exploratory-data-analysis.html#cb57-4" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span></span>
+<span id="cb57-5"><a href="exploratory-data-analysis.html#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Yds,<span class="at">y=</span>TD,<span class="at">label=</span>Abbr)) <span class="sc">+</span> </span>
+<span id="cb57-6"><a href="exploratory-data-analysis.html#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb57-7"><a href="exploratory-data-analysis.html#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team Passing Yards&quot;</span>,<span class="at">y=</span><span class="st">&quot;Team Passing Touchdowns&quot;</span>,<span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>) <span class="sc">+</span></span>
+<span id="cb57-8"><a href="exploratory-data-analysis.html#cb57-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">box.padding =</span> <span class="fl">0.3</span>) </span></code></pre></div>
+<p><img src="series_files/figure-html/scatter4-1.png" width="672" /></p>
+</div>
 <hr />
-<p>Possible dataset: <a href="https://www.pro-football-reference.com/years/2021/index.htm#passing">NFL Team Passing Statistics, 2021</a></p>
 </div>
 <div id="baseball" class="section level2 hasAnchor" number="1.4">
 <h2><span class="header-section-number">1.4</span> Baseball<a href="exploratory-data-analysis.html#baseball" class="anchor-section" aria-label="Anchor link to header"></a></h2>
