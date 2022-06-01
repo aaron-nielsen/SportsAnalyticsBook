@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2022-05-31" />
+<meta name="date" content="2022-06-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -216,7 +216,17 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="19" data-path="other-sports.html"><a href="other-sports.html"><i class="fa fa-check"></i><b>19</b> Other Sports</a></li>
 <li class="chapter" data-level="20" data-path="ellies-stuff.html"><a href="ellies-stuff.html"><i class="fa fa-check"></i><b>20</b> Ellie’s stuff</a></li>
-<li class="chapter" data-level="21" data-path="levis-stuff.html"><a href="levis-stuff.html"><i class="fa fa-check"></i><b>21</b> Levi’s stuff</a></li>
+<li class="chapter" data-level="21" data-path="levis-stuff.html"><a href="levis-stuff.html"><i class="fa fa-check"></i><b>21</b> Levi’s stuff</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="levis-stuff.html"><a href="levis-stuff.html#hockey---ggplot"><i class="fa fa-check"></i><b>21.1</b> Hockey - ggplot</a></li>
+<li class="chapter" data-level="21.2" data-path="levis-stuff.html"><a href="levis-stuff.html#law-of-total-probability---hockey"><i class="fa fa-check"></i><b>21.2</b> Law of Total Probability - Hockey</a></li>
+<li class="chapter" data-level="21.3" data-path="levis-stuff.html"><a href="levis-stuff.html#sets-and-conditional-probability"><i class="fa fa-check"></i><b>21.3</b> Sets and Conditional Probability</a></li>
+<li class="chapter" data-level="21.4" data-path="levis-stuff.html"><a href="levis-stuff.html#binomial-probability"><i class="fa fa-check"></i><b>21.4</b> Binomial Probability</a></li>
+<li class="chapter" data-level="21.5" data-path="levis-stuff.html"><a href="levis-stuff.html#binomial-coefficient-symmetry"><i class="fa fa-check"></i><b>21.5</b> Binomial Coefficient Symmetry</a></li>
+<li class="chapter" data-level="21.6" data-path="levis-stuff.html"><a href="levis-stuff.html#binomials-and-multinomials"><i class="fa fa-check"></i><b>21.6</b> Binomials and Multinomials</a></li>
+<li class="chapter" data-level="21.7" data-path="levis-stuff.html"><a href="levis-stuff.html#geometric-first-success-rvs"><i class="fa fa-check"></i><b>21.7</b> Geometric (First Success) RVs</a></li>
+<li class="chapter" data-level="21.8" data-path="levis-stuff.html"><a href="levis-stuff.html#geometric-distribution---hockey"><i class="fa fa-check"></i><b>21.8</b> Geometric Distribution - Hockey</a></li>
+</ul></li>
 <li class="chapter" data-level="22" data-path="isaacs-stuff.html"><a href="isaacs-stuff.html"><i class="fa fa-check"></i><b>22</b> Isaac’s stuff</a></li>
 <li class="chapter" data-level="23" data-path="aarons-stuff.html"><a href="aarons-stuff.html"><i class="fa fa-check"></i><b>23</b> Aaron’s stuff</a>
 <ul>
@@ -298,22 +308,22 @@ P(A|B) = \frac{P(B|A)P(A)}{P(B)}
 <h2><span class="header-section-number">23.3</span> Notes for Chapter 4 (Simulation)<a href="aarons-stuff.html#notes-for-chapter-4-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="baseball-simulation-example" class="section level3 hasAnchor" number="23.3.1">
 <h3><span class="header-section-number">23.3.1</span> Baseball Simulation Example<a href="aarons-stuff.html#baseball-simulation-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="aarons-stuff.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="aarons-stuff.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>This is a baseball example for chapter 4.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="aarons-stuff.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
-<span id="cb59-2"><a href="aarons-stuff.html#cb59-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb59-3"><a href="aarons-stuff.html#cb59-3" aria-hidden="true" tabindex="-1"></a>hits <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,n.sims)</span>
-<span id="cb59-4"><a href="aarons-stuff.html#cb59-4" aria-hidden="true" tabindex="-1"></a>avg <span class="ot">&lt;-</span> <span class="fl">0.300</span></span>
-<span id="cb59-5"><a href="aarons-stuff.html#cb59-5" aria-hidden="true" tabindex="-1"></a>atbats.mean <span class="ot">&lt;-</span> <span class="dv">450</span></span>
-<span id="cb59-6"><a href="aarons-stuff.html#cb59-6" aria-hidden="true" tabindex="-1"></a>atbats.sd <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb59-7"><a href="aarons-stuff.html#cb59-7" aria-hidden="true" tabindex="-1"></a>sim.atbats <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n.sims,atbats.mean,atbats.sd))</span>
-<span id="cb59-8"><a href="aarons-stuff.html#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-9"><a href="aarons-stuff.html#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims){</span>
-<span id="cb59-10"><a href="aarons-stuff.html#cb59-10" aria-hidden="true" tabindex="-1"></a>  sim.hits <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>,sim.atbats[i],avg)</span>
-<span id="cb59-11"><a href="aarons-stuff.html#cb59-11" aria-hidden="true" tabindex="-1"></a>  hits[i] <span class="ot">=</span> sim.hits</span>
-<span id="cb59-12"><a href="aarons-stuff.html#cb59-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb59-13"><a href="aarons-stuff.html#cb59-13" aria-hidden="true" tabindex="-1"></a>hits.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Hits=</span>hits)</span>
-<span id="cb59-14"><a href="aarons-stuff.html#cb59-14" aria-hidden="true" tabindex="-1"></a>hits.df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Hits)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="aarons-stuff.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb88-2"><a href="aarons-stuff.html#cb88-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb88-3"><a href="aarons-stuff.html#cb88-3" aria-hidden="true" tabindex="-1"></a>hits <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,n.sims)</span>
+<span id="cb88-4"><a href="aarons-stuff.html#cb88-4" aria-hidden="true" tabindex="-1"></a>avg <span class="ot">&lt;-</span> <span class="fl">0.300</span></span>
+<span id="cb88-5"><a href="aarons-stuff.html#cb88-5" aria-hidden="true" tabindex="-1"></a>atbats.mean <span class="ot">&lt;-</span> <span class="dv">450</span></span>
+<span id="cb88-6"><a href="aarons-stuff.html#cb88-6" aria-hidden="true" tabindex="-1"></a>atbats.sd <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb88-7"><a href="aarons-stuff.html#cb88-7" aria-hidden="true" tabindex="-1"></a>sim.atbats <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n.sims,atbats.mean,atbats.sd))</span>
+<span id="cb88-8"><a href="aarons-stuff.html#cb88-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-9"><a href="aarons-stuff.html#cb88-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims){</span>
+<span id="cb88-10"><a href="aarons-stuff.html#cb88-10" aria-hidden="true" tabindex="-1"></a>  sim.hits <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>,sim.atbats[i],avg)</span>
+<span id="cb88-11"><a href="aarons-stuff.html#cb88-11" aria-hidden="true" tabindex="-1"></a>  hits[i] <span class="ot">=</span> sim.hits</span>
+<span id="cb88-12"><a href="aarons-stuff.html#cb88-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb88-13"><a href="aarons-stuff.html#cb88-13" aria-hidden="true" tabindex="-1"></a>hits.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Hits=</span>hits)</span>
+<span id="cb88-14"><a href="aarons-stuff.html#cb88-14" aria-hidden="true" tabindex="-1"></a>hits.df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Hits)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code></pre></div>
 <p><img src="series_files/figure-html/baseball-sim-1.png" width="672" /></p>
 
 </div>

@@ -1,2 +1,212 @@
 # Levi's stuff
 
+```{r, include=FALSE}
+library("tidyverse")
+```
+
+
+## Hockey - ggplot
+
+For this example, we'll use a set of NHL data from moneypuck.com. First, let's load the data into `R` and open the data frame.
+
+```{r hockey ggplot 1}
+nhl_2022_data <- read.csv("https://moneypuck.com/moneypuck/playerData/seasonSummary/2021/regular/teams.csv")
+
+View(nhl_2022_data)
+```
+
+This dataset includes a *lot* of covariates. It also splits these data by different game situations: even-strength (5 on 5), power play (5 on 4), etc. Let's subset the data to include all game situations.
+
+Use the `nrow` command to check the number of columns in the new data frame. Check: Is it the same as the number of teams in the league for the 2021-2022 season?
+
+```{r hockey ggplot 2}
+nhl_data_all <- filter(nhl_2022_data, situation == "all")
+View(nhl_data_all)
+
+nrow(nhl_data_all)
+```
+
+The dataset includes an Expected Goals statistic for each team in the `xGoalsFor` column. Let's plot this quantity against the team's actual number of goals scored; this is given by the `goalsFor` column.
+
+(Remember to always have a good title and axis labels!)
+
+```{r hockey ggplot 3}
+ggplot(data=nhl_data_all, aes(x=xGoalsFor, y=goalsFor)) + labs(x="Expected Goals Scored", y="Actual Goals Scored", title="NHL Teams: Expected vs. Actual Goals, 2021-22") + geom_point()
+```
+
+As expected, there is a general positive correlation between expected and actual goals ($r \approx 0.8$). However, there is some variability - for example, the Kings only scored 7 more actual goals than the Ducks, despite having 56.6 more expected goals.
+
+Let's add a line to the graph using the `geom_abline` function corresponding to the line $y=x$, the line on which data points would fall if expected goals were equal to actual goals. We can also customize the line's color and type.
+
+```{r hockey ggplot 4}
+ggplot(data=nhl_data_all, aes(x=xGoalsFor, y=goalsFor)) + labs(x="Expected Goals Scored", y="Actual Goals Scored",title="NHL Teams: Expected vs. Actual Goals, 2021-22") + geom_point() + geom_abline(intercept=0, slope=1, color="red", linetype="dashed")
+```
+
+*Note: A slope of 0 and an intercept of 1 are actually the default parameters for the function.*
+
+Q: What does it mean for a team's data point to fall below this line? Above it?
+
+A: If the data point is below the line, it means the expected goals were greater than the actual goals; if the data point is above the line, it means the actual goals were greater than the expected goals. 
+
+Q: Do you think that a team's expected goals would be more likely to be closer to its actual goals for a ten-game stretch, an entire season, or five consecutive seasons? Why?
+
+<!-- Question could be reworded/clarified to mean "closer" in a relative (ratio) sense, rather than an absolute sense. -->
+
+A: We would expect that as sample size increases, the result would become closer to expectation. So, actual goals would be most likely closer to expected goals over a span of five seasons.
+
+<!--- This is basically conceptualizing the LLN, but that would rely on this calculation of expected goals being an unbiased estimator of actual goals. -->
+
+
+## Law of Total Probability - Hockey
+
+Over the course of a season, a hockey player scored a goal 30% of the time during a home game, and $P(player\ scores\ |\ away\ game) = .18$. Assume all games are either home or away.
+
+Q: What is the probability the player scored a goal in any game if there were an equal number of home and away games?
+
+A: $P(score) = P(score|home)P(home) + P(score|away)P(away) = .3(.5) + .18(.5) = .24$
+
+Q: What is the probability the player scored a goal in any game if there were twice as many home games as away games?
+
+A: $P(score) = P(score|home)P(home) + P(score|away)P(away) = .3(\frac{2}{3}) + .18(\frac{1}{3}) = .26$
+
+Q: What is the probability the player scored a goal in any game if the ratio of home games to away games is 2:3?
+
+A: $P(score) = P(score|home)P(home) + P(score|away)P(away) = .3(\frac{2}{5}) + .18(\frac{3}{5}) = .228$
+
+
+## Sets and Conditional Probability
+
+100 sports fans in Colorado were polled and it was found that 64 had attended either a Denver Nuggets or Colorado Avalanche game at Ball Arena (formerly Pepsi Center). 34 people had seen only a Nuggets game, while 17 had seen both a Nuggets and an Avalanche game.
+
+Q: How many people saw an Avalanche game but not a Nuggets game?
+
+A: 64 - 34 - 17 = 13
+
+Q: What is the probability that a randomly selected person in the poll had been to a Nuggets game?
+
+A: (34 + 17) / 100 = .51
+
+Q: What is the probability that a randomly selected person that had been to a game at Ball Arena had been to a Nuggets game?
+
+A: (34 + 17) / 64 = .797
+
+Q: What is the probability that a randomly selected person had been to a Nuggets game given they had been to an Avalanche game?
+
+A: 17 / (17 + 13) = .567
+
+
+## Binomial Probability
+
+Two baseball teams are playing a 4-game series. The home team has a .65 probability of winning each game, and the away team a .35 probability. Assume each game is independent.
+
+*I used baseball in this example because it's the sport that most often has 4-game series, but it could easily be replaced by another sport.*
+
+Find the following probabilities.
+
+(a) The road team wins exactly 1 game.
+
+$\binom{4}{1}\ .65^3\ .35^1 = \binom{4}{3}\ .65^3\ .35^1 \approx .384$
+
+```{r}
+dbinom(1, 4, .35)
+dbinom(3, 4, .65)
+```
+
+(b) The home team wins exactly 2 games.
+
+$\binom{4}{2}\ .65^2\ .35^2 \approx .311$
+
+```{r}
+dbinom(2, 4, .65)
+dbinom(2, 4, .35)
+```
+
+(c) The road team wins at least 2 games.
+
+$\binom{4}{2}\ .65^2\ .35^2 + \binom{4}{3}\ .65^1\ .35^3 + .35^4 = 1 - [.65^4 + \binom{4}{1}\ .65^3\ .35^1]  \approx .437$
+
+```{r}
+pbinom(1.9, 4, .35, lower.tail=F)
+pbinom(2, 4, .65, lower.tail=T)
+
+```
+
+(d) The series ends in a sweep.
+
+$.65^4 + .35^4 \approx .194$
+
+```{r}
+dbinom(4, 4, .65) + dbinom(4, 4, .35)
+.65^4 + .35^4
+```
+
+
+
+## Binomial Coefficient Symmetry
+
+Playoff series for a certain sports league are played as a best-of-seven series, with one team hosting four games and the opposing team hosing three. An executive for the league wishes to know the number of ways the home and away games can be assigned. (One such combination is A-A-B-B-A-B-A, the format used by the NBA and NHL for their best-of-seven series.) What is the total number of combinations?
+
+Answer: Since there are a fixed number of games (seven) and a fixed number of games that must be given to the lower-seeded team (four), there are $\binom{7}{4} = \frac{7!}{4!\ \cdot\ (7-4)!} = 35$ ways to create a home-away pattern for the seven-game series.
+
+However, instead of thinking about the number of ways to assign the games to the team that gets four home games, what if we thought about the number of ways to assign games to the team that gets three home games?
+
+That would be $\binom{7}{3}$. We can use the `choose` command in R to find this quantity.
+
+```{r bin}
+choose(7,3)
+```
+
+It turns out that this binomial coefficient is also equal to 35.
+
+Theorem: $\binom{n}{k} = \binom{n}{n-k}$
+
+$\binom{n}{k} = \frac{n!}{k!\ \cdot\ (n-k)!}$
+
+$\binom{n}{n-k} = \frac{n!}{(n-k)!\ \cdot\ (n-(n-k))!} = \frac{n!}{(n-k)!\ \cdot\ k!} = \binom{n}{k}$
+
+
+## Binomials and Multinomials
+
+Suppose we are curious about probabilities regarding the results of a soccer team’s next five games.
+
+Wait!!! A soccer game has three possible outcomes (win, lose, draw)! We can’t use the binomial distribution, since it limits us to two possible outcomes!
+
+It depends. If we are interested in the probability that a soccer team wins 2 of their next 5 games, we can use the binomial distribution. We can create the following partition of the sample space of outcomes: $(Win)$ and $(Win^C)$, where the second set includes both losing and drawing.
+
+Then, the formula would be represented as:
+
+$\binom{5}{2}\ P(Win)^2\  P(Win^C)^{(5-2)}$
+
+If we are interested in the probability of the team winning two of the next five games, drawing two, and losing one, we cannot use the binomial theorem. That involves three outcomes, and would be represented as a multinomial. <!--- assuming regularity conditions such as independence. -->
+
+
+## Geometric (First Success) RVs
+
+Caution: Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful.
+
+```{r}
+set.seed(2022)
+geometric <- rgeom(100, 1/3)
+head(geometric, 20)
+```
+
+Some of the values were 0, which could not happen if R was considering the number of the trial on which the first success occurred. You can add 1 to the values given by `R` to arrive at the First Success distribution.
+
+```{r}
+first_success <- geometric + 1
+head(first_success, 20)
+mean(first_success)
+```
+The mean of this sample of variables is 3.03, which is close to the expected mean of $\frac{1}{p} = 3$.
+
+## Geometric Distribution - Hockey
+
+Suppose the number of shots needed by a hockey team in order to score their first goal, X, is modeled by a Geometric($\frac{1}{10}$) random variable.
+
+Q: What is the probability that it takes more than 3 shots to score the first goal?
+
+A: $P(X > 3) = P(X = 4) + P(X = 5) + P(X = 6) + ...$
+
+This is an infinite series, so let's use the Law of Total Probability.
+
+$P(X > 3) = 1 - P(X \leq 3) = 1 - [P(X = 1) + P(X = 2) + P(X = 3)] = 1 - [(\frac{1}{10}) + (\frac{9}{10})^1(\frac{1}{10}) + (\frac{9}{10})^2(\frac{1}{10})] = .729$

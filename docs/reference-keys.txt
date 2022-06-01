@@ -42,6 +42,14 @@ resources
 other-sports
 ellies-stuff
 levis-stuff
+hockey---ggplot
+law-of-total-probability---hockey
+sets-and-conditional-probability
+binomial-probability
+binomial-coefficient-symmetry
+binomials-and-multinomials
+geometric-first-success-rvs
+geometric-distribution---hockey
 isaacs-stuff
 aarons-stuff
 notes-for-chapter-2-probability
