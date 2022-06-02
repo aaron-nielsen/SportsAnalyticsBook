@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2022-06-01" />
+<meta name="date" content="2022-06-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,8 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -184,11 +186,28 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="2" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>2</b> Probability</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#definitions-and-axioms"><i class="fa fa-check"></i><b>2.1</b> Definitions and Axioms</a></li>
-<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#theorems-and-laws"><i class="fa fa-check"></i><b>2.2</b> Theorems and Laws</a></li>
-<li class="chapter" data-level="2.3" data-path="probability.html"><a href="probability.html#random-variables"><i class="fa fa-check"></i><b>2.3</b> Random Variables</a></li>
+<li class="chapter" data-level="" data-path="probability.html"><a href="probability.html#chapter-preview"><i class="fa fa-check"></i>Chapter Preview</a></li>
+<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#definitions-1"><i class="fa fa-check"></i><b>2.1</b> Definitions</a></li>
+<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#set-theory"><i class="fa fa-check"></i><b>2.2</b> Set Theory</a></li>
+<li class="chapter" data-level="2.3" data-path="probability.html"><a href="probability.html#probability-axioms-and-properties"><i class="fa fa-check"></i><b>2.3</b> Probability Axioms and Properties</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="probability.html"><a href="probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>2.3.1</b> Axioms of Probability</a></li>
+<li class="chapter" data-level="2.3.2" data-path="probability.html"><a href="probability.html#properties-of-probability"><i class="fa fa-check"></i><b>2.3.2</b> Properties of Probability</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>3</b> Simulation</a></li>
+<li class="chapter" data-level="2.4" data-path="probability.html"><a href="probability.html#laws-of-probability"><i class="fa fa-check"></i><b>2.4</b> Laws of Probability</a></li>
+<li class="chapter" data-level="2.5" data-path="probability.html"><a href="probability.html#combinatorics"><i class="fa fa-check"></i><b>2.5</b> Combinatorics</a></li>
+<li class="chapter" data-level="2.6" data-path="probability.html"><a href="probability.html#random-variables"><i class="fa fa-check"></i><b>2.6</b> Random Variables</a></li>
+<li class="chapter" data-level="2.7" data-path="probability.html"><a href="probability.html#some-examples"><i class="fa fa-check"></i><b>2.7</b> Some examples</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="probability.html"><a href="probability.html#sets-and-conditional-probability"><i class="fa fa-check"></i><b>2.7.1</b> Sets and Conditional Probability</a></li>
+<li class="chapter" data-level="2.7.2" data-path="probability.html"><a href="probability.html#binomial-probability"><i class="fa fa-check"></i><b>2.7.2</b> Binomial Probability</a></li>
+<li class="chapter" data-level="2.7.3" data-path="probability.html"><a href="probability.html#binomial-coefficient-symmetry"><i class="fa fa-check"></i><b>2.7.3</b> Binomial Coefficient Symmetry</a></li>
+<li class="chapter" data-level="2.7.4" data-path="probability.html"><a href="probability.html#binomials-and-multinomials"><i class="fa fa-check"></i><b>2.7.4</b> Binomials and Multinomials</a></li>
+<li class="chapter" data-level="2.7.5" data-path="probability.html"><a href="probability.html#geometric-first-success-rvs"><i class="fa fa-check"></i><b>2.7.5</b> Geometric (First Success) RVs</a></li>
+<li class="chapter" data-level="2.7.6" data-path="probability.html"><a href="probability.html#geometric-distribution---hockey"><i class="fa fa-check"></i><b>2.7.6</b> Geometric Distribution - Hockey</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Simulation</a></li>
 <li class="chapter" data-level="4" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>4</b> Statistical Inference</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="statistical-inference.html"><a href="statistical-inference.html#one-sample-and-two-sample-t-tests-and-confidence-intervals"><i class="fa fa-check"></i><b>4.1</b> One Sample and Two Sample t-tests and confidence intervals</a></li>
@@ -215,19 +234,37 @@ div.csl-indent {
 <li class="chapter" data-level="18.1" data-path="volleyball-1.html"><a href="volleyball-1.html#resources"><i class="fa fa-check"></i><b>18.1</b> Resources</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="other-sports.html"><a href="other-sports.html"><i class="fa fa-check"></i><b>19</b> Other Sports</a></li>
-<li class="chapter" data-level="20" data-path="ellies-stuff.html"><a href="ellies-stuff.html"><i class="fa fa-check"></i><b>20</b> Ellie’s stuff</a></li>
+<li class="chapter" data-level="20" data-path="ellies-stuff.html"><a href="ellies-stuff.html"><i class="fa fa-check"></i><b>20</b> Ellie’s Stuff</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="ellies-stuff.html"><a href="ellies-stuff.html#to-be-added"><i class="fa fa-check"></i><b>20.1</b> To Be Added</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="ellies-stuff.html"><a href="ellies-stuff.html#topic-1"><i class="fa fa-check"></i><b>20.1.1</b> Topic 1</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="21" data-path="levis-stuff.html"><a href="levis-stuff.html"><i class="fa fa-check"></i><b>21</b> Levi’s stuff</a>
 <ul>
-<li class="chapter" data-level="21.1" data-path="levis-stuff.html"><a href="levis-stuff.html#hockey---ggplot"><i class="fa fa-check"></i><b>21.1</b> Hockey - ggplot</a></li>
-<li class="chapter" data-level="21.2" data-path="levis-stuff.html"><a href="levis-stuff.html#law-of-total-probability---hockey"><i class="fa fa-check"></i><b>21.2</b> Law of Total Probability - Hockey</a></li>
-<li class="chapter" data-level="21.3" data-path="levis-stuff.html"><a href="levis-stuff.html#sets-and-conditional-probability"><i class="fa fa-check"></i><b>21.3</b> Sets and Conditional Probability</a></li>
-<li class="chapter" data-level="21.4" data-path="levis-stuff.html"><a href="levis-stuff.html#binomial-probability"><i class="fa fa-check"></i><b>21.4</b> Binomial Probability</a></li>
-<li class="chapter" data-level="21.5" data-path="levis-stuff.html"><a href="levis-stuff.html#binomial-coefficient-symmetry"><i class="fa fa-check"></i><b>21.5</b> Binomial Coefficient Symmetry</a></li>
-<li class="chapter" data-level="21.6" data-path="levis-stuff.html"><a href="levis-stuff.html#binomials-and-multinomials"><i class="fa fa-check"></i><b>21.6</b> Binomials and Multinomials</a></li>
-<li class="chapter" data-level="21.7" data-path="levis-stuff.html"><a href="levis-stuff.html#geometric-first-success-rvs"><i class="fa fa-check"></i><b>21.7</b> Geometric (First Success) RVs</a></li>
-<li class="chapter" data-level="21.8" data-path="levis-stuff.html"><a href="levis-stuff.html#geometric-distribution---hockey"><i class="fa fa-check"></i><b>21.8</b> Geometric Distribution - Hockey</a></li>
+<li class="chapter" data-level="21.1" data-path="levis-stuff.html"><a href="levis-stuff.html#added"><i class="fa fa-check"></i><b>21.1</b> Added</a>
+<ul>
+<li class="chapter" data-level="21.1.1" data-path="levis-stuff.html"><a href="levis-stuff.html#hockey---ggplot"><i class="fa fa-check"></i><b>21.1.1</b> Hockey - ggplot</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="isaacs-stuff.html"><a href="isaacs-stuff.html"><i class="fa fa-check"></i><b>22</b> Isaac’s stuff</a></li>
+<li class="chapter" data-level="21.2" data-path="levis-stuff.html"><a href="levis-stuff.html#to-be-added-1"><i class="fa fa-check"></i><b>21.2</b> To Be Added</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="levis-stuff.html"><a href="levis-stuff.html#law-of-total-probability---hockey"><i class="fa fa-check"></i><b>21.2.1</b> Law of Total Probability - Hockey</a></li>
+<li class="chapter" data-level="21.2.2" data-path="levis-stuff.html"><a href="levis-stuff.html#sets-and-conditional-probability-1"><i class="fa fa-check"></i><b>21.2.2</b> Sets and Conditional Probability</a></li>
+<li class="chapter" data-level="21.2.3" data-path="levis-stuff.html"><a href="levis-stuff.html#binomial-probability-1"><i class="fa fa-check"></i><b>21.2.3</b> Binomial Probability</a></li>
+<li class="chapter" data-level="21.2.4" data-path="levis-stuff.html"><a href="levis-stuff.html#binomial-coefficient-symmetry-1"><i class="fa fa-check"></i><b>21.2.4</b> Binomial Coefficient Symmetry</a></li>
+<li class="chapter" data-level="21.2.5" data-path="levis-stuff.html"><a href="levis-stuff.html#binomials-and-multinomials-1"><i class="fa fa-check"></i><b>21.2.5</b> Binomials and Multinomials</a></li>
+<li class="chapter" data-level="21.2.6" data-path="levis-stuff.html"><a href="levis-stuff.html#geometric-first-success-rvs-1"><i class="fa fa-check"></i><b>21.2.6</b> Geometric (First Success) RVs</a></li>
+<li class="chapter" data-level="21.2.7" data-path="levis-stuff.html"><a href="levis-stuff.html#geometric-distribution---hockey-1"><i class="fa fa-check"></i><b>21.2.7</b> Geometric Distribution - Hockey</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="isaacs-stuff.html"><a href="isaacs-stuff.html"><i class="fa fa-check"></i><b>22</b> Isaac’s stuff</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="isaacs-stuff.html"><a href="isaacs-stuff.html#to-be-added-2"><i class="fa fa-check"></i><b>22.1</b> To Be Added</a>
+<ul>
+<li class="chapter" data-level="22.1.1" data-path="isaacs-stuff.html"><a href="isaacs-stuff.html#topic-1-1"><i class="fa fa-check"></i><b>22.1.1</b> Topic 1</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="23" data-path="aarons-stuff.html"><a href="aarons-stuff.html"><i class="fa fa-check"></i><b>23</b> Aaron’s stuff</a>
 <ul>
 <li class="chapter" data-level="23.1" data-path="aarons-stuff.html"><a href="aarons-stuff.html#notes-for-chapter-2-probability"><i class="fa fa-check"></i><b>23.1</b> Notes for Chapter 2 (Probability)</a></li>
@@ -284,7 +321,7 @@ div.csl-indent {
 <li><p>If <span class="math inline">\(A_1, A_2, \ldots, A_n\)</span> are disjoint events, then <span class="math inline">\(P(\cup_{i=1}^n A_i) = \sum_{i=1}^n P(A_i)\)</span></p></li>
 </ol>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-34" class="theorem"><strong>Theorem 23.1  (Bayes theorem) </strong></span>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be events in <span class="math inline">\(\Omega\)</span> such that <span class="math inline">\(P(B)&gt;0\)</span>. Then we have the following:
+<p><span id="thm:unlabeled-div-61" class="theorem"><strong>Theorem 23.1  (Bayes theorem) </strong></span>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be events in <span class="math inline">\(\Omega\)</span> such that <span class="math inline">\(P(B)&gt;0\)</span>. Then we have the following:
 <span class="math display">\[
 P(A|B) = \frac{P(B|A)P(A)}{P(B)}
 \]</span></p>
@@ -308,22 +345,22 @@ P(A|B) = \frac{P(B|A)P(A)}{P(B)}
 <h2><span class="header-section-number">23.3</span> Notes for Chapter 4 (Simulation)<a href="aarons-stuff.html#notes-for-chapter-4-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="baseball-simulation-example" class="section level3 hasAnchor" number="23.3.1">
 <h3><span class="header-section-number">23.3.1</span> Baseball Simulation Example<a href="aarons-stuff.html#baseball-simulation-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="aarons-stuff.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="aarons-stuff.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>This is a baseball example for chapter 4.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="aarons-stuff.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
-<span id="cb88-2"><a href="aarons-stuff.html#cb88-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb88-3"><a href="aarons-stuff.html#cb88-3" aria-hidden="true" tabindex="-1"></a>hits <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,n.sims)</span>
-<span id="cb88-4"><a href="aarons-stuff.html#cb88-4" aria-hidden="true" tabindex="-1"></a>avg <span class="ot">&lt;-</span> <span class="fl">0.300</span></span>
-<span id="cb88-5"><a href="aarons-stuff.html#cb88-5" aria-hidden="true" tabindex="-1"></a>atbats.mean <span class="ot">&lt;-</span> <span class="dv">450</span></span>
-<span id="cb88-6"><a href="aarons-stuff.html#cb88-6" aria-hidden="true" tabindex="-1"></a>atbats.sd <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb88-7"><a href="aarons-stuff.html#cb88-7" aria-hidden="true" tabindex="-1"></a>sim.atbats <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n.sims,atbats.mean,atbats.sd))</span>
-<span id="cb88-8"><a href="aarons-stuff.html#cb88-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-9"><a href="aarons-stuff.html#cb88-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims){</span>
-<span id="cb88-10"><a href="aarons-stuff.html#cb88-10" aria-hidden="true" tabindex="-1"></a>  sim.hits <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>,sim.atbats[i],avg)</span>
-<span id="cb88-11"><a href="aarons-stuff.html#cb88-11" aria-hidden="true" tabindex="-1"></a>  hits[i] <span class="ot">=</span> sim.hits</span>
-<span id="cb88-12"><a href="aarons-stuff.html#cb88-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb88-13"><a href="aarons-stuff.html#cb88-13" aria-hidden="true" tabindex="-1"></a>hits.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Hits=</span>hits)</span>
-<span id="cb88-14"><a href="aarons-stuff.html#cb88-14" aria-hidden="true" tabindex="-1"></a>hits.df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Hits)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="aarons-stuff.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb125-2"><a href="aarons-stuff.html#cb125-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb125-3"><a href="aarons-stuff.html#cb125-3" aria-hidden="true" tabindex="-1"></a>hits <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,n.sims)</span>
+<span id="cb125-4"><a href="aarons-stuff.html#cb125-4" aria-hidden="true" tabindex="-1"></a>avg <span class="ot">&lt;-</span> <span class="fl">0.300</span></span>
+<span id="cb125-5"><a href="aarons-stuff.html#cb125-5" aria-hidden="true" tabindex="-1"></a>atbats.mean <span class="ot">&lt;-</span> <span class="dv">450</span></span>
+<span id="cb125-6"><a href="aarons-stuff.html#cb125-6" aria-hidden="true" tabindex="-1"></a>atbats.sd <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb125-7"><a href="aarons-stuff.html#cb125-7" aria-hidden="true" tabindex="-1"></a>sim.atbats <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n.sims,atbats.mean,atbats.sd))</span>
+<span id="cb125-8"><a href="aarons-stuff.html#cb125-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-9"><a href="aarons-stuff.html#cb125-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims){</span>
+<span id="cb125-10"><a href="aarons-stuff.html#cb125-10" aria-hidden="true" tabindex="-1"></a>  sim.hits <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>,sim.atbats[i],avg)</span>
+<span id="cb125-11"><a href="aarons-stuff.html#cb125-11" aria-hidden="true" tabindex="-1"></a>  hits[i] <span class="ot">=</span> sim.hits</span>
+<span id="cb125-12"><a href="aarons-stuff.html#cb125-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb125-13"><a href="aarons-stuff.html#cb125-13" aria-hidden="true" tabindex="-1"></a>hits.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Hits=</span>hits)</span>
+<span id="cb125-14"><a href="aarons-stuff.html#cb125-14" aria-hidden="true" tabindex="-1"></a>hits.df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Hits)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code></pre></div>
 <p><img src="series_files/figure-html/baseball-sim-1.png" width="672" /></p>
 
 </div>

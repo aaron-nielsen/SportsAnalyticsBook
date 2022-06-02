@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2022-06-01" />
+<meta name="date" content="2022-06-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,8 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -184,11 +186,28 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="2" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>2</b> Probability</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#definitions-and-axioms"><i class="fa fa-check"></i><b>2.1</b> Definitions and Axioms</a></li>
-<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#theorems-and-laws"><i class="fa fa-check"></i><b>2.2</b> Theorems and Laws</a></li>
-<li class="chapter" data-level="2.3" data-path="probability.html"><a href="probability.html#random-variables"><i class="fa fa-check"></i><b>2.3</b> Random Variables</a></li>
+<li class="chapter" data-level="" data-path="probability.html"><a href="probability.html#chapter-preview"><i class="fa fa-check"></i>Chapter Preview</a></li>
+<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#definitions-1"><i class="fa fa-check"></i><b>2.1</b> Definitions</a></li>
+<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#set-theory"><i class="fa fa-check"></i><b>2.2</b> Set Theory</a></li>
+<li class="chapter" data-level="2.3" data-path="probability.html"><a href="probability.html#probability-axioms-and-properties"><i class="fa fa-check"></i><b>2.3</b> Probability Axioms and Properties</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="probability.html"><a href="probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>2.3.1</b> Axioms of Probability</a></li>
+<li class="chapter" data-level="2.3.2" data-path="probability.html"><a href="probability.html#properties-of-probability"><i class="fa fa-check"></i><b>2.3.2</b> Properties of Probability</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>3</b> Simulation</a></li>
+<li class="chapter" data-level="2.4" data-path="probability.html"><a href="probability.html#laws-of-probability"><i class="fa fa-check"></i><b>2.4</b> Laws of Probability</a></li>
+<li class="chapter" data-level="2.5" data-path="probability.html"><a href="probability.html#combinatorics"><i class="fa fa-check"></i><b>2.5</b> Combinatorics</a></li>
+<li class="chapter" data-level="2.6" data-path="probability.html"><a href="probability.html#random-variables"><i class="fa fa-check"></i><b>2.6</b> Random Variables</a></li>
+<li class="chapter" data-level="2.7" data-path="probability.html"><a href="probability.html#some-examples"><i class="fa fa-check"></i><b>2.7</b> Some examples</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="probability.html"><a href="probability.html#sets-and-conditional-probability"><i class="fa fa-check"></i><b>2.7.1</b> Sets and Conditional Probability</a></li>
+<li class="chapter" data-level="2.7.2" data-path="probability.html"><a href="probability.html#binomial-probability"><i class="fa fa-check"></i><b>2.7.2</b> Binomial Probability</a></li>
+<li class="chapter" data-level="2.7.3" data-path="probability.html"><a href="probability.html#binomial-coefficient-symmetry"><i class="fa fa-check"></i><b>2.7.3</b> Binomial Coefficient Symmetry</a></li>
+<li class="chapter" data-level="2.7.4" data-path="probability.html"><a href="probability.html#binomials-and-multinomials"><i class="fa fa-check"></i><b>2.7.4</b> Binomials and Multinomials</a></li>
+<li class="chapter" data-level="2.7.5" data-path="probability.html"><a href="probability.html#geometric-first-success-rvs"><i class="fa fa-check"></i><b>2.7.5</b> Geometric (First Success) RVs</a></li>
+<li class="chapter" data-level="2.7.6" data-path="probability.html"><a href="probability.html#geometric-distribution---hockey"><i class="fa fa-check"></i><b>2.7.6</b> Geometric Distribution - Hockey</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Simulation</a></li>
 <li class="chapter" data-level="4" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>4</b> Statistical Inference</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="statistical-inference.html"><a href="statistical-inference.html#one-sample-and-two-sample-t-tests-and-confidence-intervals"><i class="fa fa-check"></i><b>4.1</b> One Sample and Two Sample t-tests and confidence intervals</a></li>
@@ -215,19 +234,37 @@ div.csl-indent {
 <li class="chapter" data-level="18.1" data-path="volleyball-1.html"><a href="volleyball-1.html#resources"><i class="fa fa-check"></i><b>18.1</b> Resources</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="other-sports.html"><a href="other-sports.html"><i class="fa fa-check"></i><b>19</b> Other Sports</a></li>
-<li class="chapter" data-level="20" data-path="ellies-stuff.html"><a href="ellies-stuff.html"><i class="fa fa-check"></i><b>20</b> Ellie’s stuff</a></li>
+<li class="chapter" data-level="20" data-path="ellies-stuff.html"><a href="ellies-stuff.html"><i class="fa fa-check"></i><b>20</b> Ellie’s Stuff</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="ellies-stuff.html"><a href="ellies-stuff.html#to-be-added"><i class="fa fa-check"></i><b>20.1</b> To Be Added</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="ellies-stuff.html"><a href="ellies-stuff.html#topic-1"><i class="fa fa-check"></i><b>20.1.1</b> Topic 1</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="21" data-path="levis-stuff.html"><a href="levis-stuff.html"><i class="fa fa-check"></i><b>21</b> Levi’s stuff</a>
 <ul>
-<li class="chapter" data-level="21.1" data-path="levis-stuff.html"><a href="levis-stuff.html#hockey---ggplot"><i class="fa fa-check"></i><b>21.1</b> Hockey - ggplot</a></li>
-<li class="chapter" data-level="21.2" data-path="levis-stuff.html"><a href="levis-stuff.html#law-of-total-probability---hockey"><i class="fa fa-check"></i><b>21.2</b> Law of Total Probability - Hockey</a></li>
-<li class="chapter" data-level="21.3" data-path="levis-stuff.html"><a href="levis-stuff.html#sets-and-conditional-probability"><i class="fa fa-check"></i><b>21.3</b> Sets and Conditional Probability</a></li>
-<li class="chapter" data-level="21.4" data-path="levis-stuff.html"><a href="levis-stuff.html#binomial-probability"><i class="fa fa-check"></i><b>21.4</b> Binomial Probability</a></li>
-<li class="chapter" data-level="21.5" data-path="levis-stuff.html"><a href="levis-stuff.html#binomial-coefficient-symmetry"><i class="fa fa-check"></i><b>21.5</b> Binomial Coefficient Symmetry</a></li>
-<li class="chapter" data-level="21.6" data-path="levis-stuff.html"><a href="levis-stuff.html#binomials-and-multinomials"><i class="fa fa-check"></i><b>21.6</b> Binomials and Multinomials</a></li>
-<li class="chapter" data-level="21.7" data-path="levis-stuff.html"><a href="levis-stuff.html#geometric-first-success-rvs"><i class="fa fa-check"></i><b>21.7</b> Geometric (First Success) RVs</a></li>
-<li class="chapter" data-level="21.8" data-path="levis-stuff.html"><a href="levis-stuff.html#geometric-distribution---hockey"><i class="fa fa-check"></i><b>21.8</b> Geometric Distribution - Hockey</a></li>
+<li class="chapter" data-level="21.1" data-path="levis-stuff.html"><a href="levis-stuff.html#added"><i class="fa fa-check"></i><b>21.1</b> Added</a>
+<ul>
+<li class="chapter" data-level="21.1.1" data-path="levis-stuff.html"><a href="levis-stuff.html#hockey---ggplot"><i class="fa fa-check"></i><b>21.1.1</b> Hockey - ggplot</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="isaacs-stuff.html"><a href="isaacs-stuff.html"><i class="fa fa-check"></i><b>22</b> Isaac’s stuff</a></li>
+<li class="chapter" data-level="21.2" data-path="levis-stuff.html"><a href="levis-stuff.html#to-be-added-1"><i class="fa fa-check"></i><b>21.2</b> To Be Added</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="levis-stuff.html"><a href="levis-stuff.html#law-of-total-probability---hockey"><i class="fa fa-check"></i><b>21.2.1</b> Law of Total Probability - Hockey</a></li>
+<li class="chapter" data-level="21.2.2" data-path="levis-stuff.html"><a href="levis-stuff.html#sets-and-conditional-probability-1"><i class="fa fa-check"></i><b>21.2.2</b> Sets and Conditional Probability</a></li>
+<li class="chapter" data-level="21.2.3" data-path="levis-stuff.html"><a href="levis-stuff.html#binomial-probability-1"><i class="fa fa-check"></i><b>21.2.3</b> Binomial Probability</a></li>
+<li class="chapter" data-level="21.2.4" data-path="levis-stuff.html"><a href="levis-stuff.html#binomial-coefficient-symmetry-1"><i class="fa fa-check"></i><b>21.2.4</b> Binomial Coefficient Symmetry</a></li>
+<li class="chapter" data-level="21.2.5" data-path="levis-stuff.html"><a href="levis-stuff.html#binomials-and-multinomials-1"><i class="fa fa-check"></i><b>21.2.5</b> Binomials and Multinomials</a></li>
+<li class="chapter" data-level="21.2.6" data-path="levis-stuff.html"><a href="levis-stuff.html#geometric-first-success-rvs-1"><i class="fa fa-check"></i><b>21.2.6</b> Geometric (First Success) RVs</a></li>
+<li class="chapter" data-level="21.2.7" data-path="levis-stuff.html"><a href="levis-stuff.html#geometric-distribution---hockey-1"><i class="fa fa-check"></i><b>21.2.7</b> Geometric Distribution - Hockey</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="isaacs-stuff.html"><a href="isaacs-stuff.html"><i class="fa fa-check"></i><b>22</b> Isaac’s stuff</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="isaacs-stuff.html"><a href="isaacs-stuff.html#to-be-added-2"><i class="fa fa-check"></i><b>22.1</b> To Be Added</a>
+<ul>
+<li class="chapter" data-level="22.1.1" data-path="isaacs-stuff.html"><a href="isaacs-stuff.html#topic-1-1"><i class="fa fa-check"></i><b>22.1.1</b> Topic 1</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="23" data-path="aarons-stuff.html"><a href="aarons-stuff.html"><i class="fa fa-check"></i><b>23</b> Aaron’s stuff</a>
 <ul>
 <li class="chapter" data-level="23.1" data-path="aarons-stuff.html"><a href="aarons-stuff.html#notes-for-chapter-2-probability"><i class="fa fa-check"></i><b>23.1</b> Notes for Chapter 2 (Probability)</a></li>
@@ -673,6 +710,214 @@ Win, Win, Loss, Win, Win, Win, Win, Loss, Win, Loss, Win, Win, Win, Win, Loss, W
 </div>
 <div id="hockey" class="section level2 hasAnchor" number="1.9">
 <h2><span class="header-section-number">1.9</span> Hockey<a href="exploratory-data-analysis.html#hockey" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For this example, we’ll use a set of NHL data from moneypuck.com. First, let’s load the data into <code>R</code> and open the data frame.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="exploratory-data-analysis.html#cb58-1" aria-hidden="true" tabindex="-1"></a>nhl_2022_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://moneypuck.com/moneypuck/playerData/seasonSummary/2021/regular/teams.csv&quot;</span>)</span>
+<span id="cb58-2"><a href="exploratory-data-analysis.html#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="exploratory-data-analysis.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(nhl_2022_data)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 107
+##   team...1 season name  team...4 position   situation games_played
+##   &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;
+## 1 WPG        2021 WPG   WPG      Team Level other               82
+## 2 WPG        2021 WPG   WPG      Team Level all                 82
+## 3 WPG        2021 WPG   WPG      Team Level 5on5                82
+## 4 WPG        2021 WPG   WPG      Team Level 4on5                82
+## 5 WPG        2021 WPG   WPG      Team Level 5on4                82
+## 6 CBJ        2021 CBJ   CBJ      Team Level other               82
+## # … with 100 more variables: xGoalsPercentage &lt;dbl&gt;, corsiPercentage &lt;dbl&gt;,
+## #   fenwickPercentage &lt;dbl&gt;, iceTime &lt;dbl&gt;, xOnGoalFor &lt;dbl&gt;, xGoalsFor &lt;dbl&gt;,
+## #   xReboundsFor &lt;dbl&gt;, xFreezeFor &lt;dbl&gt;, xPlayStoppedFor &lt;dbl&gt;,
+## #   xPlayContinuedInZoneFor &lt;dbl&gt;, xPlayContinuedOutsideZoneFor &lt;dbl&gt;,
+## #   flurryAdjustedxGoalsFor &lt;dbl&gt;, scoreVenueAdjustedxGoalsFor &lt;dbl&gt;,
+## #   flurryScoreVenueAdjustedxGoalsFor &lt;dbl&gt;, shotsOnGoalFor &lt;dbl&gt;,
+## #   missedShotsFor &lt;dbl&gt;, blockedShotAttemptsFor &lt;dbl&gt;, …</code></pre>
+<p>We can create nice looking tables using the ``kableExtra’’ package. Let’s look at the first eight rows and a samll selection of columns of the data frame and format the table output using a kable table.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="exploratory-data-analysis.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;kableExtra&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;kableExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     group_rows</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="exploratory-data-analysis.html#cb63-1" aria-hidden="true" tabindex="-1"></a>nhl_2022_data[<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">6</span><span class="sc">:</span><span class="dv">9</span>)] <span class="sc">%&gt;%</span> <span class="fu">kbl</span>() <span class="sc">%&gt;%</span> <span class="fu">kable_styling</span>()</span></code></pre></div>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+situation
+</th>
+<th style="text-align:right;">
+games_played
+</th>
+<th style="text-align:right;">
+xGoalsPercentage
+</th>
+<th style="text-align:right;">
+corsiPercentage
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+WPG
+</td>
+<td style="text-align:left;">
+other
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WPG
+</td>
+<td style="text-align:left;">
+all
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WPG
+</td>
+<td style="text-align:left;">
+5on5
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WPG
+</td>
+<td style="text-align:left;">
+4on5
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WPG
+</td>
+<td style="text-align:left;">
+5on4
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+0.86
+</td>
+<td style="text-align:right;">
+0.86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CBJ
+</td>
+<td style="text-align:left;">
+other
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+0.52
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CBJ
+</td>
+<td style="text-align:left;">
+all
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CBJ
+</td>
+<td style="text-align:left;">
+5on5
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+</tr>
+</tbody>
+</table>
+<p>This dataset includes a <em>lot</em> of covariates. It also splits these data by different game situations: even-strength (5 on 5), power play (5 on 4), etc. Let’s subset the data to include all game situations.</p>
+<p>Use the <code>nrow</code> command to check the number of columns in the new data frame. Check: Is it the same as the number of teams in the league for the 2021-2022 season?</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="exploratory-data-analysis.html#cb64-1" aria-hidden="true" tabindex="-1"></a>nhl_data_all <span class="ot">&lt;-</span> <span class="fu">filter</span>(nhl_2022_data, situation <span class="sc">==</span> <span class="st">&quot;all&quot;</span>)</span>
+<span id="cb64-2"><a href="exploratory-data-analysis.html#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="exploratory-data-analysis.html#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(nhl_data_all)</span></code></pre></div>
+<pre><code>## [1] 32</code></pre>
+<p>The dataset includes an Expected Goals statistic for each team in the <code>xGoalsFor</code> column. Let’s plot this quantity against the team’s actual number of goals scored; this is given by the <code>goalsFor</code> column.</p>
+<p>(Remember to always have a good title and axis labels!)</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="exploratory-data-analysis.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>nhl_data_all, <span class="fu">aes</span>(<span class="at">x=</span>xGoalsFor, <span class="at">y=</span>goalsFor)) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Expected Goals Scored&quot;</span>, <span class="at">y=</span><span class="st">&quot;Actual Goals Scored&quot;</span>, <span class="at">title=</span><span class="st">&quot;NHL Teams: Expected vs. Actual Goals, 2021-22&quot;</span>) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="series_files/figure-html/hockey_ggplot3-1.png" width="672" /></p>
+<p>As expected, there is a general positive correlation between expected and actual goals (<span class="math inline">\(r \approx 0.8\)</span>). However, there is some variability - for example, the Kings only scored 7 more actual goals than the Ducks, despite having 56.6 more expected goals.</p>
+<p>Let’s add a line to the graph using the <code>geom_abline</code> function corresponding to the line <span class="math inline">\(y=x\)</span>, the line on which data points would fall if expected goals were equal to actual goals. We can also customize the line’s color and type.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="exploratory-data-analysis.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>nhl_data_all, <span class="fu">aes</span>(<span class="at">x=</span>xGoalsFor, <span class="at">y=</span>goalsFor)) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Expected Goals Scored&quot;</span>, <span class="at">y=</span><span class="st">&quot;Actual Goals Scored&quot;</span>,<span class="at">title=</span><span class="st">&quot;NHL Teams: Expected vs. Actual Goals, 2021-22&quot;</span>) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_abline</span>(<span class="at">intercept=</span><span class="dv">0</span>, <span class="at">slope=</span><span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<p><img src="series_files/figure-html/hockey_ggplot4-1.png" width="672" /></p>
+<p><em>Note: A slope of 0 and an intercept of 1 are actually the default parameters for the function.</em></p>
+<p>Q: What does it mean for a team’s data point to fall below this line? Above it?</p>
+<p>A: If the data point is below the line, it means the expected goals were greater than the actual goals; if the data point is above the line, it means the actual goals were greater than the expected goals.</p>
+<p>Q: Do you think that a team’s expected goals would be more likely to be closer to its actual goals for a ten-game stretch, an entire season, or five consecutive seasons? Why?</p>
+<!-- Question could be reworded/clarified to mean "closer" in a relative (ratio) sense, rather than an absolute sense. -->
+<p>A: We would expect that as sample size increases, the result would become closer to expectation. So, actual goals would be most likely closer to expected goals over a span of five seasons.</p>
+<!--- This is basically conceptualizing the LLN, but that would rely on this calculation of expected goals being an unbiased estimator of actual goals. -->
 
 </div>
 </div>

@@ -494,3 +494,60 @@ NFL_2021_Team_Passing %>%
 ## Volleyball
 
 ## Hockey
+
+For this example, we'll use a set of NHL data from moneypuck.com. First, let's load the data into `R` and open the data frame.
+
+```{r hockey_ggplot1, message=F, warning=F}
+nhl_2022_data <- read_csv("https://moneypuck.com/moneypuck/playerData/seasonSummary/2021/regular/teams.csv")
+
+head(nhl_2022_data)
+```
+
+We can create nice looking tables using the ``kableExtra'' package. Let's look at the first eight rows and a samll selection of columns of the data frame and format the table output using a kable table.
+
+```{r hockey_ggplot1a}
+library("kableExtra")
+
+nhl_2022_data[1:8, c(3,6:9)] %>% kbl() %>% kable_styling()
+```
+
+This dataset includes a *lot* of covariates. It also splits these data by different game situations: even-strength (5 on 5), power play (5 on 4), etc. Let's subset the data to include all game situations.
+
+Use the `nrow` command to check the number of columns in the new data frame. Check: Is it the same as the number of teams in the league for the 2021-2022 season?
+
+```{r hockey_ggplot2}
+nhl_data_all <- filter(nhl_2022_data, situation == "all")
+
+nrow(nhl_data_all)
+```
+
+The dataset includes an Expected Goals statistic for each team in the `xGoalsFor` column. Let's plot this quantity against the team's actual number of goals scored; this is given by the `goalsFor` column.
+
+(Remember to always have a good title and axis labels!)
+
+```{r hockey_ggplot3}
+ggplot(data=nhl_data_all, aes(x=xGoalsFor, y=goalsFor)) + labs(x="Expected Goals Scored", y="Actual Goals Scored", title="NHL Teams: Expected vs. Actual Goals, 2021-22") + geom_point()
+```
+
+As expected, there is a general positive correlation between expected and actual goals ($r \approx 0.8$). However, there is some variability - for example, the Kings only scored 7 more actual goals than the Ducks, despite having 56.6 more expected goals.
+
+Let's add a line to the graph using the `geom_abline` function corresponding to the line $y=x$, the line on which data points would fall if expected goals were equal to actual goals. We can also customize the line's color and type.
+
+```{r hockey_ggplot4}
+ggplot(data=nhl_data_all, aes(x=xGoalsFor, y=goalsFor)) + labs(x="Expected Goals Scored", y="Actual Goals Scored",title="NHL Teams: Expected vs. Actual Goals, 2021-22") + geom_point() + geom_abline(intercept=0, slope=1, color="red", linetype="dashed")
+```
+
+*Note: A slope of 0 and an intercept of 1 are actually the default parameters for the function.*
+
+Q: What does it mean for a team's data point to fall below this line? Above it?
+
+A: If the data point is below the line, it means the expected goals were greater than the actual goals; if the data point is above the line, it means the actual goals were greater than the expected goals. 
+
+Q: Do you think that a team's expected goals would be more likely to be closer to its actual goals for a ten-game stretch, an entire season, or five consecutive seasons? Why?
+
+<!-- Question could be reworded/clarified to mean "closer" in a relative (ratio) sense, rather than an absolute sense. -->
+
+A: We would expect that as sample size increases, the result would become closer to expectation. So, actual goals would be most likely closer to expected goals over a span of five seasons.
+
+<!--- This is basically conceptualizing the LLN, but that would rely on this calculation of expected goals being an unbiased estimator of actual goals. -->
+
