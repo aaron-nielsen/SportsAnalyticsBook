@@ -180,6 +180,8 @@ Suppose events $A_1, A_2, \ldots, A_n$ form a partition of $\Omega$, then:
 $P(B) = P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + \ldots P(B|A_n)P(A_n)$
 :::
 
+
+
 :::{.theorem name="Bayes Theorem: simple version"}
 Suppose events $B$ and $C$ form a partition of $\Omega$, then:
 $P(B|A) = \frac{P(B \cap A)}{P(A)} = \frac{P(A|B)P(B)}{P(A|B)P(B)+P(A|C)P(C)}$
@@ -216,8 +218,59 @@ If the first element of an ordered pair can be selected in $n_1$ ways and for ea
 Suppose a set consists of $k$ elements (k-tuples) and that there are $n_1$ possible choices for the first element, $n_2$ possible choices for the second element, ... , and $n_k$ possible choices for the $k^\text{th}$ element, then there are $n_1 \cdot n_2 \cdot \ldots \cdot n_k$ possible k-tuples.
 :::
 
+## Odds and Gambling
+
 
 ## Random Variables
+
+:::{.definition}
+Let $\Omega$ be the sample space of an experiment. A ***random variable*** is a rule that associates a number with each outcome in $\Omega$. In other words, a random variable is a function whose domain is $\Omega$ and whose range is the set of real numbers.
+:::
+
+Random variables are be broken down into subcategories:\
+1. ***Discrete random variables*** - random variables which have a sample space that is finite or countably infinite.\
+2. ***Continuous random variables*** - random variables which have a sample space that is uncountably infinite (such as an interval of real numbers)
+
+***Discrete*** and ***Continuous*** random variables use similar yet slightly different mathematical tools. Discrete random variables involve working with "sums" and continuous random variables involve working with "integrals".
+
+::: {.example}
+$$ $$
+:::
+
+::: {.example}
+$$ $$
+:::
+
+:::{.definition}
+A ***probability distribution*** is a function that gives probabilities of different possible outcomes for a given experiment.
+:::
+
+The probability distribution for a discrete random variable, $p(x)$, is called a ***probability mass function (pmf)***.
+
+The probability distribution for a continuous random variable, $f(x)$, is called a ***probability density function (pdf)***.
+
+:::{.example}
+Suppose the Colorado Rockies are playing a four game series against the Chicago Cubs and that the Rockies have a 65\% chance of winning an individual game. Further, assume that the games are independent. The following PMF describes the outcomes (number of Rockies wins) and their probabilities.
+
+```{r, echo=F,message=F}
+library(tidyverse)
+library(kableExtra)
+x <- 0:4
+px <- c(0.015, 0.111, 0.311, 0.384, 0.179)
+df <- t(data.frame(x,px))
+row.names(df) = c("Rockies wins, X","Probability, p(X)")
+df %>% kable() %>% kable_styling(full_width = F)
+```
+
+What is the probability that the Rockies win at least two games?
+:::
+
+
+
+
+
+
+
 
 -----
 

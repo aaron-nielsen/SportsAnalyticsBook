@@ -1,0 +1,43 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Ellie's Stuff
+
+-----
+
+```{r}
+library(dplyr)
+library(ggplot2)
+```
+
+## To Be Added
+
+### Topic 1 (not ready to be added yet)
+
+For this example, we will need to install the "worldfootballR" package. 
+
+```{r}
+library(worldfootballR)
+```
+
+```{r}
+# Get "Squad Standard Stats" Data
+big5_2021_stats <- fb_big5_advanced_season_stats(season_end_year = 2021, stat_type = "standard", team_or_player = "team")
+liga_2021_stats <- big5_2021_stats[which((big5_2021_stats$Comp == "La Liga")),]
+```
+
+```{r}
+ggplot(data = liga_2021_stats[which(liga_2021_stats$Team_or_Opponent == "team"),], aes(x=Squad, y = Gls_Per)) +
+  geom_bar(stat = "identity")
+```
+
+This plot is a good starting point, but still looks pretty messy. Let's change the axis titles, and rotate the axis labels so they are not overlapping over one another.
+
+```{r}
+ggplot(data = liga_2021_stats, aes(x=reorder(liga_2021_stats[which(liga_2021_stats$Team_or_Opponent == "team"),]$Squad, Gls_Per), y = Gls_Per)) +
+  geom_bar(stat = "identity", aes(fill = Team_or_Opponent), position = "dodge")
+```
+
+-----
