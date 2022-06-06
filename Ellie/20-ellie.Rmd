@@ -33,7 +33,17 @@ ggplot(data = liga_2021_stats[which(liga_2021_stats$Team_or_Opponent == "team"),
   geom_bar(stat = "identity")
 ```
 
-This plot is a good starting point, but still looks pretty messy. Let's change the axis titles, and rotate the axis labels so they are not overlapping over one another.
+This plot is a good starting point, but still looks pretty messy. Let's change the axis titles, and rotate the axis labels so they are not overlapping over one another. We will also order the bars by the number of goals scored per game so it is easier to compare the teams to one another. 
+
+```{r}
+ggplot(data = liga_2021_stats[which(liga_2021_stats$Team_or_Opponent == "team"),], aes(x=reorder(Squad, Gls_Per), y = Gls_Per)) +
+  geom_bar(stat = "identity") +
+  xlab("Team") +
+  ylab("Goals Per 90 Minutes") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+This is already looking a lot better. Now, we will add the goals scored per game *against* each team. Why is this of interest? Well, at first glance, Barcelona seems like a pretty impressive team, as they score more goals per game than any other team in the league. However, what if they also have more goals scored against them than any other team in the league? This could be important context, so we will include it in the graph below.
 
 ```{r}
 ggplot(data = liga_2021_stats, aes(x=reorder(liga_2021_stats[which(liga_2021_stats$Team_or_Opponent == "team"),]$Squad, Gls_Per), y = Gls_Per)) +

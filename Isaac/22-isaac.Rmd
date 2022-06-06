@@ -7,3 +7,17 @@
 ### Topic 1
 
 -----
+
+### Scraping
+
+-----
+
+### EDA
+
+-----
+
+### Baseball
+
+-----
+
+### Tennis

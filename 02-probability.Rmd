@@ -237,9 +237,17 @@ Random variables are be broken down into subcategories:\
 $$ $$
 :::
 
+\
+\
+\
+
 ::: {.example}
 $$ $$
 :::
+
+\
+\
+\
 
 :::{.definition}
 A ***probability distribution*** is a function that gives probabilities of different possible outcomes for a given experiment.
@@ -262,10 +270,71 @@ row.names(df) = c("Rockies wins, X","Probability, p(X)")
 df %>% kable() %>% kable_styling(full_width = F)
 ```
 
-What is the probability that the Rockies win at least two games?
+What is the probability that the Rockies win zero games? What is the probability that the Rockies win at least two games? Why might the independence assumption be false?
+:::
+
+\
+\
+\
+\
+\
+
+We may be interested in describing the center or average value of our random variable. We can do this with the following definitions.
+
+:::{.definition}
+The ***expected value*** (or ***population mean*** or ***average***) of a random variable $X$ is given by: \
+
+(i) $E[X] = \mu = \sum_{x \in \Omega} x \cdot p(x)$ (for discrete random variables)
+
+(ii) $E[X] = \mu = \int_{x \in \Omega} x \cdot f(x) dx$ (for continuous random variables) 
+
+:::
+
+For this class, evaluating integrals is not essential, so we will avoid using Calculus (integrals and derivatives) when possible.
+
+Sometimes, it makes sense to calculate the expected value of a function of a random variable. This can be easily done with a slight modification to the previous definition. Let $h(X)$ be some function of a random variable $X$. The expected value of $h(X)$, $E[h(X)]$, is given by:
+
+(i) $E[h(X)] = \sum_{x \in \Omega} h(x) \cdot p(x)$ (for discrete random variables)
+
+(ii) $E[h(X)] = \int_{x \in \Omega} h(x) \cdot f(x) dx$ (for continuous random variables) 
+
+:::{.example}
+For the Rockies/Cubs four game series example, calculate $E[X]$ and $E[X^2]$.
+:::
+
+\
+\
+\
+\
+\
+
+
+The spread or variability associated with a random variable can be calculated using expected values as well.
+
+:::{.definition}
+The ***population variance*** of a random variable $X$ is given by: \
+
+(i) $Var(X) = \sum_{x \in \Omega} (x-\mu)^2 \cdot p(x)$ (for discrete random variables)
+
+(ii) $Var(X) = \int_{x \in \Omega} (x-\mu)^2 \cdot f(x) dx$ (for continuous random variables) 
+
 :::
 
 
+There is also a shortcut formula for calculating variance: \
+
+:::{.theorem}
+
+$Var(X) = E[X^2] - (E[X])^2$
+
+:::
+
+:::{.definition}
+
+The ***population standard deviation*** of a random variable $X$ is given by: \
+
+$SD(X) = \sigma = \sqrt{Var(X)} = \sqrt{E[X^2]-(E[X])^2}$
+:::
 
 
 

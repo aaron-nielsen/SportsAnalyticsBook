@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  2 JUN 2022 15:53
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  3 JUN 2022 00:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1585,13 +1585,13 @@ Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                 on input line 1359.
 
 [35] [36] [37] [38]
-Overfull \hbox (6.75pt too wide) in paragraph at lines 1644--1644
+Overfull \hbox (6.75pt too wide) in paragraph at lines 1646--1646
 []\TU/lmtt/m/n/10 ##  [1]  2  5  1  3 12  7  1  4  2  2  1  1  1  2  0  0  0  4
   3  0[] 
  []
 
 
-Overfull \hbox (6.75pt too wide) in paragraph at lines 1657--1657
+Overfull \hbox (6.75pt too wide) in paragraph at lines 1659--1659
 []\TU/lmtt/m/n/10 ##  [1]  3  6  2  4 13  8  2  5  3  3  2  2  2  3  1  1  1  5
   4  1[] 
  []
@@ -1670,7 +1670,7 @@ Chapter 19.
 Chapter 20.
 [75]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 1817.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 1819.
 File: series_files/figure-latex/baseball-sim-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/baseball-sim-1.pdf>
 [76] [77
