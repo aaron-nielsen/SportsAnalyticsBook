@@ -1,7 +1,5 @@
 # Exploratory Data Analysis
 
------
-
 ## Getting Started With R
 
 ### Installing R
@@ -40,8 +38,6 @@ mean(sosa.HR)
 ```
 
 \noindent (e) Did you find Slammin' Sammy's average home run total from 1998--2002 was 58.4? If so, you should be set up correctly!
-
------
 
 ### Some R Basics
 
@@ -229,7 +225,8 @@ The ***population standard deviation***, $\sigma$, is the standard deviation for
 We often prefer to work with standard deviations as a measure of spread as opposed to variance because standard deviations are given in our original units.
 
 ```{r var}
-# Calculate the variance and standard deviation of Peyton Manning's passing yards season totals with Broncos
+# Calculate the variance and standard deviation of Peyton Manning's passing yards
+# season totals with Broncos
 var(peyton.broncos) # units: yards^2
 sd(peyton.broncos) # units: yards
 ```
@@ -254,8 +251,10 @@ Like sample mean, sample median is a measure of center. It gives you an idea of 
 We can calculate sample mean and sample median in R as follows:
 
 ```{r median}
-# Calculate the median of Peyton Manning's passing yards season totals with Broncos and Colts
-peyton.colts <- c(3739, 4135, 4413, 4131, 4200, 4267, 4557, 3747, 4397, 4040, 4002, 4500, 4700)
+# Calculate the median of Peyton Manning's passing yards season totals with 
+# Broncos and Colts
+peyton.colts <- c(3739, 4135, 4413, 4131, 4200, 4267, 4557, 3747, 4397, 4040, 
+                  4002, 4500, 4700)
 median(peyton.broncos)
 median(peyton.colts)
 ```
@@ -275,7 +274,8 @@ A ***quartile*** is a measure of relative standing and are the cut points for br
 
 
 ```{r perc}
-# Calculate the 10th and 90th percentile of Peyton Manning's passing yards season totals with Colts
+# Calculate the 10th and 90th percentile of Peyton Manning's passing yards season
+# totals with Colts
 quantile(peyton.colts,0.10)
 quantile(peyton.colts,0.90)
 quantile(peyton.colts,c(0.1,0.9))
@@ -336,7 +336,8 @@ Calculate the proportion and percentage of Broncos' winning games in 2014.
 \
 
 ```{r prop}
-broncos2014 <- c("Win", "Win", "Loss", "Win", "Win", "Win", "Win", "Loss", "Win", "Loss", "Win", "Win", "Win", "Win", "Loss", "Win")
+broncos2014 <- c("Win", "Win", "Loss", "Win", "Win", "Win", "Win", "Loss", "Win",
+                 "Loss", "Win", "Win", "Win", "Win", "Loss", "Win")
 broncos.prop <- sum(broncos2014 == "Win")/length(broncos2014); broncos.prop
 broncos.perc <- 100*broncos.prop; broncos.perc
 ```
@@ -398,7 +399,7 @@ We also have numerous options to change the appearance of plots when using **ggp
 ```{r hist3}
 NFL_2021_Team_Passing %>% ggplot(aes(x=Yds)) + 
   geom_histogram(color = "white", fill = "blue", binwidth = 200) +
-  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021")
+  labs(x="Team Passing Yards", y="Team Passing Touchdowns", title="NFL Team Passing Yards, 2021")
 ```
 :::
 
@@ -416,8 +417,9 @@ The team labels are a complete mess. Let's fix this and make some adjustments to
 
 ```{r bar2}
 NFL_2021_Team_Passing %>% ggplot(aes(x=Tm,y=Yds)) +
-  geom_bar(stat="identity") +
-  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021") +
+  geom_bar(stat="identity") + 
+  labs(x="Team Passing Yards", y="Team Passing Touchdowns", 
+       title="NFL Team Passing Yards, 2021") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 

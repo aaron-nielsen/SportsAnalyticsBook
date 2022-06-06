@@ -10,7 +10,7 @@
 
   <meta property="og:title" content="Chapter 2 Probability | Sports Analytics" />
   <meta property="og:type" content="book" />
-  <meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu-ram.png" />
+  <meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
   <meta property="og:description" content="Chapter 2 Probability | Sports Analytics Notes" />
   <meta name="github-repo" content="aaron-nielsen.github.io/SportsAnalyticsBook/" />
 
@@ -18,7 +18,7 @@
   <meta name="twitter:title" content="Chapter 2 Probability | Sports Analytics" />
   
   <meta name="twitter:description" content="Chapter 2 Probability | Sports Analytics Notes" />
-  <meta name="twitter:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu-ram.png" />
+  <meta name="twitter:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
 
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
@@ -147,6 +147,7 @@ div.csl-indent {
 <link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
 <link rel="stylesheet" href="lib/css/style.css" type="text/css" />
 <link rel="stylesheet" href="lib/css/lesson.css" type="text/css" />
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -159,7 +160,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Sports Analytics Notes</a></li>
+<li><a href="./">Sports Analytics</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a></li>
@@ -248,18 +249,6 @@ div.csl-indent {
 <li class="chapter" data-level="20.3.1" data-path="aarons-stuff.html"><a href="aarons-stuff.html#baseball-simulation-example"><i class="fa fa-check"></i><b>20.3.1</b> Baseball Simulation Example</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="reference-blocks.html"><a href="reference-blocks.html"><i class="fa fa-check"></i>Reference: Blocks</a>
-<ul>
-<li class="chapter" data-level="20.4" data-path="reference-blocks.html"><a href="reference-blocks.html#equations"><i class="fa fa-check"></i><b>20.4</b> Equations</a></li>
-<li class="chapter" data-level="20.5" data-path="reference-blocks.html"><a href="reference-blocks.html#theorems-and-proofs"><i class="fa fa-check"></i><b>20.5</b> Theorems and proofs</a></li>
-<li class="chapter" data-level="20.6" data-path="reference-blocks.html"><a href="reference-blocks.html#callout-blocks"><i class="fa fa-check"></i><b>20.6</b> Callout blocks</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="reference-footnotes-and-citations.html"><a href="reference-footnotes-and-citations.html"><i class="fa fa-check"></i>Reference: Footnotes and citations</a>
-<ul>
-<li class="chapter" data-level="20.7" data-path="reference-footnotes-and-citations.html"><a href="reference-footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>20.7</b> Footnotes</a></li>
-<li class="chapter" data-level="20.8" data-path="reference-footnotes-and-citations.html"><a href="reference-footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>20.8</b> Citations</a></li>
-</ul></li>
-<li class="chapter" data-level="21" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>21</b> References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
 
@@ -627,33 +616,33 @@ Probability, p(X)
 <li>The road team wins exactly 1 game.</li>
 </ol>
 <p><span class="math inline">\(\binom{4}{1}\ .65^3\ .35^1 = \binom{4}{3}\ .65^3\ .35^1 \approx .384\)</span></p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="probability.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="dv">4</span>, .<span class="dv">35</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="probability.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="fl">0.35</span>)</span></code></pre></div>
 <pre><code>## [1] 0.384475</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="probability.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">3</span>, <span class="dv">4</span>, .<span class="dv">65</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="probability.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="fl">0.65</span>)</span></code></pre></div>
 <pre><code>## [1] 0.384475</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>The home team wins exactly 2 games.</li>
 </ol>
 <p><span class="math inline">\(\binom{4}{2}\ .65^2\ .35^2 \approx .311\)</span></p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="probability.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">2</span>, <span class="dv">4</span>, .<span class="dv">65</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="probability.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="fl">0.65</span>)</span></code></pre></div>
 <pre><code>## [1] 0.3105375</code></pre>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="probability.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">2</span>, <span class="dv">4</span>, .<span class="dv">35</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="probability.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="fl">0.35</span>)</span></code></pre></div>
 <pre><code>## [1] 0.3105375</code></pre>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>The road team wins at least 2 games.</li>
 </ol>
 <p><span class="math inline">\(\binom{4}{2}\ .65^2\ .35^2 + \binom{4}{3}\ .65^1\ .35^3 + .35^4 = 1 - [.65^4 + \binom{4}{1}\ .65^3\ .35^1] \approx .437\)</span></p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="probability.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="fl">1.9</span>, <span class="dv">4</span>, .<span class="dv">35</span>, <span class="at">lower.tail=</span>F)</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="probability.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="fl">1.9</span>, <span class="dv">4</span>, <span class="fl">0.35</span>, <span class="at">lower.tail =</span> F)</span></code></pre></div>
 <pre><code>## [1] 0.4370187</code></pre>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="probability.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">2</span>, <span class="dv">4</span>, .<span class="dv">65</span>, <span class="at">lower.tail=</span>T)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="probability.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="fl">0.65</span>, <span class="at">lower.tail =</span> T)</span></code></pre></div>
 <pre><code>## [1] 0.4370187</code></pre>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>The series ends in a sweep.</li>
 </ol>
 <p><span class="math inline">\(.65^4 + .35^4 \approx .194\)</span></p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="probability.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">65</span>) <span class="sc">+</span> <span class="fu">dbinom</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">35</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="probability.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">0.65</span>) <span class="sc">+</span> <span class="fu">dbinom</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">0.35</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1935125</code></pre>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="probability.html#cb82-1" aria-hidden="true" tabindex="-1"></a>.<span class="dv">65</span><span class="sc">^</span><span class="dv">4</span> <span class="sc">+</span> .<span class="dv">35</span><span class="sc">^</span><span class="dv">4</span></span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="probability.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.65</span><span class="sc">^</span><span class="dv">4</span> <span class="sc">+</span> <span class="fl">0.35</span><span class="sc">^</span><span class="dv">4</span></span></code></pre></div>
 <pre><code>## [1] 0.1935125</code></pre>
 </div>
 <div id="binomial-coefficient-symmetry" class="section level3 hasAnchor" number="2.8.3">
@@ -662,7 +651,7 @@ Probability, p(X)
 <p>Answer: Since there are a fixed number of games (seven) and a fixed number of games that must be given to the lower-seeded team (four), there are <span class="math inline">\(\binom{7}{4} = \frac{7!}{4!\ \cdot\ (7-4)!} = 35\)</span> ways to create a home-away pattern for the seven-game series.</p>
 <p>However, instead of thinking about the number of ways to assign the games to the team that gets four home games, what if we thought about the number of ways to assign games to the team that gets three home games?</p>
 <p>That would be <span class="math inline">\(\binom{7}{3}\)</span>. We can use the <code>choose</code> command in R to find this quantity.</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="probability.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">7</span>,<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="probability.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">7</span>, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 35</code></pre>
 <p>It turns out that this binomial coefficient is also equal to 35.</p>
 <p>Theorem: <span class="math inline">\(\binom{n}{k} = \binom{n}{n-k}\)</span></p>

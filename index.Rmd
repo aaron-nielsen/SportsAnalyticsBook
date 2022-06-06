@@ -2,19 +2,27 @@
 title: "Sports Analytics"
 author: "Aaron Nielsen, Department of Statistics, Colorado State University"
 date: "`r Sys.Date()`"
+header-includes:
+  \usepackage{fvextra}
+  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breaksymbol=,commandchars=\\\{\}}
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
-biblio-style: apalike
 link-citations: yes
+fontsize: 11pt
+geometry: margin=1in
 description: "Sports Analytics Notes"
 favicon: images/favicon.ico
-cover-image: images/csu-ram.png
+cover-image: images/csu.png
 github-repo: aaron-nielsen.github.io/SportsAnalyticsBook/
 url: https://aaron-nielsen.github.io/SportsAnalyticsBook/
 ---
 
-
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+library(formatR)
+# Set so that long lines in R will be wrapped:
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
+```
 
 # About {-}
 

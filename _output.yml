@@ -3,11 +3,12 @@ bookdown::gitbook:
     - lib/css/bootstrap.min.css
     - lib/css/style.css
     - lib/css/lesson.css
+    - style.css
   includes:
   config:
     toc:
       before: |
-        <li><a href="./">Sports Analytics Notes</a></li>
+        <li><a href="./">Sports Analytics</a></li>
       after: |
         <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
       collapse: section
@@ -15,6 +16,8 @@ bookdown::gitbook:
     edit: https://github.com/aaron-nielsen/SportsAnalyticsBook/edit/master/%s
     download: ["pdf"]
 bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
   keep_tex: yes
   latex_engine: xelatex
   citation_package: natbib
