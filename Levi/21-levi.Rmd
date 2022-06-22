@@ -1,19 +1,23 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 # Levi's stuff
 
 ```{r, include=FALSE}
 library("tidyverse")
 ```
 
-## Added
 
-### Hockey - ggplot
+## Hockey - ggplot
 
 For this example, we'll use a set of NHL data from moneypuck.com. First, let's load the data into `R` and open the data frame.
 
 ```{r hockey ggplot 1}
 nhl_2022_data <- read.csv("https://moneypuck.com/moneypuck/playerData/seasonSummary/2021/regular/teams.csv")
 
-#view(nhl_2022_data)
+View(nhl_2022_data)
 ```
 
 This dataset includes a *lot* of covariates. It also splits these data by different game situations: even-strength (5 on 5), power play (5 on 4), etc. Let's subset the data to include all game situations.
@@ -22,7 +26,7 @@ Use the `nrow` command to check the number of columns in the new data frame. Che
 
 ```{r hockey ggplot 2}
 nhl_data_all <- filter(nhl_2022_data, situation == "all")
-#view(nhl_data_all)
+View(nhl_data_all)
 
 nrow(nhl_data_all)
 ```
@@ -57,9 +61,8 @@ A: We would expect that as sample size increases, the result would become closer
 
 <!--- This is basically conceptualizing the LLN, but that would rely on this calculation of expected goals being an unbiased estimator of actual goals. -->
 
-## To Be Added
 
-### Law of Total Probability - Hockey
+## Law of Total Probability - Hockey
 
 Over the course of a season, a hockey player scored a goal 30% of the time during a home game, and $P(player\ scores\ |\ away\ game) = .18$. Assume all games are either home or away.
 
@@ -75,8 +78,16 @@ Q: What is the probability the player scored a goal in any game if the ratio of 
 
 A: $P(score) = P(score|home)P(home) + P(score|away)P(away) = .3(\frac{2}{5}) + .18(\frac{3}{5}) = .228$
 
+## Law of Total Probability - Baseball
 
-### Sets and Conditional Probability
+You work in the front office of a professional baseball club and have just learned that a certain prospect hits .200 against left-handed pitchers and .400 against right-handed pitchers (their overall batting average is unknown). The general manager of the team overhears you talking about the .400 statistic of the player and becomes very exited that they have the chance to draft a .400 hitter. What would you say to caution the GM that the player might not be a remarkable hitter?
+
+A: We don't know the proportion of the player's at-bats that came against left-handed pitchers versus right-handed pitchers. If we want to know the player's batting average unconditional on the type of pitcher they are facing, we have to adjust $P(hit\ |\ left-handed\ pitcher)$ by $P(left-handed\ pitcher)$ and $P(hit\ |\ right-handed\ pitcher)$ by $P(right-handed\ pitcher)$ before adding them to determine $P(hit)$. For example, if 90% of the player's at-bats were against left-handed pitchers, then their overall batting average is a pedestrian .220.
+
+*Other possible issues: low sample size of player's at-bats, the fact that pro pitchers will be harder to hit against than non-pros*
+
+
+## Sets and Conditional Probability
 
 100 sports fans in Colorado were polled and it was found that 64 had attended either a Denver Nuggets or Colorado Avalanche game at Ball Arena (formerly Pepsi Center). 34 people had seen only a Nuggets game, while 17 had seen both a Nuggets and an Avalanche game.
 
@@ -97,7 +108,7 @@ Q: What is the probability that a randomly selected person had been to a Nuggets
 A: 17 / (17 + 13) = .567
 
 
-### Binomial Probability
+## Binomial Probability
 
 Two baseball teams are playing a 4-game series. The home team has a .65 probability of winning each game, and the away team a .35 probability. Assume each game is independent.
 
@@ -130,7 +141,6 @@ $\binom{4}{2}\ .65^2\ .35^2 + \binom{4}{3}\ .65^1\ .35^3 + .35^4 = 1 - [.65^4 + 
 ```{r}
 pbinom(1.9, 4, .35, lower.tail=F)
 pbinom(2, 4, .65, lower.tail=T)
-
 ```
 
 (d) The series ends in a sweep.
@@ -144,7 +154,7 @@ dbinom(4, 4, .65) + dbinom(4, 4, .35)
 
 
 
-### Binomial Coefficient Symmetry
+## Binomial Coefficient Symmetry
 
 Playoff series for a certain sports league are played as a best-of-seven series, with one team hosting four games and the opposing team hosing three. An executive for the league wishes to know the number of ways the home and away games can be assigned. (One such combination is A-A-B-B-A-B-A, the format used by the NBA and NHL for their best-of-seven series.) What is the total number of combinations?
 
@@ -152,7 +162,7 @@ Answer: Since there are a fixed number of games (seven) and a fixed number of ga
 
 However, instead of thinking about the number of ways to assign the games to the team that gets four home games, what if we thought about the number of ways to assign games to the team that gets three home games?
 
-That would be $\binom{7}{3}$. We can use the `choose` command in R to find this quantity.
+That would be $\binom{7}{3}$. We can use the `choose` command in `R` to find this quantity.
 
 ```{r bin}
 choose(7,3)
@@ -167,7 +177,7 @@ $\binom{n}{k} = \frac{n!}{k!\ \cdot\ (n-k)!}$
 $\binom{n}{n-k} = \frac{n!}{(n-k)!\ \cdot\ (n-(n-k))!} = \frac{n!}{(n-k)!\ \cdot\ k!} = \binom{n}{k}$
 
 
-### Binomials and Multinomials
+## Binomials and Multinomials
 
 Suppose we are curious about probabilities regarding the results of a soccer team’s next five games.
 
@@ -182,7 +192,7 @@ $\binom{5}{2}\ P(Win)^2\  P(Win^C)^{(5-2)}$
 If we are interested in the probability of the team winning two of the next five games, drawing two, and losing one, we cannot use the binomial theorem. That involves three outcomes, and would be represented as a multinomial. <!--- assuming regularity conditions such as independence. -->
 
 
-### Geometric (First Success) RVs
+## Geometric (First Success) RVs
 
 Caution: Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful.
 
@@ -192,7 +202,7 @@ geometric <- rgeom(100, 1/3)
 head(geometric, 20)
 ```
 
-Some of the values were 0, which could not happen if R was considering the number of the trial on which the first success occurred. You can add 1 to the values given by `R` to arrive at the First Success distribution.
+Some of the values were 0, which could not happen if `R` was considering the number of the trial on which the first success occurred. You can add 1 to the values given by `R` to arrive at the First Success distribution.
 
 ```{r}
 first_success <- geometric + 1
@@ -201,14 +211,266 @@ mean(first_success)
 ```
 The mean of this sample of variables is 3.03, which is close to the expected mean of $\frac{1}{p} = 3$.
 
-### Geometric Distribution - Hockey
+## Geometric Distribution - Hockey
 
-Suppose the number of shots needed by a hockey team in order to score their first goal, X, is modeled by a Geometric($\frac{1}{10}$) random variable.
+Suppose the number of shots needed by a hockey team in order to score their first goal, $X$, is modeled by a Geometric($\frac{1}{10}$) random variable.
 
 Q: What is the probability that it takes more than 3 shots to score the first goal?
 
-A: $P(X > 3) = P(X = 4) + P(X = 5) + P(X = 6) + ...$
+A: $P(X > 3) = P(X = 4) + P(X = 5) + P(X = 6) +\ ...$
 
-This is an infinite series, so let's use the Law of Total Probability.
+This is an infinite series, so let's use the Complement Rule.
 
-$P(X > 3) = 1 - P(X \leq 3) = 1 - [P(X = 1) + P(X = 2) + P(X = 3)] = 1 - [(\frac{1}{10}) + (\frac{9}{10})^1(\frac{1}{10}) + (\frac{9}{10})^2(\frac{1}{10})] = .729$
+$P(X > 3) = 1 - P(X \leq 3) = 1 - \sum_{i=1}^{3}P(X = i) = 1 - [\frac{1}{10} + (\frac{9}{10})^1(\frac{1}{10}) + (\frac{9}{10})^2(\frac{1}{10})] = .729$
+
+Q: Why might the assumptions for the Geometric distribution make it an imperfect model for this situation?
+
+A: Geometric random variables assume a constant probability for each trial (in this case, shots on goal). In hockey, the probability of a shot hitting the back of the net changes based on its location, velocity, positioning of defensive players, whether the team is on the power play, etc.
+
+## Poisson Distribution - Soccer
+
+During the 2021 Major League Soccer season, the Colorado Rapids scored 51 goals in 34 games on their way to a first-place finish in the Western Conference regular season standings.
+
+The team scored $\frac{51}{34} = 1.5$ goals per game. Let's model the distribution of Rapids goals using a Poisson(1.5) random variable that we'll call Y.
+
+Q: Which is more likely: Y taking on the value 0 or Y taking on the value 2?
+
+We can plot the PMF of Y to check visually.
+
+```{r soccer poisson}
+ggplot(transform(data.frame(x=c(0:8)), y=dpois(x, lambda = 1.5)), aes(x, y)) + geom_bar(stat="identity") + labs(x="Value", y="Frequency", title="Probability mass function of Poisson(1.5) random variable")
+```
+
+A: From the plot, $P(Y = 2) > P(Y = 0)$.
+
+Q: What is the exact probability that this Poisson(1.5) random variable takes on the value 2?
+
+A: We can find this quantity using the `dpois` command.
+
+```{r soccer poisson 2}
+dpois(x=2, lambda=1.5)
+```
+The same quantity can be obtained by plugging the numbers into the Poisson PMF.
+
+$\frac{1.5^2 e^{-1.5}}{2!} = 0.251$
+
+Q: Let's switch it around. What is the probability that a Poisson(2) random variable takes on the value 1.5?
+
+A: 0. Poisson random variables cannot take on values other than nonnegative integers. Remember, Poisson random variables are often used for count data.
+
+
+Let's check whether using a Poisson distribution was appropriate by comparing it to the actual 2021 Colorado Rapids match results.
+
+<!-- https://www.espn.com/soccer/team/results/_/id/184/season/2021 -->
+
+```{r soccer poisson 3}
+library("kableExtra")
+
+goals <- c(0:4, "5 or more")
+actual_frequency <- c(6, 14, 7, 6, 0, 1)
+actual_proportion <- actual_frequency / sum(actual_frequency)
+expected_proportion <- c(dpois(0:4, lambda=1.5), ppois(4, lambda=1.5, lower.tail=FALSE))
+expected_frequency <- round(expected_proportion * 34, 1)
+
+rapids.data <- data.frame(goals, actual_frequency, actual_proportion, expected_frequency, expected_proportion)
+
+rapids.data %>%
+kbl() %>%
+kable_styling()
+```
+
+*answers may vary for following questions*
+
+Q: What differences do you notice between the actual results and the expected values based on the Poisson random variable?
+
+A: There were fewer games in which the Rapids scored 4 or more goals than the model would indicate, yet the Rapids were shut out less often than the model would indicate.
+
+Q: Even if the true population distribution of 2021 Rapids goals was truly a Poisson(1.5) random variable, why might the actual distribution of their goals differ from the probability mass function?
+
+A: 34 is a relatively small sample size; random variables may not coincide with their expected values for finite sample sizes.
+
+Q: What are the advantages of using the Poisson distribution to model Major League soccer goals? What are the disadvantages?
+
+A: Poisson random variables can take on the natural numbers (including zero), which aligns with the number of goals that can be scored in a match. One disadvantage is that it is possible for a Poisson to take on values that are not realistic for the situation, such as double-digit integers or higher. Only one game in MLS history has had a team score more than seven goals in a game. However, when $\lambda$ is small (such as 1.5), these extreme values are relatively unlikely.
+
+## Basketball - Four Factors
+
+Tibbles are a type of data frame supported by the `tidyverse` package. The following tibble contains data from a Mountain West tournament game played between the CSU and Wyoming women's basketball teams during the 2021-2022 season, which CSU won 51-38. [(Here's the link to the box score on the CSU athletics website.)](https://csurams.com/sports/womens-basketball/stats/2021-22/wyoming/boxscore/16095)
+
+```{r four factors}
+library("tibble")
+
+basketball_data <- tibble(team = c("CSU","WYO"), FG = c(14,15), FGA = c(48,60), THREEP = c(5,4), FT = c(10,4), FTA = c(14,4), ORB = c(2,14), DRB = c(31,30), TOV = c(5,12)); basketball_data
+```
+
+This tibble contains all the data needed to calculate the *Four Factors*. The Four Factors of a basketball game are statistics formulated by Dean Oliver, former Director of Quantitative Analysis for the Denver Nuggets (among other roles). These statistics are also promoted by sports data platforms like Hudl.com.
+
+The first is **Effective Field Goal Percentage**, commonly abbreviated eFG%. The formula is as follows:
+
+$eFG\% = \frac{FG\ +\ 0.5(3P)}{FGA}$
+
+Secondly, **Turnover Percentage** (TOV%) is calculated as:
+
+$TOV\% = \frac{TOV}{FGA\ +\ 0.44(FTA)\ +\ TOV}$
+
+Next, **Rebounding Percentage** (ORB%) is computed as:
+
+$ORB\% = \frac{ORB}{ORB\ +\ Opponent\ DRB}$
+
+Finally, the **Free Throw Factor** is found using:
+
+$FT\ factor = \frac{FT}{FGA}$
+
+Note: You do not have to know these formulas for the test. They are just used for this example.
+
+Let's calculate the values of eFG%, TOV%, and Free Throw Factor for both CSU and Wyoming and add them as new columns in the tibble using the `add_column` function.
+
+```{r four factors 2}
+attach(basketball_data)
+eFG <- round((FG + .5 * THREEP)/FGA, 3)
+TOVPCT <- round(TOV / (FGA + .44 * FTA + TOV), 3)
+FTFACTOR <- round(FT/FGA, 3)
+
+basketball_data %>% add_column(eFG, TOVPCT, FTFACTOR)
+```
+
+
+## Multiple Probability Distributions - Basketball
+
+Suppose the number of points scored by a basketball player follows a Poisson(12) random variable, the number of rebounds by a Poisson(7) distribution, and assists by a Discrete Uniform(2, 11), independently of each other.
+
+Q: What is the probability that this player records a points, rebounds, assists triple-double in a game?
+
+A: $P(Triple\ Double) = P(Points \geq 10\ \cap\ Rebounds \geq 10\ \cap\ Assists \geq 10)$
+
+```{r basketball probability 1}
+ppois(9, lambda = 12, lower.tail=F)
+```
+
+$P(Points \geq 10) = P(Poisson(12) \geq 10) \approx .758$
+
+```{r basketball probability 2}
+ppois(9, lambda = 7, lower.tail=F)
+```
+
+$P(Rebounds \geq 10) = P(Poisson(7) \geq 10) \approx .170$
+
+$P(Assists \geq 10) = P(Discrete\ Uniform(2, 11) \geq 10) = .2$
+
+Since the events are independent, we can multiply their probabilities. The probability of the player scoring the triple-double is $(.758)(.170)(.2) = .0257$.
+
+Q: Your friend offers you 4 to 1 that the player will not record a triple-double in their next 10 games. With the knowledge that the athlete's performance in a game is unaffected by performances in previous games, would you take the bet?
+
+A: $P(no\ triple\ double) = 1 - .0257 = .9743$, so $P(no\ triple\ double\ in\ next\ 10\ games) = (.9743)^{10} = .771$
+
+The odds of no triple-double are $\frac{.771}{1-.771} = 3.37$, so the bet of no triple-double at 4 to 1 odds is favorable.
+
+## Basketball Scenario
+
+You are the coach of a basketball team that is down two points with one second remaining in the fourth quarter. During a timeout, you are considering the best play to call for your team. The first option is a three-point shot attempt, which you estimate has a 30% chance of succeeding. The second option is a two-point shot attempt, which has a 50% chance of making the field goal, a 30% chance of missing it and ending the game, and a 20% chance the shooter will miss but be fouled, in which case the shooter's free throw success will follow a $Bin(2, .8)$ random variable. Finally, you estimate that your team's probability of winning the game in overtime is .45.
+
+Assume the above situations are exhaustive (i.e., the other team will not get another possession, no fouls will be called before the ball is put in play, lightning will not hit the arena and postpone the game, etc.). Which of the two plays should you call to maximize the win probability for your team?
+
+A: The probability of winning the game with the three-point shot attempt is .3. If the two-point shot attempt is called for, there is a .5 probability of making the field goal and a (.2)(.8)(.8) = .128 probability that the foul is called and both free throws are made. Thus, the total probability of scoring two points and sending the game to overtime is .628. Then, the probability of winning the game in OT after tying it in regulation is (.628)(.45) = .2828. This is less than .3, so shooting the three-pointer is the option that maximizes the win probability, given these situational probabilities.
+
+Q: What is the minimum estimated overtime win probability to make calling for the two-point play the better option?
+
+A: $P(score\ 2\ points\ in\ regulation) \cdot P(win\ in\ OT) > P(win\ in\ regulation)$\
+$.628 \cdot P(win\ in\ OT) > .3$\
+$P(win\ in\ OT) > .478$
+
+## Expectation - Baseball
+
+The expectation of a discrete random variable is a weighted average. The "weights" are the probabilities of the possible values of the variable.
+
+Consider the following table, which shows the number of career hits by type for the all-time Major League Baseball leader in total bases, Hank Aaron.
+
+<!-- https://www.baseball-reference.com/players/a/aaronha01.shtml -->
+
+```{r expectation baseball, echo=F}
+Hit_type <- c("Single", "Double", "Triple", "Home Run")
+Number_bases <- c(1:4)
+Hit_Frequency <- c(2294, 624, 98, 755)
+Hit_Proportion <- round(Hit_Frequency / sum(Hit_Frequency), 8)
+
+Hank_Aaron_Hits <- data.frame(Hit_type, Number_bases, Hit_Frequency, Hit_Proportion)
+
+Hank_Aaron_Hits %>%
+kbl() %>%
+kable_styling()
+```
+
+The expected number of bases for a Hank Aaron hit is the sum of the number of bases attained for each hit multiplied by the relative frequency of the occurrence of that type of hit.
+
+$1 \cdot \frac{2294}{3771} + 2 \cdot \frac{624}{3771} + 3 \cdot \frac{98}{3771} + 4 \cdot \frac{755}{3771} = 1.18181$
+
+This is the same process that is occurring whenever we calculate the expectation of any discrete random variable. Recall the formula for expectation is $E[X] = \sum_{x \in \Omega}\ x \cdot p(x)$. Each value in the sample space is "adjusted" by the probability of that value, then the sum of all values in $\Omega$ is taken to arrive at the weighted average, or expected value, of the random variable.
+
+
+## A few reminders/tips for simulation, and a basic example
+
+The number of regulation goals scored in a game by Hockey Team A, $X$, is a Poisson(4) random variable, and the same for Hockey Team B, $Y$, is a Poisson(3.2) random variable.
+
+A statistician is interested in the probability that Team A defeats Team B in regulation. This is $P(X > Y)$, which is difficult to calculate manually. However, using simulation, we can straightforwardly obtain an accurate estimation of this quantity.
+
+There are many built-in functions in `R` that allow users to generate realizations from common probability distributions (`rnorm`, `rbinom`, `rexp`, etc.) Let's use the `rpois` function to simulate the appropriate variables, remembering to set a seed so that our results are easily replicable.
+
+```{r hockey poisson simulation 1}
+set.seed(2022)
+
+nReps <- 1e4
+
+team_A_goals <- rpois(n = nReps, lambda = 4)
+team_B_goals <- rpois(n = nReps, lambda = 3.2)
+```
+
+Now, to find $P(X > Y)$, we can use the following line of code:
+
+```{r hockey poisson simulation 2}
+mean(team_A_goals > team_B_goals)
+```
+
+Why does this work? First, operations to vectors are executed elementwise, meaning that `R` compares `team_A_goals[1]` to `team_B_goals[1]`, then `team_A_goals[2]` to `team_B_goals[2]`, and so on. Second, logical operators are stored as zeroes (when the condition is false) and ones (when the condition is true). The mean of a vector of zeroes and ones is the proportion of ones, which is the frequency of the logical statement being true. In our simulation, it was 0.5415. The true value is 0.5427, meaning that the simulation was quite accurate.
+
+These tips will help you be more efficient when performing simulation tasks in `R`.
+
+```{r hockey poisson simulation 3, include=FALSE}
+#computation for finding the theoretical value of P(X>Y) to within at least 7 decimal points. There's probably an easier way to do this.
+
+v <- rep(NA, 50)
+
+for (j in 1:50) {
+  v[j] <- ppois(j-1, lambda = 4, lower.tail=F) * dpois(j-1, lambda = 3.2)
+}
+sum(v)
+```
+
+## Streak Simulation - Basketball
+
+Suppose an NBA team is in the middle of a rebuild and has a 25% probability of winning each of its games in the following 82-game season.
+
+Q: What is the probability that the team will go on at least one winning streak of four or more games over the course of the 82-game season?
+
+A: We can simulate a season for the team, find the longest winning streak in that season, and store it in a vector. After repeating that process 10,000 times, we can then find the proportion of the values in that vector that are greater than or equal to 4.
+
+```{r basketball streaks simulation}
+set.seed(2022)
+
+nReps <- 1e4
+longest_streak <- rep(NA, nReps)
+
+for (i in 1:nReps) {
+  game_results <- rbinom(size = 1, n = 82, prob = .25) # 1=win, 0=loss
+  streaks <- rle(game_results)
+  longest_streak[i] <- max(streaks$lengths[streaks$values==1])
+}
+
+table(longest_streak)
+mean(longest_streak >= 4)
+```
+
+<!-- https://stackoverflow.com/questions/28731582/maximum-consecutive-repeats-in-a-vector-in-r -->
+
+The team had a 4+ game winning streak in about 20% of the simulations. 
+
+<!-- Added everything above to the book, 6/22-->

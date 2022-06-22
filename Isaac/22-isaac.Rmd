@@ -9,6 +9,32 @@
 -----
 
 ### Scraping
+```{r}
+library(dplyr)
+library(rvest)
+library(tidyverse)
+
+```
+
+//*[@id="main-content"]/div/div[3]/div[2]
+
+## wnba scraping
+```{r}
+wilson <- 'https://www.basketball-reference.com/wnba/players/w/wilsoa01w/gamelog/2022/'
+wil_doc <- rvest::read_html(wilson)
+
+wil_doc %>%
+  rvest::html_elements(., xpath = "//*[(@id = 'div_wnba_pgl_basic')]") %>%
+  rvest::html_table() -> wil
+wil <- wil[[1]]
+
+mean(wil$PTS)
+
+wil$eFG<- (wil['FG'] + (0.5*wil['3P']))/wil['FGA']
+wil$eFG
+```
+
+
 
 -----
 
@@ -21,3 +47,31 @@
 -----
 
 ### Tennis
+
+#formula from Analyzing Wimbledon (Probability of winning a game from probability of winning serve)
+```{r}
+p <- 0.6
+pr_game <- (p^4*(-8*p^3+28*p^2-34*p+15))/(p^2+(1-p)^2)
+pr_game
+```
+
+
+
+```{r}
+game <- c(0)
+pr <- 1:100
+for(x in pr) {
+  p <- pr/100
+  pr_game <- (p^4*(-8*p^3+28*p^2-34*p+15))/(p^2+(1-p)^2)
+  game <- c(game,pr_game)
+}
+game[1]
+game <- game[2:101]
+game[1]
+df <- do.call(rbind, Map(data.frame, point_pr=pr, game_pr=game))
+ggplot(df, aes(x=point_pr, y=game_pr)) +
+  geom_point()+xlab('Probability of Winning a Service Point')+ylab('Probability of Winning a Game')
+```
+
+
+

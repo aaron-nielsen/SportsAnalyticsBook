@@ -1,1 +1,67 @@
 # Monte Carlo Simulation
+
+## A few reminders/tips for simulation, and a basic example
+
+The number of regulation goals scored in a game by Hockey Team A, $X$, is a Poisson(4) random variable, and the same for Hockey Team B, $Y$, is a Poisson(3.2) random variable.
+
+A statistician is interested in the probability that Team A defeats Team B in regulation. This is $P(X > Y)$, which is difficult to calculate manually. However, using simulation, we can straightforwardly obtain an accurate estimation of this quantity.
+
+There are many built-in functions in `R` that allow users to generate realizations from common probability distributions (`rnorm`, `rbinom`, `rexp`, etc.) Let's use the `rpois` function to simulate the appropriate variables, remembering to set a seed so that our results are easily replicable.
+
+```{r hockey poisson simulation 1}
+set.seed(2022)
+
+nReps <- 1e4
+
+team_A_goals <- rpois(n = nReps, lambda = 4)
+team_B_goals <- rpois(n = nReps, lambda = 3.2)
+```
+
+Now, to find $P(X > Y)$, we can use the following line of code:
+
+```{r hockey poisson simulation 2}
+mean(team_A_goals > team_B_goals)
+```
+
+Why does this work? First, operations to vectors are executed elementwise, meaning that `R` compares `team_A_goals[1]` to `team_B_goals[1]`, then `team_A_goals[2]` to `team_B_goals[2]`, and so on. Second, logical operators are stored as zeroes (when the condition is false) and ones (when the condition is true). The mean of a vector of zeroes and ones is the proportion of ones, which is the frequency of the logical statement being true. In our simulation, it was 0.5415. The true value is 0.5427, meaning that the simulation was quite accurate.
+
+These tips will help you be more efficient when performing simulation tasks in `R`.
+
+```{r hockey poisson simulation 3, include=FALSE}
+#computation for finding the theoretical value of P(X>Y) to within at least 7 decimal points. There's probably an easier way to do this.
+
+v <- rep(NA, 50)
+
+for (j in 1:50) {
+  v[j] <- ppois(j-1, lambda = 4, lower.tail=F) * dpois(j-1, lambda = 3.2)
+}
+sum(v)
+```
+
+## Streak Simulation - Basketball
+
+Suppose an NBA team is in the middle of a rebuild and has a 25% probability of winning each of its games in the following 82-game season.
+
+Q: What is the probability that the team will go on at least one winning streak of four or more games over the course of the 82-game season?
+
+A: We can simulate a season for the team, find the longest winning streak in that season, and store it in a vector. After repeating that process 10,000 times, we can then find the proportion of the values in that vector that are greater than or equal to 4.
+
+```{r basketball streaks simulation}
+set.seed(2022)
+
+nReps <- 1e4
+longest_streak <- rep(NA, nReps)
+
+for (i in 1:nReps) {
+  game_results <- rbinom(size = 1, n = 82, prob = .25) # 1=win, 0=loss
+  streaks <- rle(game_results)
+  longest_streak[i] <- max(streaks$lengths[streaks$values==1])
+}
+
+table(longest_streak)
+mean(longest_streak >= 4)
+```
+
+<!-- https://stackoverflow.com/questions/28731582/maximum-consecutive-repeats-in-a-vector-in-r -->
+
+The team had a 4+ game winning streak in about 20% of the simulations. 
