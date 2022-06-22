@@ -172,9 +172,11 @@ ggplot(data = goals) +
 
 Let us break down exactly what this visual is showing us. We are looking at the density of expected and actual goals per game for the top five teams in LaLiga, over the last four seasons (with the last season ending in 2021). We can see that Barcelona is typically scoring more goals than what is expected of them, as the density of actual goals is condensed around higher goal numbers than the density of expected goals. Villarreal, however, is performing just as well as what is expected of them based on expected and actual goals scored.
 
-<!-- I added the above stuff to the EDA chapter, AN 6/22-->
-
 ### Volleyball: EDA
+
+```{r}
+
+```
 
 ### Soccer: Probability
 
