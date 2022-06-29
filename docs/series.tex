@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-06-22}
+\date{2022-06-29}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -191,7 +191,7 @@ CSU students contributed to the creation of this book. Many thanks to the follow
 \chapter*{Current Tasks}\label{current-tasks}}
 \addcontentsline{toc}{chapter}{Current Tasks}
 
-Updated: ``2022-06-22''
+Updated: ``2022-06-29''
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1052,21 +1052,24 @@ To begin, let's go over a couple of basic summary statistics specific to soccer 
   \textbf{Shots on Goal (SOG)} represent all shots that would have gone into the goal if not saved by a defender or goalkeeper (Rookie Road).
 \item
   \textbf{Expected Goals (xG)} ``indicates how many goals a team could have expected to score based on the quantity and quality of chances that they created in a match'' (Tippett 2019, 4).
+\item
+  \textbf{Assist (A)} occur when a player passes the ball to someone, and the next shot results in a goal.
+\item
+  \textbf{Possession} refers to the percentage of time a team had control of the ball during a game.
 \end{itemize}
 
 These definitions come from www.rookieroad.com and ``The Expected Goals Philosophy'' by James Tippett.
 
-\hypertarget{example-1}{%
-\subsection*{Example 1}\label{example-1}}
-\addcontentsline{toc}{subsection}{Example 1}
+To learn more about expected goals, check out \href{https://www.youtube.com/watch?v=w7zPZsLGK18\&list=PL9Az6mi38hv__afKnHR1AKjpcDIw_0qqT}{this YouTube video}.
+
+\hypertarget{bar-plot}{%
+\subsection{Bar Plot}\label{bar-plot}}
 
 Now that we have an understanding of some basic shooting statistics, let us go through some EDA examples. For this first example, we will need to install the ``worldfootballR'' package.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(worldfootballR)}
-\FunctionTok{library}\NormalTok{(ggExtra)}
-\FunctionTok{library}\NormalTok{(ggridges)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1090,7 +1093,7 @@ Next we will look at some data specific to LaLiga, which is a soccer league in t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-11-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-12-1.pdf}
 
 This plot is a good starting point, but still looks pretty messy. Let's add a title, change the axis titles, and rotate the axis labels so they are not overlapping over one another.
 
@@ -1102,7 +1105,7 @@ This plot is a good starting point, but still looks pretty messy. Let's add a ti
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-12-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-13-1.pdf}
 
 This is already looking a lot better. Now, we will add the goals scored per game \emph{against} each team. Why is this of interest? Well, at first glance, Barcelona seems like a pretty impressive team, as they score more goals per game than any other team in the league. However, what if they also have more goals scored against them than any other team in the league? This could be important context, so we will include it in the graph below.
 
@@ -1115,30 +1118,29 @@ This is already looking a lot better. Now, we will add the goals scored per game
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-13-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-14-1.pdf}
 
 This is looking pretty good, but let's clean it up just a bit by changing the legend title and labels.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{all\_goals\_viz }\OtherTok{\textless{}{-}}\NormalTok{ all\_goals\_viz }\SpecialCharTok{+} \FunctionTok{scale\_fill\_discrete}\NormalTok{(}\AttributeTok{name =} \StringTok{"Team or Opponent"}\NormalTok{, }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Opponent"}\NormalTok{,}
+\NormalTok{all\_goals\_viz }\SpecialCharTok{+} \FunctionTok{scale\_fill\_discrete}\NormalTok{(}\AttributeTok{name =} \StringTok{"Team or Opponent"}\NormalTok{, }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Opponent"}\NormalTok{,}
     \StringTok{"Team"}\NormalTok{))}
-\NormalTok{all\_goals\_viz}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-14-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-15-1.pdf}
 
 What does this graph show us? Well, we are able to see the average number of goals scored for and against each team per game. It looks like Barcelona is scoring a lot more goals than they are letting be scored against them, while other teams like Valladolid tend to have a higher proportion of goals scored for the opposing team.
 
-\hypertarget{example-2}{%
-\subsection*{Example 2}\label{example-2}}
-\addcontentsline{toc}{subsection}{Example 2}
+\hypertarget{scatter-plot}{%
+\subsection{Scatter Plot}\label{scatter-plot}}
 
 In addition to simply knowing the average actual number of goals scored for and against each team per game, we may be interested in how this compares to the expected number of goals scored per game, as well.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggExtra)}
 \NormalTok{act\_exp\_viz }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ liga\_2021\_stats, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ xG\_Per, }\AttributeTok{y =}\NormalTok{ Gls\_Per, }\AttributeTok{label =}\NormalTok{ Squad)) }\SpecialCharTok{+}
     \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.75}\NormalTok{, }\FloatTok{2.25}\NormalTok{)) }\SpecialCharTok{+} \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.75}\NormalTok{,}
     \FloatTok{2.25}\NormalTok{)) }\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Expected vs. Actual Goals Per Game"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Expected Goals Per Game"}\NormalTok{) }\SpecialCharTok{+}
@@ -1147,41 +1149,168 @@ In addition to simply knowing the average actual number of goals scored for and 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## `geom_smooth()` using formula 'y ~ x'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: Removed 3 rows containing non-finite values (stat_smooth).
-\end{verbatim}
-
-\begin{verbatim}
-## `geom_smooth()` using formula 'y ~ x'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: Removed 3 rows containing non-finite values (stat_smooth).
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: Removed 3 rows containing missing values (geom_point).
-\end{verbatim}
-
-\begin{verbatim}
-## `geom_smooth()` using formula 'y ~ x'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: Removed 3 rows containing non-finite values (stat_smooth).
-## Removed 3 rows containing missing values (geom_point).
-\end{verbatim}
-
-\includegraphics{series_files/figure-latex/unnamed-chunk-15-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-16-1.pdf}
 
 As you can see, we fit a line to the data. At first glance, it seems to have a positive slope slightly greater than 1. What does this mean in the scenario of actual and expected goals per game?
 
+\hypertarget{density-ridges-plot}{%
+\subsection{Density Ridges Plot}\label{density-ridges-plot}}
+
+At first glance, it seems that actual goals scored per game do not differ greatly from expected goals per game. Let us look at some density plots for actual and expected goals per game for five of the top teams in LaLiga over the last four seasons. These are the top five teams as of June 21st, 2022 on www.foxsports.com.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggridges)}
+
+\CommentTok{\# Get \textquotesingle{}Squad Standard Stats\textquotesingle{} data for the last four seasons}
+\NormalTok{top\_liga\_2021\_stats }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/laliga21.csv"}\NormalTok{)}
+\NormalTok{top\_liga\_2020\_stats }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/laliga20.csv"}\NormalTok{)}
+\NormalTok{top\_liga\_2019\_stats }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/laliga19.csv"}\NormalTok{)}
+\NormalTok{top\_liga\_2018\_stats }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/laliga18.csv"}\NormalTok{)}
+
+\NormalTok{top\_liga\_2021\_stats }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_2021\_stats[}\FunctionTok{which}\NormalTok{(top\_liga\_2021\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Real Madrid"} \SpecialCharTok{|}
+\NormalTok{    top\_liga\_2021\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Villarreal"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2021\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Barcelona"} \SpecialCharTok{|}
+\NormalTok{    top\_liga\_2021\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Levante"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2021\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Betis"}\NormalTok{),}
+\NormalTok{    ]}
+\NormalTok{top\_liga\_2020\_stats }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_2020\_stats[}\FunctionTok{which}\NormalTok{(top\_liga\_2020\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Real Madrid"} \SpecialCharTok{|}
+\NormalTok{    top\_liga\_2020\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Villarreal"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2020\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Barcelona"} \SpecialCharTok{|}
+\NormalTok{    top\_liga\_2020\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Levante"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2020\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Betis"}\NormalTok{),}
+\NormalTok{    ]}
+\NormalTok{top\_liga\_2019\_stats }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_2019\_stats[}\FunctionTok{which}\NormalTok{(top\_liga\_2019\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Real Madrid"} \SpecialCharTok{|}
+\NormalTok{    top\_liga\_2019\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Villarreal"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2019\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Barcelona"} \SpecialCharTok{|}
+\NormalTok{    top\_liga\_2019\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Levante"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2019\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Betis"}\NormalTok{),}
+\NormalTok{    ]}
+\NormalTok{top\_liga\_2018\_stats }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_2018\_stats[}\FunctionTok{which}\NormalTok{(top\_liga\_2018\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Real Madrid"} \SpecialCharTok{|}
+\NormalTok{    top\_liga\_2018\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Villarreal"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2018\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Barcelona"} \SpecialCharTok{|}
+\NormalTok{    top\_liga\_2018\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Levante"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2018\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Betis"}\NormalTok{),}
+\NormalTok{    ]}
+
+\CommentTok{\# Combine all four seasons\textquotesingle{} data into one data frame}
+\NormalTok{top\_liga\_stats }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(top\_liga\_2018\_stats, top\_liga\_2019\_stats, top\_liga\_2020\_stats,}
+\NormalTok{    top\_liga\_2021\_stats)}
+
+\NormalTok{goals\_act }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Gls\_Per[}\FunctionTok{which}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Team\_or\_Opponent }\SpecialCharTok{==}
+    \StringTok{"team"}\NormalTok{)])}
+\NormalTok{goals\_act}\SpecialCharTok{$}\NormalTok{team }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Squad[}\FunctionTok{which}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Team\_or\_Opponent }\SpecialCharTok{==} \StringTok{"team"}\NormalTok{)]}
+\NormalTok{goals\_act}\SpecialCharTok{$}\NormalTok{exp\_or\_act }\OtherTok{\textless{}{-}} \StringTok{"actual"}
+\NormalTok{goals\_act}\SpecialCharTok{$}\NormalTok{year }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Season\_End\_Year[}\FunctionTok{which}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Team\_or\_Opponent }\SpecialCharTok{==}
+    \StringTok{"team"}\NormalTok{)]}
+\FunctionTok{colnames}\NormalTok{(goals\_act)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"stats"}
+\NormalTok{goals\_exp }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{xG\_Per[}\FunctionTok{which}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Team\_or\_Opponent }\SpecialCharTok{==}
+    \StringTok{"team"}\NormalTok{)])}
+\NormalTok{goals\_exp}\SpecialCharTok{$}\NormalTok{team }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Squad[}\FunctionTok{which}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Team\_or\_Opponent }\SpecialCharTok{==} \StringTok{"team"}\NormalTok{)]}
+\NormalTok{goals\_exp}\SpecialCharTok{$}\NormalTok{exp\_or\_act }\OtherTok{\textless{}{-}} \StringTok{"expected"}
+\NormalTok{goals\_exp}\SpecialCharTok{$}\NormalTok{year }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Season\_End\_Year[}\FunctionTok{which}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Team\_or\_Opponent }\SpecialCharTok{==}
+    \StringTok{"team"}\NormalTok{)]}
+\FunctionTok{colnames}\NormalTok{(goals\_exp)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"stats"}
+\NormalTok{goals }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(goals\_act, goals\_exp)}
+
+\CommentTok{\# Plot density ridges}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ goals) }\SpecialCharTok{+} \FunctionTok{geom\_density\_ridges}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ stats, }\AttributeTok{y =}\NormalTok{ team, }\AttributeTok{fill =}\NormalTok{ exp\_or\_act,}
+    \AttributeTok{color =}\NormalTok{ exp\_or\_act), }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{scale =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.75}\NormalTok{,}
+    \FloatTok{2.75}\NormalTok{)) }\SpecialCharTok{+} \FunctionTok{scale\_y\_discrete}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{expand\_scale}\NormalTok{(}\AttributeTok{add =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\DecValTok{1}\NormalTok{))) }\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Expected vs. Actual Goals Per Game"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Goals Per Game"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"Team"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{scale\_fill\_cyclical}\NormalTok{(}\AttributeTok{name =} \StringTok{"Actual or Expected Goals"}\NormalTok{,}
+    \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Actual"}\NormalTok{, }\StringTok{"Expected"}\NormalTok{), }\AttributeTok{guide =} \StringTok{"legend"}\NormalTok{, }\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"\#FF0000A0"}\NormalTok{, }\StringTok{"\#A0A0A0A0"}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{scale\_color\_cyclical}\NormalTok{(}\AttributeTok{name =} \StringTok{"Actual or Expected Goals"}\NormalTok{, }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Actual"}\NormalTok{,}
+        \StringTok{"Expected"}\NormalTok{), }\AttributeTok{guide =} \StringTok{"legend"}\NormalTok{, }\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"\#FF0000A0"}\NormalTok{, }\StringTok{"\#A0A0A0A0"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+Let us break down exactly what this visual is showing us. We are looking at the density of expected and actual goals per game for the top five teams in LaLiga, over the last four seasons (with the last season ending in 2021). We can see that Barcelona is typically scoring more goals than what is expected of them, as the density of actual goals is condensed around higher goal numbers than the density of expected goals. Villarreal, however, is performing just as well as what is expected of them based on expected and actual goals scored.
+
 \hypertarget{volleyball}{%
 \section{Volleyball}\label{volleyball}}
+
+To begin, let's go over some basic volleyball statistics. The following definitions come from \url{www.rookieroad.com}
+
+\begin{itemize}
+\tightlist
+\item
+  A \textbf{Service Ace (SA)} occurs when a player's serve touches the ground on the other team's side without being touched by a player on that side.
+\item
+  A \textbf{Kill (K)} occurs when a player gets the ball over the net without it being returned by the opponent.
+\item
+  An \textbf{Assist (AST)} is a pass made directly before a player makes a kill.
+\item
+  \textbf{Hitting Percentage (PCT)} is the number of attempted kills (minus errors) divided by the total number of kill attempts. This helps determine how well a player or team is succeeding at their kill attempts.
+\end{itemize}
+
+For Volleyball EDA, we will be using CSU Women's Volleyball data from the last five seasons.
+
+Let's look at a scatter plot of hitting percentage and the number of digs. While no conclusions can be drawn from such a plot, it can give us some insight into relationships worthy of further analysis. Before creating the plot using the code below, think about what you might expect the outcome to be.
+
+\hypertarget{scatter-plot-1}{%
+\subsection{Scatter Plot}\label{scatter-plot-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Digs, Hitting Percentage, Win/Lose}
+\NormalTok{dig\_pct\_viz }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ csu\_vb, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ DIG, }\AttributeTok{y =}\NormalTok{ PCT, }\AttributeTok{color =}\NormalTok{ W\_L)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{()}
+\NormalTok{dig\_pct\_viz}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+Let's change the axis titles, legend title, and add a main title.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dig\_pct\_viz }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Wins and Losses by Number of Digs and Hitting Percentage"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Number of Digs (DIG)"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Hitting Percentage (PCT)"}\NormalTok{, }\AttributeTok{color =} \StringTok{"Win or Loss"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+What can we learn from this visual? Well, we can see that there is a weak linear relationship between the number of digs and hitting percentage. To an extent, hitting percentage decreases as the number of digs increases. Why is this the case? Maybe if a team has a really high hitting percentage, this means that the opposing team does not have as many opportunities to attack the other team offensively, reducing the number of opportunities for digs. It also seems that while wins and losses are somewhat evenly spread across the number of digs, there is a more clear cutoff for hitting percentage. It seems that the majority of wins are associated with a hitting percentage of at least 0.2, while the majority of losses are associated with a hitting percentage of less than 0.3.
+
+\hypertarget{box-plot}{%
+\subsection{Box Plot}\label{box-plot}}
+
+Now let's take a closer look at the distribution of hitting percentage and digs for wins and losses. To do this, we will create box plots for each statistic.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pct\_viz }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ csu\_vb, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ PCT, }\AttributeTok{y =}\NormalTok{ W\_L)) }\SpecialCharTok{+} \FunctionTok{geom\_boxplot}\NormalTok{()}
+\NormalTok{pct\_viz}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dig\_viz }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ csu\_vb, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ DIG, }\AttributeTok{y =}\NormalTok{ W\_L)) }\SpecialCharTok{+} \FunctionTok{geom\_boxplot}\NormalTok{()}
+\NormalTok{dig\_viz}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-21-2.pdf}
+
+Let's modify these plots to make them more complete and visually appealing.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pct\_viz }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Hitting Percentage for Wins and Losses"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Hitting Percentage (PCT)"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Win or Loss"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"slateblue"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-22-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dig\_viz }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Number of Digs for Wins and Losses"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Number of Digs (DIG)"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Win or Loss"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"slateblue"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-22-2.pdf}
+
+Box plots allow us to isolate each statistic (number of kills and hitting percentage) so we can more clearly determine the center and spread of each between wins and losses.
 
 \hypertarget{hockey}{%
 \section{Hockey}\label{hockey}}
@@ -1528,6 +1657,29 @@ Suppose events \(B_1, B_2, \ldots, B_n\) form a partition of \(\Omega\), then:
 \(P(B_k|A) = \frac{P(B_k \cap A)}{P(A)} = \frac{P(A|B_k)P(B_k)}{P(A|B_1)P(B_1)+P(A|B_2)P(B_2) + \ldots + P(A|B_n)P(B_n)}\)
 \end{theorem}
 
+\begin{example}
+Over the course of a season, a hockey player scored a goal 30\% of the time during a home game, and \(P(player\ scores\ |\ away\ game) = .18\). Assume all games are either home or away. Use this information to answer the following questions.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  What is the probability the player scored a goal in any game if there were an equal number of home and away games?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  What is the probability the player scored a goal in any game if there were twice as many home games as away games?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  What is the probability the player scored a goal in any game if the ratio of home games to away games is 2:3?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
 \hypertarget{combinatorics}{%
 \section{Combinatorics}\label{combinatorics}}
 
@@ -1684,180 +1836,117 @@ The \textbf{\emph{population standard deviation}} of a random variable \(X\) is 
 \(SD(X) = \sigma = \sqrt{Var(X)} = \sqrt{E[X^2]-(E[X])^2}\)
 \end{definition}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\begin{example}
+For the Rockies/Cubs four game series example, calculate \(Var(X)\).
+\end{example}
 
-\hypertarget{some-examples}{%
-\section{Some examples}\label{some-examples}}
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
 
-Over the course of a season, a hockey player scored a goal 30\% of the time during a home game, and \(P(player\ scores\ |\ away\ game) = .18\). Assume all games are either home or away.
+\hypertarget{common-random-variables}{%
+\section{Common Random Variables}\label{common-random-variables}}
 
-Q: What is the probability the player scored a goal in any game if there were an equal number of home and away games?
+There are several families of random variables that show up frequently in applications. Some of these random variables include:
+- Binomial
+- Geometric
+- Poisson
+- Normal
 
-A: \(P(score) = P(score|home)P(home) + P(score|away)P(away) = .3(.5) + .18(.5) = .24\)
+\hypertarget{binomial-rvs}{%
+\subsection{Binomial RVs}\label{binomial-rvs}}
 
-Q: What is the probability the player scored a goal in any game if there were twice as many home games as away games?
+\begin{definition}
+A \textbf{\emph{binomial(n,p) random variable}} is a discrete random variable that counts the numbers of ``successes'' over a fixed number of trials, \(n\), with each trial having an equal probability of success, \(p\).
 
-A: \(P(score) = P(score|home)P(home) + P(score|away)P(away) = .3(\frac{2}{3}) + .18(\frac{1}{3}) = .26\)
+\(P(X=k) = \binom{n}{k} p^k(1-p)^{n-k} = \frac{n!}{k!\ \cdot\ (n-k)!} p^k(1-p)^{n-k}\), where \(0 \leq k \leq n, 0 \leq p \leq 1\)
 
-Q: What is the probability the player scored a goal in any game if the ratio of home games to away games is 2:3?
+If \(X \sim Binomial(n,p)\), then \(E[X]=np\) and \(Var(X)=np(1-p)\)
+\end{definition}
 
-A: \(P(score) = P(score|home)P(home) + P(score|away)P(away) = .3(\frac{2}{5}) + .18(\frac{3}{5}) = .228\)
-
-\hypertarget{sets-and-conditional-probability}{%
-\subsection{Sets and Conditional Probability}\label{sets-and-conditional-probability}}
-
-100 sports fans in Colorado were polled and it was found that 64 had attended either a Denver Nuggets or Colorado Avalanche game at Ball Arena (formerly Pepsi Center). 34 people had seen only a Nuggets game, while 17 had seen both a Nuggets and an Avalanche game.
-
-Q: How many people saw an Avalanche game but not a Nuggets game?
-
-A: 64 - 34 - 17 = 13
-
-Q: What is the probability that a randomly selected person in the poll had been to a Nuggets game?
-
-A: (34 + 17) / 100 = .51
-
-Q: What is the probability that a randomly selected person that had been to a game at Ball Arena had been to a Nuggets game?
-
-A: (34 + 17) / 64 = .797
-
-Q: What is the probability that a randomly selected person had been to a Nuggets game given they had been to an Avalanche game?
-
-A: 17 / (17 + 13) = .567
-
-\hypertarget{binomial-probability}{%
-\subsection{Binomial Probability}\label{binomial-probability}}
-
-Two baseball teams are playing a 4-game series. The home team has a .65 probability of winning each game, and the away team a .35 probability. Assume each game is independent.
-
-\emph{I used baseball in this example because it's the sport that most often has 4-game series, but it could easily be replaced by another sport.}
-
-Find the following probabilities.
+\begin{example}
+The Cubs and Rockies are playing a 4-game series. The Rockies have a 0.65 probability of winning each game, and the Cubs have a 0.35 probability. Assume each game is independent. Solve for the following quantities.
+\end{example}
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
-\tightlist
 \item
-  The road team wins exactly 1 game.
+  The Cubs wins exactly 1 game.\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  The Rockies win exactly 2 games.\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  The Cubs win at least 2 games.\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  The series ends in a sweep.\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  The expected number of wins for the Rockies.\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  The variance and standard deviations of wins for the Rockies.\\
+  \strut \\
+  \strut \\
+  \strut \\
 \end{enumerate}
 
-\(\binom{4}{1}\ .65^3\ .35^1 = \binom{4}{3}\ .65^3\ .35^1 \approx .384\)
+\begin{example}
+Complete 10,000 simulations of the four game series between the Rockies and Cubs. For the number of Rockies wins, calculate the sample mean and sample variance and compare these to the population values. Also, plot a histogram of the sample data.
+\end{example}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{dbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.35}\NormalTok{)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2020}\NormalTok{)}
+\NormalTok{rockies\_wins }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\AttributeTok{n =} \DecValTok{10000}\NormalTok{, }\AttributeTok{size =} \DecValTok{4}\NormalTok{, }\AttributeTok{prob =} \FloatTok{0.65}\NormalTok{)}
+\FunctionTok{mean}\NormalTok{(rockies\_wins)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.384475
+## [1] 2.6123
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{dbinom}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.65}\NormalTok{)}
+\FunctionTok{var}\NormalTok{(rockies\_wins)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.384475
-\end{verbatim}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  The home team wins exactly 2 games.
-\end{enumerate}
-
-\(\binom{4}{2}\ .65^2\ .35^2 \approx .311\)
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dbinom}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.65}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.3105375
+## [1] 0.9110798
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{dbinom}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.35}\NormalTok{)}
+\NormalTok{rockies\_wins\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Wins =}\NormalTok{ rockies\_wins)}
+\NormalTok{rockies\_wins\_df }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(Wins)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{1}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"purple"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## [1] 0.3105375
-\end{verbatim}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  The road team wins at least 2 games.
-\end{enumerate}
-
-\(\binom{4}{2}\ .65^2\ .35^2 + \binom{4}{3}\ .65^1\ .35^3 + .35^4 = 1 - [.65^4 + \binom{4}{1}\ .65^3\ .35^1] \approx .437\)
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{pbinom}\NormalTok{(}\FloatTok{1.9}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.35}\NormalTok{, }\AttributeTok{lower.tail =}\NormalTok{ F)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.4370187
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{pbinom}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.65}\NormalTok{, }\AttributeTok{lower.tail =}\NormalTok{ T)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.4370187
-\end{verbatim}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  The series ends in a sweep.
-\end{enumerate}
-
-\(.65^4 + .35^4 \approx .194\)
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dbinom}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.65}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{dbinom}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.35}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.1935125
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FloatTok{0.65}\SpecialCharTok{\^{}}\DecValTok{4} \SpecialCharTok{+} \FloatTok{0.35}\SpecialCharTok{\^{}}\DecValTok{4}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.1935125
-\end{verbatim}
+\includegraphics{series_files/figure-latex/unnamed-chunk-24-1.pdf}
 
 \hypertarget{binomial-coefficient-symmetry}{%
-\subsection{Binomial Coefficient Symmetry}\label{binomial-coefficient-symmetry}}
+\subsubsection{Binomial Coefficient Symmetry}\label{binomial-coefficient-symmetry}}
 
-Playoff series for a certain sports league are played as a best-of-seven series, with one team hosting four games and the opposing team hosing three. An executive for the league wishes to know the number of ways the home and away games can be assigned. (One such combination is A-A-B-B-A-B-A, the format used by the NBA and NHL for their best-of-seven series.) What is the total number of combinations?
-
-Answer: Since there are a fixed number of games (seven) and a fixed number of games that must be given to the lower-seeded team (four), there are \(\binom{7}{4} = \frac{7!}{4!\ \cdot\ (7-4)!} = 35\) ways to create a home-away pattern for the seven-game series.
+Playoff series for a certain sports league are played as a best-of-seven series, with one team hosting four games and the opposing team hosing three. An executive for the league wishes to know the number of ways the home and away games can be assigned. (One such combination is A-A-B-B-A-B-A, the format used by the NBA and NHL for their best-of-seven series.) What is the total number of combinations?\\
+\strut \\
+\strut \\
+\strut \\
 
 However, instead of thinking about the number of ways to assign the games to the team that gets four home games, what if we thought about the number of ways to assign games to the team that gets three home games?
 
@@ -1881,6 +1970,366 @@ Theorem: \(\binom{n}{k} = \binom{n}{n-k}\)
 
 \(\binom{n}{n-k} = \frac{n!}{(n-k)!\ \cdot\ (n-(n-k))!} = \frac{n!}{(n-k)!\ \cdot\ k!} = \binom{n}{k}\)
 
+\hypertarget{geometric-rvs}{%
+\subsection{Geometric RVs}\label{geometric-rvs}}
+
+\begin{definition}
+A \textbf{\emph{Geometric(p) random variable}} is a discrete random variable that counts the numbers of trials until a ``success'' occurs, where the probability of success, \(p\), is constant across all trials.
+
+\(P(X=k) = p(1-p)^{k-1}\), where \(k \geq 1, 0 \leq p \leq 1\)
+
+If \(X \sim Geometric(p)\), then \(E[X]=\frac{1}{p}\) and \(Var(X)=\frac{p}{1-p}\)
+\end{definition}
+
+\begin{example}
+Suppose the number of shots needed by a hockey team in order to score their first goal, X, is modeled by a Geometric(\(\frac{1}{10}\)) random variable. Use this information to answer the following questions.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  What is the probability that it takes exactly 3 shots to score the first goal?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  What is the probability that it takes less than 3 shots to score the first goal?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  What is the probability that it takes more than 3 shots to score the first goal?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+\textbf{Caution:} Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful.
+
+Let's simulate the number of shot attempts required to score the first goal (Geometric(\(p=1/10\))) from the previous example.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2020}\NormalTok{)}
+\NormalTok{geometric }\OtherTok{\textless{}{-}} \FunctionTok{rgeom}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{1}\SpecialCharTok{/}\DecValTok{10}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(geometric, }\DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  2  2  7 55  6 11  2 11  2  5  0 50 17  2  7  0  7 19 17  1
+\end{verbatim}
+
+Some of the values were 0, which could not happen if R was considering the number of the trial on which the first success occurred. You can add 1 to the values given by \texttt{R} to arrive at the first success distribution.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{first\_success }\OtherTok{\textless{}{-}}\NormalTok{ geometric }\SpecialCharTok{+} \DecValTok{1}
+\FunctionTok{head}\NormalTok{(first\_success, }\DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  3  3  8 56  7 12  3 12  3  6  1 51 18  3  8  1  8 20 18  2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(first\_success)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10.827
+\end{verbatim}
+
+The mean of this sample of variables is 10.827, which is close to the expected mean of \(\frac{1}{p} = 10\).
+
+Let's plot the sample distribution of shots required to score a goal from the simulation as well.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{first\_success\_df }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Shots =}\NormalTok{ first\_success)}
+\NormalTok{first\_success\_df }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Shots)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-28-1.pdf}
+
+\hypertarget{poisson-rvs}{%
+\subsection{Poisson RVs}\label{poisson-rvs}}
+
+\begin{definition}
+A \textbf{\emph{Poisson(\(\lambda\)) random variable}} is a discrete random variable that counts the numbers of ``successes'' for a given rate parameter, \(\lambda\), for a given interval.
+
+\(P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}\), where \(k \geq 1,\)
+
+If \(X \sim Poisson(\lambda)\), then \(E[X]=\lambda\) and \(Var(X)=\lambda\)
+\end{definition}
+
+\begin{example}
+During the 2021 Major League Soccer season, the Colorado Rapids scored 51 goals in 34 games on their way to a first-place finish in the Western Conference regular season standings.
+
+The team scored \(\frac{51}{34} = 1.5\) goals per game. Let's model the distribution of Rapids goals using a Poisson(1.5) random variable that we'll call Y.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Which is more likely: Y taking on the value 0 or Y taking on the value 2?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+We can plot the PMF of Y to check visually.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{transform}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{8}\NormalTok{)), }\AttributeTok{y =} \FunctionTok{dpois}\NormalTok{(x, }\AttributeTok{lambda =} \FloatTok{1.5}\NormalTok{)), }\FunctionTok{aes}\NormalTok{(x, y)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Value"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Probability mass function of Poisson(1.5) random variable"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-29-1.pdf}
+
+We can calculate these probabilities in R as well using the \texttt{dpois} command.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dpois}\NormalTok{(}\AttributeTok{x =} \DecValTok{0}\NormalTok{, }\AttributeTok{lambda =} \FloatTok{1.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2231302
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dpois}\NormalTok{(}\AttributeTok{x =} \DecValTok{2}\NormalTok{, }\AttributeTok{lambda =} \FloatTok{1.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2510214
+\end{verbatim}
+
+Let's check whether using a Poisson distribution was appropriate by comparing it to the actual 2021 Colorado Rapids match results.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Data: https://www.espn.com/soccer/team/results/\_/id/184/season/2021}
+
+\FunctionTok{library}\NormalTok{(}\StringTok{"kableExtra"}\NormalTok{)}
+
+\NormalTok{goals }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\StringTok{"5 or more"}\NormalTok{)}
+\NormalTok{actual\_frequency }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{6}\NormalTok{, }\DecValTok{14}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{actual\_proportion }\OtherTok{\textless{}{-}}\NormalTok{ actual\_frequency}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(actual\_frequency)}
+\NormalTok{expected\_proportion }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{dpois}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\AttributeTok{lambda =} \FloatTok{1.5}\NormalTok{), }\FunctionTok{ppois}\NormalTok{(}\DecValTok{4}\NormalTok{, }\AttributeTok{lambda =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{lower.tail =} \ConstantTok{FALSE}\NormalTok{))}
+\NormalTok{expected\_frequency }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(expected\_proportion }\SpecialCharTok{*} \DecValTok{34}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{rapids.data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(goals, actual\_frequency, actual\_proportion, expected\_frequency,}
+\NormalTok{    expected\_proportion)}
+
+\NormalTok{rapids.data }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kbl}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kable\_styling}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+\centering
+\begin{tabular}[t]{l|r|r|r|r}
+\hline
+goals & actual\_frequency & actual\_proportion & expected\_frequency & expected\_proportion\\
+\hline
+0 & 6 & 0.1764706 & 7.6 & 0.2231302\\
+\hline
+1 & 14 & 0.4117647 & 11.4 & 0.3346952\\
+\hline
+2 & 7 & 0.2058824 & 8.5 & 0.2510214\\
+\hline
+3 & 6 & 0.1764706 & 4.3 & 0.1255107\\
+\hline
+4 & 0 & 0.0000000 & 1.6 & 0.0470665\\
+\hline
+5 or more & 1 & 0.0294118 & 0.6 & 0.0185759\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  What differences do you notice between the actual results and the expected values based on the Poisson random variable?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Even if the true population distribution of 2021 Rapids goals was truly a Poisson(1.5) random variable, why might the actual distribution of their goals differ from the probability mass function?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  What are the advantages of using the Poisson distribution to model Major League soccer goals? What are the disadvantages?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+\hypertarget{normal-rvs}{%
+\subsection{Normal RVs}\label{normal-rvs}}
+
+\begin{definition}
+A \textbf{\emph{Normal(\(\mu\),\(\sigma^2\)) random variable}} is a continuous random variable that is bell-shaped with mean \(\mu\) and variance \(\sigma^2\).
+
+To calculate probabilities under the normal curve, you need either to integrate, use a table, or a computer.
+
+Note that a normal random variable can be standardized by using: \(z = \frac{x-\mu}{\sigma}\)
+\end{definition}
+
+\begin{theorem}
+For a normal(\(\mu\),\(\sigma^2\)) random variable, we have the following approximations:\\
+- About 68\% of the data falls within one standard deviation of the mean (i.e., \(\mu \pm \sigma\))\\
+- About 95\% of the data falls within two standard deviations of the mean (i.e., \(\mu \pm 2\sigma\))\\
+- About 99.7\% of the data falls within three standard deviations of the mean (i.e., \(\mu \pm 3\sigma\))
+\end{theorem}
+
+\begin{example}
+The skills (or tools) of a baseball player are often rated on a scale of 20-80, where 50 is an average grade, 20 is the lowest grade, and 80 is the highest grade. The distribution of tool grades is approximately normally distributed (\(\mu=50, \sigma =10\)).
+
+See \url{https://blogs.fangraphs.com/scouting-explained-the-20-80-scouting-scale/} for more details. Calculate the following probabilities.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  Former Rockie Nolan Arenado has been graded to have game power of 70. Game power estimates a player's ability to hit home runs. Approximately what percentage of baseball players have equal or greater game power than Arenado?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  Mike Trout has been graded to have raw power of 55. Raw power estimates a player's ability to hit baseballs hard (i.e., hard hit rate). Approximately what percentage of baseball players have equal or less raw power than Arenado?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  Suppose a Rockies prospect is said to be in the top 10\% of all baseball players in terms of their speed. What approximate speed grade would correspond to the player?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  Suppose a Rockies prospect is said to be in the bottom 20\% of all baseball players in terms of their hit ability. What approximate hit grade would correspond to the player?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  Between what two grades do approximately 95\% of all players lie for a given tool?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+Let's check our answers:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \DecValTok{70}\NormalTok{, }\AttributeTok{mean =} \DecValTok{50}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{)}
+\NormalTok{a}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.02275013
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \DecValTok{55}\NormalTok{, }\AttributeTok{mean =} \DecValTok{50}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{)}
+\NormalTok{b}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6914625
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.1}\NormalTok{, }\AttributeTok{mean =} \DecValTok{50}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{, }\AttributeTok{lower.tail =}\NormalTok{ F)}
+\NormalTok{c}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 62.81552
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\AttributeTok{mean =} \DecValTok{50}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{, }\AttributeTok{lower.tail =}\NormalTok{ T)}
+\NormalTok{d}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 41.58379
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{e }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \DecValTok{70}\NormalTok{, }\AttributeTok{mean =} \DecValTok{50}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \DecValTok{30}\NormalTok{, }\AttributeTok{mean =} \DecValTok{50}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{)}
+\NormalTok{e}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9544997
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{extra-stuff}{%
+\section{Extra Stuff}\label{extra-stuff}}
+
+\hypertarget{sets-and-conditional-probability}{%
+\subsection{Sets and Conditional Probability}\label{sets-and-conditional-probability}}
+
+100 sports fans in Colorado were polled and it was found that 64 had attended either a Denver Nuggets or Colorado Avalanche game at Ball Arena (formerly Pepsi Center). 34 people had seen only a Nuggets game, while 17 had seen both a Nuggets and an Avalanche game.
+
+Q: How many people saw an Avalanche game but not a Nuggets game?
+
+A: 64 - 34 - 17 = 13
+
+Q: What is the probability that a randomly selected person in the poll had been to a Nuggets game?
+
+A: (34 + 17) / 100 = .51
+
+Q: What is the probability that a randomly selected person that had been to a game at Ball Arena had been to a Nuggets game?
+
+A: (34 + 17) / 64 = .797
+
+Q: What is the probability that a randomly selected person had been to a Nuggets game given they had been to an Avalanche game?
+
+A: 17 / (17 + 13) = .567
+
 \hypertarget{binomials-and-multinomials}{%
 \subsection{Binomials and Multinomials}\label{binomials-and-multinomials}}
 
@@ -1895,61 +2344,6 @@ Then, the formula would be represented as:
 \(\binom{5}{2}\ P(Win)^2\  P(Win^C)^{(5-2)}\)
 
 If we are interested in the probability of the team winning two of the next five games, drawing two, and losing one, we cannot use the binomial theorem. That involves three outcomes, and would be represented as a multinomial.
-
-\hypertarget{geometric-first-success-rvs}{%
-\subsection{Geometric (First Success) RVs}\label{geometric-first-success-rvs}}
-
-Caution: Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2022}\NormalTok{)}
-\NormalTok{geometric }\OtherTok{\textless{}{-}} \FunctionTok{rgeom}\NormalTok{(}\DecValTok{100}\NormalTok{, }\DecValTok{1}\SpecialCharTok{/}\DecValTok{3}\NormalTok{)}
-\FunctionTok{head}\NormalTok{(geometric, }\DecValTok{20}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1]  2  5  1  3 12  7  1  4  2  2  1  1  1  2  0  0  0  4  3  0
-\end{verbatim}
-
-Some of the values were 0, which could not happen if R was considering the number of the trial on which the first success occurred. You can add 1 to the values given by \texttt{R} to arrive at the First Success distribution.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{first\_success }\OtherTok{\textless{}{-}}\NormalTok{ geometric }\SpecialCharTok{+} \DecValTok{1}
-\FunctionTok{head}\NormalTok{(first\_success, }\DecValTok{20}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1]  3  6  2  4 13  8  2  5  3  3  2  2  2  3  1  1  1  5  4  1
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{mean}\NormalTok{(first\_success)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 3.03
-\end{verbatim}
-
-The mean of this sample of variables is 3.03, which is close to the expected mean of \(\frac{1}{p} = 3\).
-
-\hypertarget{geometric-distribution---hockey}{%
-\subsection{Geometric Distribution - Hockey}\label{geometric-distribution---hockey}}
-
-Suppose the number of shots needed by a hockey team in order to score their first goal, X, is modeled by a Geometric(\(\frac{1}{10}\)) random variable.
-
-Q: What is the probability that it takes more than 3 shots to score the first goal?
-
-A: \(P(X > 3) = P(X = 4) + P(X = 5) + P(X = 6) + ...\)
-
-This is an infinite series, so let's use the Law of Total Probability.
-
-\(P(X > 3) = 1 - P(X \leq 3) = 1 - [P(X = 1) + P(X = 2) + P(X = 3)] = 1 - [(\frac{1}{10}) + (\frac{9}{10})^1(\frac{1}{10}) + (\frac{9}{10})^2(\frac{1}{10})] = .729\)
 
 \hypertarget{expectation---baseball}{%
 \subsection{Expectation - Baseball}\label{expectation---baseball}}
@@ -1997,7 +2391,7 @@ A: \(P(score\ 2\ points\ in\ regulation) \cdot P(win\ in\ OT) > P(win\ in\ regul
 \(P(win\ in\ OT) > .478\)
 
 \hypertarget{multiple-probability-distributions---basketball}{%
-\section{Multiple Probability Distributions - Basketball}\label{multiple-probability-distributions---basketball}}
+\subsection{Multiple Probability Distributions - Basketball}\label{multiple-probability-distributions---basketball}}
 
 Suppose the number of points scored by a basketball player follows a Poisson(12) random variable, the number of rebounds by a Poisson(7) distribution, and assists by a Discrete Uniform(2, 11), independently of each other.
 
@@ -2039,92 +2433,6 @@ A: \(P(no\ triple\ double) = 1 - .0257 = .9743\), so \(P(no\ triple\ double\ in\
 
 The odds of no triple-double are \(\frac{.771}{1-.771} = 3.37\), so the bet of no triple-double at 4 to 1 odds is favorable.
 
-\hypertarget{poisson-distribution---soccer}{%
-\section{Poisson Distribution - Soccer}\label{poisson-distribution---soccer}}
-
-During the 2021 Major League Soccer season, the Colorado Rapids scored 51 goals in 34 games on their way to a first-place finish in the Western Conference regular season standings.
-
-The team scored \(\frac{51}{34} = 1.5\) goals per game. Let's model the distribution of Rapids goals using a Poisson(1.5) random variable that we'll call Y.
-
-Q: Which is more likely: Y taking on the value 0 or Y taking on the value 2?
-
-We can plot the PMF of Y to check visually.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{transform}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{8}\NormalTok{)), }\AttributeTok{y =} \FunctionTok{dpois}\NormalTok{(x, }\AttributeTok{lambda =} \FloatTok{1.5}\NormalTok{)), }\FunctionTok{aes}\NormalTok{(x, y)) }\SpecialCharTok{+}
-    \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Value"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Probability mass function of Poisson(1.5) random variable"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{series_files/figure-latex/soccer poisson-1.pdf}
-
-A: From the plot, \(P(Y = 2) > P(Y = 0)\).
-
-Q: What is the exact probability that this Poisson(1.5) random variable takes on the value 2?
-
-A: We can find this quantity using the \texttt{dpois} command.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dpois}\NormalTok{(}\AttributeTok{x =} \DecValTok{2}\NormalTok{, }\AttributeTok{lambda =} \FloatTok{1.5}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.2510214
-\end{verbatim}
-
-The same quantity can be obtained by plugging the numbers into the Poisson PMF.
-
-\(\frac{1.5^2 e^{-1.5}}{2!} = 0.251\)
-
-Q: Let's switch it around. What is the probability that a Poisson(2) random variable takes on the value 1.5?
-
-A: 0. Poisson random variables cannot take on values other than nonnegative integers. Remember, Poisson random variables are often used for count data.
-
-Let's check whether using a Poisson distribution was appropriate by comparing it to the actual 2021 Colorado Rapids match results.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(}\StringTok{"kableExtra"}\NormalTok{)}
-
-\NormalTok{goals }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\StringTok{"5 or more"}\NormalTok{)}
-\NormalTok{actual\_frequency }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{6}\NormalTok{, }\DecValTok{14}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
-\NormalTok{actual\_proportion }\OtherTok{\textless{}{-}}\NormalTok{ actual\_frequency}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(actual\_frequency)}
-\NormalTok{expected\_proportion }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{dpois}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\AttributeTok{lambda =} \FloatTok{1.5}\NormalTok{), }\FunctionTok{ppois}\NormalTok{(}\DecValTok{4}\NormalTok{, }\AttributeTok{lambda =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{lower.tail =} \ConstantTok{FALSE}\NormalTok{))}
-\NormalTok{expected\_frequency }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(expected\_proportion }\SpecialCharTok{*} \DecValTok{34}\NormalTok{, }\DecValTok{1}\NormalTok{)}
-
-\NormalTok{rapids.data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(goals, actual\_frequency, actual\_proportion, expected\_frequency,}
-\NormalTok{    expected\_proportion)}
-
-\NormalTok{rapids.data }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{kbl}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{kable\_styling}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{table}
-\centering
-\begin{tabular}[t]{l|r|r|r|r}
-\hline
-goals & actual\_frequency & actual\_proportion & expected\_frequency & expected\_proportion\\
-\hline
-0 & 6 & 0.1764706 & 7.6 & 0.2231302\\
-\hline
-1 & 14 & 0.4117647 & 11.4 & 0.3346952\\
-\hline
-2 & 7 & 0.2058824 & 8.5 & 0.2510214\\
-\hline
-3 & 6 & 0.1764706 & 4.3 & 0.1255107\\
-\hline
-4 & 0 & 0.0000000 & 1.6 & 0.0470665\\
-\hline
-5 or more & 1 & 0.0294118 & 0.6 & 0.0185759\\
-\hline
-\end{tabular}
-\end{table}
-
 \emph{answers may vary for following questions}
 
 Q: What differences do you notice between the actual results and the expected values based on the Poisson random variable?
@@ -2140,7 +2448,7 @@ Q: What are the advantages of using the Poisson distribution to model Major Leag
 A: Poisson random variables can take on the natural numbers (including zero), which aligns with the number of goals that can be scored in a match. One disadvantage is that it is possible for a Poisson to take on values that are not realistic for the situation, such as double-digit integers or higher. Only one game in MLS history has had a team score more than seven goals in a game. However, when \(\lambda\) is small (such as 1.5), these extreme values are relatively unlikely.
 
 \hypertarget{law-of-total-probability---hockey}{%
-\section{Law of Total Probability - Hockey}\label{law-of-total-probability---hockey}}
+\subsection{Law of Total Probability - Hockey}\label{law-of-total-probability---hockey}}
 
 Over the course of a season, a hockey player scored a goal 30\% of the time during a home game, and \(P(player\ scores\ |\ away\ game) = .18\). Assume all games are either home or away.
 
@@ -2157,265 +2465,13 @@ Q: What is the probability the player scored a goal in any game if the ratio of 
 A: \(P(score) = P(score|home)P(home) + P(score|away)P(away) = .3(\frac{2}{5}) + .18(\frac{3}{5}) = .228\)
 
 \hypertarget{law-of-total-probability---baseball}{%
-\section{Law of Total Probability - Baseball}\label{law-of-total-probability---baseball}}
+\subsection{Law of Total Probability - Baseball}\label{law-of-total-probability---baseball}}
 
 You work in the front office of a professional baseball club and have just learned that a certain prospect hits .200 against left-handed pitchers and .400 against right-handed pitchers (their overall batting average is unknown). The general manager of the team overhears you talking about the .400 statistic of the player and becomes very exited that they have the chance to draft a .400 hitter. What would you say to caution the GM that the player might not be a remarkable hitter?
 
 A: We don't know the proportion of the player's at-bats that came against left-handed pitchers versus right-handed pitchers. If we want to know the player's batting average unconditional on the type of pitcher they are facing, we have to adjust \(P(hit\ |\ left-handed\ pitcher)\) by \(P(left-handed\ pitcher)\) and \(P(hit\ |\ right-handed\ pitcher)\) by \(P(right-handed\ pitcher)\) before adding them to determine \(P(hit)\). For example, if 90\% of the player's at-bats were against left-handed pitchers, then their overall batting average is a pedestrian .220.
 
 \emph{Other possible issues: low sample size of player's at-bats, the fact that pro pitchers will be harder to hit against than non-pros}
-
-\hypertarget{sets-and-conditional-probability-1}{%
-\section{Sets and Conditional Probability}\label{sets-and-conditional-probability-1}}
-
-100 sports fans in Colorado were polled and it was found that 64 had attended either a Denver Nuggets or Colorado Avalanche game at Ball Arena (formerly Pepsi Center). 34 people had seen only a Nuggets game, while 17 had seen both a Nuggets and an Avalanche game.
-
-Q: How many people saw an Avalanche game but not a Nuggets game?
-
-A: 64 - 34 - 17 = 13
-
-Q: What is the probability that a randomly selected person in the poll had been to a Nuggets game?
-
-A: (34 + 17) / 100 = .51
-
-Q: What is the probability that a randomly selected person that had been to a game at Ball Arena had been to a Nuggets game?
-
-A: (34 + 17) / 64 = .797
-
-Q: What is the probability that a randomly selected person had been to a Nuggets game given they had been to an Avalanche game?
-
-A: 17 / (17 + 13) = .567
-
-\hypertarget{binomial-probability-1}{%
-\section{Binomial Probability}\label{binomial-probability-1}}
-
-Two baseball teams are playing a 4-game series. The home team has a .65 probability of winning each game, and the away team a .35 probability. Assume each game is independent.
-
-\emph{I used baseball in this example because it's the sport that most often has 4-game series, but it could easily be replaced by another sport.}
-
-Find the following probabilities.
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\tightlist
-\item
-  The road team wins exactly 1 game.
-\end{enumerate}
-
-\(\binom{4}{1}\ .65^3\ .35^1 = \binom{4}{3}\ .65^3\ .35^1 \approx .384\)
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.35}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.384475
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dbinom}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.65}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.384475
-\end{verbatim}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  The home team wins exactly 2 games.
-\end{enumerate}
-
-\(\binom{4}{2}\ .65^2\ .35^2 \approx .311\)
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dbinom}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.65}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.3105375
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dbinom}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.35}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.3105375
-\end{verbatim}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  The road team wins at least 2 games.
-\end{enumerate}
-
-\(\binom{4}{2}\ .65^2\ .35^2 + \binom{4}{3}\ .65^1\ .35^3 + .35^4 = 1 - [.65^4 + \binom{4}{1}\ .65^3\ .35^1] \approx .437\)
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{pbinom}\NormalTok{(}\FloatTok{1.9}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.35}\NormalTok{, }\AttributeTok{lower.tail =}\NormalTok{ F)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.4370187
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{pbinom}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.65}\NormalTok{, }\AttributeTok{lower.tail =}\NormalTok{ T)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.4370187
-\end{verbatim}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  The series ends in a sweep.
-\end{enumerate}
-
-\(.65^4 + .35^4 \approx .194\)
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dbinom}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.65}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{dbinom}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.35}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.1935125
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FloatTok{0.65}\SpecialCharTok{\^{}}\DecValTok{4} \SpecialCharTok{+} \FloatTok{0.35}\SpecialCharTok{\^{}}\DecValTok{4}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.1935125
-\end{verbatim}
-
-\hypertarget{binomial-coefficient-symmetry-1}{%
-\section{Binomial Coefficient Symmetry}\label{binomial-coefficient-symmetry-1}}
-
-Playoff series for a certain sports league are played as a best-of-seven series, with one team hosting four games and the opposing team hosing three. An executive for the league wishes to know the number of ways the home and away games can be assigned. (One such combination is A-A-B-B-A-B-A, the format used by the NBA and NHL for their best-of-seven series.) What is the total number of combinations?
-
-Answer: Since there are a fixed number of games (seven) and a fixed number of games that must be given to the lower-seeded team (four), there are \(\binom{7}{4} = \frac{7!}{4!\ \cdot\ (7-4)!} = 35\) ways to create a home-away pattern for the seven-game series.
-
-However, instead of thinking about the number of ways to assign the games to the team that gets four home games, what if we thought about the number of ways to assign games to the team that gets three home games?
-
-That would be \(\binom{7}{3}\). We can use the \texttt{choose} command in \texttt{R} to find this quantity.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{choose}\NormalTok{(}\DecValTok{7}\NormalTok{, }\DecValTok{3}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 35
-\end{verbatim}
-
-It turns out that this binomial coefficient is also equal to 35.
-
-Theorem: \(\binom{n}{k} = \binom{n}{n-k}\)
-
-\(\binom{n}{k} = \frac{n!}{k!\ \cdot\ (n-k)!}\)
-
-\(\binom{n}{n-k} = \frac{n!}{(n-k)!\ \cdot\ (n-(n-k))!} = \frac{n!}{(n-k)!\ \cdot\ k!} = \binom{n}{k}\)
-
-\hypertarget{binomials-and-multinomials-1}{%
-\section{Binomials and Multinomials}\label{binomials-and-multinomials-1}}
-
-Suppose we are curious about probabilities regarding the results of a soccer team's next five games.
-
-Wait!!! A soccer game has three possible outcomes (win, lose, draw)! We can't use the binomial distribution, since it limits us to two possible outcomes!
-
-It depends. If we are interested in the probability that a soccer team wins 2 of their next 5 games, we can use the binomial distribution. We can create the following partition of the sample space of outcomes: \((Win)\) and \((Win^C)\), where the second set includes both losing and drawing.
-
-Then, the formula would be represented as:
-
-\(\binom{5}{2}\ P(Win)^2\  P(Win^C)^{(5-2)}\)
-
-If we are interested in the probability of the team winning two of the next five games, drawing two, and losing one, we cannot use the binomial theorem. That involves three outcomes, and would be represented as a multinomial.
-
-\hypertarget{geometric-first-success-rvs-1}{%
-\section{Geometric (First Success) RVs}\label{geometric-first-success-rvs-1}}
-
-Caution: Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2022}\NormalTok{)}
-\NormalTok{geometric }\OtherTok{\textless{}{-}} \FunctionTok{rgeom}\NormalTok{(}\DecValTok{100}\NormalTok{, }\DecValTok{1}\SpecialCharTok{/}\DecValTok{3}\NormalTok{)}
-\FunctionTok{head}\NormalTok{(geometric, }\DecValTok{20}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1]  2  5  1  3 12  7  1  4  2  2  1  1  1  2  0  0  0  4  3  0
-\end{verbatim}
-
-Some of the values were 0, which could not happen if \texttt{R} was considering the number of the trial on which the first success occurred. You can add 1 to the values given by \texttt{R} to arrive at the First Success distribution.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{first\_success }\OtherTok{\textless{}{-}}\NormalTok{ geometric }\SpecialCharTok{+} \DecValTok{1}
-\FunctionTok{head}\NormalTok{(first\_success, }\DecValTok{20}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1]  3  6  2  4 13  8  2  5  3  3  2  2  2  3  1  1  1  5  4  1
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{mean}\NormalTok{(first\_success)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 3.03
-\end{verbatim}
-
-The mean of this sample of variables is 3.03, which is close to the expected mean of \(\frac{1}{p} = 3\).
-
-\hypertarget{geometric-distribution---hockey-1}{%
-\section{Geometric Distribution - Hockey}\label{geometric-distribution---hockey-1}}
-
-Suppose the number of shots needed by a hockey team in order to score their first goal, \(X\), is modeled by a Geometric(\(\frac{1}{10}\)) random variable.
-
-Q: What is the probability that it takes more than 3 shots to score the first goal?
-
-A: \(P(X > 3) = P(X = 4) + P(X = 5) + P(X = 6) +\ ...\)
-
-This is an infinite series, so let's use the Complement Rule.
-
-\(P(X > 3) = 1 - P(X \leq 3) = 1 - \sum_{i=1}^{3}P(X = i) = 1 - [\frac{1}{10} + (\frac{9}{10})^1(\frac{1}{10}) + (\frac{9}{10})^2(\frac{1}{10})] = .729\)
-
-Q: Why might the assumptions for the Geometric distribution make it an imperfect model for this situation?
-
-A: Geometric random variables assume a constant probability for each trial (in this case, shots on goal). In hockey, the probability of a shot hitting the back of the net changes based on its location, velocity, positioning of defensive players, whether the team is on the power play, etc.
 
 \hypertarget{monte-carlo-simulation}{%
 \chapter{Monte Carlo Simulation}\label{monte-carlo-simulation}}
@@ -2561,6 +2617,34 @@ The team had a 4+ game winning streak in about 20\% of the simulations.
 
 \hypertarget{other-sports}{%
 \chapter{Other Sports}\label{other-sports}}
+
+\hypertarget{text-solutions}{%
+\chapter{Text solutions}\label{text-solutions}}
+
+\hypertarget{chapter-1}{%
+\section{Chapter 1}\label{chapter-1}}
+
+\textbf{\emph{Example 1.1:}}\\
+Population: all season passing totals of Manning's career\\
+Sample: season passing totals of Manning's career with Broncos
+
+\textbf{\emph{Example 1.2:}}\\
+Discrete: Passing yards, Passing TDs\\
+Continuous: Passing attempt release times, Average yards per pass by game
+
+\textbf{\emph{Example 1.3:}}\\
+Nominal: Pass result (completion, incomplete, interception)\\
+Ordinal: Season injury status (no injuries, some injuries, missed full year)
+
+\textbf{\emph{Example 1.4:}}\\
+\((4659 + 5477 + 4727 + 2249)/4 = 4278\)
+
+\textbf{\emph{Example 1.5:}}\\
+Colts ordered data: 3739, 3747, 4002, 4040, 4131, 4135, \textbf{4200}, 4267, 4397, 4413, 4500, 4557, 4700
+Broncos ordered data: 2249, 4659, 4727, 5477 \(\to (4659+4727)/2 = 4693\)
+
+\textbf{\emph{Example 1.6:}}\\
+Wins: 12, Games: 16, p=12/16=0.75
 
 \hypertarget{aarons-stuff}{%
 \chapter{Aaron's stuff}\label{aarons-stuff}}

@@ -542,24 +542,32 @@ To begin, let's go over a couple of basic summary statistics specific to soccer 
 
 -   **Expected Goals (xG)** "indicates how many goals a team could have expected to score based on the quantity and quality of chances that they created in a match" (Tippett 2019, 4).
 
+-   **Assist (A)** occur when a player passes the ball to someone, and the next shot results in a goal.
+
+-   **Possession** refers to the percentage of time a team had control of the ball during a game.
+
 These definitions come from www.rookieroad.com and "The Expected Goals Philosophy" by James Tippett.
 
-### Example 1 {.unnumbered}
+To learn more about expected goals, check out [this YouTube video](https://www.youtube.com/watch?v=w7zPZsLGK18&list=PL9Az6mi38hv__afKnHR1AKjpcDIw_0qqT){.uri}.
+
+### Bar Plot
 
 Now that we have an understanding of some basic shooting statistics, let us go through some EDA examples. For this first example, we will need to install the "worldfootballR" package.
 
 ```{r}
 library(worldfootballR)
-library(ggExtra)
-library(ggridges)
 ```
 
 Next we will look at some data specific to LaLiga, which is a soccer league in the men's top professional soccer division.
 
-```{r}
+```{r,eval=F,message=F}
 # Get "Squad Standard Stats" Data
 big5_2021_stats <- fb_big5_advanced_season_stats(season_end_year = 2021, stat_type = "standard", team_or_player = "team")
 liga_2021_stats <- big5_2021_stats[which((big5_2021_stats$Comp == "La Liga")),]
+```
+
+```{r, echo=F,message=F}
+liga_2021_stats <- read_csv("data/liga_2021_stats.csv")
 ```
 
 ```{r}
@@ -596,18 +604,19 @@ all_goals_viz
 This is looking pretty good, but let's clean it up just a bit by changing the legend title and labels.
 
 ```{r}
-all_goals_viz <- all_goals_viz +
+all_goals_viz +
   scale_fill_discrete(name = "Team or Opponent", labels = c("Opponent","Team"))
-all_goals_viz
+
 ```
 
 What does this graph show us? Well, we are able to see the average number of goals scored for and against each team per game. It looks like Barcelona is scoring a lot more goals than they are letting be scored against them, while other teams like Valladolid tend to have a higher proportion of goals scored for the opposing team.
 
-### Example 2 {.unnumbered}
+### Scatter Plot
 
 In addition to simply knowing the average actual number of goals scored for and against each team per game, we may be interested in how this compares to the expected number of goals scored per game, as well.
 
-```{r}
+```{r, warning=F, message=F}
+library(ggExtra)
 act_exp_viz <- ggplot(data = liga_2021_stats, aes(x = xG_Per, y = Gls_Per, label = Squad)) +
   geom_point() +
   scale_x_continuous(limits = c(0.75,2.25)) +
@@ -623,75 +632,154 @@ ggMarginal(act_exp_viz, type = "density")
 
 As you can see, we fit a line to the data. At first glance, it seems to have a positive slope slightly greater than 1. What does this mean in the scenario of actual and expected goals per game?
 
-<!-- ### Example 3 {.unnumbered} -->
+### Density Ridges Plot
 
-<!-- At first glance, it seems that actual goals scored per game do not differ greatly from expected goals per game. Let us look at some density plots for actual and expected goals per game for five of the top teams in LaLiga over the last four seasons. These are the top five teams as of June 21st, 2022 on www.foxsports.com. -->
+At first glance, it seems that actual goals scored per game do not differ greatly from expected goals per game. Let us look at some density plots for actual and expected goals per game for five of the top teams in LaLiga over the last four seasons. These are the top five teams as of June 21st, 2022 on www.foxsports.com.
 
-<!-- ```{r} -->
-<!-- # Get "Squad Standard Stats" data for the last four seasons -->
-<!-- top_liga_2021_stats <- fb_big5_advanced_season_stats(season_end_year = 2021, stat_type = "standard", team_or_player = "team") -->
-<!-- top_liga_2021_stats <- top_liga_2021_stats[which(top_liga_2021_stats$Squad == "Real Madrid"| -->
-<!--                                            top_liga_2021_stats$Squad == "Villarreal"| -->
-<!--                                            top_liga_2021_stats$Squad == "Barcelona"| -->
-<!--                                            top_liga_2021_stats$Squad == "Levante"| -->
-<!--                                            top_liga_2021_stats$Squad == "Betis"),] -->
-<!-- top_liga_2020_stats <- fb_big5_advanced_season_stats(season_end_year = 2020, stat_type = "standard", team_or_player = "team") -->
-<!-- top_liga_2020_stats <- top_liga_2020_stats[which(top_liga_2020_stats$Squad == "Real Madrid"| -->
-<!--                                            top_liga_2020_stats$Squad == "Villarreal"| -->
-<!--                                            top_liga_2020_stats$Squad == "Barcelona"| -->
-<!--                                            top_liga_2020_stats$Squad == "Levante"| -->
-<!--                                            top_liga_2020_stats$Squad == "Betis"),] -->
-<!-- top_liga_2019_stats <- fb_big5_advanced_season_stats(season_end_year = 2019, stat_type = "standard", team_or_player = "team") -->
-<!-- top_liga_2019_stats <- top_liga_2019_stats[which(top_liga_2019_stats$Squad == "Real Madrid"| -->
-<!--                                            top_liga_2019_stats$Squad == "Villarreal"| -->
-<!--                                            top_liga_2019_stats$Squad == "Barcelona"| -->
-<!--                                            top_liga_2019_stats$Squad == "Levante"| -->
-<!--                                            top_liga_2019_stats$Squad == "Betis"),] -->
-<!-- top_liga_2018_stats <- fb_big5_advanced_season_stats(season_end_year = 2018, stat_type = "standard", team_or_player = "team") -->
-<!-- top_liga_2018_stats <- top_liga_2018_stats[which(top_liga_2018_stats$Squad == "Real Madrid"| -->
-<!--                                            top_liga_2018_stats$Squad == "Villarreal"| -->
-<!--                                            top_liga_2018_stats$Squad == "Barcelona"| -->
-<!--                                            top_liga_2018_stats$Squad == "Levante"| -->
-<!--                                            top_liga_2018_stats$Squad == "Betis"),] -->
 
-<!-- # Combine all four seasons' data into one data frame -->
-<!-- top_liga_stats <- rbind(top_liga_2018_stats, top_liga_2019_stats, top_liga_2020_stats, top_liga_2021_stats) -->
+```{r, message=F, warning=F}
+library(ggridges)
 
-<!-- goals_act <- data.frame(top_liga_stats$Gls_Per[which(top_liga_stats$Team_or_Opponent == "team")]) -->
-<!-- goals_act$team <- top_liga_stats$Squad[which(top_liga_stats$Team_or_Opponent == "team")] -->
-<!-- goals_act$exp_or_act <- "actual" -->
-<!-- goals_act$year <- top_liga_stats$Season_End_Year[which(top_liga_stats$Team_or_Opponent == "team")] -->
-<!-- colnames(goals_act)[1] <- "stats" -->
-<!-- goals_exp <- data.frame(top_liga_stats$xG_Per[which(top_liga_stats$Team_or_Opponent == "team")]) -->
-<!-- goals_exp$team <- top_liga_stats$Squad[which(top_liga_stats$Team_or_Opponent == "team")] -->
-<!-- goals_exp$exp_or_act <- "expected" -->
-<!-- goals_exp$year <- top_liga_stats$Season_End_Year[which(top_liga_stats$Team_or_Opponent == "team")] -->
-<!-- colnames(goals_exp)[1] <- "stats" -->
-<!-- goals <- rbind(goals_act, goals_exp) -->
+# Get "Squad Standard Stats" data for the last four seasons
+top_liga_2021_stats <- read_csv("data/laliga21.csv")
+top_liga_2020_stats <- read_csv("data/laliga20.csv")
+top_liga_2019_stats <- read_csv("data/laliga19.csv")
+top_liga_2018_stats <- read_csv("data/laliga18.csv")
 
-<!-- # Plot density ridges -->
-<!-- ggplot(data = goals) + -->
-<!--   geom_density_ridges(aes(x = stats, y = team, fill = exp_or_act, color = exp_or_act), -->
-<!--                       alpha = 0.5, scale = 1) + -->
-<!--   scale_x_continuous(limits = c(0.75,2.75)) + -->
-<!--   scale_y_discrete(expand = expand_scale(add = c(0.2, 1))) + -->
-<!--   ggtitle("Expected vs. Actual Goals Per Game") + -->
-<!--   xlab("Goals Per Game") + -->
-<!--   ylab("Team") + -->
-<!--   scale_fill_cyclical(name = "Actual or Expected Goals", -->
-<!--                       labels = c("Actual","Expected"), -->
-<!--                       guide = "legend", -->
-<!--                       values = c("#FF0000A0", "#A0A0A0A0")) + -->
-<!--   scale_color_cyclical(name = "Actual or Expected Goals", -->
-<!--                        labels = c("Actual","Expected"), -->
-<!--                        guide = "legend", -->
-<!--                        values = c("#FF0000A0", "#A0A0A0A0")) -->
-<!-- ``` -->
+top_liga_2021_stats <- top_liga_2021_stats[which(top_liga_2021_stats$Squad == "Real Madrid"|
+                                           top_liga_2021_stats$Squad == "Villarreal"|
+                                           top_liga_2021_stats$Squad == "Barcelona"|
+                                           top_liga_2021_stats$Squad == "Levante"|
+                                           top_liga_2021_stats$Squad == "Betis"),]
+top_liga_2020_stats <- top_liga_2020_stats[which(top_liga_2020_stats$Squad == "Real Madrid"|
+                                           top_liga_2020_stats$Squad == "Villarreal"|
+                                           top_liga_2020_stats$Squad == "Barcelona"|
+                                           top_liga_2020_stats$Squad == "Levante"|
+                                           top_liga_2020_stats$Squad == "Betis"),]
+top_liga_2019_stats <- top_liga_2019_stats[which(top_liga_2019_stats$Squad == "Real Madrid"|
+                                           top_liga_2019_stats$Squad == "Villarreal"|
+                                           top_liga_2019_stats$Squad == "Barcelona"|
+                                           top_liga_2019_stats$Squad == "Levante"|
+                                           top_liga_2019_stats$Squad == "Betis"),]
+top_liga_2018_stats <- top_liga_2018_stats[which(top_liga_2018_stats$Squad == "Real Madrid"|
+                                           top_liga_2018_stats$Squad == "Villarreal"|
+                                           top_liga_2018_stats$Squad == "Barcelona"|
+                                           top_liga_2018_stats$Squad == "Levante"|
+                                           top_liga_2018_stats$Squad == "Betis"),]
 
-<!-- Let us break down exactly what this visual is showing us. We are looking at the density of expected and actual goals per game for the top five teams in LaLiga, over the last four seasons (with the last season ending in 2021). We can see that Barcelona is typically scoring more goals than what is expected of them, as the density of actual goals is condensed around higher goal numbers than the density of expected goals. Villarreal, however, is performing just as well as what is expected of them based on expected and actual goals scored. -->
+# Combine all four seasons' data into one data frame
+top_liga_stats <- rbind(top_liga_2018_stats, top_liga_2019_stats, top_liga_2020_stats, top_liga_2021_stats)
+
+goals_act <- data.frame(top_liga_stats$Gls_Per[which(top_liga_stats$Team_or_Opponent == "team")])
+goals_act$team <- top_liga_stats$Squad[which(top_liga_stats$Team_or_Opponent == "team")]
+goals_act$exp_or_act <- "actual"
+goals_act$year <- top_liga_stats$Season_End_Year[which(top_liga_stats$Team_or_Opponent == "team")]
+colnames(goals_act)[1] <- "stats"
+goals_exp <- data.frame(top_liga_stats$xG_Per[which(top_liga_stats$Team_or_Opponent == "team")])
+goals_exp$team <- top_liga_stats$Squad[which(top_liga_stats$Team_or_Opponent == "team")]
+goals_exp$exp_or_act <- "expected"
+goals_exp$year <- top_liga_stats$Season_End_Year[which(top_liga_stats$Team_or_Opponent == "team")]
+colnames(goals_exp)[1] <- "stats"
+goals <- rbind(goals_act, goals_exp)
+
+# Plot density ridges
+ggplot(data = goals) +
+  geom_density_ridges(aes(x = stats, y = team, fill = exp_or_act, color = exp_or_act),
+                      alpha = 0.5, scale = 1) +
+  scale_x_continuous(limits = c(0.75,2.75)) +
+  scale_y_discrete(expand = expand_scale(add = c(0.2, 1))) +
+  ggtitle("Expected vs. Actual Goals Per Game") +
+  xlab("Goals Per Game") +
+  ylab("Team") +
+  scale_fill_cyclical(name = "Actual or Expected Goals",
+                      labels = c("Actual","Expected"),
+                      guide = "legend",
+                      values = c("#FF0000A0", "#A0A0A0A0")) +
+  scale_color_cyclical(name = "Actual or Expected Goals",
+                       labels = c("Actual","Expected"),
+                       guide = "legend",
+                       values = c("#FF0000A0", "#A0A0A0A0"))
+
+```
+
+Let us break down exactly what this visual is showing us. We are looking at the density of expected and actual goals per game for the top five teams in LaLiga, over the last four seasons (with the last season ending in 2021). We can see that Barcelona is typically scoring more goals than what is expected of them, as the density of actual goals is condensed around higher goal numbers than the density of expected goals. Villarreal, however, is performing just as well as what is expected of them based on expected and actual goals scored.
 
 
 ## Volleyball
+
+To begin, let's go over some basic volleyball statistics. The following definitions come from [www.rookieroad.com](www.rookieroad.com)
+
+-   A **Service Ace (SA)** occurs when a player's serve touches the ground on the other team's side without being touched by a player on that side.
+-   A **Kill (K)** occurs when a player gets the ball over the net without it being returned by the opponent.
+-   An **Assist (AST)** is a pass made directly before a player makes a kill.
+-   **Hitting Percentage (PCT)** is the number of attempted kills (minus errors) divided by the total number of kill attempts. This helps determine how well a player or team is succeeding at their kill attempts.
+
+For Volleyball EDA, we will be using CSU Women's Volleyball data from the last five seasons.
+
+```{r include=FALSE}
+# Load CSU Women's Volleyball Data
+csu_vb <- read_csv("data/csu_volleyball.csv")
+colnames(csu_vb)[3] <- "W_L"
+
+```
+
+Let's look at a scatter plot of hitting percentage and the number of digs. While no conclusions can be drawn from such a plot, it can give us some insight into relationships worthy of further analysis. Before creating the plot using the code below, think about what you might expect the outcome to be.
+
+### Scatter Plot
+
+```{r}
+# Digs, Hitting Percentage, Win/Lose
+dig_pct_viz <- ggplot(data = csu_vb, aes(x = DIG, y = PCT, color = W_L)) +
+  geom_point()
+dig_pct_viz
+
+```
+
+Let's change the axis titles, legend title, and add a main title.
+
+```{r}
+dig_pct_viz +
+  labs(title = "Wins and Losses by Number of Digs and Hitting Percentage",
+       x = "Number of Digs (DIG)", y = "Hitting Percentage (PCT)",
+       color = "Win or Loss")
+```
+
+What can we learn from this visual? Well, we can see that there is a weak linear relationship between the number of digs and hitting percentage. To an extent, hitting percentage decreases as the number of digs increases. Why is this the case? Maybe if a team has a really high hitting percentage, this means that the opposing team does not have as many opportunities to attack the other team offensively, reducing the number of opportunities for digs. It also seems that while wins and losses are somewhat evenly spread across the number of digs, there is a more clear cutoff for hitting percentage. It seems that the majority of wins are associated with a hitting percentage of at least 0.2, while the majority of losses are associated with a hitting percentage of less than 0.3.
+
+### Box Plot
+
+Now let's take a closer look at the distribution of hitting percentage and digs for wins and losses. To do this, we will create box plots for each statistic.
+
+```{r}
+pct_viz <- ggplot(data = csu_vb, aes(x = PCT, y = W_L)) +
+  geom_boxplot()
+pct_viz
+
+dig_viz <- ggplot(data = csu_vb, aes(x = DIG, y = W_L)) +
+  geom_boxplot()
+dig_viz
+
+```
+
+Let's modify these plots to make them more complete and visually appealing.
+
+```{r}
+pct_viz +
+  labs(title = "Hitting Percentage for Wins and Losses",
+       x = "Hitting Percentage (PCT)",
+       y = "Win or Loss") +
+  geom_boxplot(fill = "slateblue", alpha = 0.2)
+
+dig_viz +
+  labs(title = "Number of Digs for Wins and Losses",
+       x = "Number of Digs (DIG)",
+       y = "Win or Loss") +
+  geom_boxplot(fill = "slateblue", alpha = 0.2)
+
+```
+
+Box plots allow us to isolate each statistic (number of kills and hitting percentage) so we can more clearly determine the center and spread of each between wins and losses.
+
 
 ## Hockey
 

@@ -2,9 +2,7 @@
 
 -----
 
-## To Be Added
 
-### Topic 1
 
 -----
 
@@ -16,7 +14,6 @@ library(tidyverse)
 
 ```
 
-//*[@id="main-content"]/div/div[3]/div[2]
 
 ## wnba scraping
 ```{r}
@@ -38,25 +35,103 @@ wil$eFG
 
 -----
 
-### EDA
+### EDA/Probability
 
 -----
 
 ### Baseball
 
+
+#### WAR comparison (Prob)
+Link to WAR explaination: https://www.mlb.com/glossary/advanced-stats/wins-above-replacement
+
+Player X has a projected mean WAR of 3 with standard deviation of 2 and player Y has a projected mean WAR of 1.5 with a standard deviation of 3. Assume projected WAR is normally distributed.
+Q: What is the probability that Player X outperforms Player Y?
+A: 
+We want Pr(X>Y) or Pr(X-Y>0).  
+Let Z = X-Y.  
+E[Z]=1.5
+Var(Z)=5
+Pr(Z>0)=1-Pr(Z $\leq$ 0)
+```{r}
+#Calculate probability Z<=0
+pr <- pnorm(0,1.5,sqrt(5))
+print(1-pr)
+```
+The Probability that Player X outperforms Player Y is 0.7488. 
+
+
+
+#### Injured Baserunner (Prob)
+A runner on first base with 2 out and nobody else on base will attempt to steal second base on the first pitch 70% of the time if he is fully healthy but only 10% of the time if he is playing through an injury. Assume that 80% of the player population is healthy. You see a randomly selected runner not attempt a steal in this situation. 
+Q: What is the probability that the runner is playing through an injury?
+A: 
+From Bayes Theorem:  
+
+Pr(Injury given No Steal) = Pr(No Steal given Injury)\*Pr(Injury)/P(No Steal).  
+
+Pr(No Steal given Injury) = 1 - Pr(Steal given Injury) = 0.9.  
+
+Pr(Injury) = 1- Pr(Healthy) = 0.2.  
+
+Pr(No Steal) = Pr(No Steal given Injury)\*Pr(Injury)+Pr(No Steal given Healthy)\*Pr(Healthy).  
+
+Pr(No Steal) = 0.9\*0.2+0.7\*0.8 = 0.74.  
+
+Therefore Pr(Injury given No Steal) = 0.9\*0.2/0.74 = 0.243.  
+
+
+#### OPS (EDA)
+Q: Using the dataset, plot the leagues average OPS from every year in the data to see the progression.
+A:
+```{r}
+mlb = read.csv('~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/data/mlb_team_stats_history.csv')
+head(mlb)
+
+# make new variables
+mlb=mutate(mlb,SLG=(X1B+2*X2B+3*X3B+4*HR)/(AB))
+mlb=mutate(mlb,OBP=(H+BB+HBP)/(AB+BB+HBP+SF))
+mlb=mutate(mlb,OPS=OBP+SLG)
+
+# get avg ops
+summarize(mlb, Average = mean(OPS,na.rm=T))
+
+# get avg ops by year
+group_by(mlb, yearID)%>%
+summarize(Average = mean(OPS, na.rm=T))
+
+group_by(mlb, yearID)%>%
+summarize(Average = mean(OPS, na.rm=T))%>%View
+
+#create new dataset
+mlbYr=group_by(mlb, yearID)%>%
+summarize(Average = mean(OPS, na.rm=T))
+
+#plot it
+ggplot(mlbYr, aes(x=yearID, y= Average))+geom_point()
+```
+Followup Q: What would cause the data to peak around the year 2000?
+A: PED's
+
 -----
 
 ### Tennis
+Link for brief explanation of tennis scoring: https://www.sportingnews.com/us/tennis/news/tennis-scoring-explained-rules-system-points-terms/7uzp2evdhbd11obdd59p3p1cx
 
-#formula from Analyzing Wimbledon (Probability of winning a game from probability of winning serve)
+
+#### Probability of Winning a Game (Prob)
+The formula for the probability of a tennis player winning a game (from Analyzing Wimbledon) is given by
+$\frac{p^4*(-8*p^3+28*p^2-34*p+15)}{p^2+(1-p)^2}$ where $p$ is the probability of a player winning their service point.
+Q: If a player wins their service points 62% of the time, what is the probability they win the game?
+A:
 ```{r}
-p <- 0.6
+p <- 0.62
 pr_game <- (p^4*(-8*p^3+28*p^2-34*p+15))/(p^2+(1-p)^2)
 pr_game
 ```
 
 
-
+#### Graph Example of Probability of Winning Point vs Probability of Winning Game (Prob)
 ```{r}
 game <- c(0)
 pr <- 1:100
@@ -74,4 +149,20 @@ ggplot(df, aes(x=point_pr, y=game_pr)) +
 ```
 
 
+### WNBA Scores (EDA)
+Q: What is the difference in PPG for a winning team at home vs a winning team away?
+A:
+```{r}
+wnba=read.csv('~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/data/WNBA_Games2019_Scores.csv')
+head(wnba)
 
+group_by(wnba, Winner)%>%
+  summarize(Count=n())%>%
+  mutate(Percent=Count/sum(Count))
+
+group_by(wnba, Winner)%>%
+  summarize(Average=mean(PTSwin,na.rm=T),sd=sd(PTSwin,na.rm=T))
+
+84.822-83.787
+```
+A home team winner scores on average 1.035 PPG more than an away team winner.

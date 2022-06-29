@@ -1,0 +1,25 @@
+# Text solutions
+
+## Chapter 1
+
+***Example 1.1:*** \
+Population: all season passing totals of Manning's career \
+Sample: season passing totals of Manning's career with Broncos
+
+***Example 1.2:*** \
+Discrete: Passing yards, Passing TDs \
+Continuous: Passing attempt release times, Average yards per pass by game
+
+***Example 1.3:*** \
+Nominal: Pass result (completion, incomplete, interception) \
+Ordinal: Season injury status (no injuries, some injuries, missed full year)
+
+***Example 1.4:*** \
+$(4659 + 5477 + 4727 + 2249)/4 = 4278$
+
+***Example 1.5:*** \
+Colts ordered data: 3739, 3747, 4002, 4040, 4131, 4135, **4200**, 4267, 4397, 4413, 4500, 4557, 4700
+Broncos ordered data: 2249, 4659, 4727, 5477 $\to (4659+4727)/2 = 4693$
+
+***Example 1.6:*** \
+Wins: 12, Games: 16, p=12/16=0.75
