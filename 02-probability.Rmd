@@ -804,6 +804,7 @@ You work in the front office of a professional baseball club and have just learn
 
 A: We don't know the proportion of the player's at-bats that came against left-handed pitchers versus right-handed pitchers. If we want to know the player's batting average unconditional on the type of pitcher they are facing, we have to adjust $P(hit\ |\ left-handed\ pitcher)$ by $P(left-handed\ pitcher)$ and $P(hit\ |\ right-handed\ pitcher)$ by $P(right-handed\ pitcher)$ before adding them to determine $P(hit)$. For example, if 90% of the player's at-bats were against left-handed pitchers, then their overall batting average is a pedestrian .220.
 
+
 *Other possible issues: low sample size of player's at-bats, the fact that pro pitchers will be harder to hit against than non-pros*
 
 
