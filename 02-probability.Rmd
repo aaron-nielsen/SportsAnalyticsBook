@@ -12,7 +12,7 @@ An ***experiment*** is any activity or process whose outcome is subject to uncer
 
 :::{.definition}
 The ***sample space*** of an experiment, denoted by $\Omega$ or $\mathcal{S}$, is the set of all possible outcomes of that experiment.
-:::
+::: 
 
 
 :::{.definition}
