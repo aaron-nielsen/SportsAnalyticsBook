@@ -14,11 +14,10 @@ bookdown::gitbook:
       collapse: section
       scroll_highlight: true
     edit: https://github.com/aaron-nielsen/SportsAnalyticsBook/edit/master/%s
-    download: ["pdf","epub"]
+    download: ["pdf"]
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
   keep_tex: yes
   latex_engine: xelatex
   citation_package: natbib
-bookdown::epub_book: default

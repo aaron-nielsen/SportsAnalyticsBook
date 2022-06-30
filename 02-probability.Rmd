@@ -1,7 +1,7 @@
 # Probability
 
 ## Chapter Preview {-}
-Simply put, probability is the study of randomness. In this chapter, we will define probability, learn rules of probability, and apply these rules to sports data.
+Probability is the study of randomness. In this chapter, we will define probability, learn rules of probability, and apply these rules to sports data.
 
 ## Definitions
 
@@ -36,6 +36,8 @@ $$ $$
 \
 \
 \
+
+\newpage
 
 ## Set Theory 
 
@@ -118,10 +120,12 @@ Are the events $A$ and $B$ disjoint? How about $A$ and $D$?
 \
 \
 
+\newpage
 
 
 
-## Probability Axioms and Properties
+
+## Axioms, Properties, and Laws
 
 There are some basic assumptions of "axioms" which are the foundation of the theory of probability. Andrey Kolmogorov first described these axioms in 1933.
 
@@ -149,7 +153,8 @@ We can convert to percentages by multiplying probabilities by 100, however, this
 
 - $P([A \cap B]^c) = P(A^c \cup B^c)$
 
-## Laws of Probability
+
+### Laws of Probability
 
 :::{.definition}
 Let $A$ and $B$ be two events such that $P(B)>0$. Then the ***conditional probability*** of $A$ given $B$, written $P(A|B)$, is given by:
@@ -211,6 +216,8 @@ Over the course of a season, a hockey player scored a goal 30% of the time durin
 \
 \
 
+\newpage
+
 ## Combinatorics
 
 Combinatorics is the mathematical study of counting, particularly with respect to permutations and combinations.
@@ -237,8 +244,11 @@ If the first element of an ordered pair can be selected in $n_1$ ways and for ea
 Suppose a set consists of $k$ elements (k-tuples) and that there are $n_1$ possible choices for the first element, $n_2$ possible choices for the second element, ... , and $n_k$ possible choices for the $k^\text{th}$ element, then there are $n_1 \cdot n_2 \cdot \ldots \cdot n_k$ possible k-tuples.
 :::
 
+\newpage
+
 ## Odds and Gambling
 
+\newpage
 
 ## Random Variables
 
@@ -365,6 +375,8 @@ For the Rockies/Cubs four game series example, calculate $Var(X)$.
 \
 \
 
+\newpage
+
 ## Common Random Variables
 
 There are several families of random variables that show up frequently in applications. Some of these random variables include:
@@ -453,6 +465,8 @@ $\binom{n}{k} = \frac{n!}{k!\ \cdot\ (n-k)!}$
 
 $\binom{n}{n-k} = \frac{n!}{(n-k)!\ \cdot\ (n-(n-k))!} = \frac{n!}{(n-k)!\ \cdot\ k!} = \binom{n}{k}$
 
+\newpage
+
 ### Geometric RVs
 
 :::{.definition}
@@ -508,6 +522,8 @@ Let's plot the sample distribution of shots required to score a goal from the si
 first_success_df = data.frame(Shots = first_success)
 first_success_df %>% ggplot(aes(x=Shots)) + geom_histogram(binwidth = 1)
 ```
+
+\newpage
 
 ### Poisson RVs
 
@@ -588,6 +604,7 @@ kable_styling()
 
 <!-- Poisson random variables can take on the natural numbers (including zero), which aligns with the number of goals that can be scored in a match. One disadvantage is that it is possible for a Poisson to take on values that are not realistic for the situation, such as double-digit integers or higher. Only one game in MLS history has had a team score more than seven goals in a game. However, when $\lambda$ is small (such as 1.5), these extreme values are relatively unlikely. -->
 
+\newpage
 
 ### Normal RVs
 
@@ -650,7 +667,8 @@ e <- pnorm(q=70,mean=50,sd=10) - pnorm(q=30,mean=50,sd=10); e
 
 
 
------
+\newpage
+
 
 ## Extra Stuff
 

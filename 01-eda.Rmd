@@ -88,7 +88,7 @@ NFL_2021_Team_Passing <- read_csv("data/NFL_2021_Team_Passing.csv")
 head(NFL_2021_Team_Passing)
 ```
 
------
+\newpage
 
 ## Descriptive Statistics
 
@@ -348,6 +348,8 @@ We can also build a frequency table that summarizes the categories and their occ
 table(broncos2014)
 ```
 
+\newpage
+
 ## Visualizations
 
 Conveying information visually is also an important part in providing a description of a dataset.
@@ -483,11 +485,15 @@ NFL_2021_Team_Passing %>%
 
 :::
 
------
+\newpage
 
 ## Baseball
 
+\newpage
+
 ## Football
+
+\newpage
 
 ## Basketball
 
@@ -531,6 +537,8 @@ FTFACTOR <- round(FT/FGA, 3)
 
 basketball_data %>% add_column(eFG, TOVPCT, FTFACTOR)
 ```
+
+\newpage
 
 ## Soccer
 
@@ -704,6 +712,7 @@ ggplot(data = goals) +
 
 Let us break down exactly what this visual is showing us. We are looking at the density of expected and actual goals per game for the top five teams in LaLiga, over the last four seasons (with the last season ending in 2021). We can see that Barcelona is typically scoring more goals than what is expected of them, as the density of actual goals is condensed around higher goal numbers than the density of expected goals. Villarreal, however, is performing just as well as what is expected of them based on expected and actual goals scored.
 
+\newpage
 
 ## Volleyball
 
@@ -780,6 +789,7 @@ dig_viz +
 
 Box plots allow us to isolate each statistic (number of kills and hitting percentage) so we can more clearly determine the center and spread of each between wins and losses.
 
+\newpage
 
 ## Hockey
 

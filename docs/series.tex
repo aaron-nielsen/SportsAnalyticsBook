@@ -407,7 +407,7 @@ Here is how to load a file:
 ## #   `ANY/A` <dbl>, `4QC` <dbl>, GWD <dbl>, EXP <dbl>
 \end{verbatim}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\newpage
 
 \hypertarget{descriptive-statistics}{%
 \section{Descriptive Statistics}\label{descriptive-statistics}}
@@ -772,6 +772,8 @@ We can also build a frequency table that summarizes the categories and their occ
 ##    4   12
 \end{verbatim}
 
+\newpage
+
 \hypertarget{visualizations}{%
 \section{Visualizations}\label{visualizations}}
 
@@ -963,13 +965,17 @@ Many sports leagues have around 30 teams, so a clean scatterplot with labels can
 \includegraphics{series_files/figure-latex/scatter4-1.pdf}
 \end{example}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\newpage
 
 \hypertarget{baseball}{%
 \section{Baseball}\label{baseball}}
 
+\newpage
+
 \hypertarget{football}{%
 \section{Football}\label{football}}
+
+\newpage
 
 \hypertarget{basketball}{%
 \section{Basketball}\label{basketball}}
@@ -1039,6 +1045,8 @@ Let's calculate the values of eFG\%, TOV\%, and Free Throw Factor for both CSU a
 ## 1 CSU      14    48      5    10    14     2    31     5 0.344  0.085    0.208
 ## 2 WYO      15    60      4     4     4    14    30    12 0.283  0.163    0.067
 \end{verbatim}
+
+\newpage
 
 \hypertarget{soccer}{%
 \section{Soccer}\label{soccer}}
@@ -1220,6 +1228,8 @@ At first glance, it seems that actual goals scored per game do not differ greatl
 
 Let us break down exactly what this visual is showing us. We are looking at the density of expected and actual goals per game for the top five teams in LaLiga, over the last four seasons (with the last season ending in 2021). We can see that Barcelona is typically scoring more goals than what is expected of them, as the density of actual goals is condensed around higher goal numbers than the density of expected goals. Villarreal, however, is performing just as well as what is expected of them based on expected and actual goals scored.
 
+\newpage
+
 \hypertarget{volleyball}{%
 \section{Volleyball}\label{volleyball}}
 
@@ -1311,6 +1321,8 @@ Let's modify these plots to make them more complete and visually appealing.
 \includegraphics{series_files/figure-latex/unnamed-chunk-22-2.pdf}
 
 Box plots allow us to isolate each statistic (number of kills and hitting percentage) so we can more clearly determine the center and spread of each between wins and losses.
+
+\newpage
 
 \hypertarget{hockey}{%
 \section{Hockey}\label{hockey}}
@@ -1457,7 +1469,7 @@ A: We would expect that as sample size increases, the result would become closer
 \section*{Chapter Preview}\label{chapter-preview}}
 \addcontentsline{toc}{section}{Chapter Preview}
 
-Simply put, probability is the study of randomness. In this chapter, we will define probability, learn rules of probability, and apply these rules to sports data.
+Probability is the study of randomness. In this chapter, we will define probability, learn rules of probability, and apply these rules to sports data.
 
 \hypertarget{definitions-1}{%
 \section{Definitions}\label{definitions-1}}
@@ -1492,6 +1504,8 @@ An \textbf{\emph{event}} is any collection (subset) of outcomes contained in the
 \strut \\
 \strut \\
 \strut \\
+
+\newpage
 
 \hypertarget{set-theory}{%
 \section{Set Theory}\label{set-theory}}
@@ -1573,8 +1587,10 @@ Are the events \(A\) and \(B\) disjoint? How about \(A\) and \(D\)?
 \hfill\break
 \hfill\break
 
-\hypertarget{probability-axioms-and-properties}{%
-\section{Probability Axioms and Properties}\label{probability-axioms-and-properties}}
+\newpage
+
+\hypertarget{axioms-properties-and-laws}{%
+\section{Axioms, Properties, and Laws}\label{axioms-properties-and-laws}}
 
 There are some basic assumptions of ``axioms'' which are the foundation of the theory of probability. Andrey Kolmogorov first described these axioms in 1933.
 
@@ -1616,7 +1632,7 @@ We can convert to percentages by multiplying probabilities by 100, however, this
 \end{itemize}
 
 \hypertarget{laws-of-probability}{%
-\section{Laws of Probability}\label{laws-of-probability}}
+\subsection{Laws of Probability}\label{laws-of-probability}}
 
 \begin{definition}
 Let \(A\) and \(B\) be two events such that \(P(B)>0\). Then the \textbf{\emph{conditional probability}} of \(A\) given \(B\), written \(P(A|B)\), is given by:
@@ -1679,6 +1695,8 @@ Over the course of a season, a hockey player scored a goal 30\% of the time duri
   \strut \\
 \end{enumerate}
 
+\newpage
+
 \hypertarget{combinatorics}{%
 \section{Combinatorics}\label{combinatorics}}
 
@@ -1706,8 +1724,12 @@ If the first element of an ordered pair can be selected in \(n_1\) ways and for 
 Suppose a set consists of \(k\) elements (k-tuples) and that there are \(n_1\) possible choices for the first element, \(n_2\) possible choices for the second element, \ldots{} , and \(n_k\) possible choices for the \(k^\text{th}\) element, then there are \(n_1 \cdot n_2 \cdot \ldots \cdot n_k\) possible k-tuples.
 \end{theorem}
 
+\newpage
+
 \hypertarget{odds-and-gambling}{%
 \section{Odds and Gambling}\label{odds-and-gambling}}
+
+\newpage
 
 \hypertarget{random-variables}{%
 \section{Random Variables}\label{random-variables}}
@@ -1845,6 +1867,8 @@ For the Rockies/Cubs four game series example, calculate \(Var(X)\).
 \hfill\break
 \hfill\break
 
+\newpage
+
 \hypertarget{common-random-variables}{%
 \section{Common Random Variables}\label{common-random-variables}}
 
@@ -1969,6 +1993,8 @@ Theorem: \(\binom{n}{k} = \binom{n}{n-k}\)
 
 \(\binom{n}{n-k} = \frac{n!}{(n-k)!\ \cdot\ (n-(n-k))!} = \frac{n!}{(n-k)!\ \cdot\ k!} = \binom{n}{k}\)
 
+\newpage
+
 \hypertarget{geometric-rvs}{%
 \subsection{Geometric RVs}\label{geometric-rvs}}
 
@@ -2055,6 +2081,8 @@ Let's plot the sample distribution of shots required to score a goal from the si
 \end{Shaded}
 
 \includegraphics{series_files/figure-latex/unnamed-chunk-28-1.pdf}
+
+\newpage
 
 \hypertarget{poisson-rvs}{%
 \subsection{Poisson RVs}\label{poisson-rvs}}
@@ -2193,6 +2221,8 @@ goals & actual\_frequency & actual\_proportion & expected\_frequency & expected\
   \strut \\
 \end{enumerate}
 
+\newpage
+
 \hypertarget{normal-rvs}{%
 \subsection{Normal RVs}\label{normal-rvs}}
 
@@ -2303,7 +2333,7 @@ Let's check our answers:
 ## [1] 0.9544997
 \end{verbatim}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\newpage
 
 \hypertarget{extra-stuff}{%
 \section{Extra Stuff}\label{extra-stuff}}

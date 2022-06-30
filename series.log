@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  29 JUN 2022 20:12
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  29 JUN 2022 20:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1116,32 +1116,32 @@ Overfull \hbox (7.39113pt too wide) in paragraph at lines 408--408
    3.7    14    2.2    61[] 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 430--435
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 430--435
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 430--435
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 430--435
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 430--435
-
- []
-
 [11]
+Underfull \hbox (badness 10000) in paragraph at lines 430--435
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--435
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--435
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--435
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--435
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 452--457
 
  []
@@ -1188,312 +1188,297 @@ Underfull \hbox (badness 10000) in paragraph at lines 475--480
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 475--480
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 513--518
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 513--518
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 513--518
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 513--518
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 513--518
 
  []
 
 [12]
-Underfull \hbox (badness 10000) in paragraph at lines 584--589
+Underfull \hbox (badness 10000) in paragraph at lines 513--518
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 584--589
+Underfull \hbox (badness 10000) in paragraph at lines 513--518
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 584--589
+Underfull \hbox (badness 10000) in paragraph at lines 513--518
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 584--589
+Underfull \hbox (badness 10000) in paragraph at lines 513--518
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 584--589
+Underfull \hbox (badness 10000) in paragraph at lines 513--518
 
  []
 
 [13]
-Underfull \hbox (badness 10000) in paragraph at lines 666--670
+Underfull \hbox (badness 10000) in paragraph at lines 584--589
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 584--589
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 584--589
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 584--589
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 584--589
 
  []
 
 [14]
-Underfull \hbox (badness 10000) in paragraph at lines 731--736
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 731--736
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 731--736
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 731--736
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 731--736
+Underfull \hbox (badness 10000) in paragraph at lines 666--670
 
  []
 
 [15]
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 798--798
+Underfull \hbox (badness 10000) in paragraph at lines 731--736
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 731--736
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 731--736
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 731--736
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 731--736
+
+ []
+
+[16]
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 800--800
 []\TU/lmtt/m/n/10.95 ## -- Attaching packages ---------------------------------
 ------ tidyverse 1.3.1 --[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 811--811
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 813--813
 []\TU/lmtt/m/n/10.95 ## -- Conflicts ------------------------------------------
  tidyverse_conflicts() --[] 
  []
 
-[16]
 File: series_files/figure-latex/hist-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/hist-1.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[17]
 File: series_files/figure-latex/hist2-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/hist2-1.pdf>
-[17]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[18]
 File: series_files/figure-latex/hist3-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/hist3-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[18]
+[19]
 File: series_files/figure-latex/bar-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/bar-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[19]
+[20]
 File: series_files/figure-latex/bar2-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/bar2-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[20]
+[21]
 File: series_files/figure-latex/bar3-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/bar3-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[21]
+[22]
 File: series_files/figure-latex/scatter1-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/scatter1-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[22]
+[23]
 File: series_files/figure-latex/scatter2-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/scatter2-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[23]
+[24]
 File: series_files/figure-latex/scatter3-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/scatter3-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[24]
+[25]
 File: series_files/figure-latex/scatter4-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/scatter4-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[25] [26] [27]
+[26] [27] [28] [29] [30] [31]
 File: series_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/unnamed-chunk-12-1.pdf>
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 3701) has occurred while \output is active []
 
-[28]
+[32]
 File: series_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/unnamed-chunk-13-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[29]
+[33]
 File: series_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/unnamed-chunk-14-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[30]
+[34]
 File: series_files/figure-latex/unnamed-chunk-15-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/unnamed-chunk-15-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[31]
+[35]
 File: series_files/figure-latex/unnamed-chunk-16-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/unnamed-chunk-16-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[32]
-Underfull \vbox (badness 2080) detected at line 1217
+[36]
+Underfull \vbox (badness 2080) detected at line 1225
  []
 
-[33]
-Underfull \vbox (badness 10000) detected at line 1217
+[37]
+Underfull \vbox (badness 10000) detected at line 1225
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1217
+Underfull \vbox (badness 10000) detected at line 1225
  []
 
-[34]
+[38]
 File: series_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/unnamed-chunk-17-1.pdf>
-
-Underfull \vbox (badness 3019) has occurred while \output is active []
-
-[35]
+[39]
 File: series_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/unnamed-chunk-19-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[36]
+[40]
 File: series_files/figure-latex/unnamed-chunk-20-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/unnamed-chunk-20-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[37]
+[41]
 File: series_files/figure-latex/unnamed-chunk-21-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/unnamed-chunk-21-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[38]
+[42]
 File: series_files/figure-latex/unnamed-chunk-21-2.pdf Graphic file (type pdf)
 <use series_files/figure-latex/unnamed-chunk-21-2.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[39]
+[43]
 File: series_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/unnamed-chunk-22-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[40]
+[44]
 File: series_files/figure-latex/unnamed-chunk-22-2.pdf Graphic file (type pdf)
 <use series_files/figure-latex/unnamed-chunk-22-2.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[41]
-Overfull \hbox (53.38109pt too wide) in paragraph at lines 1322--1322
+[45] [46]
+Overfull \hbox (53.38109pt too wide) in paragraph at lines 1334--1334
 []\TU/lmtt/m/n/10.95 read_csv[]([]"https://moneypuck.com/moneypuck/playerData/s
 easonSummary/2021/regular/teams.csv"[])|  
  []
 
-[42] [43]
+
+Underfull \vbox (badness 1264) has occurred while \output is active []
+
+[47]
 File: series_files/figure-latex/hockey_ggplot3-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/hockey_ggplot3-1.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[48]
 File: series_files/figure-latex/hockey_ggplot4-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/hockey_ggplot4-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[44] [45] [46
-
-]
+[49] [50]
 Chapter 2.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1481--1486
+Underfull \hbox (badness 10000) in paragraph at lines 1493--1498
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1481--1486
+Underfull \hbox (badness 10000) in paragraph at lines 1493--1498
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1481--1486
+Underfull \hbox (badness 10000) in paragraph at lines 1493--1498
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1481--1486
+Underfull \hbox (badness 10000) in paragraph at lines 1493--1498
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1481--1486
+Underfull \hbox (badness 10000) in paragraph at lines 1493--1498
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1491--1495
+Underfull \hbox (badness 10000) in paragraph at lines 1503--1507
 
  []
 
-[47]
-Underfull \hbox (badness 10000) in paragraph at lines 1513--1518
+[51
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1513--1518
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1513--1518
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1513--1518
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1513--1518
-
- []
-
-
+]
 Underfull \hbox (badness 10000) in paragraph at lines 1527--1532
 
  []
@@ -1544,32 +1529,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 1541--1546
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1556--1561
+Underfull \hbox (badness 10000) in paragraph at lines 1555--1560
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1556--1561
+Underfull \hbox (badness 10000) in paragraph at lines 1555--1560
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1556--1561
+Underfull \hbox (badness 10000) in paragraph at lines 1555--1560
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1556--1561
+Underfull \hbox (badness 10000) in paragraph at lines 1555--1560
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1556--1561
-
- []
-
-[48]
-Underfull \hbox (badness 10000) in paragraph at lines 1570--1575
+Underfull \hbox (badness 10000) in paragraph at lines 1555--1560
 
  []
 
@@ -1594,393 +1574,416 @@ Underfull \hbox (badness 10000) in paragraph at lines 1570--1575
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1588--1590
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1590--1592
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1605--1607
-
- []
-
-[49]
-Underfull \hbox (badness 10000) in paragraph at lines 1630--1633
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1630--1633
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1630--1633
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1639--1642
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1666--1671
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1671--1676
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1676--1680
-
- []
-
-[50]
-
-Package amsmath Warning: Foreign command \atopwithdelims;
-(amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 1698.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1729--1732
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1729--1732
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1729--1732
-
- []
-
-[51]
-Underfull \hbox (badness 10000) in paragraph at lines 1737--1740
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1737--1740
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1737--1740
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1766--1771
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1766--1771
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1766--1771
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1766--1771
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1766--1771
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1776--1777
+Underfull \hbox (badness 10000) in paragraph at lines 1570--1575
 
  []
 
 [52]
-Underfull \hbox (badness 10000) in paragraph at lines 1804--1809
+Underfull \hbox (badness 10000) in paragraph at lines 1584--1589
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1804--1809
+Underfull \hbox (badness 10000) in paragraph at lines 1584--1589
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1804--1809
+Underfull \hbox (badness 10000) in paragraph at lines 1584--1589
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1804--1809
+Underfull \hbox (badness 10000) in paragraph at lines 1584--1589
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1804--1809
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1814--1815
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1826--1827
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1833--1834
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1842--1847
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1842--1847
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1842--1847
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1842--1847
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1842--1847
+Underfull \hbox (badness 10000) in paragraph at lines 1584--1589
 
  []
 
 [53]
-Underfull \hbox (badness 10000) in paragraph at lines 1875--1880
+Underfull \hbox (badness 10000) in paragraph at lines 1604--1606
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1880--1885
+Underfull \hbox (badness 10000) in paragraph at lines 1606--1608
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1885--1890
+Underfull \hbox (badness 10000) in paragraph at lines 1621--1623
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1890--1895
+Underfull \hbox (badness 10000) in paragraph at lines 1646--1649
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1895--1900
+Underfull \hbox (badness 10000) in paragraph at lines 1646--1649
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1900--1904
+Underfull \hbox (badness 10000) in paragraph at lines 1646--1649
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1655--1658
 
  []
 
 [54]
-File: series_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file (type pdf)
-<use series_files/figure-latex/unnamed-chunk-24-1.pdf>
+Underfull \hbox (badness 10000) in paragraph at lines 1682--1687
 
-Underfull \hbox (badness 10000) in paragraph at lines 1945--1949
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1687--1692
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1692--1696
 
  []
 
 [55]
-Underfull \hbox (badness 10000) in paragraph at lines 1990--1995
+
+Package amsmath Warning: Foreign command \atopwithdelims;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 1716.
+
+[56] [57]
+Underfull \hbox (badness 10000) in paragraph at lines 1751--1754
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1995--2000
+Underfull \hbox (badness 10000) in paragraph at lines 1751--1754
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2000--2004
+Underfull \hbox (badness 10000) in paragraph at lines 1751--1754
 
  []
 
-[56]
+
+Underfull \hbox (badness 10000) in paragraph at lines 1759--1762
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1759--1762
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1759--1762
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1788--1793
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1788--1793
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1788--1793
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1788--1793
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1788--1793
+
+ []
+
+[58]
+Underfull \hbox (badness 10000) in paragraph at lines 1798--1799
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1826--1831
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1826--1831
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1826--1831
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1826--1831
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1826--1831
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1836--1837
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1848--1849
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1855--1856
+
+ []
+
+[59]
+Underfull \hbox (badness 10000) in paragraph at lines 1864--1869
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1864--1869
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1864--1869
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1864--1869
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1864--1869
+
+ []
+
+[60]
+Underfull \hbox (badness 10000) in paragraph at lines 1899--1904
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1904--1909
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1909--1914
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1914--1919
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1919--1924
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1924--1928
+
+ []
+
+[61]
+File: series_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file (type pdf)
+<use series_files/figure-latex/unnamed-chunk-24-1.pdf>
+
+Underfull \hbox (badness 10000) in paragraph at lines 1969--1973
+
+ []
+
+[62] [63]
+Underfull \hbox (badness 10000) in paragraph at lines 2016--2021
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2021--2026
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2026--2030
+
+ []
+
+[64]
 File: series_files/figure-latex/unnamed-chunk-28-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/unnamed-chunk-28-1.pdf>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[57]
-Underfull \hbox (badness 10000) in paragraph at lines 2080--2084
+[65]
+Underfull \hbox (badness 10000) in paragraph at lines 2108--2112
 
  []
 
 File: series_files/figure-latex/unnamed-chunk-29-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/unnamed-chunk-29-1.pdf>
-[58]
-Overfull \vbox (2.74873pt too high) detected at line 2140
- []
-
-[59]
-Overfull \hbox (7.03601pt too wide) in paragraph at lines 2144--2161
+[66]
+Overfull \hbox (7.03601pt too wide) in paragraph at lines 2172--2189
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2168--2172
+Underfull \hbox (badness 10000) in paragraph at lines 2196--2200
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2179--2183
+Underfull \hbox (badness 10000) in paragraph at lines 2207--2211
+
+ []
+
+[67]
+Underfull \hbox (badness 10000) in paragraph at lines 2218--2222
+
+ []
+
+[68]
+Underfull \hbox (badness 10000) in paragraph at lines 2253--2258
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2190--2194
-
- []
-
-[60]
-Underfull \hbox (badness 10000) in paragraph at lines 2223--2228
+Underfull \hbox (badness 10000) in paragraph at lines 2258--2263
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2228--2233
+Underfull \hbox (badness 10000) in paragraph at lines 2263--2268
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2233--2238
+Underfull \hbox (badness 10000) in paragraph at lines 2268--2273
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2238--2243
+Underfull \hbox (badness 10000) in paragraph at lines 2273--2277
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 2243--2247
-
- []
-
-[61] [62] [63] [64] [65] [66]
+[69] [70] [71] [72] [73] [74]
 Chapter 3.
-[67
+[75
 
 ]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 2530.
-[68]
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 2560.
+[76]
 Chapter 4.
-[69
+[77
 
-] [70
+] [78
 
 ]
 Chapter 5.
-[71] [72
-
-]
-Chapter 6.
-[73] [74
-
-]
-Chapter 7.
-[75] [76
-
-]
-Chapter 8.
-[77] [78
-
-]
-Chapter 9.
 [79] [80
 
 ]
-Chapter 10.
+Chapter 6.
 [81] [82
 
 ]
-Chapter 11.
+Chapter 7.
 [83] [84
 
 ]
-Chapter 12.
+Chapter 8.
 [85] [86
 
 ]
-Chapter 13.
+Chapter 9.
 [87] [88
 
 ]
-Chapter 14.
+Chapter 10.
 [89] [90
 
 ]
-Chapter 15.
+Chapter 11.
 [91] [92
 
 ]
-Chapter 16.
+Chapter 12.
 [93] [94
 
 ]
-Chapter 17.
+Chapter 13.
 [95] [96
 
 ]
-Chapter 18.
+Chapter 14.
 [97] [98
 
 ]
-Chapter 19.
+Chapter 15.
 [99] [100
 
 ]
-Chapter 20.
+Chapter 16.
 [101] [102
 
 ]
+Chapter 17.
+[103] [104
+
+]
+Chapter 18.
+[105] [106
+
+]
+Chapter 19.
+[107] [108
+
+]
+Chapter 20.
+[109] [110
+
+]
 Chapter 21.
-[103]
+[111]
 File: series_files/figure-latex/baseball-sim-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/baseball-sim-1.pdf>
-(./series.bbl [104]) [105
+(./series.bbl [112]) [113
 
 ] (./series.aux) ) 
 Here is how much of TeX's memory you used:
- 22471 strings out of 476179
- 416873 string characters out of 5809544
- 897712 words of memory out of 5000000
- 42824 multiletter control sequences out of 15000+600000
+ 22470 strings out of 476179
+ 416860 string characters out of 5809544
+ 897719 words of memory out of 5000000
+ 42823 multiletter control sequences out of 15000+600000
  475878 words of font info for 90 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 86i,10n,121p,1003b,534s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,10n,121p,1003b,496s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on series.pdf (105 pages).
+Output written on series.pdf (113 pages).
