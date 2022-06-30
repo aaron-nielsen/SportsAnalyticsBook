@@ -1,5 +1,5 @@
 # Monte Carlo Simulation
-
+ 
 ## A few reminders/tips for simulation, and a basic example
 
 The number of regulation goals scored in a game by Hockey Team A, $X$, is a Poisson(4) random variable, and the same for Hockey Team B, $Y$, is a Poisson(3.2) random variable.

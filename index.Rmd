@@ -3,7 +3,7 @@ title: "Sports Analytics"
 author: "Aaron Nielsen, Department of Statistics, Colorado State University"
 date: "`r Sys.Date()`"
 header-includes:
-  \usepackage{fvextra}
+  \usepackage{fvextra} 
   \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breaksymbol=,commandchars=\\\{\}}
 site: bookdown::bookdown_site
 documentclass: book

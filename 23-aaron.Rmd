@@ -2,7 +2,7 @@
 
 ## Notes for Chapter 2 (Probability)
 
-__Axioms of Probability:__
+__Axioms of Probability:__  
 
 1. $P(A) \geq 0$
 
