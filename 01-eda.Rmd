@@ -1,7 +1,7 @@
 # Exploratory Data Analysis
 
 ## Getting Started With R
-
+ 
 ### Installing R
 
 For this class, you will be using R Studio to complete statistical analyses on your computer. 

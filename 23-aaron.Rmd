@@ -14,7 +14,7 @@ __Axioms of Probability:__
 Let $A$ and $B$ be events in $\Omega$ such that $P(B)>0$. Then we have the following:
 $$
 P(A|B) = \frac{P(B|A)P(A)}{P(B)}
-$$
+$$ 
 :::
 
 ## Suggested Readings
