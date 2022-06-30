@@ -45,7 +45,7 @@ Let $A$ be the event that the batter gets walked, let $B$ be the event that the 
 
 We will define a handful of set operations to help us when we begin calculating the probability of different events occurring. 
 
-:::{.definition}
+:::{.definition} 
 The ***compliment*** of an event $A$, denoted by $A^c$ or $A'$, is the set of all outcomes in $\Omega$ that are not contained in $A$.
 :::
 
