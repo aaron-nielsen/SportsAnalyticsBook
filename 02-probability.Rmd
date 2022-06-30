@@ -37,7 +37,7 @@ $$ $$
 \
 \
 
-## Set Theory
+## Set Theory 
 
 For the following examples, suppose that we are interested in the batting outcomes of a plate appearance in softball.
 
