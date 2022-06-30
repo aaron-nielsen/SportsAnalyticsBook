@@ -148,7 +148,7 @@ two further categories, nominal data and ordinal data.
 ::: {.definition}
 ***Ordinal data*** is qualitative data with a natural ordering.
 :::
-
+ 
 ::: {.example}
 What are possible nominal and ordinal data associated with Peyton Manning?
 :::

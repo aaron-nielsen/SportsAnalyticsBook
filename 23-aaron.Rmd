@@ -56,7 +56,7 @@ for(i in 1:n.sims){
   sim.hits <- rbinom(1,sim.atbats[i],avg)  
   hits[i] = sim.hits
 }
-hits.df <- data.frame(Hits=hits)
+hits.df <- data.frame(Hits=hits) 
 hits.df %>% ggplot(aes(x=Hits)) + geom_histogram()
 ``` 
 
