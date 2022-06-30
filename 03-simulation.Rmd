@@ -7,7 +7,7 @@ The number of regulation goals scored in a game by Hockey Team A, $X$, is a Pois
 A statistician is interested in the probability that Team A defeats Team B in regulation. This is $P(X > Y)$, which is difficult to calculate manually. However, using simulation, we can straightforwardly obtain an accurate estimation of this quantity.
 
 There are many built-in functions in `R` that allow users to generate realizations from common probability distributions (`rnorm`, `rbinom`, `rexp`, etc.) Let's use the `rpois` function to simulate the appropriate variables, remembering to set a seed so that our results are easily replicable.
-
+ 
 ```{r hockey poisson simulation 1}
 set.seed(2022)
 
