@@ -1,5 +1,210 @@
 # Monte Carlo Simulation 
+
+## Basics
+
+Monte Carlo Simulation is a collection of computer-driven, computational algorithms that use repeated random sampling to calculate estimates. The basic steps for such a simulation are as follows:
+
+- Initialize vectors and variables 
+
+- Run a simulation and calculate the estimate of interest
+
+- Save the estimate
+
+- Run the simulation "n" times
+
+- Analyze the estimates from the "n" simulations \
+
+One function that will be particularly useful for simulation is `set.seed()`.
+
+`set.seed()` allows us to replicate any simulation by giving the initial seed for the simulation. The actual number that is "seeded" is not particularly important though if you want to replicate the same simulations, you will want to re-use this number.
+
+:::{.example}
+Simulate 10 overtime coin tosses with and without using `set.seed()` and compare the results
+:::
+
+```{r}
+# Sample 1
+sample(c("H","T"),size=10,prob=c(0.5,0.5),replace=T)
+
+# Sample 2
+sample(c("H","T"),size=10,prob=c(0.5,0.5),replace=T)
+
+# Sample 3
+set.seed(2020)
+sample(c("H","T"),size=10,prob=c(0.5,0.5),replace=T)
+
+# Sample 4
+set.seed(2020)
+sample(c("H","T"),size=10,prob=c(0.5,0.5),replace=T)
+```
+
+Simulation can be very helpful when you want to estimate quantities that are not easily solved using analytical methods like formulas.
+
+:::{.example}
+Shaquille O'Neal has a career free throw percentage of 52.7%. Suppose that Shaq takes 10 free throw shots. What is the probability that he makes all 10 shots?
+:::
+
+```{r, include=F}
+library(tidyverse)
+```
+
+```{r}
+set.seed(2020)
+
+# Number of Simulations
+n.sims <- 10000
+
+# Initialize FT variable with 10000 zeros
+FT <- rep(0,n.sims)
+
+for(i in 1:n.sims){
+  # Simulate 10 free throws
+  temp <- sample(x=c(0,1), size = 10, replace = T, prob = c(0.473,0.527) )
+  
+  # Count the number of free throws made and store them in FT
+  FT[i] <- sum(temp)
+}
+
+c(mean(FT),var(FT))
+
+FT %>% as.data.frame() %>% ggplot(aes(x=FT)) + geom_bar()
+
+prob10 <- sum(FT == 10)/n.sims; prob10
+```
+The ***estimated*** probability that Shaq goes 10-for-10 in free throw attempts based on his career average is 0.0023.
+
+If we run the simulation again with a different seed, we will get another estimate (0.0019).
+
+```{r}
+set.seed(1)
+
+# Number of Simulations
+n.sims <- 10000
+
+# Initialize FT variable with 10000 zeros
+FT <- rep(0,n.sims)
+
+for(i in 1:n.sims){
+  # Simulate 10 free throws
+  temp <- sample(x=c(0,1), size = 10, replace = T, prob = c(0.473,0.527) )
+  
+  # Count the number of free throws made and store them in FT
+  FT[i] <- sum(temp)
+}
+
+prob10 <- sum(FT == 10)/n.sims; prob10
+```
+
+In this case, we could have also calculated the exact probability of interest (0.00165) using binomial random variable.
+
+```{r}
+dbinom(x=10,size=10,prob=0.527)
+```
+
+In more complicated simulations, there may not be an easy formula to use to calculate the value of interest. In these situations, simulation can be very helpful in estimating quantities.
+
+:::{.example}
+In 1997-1998 with the Los Angeles Lakers, Shaq attempted an average of 11.35 free throws per game with a standard deviation of 4.04. While with the Lakers, Shaq played in an average of 63.6 games per year with a standard deviation of 10.6. What is the expected number of free throws that Shaq would make in a season using these numbers?
+
+Note: his actual season totals of free throws attempted while with the Lakers were: 479, 681, 498, 824, 972, 712, 725, 676
+:::
+
+```{r}
+set.seed(2020)
+n.sims <- 10000
+FT <- rep(0,n.sims)
+games.mean <- 63.6
+games.sd <- 10.6
+ft.mean <- 11.35
+ft.sd <- 4.04
+
+# simulate the number of games played in a season, round to a whole number
+games.sim <- round( rnorm(n=n.sims,mean = games.mean, sd = games.sd))
+
+# number of games can't be negative
+games.sim[games.sim<0] = 0
+
+# number of games can't exceed 82 games (regular season total)
+games.sim[games.sim>82] = 82
+
+for(i in 1:n.sims){
+  # simulate the season total FT attempts in each simulation
+  temp <- round( rnorm(n = games.sim[i],mean = ft.mean, sd = ft.sd))
+  FT[i] <- sum(temp)
+}
+
+# Simulated mean and SD of season totals of free throw attempts
+c(mean(FT),sd(FT))
+
+# Actual mean and SD of season totals of free throw attempts
+FT.actual <- c(479, 681, 498, 824, 972, 712, 725, 676)
+c(mean(FT.actual),sd(FT.actual))
+
+FT %>% as.data.frame() %>% 
+  ggplot(aes(x=FT)) + 
+  geom_histogram(bins=30,color = "yellow", fill = "purple") +
+  ggtitle("Simulated Season FT Attempt Totals by Shaq with Lakers")
+```
+
+One reason that you may want to do complicated simulations like the example above is to make predictions for a player's future seasons.
+
+## Estimating Probabilities Using Simulation
+
+We can use simulation to estimate probabilities of different events occurring. One way to do this is for each simulation to record a "1" if the event of interest occurs and a "0" if the event of interest does not occur.
+
+:::{.definition}
+The ***indicator function***, $I(A)$, is defined such that $I(A)$ is equal to 1 if $A$ occurs and is equal to 0 if $A$ does not occur.
+:::
+
+For instance, suppose we roll a die and a "6" is on top. Then we have the following: $I(6)=1, I(5)=0, I(even)=1, I(odd)=0$.
+
+One way to calculate probabilities is to use the following rule: $P(A) = E[I(A)]$. The probability that $A$ occurs is equal to the expected value of the indicator function of $A$.
+
+:::{.example}
+During the 2021 WNBA season, Kahleah Copper of the Chicago Sky had a free throw percentage of 81.8%. She played a total of 32 games and the probability mass function for number of free throw attempts per game are given in the table below. Estimate the probability that Copper did not make a free throw in a game. [Note: Copper did not make a free throw in 6 out of the 32 games for a probability of 0.1875.]
+:::
+
+```{r,message=F,echo=F}
+library(kableExtra)
+games <- 32
+FTA <- 0:8
+nFTA <- c(5,2,8,0,7,2,4,2,2)
+pFTA <- nFTA/32
+df <- t(data.frame(FTA,nFTA,pFTA))
+row.names(df) = c("Free Throw Attempts Per Game, FTA","Number of Occurrences, nFTA","Probability, p(FTA)")
+df %>% kable() %>% kable_styling(full_width = F)
+```
  
+```{r}
+set.seed(2020)
+n.sims <- 10000
+games <- 32
+FTprob <- 0.818
+FTA <- 0:8
+nFTA <- c(5,2,8,0,7,2,4,2,2)
+pFTA <- nFTA/32
+FT <- rep(0, n.sims)
+FT0.ind <- rep(0,n.sims)
+
+# Simulate the number of FTA per game
+FTA.sim <- sample(x = FTA,size = n.sims,replace = T,prob = pFTA)
+
+# Simulate 10,000 games and record number of FT made
+for(i in 1:n.sims){
+  FT[i] <- rbinom(n=1,size = FTA.sim[i],prob = 0.818)
+}
+
+# Look at the header of the simulated data
+head(FT)
+
+# Create indicator function for 0 FT made
+FT0.ind = FT == 0
+head(FT0.ind)
+
+# Estimate probability of 0 FT made
+sum(FT0.ind)/n.sims
+```
+
 ## A few reminders/tips for simulation, and a basic example
 
 The number of regulation goals scored in a game by Hockey Team A, $X$, is a Poisson(4) random variable, and the same for Hockey Team B, $Y$, is a Poisson(3.2) random variable.

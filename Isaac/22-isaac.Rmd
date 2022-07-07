@@ -1,8 +1,12 @@
+
+---
+
+---
 # Isaac's stuff
 
 -----
 
-
+![Screenshot]('~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/images/scraping1')
 
 -----
 
@@ -15,6 +19,7 @@ library(tidyverse)
 ```
 
 
+
 ## wnba scraping
 ```{r}
 wilson <- 'https://www.basketball-reference.com/wnba/players/w/wilsoa01w/gamelog/2022/'
@@ -24,11 +29,13 @@ wil_doc %>%
   rvest::html_elements(., xpath = "//*[(@id = 'div_wnba_pgl_basic')]") %>%
   rvest::html_table() -> wil
 wil <- wil[[1]]
+head(wil)
 
-mean(wil$PTS)
+#wil2 <- mutate_all(wil, function(x) as.numeric(as.character(x)))
+#mean(wil2['PTS'])
 
-wil$eFG<- (wil['FG'] + (0.5*wil['3P']))/wil['FGA']
-wil$eFG
+#wil$eFG<- (wil['FG'] + (0.5*wil['3P']))/wil['FGA']
+#wil$eFG ![Screenshot]('~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/images/scraping1')
 ```
 
 
@@ -166,3 +173,54 @@ group_by(wnba, Winner)%>%
 84.822-83.787
 ```
 A home team winner scores on average 1.035 PPG more than an away team winner.
+
+
+### NFL
+```{r}
+nfl=read.csv('~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/data/nfl_pbp.csv')
+nfl2 <- select(nfl, c('Date','GameID','qtr','down','time','yrdline100','ydstogo','Yards.Gained','Touchdown','PlayType','FieldGoalResult','FieldGoalDistance','ScoreDiff','Season'))
+head(nfl2)
+```
+
+#### 4th Down Analysis (EDA)
+Q: Using NFL Play by Play data, what percentage of the time do coaches choose to go for it on 4th down? And what percentage of 4th down attempts are successful?
+A:
+```{r}
+# add indicator column for successful first down attempt
+nfl2 <- nfl2 %>%
+  mutate(FirstDown = case_when(
+    ydstogo < Yards.Gained ~ 1,
+    ydstogo > Yards.Gained ~ 0
+    ))
+# filter by only plays on 4th down
+down4 = filter(nfl2, nfl2['down']==4)
+
+#see what play types are run on first down and remove the noise
+group_by(down4,PlayType) %>%
+  summarize(Count=n())%>%
+  mutate(Percentage=Count/sum(Count))
+down4 = filter(down4, down4['PlayType']!='No Play' || down4['PlayType']!= 'QB Kneel' || down4['PlayType']!= 'Timeout')
+
+# add indicator column for going for it on 4th
+down4 <- down4 %>% 
+  mutate(GoForIt = case_when(
+    PlayType == 'Pass' ~ 1,
+    PlayType == 'Run' ~ 1,
+    PlayType == 'Sack' ~ 1,
+    PlayType == 'Field Goal' ~ 0, 
+    PlayType == 'Punt' ~ 0
+  ))
+# get percentage of 4th downs are gone for
+group_by(down4,GoForIt) %>%
+  summarize(Count=n())%>%
+  mutate(Percentage=Count/sum(Count))
+
+# get percentage of successful attempted 4th downs 
+down4 %>%
+  filter(down4['GoForIt']==1) %>%
+  group_by(FirstDown) %>%
+    summarize(Count=n())%>%
+    mutate(Percentage=Count/sum(Count))  
+  
+```
+11% of 4th downs are gone for and 40% of those are successful, regardless of how many yards to go there are
