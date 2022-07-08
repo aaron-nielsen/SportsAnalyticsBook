@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 # Monte Carlo Simulation 
 
 ## Basics
@@ -17,6 +22,8 @@ Monte Carlo Simulation is a collection of computer-driven, computational algorit
 One function that will be particularly useful for simulation is `set.seed()`.
 
 `set.seed()` allows us to replicate any simulation by giving the initial seed for the simulation. The actual number that is "seeded" is not particularly important though if you want to replicate the same simulations, you will want to re-use this number.
+
+\newpage
 
 :::{.example}
 Simulate 10 overtime coin tosses with and without using `set.seed()` and compare the results
@@ -40,9 +47,19 @@ sample(c("H","T"),size=10,prob=c(0.5,0.5),replace=T)
 
 Simulation can be very helpful when you want to estimate quantities that are not easily solved using analytical methods like formulas.
 
+\newpage
+
 :::{.example}
 Shaquille O'Neal has a career free throw percentage of 52.7%. Suppose that Shaq takes 10 free throw shots. What is the probability that he makes all 10 shots?
 :::
+
+In this case, we can calculate the exact probability of interest using binomial random variable.
+
+```{r}
+dbinom(x=10,size=10,prob=0.527)
+```
+
+In more complicated simulations, there may not be an easy formula to use to calculate the value of interest. In these situations, simulation can be very helpful in estimating quantities.
 
 ```{r, include=F}
 library(tidyverse)
@@ -65,13 +82,16 @@ for(i in 1:n.sims){
   FT[i] <- sum(temp)
 }
 
-c(mean(FT),var(FT))
-
-FT %>% as.data.frame() %>% ggplot(aes(x=FT)) + geom_bar()
+FT %>% 
+  as.data.frame() %>% 
+  ggplot(aes(x=FT)) + 
+  geom_bar() +
+  ggtitle("Number of free throws made out of 10") + scale_x_continuous(breaks = seq(0, 10, by = 2))
 
 prob10 <- sum(FT == 10)/n.sims; prob10
 ```
-The ***estimated*** probability that Shaq goes 10-for-10 in free throw attempts based on his career average is 0.0023.
+
+The estimated probability that Shaq goes 10-for-10 in free throw attempts based on his career average is 0.0023.
 
 If we run the simulation again with a different seed, we will get another estimate (0.0019).
 
@@ -95,41 +115,54 @@ for(i in 1:n.sims){
 prob10 <- sum(FT == 10)/n.sims; prob10
 ```
 
-In this case, we could have also calculated the exact probability of interest (0.00165) using binomial random variable.
+As we increase the number of simulations, the estimate will become more accurate.
 
 ```{r}
-dbinom(x=10,size=10,prob=0.527)
+set.seed(1)
+
+# Number of Simulations
+n.sims <- 100000
+
+# Initialize FT variable with 10000 zeros
+FT <- rep(0,n.sims)
+
+for(i in 1:n.sims){
+  # Simulate 10 free throws
+  temp <- sample(x=c(0,1), size = 10, replace = T, prob = c(0.473,0.527) )
+  
+  # Count the number of free throws made and store them in FT
+  FT[i] <- sum(temp)
+}
+
+prob10 <- sum(FT == 10)/n.sims; prob10
 ```
 
-In more complicated simulations, there may not be an easy formula to use to calculate the value of interest. In these situations, simulation can be very helpful in estimating quantities.
+One way to simulate data is to make assumptions about the distributions of the underlying data. The random variables given in the last chapter as possible candidates.
 
 :::{.example}
-In 1997-1998 with the Los Angeles Lakers, Shaq attempted an average of 11.35 free throws per game with a standard deviation of 4.04. While with the Lakers, Shaq played in an average of 63.6 games per year with a standard deviation of 10.6. What is the expected number of free throws that Shaq would make in a season using these numbers?
+In 1997-1998 with the Los Angeles Lakers, Shaq attempted an average of 11.35 free throws per game with a standard deviation of 4.04. While with the Lakers, Shaq played in an average of 63.6 games per year with a standard deviation of 10.6. Create a simulation to model the season total number of free throw attempts that Shaq would have while with the Lakers. 
 
 Note: his actual season totals of free throws attempted while with the Lakers were: 479, 681, 498, 824, 972, 712, 725, 676
 :::
+
+Let's model the number of games that Shaq played in as a Binomial random variable. There are 82 regular sesaon games, so let $n=82$. Shaq played in an average of 63.6 games, so let $p=\frac{64.25}{82}=0.784$. Shaq played in about 78% of the games during his career with the Lakers.
+
+For the number of free throw attempts per game, we could model this as a Poisson random variable or a Negative Binomial random variable. As noted in the previous chapter, the variance of Shaq's FT attempts is a fair bit greater than the mean which means that it is overdispersed. Negative Binomial may be a more appropriate model than a Poisson. From last chapter, we found $\hat{r}=25.85$ and $\hat{p}=0.305$.
 
 ```{r}
 set.seed(2020)
 n.sims <- 10000
 FT <- rep(0,n.sims)
-games.mean <- 63.6
-games.sd <- 10.6
-ft.mean <- 11.35
-ft.sd <- 4.04
 
 # simulate the number of games played in a season, round to a whole number
-games.sim <- round( rnorm(n=n.sims,mean = games.mean, sd = games.sd))
-
-# number of games can't be negative
-games.sim[games.sim<0] = 0
+games.sim <- rbinom(n = n.sims,size = 82,prob = 0.784)
 
 # number of games can't exceed 82 games (regular season total)
 games.sim[games.sim>82] = 82
 
 for(i in 1:n.sims){
   # simulate the season total FT attempts in each simulation
-  temp <- round( rnorm(n = games.sim[i],mean = ft.mean, sd = ft.sd))
+  temp <- rnbinom(n = games.sim[i],size = 25.85,prob = 1-0.305)
   FT[i] <- sum(temp)
 }
 
@@ -138,7 +171,10 @@ c(mean(FT),sd(FT))
 
 # Actual mean and SD of season totals of free throw attempts
 FT.actual <- c(479, 681, 498, 824, 972, 712, 725, 676)
-c(mean(FT.actual),sd(FT.actual))
+FT.actual.mean <- mean(FT.actual)
+FT.actual.var <- var(FT.actual) * 7/8 # population variance
+FT.actual.sd <- sqrt(FT.actual.var)
+c(FT.actual.mean,FT.actual.sd)
 
 FT %>% as.data.frame() %>% 
   ggplot(aes(x=FT)) + 
@@ -146,9 +182,52 @@ FT %>% as.data.frame() %>%
   ggtitle("Simulated Season FT Attempt Totals by Shaq with Lakers")
 ```
 
+Notice that the mean of our simulation is somewhat close to Shaq's true season average number of free throw attempts but the variance of the simulation is far too low. 
+
+We can also simulate data using resampling. In this case, rather than simulating random variables according to a distribution, we can use our actual data as a sampling distribution.
+
+:::{.example}
+Using resampling, simulate the number of free throws Shaq would attempt while with the Lakers. Compare the mean and variance of the simulation to Shaq's actual statistics.
+:::
+
+```{r, message=F}
+set.seed(2020)
+n.sims <- 10000
+FT <- rep(0,n.sims)
+shaq.games <- c(51,60,49,79,74,67,67,67)
+shaq.FTA <- read_csv("data/shaqFT.csv", col_names = FALSE)
+shaq.FTA <- shaq.FTA$X1
+
+# sample (with replacement) from Shaq's FTA game totals
+games.sim <- sample(x = shaq.games,size = n.sims,replace = T)
+
+for(i in 1:n.sims){
+  # sample (with replacement) from Shaq's FTA game totals
+  temp <- sample(x = shaq.FTA,size = games.sim[i],replace = T)
+  FT[i] <- sum(temp)
+}
+
+# Simulated mean and SD of season totals of free throw attempts
+c(mean(FT),sd(FT))
+
+# Actual mean and SD of season totals of free throw attempts
+FT.actual <- c(479, 681, 498, 824, 972, 712, 725, 676)
+FT.actual.mean <- mean(FT.actual)
+FT.actual.var <- var(FT.actual) * 7/8 # population variance
+FT.actual.sd <- sqrt(FT.actual.var)
+c(FT.actual.mean,FT.actual.sd)
+
+FT %>% as.data.frame() %>% 
+  ggplot(aes(x=FT)) + 
+  geom_histogram(bins=30,color = "yellow", fill = "purple") +
+  ggtitle("Simulated Season FT Attempt Totals by Shaq with Lakers")
+```
+
+This simulation is biased low on the variance but is better than the earlier simulation.
+
 One reason that you may want to do complicated simulations like the example above is to make predictions for a player's future seasons.
 
-## Estimating Probabilities Using Simulation
+## Estimating Probabilities
 
 We can use simulation to estimate probabilities of different events occurring. One way to do this is for each simulation to record a "1" if the event of interest occurs and a "0" if the event of interest does not occur.
 
@@ -164,6 +243,23 @@ One way to calculate probabilities is to use the following rule: $P(A) = E[I(A)]
 During the 2021 WNBA season, Kahleah Copper of the Chicago Sky had a free throw percentage of 81.8%. She played a total of 32 games and the probability mass function for number of free throw attempts per game are given in the table below. Estimate the probability that Copper did not make a free throw in a game. [Note: Copper did not make a free throw in 6 out of the 32 games for a probability of 0.1875.]
 :::
 
+```{r, include=F}
+# Helpful function for formatting number of digits for each kable table row
+# Source: https://stackoverflow.com/questions/30949768/r-vary-by-row-the-rounding-of-digits-produced-by-knitrkable
+digitsByRows <- function(df, digits) {
+  tmp0 <- data.frame(t(df))
+  tmp1 <- mapply(
+    function(df0, digits0) {
+      formatC(df0, format="f", digits=digits0)
+    },
+    df0=tmp0, digits0=digits
+  )
+  tmp1 <- data.frame(t(tmp1))
+  names(tmp1) <- names(df)
+  return(tmp1)
+}
+```
+
 ```{r,message=F,echo=F}
 library(kableExtra)
 games <- 32
@@ -172,7 +268,7 @@ nFTA <- c(5,2,8,0,7,2,4,2,2)
 pFTA <- nFTA/32
 df <- t(data.frame(FTA,nFTA,pFTA))
 row.names(df) = c("Free Throw Attempts Per Game, FTA","Number of Occurrences, nFTA","Probability, p(FTA)")
-df %>% kable() %>% kable_styling(full_width = F)
+kable(digitsByRows(df,c(0,0,3)),row.names=F) %>% kable_styling(full_width = F)
 ```
  
 ```{r}

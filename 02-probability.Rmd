@@ -218,6 +218,27 @@ Over the course of a season, a hockey player scored a goal 30% of the time durin
 
 \newpage
 
+:::{.example}
+Injured Baserunner (Prob)
+A runner on first base with 2 out and nobody else on base will attempt to steal second base on the first pitch 70% of the time if he is fully healthy but only 10% of the time if he is playing through an injury. Assume that 80% of the player population is healthy. You see a randomly selected runner not attempt a steal in this situation. What is the probability that the runner is playing through an injury?
+:::
+
+From Bayes Theorem:  
+
+Pr(Injury given No Steal) = Pr(No Steal given Injury)\*Pr(Injury)/P(No Steal).  
+
+Pr(No Steal given Injury) = 1 - Pr(Steal given Injury) = 0.9.  
+
+Pr(Injury) = 1- Pr(Healthy) = 0.2.  
+
+Pr(No Steal) = Pr(No Steal given Injury)\*Pr(Injury)+Pr(No Steal given Healthy)\*Pr(Healthy).  
+
+Pr(No Steal) = 0.9\*0.2+0.7\*0.8 = 0.74.  
+
+Therefore Pr(Injury given No Steal) = 0.9\*0.2/0.74 = 0.243.  
+
+\newpage
+
 ## Combinatorics
 
 Combinatorics is the mathematical study of counting, particularly with respect to permutations and combinations.
@@ -503,7 +524,7 @@ Let's simulate the number of shot attempts required to score the first goal (Geo
 
 ```{r}
 set.seed(2020)
-geometric <- rgeom(1000, 1/10)
+geometric <- rgeom(10000, 1/10)
 head(geometric, 20)
 ```
 
@@ -530,7 +551,7 @@ first_success_df %>% ggplot(aes(x=Shots)) + geom_histogram(binwidth = 1)
 :::{.definition}
 A ***Poisson($\lambda$) random variable*** is a discrete random variable that counts the numbers of "successes" for a given rate parameter, $\lambda$, for a given interval.
 
-$P(X=k) =  \frac{e^{-\lambda}\lambda^k}{k!}$, where $k \geq 1,$
+$P(X=k) =  \frac{e^{-\lambda}\lambda^k}{k!}$, where $k \geq 0,$
 
 If $X \sim Poisson(\lambda)$, then $E[X]=\lambda$ and $Var(X)=\lambda$
 :::
@@ -546,22 +567,20 @@ The team scored $\frac{51}{34} = 1.5$ goals per game. Let's model the distributi
 \
 \
 
-We can plot the PMF of Y to check visually.
-
-```{r}
-ggplot(transform(data.frame(x=c(0:8)), y=dpois(x, lambda = 1.5)), aes(x, y)) + 
-  geom_bar(stat="identity") + 
-  labs(x="Value", y="Frequency", title="Probability mass function of Poisson(1.5) random variable")
-```
-
-
-We can calculate these probabilities in R as well using the `dpois` command.
+We can calculate these probabilities in R using the `dpois` command.
 
 ```{r}
 dpois(x=0, lambda=1.5)
 dpois(x=2, lambda=1.5)
 ```
 
+We can also plot the PMF of Y to check visually.
+
+```{r}
+ggplot(transform(data.frame(x=c(0:8)), y=dpois(x, lambda = 1.5)), aes(x, y)) + 
+  geom_bar(stat="identity") + 
+  labs(x="Value", y="Frequency", title="Probability mass function of Poisson(1.5) random variable")
+```
 
 Let's check whether using a Poisson distribution was appropriate by comparing it to the actual 2021 Colorado Rapids match results.
 
@@ -603,6 +622,115 @@ kable_styling()
 \
 
 <!-- Poisson random variables can take on the natural numbers (including zero), which aligns with the number of goals that can be scored in a match. One disadvantage is that it is possible for a Poisson to take on values that are not realistic for the situation, such as double-digit integers or higher. Only one game in MLS history has had a team score more than seven goals in a game. However, when $\lambda$ is small (such as 1.5), these extreme values are relatively unlikely. -->
+
+:::{.example}
+In 1997-1998 with the Los Angeles Lakers, Shaquille O'Neal attempted an average of 11.35 free throws per game with a standard deviation of 4.04. Is it appropriate to model Shaq's per game free throw attempts as a Poisson(11.35) random variable? 
+:::
+
+(a) Plot the data.
+```{r, message=F}
+shaq9798 <- read_csv("data/shaq9798.csv")
+shaq9798 %>% ggplot(aes(x=FTA))  + 
+  geom_bar(color = "yellow", fill = "purple") +
+  ggtitle("Per Game FT Attempt Totals by Shaq in 1997-1998") +
+  xlim(0,25)
+```
+(b) Plot the PMF of a Poisson(11.35) random variable.
+```{r}
+ggplot(transform(data.frame(x=c(0:25)), y=dpois(x, lambda = 11.35)), aes(x, y)) + 
+  geom_bar(stat="identity") + 
+  labs(x="Value", y="Frequency", title="Probability mass function of Poisson(11.35) random variable")
+```
+
+(c) What similarities and what differences do you notice?\
+\
+\
+\
+
+(d) Calculate the variance of the two distributions and compare them.
+
+```{r}
+shaqFTA <- shaq9798 %>% select(FTA)
+var(shaqFTA)
+# Var(Poisson(11.35)) = 11.35
+```
+
+(e) Calculate the probability that Shaq had 20 or more free throws and compare it to $P(Poisson(11.35) \geq 20)$
+
+```{r}
+shaq20 <- sum(shaqFTA >= 20)/nrow(shaqFTA); shaq20
+poisson20 <- ppois(20, lambda=11.35, lower.tail=FALSE); poisson20
+```
+
+(f) Is the Poisson distribution appropriate to model Shaq's FTA per game? Explain. \
+\
+\
+\
+
+\newpage
+
+### Negative Binomial RVs
+
+:::{.definition}
+A ***Negative Binomial($r$,$p$) random variable*** is a discrete random variable that counts the numbers of "successes" for given parameters, $r$ and $p$.
+
+$P(X=k) =  {k+r-1 \choose k}(1-p)^rp^k$, where $k \geq 0,$
+
+If $X \sim NB(r,p)$, then $E[X]=\frac{rp}{1-p}$ and $Var(X)=\frac{rp}{(1-p)^2}$
+:::
+
+The Negative Binomial distribution is often used to model count data that is "overdispersed". A property of the Poisson distribution is that the mean and variance are equal. If you are analyzing count data such that the variance is much greater than the mean (i.e., overdispersed), then the Negative Binomial distribution may be an appropriate substitute.
+
+Given sample count data, we can estimate appropriate parameters for a Negative Binomial in many ways. One such way is to use the "method of moments" estimator.
+
+These estimators are given by:
+
+$\hat{p} = \frac{s^2-\bar{x}}{s^2}$ and $\hat{r} = \frac{\bar{x}^2}{s^2-\bar{x}}$
+
+:::{.example}
+Using Shaq's 1997-1998 data, model his per game free throw attempts as a Negative Binomial random variable.
+:::
+
+(a) Find an appropriate choice of parameters, $r$ and $p$.
+
+```{r}
+shaq.mean <- mean(shaqFTA$FTA)
+shaq.var <- var(shaqFTA$FTA)
+rhat <- shaq.mean^2/(shaq.var-shaq.mean)
+phat <- (shaq.var-shaq.mean)/shaq.var
+c(rhat,phat)
+```
+
+(b) Plot the Negative Binomial distribution. Note that R uses an alternative parameterization for $p$. Use $prob = 1-p$.
+
+```{r}
+ggplot(transform(data.frame(x=c(0:25)), y=dnbinom(x,size=rhat,prob=1-phat)), aes(x, y)) + 
+  geom_bar(stat="identity") + 
+  labs(x="Value", y="Frequency", title="Probability mass function of NB(r=25.852,p=0.305) random variable")
+```
+
+(c) Calculate the mean and variance of the Negative Binomial and Shaq's dataset.
+
+```{r}
+shaq.mean <- mean(shaqFTA$FTA)
+shaq.var <- var(shaqFTA$FTA)
+NB.mean <- (rhat*phat)/(1-phat)
+NB.var <- (rhat*phat)/(1-phat)^2
+c(shaq.mean,shaq.var)
+c(NB.mean,NB.var)
+```
+
+(d) Calculate the probability that Shaq had 20 or more free throws and compare it to $P(NB(r=25.852,p=0.305) \geq 20)$
+
+```{r}
+shaq20 <- sum(shaqFTA >= 20)/nrow(shaqFTA); shaq20
+nb20 <- pnbinom(20,size=rhat,prob=1-phat,lower.tail=FALSE); nb20
+```
+
+(e) Is the Negative Binomial distribution appropriate to model Shaq's FTA per game? How does it compare to using the Poisson distribution? Explain. \
+\
+\
+\
 
 \newpage
 
@@ -664,7 +792,27 @@ d <- qnorm(0.2,mean=50,sd=10,lower.tail = T); d
 e <- pnorm(q=70,mean=50,sd=10) - pnorm(q=30,mean=50,sd=10); e
 ```
 
+\newpage
 
+:::{.example}
+Player X has a projected mean WAR of 3 with standard deviation of 2 and player Y has a projected mean WAR of 1.5 with a standard deviation of 3. Assume projected WAR is normally distributed. What is the probability that Player X outperforms Player Y?
+
+Link to WAR explaination: https://www.mlb.com/glossary/advanced-stats/wins-above-replacement
+:::
+
+We want Pr(X>Y) or Pr(X-Y>0).  
+Let Z = X-Y.  
+E[Z]=1.5
+Var(Z)=5
+Pr(Z>0)=1-Pr(Z $\leq$ 0)
+
+```{r}
+#Calculate probability Z<=0
+pr <- pnorm(0,1.5,sqrt(5))
+print(1-pr)
+```
+
+The Probability that Player X outperforms Player Y is 0.7488. 
 
 
 \newpage

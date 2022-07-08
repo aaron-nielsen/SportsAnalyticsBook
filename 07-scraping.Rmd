@@ -1,1 +1,29 @@
 # Data Scraping
+
+```{r}
+library(dplyr)
+library(rvest)
+library(tidyverse)
+library(kableExtra)
+
+```
+
+
+
+## wnba scraping
+```{r}
+wilson <- 'https://www.basketball-reference.com/wnba/players/w/wilsoa01w/gamelog/2022/'
+wil_doc <- rvest::read_html(wilson)
+
+wil_doc %>%
+  rvest::html_elements(., xpath = "//*[(@id = 'div_wnba_pgl_basic')]") %>%
+  rvest::html_table() -> wil
+wil <- wil[[1]]
+head(wil)
+
+#wil2 <- mutate_all(wil, function(x) as.numeric(as.character(x)))
+#mean(wil2['PTS'])
+
+#wil$eFG<- (wil['FG'] + (0.5*wil['3P']))/wil['FGA']
+#wil$eFG ![Screenshot]('~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/images/scraping1')
+```
