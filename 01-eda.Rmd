@@ -166,7 +166,7 @@ What are possible nominal and ordinal data associated with Peyton Manning?
 
 While we will learn about some descriptive statistics that are unique to specific sports, there are some descriptive statistics that are frequently used in many applications.
 
-#### Descriptive Statistics for Quantitative Data
+#### Quantitative Data
 
 There are different descriptive statistics depending on the type of data you are analyzing. We will begin by looking at descriptive statistics for quantitative data.
 
@@ -303,7 +303,7 @@ summary(peyton.colts)
 quantile(peyton.colts,c(0,0.25,0.5,0.75,1))
 ```
 
-#### Descriptive Statistics for Qualitative Data
+#### Qualitative Data
 
 In sports statistics, we also encounter qualitative (categorical) data which is names or labels which has its own descriptive statistics.
 
@@ -361,7 +361,6 @@ In this class, we will use analogous plotting functions in **ggplot2** that are 
 If you have already installed the **tidyverse** package, it should have also installed the **ggplot2** package.
 
 ```{r setup1}
-# You have likely already installed the tidyverse package but if not, use the following command without the "#"
 # install.packages("tidyverse")
 
 # Load the tidyverse package (which includes ggplot2)
@@ -374,6 +373,8 @@ Let's load the file ``NFL_2021_Team_Passing.csv" which contains [NFL Team Passin
 library(readr)
 NFL_2021_Team_Passing <- read_csv("data/NFL_2021_Team_Passing.csv")
 ```
+
+### Histograms
 
 Histograms are one of the most common and basic ways to visualize a dataset's distribution of values. To make a histogram, you will use **ggplot** and **geom_histogram**.
 
@@ -405,6 +406,8 @@ NFL_2021_Team_Passing %>% ggplot(aes(x=Yds)) +
 ```
 :::
 
+### Bar Plots
+
 We can also create bar plots using ggplot using the **geom_bar** function.
 
 :::{.example}
@@ -420,7 +423,7 @@ The team labels are a complete mess. Let's fix this and make some adjustments to
 ```{r bar2}
 NFL_2021_Team_Passing %>% ggplot(aes(x=Tm,y=Yds)) +
   geom_bar(stat="identity") + 
-  labs(x="Team Passing Yards", y="Team Passing Touchdowns", 
+  labs(x="Team", y="Team Passing Yards", 
        title="NFL Team Passing Yards, 2021") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
@@ -431,11 +434,24 @@ We can flip this graph if we like as well. Note that when we flip the graph, our
 NFL_2021_Team_Passing %>% 
   ggplot(aes(x=fct_rev(Tm),y=Yds)) +
   geom_bar(stat="identity") +
-  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021") +
+  labs(x="Team Passing Yards",y="Team",title="NFL Team Passing Yards, 2021") +
   coord_flip()
 ```
 
 :::
+
+We can also order the teams from most team passing touchdowns to least using the `forcats` package.
+
+```{r}
+library(forcats)
+NFL_2021_Team_Passing %>% mutate(Tm = fct_reorder(Tm,Yds)) %>%
+  ggplot(aes(x=Tm,y=Yds)) +
+  geom_bar(stat="identity") +
+  labs(x="Team Passing Yards",y="Team Passing Yards",title="NFL Team Passing Yards, 2021") +
+  coord_flip()
+```
+
+### Scatter Plots
 
 Another common and useful visualization is a scatterplot which shows the relationship between two numeric variable. In ggplot, you use **geom_point()**.
 
@@ -488,6 +504,140 @@ NFL_2021_Team_Passing %>%
 \newpage
 
 ## Baseball
+
+### Basic Baseball Hitting Statistics
+
+- **Plate Appearances** (PA): number of completed batting appearances
+
+- **At-Bats** (AB): Batting appearances, not including bases on balls, hit by pitch, sacrifices, interference, or obstruction
+
+- **Hits** (H): Times reached base because of a batted, fair ball without error by the defense
+
+- **Singles** (1B): Hits on which the batter reached first base safely without the contribution of a fielding error
+
+- **Doubles** (2B): Hits on which the batter reached second base safely without the contribution of a fielding error
+
+- **Triples** (3B): Hits on which the batter reached third base safely without the contribution of a fielding error
+
+- **Home Runs** (HR): Hits on which the batter successfully touched all four bases, without the contribution of a fielding error
+
+- **Total Bases** (TB): One for each single, two for each double, three for each triple, and four for each home run
+
+- **Hit by Pitch** (HBP): Times touched by a pitch and awarded first base as a result
+
+- **Sacrifice Fly** (SF): Number of fly ball outs which allow another runner to advance on the basepaths or score
+
+- **Base on Balls** (BB or Walk): Times receiving four balls and advancing to first base
+
+- **Intentional Base on Balls** (IBB or Intentional Walk): Times receiving four balls *intentionally* and advancing to first base
+
+- **Strikeout** (K): Number of times that strike three is taken or swung at and missed, or bunted foul
+
+- **Runs** (R): Times reached home base legally and safely
+
+- **Runs Batted In** (RBI): Number of runners who scored due to a batters's action, except when batter grounded into double play or reached on an error
+
+- **Batting Average** (AVG or BA): Hits divided by at bats
+
+- **On Base Percentage/Average** (OBP or OBA): Times reached base (H + BB + HBP) divided by at bats plus walks plus hit by pitch plus sacrifice flies (AB + BB + HBP + SF)
+
+- **Slugging Percentage/Average** (SLG): Total bases divided by at-bats
+
+- **On-base Plus Slugging** (OPS): On-base percentage plus slugging average
+
+
+### Basic Baseball Hitting Statistics
+
+- **Innings Pitched** (IP): Number of outs recorded while pitching divided by three
+
+- **Strikeout** (K): Number of batters who received strike three
+
+- **Base on Balls** (BB or Walk): Times pitching four balls, allowing the batter-runner to advance to first base
+
+- **Hits Allowed** (H): Total hits allowed
+
+- **Wins** (W): Number of games where pitcher was pitching while his team took the lead and went on to win
+
+- **Losses** (L): Number of games where pitcher was pitching while the opposing team took the lead, never lost the lead, and went on to win
+
+- **Earned Runs** (ER): Number of runs that did not occur as a result of errors or passed balls
+
+- **Earned Run Average** (ERA): Earned runs times innings in a game (usually nine) divided by innings pitched
+
+- **Walks and Hits Per Inning Pitched** (WHIP): Walks plus hits allowed divided by innings pitched
+
+
+### Advanced Baseball Hitting Statistics
+
+- **Isolated Power** (ISO): Slugging percentage minus Batting average
+
+- **On-base Plus Slugging Plus** (OPS+): OPS normalized for park effects with 100 being league average
+
+- **Weighted On-Base Average** (wOBA): Hitting rate statistic that attempts to credit the hitter for the value of each outcome. The following formula can be updated each year based on the scoring environment. The following formula was updated for the 2021 season.
+
+\[wOBA = \frac{0.69 \cdot (BB - IBB) + 0.719 \cdot HBP + 0.87 \cdot 1B + 1.217 \cdot 2B + 1.529 \cdot 3B + 1.94 \cdot HR}{AB + BB - IBB + SF + HBP}\]
+
+- **Expected Weighted On-Base Average** (xwOBA): Hitting rate statistic that attempts to credit the hitter for the value of each *expected* outcome based on Statcast data. 
+
+
+### Advanced Baseball Pitching Statistics
+
+- **Fielding Independent Pitching** (FIP): Statistic that estimates a pitcher's run prevention independent of the performance of the defense
+
+\[FIP = \frac{13 \cdot HR + 3 \cdot (BB + HBP) - 2 \cdot K}{IP} + FIP_{constant}\]
+
+The $FIP_{constant}$ is generally around 3.10 and is put FIP on a scale similar to ERA.
+
+- **Expected Fielding Independent Pitching** (xFIP): Statistic that estimates a pitcher's expected run prevention independent of the performance of the defense
+
+\[xFIP = \frac{13 \cdot (Fly Balls \cdot LgHR/FB\%)+3 \cdot (BB + HBP) - 2 \cdot K}{IP} + FIP_{constant}\]
+
+
+### Wins Above Replacement
+
+- **Wins Above Replacement** (WAR): Estimated number of wins that a player has outperformed a replacement player by with the same playing time. This is one of the most crucial statistics in Sabermetrics.
+
+More about WAR from [Fangraphs](https://library.fangraphs.com/misc/war/)
+
+*References: https://www.baseball-reference.com/bullpen/Baseball_statistics, https://blogs.fangraphs.com/glossary/, https://library.fangraphs.com/fangraphs-library-glossary/*
+
+### Calculating Advanced Hitting Statistics
+
+:::{.example}
+Using the Colorado Rockies 2021 individual hitting statistics, calculate the AVG, OBA, SLG, OPS, ISO, wOBA.
+:::
+
+```{r, message=F}
+rox21 <- read_csv("data/rockies_hitting2021.csv")
+head(rox21)
+```
+```{r}
+rox21 <- rox21 %>% 
+  mutate(AVG = round(H/AB,3)) %>%
+  mutate(OBA = round((H + BB + HBP)/(AB + BB + HBP + SF),3)) %>%
+  mutate(SLG = round(((H-`2B`-`3B`-HR) + 2*`2B` + 3*`3B` + 4*HR)/AB,3)) %>%
+  mutate(OPS = round(SLG + OBA,3)) %>%
+  mutate(wOBA = round((0.692 * (BB - IBB) + 0.722 * HBP + 0.879 * (H-`2B`-`3B`-HR) + 1.242 * `2B` + 1.568 * `3B` + 2.007 * HR)/(AB + BB - IBB + SF + HBP),3)) %>%
+  mutate(ISO = round(SLG-AVG,3))
+rox21 %>% select(Name,PA,AVG,OBA,SLG,OPS,wOBA,ISO)
+```
+:::{.example}
+oWAR is Baseball Reference's offensive WAR statistic. Note that Baseball Reference and Fangraphs use different formulas when calculating WAR though their results are typically similar. For Rockies players with at least 100 at-bats in 2021, what hitting statistics are most and least correlated to oWAR?
+:::
+
+```{r,message=F}
+# Let's remove players with less than 100 ABs
+rox21_100 <- rox21 %>% filter(AB >= 100)
+
+# GGally package has a nice pairs plotting function
+library("GGally")
+
+# Standard hitting statistics
+rox21_100 %>% select(oWAR,H,`2B`,`3B`,HR,R,RBI) %>% ggpairs()
+
+# Rate statistics
+rox21_100 %>% select(oWAR,AVG,OBA,SLG,OPS,wOBA) %>% ggpairs()
+```
 
 \newpage
 
@@ -664,180 +814,6 @@ A: There is not a perfect correlation, but it seems that two-point field goals w
 
 \newpage
 
-## Soccer
-
-To begin, let's go over a couple of basic summary statistics specific to soccer that will be necessary to understand for the following examples.
-
--   **Shots (SH)** represent all shots taken by a team throughout the game. This is simply an attempt by a player to shoot the ball toward the net, even if they miss or the shot is saved (Rookie Road).
-
--   **Shots on Goal (SOG)** represent all shots that would have gone into the goal if not saved by a defender or goalkeeper (Rookie Road).
-
--   **Expected Goals (xG)** "indicates how many goals a team could have expected to score based on the quantity and quality of chances that they created in a match" (Tippett 2019, 4).
-
--   **Assist (A)** occur when a player passes the ball to someone, and the next shot results in a goal.
-
--   **Possession** refers to the percentage of time a team had control of the ball during a game.
-
-These definitions come from www.rookieroad.com and "The Expected Goals Philosophy" by James Tippett.
-
-To learn more about expected goals, check out [this YouTube video](https://www.youtube.com/watch?v=w7zPZsLGK18&list=PL9Az6mi38hv__afKnHR1AKjpcDIw_0qqT){.uri}.
-
-### Bar Plot
-
-Now that we have an understanding of some basic shooting statistics, let us go through some EDA examples. For this first example, we will need to install the "worldfootballR" package.
-
-```{r}
-library(worldfootballR)
-```
-
-Next we will look at some data specific to LaLiga, which is a soccer league in the men's top professional soccer division.
-
-```{r,eval=F,message=F}
-# Get "Squad Standard Stats" Data
-big5_2021_stats <- fb_big5_advanced_season_stats(season_end_year = 2021, stat_type = "standard", team_or_player = "team")
-liga_2021_stats <- big5_2021_stats[which((big5_2021_stats$Comp == "La Liga")),]
-```
-
-```{r, echo=F,message=F}
-liga_2021_stats <- read_csv("data/liga_2021_stats.csv")
-```
-
-```{r}
-# Create visual for each team's goals per game
-team_goals_viz <- ggplot(data = liga_2021_stats[which(liga_2021_stats$Team_or_Opponent == "team"),], 
-                         aes(x = Squad, y = Gls_Per)) +
-  geom_bar(stat = "identity")
-team_goals_viz
-```
-
-This plot is a good starting point, but still looks pretty messy. Let's add a title, change the axis titles, and rotate the axis labels so they are not overlapping over one another.
-
-```{r}
-team_goals_viz <- team_goals_viz +
-  xlab("Team") +
-  ylab("Goals Per Game") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ggtitle("Goals Per Game by Team")
-team_goals_viz
-```
-
-This is already looking a lot better. Now, we will add the goals scored per game *against* each team. Why is this of interest? Well, at first glance, Barcelona seems like a pretty impressive team, as they score more goals per game than any other team in the league. However, what if they also have more goals scored against them than any other team in the league? This could be important context, so we will include it in the graph below.
-
-```{r}
-all_goals_viz <- ggplot(data = liga_2021_stats, aes(x = Squad, y = Gls_Per)) +
-  geom_bar(stat = "identity", aes(fill = Team_or_Opponent), position = "stack") +
-  xlab("Team") +
-  ylab("Goals Per 90 Minutes") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ggtitle("Goals Per Game by Team")
-all_goals_viz
-```
-
-This is looking pretty good, but let's clean it up just a bit by changing the legend title and labels.
-
-```{r}
-all_goals_viz +
-  scale_fill_discrete(name = "Team or Opponent", labels = c("Opponent","Team"))
-
-```
-
-What does this graph show us? Well, we are able to see the average number of goals scored for and against each team per game. It looks like Barcelona is scoring a lot more goals than they are letting be scored against them, while other teams like Valladolid tend to have a higher proportion of goals scored for the opposing team.
-
-### Scatter Plot
-
-In addition to simply knowing the average actual number of goals scored for and against each team per game, we may be interested in how this compares to the expected number of goals scored per game, as well.
-
-```{r, warning=F, message=F}
-library(ggExtra)
-act_exp_viz <- ggplot(data = liga_2021_stats, aes(x = xG_Per, y = Gls_Per, label = Squad)) +
-  geom_point() +
-  scale_x_continuous(limits = c(0.75,2.25)) +
-  scale_y_continuous(limits = c(0.75,2.25)) +
-  ggtitle("Expected vs. Actual Goals Per Game") +
-  xlab("Expected Goals Per Game") +
-  ylab("Actual Goals Per Game") +
-  geom_smooth(method = "lm", se = FALSE) +
-  theme(aspect.ratio = 2/2)
-ggMarginal(act_exp_viz, type = "density")
-
-```
-
-As you can see, we fit a line to the data. At first glance, it seems to have a positive slope slightly greater than 1. What does this mean in the scenario of actual and expected goals per game?
-
-### Density Ridges Plot
-
-At first glance, it seems that actual goals scored per game do not differ greatly from expected goals per game. Let us look at some density plots for actual and expected goals per game for five of the top teams in LaLiga over the last four seasons. These are the top five teams as of June 21st, 2022 on www.foxsports.com.
-
-
-```{r, message=F, warning=F}
-library(ggridges)
-
-# Get "Squad Standard Stats" data for the last four seasons
-top_liga_2021_stats <- read_csv("data/laliga21.csv")
-top_liga_2020_stats <- read_csv("data/laliga20.csv")
-top_liga_2019_stats <- read_csv("data/laliga19.csv")
-top_liga_2018_stats <- read_csv("data/laliga18.csv")
-
-top_liga_2021_stats <- top_liga_2021_stats[which(top_liga_2021_stats$Squad == "Real Madrid"|
-                                           top_liga_2021_stats$Squad == "Villarreal"|
-                                           top_liga_2021_stats$Squad == "Barcelona"|
-                                           top_liga_2021_stats$Squad == "Levante"|
-                                           top_liga_2021_stats$Squad == "Betis"),]
-top_liga_2020_stats <- top_liga_2020_stats[which(top_liga_2020_stats$Squad == "Real Madrid"|
-                                           top_liga_2020_stats$Squad == "Villarreal"|
-                                           top_liga_2020_stats$Squad == "Barcelona"|
-                                           top_liga_2020_stats$Squad == "Levante"|
-                                           top_liga_2020_stats$Squad == "Betis"),]
-top_liga_2019_stats <- top_liga_2019_stats[which(top_liga_2019_stats$Squad == "Real Madrid"|
-                                           top_liga_2019_stats$Squad == "Villarreal"|
-                                           top_liga_2019_stats$Squad == "Barcelona"|
-                                           top_liga_2019_stats$Squad == "Levante"|
-                                           top_liga_2019_stats$Squad == "Betis"),]
-top_liga_2018_stats <- top_liga_2018_stats[which(top_liga_2018_stats$Squad == "Real Madrid"|
-                                           top_liga_2018_stats$Squad == "Villarreal"|
-                                           top_liga_2018_stats$Squad == "Barcelona"|
-                                           top_liga_2018_stats$Squad == "Levante"|
-                                           top_liga_2018_stats$Squad == "Betis"),]
-
-# Combine all four seasons' data into one data frame
-top_liga_stats <- rbind(top_liga_2018_stats, top_liga_2019_stats, top_liga_2020_stats, top_liga_2021_stats)
-
-goals_act <- data.frame(top_liga_stats$Gls_Per[which(top_liga_stats$Team_or_Opponent == "team")])
-goals_act$team <- top_liga_stats$Squad[which(top_liga_stats$Team_or_Opponent == "team")]
-goals_act$exp_or_act <- "actual"
-goals_act$year <- top_liga_stats$Season_End_Year[which(top_liga_stats$Team_or_Opponent == "team")]
-colnames(goals_act)[1] <- "stats"
-goals_exp <- data.frame(top_liga_stats$xG_Per[which(top_liga_stats$Team_or_Opponent == "team")])
-goals_exp$team <- top_liga_stats$Squad[which(top_liga_stats$Team_or_Opponent == "team")]
-goals_exp$exp_or_act <- "expected"
-goals_exp$year <- top_liga_stats$Season_End_Year[which(top_liga_stats$Team_or_Opponent == "team")]
-colnames(goals_exp)[1] <- "stats"
-goals <- rbind(goals_act, goals_exp)
-
-# Plot density ridges
-ggplot(data = goals) +
-  geom_density_ridges(aes(x = stats, y = team, fill = exp_or_act, color = exp_or_act),
-                      alpha = 0.5, scale = 1) +
-  scale_x_continuous(limits = c(0.75,2.75)) +
-  scale_y_discrete(expand = expand_scale(add = c(0.2, 1))) +
-  ggtitle("Expected vs. Actual Goals Per Game") +
-  xlab("Goals Per Game") +
-  ylab("Team") +
-  scale_fill_cyclical(name = "Actual or Expected Goals",
-                      labels = c("Actual","Expected"),
-                      guide = "legend",
-                      values = c("#FF0000A0", "#A0A0A0A0")) +
-  scale_color_cyclical(name = "Actual or Expected Goals",
-                       labels = c("Actual","Expected"),
-                       guide = "legend",
-                       values = c("#FF0000A0", "#A0A0A0A0"))
-
-```
-
-Let us break down exactly what this visual is showing us. We are looking at the density of expected and actual goals per game for the top five teams in LaLiga, over the last four seasons (with the last season ending in 2021). We can see that Barcelona is typically scoring more goals than what is expected of them, as the density of actual goals is condensed around higher goal numbers than the density of expected goals. Villarreal, however, is performing just as well as what is expected of them based on expected and actual goals scored.
-
-
-\newpage
 
 ## Hockey
 
@@ -999,6 +975,8 @@ In the article ["An advanced stat primer: Understanding basic hockey metrics"](h
 
 ## Volleyball
 
+### Basic Volleyball Statistics
+
 To begin, let's go over some basic volleyball statistics. The following definitions come from [www.rookieroad.com](www.rookieroad.com)
 
 -   A **Service Ace (SA)** occurs when a player's serve touches the ground on the other team's side without being touched by a player on that side.
@@ -1071,5 +1049,181 @@ dig_viz +
 ```
 
 Box plots allow us to isolate each statistic (number of kills and hitting percentage) so we can more clearly determine the center and spread of each between wins and losses.
+
+\newpage
+
+## Soccer
+
+### Basic Soccer Statistics
+
+-   **Shots (SH)** represent all shots taken by a team throughout the game. This is simply an attempt by a player to shoot the ball toward the net, even if they miss or the shot is saved (Rookie Road).
+
+-   **Shots on Goal (SOG)** represent all shots that would have gone into the goal if not saved by a defender or goalkeeper (Rookie Road).
+
+-   **Assist (A)** occur when a player passes the ball to someone, and the next shot results in a goal.
+
+-   **Possession** refers to the percentage of time a team had control of the ball during a game.
+
+### Advanced Soccer Statistics
+
+-   **Expected Goals (xG)** "indicates how many goals a team could have expected to score based on the quantity and quality of chances that they created in a match" (Tippett 2019, 4).
+
+These definitions come from www.rookieroad.com and "The Expected Goals Philosophy" by James Tippett.
+
+To learn more about expected goals, check out [this YouTube video](https://www.youtube.com/watch?v=w7zPZsLGK18&list=PL9Az6mi38hv__afKnHR1AKjpcDIw_0qqT){.uri}.
+
+### Bar Plot
+
+Now that we have an understanding of some basic shooting statistics, let us go through some EDA examples. For this first example, we will need to install the "worldfootballR" package.
+
+```{r}
+library(worldfootballR)
+```
+
+Next we will look at some data specific to LaLiga, which is a soccer league in the men's top professional soccer division.
+
+```{r,eval=F,message=F}
+# Get "Squad Standard Stats" Data
+big5_2021_stats <- fb_big5_advanced_season_stats(season_end_year = 2021, stat_type = "standard", team_or_player = "team")
+liga_2021_stats <- big5_2021_stats[which((big5_2021_stats$Comp == "La Liga")),]
+```
+
+```{r, echo=F,message=F}
+liga_2021_stats <- read_csv("data/liga_2021_stats.csv")
+```
+
+```{r}
+# Create visual for each team's goals per game
+team_goals_viz <- ggplot(data = liga_2021_stats[which(liga_2021_stats$Team_or_Opponent == "team"),], 
+                         aes(x = Squad, y = Gls_Per)) +
+  geom_bar(stat = "identity")
+team_goals_viz
+```
+
+This plot is a good starting point, but still looks pretty messy. Let's add a title, change the axis titles, and rotate the axis labels so they are not overlapping over one another.
+
+```{r}
+team_goals_viz <- team_goals_viz +
+  xlab("Team") +
+  ylab("Goals Per Game") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ggtitle("Goals Per Game by Team")
+team_goals_viz
+```
+
+This is already looking a lot better. Now, we will add the goals scored per game *against* each team. Why is this of interest? Well, at first glance, Barcelona seems like a pretty impressive team, as they score more goals per game than any other team in the league. However, what if they also have more goals scored against them than any other team in the league? This could be important context, so we will include it in the graph below.
+
+```{r}
+all_goals_viz <- ggplot(data = liga_2021_stats, aes(x = Squad, y = Gls_Per)) +
+  geom_bar(stat = "identity", aes(fill = Team_or_Opponent), position = "stack") +
+  xlab("Team") +
+  ylab("Goals Per 90 Minutes") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ggtitle("Goals Per Game by Team")
+all_goals_viz
+```
+
+This is looking pretty good, but let's clean it up just a bit by changing the legend title and labels.
+
+```{r}
+all_goals_viz +
+  scale_fill_discrete(name = "Team or Opponent", labels = c("Opponent","Team"))
+
+```
+
+What does this graph show us? Well, we are able to see the average number of goals scored for and against each team per game. It looks like Barcelona is scoring a lot more goals than they are letting be scored against them, while other teams like Valladolid tend to have a higher proportion of goals scored for the opposing team.
+
+### Scatter Plot
+
+In addition to simply knowing the average actual number of goals scored for and against each team per game, we may be interested in how this compares to the expected number of goals scored per game, as well.
+
+```{r, warning=F, message=F}
+library(ggExtra)
+act_exp_viz <- ggplot(data = liga_2021_stats, aes(x = xG_Per, y = Gls_Per, label = Squad)) +
+  geom_point() +
+  scale_x_continuous(limits = c(0.75,2.25)) +
+  scale_y_continuous(limits = c(0.75,2.25)) +
+  ggtitle("Expected vs. Actual Goals Per Game") +
+  xlab("Expected Goals Per Game") +
+  ylab("Actual Goals Per Game") +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme(aspect.ratio = 2/2)
+ggMarginal(act_exp_viz, type = "density")
+
+```
+
+As you can see, we fit a line to the data. At first glance, it seems to have a positive slope slightly greater than 1. What does this mean in the scenario of actual and expected goals per game?
+
+### Density Ridges Plot
+
+At first glance, it seems that actual goals scored per game do not differ greatly from expected goals per game. Let us look at some density plots for actual and expected goals per game for five of the top teams in LaLiga over the last four seasons. These are the top five teams as of June 21st, 2022 on www.foxsports.com.
+
+
+```{r, message=F, warning=F}
+library(ggridges)
+
+# Get "Squad Standard Stats" data for the last four seasons
+top_liga_2021_stats <- read_csv("data/laliga21.csv")
+top_liga_2020_stats <- read_csv("data/laliga20.csv")
+top_liga_2019_stats <- read_csv("data/laliga19.csv")
+top_liga_2018_stats <- read_csv("data/laliga18.csv")
+
+top_liga_2021_stats <- top_liga_2021_stats[which(top_liga_2021_stats$Squad == "Real Madrid"|
+                                           top_liga_2021_stats$Squad == "Villarreal"|
+                                           top_liga_2021_stats$Squad == "Barcelona"|
+                                           top_liga_2021_stats$Squad == "Levante"|
+                                           top_liga_2021_stats$Squad == "Betis"),]
+top_liga_2020_stats <- top_liga_2020_stats[which(top_liga_2020_stats$Squad == "Real Madrid"|
+                                           top_liga_2020_stats$Squad == "Villarreal"|
+                                           top_liga_2020_stats$Squad == "Barcelona"|
+                                           top_liga_2020_stats$Squad == "Levante"|
+                                           top_liga_2020_stats$Squad == "Betis"),]
+top_liga_2019_stats <- top_liga_2019_stats[which(top_liga_2019_stats$Squad == "Real Madrid"|
+                                           top_liga_2019_stats$Squad == "Villarreal"|
+                                           top_liga_2019_stats$Squad == "Barcelona"|
+                                           top_liga_2019_stats$Squad == "Levante"|
+                                           top_liga_2019_stats$Squad == "Betis"),]
+top_liga_2018_stats <- top_liga_2018_stats[which(top_liga_2018_stats$Squad == "Real Madrid"|
+                                           top_liga_2018_stats$Squad == "Villarreal"|
+                                           top_liga_2018_stats$Squad == "Barcelona"|
+                                           top_liga_2018_stats$Squad == "Levante"|
+                                           top_liga_2018_stats$Squad == "Betis"),]
+
+# Combine all four seasons' data into one data frame
+top_liga_stats <- rbind(top_liga_2018_stats, top_liga_2019_stats, top_liga_2020_stats, top_liga_2021_stats)
+
+goals_act <- data.frame(top_liga_stats$Gls_Per[which(top_liga_stats$Team_or_Opponent == "team")])
+goals_act$team <- top_liga_stats$Squad[which(top_liga_stats$Team_or_Opponent == "team")]
+goals_act$exp_or_act <- "actual"
+goals_act$year <- top_liga_stats$Season_End_Year[which(top_liga_stats$Team_or_Opponent == "team")]
+colnames(goals_act)[1] <- "stats"
+goals_exp <- data.frame(top_liga_stats$xG_Per[which(top_liga_stats$Team_or_Opponent == "team")])
+goals_exp$team <- top_liga_stats$Squad[which(top_liga_stats$Team_or_Opponent == "team")]
+goals_exp$exp_or_act <- "expected"
+goals_exp$year <- top_liga_stats$Season_End_Year[which(top_liga_stats$Team_or_Opponent == "team")]
+colnames(goals_exp)[1] <- "stats"
+goals <- rbind(goals_act, goals_exp)
+
+# Plot density ridges
+ggplot(data = goals) +
+  geom_density_ridges(aes(x = stats, y = team, fill = exp_or_act, color = exp_or_act),
+                      alpha = 0.5, scale = 1) +
+  scale_x_continuous(limits = c(0.75,2.75)) +
+  scale_y_discrete(expand = expand_scale(add = c(0.2, 1))) +
+  ggtitle("Expected vs. Actual Goals Per Game") +
+  xlab("Goals Per Game") +
+  ylab("Team") +
+  scale_fill_cyclical(name = "Actual or Expected Goals",
+                      labels = c("Actual","Expected"),
+                      guide = "legend",
+                      values = c("#FF0000A0", "#A0A0A0A0")) +
+  scale_color_cyclical(name = "Actual or Expected Goals",
+                       labels = c("Actual","Expected"),
+                       guide = "legend",
+                       values = c("#FF0000A0", "#A0A0A0A0"))
+
+```
+
+Let us break down exactly what this visual is showing us. We are looking at the density of expected and actual goals per game for the top five teams in LaLiga, over the last four seasons (with the last season ending in 2021). We can see that Barcelona is typically scoring more goals than what is expected of them, as the density of actual goals is condensed around higher goal numbers than the density of expected goals. Villarreal, however, is performing just as well as what is expected of them based on expected and actual goals scored.
 
 

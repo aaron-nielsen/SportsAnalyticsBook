@@ -205,7 +205,7 @@ ggplot(data = goals) +
 
 ```
 
-Let us break down exactly what this visual is showing us. We are looking at the density of expected and actual goals per game for the top five teams in LaLiga, over the last four seasons (with the last season ending in 2021). We can see that Barcelona is typically scoring more goals than what is expected of them, as the density of actual goals is condensed around higher goal numbers than the density of expected goals. Villarreal, however, is performing just as well as what is expected of them based on expected and actual goals scored.
+Let us break down exactly what this visual is showing us. We are looking at the density of average expected and actual goals per game for the top five teams in LaLiga, over the last four seasons (with the last season ending in 2021). We can see that Barcelona is typically scoring more goals than what is expected of them, as the density of actual goals is condensed around higher goal numbers than the density of expected goals. Villarreal, however, is performing just as well as what is expected of them based on expected and actual goals scored.
 
 ### Volleyball: EDA
 
@@ -345,6 +345,10 @@ $$
 
 Therefore, the probability of the CSU Women's Volleyball Team winning the second game given that they win the first game is 68.75%.
 
-[Insert another example here]
+### Hockey: Linear Regression
+
+using auto correlation, pg. 134
+rank correlation, pg. 129 (ranking for passing and rushing yards)
+random forests
 
 ------------------------------------------------------------------------
