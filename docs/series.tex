@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-07-12}
+\date{2022-07-13}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -214,6 +214,8 @@ To begin using R Studio, you will need to install ``R'' first and then install `
 (b) Click to download\\
 (c) Install R Studio on your computer\\
 
+\newpage
+
 \textbf{\emph{Step 3: Verify R Studio is working}}\\
 (a) Open R Studio\\
 (b) Let's enter a small dataset and calculate the average to make sure everything is working correctly.\\
@@ -244,6 +246,8 @@ To begin using R Studio, you will need to install ``R'' first and then install `
 \end{verbatim}
 
 \noindent (e) Did you find Slammin' Sammy's average home run total from 1998--2002 was 58.4? If so, you should be set up correctly!
+
+\newpage
 
 \hypertarget{some-r-basics}{%
 \subsection{Some R Basics}\label{some-r-basics}}
@@ -413,7 +417,9 @@ What are possible nominal and ordinal data associated with Peyton Manning?
 \hfill\break
 \hfill\break
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vfill
+
+\newpage
 
 \hypertarget{descriptive-statistics-1}{%
 \subsection{Descriptive Statistics}\label{descriptive-statistics-1}}
@@ -477,11 +483,11 @@ The \textbf{\emph{sample standard deviation}}, \(s\), of the numerical dataset i
 \end{definition}
 
 \begin{definition}
-The \textbf{\emph{population variance}}, \(\sigma^2\), is the variance for an entire population.
+The \textbf{\emph{population variance}}, \(\sigma^2\), is the variance for an entire population and is given by \(\sigma^2 = \frac{1}{N} \sum_{i=1}^N (x_i - \mu)^2\), where \(N\) is the population size.
 \end{definition}
 
 \begin{definition}
-The \textbf{\emph{population standard deviation}}, \(\sigma\), is the standard deviation for an entire population.
+The \textbf{\emph{population standard deviation}}, \(\sigma\), is the standard deviation for an entire population and is given by \(\sigma = \sqrt{\frac{1}{N} \sum_{i=1}^N (x_i - \mu)^2}\)
 \end{definition}
 
 We often prefer to work with standard deviations as a measure of spread as opposed to variance because standard deviations are given in our original units.
@@ -521,6 +527,7 @@ Calculate the sample median of Peyton Manning's season passing yards total while
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 Like sample mean, sample median is a measure of center. It gives you an idea of where the ``middle'' of your dataset is.
 
@@ -549,6 +556,8 @@ We can calculate sample mean and sample median in R as follows:
 \begin{verbatim}
 ## [1] 4200
 \end{verbatim}
+
+\newpage
 
 \begin{definition}
 A \textbf{\emph{percentile}} is a measure of relative standing. The \(p^\text{th}\) percentile is the number where at least
@@ -636,6 +645,9 @@ A \textbf{\emph{five number summary}} describes the center, spread, and edges of
 ##   0%  25%  50%  75% 100% 
 ## 3739 4040 4200 4413 4700
 \end{verbatim}
+
+\vfill
+\newpage
 
 \hypertarget{qualitative-data}{%
 \subsubsection{Qualitative Data}\label{qualitative-data}}
@@ -746,14 +758,33 @@ If you have already installed the \textbf{tidyverse} package, it should have als
 ## x dplyr::lag()    masks stats::lag()
 \end{verbatim}
 
-Let's load the file ``NFL\_2021\_Team\_Passing.csv'' which contains \href{https://www.pro-football-reference.com/years/2021/index.htm\#passing}{NFL Team Passing Statistics, 2021}
+Let's load the file ``NFL\_2021\_Team\_Passing.csv'' which contains NFL Team Passing Statistics, 2021 from \url{https://www.pro-football-reference.com/years/2021/index.htm\#passing}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(readr)}
 \NormalTok{NFL\_2021\_Team\_Passing }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/NFL\_2021\_Team\_Passing.csv"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(NFL\_2021\_Team\_Passing)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 25
+##      Rk Tm             G   Cmp   Att `Cmp%`   Yds    TD `TD%`   Int `Int%`   Lng
+##   <dbl> <chr>      <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl> <dbl>
+## 1     1 Tampa Bay~    17   492   731   67.3  5229    43   5.9    12    1.6    62
+## 2     2 Los Angel~    17   443   674   65.7  4800    38   5.6    15    2.2    72
+## 3     3 Dallas Co~    17   444   647   68.6  4800    40   6.2    11    1.7    73
+## 4     4 Kansas Ci~    17   448   675   66.4  4791    37   5.5    13    1.9    75
+## 5     5 Los Angel~    17   406   607   66.9  4642    41   6.8    18    3      79
+## 6     6 Las Vegas~    17   429   628   68.3  4567    23   3.7    14    2.2    61
+## # ... with 13 more variables: `Y/A` <dbl>, `AY/A` <dbl>, `Y/C` <dbl>,
+## #   `Y/G` <dbl>, Rate <dbl>, Sk <dbl>, SKYds <dbl>, `Sk%` <dbl>, `NY/A` <dbl>,
+## #   `ANY/A` <dbl>, `4QC` <dbl>, GWD <dbl>, EXP <dbl>
+\end{verbatim}
+
+\vfill
+\newpage
 
 \hypertarget{histograms}{%
 \subsection{Histograms}\label{histograms}}
@@ -774,6 +805,9 @@ Create a histogram of the NFL Team Passing Yards in 2021.
 
 Notice how \textbf{\%\textgreater\%} is used to \textbf{pipe} the dataset into ggplot. This is using the pipe function from the \textbf{dplyr} package.
 
+\vfill
+\newpage
+
 By default, \textbf{geom\_histogram} uses 30 bins but this is customizable. Let's make the bins have a width of 200.
 
 All good visualizations have good labels. Let's improve the axis labels and give the figure a title.
@@ -788,6 +822,9 @@ All good visualizations have good labels. Let's improve the axis labels and give
 
 \includegraphics{series_files/figure-latex/hist2-1.pdf}
 
+\vfill
+\newpage
+
 We also have numerous options to change the appearance of plots when using \textbf{ggplot}. Let's change the bins color to \emph{blue} and change the bin borders to \emph{white}.
 
 \begin{Shaded}
@@ -800,6 +837,9 @@ We also have numerous options to change the appearance of plots when using \text
 
 \includegraphics{series_files/figure-latex/hist3-1.pdf}
 \end{example}
+
+\vfill
+\newpage
 
 \hypertarget{bar-plots}{%
 \subsection{Bar Plots}\label{bar-plots}}
@@ -818,6 +858,9 @@ Create a bar plot with teams on the horizontal axis and passing touchdowns on th
 
 \includegraphics{series_files/figure-latex/bar-1.pdf}
 
+\vfill
+\newpage
+
 The team labels are a complete mess. Let's fix this and make some adjustments to the axis labels and figure title.
 
 \begin{Shaded}
@@ -830,6 +873,9 @@ The team labels are a complete mess. Let's fix this and make some adjustments to
 \end{Shaded}
 
 \includegraphics{series_files/figure-latex/bar2-1.pdf}
+
+\vfill
+\newpage
 
 We can flip this graph if we like as well. Note that when we flip the graph, our labels get in reverse ordering, so this can be fixed using \textbf{fct\_rev()} which is part of the \textbf{forcats} package.
 
@@ -844,11 +890,13 @@ We can flip this graph if we like as well. Note that when we flip the graph, our
 \includegraphics{series_files/figure-latex/bar3-1.pdf}
 \end{example}
 
+\vfill
+\newpage
+
 We can also order the teams from most team passing touchdowns to least using the \texttt{forcats} package.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(forcats)}
 \NormalTok{NFL\_2021\_Team\_Passing }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Tm =} \FunctionTok{fct\_reorder}\NormalTok{(Tm, Yds)) }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Tm, }\AttributeTok{y =}\NormalTok{ Yds)) }\SpecialCharTok{+} \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Team Passing Yards"}\NormalTok{,}
@@ -857,6 +905,9 @@ We can also order the teams from most team passing touchdowns to least using the
 \end{Shaded}
 
 \includegraphics{series_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\vfill
+\newpage
 
 \hypertarget{scatter-plots}{%
 \subsection{Scatter Plots}\label{scatter-plots}}
@@ -876,6 +927,9 @@ Create a scatterplot of Team Passing Yards and Team Passing Touchdowns from the 
 
 \includegraphics{series_files/figure-latex/scatter1-1.pdf}
 
+\vfill
+\newpage
+
 We may want to include team labels on this plot, however, it can get messy very quickly with a lot of points.
 
 \begin{Shaded}
@@ -887,6 +941,9 @@ We may want to include team labels on this plot, however, it can get messy very 
 \end{Shaded}
 
 \includegraphics{series_files/figure-latex/scatter2-1.pdf}
+
+\vfill
+\newpage
 
 Many sports leagues have around 30 teams, so a clean scatterplot with labels can be tricky to make. Here are some options below.
 
@@ -924,11 +981,134 @@ Many sports leagues have around 30 teams, so a clean scatterplot with labels can
 
 \newpage
 
+\hypertarget{kable-tables}{%
+\subsection{Kable Tables}\label{kable-tables}}
+
+We can build nice tables using \texttt{kableR} and \texttt{kableExtra}. Let's look at a few options.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Use a smaller dataset as an example}
+\NormalTok{NFL21 }\OtherTok{\textless{}{-}}\NormalTok{ NFL\_2021\_Team\_Passing }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{8}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{5}\NormalTok{)}
+
+\CommentTok{\# Default output for tabular data}
+\NormalTok{NFL21}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 7
+##   Tm                       G   Cmp   Att `Cmp%`   Yds    TD
+##   <chr>                <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl>
+## 1 Tampa Bay Buccaneers    17   492   731   67.3  5229    43
+## 2 Los Angeles Chargers    17   443   674   65.7  4800    38
+## 3 Dallas Cowboys          17   444   647   68.6  4800    40
+## 4 Kansas City Chiefs      17   448   675   66.4  4791    37
+## 5 Los Angeles Rams        17   406   607   66.9  4642    41
+\end{verbatim}
+
+You can find additional details on customizing kable tables at ~\url{https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_pdf.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Output using Kable (with no additional options)}
+\FunctionTok{library}\NormalTok{(kableExtra)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'kableExtra'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     group_rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Output using Kable and Kable{-}Styling and some additional options}
+\NormalTok{NFL21 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kable}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{l|r|r|r|r|r|r}
+\hline
+Tm & G & Cmp & Att & Cmp\% & Yds & TD\\
+\hline
+Tampa Bay Buccaneers & 17 & 492 & 731 & 67.3 & 5229 & 43\\
+\hline
+Los Angeles Chargers & 17 & 443 & 674 & 65.7 & 4800 & 38\\
+\hline
+Dallas Cowboys & 17 & 444 & 647 & 68.6 & 4800 & 40\\
+\hline
+Kansas City Chiefs & 17 & 448 & 675 & 66.4 & 4791 & 37\\
+\hline
+Los Angeles Rams & 17 & 406 & 607 & 66.9 & 4642 & 41\\
+\hline
+\end{tabular}
+\end{table}
+
+\vfill
+\newpage
+
+If you are going to use kable tables frequently in a document, you can write a short function to set your default options. After I ran the function below, the function \texttt{kt} will produce a kable table with my options set.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# kable table global setup}
+\NormalTok{kt }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data) \{}
+\NormalTok{    knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(data, }\AttributeTok{digits =} \DecValTok{3}\NormalTok{, }\AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"c"}\NormalTok{, }\StringTok{"c"}\NormalTok{, }\StringTok{"c"}\NormalTok{, }\StringTok{"c"}\NormalTok{, }\StringTok{"c"}\NormalTok{, }\StringTok{"c"}\NormalTok{, }\StringTok{"c"}\NormalTok{,}
+        \StringTok{"c"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+        \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{bootstrap\_options =} \StringTok{"striped"}\NormalTok{, }\AttributeTok{latex\_options =} \StringTok{"HOLD\_position"}\NormalTok{,}
+            \AttributeTok{full\_width =}\NormalTok{ F, }\AttributeTok{position =} \StringTok{"center"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NFL21 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kt}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c|c|c|c|c}
+\hline
+Tm & G & Cmp & Att & Cmp\% & Yds & TD\\
+\hline
+Tampa Bay Buccaneers & 17 & 492 & 731 & 67.3 & 5229 & 43\\
+\hline
+Los Angeles Chargers & 17 & 443 & 674 & 65.7 & 4800 & 38\\
+\hline
+Dallas Cowboys & 17 & 444 & 647 & 68.6 & 4800 & 40\\
+\hline
+Kansas City Chiefs & 17 & 448 & 675 & 66.4 & 4791 & 37\\
+\hline
+Los Angeles Rams & 17 & 406 & 607 & 66.9 & 4642 & 41\\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
 \hypertarget{baseball}{%
 \section{Baseball}\label{baseball}}
 
-\hypertarget{basic-baseball-hitting-statistics}{%
-\subsection{Basic Baseball Hitting Statistics}\label{basic-baseball-hitting-statistics}}
+Baseball rules YouTube video: \url{https://www.youtube.com/watch?v=skOsApsF0jQ\&t=63s}
+
+\hypertarget{basic-hitting-statistics}{%
+\subsection{Basic Hitting Statistics}\label{basic-hitting-statistics}}
 
 \begin{itemize}
 \item
@@ -971,8 +1151,10 @@ Many sports leagues have around 30 teams, so a clean scatterplot with labels can
   \textbf{On-base Plus Slugging} (OPS): On-base percentage plus slugging average
 \end{itemize}
 
-\hypertarget{basic-baseball-hitting-statistics-1}{%
-\subsection{Basic Baseball Hitting Statistics}\label{basic-baseball-hitting-statistics-1}}
+\newpage
+
+\hypertarget{basic-pitching-statistics}{%
+\subsection{Basic Pitching Statistics}\label{basic-pitching-statistics}}
 
 \begin{itemize}
 \item
@@ -1045,9 +1227,14 @@ The \(FIP_{constant}\) is generally around 3.10 and is put FIP on a scale simila
   \textbf{Wins Above Replacement} (WAR): Estimated number of wins that a player has outperformed a replacement player by with the same playing time. This is one of the most crucial statistics in Sabermetrics.
 \end{itemize}
 
-More about WAR from \href{https://library.fangraphs.com/misc/war/}{Fangraphs}
+More about WAR from Fangraphs: \url{https://library.fangraphs.com/misc/war/}
 
-\emph{References: \url{https://www.baseball-reference.com/bullpen/Baseball_statistics}, \url{https://blogs.fangraphs.com/glossary/}, \url{https://library.fangraphs.com/fangraphs-library-glossary/}}
+\emph{References:}\\
+\url{https://www.baseball-reference.com/bullpen/Baseball_statistics}\strut \\
+\url{https://blogs.fangraphs.com/glossary/}\strut \\
+\url{https://library.fangraphs.com/fangraphs-library-glossary/}\strut \\
+
+\newpage
 
 \hypertarget{calculating-advanced-hitting-statistics}{%
 \subsection{Calculating Advanced Hitting Statistics}\label{calculating-advanced-hitting-statistics}}
@@ -1058,57 +1245,72 @@ Using the Colorado Rockies 2021 individual hitting statistics, calculate the AVG
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# load data file and look at the header}
 \NormalTok{rox21 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/rockies\_hitting2021.csv"}\NormalTok{)}
-\FunctionTok{head}\NormalTok{(rox21)}
+\NormalTok{rox21 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## # A tibble: 6 x 15
-##   Name      PA    AB     R     H  `2B`  `3B`    HR   RBI    BB   IBB    SO   HBP
-##   <chr>  <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-## 1 Elias~   371   338    52    83    18     1    18    44    30     1    60     2
-## 2 C.J. ~   547   470    70   132    31     1    28    92    60     3   117    13
-## 3 Brend~   415   387    49   110    21     3    15    51    19     0    84     7
-## 4 Trevo~   595   526    88   132    34     5    24    75    53     2   139    11
-## 5 Ryan ~   596   528    80   134    32     1    23    86    59     2   147     4
-## 6 Raime~   533   487    69   133    26     2     6    50    40     2    70     1
-## # ... with 2 more variables: SF <dbl>, oWAR <dbl>
-\end{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c|c|c|c|c|c|c|l|c|c|c|c|c}
+\hline
+Name & PA & AB & R & H & 2B & 3B & HR & RBI & BB & IBB & SO & HBP & SF & oWAR\\
+\hline
+Elias Diaz & 371 & 338 & 52 & 83 & 18 & 1 & 18 & 44 & 30 & 1 & 60 & 2 & 1 & 1.1\\
+\hline
+C.J. Cron & 547 & 470 & 70 & 132 & 31 & 1 & 28 & 92 & 60 & 3 & 117 & 13 & 4 & 3.1\\
+\hline
+Brendan Rodgers & 415 & 387 & 49 & 110 & 21 & 3 & 15 & 51 & 19 & 0 & 84 & 7 & 2 & 1.9\\
+\hline
+Trevor Story & 595 & 526 & 88 & 132 & 34 & 5 & 24 & 75 & 53 & 2 & 139 & 11 & 5 & 3.4\\
+\hline
+Ryan McMahon* & 596 & 528 & 80 & 134 & 32 & 1 & 23 & 86 & 59 & 2 & 147 & 4 & 5 & 1.7\\
+\hline
+\end{tabular}
+\end{table}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Create new variables using the mutate function}
 \NormalTok{rox21 }\OtherTok{\textless{}{-}}\NormalTok{ rox21 }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{AVG =} \FunctionTok{round}\NormalTok{(H}\SpecialCharTok{/}\NormalTok{AB, }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{OBA =} \FunctionTok{round}\NormalTok{((H }\SpecialCharTok{+}\NormalTok{ BB }\SpecialCharTok{+}\NormalTok{ HBP)}\SpecialCharTok{/}\NormalTok{(AB }\SpecialCharTok{+}\NormalTok{ BB }\SpecialCharTok{+}\NormalTok{ HBP }\SpecialCharTok{+}\NormalTok{ SF), }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{SLG =} \FunctionTok{round}\NormalTok{(((H }\SpecialCharTok{{-}} \StringTok{\textasciigrave{}}\AttributeTok{2B}\StringTok{\textasciigrave{}} \SpecialCharTok{{-}} \StringTok{\textasciigrave{}}\AttributeTok{3B}\StringTok{\textasciigrave{}} \SpecialCharTok{{-}}\NormalTok{ HR) }\SpecialCharTok{+} \DecValTok{2} \SpecialCharTok{*} \StringTok{\textasciigrave{}}\AttributeTok{2B}\StringTok{\textasciigrave{}} \SpecialCharTok{+} \DecValTok{3} \SpecialCharTok{*} \StringTok{\textasciigrave{}}\AttributeTok{3B}\StringTok{\textasciigrave{}} \SpecialCharTok{+} \DecValTok{4} \SpecialCharTok{*}\NormalTok{ HR)}\SpecialCharTok{/}\NormalTok{AB,}
-        \DecValTok{3}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{OPS =} \FunctionTok{round}\NormalTok{(SLG }\SpecialCharTok{+}\NormalTok{ OBA, }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{wOBA =} \FunctionTok{round}\NormalTok{((}\FloatTok{0.692} \SpecialCharTok{*}\NormalTok{ (BB }\SpecialCharTok{{-}}\NormalTok{ IBB) }\SpecialCharTok{+} \FloatTok{0.722} \SpecialCharTok{*}\NormalTok{ HBP }\SpecialCharTok{+} \FloatTok{0.879} \SpecialCharTok{*}\NormalTok{ (H }\SpecialCharTok{{-}} \StringTok{\textasciigrave{}}\AttributeTok{2B}\StringTok{\textasciigrave{}} \SpecialCharTok{{-}} \StringTok{\textasciigrave{}}\AttributeTok{3B}\StringTok{\textasciigrave{}} \SpecialCharTok{{-}}
-\NormalTok{        HR) }\SpecialCharTok{+} \FloatTok{1.242} \SpecialCharTok{*} \StringTok{\textasciigrave{}}\AttributeTok{2B}\StringTok{\textasciigrave{}} \SpecialCharTok{+} \FloatTok{1.568} \SpecialCharTok{*} \StringTok{\textasciigrave{}}\AttributeTok{3B}\StringTok{\textasciigrave{}} \SpecialCharTok{+} \FloatTok{2.007} \SpecialCharTok{*}\NormalTok{ HR)}\SpecialCharTok{/}\NormalTok{(AB }\SpecialCharTok{+}\NormalTok{ BB }\SpecialCharTok{{-}}\NormalTok{ IBB }\SpecialCharTok{+}\NormalTok{ SF }\SpecialCharTok{+}\NormalTok{ HBP),}
-        \DecValTok{3}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{ISO =} \FunctionTok{round}\NormalTok{(SLG }\SpecialCharTok{{-}}\NormalTok{ AVG, }\DecValTok{3}\NormalTok{))}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{AVG =}\NormalTok{ H}\SpecialCharTok{/}\NormalTok{AB, }\DecValTok{3}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{OBA =}\NormalTok{ (H }\SpecialCharTok{+}\NormalTok{ BB }\SpecialCharTok{+}\NormalTok{ HBP)}\SpecialCharTok{/}\NormalTok{(AB }\SpecialCharTok{+}\NormalTok{ BB }\SpecialCharTok{+}\NormalTok{ HBP }\SpecialCharTok{+}\NormalTok{ SF)) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{SLG =}\NormalTok{ ((H }\SpecialCharTok{{-}} \StringTok{\textasciigrave{}}\AttributeTok{2B}\StringTok{\textasciigrave{}} \SpecialCharTok{{-}} \StringTok{\textasciigrave{}}\AttributeTok{3B}\StringTok{\textasciigrave{}} \SpecialCharTok{{-}}\NormalTok{ HR) }\SpecialCharTok{+} \DecValTok{2} \SpecialCharTok{*} \StringTok{\textasciigrave{}}\AttributeTok{2B}\StringTok{\textasciigrave{}} \SpecialCharTok{+} \DecValTok{3} \SpecialCharTok{*} \StringTok{\textasciigrave{}}\AttributeTok{3B}\StringTok{\textasciigrave{}} \SpecialCharTok{+} \DecValTok{4} \SpecialCharTok{*}\NormalTok{ HR)}\SpecialCharTok{/}\NormalTok{AB) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{OPS =}\NormalTok{ SLG }\SpecialCharTok{+}\NormalTok{ OBA) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{wOBA =}\NormalTok{ (}\FloatTok{0.692} \SpecialCharTok{*}\NormalTok{ (BB }\SpecialCharTok{{-}}\NormalTok{ IBB) }\SpecialCharTok{+} \FloatTok{0.722} \SpecialCharTok{*}\NormalTok{ HBP }\SpecialCharTok{+} \FloatTok{0.879} \SpecialCharTok{*}\NormalTok{ (H }\SpecialCharTok{{-}} \StringTok{\textasciigrave{}}\AttributeTok{2B}\StringTok{\textasciigrave{}} \SpecialCharTok{{-}} \StringTok{\textasciigrave{}}\AttributeTok{3B}\StringTok{\textasciigrave{}} \SpecialCharTok{{-}}
+\NormalTok{        HR) }\SpecialCharTok{+} \FloatTok{1.242} \SpecialCharTok{*} \StringTok{\textasciigrave{}}\AttributeTok{2B}\StringTok{\textasciigrave{}} \SpecialCharTok{+} \FloatTok{1.568} \SpecialCharTok{*} \StringTok{\textasciigrave{}}\AttributeTok{3B}\StringTok{\textasciigrave{}} \SpecialCharTok{+} \FloatTok{2.007} \SpecialCharTok{*}\NormalTok{ HR)}\SpecialCharTok{/}\NormalTok{(AB }\SpecialCharTok{+}\NormalTok{ BB }\SpecialCharTok{{-}}\NormalTok{ IBB }\SpecialCharTok{+}\NormalTok{ SF }\SpecialCharTok{+}\NormalTok{ HBP)) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{ISO =}\NormalTok{ SLG }\SpecialCharTok{{-}}\NormalTok{ AVG)}
 \NormalTok{rox21 }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{select}\NormalTok{(Name, PA, AVG, OBA, SLG, OPS, wOBA, ISO)}
+    \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(Name, PA, AVG, OBA, SLG, OPS, wOBA, ISO) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## # A tibble: 33 x 8
-##    Name                 PA   AVG   OBA   SLG   OPS  wOBA   ISO
-##    <chr>             <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-##  1 Elias Diaz          371 0.246 0.31  0.464 0.774 0.33  0.218
-##  2 C.J. Cron           547 0.281 0.375 0.53  0.905 0.383 0.249
-##  3 Brendan Rodgers     415 0.284 0.328 0.47  0.798 0.341 0.186
-##  4 Trevor Story        595 0.251 0.329 0.471 0.8   0.341 0.22 
-##  5 Ryan McMahon*       596 0.254 0.331 0.449 0.78  0.334 0.195
-##  6 Raimel Tapia*       533 0.273 0.327 0.372 0.699 0.305 0.099
-##  7 Garrett Hampson     494 0.234 0.289 0.38  0.669 0.288 0.146
-##  8 Charlie Blackmon*   582 0.27  0.351 0.411 0.762 0.333 0.141
-##  9 Yonathan Daza       331 0.282 0.332 0.355 0.687 0.304 0.073
-## 10 Joshua Fuentes      284 0.225 0.257 0.351 0.608 0.261 0.126
-## # ... with 23 more rows
-\end{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c|c|c|c|c|c}
+\hline
+Name & PA & AVG & OBA & SLG & OPS & wOBA & ISO\\
+\hline
+Elias Diaz & 371 & 0.246 & 0.310 & 0.464 & 0.774 & 0.330 & 0.219\\
+\hline
+C.J. Cron & 547 & 0.281 & 0.375 & 0.530 & 0.905 & 0.383 & 0.249\\
+\hline
+Brendan Rodgers & 415 & 0.284 & 0.328 & 0.470 & 0.798 & 0.341 & 0.186\\
+\hline
+Trevor Story & 595 & 0.251 & 0.329 & 0.471 & 0.801 & 0.341 & 0.221\\
+\hline
+Ryan McMahon* & 596 & 0.254 & 0.331 & 0.449 & 0.779 & 0.334 & 0.195\\
+\hline
+\end{tabular}
+\end{table}
+
+\vfill
+\newpage
 
 \begin{example}
 oWAR is Baseball Reference's offensive WAR statistic. Note that Baseball Reference and Fangraphs use different formulas when calculating WAR though their results are typically similar. For Rockies players with at least 100 at-bats in 2021, what hitting statistics are most and least correlated to oWAR?
@@ -1130,7 +1332,7 @@ oWAR is Baseball Reference's offensive WAR statistic. Note that Baseball Referen
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-12-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-16-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1141,8 +1343,65 @@ oWAR is Baseball Reference's offensive WAR statistic. Note that Baseball Referen
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-12-2.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-16-2.pdf}
 
+\newpage
+
+\hypertarget{evaluating-advanced-pitching-statistics}{%
+\subsection{Evaluating Advanced Pitching Statistics}\label{evaluating-advanced-pitching-statistics}}
+
+Earned run average (ERA) has been traditionally used to evaluate a pitcher, however, it has some flaws. First of all, it is highly dependent on the fielders playing behind the pitcher. If a pitcher's shortstop has poor range, he won't convert as many groundballs into outs as a shortstop with good range. ERA is also a noisy measurement in that can be affected easily by random luck.
+
+To overcome some of the downsides of ERA, FIP and xFIP were developed to help reduce the variance (noise) of the measurement and to remove factors, like defense, that are not a function of the pitcher's ability.
+
+Let's look at the twenty starting pitchers that had the most innings pitched in MLB for the total of the 2020 and 2021 seasons. We want to examine the year-to-year correlation between ERA, FIP, and xFIP.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pitchers2021 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/MLBpitchers20{-}21.csv"}\NormalTok{)}
+\NormalTok{pitchers2021 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kt}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c|c|c|c|c}
+\hline
+Player & ERA20 & FIP20 & xFIP20 & ERA21 & FIP21 & xFIP21\\
+\hline
+Zack Wheeler & 2.92 & 3.22 & 3.76 & 2.78 & 2.59 & 2.84\\
+\hline
+Adam Wainwright & 3.15 & 4.11 & 4.23 & 3.05 & 3.66 & 3.87\\
+\hline
+Kyle Hendricks & 2.88 & 3.55 & 3.78 & 0.77 & 4.89 & 4.61\\
+\hline
+German Marquez & 3.75 & 3.28 & 3.83 & 4.40 & 3.86 & 3.64\\
+\hline
+Luis Castillo & 3.21 & 2.65 & 2.82 & 3.98 & 3.75 & 3.63\\
+\hline
+\end{tabular}
+\end{table}
+
+\vfill
+\newpage
+
+Let's look at the correlations between these variables, paying close attention to what variables are most correlated with ERA20, a pitcher's ERA in 2020.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pitchers2021 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Player) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{ggpairs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Correlation plot of pitching statistics, MLB 2020{-}2021"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+This is a small dataset that only contains twenty pitchers (samples), but you will notice that ERA20 is more highly correlated with FIP21 and xFIP21 than ERA21. In other words, FIP and xFIP are likely better predictors of ERA success in the future rather than ERA success in the past.
+
+\vfill
 \newpage
 
 \hypertarget{football}{%
@@ -1188,7 +1447,10 @@ oWAR is Baseball Reference's offensive WAR statistic. Note that Baseball Referen
   ``The PER sums up all a player's positive accomplishments, subtracts the negative accomplishments, and returns a per-minute rating of a player's performance.'' This statistic rewards great offensive performance more than great defensive plays.
 \end{itemize}
 
-\emph{References: \url{https://www.basketball-reference.com/about/per.html}, \url{https://www.basketball-reference.com/about/ws.html}, \url{https://www.basketball-reference.com/about/glossary.html}}
+\emph{References:}\\
+\url{https://www.basketball-reference.com/about/per.html}\strut \\
+\url{https://www.basketball-reference.com/about/ws.html}\strut \\
+\url{https://www.basketball-reference.com/about/glossary.html}
 
 \hypertarget{four-factors}{%
 \subsection{Four Factors}\label{four-factors}}
@@ -1200,17 +1462,23 @@ Tibbles are a type of data frame supported by the \texttt{tidyverse} package. Th
 \NormalTok{basketball\_data }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{team =} \FunctionTok{c}\NormalTok{(}\StringTok{"CSU"}\NormalTok{, }\StringTok{"WYO"}\NormalTok{), }\AttributeTok{FG =} \FunctionTok{c}\NormalTok{(}\DecValTok{14}\NormalTok{, }\DecValTok{15}\NormalTok{), }\AttributeTok{FGA =} \FunctionTok{c}\NormalTok{(}\DecValTok{48}\NormalTok{, }\DecValTok{60}\NormalTok{),}
     \AttributeTok{THREEP =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{4}\NormalTok{), }\AttributeTok{FT =} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{4}\NormalTok{), }\AttributeTok{FTA =} \FunctionTok{c}\NormalTok{(}\DecValTok{14}\NormalTok{, }\DecValTok{4}\NormalTok{), }\AttributeTok{ORB =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{14}\NormalTok{), }\AttributeTok{DRB =} \FunctionTok{c}\NormalTok{(}\DecValTok{31}\NormalTok{,}
         \DecValTok{30}\NormalTok{), }\AttributeTok{TOV =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{12}\NormalTok{))}
-\NormalTok{basketball\_data}
+\NormalTok{basketball\_data }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## # A tibble: 2 x 9
-##   team     FG   FGA THREEP    FT   FTA   ORB   DRB   TOV
-##   <chr> <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-## 1 CSU      14    48      5    10    14     2    31     5
-## 2 WYO      15    60      4     4     4    14    30    12
-\end{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c|c|c|c|c|c|c}
+\hline
+team & FG & FGA & THREEP & FT & FTA & ORB & DRB & TOV\\
+\hline
+CSU & 14 & 48 & 5 & 10 & 14 & 2 & 31 & 5\\
+\hline
+WYO & 15 & 60 & 4 & 4 & 4 & 14 & 30 & 12\\
+\hline
+\end{tabular}
+\end{table}
 
 This tibble contains all the data needed to calculate the \emph{Four Factors}. The Four Factors of a basketball game are statistics formulated by Dean Oliver, former Director of Quantitative Analysis for the Denver Nuggets (among other roles). These statistics are also promoted by sports data platforms like Hudl.com.
 
@@ -1245,23 +1513,28 @@ Let's calculate the values of eFG\%, TOV\%, ORB\%, and Free Throw Factor for bot
 \NormalTok{FTFACTOR }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(FT}\SpecialCharTok{/}\NormalTok{FGA, }\DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100}
 
 \NormalTok{basketball\_data }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{add\_column}\NormalTok{(eFG, TOVPCT, ORBPCT, FTFACTOR)}
+    \FunctionTok{add\_column}\NormalTok{(eFG, TOVPCT, ORBPCT, FTFACTOR) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## # A tibble: 2 x 13
-##   team     FG   FGA THREEP    FT   FTA   ORB   DRB   TOV   eFG TOVPCT ORBPCT
-##   <chr> <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl>  <dbl>
-## 1 CSU      14    48      5    10    14     2    31     5  34.4    8.5    6.2
-## 2 WYO      15    60      4     4     4    14    30    12  28.3   16.3   31.1
-## # ... with 1 more variable: FTFACTOR <dbl>
-\end{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c|c|c|c|c|c|c|l|c|c|c}
+\hline
+team & FG & FGA & THREEP & FT & FTA & ORB & DRB & TOV & eFG & TOVPCT & ORBPCT & FTFACTOR\\
+\hline
+CSU & 14 & 48 & 5 & 10 & 14 & 2 & 31 & 5 & 34.4 & 8.5 & 6.2 & 20.8\\
+\hline
+WYO & 15 & 60 & 4 & 4 & 4 & 14 & 30 & 12 & 28.3 & 16.3 & 31.1 & 6.7\\
+\hline
+\end{tabular}
+\end{table}
 
 While this method does produce Four Factors data, it could be difficult to scale for calculating the same statistics for a sample of several games. In the next section, we will introduce an \texttt{R} package that aids in the calculation of Four Factors.
 
 \hypertarget{basketballanalyzer-four-factors}{%
-\subsection{BasketballAnalyzeR Four Factors}\label{basketballanalyzer-four-factors}}
+\subsubsection{BasketballAnalyzeR Four Factors}\label{basketballanalyzer-four-factors}}
 
 The authors of ``Basketball Data Science With Applications in R'' developed the \texttt{BasketballAnalyzeR} package to be used in conjunction with the book. \texttt{BasketballAnalyzeR} includes built-in datasets from the 2017-18 NBA season and provides many functions for analyzing and plotting basketball data. One such function is \texttt{fourfactors}, which offers a simpler way to perform a four factors analysis.
 
@@ -1272,20 +1545,26 @@ The authors of ``Basketball Data Science With Applications in R'' developed the 
 \NormalTok{teams }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"DEN"}\NormalTok{, }\StringTok{"CLE"}\NormalTok{, }\StringTok{"GSW"}\NormalTok{)  }\CommentTok{\#Nuggets, Cavaliers, Warriors}
 \NormalTok{team\_data }\OtherTok{\textless{}{-}} \FunctionTok{which}\NormalTok{(Tadd}\SpecialCharTok{$}\NormalTok{team }\SpecialCharTok{\%in\%}\NormalTok{ teams)}
 \NormalTok{four\_factors\_teams }\OtherTok{\textless{}{-}} \FunctionTok{fourfactors}\NormalTok{(Tbox[team\_data, ], Obox[team\_data, ])}
-\FunctionTok{print}\NormalTok{(four\_factors\_teams)}
+\NormalTok{four\_factors\_teams }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{8}\SpecialCharTok{:}\DecValTok{15}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-##                    Team POSS.Off POSS.Def PACE.Off PACE.Def   ORtg   DRtg
-## 1   Cleveland Cavaliers  8221.96  8229.72 2.083619 2.085585 110.57 109.53
-## 2        Denver Nuggets  8232.20  8179.24 2.070473 2.057153 109.57 108.80
-## 3 Golden State Warriors  8287.92  8457.08 2.100335 2.143203 112.26 104.22
-##   F1.Off F2.Off F3.Off F4.Off F1.Def F2.Def F3.Def F4.Def
-## 1  54.70  13.70  20.06  21.41  53.98  13.43  77.27  16.58
-## 2  53.62  14.90  25.66  19.77  53.88  13.83  77.45  17.35
-## 3  56.91  15.26  21.05  19.48  50.44  13.89  76.31  18.55
-\end{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c|c|c|c|c|c|c}
+\hline
+Team & F1.Off & F2.Off & F3.Off & F4.Off & F1.Def & F2.Def & F3.Def & F4.Def\\
+\hline
+Cleveland Cavaliers & 54.70 & 13.70 & 20.06 & 21.41 & 53.98 & 13.43 & 77.27 & 16.58\\
+\hline
+Denver Nuggets & 53.62 & 14.90 & 25.66 & 19.77 & 53.88 & 13.83 & 77.45 & 17.35\\
+\hline
+Golden State Warriors & 56.91 & 15.26 & 21.05 & 19.48 & 50.44 & 13.89 & 76.31 & 18.55\\
+\hline
+\end{tabular}
+\end{table}
 
 This is a much simpler and neater way to calculate Four Factors.
 
@@ -1293,8 +1572,8 @@ In the 2017-18 season, the Warriors and Cavaliers met in the NBA Finals, while t
 
 A: Factor 3 (rebounding percentage), both offensive and defensive.
 
-\hypertarget{basketballanalyzer-shot-charts}{%
-\subsection{BasketballAnalyzeR Shot Charts}\label{basketballanalyzer-shot-charts}}
+\hypertarget{shot-charts}{%
+\subsection{Shot Charts}\label{shot-charts}}
 
 The \texttt{BasketballAnalyzeR} package includes shot location data for all players for the 2017-18 NBA season and has a function called \texttt{shotchart} that allows for the plotting of shot data.
 
@@ -1404,7 +1683,9 @@ Q: In general, did Steph Curry tend to shoot closer to the basket during plays o
 
 A: There is not a perfect correlation, but it seems that two-point field goals were attempted more often during longer plays, while shots taken outside the three-point arc were taken during plays of a shorter duration.
 
-\emph{References: \url{https://rdrr.io/cran/BasketballAnalyzeR/}; Basketball Data Science (Zuccolotto and Manisera, 2020)}
+\emph{References:}
+\url{https://rdrr.io/cran/BasketballAnalyzeR/}\\
+Basketball Data Science (Zuccolotto and Manisera, 2020)
 
 \newpage
 
@@ -1433,7 +1714,8 @@ Here are some basic statistics that are used often to describe hockey games.
   \textbf{Penalty Minutes (PIM)}: The amount of penalty time an individual player is assigned for their infractions. PIM may be different than the amount of time the player actually spends in the penalty box.
 \end{itemize}
 
-\emph{Reference: \url{https://www.milehighhockey.com/pages/stats}}
+\emph{Reference:}\\
+\url{https://www.milehighhockey.com/pages/stats}
 
 \hypertarget{advanced-hockey-statistics}{%
 \subsection{Advanced Hockey Statistics}\label{advanced-hockey-statistics}}
@@ -1449,7 +1731,9 @@ Here are some basic statistics that are used often to describe hockey games.
 
 Because the flow of a hockey game is usually quite different in situations other than the normal 5 on 5, such as a power play (5 on 4) or concurrent penalties (4 on 4), many hockey databases separate data by the type of game situation. We will see this below with a dataset from \href{www.moneypuck.com}{MoneyPuck}, but it is also present on \href{https://www.naturalstattrick.com/}{Natural Stat Trick}, \href{www.quanthockey.com}{QuantHockey}, and \href{www.hockey-reference.com}{hockey-reference}.
 
-\emph{References: \url{https://www.nhl.com/lightning/news/hockey-analytics-101-understanding-advanced-stats-and-how-theyre-measured/c-735819}, \url{https://theathletic.com/121980/2017/10/09/an-advanced-stat-primer-understanding-basic-hockey-metrics/}}
+\emph{References:}\\
+\url{https://www.nhl.com/lightning/news/hockey-analytics-101-understanding-advanced-stats-and-how-theyre-measured/c-735819}\strut \\
+\url{https://theathletic.com/121980/2017/10/09/an-advanced-stat-primer-understanding-basic-hockey-metrics/}
 
 \hypertarget{actual-vs.-expected-goals}{%
 \subsection{Actual vs.~Expected Goals}\label{actual-vs.-expected-goals}}
@@ -1462,28 +1746,41 @@ For this example, we'll use a set of NHL data from moneypuck.com. First, let's l
 \begin{Highlighting}[]
 \NormalTok{nhl\_2022\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"https://moneypuck.com/moneypuck/playerData/seasonSummary/2021/regular/teams.csv"}\NormalTok{)}
 
-\FunctionTok{head}\NormalTok{(nhl\_2022\_data)}
+\NormalTok{nhl\_2022\_data }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## # A tibble: 6 x 107
-##   team...1 season name  team...4 position   situation games_played
-##   <chr>     <dbl> <chr> <chr>    <chr>      <chr>            <dbl>
-## 1 WPG        2021 WPG   WPG      Team Level other               82
-## 2 WPG        2021 WPG   WPG      Team Level all                 82
-## 3 WPG        2021 WPG   WPG      Team Level 5on5                82
-## 4 WPG        2021 WPG   WPG      Team Level 4on5                82
-## 5 WPG        2021 WPG   WPG      Team Level 5on4                82
-## 6 CBJ        2021 CBJ   CBJ      Team Level other               82
-## # ... with 100 more variables: xGoalsPercentage <dbl>, corsiPercentage <dbl>,
-## #   fenwickPercentage <dbl>, iceTime <dbl>, xOnGoalFor <dbl>, xGoalsFor <dbl>,
-## #   xReboundsFor <dbl>, xFreezeFor <dbl>, xPlayStoppedFor <dbl>,
-## #   xPlayContinuedInZoneFor <dbl>, xPlayContinuedOutsideZoneFor <dbl>,
-## #   flurryAdjustedxGoalsFor <dbl>, scoreVenueAdjustedxGoalsFor <dbl>,
-## #   flurryScoreVenueAdjustedxGoalsFor <dbl>, shotsOnGoalFor <dbl>,
-## #   missedShotsFor <dbl>, blockedShotAttemptsFor <dbl>, ...
-\end{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c|c|c}
+\hline
+name & situation & xGoalsPercentage & corsiPercentage & fenwickPercentage\\
+\hline
+WPG & other & 0.49 & 0.50 & 0.47\\
+\hline
+WPG & all & 0.49 & 0.50 & 0.50\\
+\hline
+WPG & 5on5 & 0.49 & 0.49 & 0.50\\
+\hline
+WPG & 4on5 & 0.16 & 0.14 & 0.15\\
+\hline
+WPG & 5on4 & 0.86 & 0.86 & 0.85\\
+\hline
+CBJ & other & 0.52 & 0.49 & 0.49\\
+\hline
+CBJ & all & 0.45 & 0.48 & 0.47\\
+\hline
+CBJ & 5on5 & 0.45 & 0.48 & 0.47\\
+\hline
+CBJ & 4on5 & 0.14 & 0.18 & 0.21\\
+\hline
+CBJ & 5on4 & 0.81 & 0.84 & 0.82\\
+\hline
+\end{tabular}
+\end{table}
 
 We can create nice looking tables using the ``kableExtra'\,' package. Let's look at the first eight rows and a samll selection of columns of the data frame and format the table output using a kable table.
 
@@ -1492,14 +1789,13 @@ We can create nice looking tables using the ``kableExtra'\,' package. Let's look
 \FunctionTok{library}\NormalTok{(}\StringTok{"kableExtra"}\NormalTok{)}
 
 \NormalTok{nhl\_2022\_data[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{8}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{6}\SpecialCharTok{:}\DecValTok{9}\NormalTok{)] }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{kbl}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{kable\_styling}\NormalTok{()}
+    \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}
+\begin{table}[H]
 \centering
-\begin{tabular}[t]{l|l|r|r|r}
+\begin{tabular}{l|c|c|c|c}
 \hline
 name & situation & games\_played & xGoalsPercentage & corsiPercentage\\
 \hline
@@ -1550,7 +1846,7 @@ The dataset includes an Expected Goals statistic for each team in the \texttt{xG
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-15-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-21-1.pdf}
 
 As expected, there is a general positive correlation between expected and actual goals (\(r \approx 0.8\)). However, there is some variability - for example, the Kings only scored 7 more actual goals than the Ducks, despite having 56.6 more expected goals.
 
@@ -1564,7 +1860,7 @@ Let's add a line to the graph using the \texttt{geom\_abline} function correspon
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-16-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-22-1.pdf}
 
 \emph{Note: A slope of 0 and an intercept of 1 are actually the default parameters for the function.}
 
@@ -1586,40 +1882,42 @@ For this next example, let's use goalie data from the 2021-2022 season from \hre
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{goalie\_data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/GoalieTotals\_NaturalStatTrick.csv"}\NormalTok{)}
-\FunctionTok{head}\NormalTok{(goalie\_data)}
+\NormalTok{goalie\_data }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{12}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{arrange}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{TOI) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-##     X           Player Team GP       TOI Shots.Against Saves Goals.Against
-## 1  87 Charlie Lindgren  STL  5 246.41667           118   113             5
-## 2  34   Louis Domingue  PIT  2 118.75000            83    79             4
-## 3  63   Spencer Martin  VAN  6 378.35000           218   207            11
-## 4  37   Michael Houser  BUF  2 120.00000            75    71             4
-## 5 100   Daniil Tarasov  CBJ  4 174.85000           111   104             7
-## 6  41    Garret Sparks  L.A  2  97.21667            47    44             3
-##     SV.  GAA GSAA xG.Against HD.Shots.Against HD.Saves HD.Goals.Against HDSV.
-## 1 0.958 1.22 5.97      10.21               29       27                2 0.931
-## 2 0.952 2.02 3.72       7.16               25       21                4 0.840
-## 3 0.950 1.74 9.27      21.11               62       57                5 0.919
-## 4 0.947 2.00 2.97       5.52               14       12                2 0.857
-## 5 0.937 2.40 3.32       9.07               31       25                6 0.806
-## 6 0.936 1.85 1.37       3.42               12        9                3 0.750
-##   HDGAA HDGSAA Rush.Attempts.Against Rebound.Attempts.Against
-## 1  0.49   3.32                     2                       13
-## 2  2.02   0.58                     7                       13
-## 3  0.79   6.37                     8                       27
-## 4  1.00   0.57                     2                       10
-## 5  2.06  -0.32                     3                       18
-## 6  1.85  -0.80                     0                        5
-##   Avg..Shot.Distance Avg..Goal.Distance
-## 1              36.58              16.40
-## 2              36.06               9.00
-## 3              33.36              25.09
-## 4              37.05              19.50
-## 5              37.50              19.71
-## 6              32.32              17.33
-\end{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c|c|c|c|c|c}
+\hline
+Player & Team & GP & TOI & Shots.Against & Saves & Goals.Against & xG.Against\\
+\hline
+Juuse Saros & NSH & 67 & 3931.383 & 2107 & 1934 & 173 & 180.69\\
+\hline
+Connor Hellebuyck & WPG & 66 & 3903.500 & 2155 & 1962 & 193 & 199.26\\
+\hline
+Andrei Vasilevskiy & T.B & 63 & 3760.750 & 1869 & 1713 & 156 & 165.89\\
+\hline
+Thatcher Demko & VAN & 64 & 3699.550 & 1967 & 1799 & 168 & 173.26\\
+\hline
+Jacob Markstrom & CGY & 63 & 3695.833 & 1754 & 1617 & 137 & 152.26\\
+\hline
+Tristan Jarry & PIT & 58 & 3414.717 & 1711 & 1573 & 138 & 143.92\\
+\hline
+Elvis Merzlikins & CBJ & 59 & 3320.400 & 1922 & 1744 & 178 & 164.94\\
+\hline
+Marc-Andre Fleury & CHI, MIN & 56 & 3284.867 & 1732 & 1573 & 159 & 148.00\\
+\hline
+Darcy Kuemper & COL & 57 & 3258.117 & 1755 & 1617 & 138 & 154.23\\
+\hline
+John Gibson & ANA & 56 & 3235.583 & 1789 & 1617 & 172 & 163.53\\
+\hline
+\end{tabular}
+\end{table}
 
 The dataset includes 119 goalies, but many of them didn't play very much. We can subset the data to include only goaltenders that faced at least 500 shots.
 
@@ -1633,31 +1931,45 @@ Which goalie had the most playing time? What was his team, and how much time did
 
 \NormalTok{filtered\_goalie\_data }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{filter}\NormalTok{(GAA }\SpecialCharTok{==} \FunctionTok{min}\NormalTok{(GAA)) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{select}\NormalTok{(Player, Team, GAA)}
+    \FunctionTok{select}\NormalTok{(Player, Team, GAA) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-##            Player Team  GAA
-## 1 Igor Shesterkin  NYR 2.07
-\end{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c}
+\hline
+Player & Team & GAA\\
+\hline
+Igor Shesterkin & NYR & 2.07\\
+\hline
+\end{tabular}
+\end{table}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{filtered\_goalie\_data }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{filter}\NormalTok{(TOI }\SpecialCharTok{==} \FunctionTok{max}\NormalTok{(TOI)) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{select}\NormalTok{(Player, Team, TOI)}
+    \FunctionTok{select}\NormalTok{(Player, Team, TOI) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-##        Player Team      TOI
-## 1 Juuse Saros  NSH 3931.383
-\end{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c}
+\hline
+Player & Team & TOI\\
+\hline
+Juuse Saros & NSH & 3931.383\\
+\hline
+\end{tabular}
+\end{table}
 
 The following plot compares save percentage to the number of shots on goal faced for the qualified goalies. The dashed horizontal line is placed at the average shots on goal faced among qualified players, and the dashed vertical line is placed at the average save percentage among qualified players.
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-18-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-24-1.pdf}
 
 Q: Which quadrant of the graph represents goalies that faced a higher than average number of shots, but had a below-average save percentage?
 
@@ -1680,15 +1992,13 @@ The following plot uses the same 2021-2022 data from Moneypuck.com; it gives the
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(}\StringTok{"GGally"}\NormalTok{)}
-
 \NormalTok{goal\_stats }\OtherTok{\textless{}{-}}\NormalTok{ nhl\_data\_all }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{select}\NormalTok{(shotsOnGoalFor, corsiPercentage, fenwickPercentage, goalsFor)}
 \FunctionTok{ggpairs}\NormalTok{(goal\_stats, }\AttributeTok{title =} \StringTok{"Correlation plot of goals and relevant predictors, NHL 2021{-}22"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-19-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-25-1.pdf}
 
 Q: Which of the variables has the strongest correlation with goals scored?
 
@@ -1701,10 +2011,10 @@ In the article \href{https://theathletic.com/121980/2017/10/09/an-advanced-stat-
 \hypertarget{volleyball}{%
 \section{Volleyball}\label{volleyball}}
 
+Volleyball rules Youtube video: \url{https://www.youtube.com/watch?v=9g7nYQv-kPM}
+
 \hypertarget{basic-volleyball-statistics}{%
 \subsection{Basic Volleyball Statistics}\label{basic-volleyball-statistics}}
-
-To begin, let's go over some basic volleyball statistics. The following definitions come from \url{www.rookieroad.com}
 
 \begin{itemize}
 \tightlist
@@ -1718,7 +2028,50 @@ To begin, let's go over some basic volleyball statistics. The following definiti
   \textbf{Hitting Percentage (PCT)} is the number of attempted kills (minus errors) divided by the total number of kill attempts. This helps determine how well a player or team is succeeding at their kill attempts.
 \end{itemize}
 
+\emph{Reference:}\\
+www.rookieroad.com
+
 For Volleyball EDA, we will be using CSU Women's Volleyball data from the last five seasons.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load CSU Women\textquotesingle{}s Volleyball Data}
+\NormalTok{csu\_vb }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/csu\_volleyball.csv"}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(csu\_vb)[}\DecValTok{3}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"W\_L"}
+\NormalTok{csu\_vb }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kt}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c|c|c|c|c|c|c|l|c|c|c|c|c|c|c|c|l}
+\hline
+Date & Opponent & W\_L & SP & K & E & TA & PCT & AST & SA & SE & RE & DIG & BS & BA & BE & TB & BHE & PTS\\
+\hline
+8/25/17 & Duke & L & 5 & 66 & 28 & 179 & 0.212 & 64 & 5 & 13 & 6 & 84 & 4 & 24 & 1 & 16.0 & 2 & 87.0\\
+\hline
+8/26/17 & Central Florida & W & 4 & 56 & 18 & 126 & 0.302 & 52 & 7 & 10 & 7 & 49 & 1 & 14 & 2 & 8.0 & 3 & 71.0\\
+\hline
+8/29/17 & Northern Colorado & W & 3 & 39 & 8 & 77 & 0.403 & 38 & 5 & 12 & 4 & 29 & 2 & 10 & 1 & 7.0 & 0 & 51.0\\
+\hline
+9/1/17 & vs TCU & W & 5 & 62 & 20 & 149 & 0.282 & 59 & 6 & 10 & 7 & 65 & 4 & 30 & 4 & 19.0 & 2 & 87.0\\
+\hline
+9/1/17 & vs UNC Asheville & W & 3 & 41 & 7 & 80 & 0.425 & 39 & 8 & 8 & 5 & 28 & 0 & 18 & 2 & 9.0 & 0 & 58.0\\
+\hline
+9/2/17 & at Florida State & W & 3 & 48 & 12 & 95 & 0.379 & 45 & 6 & 4 & 1 & 42 & 3 & 10 & 4 & 8.0 & 0 & 62.0\\
+\hline
+9/8/17 & Ball State & W & 4 & 59 & 24 & 145 & 0.241 & 56 & 6 & 8 & 3 & 44 & 3 & 19 & 2 & 12.5 & 1 & 77.5\\
+\hline
+9/8/17 & Michigan & W & 3 & 48 & 8 & 101 & 0.396 & 46 & 3 & 6 & 4 & 37 & 1 & 6 & 0 & 4.0 & 0 & 55.0\\
+\hline
+9/10/17 & Idaho State & W & 3 & 46 & 11 & 92 & 0.380 & 46 & 4 & 3 & 4 & 48 & 1 & 22 & 1 & 12.0 & 1 & 62.0\\
+\hline
+9/15/17 & UAlbany & W & 3 & 41 & 7 & 73 & 0.466 & 36 & 5 & 5 & 1 & 30 & 1 & 16 & 1 & 9.0 & 2 & 55.0\\
+\hline
+\end{tabular}
+\end{table}
 
 Let's look at a scatter plot of hitting percentage and the number of digs. While no conclusions can be drawn from such a plot, it can give us some insight into relationships worthy of further analysis. Before creating the plot using the code below, think about what you might expect the outcome to be.
 
@@ -1733,7 +2086,7 @@ Let's look at a scatter plot of hitting percentage and the number of digs. While
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-21-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-27-1.pdf}
 
 Let's change the axis titles, legend title, and add a main title.
 
@@ -1744,7 +2097,7 @@ Let's change the axis titles, legend title, and add a main title.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-22-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-28-1.pdf}
 
 What can we learn from this visual? Well, we can see that there is a weak linear relationship between the number of digs and hitting percentage. To an extent, hitting percentage decreases as the number of digs increases. Why is this the case? Maybe if a team has a really high hitting percentage, this means that the opposing team does not have as many opportunities to attack the other team offensively, reducing the number of opportunities for digs. It also seems that while wins and losses are somewhat evenly spread across the number of digs, there is a more clear cutoff for hitting percentage. It seems that the majority of wins are associated with a hitting percentage of at least 0.2, while the majority of losses are associated with a hitting percentage of less than 0.3.
 
@@ -1760,7 +2113,7 @@ Now let's take a closer look at the distribution of hitting percentage and digs 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-23-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-29-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1769,7 +2122,7 @@ Now let's take a closer look at the distribution of hitting percentage and digs 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-23-2.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-29-2.pdf}
 
 Let's modify these plots to make them more complete and visually appealing.
 
@@ -1780,7 +2133,7 @@ Let's modify these plots to make them more complete and visually appealing.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-24-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-30-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1789,7 +2142,7 @@ Let's modify these plots to make them more complete and visually appealing.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-24-2.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-30-2.pdf}
 
 Box plots allow us to isolate each statistic (number of kills and hitting percentage) so we can more clearly determine the center and spread of each between wins and losses.
 
@@ -1797,6 +2150,8 @@ Box plots allow us to isolate each statistic (number of kills and hitting percen
 
 \hypertarget{soccer}{%
 \section{Soccer}\label{soccer}}
+
+Rules of Soccer YouTube video: \url{https://www.youtube.com/watch?v=dFLaabgXhpc}
 
 \hypertarget{basic-soccer-statistics}{%
 \subsection{Basic Soccer Statistics}\label{basic-soccer-statistics}}
@@ -1844,6 +2199,12 @@ Next we will look at some data specific to LaLiga, which is a soccer league in t
 \NormalTok{big5\_2021\_stats }\OtherTok{\textless{}{-}} \FunctionTok{fb\_big5\_advanced\_season\_stats}\NormalTok{(}\AttributeTok{season\_end\_year =} \DecValTok{2021}\NormalTok{, }\AttributeTok{stat\_type =} \StringTok{"standard"}\NormalTok{,}
     \AttributeTok{team\_or\_player =} \StringTok{"team"}\NormalTok{)}
 \NormalTok{liga\_2021\_stats }\OtherTok{\textless{}{-}}\NormalTok{ big5\_2021\_stats[}\FunctionTok{which}\NormalTok{((big5\_2021\_stats}\SpecialCharTok{$}\NormalTok{Comp }\SpecialCharTok{==} \StringTok{"La Liga"}\NormalTok{)), ]}
+
+\CommentTok{\# look at the first ten entries and a selection of columns}
+\NormalTok{liga\_2021\_stats }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(Squad, Team\_or\_Opponent, Poss, Gls, Ast, xG\_Expected, xA\_Expected) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1856,7 +2217,7 @@ Next we will look at some data specific to LaLiga, which is a soccer league in t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-28-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-34-1.pdf}
 
 This plot is a good starting point, but still looks pretty messy. Let's add a title, change the axis titles, and rotate the axis labels so they are not overlapping over one another.
 
@@ -1868,7 +2229,7 @@ This plot is a good starting point, but still looks pretty messy. Let's add a ti
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-29-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-35-1.pdf}
 
 This is already looking a lot better. Now, we will add the goals scored per game \emph{against} each team. Why is this of interest? Well, at first glance, Barcelona seems like a pretty impressive team, as they score more goals per game than any other team in the league. However, what if they also have more goals scored against them than any other team in the league? This could be important context, so we will include it in the graph below.
 
@@ -1881,7 +2242,7 @@ This is already looking a lot better. Now, we will add the goals scored per game
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-30-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-36-1.pdf}
 
 This is looking pretty good, but let's clean it up just a bit by changing the legend title and labels.
 
@@ -1892,7 +2253,7 @@ This is looking pretty good, but let's clean it up just a bit by changing the le
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-31-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-37-1.pdf}
 
 What does this graph show us? Well, we are able to see the average number of goals scored for and against each team per game. It looks like Barcelona is scoring a lot more goals than they are letting be scored against them, while other teams like Valladolid tend to have a higher proportion of goals scored for the opposing team.
 
@@ -1912,76 +2273,9 @@ In addition to simply knowing the average actual number of goals scored for and 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-32-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-38-1.pdf}
 
 As you can see, we fit a line to the data. At first glance, it seems to have a positive slope slightly greater than 1. What does this mean in the scenario of actual and expected goals per game?
-
-\hypertarget{density-ridges-plot}{%
-\subsection{Density Ridges Plot}\label{density-ridges-plot}}
-
-At first glance, it seems that actual goals scored per game do not differ greatly from expected goals per game. Let us look at some density plots for actual and expected goals per game for five of the top teams in LaLiga over the last four seasons. These are the top five teams as of June 21st, 2022 on www.foxsports.com.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(ggridges)}
-
-\CommentTok{\# Get \textquotesingle{}Squad Standard Stats\textquotesingle{} data for the last four seasons}
-\NormalTok{top\_liga\_2021\_stats }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/laliga21.csv"}\NormalTok{)}
-\NormalTok{top\_liga\_2020\_stats }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/laliga20.csv"}\NormalTok{)}
-\NormalTok{top\_liga\_2019\_stats }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/laliga19.csv"}\NormalTok{)}
-\NormalTok{top\_liga\_2018\_stats }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/laliga18.csv"}\NormalTok{)}
-
-\NormalTok{top\_liga\_2021\_stats }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_2021\_stats[}\FunctionTok{which}\NormalTok{(top\_liga\_2021\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Real Madrid"} \SpecialCharTok{|}
-\NormalTok{    top\_liga\_2021\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Villarreal"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2021\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Barcelona"} \SpecialCharTok{|}
-\NormalTok{    top\_liga\_2021\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Levante"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2021\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Betis"}\NormalTok{),}
-\NormalTok{    ]}
-\NormalTok{top\_liga\_2020\_stats }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_2020\_stats[}\FunctionTok{which}\NormalTok{(top\_liga\_2020\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Real Madrid"} \SpecialCharTok{|}
-\NormalTok{    top\_liga\_2020\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Villarreal"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2020\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Barcelona"} \SpecialCharTok{|}
-\NormalTok{    top\_liga\_2020\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Levante"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2020\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Betis"}\NormalTok{),}
-\NormalTok{    ]}
-\NormalTok{top\_liga\_2019\_stats }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_2019\_stats[}\FunctionTok{which}\NormalTok{(top\_liga\_2019\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Real Madrid"} \SpecialCharTok{|}
-\NormalTok{    top\_liga\_2019\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Villarreal"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2019\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Barcelona"} \SpecialCharTok{|}
-\NormalTok{    top\_liga\_2019\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Levante"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2019\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Betis"}\NormalTok{),}
-\NormalTok{    ]}
-\NormalTok{top\_liga\_2018\_stats }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_2018\_stats[}\FunctionTok{which}\NormalTok{(top\_liga\_2018\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Real Madrid"} \SpecialCharTok{|}
-\NormalTok{    top\_liga\_2018\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Villarreal"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2018\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Barcelona"} \SpecialCharTok{|}
-\NormalTok{    top\_liga\_2018\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Levante"} \SpecialCharTok{|}\NormalTok{ top\_liga\_2018\_stats}\SpecialCharTok{$}\NormalTok{Squad }\SpecialCharTok{==} \StringTok{"Betis"}\NormalTok{),}
-\NormalTok{    ]}
-
-\CommentTok{\# Combine all four seasons\textquotesingle{} data into one data frame}
-\NormalTok{top\_liga\_stats }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(top\_liga\_2018\_stats, top\_liga\_2019\_stats, top\_liga\_2020\_stats,}
-\NormalTok{    top\_liga\_2021\_stats)}
-
-\NormalTok{goals\_act }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Gls\_Per[}\FunctionTok{which}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Team\_or\_Opponent }\SpecialCharTok{==}
-    \StringTok{"team"}\NormalTok{)])}
-\NormalTok{goals\_act}\SpecialCharTok{$}\NormalTok{team }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Squad[}\FunctionTok{which}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Team\_or\_Opponent }\SpecialCharTok{==} \StringTok{"team"}\NormalTok{)]}
-\NormalTok{goals\_act}\SpecialCharTok{$}\NormalTok{exp\_or\_act }\OtherTok{\textless{}{-}} \StringTok{"actual"}
-\NormalTok{goals\_act}\SpecialCharTok{$}\NormalTok{year }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Season\_End\_Year[}\FunctionTok{which}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Team\_or\_Opponent }\SpecialCharTok{==}
-    \StringTok{"team"}\NormalTok{)]}
-\FunctionTok{colnames}\NormalTok{(goals\_act)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"stats"}
-\NormalTok{goals\_exp }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{xG\_Per[}\FunctionTok{which}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Team\_or\_Opponent }\SpecialCharTok{==}
-    \StringTok{"team"}\NormalTok{)])}
-\NormalTok{goals\_exp}\SpecialCharTok{$}\NormalTok{team }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Squad[}\FunctionTok{which}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Team\_or\_Opponent }\SpecialCharTok{==} \StringTok{"team"}\NormalTok{)]}
-\NormalTok{goals\_exp}\SpecialCharTok{$}\NormalTok{exp\_or\_act }\OtherTok{\textless{}{-}} \StringTok{"expected"}
-\NormalTok{goals\_exp}\SpecialCharTok{$}\NormalTok{year }\OtherTok{\textless{}{-}}\NormalTok{ top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Season\_End\_Year[}\FunctionTok{which}\NormalTok{(top\_liga\_stats}\SpecialCharTok{$}\NormalTok{Team\_or\_Opponent }\SpecialCharTok{==}
-    \StringTok{"team"}\NormalTok{)]}
-\FunctionTok{colnames}\NormalTok{(goals\_exp)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"stats"}
-\NormalTok{goals }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(goals\_act, goals\_exp)}
-
-\CommentTok{\# Plot density ridges}
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ goals) }\SpecialCharTok{+} \FunctionTok{geom\_density\_ridges}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ stats, }\AttributeTok{y =}\NormalTok{ team, }\AttributeTok{fill =}\NormalTok{ exp\_or\_act,}
-    \AttributeTok{color =}\NormalTok{ exp\_or\_act), }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{scale =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.75}\NormalTok{,}
-    \FloatTok{2.75}\NormalTok{)) }\SpecialCharTok{+} \FunctionTok{scale\_y\_discrete}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{expand\_scale}\NormalTok{(}\AttributeTok{add =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\DecValTok{1}\NormalTok{))) }\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Expected vs. Actual Goals Per Game"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Goals Per Game"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"Team"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{scale\_fill\_cyclical}\NormalTok{(}\AttributeTok{name =} \StringTok{"Actual or Expected Goals"}\NormalTok{,}
-    \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Actual"}\NormalTok{, }\StringTok{"Expected"}\NormalTok{), }\AttributeTok{guide =} \StringTok{"legend"}\NormalTok{, }\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"\#FF0000A0"}\NormalTok{, }\StringTok{"\#A0A0A0A0"}\NormalTok{)) }\SpecialCharTok{+}
-    \FunctionTok{scale\_color\_cyclical}\NormalTok{(}\AttributeTok{name =} \StringTok{"Actual or Expected Goals"}\NormalTok{, }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Actual"}\NormalTok{,}
-        \StringTok{"Expected"}\NormalTok{), }\AttributeTok{guide =} \StringTok{"legend"}\NormalTok{, }\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"\#FF0000A0"}\NormalTok{, }\StringTok{"\#A0A0A0A0"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{series_files/figure-latex/unnamed-chunk-33-1.pdf}
-
-Let us break down exactly what this visual is showing us. We are looking at the density of expected and actual goals per game for the top five teams in LaLiga, over the last four seasons (with the last season ending in 2021). We can see that Barcelona is typically scoring more goals than what is expected of them, as the density of actual goals is condensed around higher goal numbers than the density of expected goals. Villarreal, however, is performing just as well as what is expected of them based on expected and actual goals scored.
 
 \hypertarget{probability}{%
 \chapter{Probability}\label{probability}}
@@ -2503,7 +2797,7 @@ Complete 10,000 simulations of the four game series between the Rockies and Cubs
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-35-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-40-1.pdf}
 
 \hypertarget{binomial-coefficient-symmetry}{%
 \subsubsection{Binomial Coefficient Symmetry}\label{binomial-coefficient-symmetry}}
@@ -2622,7 +2916,7 @@ Let's plot the sample distribution of shots required to score a goal from the si
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-39-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-44-1.pdf}
 
 \newpage
 
@@ -2684,7 +2978,7 @@ We can also plot the PMF of Y to check visually.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-41-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-46-1.pdf}
 
 Let's check whether using a Poisson distribution was appropriate by comparing it to the actual 2021 Colorado Rapids match results.
 
@@ -2783,7 +3077,7 @@ In 1997-1998 with the Los Angeles Lakers, Shaquille O'Neal attempted an average 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-43-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-48-1.pdf}
 (b) Plot the PMF of a Poisson(11.35) random variable.
 
 \begin{Shaded}
@@ -2793,7 +3087,7 @@ In 1997-1998 with the Los Angeles Lakers, Shaquille O'Neal attempted an average 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-44-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-49-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -2929,7 +3223,7 @@ Using Shaq's 1997-1998 data, model his per game free throw attempts as a Negativ
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-48-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-53-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -3437,7 +3731,7 @@ In more complicated simulations, there may not be an easy formula to use to calc
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-56-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-61-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3511,134 +3805,6 @@ As we increase the number of simulations, the estimate will become more accurate
 \end{verbatim}
 
 One way to simulate data is to make assumptions about the distributions of the underlying data. The random variables given in the last chapter as possible candidates.
-
-\begin{example}
-In 1997-1998 with the Los Angeles Lakers, Shaq attempted an average of 11.35 free throws per game with a standard deviation of 4.04. While with the Lakers, Shaq played in an average of 63.6 games per year with a standard deviation of 10.6. Create a simulation to model the season total number of free throw attempts that Shaq would have while with the Lakers.
-
-Note: his actual season totals of free throws attempted while with the Lakers were: 479, 681, 498, 824, 972, 712, 725, 676
-\end{example}
-
-Let's model the number of games that Shaq played in as a Binomial random variable. There are 82 regular sesaon games, so let \(n=82\). Shaq played in an average of 63.6 games, so let \(p=\frac{64.25}{82}=0.784\). Shaq played in about 78\% of the games during his career with the Lakers.
-
-For the number of free throw attempts per game, we could model this as a Poisson random variable or a Negative Binomial random variable. As noted in the previous chapter, the variance of Shaq's FT attempts is a fair bit greater than the mean which means that it is overdispersed. Negative Binomial may be a more appropriate model than a Poisson. From last chapter, we found \(\hat{r}=25.85\) and \(\hat{p}=0.305\).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2020}\NormalTok{)}
-\NormalTok{n.sims }\OtherTok{\textless{}{-}} \DecValTok{10000}
-\NormalTok{FT }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n.sims)}
-
-\CommentTok{\# simulate the number of games played in a season, round to a whole number}
-\NormalTok{games.sim }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\AttributeTok{n =}\NormalTok{ n.sims, }\AttributeTok{size =} \DecValTok{82}\NormalTok{, }\AttributeTok{prob =} \FloatTok{0.784}\NormalTok{)}
-
-\CommentTok{\# number of games can\textquotesingle{}t exceed 82 games (regular season total)}
-\NormalTok{games.sim[games.sim }\SpecialCharTok{\textgreater{}} \DecValTok{82}\NormalTok{] }\OtherTok{=} \DecValTok{82}
-
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n.sims) \{}
-    \CommentTok{\# simulate the season total FT attempts in each simulation}
-\NormalTok{    temp }\OtherTok{\textless{}{-}} \FunctionTok{rnbinom}\NormalTok{(}\AttributeTok{n =}\NormalTok{ games.sim[i], }\AttributeTok{size =} \FloatTok{25.85}\NormalTok{, }\AttributeTok{prob =} \DecValTok{1} \SpecialCharTok{{-}} \FloatTok{0.305}\NormalTok{)}
-\NormalTok{    FT[i] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(temp)}
-\NormalTok{\}}
-
-\CommentTok{\# Simulated mean and SD of season totals of free throw attempts}
-\FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(FT), }\FunctionTok{sd}\NormalTok{(FT))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 730.47550  53.20566
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Actual mean and SD of season totals of free throw attempts}
-\NormalTok{FT.actual }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{479}\NormalTok{, }\DecValTok{681}\NormalTok{, }\DecValTok{498}\NormalTok{, }\DecValTok{824}\NormalTok{, }\DecValTok{972}\NormalTok{, }\DecValTok{712}\NormalTok{, }\DecValTok{725}\NormalTok{, }\DecValTok{676}\NormalTok{)}
-\NormalTok{FT.actual.mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(FT.actual)}
-\NormalTok{FT.actual.var }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(FT.actual) }\SpecialCharTok{*} \DecValTok{7}\SpecialCharTok{/}\DecValTok{8}  \CommentTok{\# population variance}
-\NormalTok{FT.actual.sd }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(FT.actual.var)}
-\FunctionTok{c}\NormalTok{(FT.actual.mean, FT.actual.sd)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 695.8750 150.2393
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{FT }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ FT)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins =} \DecValTok{30}\NormalTok{, }\AttributeTok{color =} \StringTok{"yellow"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"purple"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Simulated Season FT Attempt Totals by Shaq with Lakers"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{series_files/figure-latex/unnamed-chunk-59-1.pdf}
-
-Notice that the mean of our simulation is somewhat close to Shaq's true season average number of free throw attempts but the variance of the simulation is far too low.
-
-We can also simulate data using resampling. In this case, rather than simulating random variables according to a distribution, we can use our actual data as a sampling distribution.
-
-\begin{example}
-Using resampling, simulate the number of free throws Shaq would attempt while with the Lakers. Compare the mean and variance of the simulation to Shaq's actual statistics.
-\end{example}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2020}\NormalTok{)}
-\NormalTok{n.sims }\OtherTok{\textless{}{-}} \DecValTok{10000}
-\NormalTok{FT }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n.sims)}
-\NormalTok{shaq.games }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{51}\NormalTok{, }\DecValTok{60}\NormalTok{, }\DecValTok{49}\NormalTok{, }\DecValTok{79}\NormalTok{, }\DecValTok{74}\NormalTok{, }\DecValTok{67}\NormalTok{, }\DecValTok{67}\NormalTok{, }\DecValTok{67}\NormalTok{)}
-\NormalTok{shaq.FTA }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/shaqFT.csv"}\NormalTok{, }\AttributeTok{col\_names =} \ConstantTok{FALSE}\NormalTok{)}
-\NormalTok{shaq.FTA }\OtherTok{\textless{}{-}}\NormalTok{ shaq.FTA}\SpecialCharTok{$}\NormalTok{X1}
-
-\CommentTok{\# sample (with replacement) from Shaq\textquotesingle{}s FTA game totals}
-\NormalTok{games.sim }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\AttributeTok{x =}\NormalTok{ shaq.games, }\AttributeTok{size =}\NormalTok{ n.sims, }\AttributeTok{replace =}\NormalTok{ T)}
-
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n.sims) \{}
-    \CommentTok{\# sample (with replacement) from Shaq\textquotesingle{}s FTA game totals}
-\NormalTok{    temp }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\AttributeTok{x =}\NormalTok{ shaq.FTA, }\AttributeTok{size =}\NormalTok{ games.sim[i], }\AttributeTok{replace =}\NormalTok{ T)}
-\NormalTok{    FT[i] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(temp)}
-\NormalTok{\}}
-
-\CommentTok{\# Simulated mean and SD of season totals of free throw attempts}
-\FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(FT), }\FunctionTok{sd}\NormalTok{(FT))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 695.8883 112.6666
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Actual mean and SD of season totals of free throw attempts}
-\NormalTok{FT.actual }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{479}\NormalTok{, }\DecValTok{681}\NormalTok{, }\DecValTok{498}\NormalTok{, }\DecValTok{824}\NormalTok{, }\DecValTok{972}\NormalTok{, }\DecValTok{712}\NormalTok{, }\DecValTok{725}\NormalTok{, }\DecValTok{676}\NormalTok{)}
-\NormalTok{FT.actual.mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(FT.actual)}
-\NormalTok{FT.actual.var }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(FT.actual) }\SpecialCharTok{*} \DecValTok{7}\SpecialCharTok{/}\DecValTok{8}  \CommentTok{\# population variance}
-\NormalTok{FT.actual.sd }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(FT.actual.var)}
-\FunctionTok{c}\NormalTok{(FT.actual.mean, FT.actual.sd)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 695.8750 150.2393
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{FT }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ FT)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins =} \DecValTok{30}\NormalTok{, }\AttributeTok{color =} \StringTok{"yellow"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"purple"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Simulated Season FT Attempt Totals by Shaq with Lakers"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{series_files/figure-latex/unnamed-chunk-60-1.pdf}
-
-This simulation is biased low on the variance but is better than the earlier simulation.
-
-One reason that you may want to do complicated simulations like the example above is to make predictions for a player's future seasons.
 
 \hypertarget{estimating-probabilities}{%
 \section{Estimating Probabilities}\label{estimating-probabilities}}
@@ -3802,6 +3968,137 @@ A: We can simulate a season for the team, find the longest winning streak in tha
 
 The team had a 4+ game winning streak in about 20\% of the simulations.
 
+\hypertarget{shaq-ft-simulation}{%
+\section{Shaq FT simulation}\label{shaq-ft-simulation}}
+
+\begin{example}
+In 1997-1998 with the Los Angeles Lakers, Shaq attempted an average of 11.35 free throws per game with a standard deviation of 4.04. While with the Lakers, Shaq played in an average of 63.6 games per year with a standard deviation of 10.6. Create a simulation to model the season total number of free throw attempts that Shaq would have while with the Lakers.
+
+Note: his actual season totals of free throws attempted while with the Lakers were: 479, 681, 498, 824, 972, 712, 725, 676
+\end{example}
+
+Let's model the number of games that Shaq played in as a Binomial random variable. There are 82 regular sesaon games, so let \(n=82\). Shaq played in an average of 63.6 games, so let \(p=\frac{64.25}{82}=0.784\). Shaq played in about 78\% of the games during his career with the Lakers.
+
+For the number of free throw attempts per game, we could model this as a Poisson random variable or a Negative Binomial random variable. As noted in the previous chapter, the variance of Shaq's FT attempts is a fair bit greater than the mean which means that it is overdispersed. Negative Binomial may be a more appropriate model than a Poisson. From last chapter, we found \(\hat{r}=25.85\) and \(\hat{p}=0.305\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2020}\NormalTok{)}
+\NormalTok{n.sims }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{FT }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n.sims)}
+
+\CommentTok{\# simulate the number of games played in a season, round to a whole number}
+\NormalTok{games.sim }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\AttributeTok{n =}\NormalTok{ n.sims, }\AttributeTok{size =} \DecValTok{82}\NormalTok{, }\AttributeTok{prob =} \FloatTok{0.784}\NormalTok{)}
+
+\CommentTok{\# number of games can\textquotesingle{}t exceed 82 games (regular season total)}
+\NormalTok{games.sim[games.sim }\SpecialCharTok{\textgreater{}} \DecValTok{82}\NormalTok{] }\OtherTok{=} \DecValTok{82}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n.sims) \{}
+    \CommentTok{\# simulate the season total FT attempts in each simulation}
+\NormalTok{    temp }\OtherTok{\textless{}{-}} \FunctionTok{rnbinom}\NormalTok{(}\AttributeTok{n =}\NormalTok{ games.sim[i], }\AttributeTok{size =} \FloatTok{25.85}\NormalTok{, }\AttributeTok{prob =} \DecValTok{1} \SpecialCharTok{{-}} \FloatTok{0.305}\NormalTok{)}
+\NormalTok{    FT[i] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(temp)}
+\NormalTok{\}}
+
+\CommentTok{\# Simulated mean and SD of season totals of free throw attempts}
+\FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(FT), }\FunctionTok{sd}\NormalTok{(FT))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 730.47550  53.20566
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Actual mean and SD of season totals of free throw attempts}
+\NormalTok{FT.actual }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{479}\NormalTok{, }\DecValTok{681}\NormalTok{, }\DecValTok{498}\NormalTok{, }\DecValTok{824}\NormalTok{, }\DecValTok{972}\NormalTok{, }\DecValTok{712}\NormalTok{, }\DecValTok{725}\NormalTok{, }\DecValTok{676}\NormalTok{)}
+\NormalTok{FT.actual.mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(FT.actual)}
+\NormalTok{FT.actual.var }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(FT.actual) }\SpecialCharTok{*} \DecValTok{7}\SpecialCharTok{/}\DecValTok{8}  \CommentTok{\# population variance}
+\NormalTok{FT.actual.sd }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(FT.actual.var)}
+\FunctionTok{c}\NormalTok{(FT.actual.mean, FT.actual.sd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 695.8750 150.2393
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{FT }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ FT)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins =} \DecValTok{30}\NormalTok{, }\AttributeTok{color =} \StringTok{"yellow"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"purple"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Simulated Season FT Attempt Totals by Shaq with Lakers"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-67-1.pdf}
+
+Notice that the mean of our simulation is somewhat close to Shaq's true season average number of free throw attempts but the variance of the simulation is far too low.
+
+We can also simulate data using resampling. In this case, rather than simulating random variables according to a distribution, we can use our actual data as a sampling distribution.
+
+\begin{example}
+Using resampling, simulate the number of free throws Shaq would attempt while with the Lakers. Compare the mean and variance of the simulation to Shaq's actual statistics.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2020}\NormalTok{)}
+\NormalTok{n.sims }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{FT }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n.sims)}
+\NormalTok{shaq.games }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{51}\NormalTok{, }\DecValTok{60}\NormalTok{, }\DecValTok{49}\NormalTok{, }\DecValTok{79}\NormalTok{, }\DecValTok{74}\NormalTok{, }\DecValTok{67}\NormalTok{, }\DecValTok{67}\NormalTok{, }\DecValTok{67}\NormalTok{)}
+\NormalTok{shaq.FTA }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/shaqFT.csv"}\NormalTok{, }\AttributeTok{col\_names =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{shaq.FTA }\OtherTok{\textless{}{-}}\NormalTok{ shaq.FTA}\SpecialCharTok{$}\NormalTok{X1}
+
+\CommentTok{\# sample (with replacement) from Shaq\textquotesingle{}s FTA game totals}
+\NormalTok{games.sim }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\AttributeTok{x =}\NormalTok{ shaq.games, }\AttributeTok{size =}\NormalTok{ n.sims, }\AttributeTok{replace =}\NormalTok{ T)}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n.sims) \{}
+    \CommentTok{\# sample (with replacement) from Shaq\textquotesingle{}s FTA game totals}
+\NormalTok{    temp }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\AttributeTok{x =}\NormalTok{ shaq.FTA, }\AttributeTok{size =}\NormalTok{ games.sim[i], }\AttributeTok{replace =}\NormalTok{ T)}
+\NormalTok{    FT[i] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(temp)}
+\NormalTok{\}}
+
+\CommentTok{\# Simulated mean and SD of season totals of free throw attempts}
+\FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(FT), }\FunctionTok{sd}\NormalTok{(FT))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 695.8883 112.6666
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Actual mean and SD of season totals of free throw attempts}
+\NormalTok{FT.actual }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{479}\NormalTok{, }\DecValTok{681}\NormalTok{, }\DecValTok{498}\NormalTok{, }\DecValTok{824}\NormalTok{, }\DecValTok{972}\NormalTok{, }\DecValTok{712}\NormalTok{, }\DecValTok{725}\NormalTok{, }\DecValTok{676}\NormalTok{)}
+\NormalTok{FT.actual.mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(FT.actual)}
+\NormalTok{FT.actual.var }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(FT.actual) }\SpecialCharTok{*} \DecValTok{7}\SpecialCharTok{/}\DecValTok{8}  \CommentTok{\# population variance}
+\NormalTok{FT.actual.sd }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(FT.actual.var)}
+\FunctionTok{c}\NormalTok{(FT.actual.mean, FT.actual.sd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 695.8750 150.2393
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{FT }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ FT)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins =} \DecValTok{30}\NormalTok{, }\AttributeTok{color =} \StringTok{"yellow"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"purple"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Simulated Season FT Attempt Totals by Shaq with Lakers"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-68-1.pdf}
+
+This simulation is biased low on the variance but is better than the earlier simulation.
+
+One reason that you may want to do complicated simulations like the example above is to make predictions for a player's future seasons.
+
 \hypertarget{statistical-inference}{%
 \chapter{Statistical Inference}\label{statistical-inference}}
 
@@ -3813,123 +4110,6 @@ The team had a 4+ game winning streak in about 20\% of the simulations.
 
 \hypertarget{linear-regression}{%
 \chapter{Linear Regression}\label{linear-regression}}
-
-\hypertarget{data-scraping}{%
-\chapter{Data Scraping}\label{data-scraping}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(dplyr)}
-\FunctionTok{library}\NormalTok{(rvest)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Attaching package: 'rvest'
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:readr':
-## 
-##     guess_encoding
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tidyverse)}
-\FunctionTok{library}\NormalTok{(kableExtra)}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{wnba-scraping}{%
-\section{wnba scraping}\label{wnba-scraping}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{wilson }\OtherTok{\textless{}{-}} \StringTok{"https://www.basketball{-}reference.com/wnba/players/w/wilsoa01w/gamelog/2022/"}
-\NormalTok{wil\_doc }\OtherTok{\textless{}{-}}\NormalTok{ rvest}\SpecialCharTok{::}\FunctionTok{read\_html}\NormalTok{(wilson)}
-
-\NormalTok{wil\_doc }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{    rvest}\SpecialCharTok{::}\FunctionTok{html\_elements}\NormalTok{(., }\AttributeTok{xpath =} \StringTok{"//*[(@id = \textquotesingle{}div\_wnba\_pgl\_basic\textquotesingle{})]"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{    rvest}\SpecialCharTok{::}\FunctionTok{html\_table}\NormalTok{() }\OtherTok{{-}\textgreater{}}\NormalTok{ wil}
-\NormalTok{wil }\OtherTok{\textless{}{-}}\NormalTok{ wil[[}\DecValTok{1}\NormalTok{]]}
-\FunctionTok{head}\NormalTok{(wil)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 6 x 28
-##   Rk    Date   Age   Tm    ``    Opp   ``    GS    MP    FG    FGA   `FG%` `3P` 
-##   <chr> <chr>  <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
-## 1 1     2022-~ 25-2~ LVA   "@"   PHO   W (+~ 1     28:35 5     8     .625  0    
-## 2 2     2022-~ 25-2~ LVA   ""    SEA   W (+~ 1     35:06 8     14    .571  1    
-## 3 3     2022-~ 25-2~ LVA   "@"   WAS   L (-~ 1     29:56 4     11    .364  0    
-## 4 4     2022-~ 25-2~ LVA   "@"   ATL   W (+~ 1     29:08 6     11    .545  0    
-## 5 5     2022-~ 25-2~ LVA   ""    PHO   W (+~ 1     33:45 4     8     .500  0    
-## 6 6     2022-~ 25-2~ LVA   ""    MIN   W (+~ 1     31:16 5     9     .556  1    
-## # ... with 15 more variables: `3PA` <chr>, `3P%` <chr>, FT <chr>, FTA <chr>,
-## #   `FT%` <chr>, ORB <chr>, DRB <chr>, TRB <chr>, AST <chr>, STL <chr>,
-## #   BLK <chr>, TOV <chr>, PF <chr>, PTS <chr>, GmSc <chr>
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# wil2 \textless{}{-} mutate\_all(wil, function(x) as.numeric(as.character(x)))}
-\CommentTok{\# mean(wil2[\textquotesingle{}PTS\textquotesingle{}])}
-
-\CommentTok{\# wil$eFG\textless{}{-} (wil[\textquotesingle{}FG\textquotesingle{}] + (0.5*wil[\textquotesingle{}3P\textquotesingle{}]))/wil[\textquotesingle{}FGA\textquotesingle{}] wil$eFG}
-\CommentTok{\# ![Screenshot](\textquotesingle{}\textasciitilde{}/Google Drive/My Drive/Sports}
-\CommentTok{\# Analytics/SportsAnalyticsBook/images/scraping1\textquotesingle{})}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{principal-component-analysis}{%
-\chapter{Principal Component Analysis}\label{principal-component-analysis}}
-
-\hypertarget{clustering}{%
-\chapter{Clustering}\label{clustering}}
-
-\hypertarget{classification}{%
-\chapter{Classification}\label{classification}}
-
-\hypertarget{decision-trees}{%
-\chapter{Decision Trees}\label{decision-trees}}
-
-\hypertarget{random-forests}{%
-\section{Random Forests}\label{random-forests}}
-
-\hypertarget{gradient-boosting}{%
-\section{Gradient Boosting}\label{gradient-boosting}}
-
-\hypertarget{non-parametric-statistics}{%
-\chapter{Non-parametric Statistics}\label{non-parametric-statistics}}
-
-\hypertarget{baseball-1}{%
-\chapter{Baseball}\label{baseball-1}}
-
-\hypertarget{football-1}{%
-\chapter{Football}\label{football-1}}
-
-\hypertarget{basketball-1}{%
-\chapter{Basketball}\label{basketball-1}}
-
-\hypertarget{soccer-1}{%
-\chapter{Soccer}\label{soccer-1}}
-
-\hypertarget{hockey-1}{%
-\chapter{Hockey}\label{hockey-1}}
-
-\hypertarget{volleyball-1}{%
-\chapter{Volleyball}\label{volleyball-1}}
-
-\hypertarget{resources}{%
-\section{Resources}\label{resources}}
-
-\href{https://www.ncaa.com/stats/volleyball-women/d1}{Women's Volleyball D1 Statistics}
-
-\hypertarget{other-sports}{%
-\chapter{Other Sports}\label{other-sports}}
 
 \hypertarget{text-solutions}{%
 \chapter{Text solutions}\label{text-solutions}}

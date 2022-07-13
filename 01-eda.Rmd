@@ -22,6 +22,8 @@ To begin using R Studio, you will need to install "R" first and then install "R 
 (b) Click to download \
 (c) Install R Studio on your computer \
 
+\newpage
+
 ***Step 3: Verify R Studio is working*** \
 (a)  Open R Studio \
 (b) Let's enter a small dataset and calculate the average to make sure everything is working correctly. \
@@ -38,6 +40,8 @@ mean(sosa.HR)
 ```
 
 \noindent (e) Did you find Slammin' Sammy's average home run total from 1998--2002 was 58.4? If so, you should be set up correctly!
+
+\newpage
 
 ### Some R Basics
 
@@ -159,7 +163,9 @@ What are possible nominal and ordinal data associated with Peyton Manning?
 \
 \
 
------
+\vfill
+
+\newpage
 
 
 ### Descriptive Statistics
@@ -215,11 +221,11 @@ The ***sample standard deviation***, $s$, of the numerical dataset is a measure 
 :::
 
 ::: {.definition}
-The ***population variance***, $\sigma^2$, is the variance for an entire population.
+The ***population variance***, $\sigma^2$, is the variance for an entire population and is given by $\sigma^2 = \frac{1}{N} \sum_{i=1}^N (x_i - \mu)^2$, where $N$ is the population size.
 :::
 
 ::: {.definition}
-The ***population standard deviation***, $\sigma$, is the standard deviation for an entire population.
+The ***population standard deviation***, $\sigma$, is the standard deviation for an entire population and is given by $\sigma = \sqrt{\frac{1}{N} \sum_{i=1}^N (x_i - \mu)^2}$
 :::
 
 We often prefer to work with standard deviations as a measure of spread as opposed to variance because standard deviations are given in our original units.
@@ -245,6 +251,7 @@ Calculate the sample median of Peyton Manning's season passing yards total while
 \
 \
 \
+\vfill
 
 Like sample mean, sample median is a measure of center. It gives you an idea of where the ``middle" of your dataset is. 
 
@@ -258,6 +265,8 @@ peyton.colts <- c(3739, 4135, 4413, 4131, 4200, 4267, 4557, 3747, 4397, 4040,
 median(peyton.broncos)
 median(peyton.colts)
 ```
+
+\newpage
 
 :::{.definition}
 A ***percentile*** is a measure of relative standing. The $p^\text{th}$ percentile is the number where at least
@@ -302,6 +311,9 @@ A ***five number summary*** describes the center, spread, and edges of a dataset
 summary(peyton.colts)
 quantile(peyton.colts,c(0,0.25,0.5,0.75,1))
 ```
+
+\vfill
+\newpage
 
 #### Qualitative Data
 
@@ -367,13 +379,16 @@ If you have already installed the **tidyverse** package, it should have also ins
 library(tidyverse)
 ```
 
-Let's load the file ``NFL_2021_Team_Passing.csv" which contains [NFL Team Passing Statistics, 2021](https://www.pro-football-reference.com/years/2021/index.htm#passing)
+Let's load the file ``NFL_2021_Team_Passing.csv" which contains NFL Team Passing Statistics, 2021 from https://www.pro-football-reference.com/years/2021/index.htm#passing 
 
 ```{r load2, message=F}
 library(readr)
 NFL_2021_Team_Passing <- read_csv("data/NFL_2021_Team_Passing.csv")
+head(NFL_2021_Team_Passing)
 ```
 
+\vfill
+\newpage
 ### Histograms
 
 Histograms are one of the most common and basic ways to visualize a dataset's distribution of values. To make a histogram, you will use **ggplot** and **geom_histogram**.
@@ -387,6 +402,10 @@ NFL_2021_Team_Passing %>% ggplot(aes(x=Yds)) + geom_histogram()
 
 Notice how **%>%** is used to **pipe** the dataset into ggplot. This is using the pipe function from the **dplyr** package.
 
+
+\vfill
+\newpage
+
 By default, **geom_histogram** uses 30 bins but this is customizable. Let's make the bins have a width of 200.
 
 All good visualizations have good labels. Let's improve the axis labels and give the figure a title.
@@ -397,6 +416,10 @@ NFL_2021_Team_Passing %>% ggplot(aes(x=Yds)) +
   labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021")
 ```
 
+
+\vfill
+\newpage
+
 We also have numerous options to change the appearance of plots when using **ggplot**. Let's change the bins color to *blue* and change the bin borders to *white*.
 
 ```{r hist3}
@@ -405,6 +428,10 @@ NFL_2021_Team_Passing %>% ggplot(aes(x=Yds)) +
   labs(x="Team Passing Yards", y="Team Passing Touchdowns", title="NFL Team Passing Yards, 2021")
 ```
 :::
+
+
+\vfill
+\newpage
 
 ### Bar Plots
 
@@ -418,6 +445,10 @@ NFL_2021_Team_Passing %>% ggplot(aes(x=Tm,y=Yds)) +
   geom_bar(stat="identity")
 ```
 
+
+\vfill
+\newpage
+
 The team labels are a complete mess. Let's fix this and make some adjustments to the axis labels and figure title.
 
 ```{r bar2}
@@ -427,6 +458,10 @@ NFL_2021_Team_Passing %>% ggplot(aes(x=Tm,y=Yds)) +
        title="NFL Team Passing Yards, 2021") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
+
+
+\vfill
+\newpage
 
 We can flip this graph if we like as well. Note that when we flip the graph, our labels get in reverse ordering, so this can be fixed using **fct_rev()** which is part of the **forcats** package.
 
@@ -440,16 +475,23 @@ NFL_2021_Team_Passing %>%
 
 :::
 
+
+\vfill
+\newpage
+
 We can also order the teams from most team passing touchdowns to least using the `forcats` package.
 
 ```{r}
-library(forcats)
 NFL_2021_Team_Passing %>% mutate(Tm = fct_reorder(Tm,Yds)) %>%
   ggplot(aes(x=Tm,y=Yds)) +
   geom_bar(stat="identity") +
   labs(x="Team Passing Yards",y="Team Passing Yards",title="NFL Team Passing Yards, 2021") +
   coord_flip()
 ```
+
+
+\vfill
+\newpage
 
 ### Scatter Plots
 
@@ -465,6 +507,10 @@ NFL_2021_Team_Passing %>%
   labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021")
 ```
 
+
+\vfill
+\newpage
+
 We may want to include team labels on this plot, however, it can get messy very quickly with a lot of points. 
 
 ```{r scatter2}
@@ -474,6 +520,10 @@ NFL_2021_Team_Passing %>%
   labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021") +
   geom_text()
 ```
+
+
+\vfill
+\newpage
 
 Many sports leagues have around 30 teams, so a clean scatterplot with labels can be tricky to make. Here are some options below.
 
@@ -497,15 +547,55 @@ NFL_2021_Team_Passing %>%
   labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021") +
   geom_text_repel(box.padding = 0.3) 
 ```
-
-
 :::
+
+\newpage
+
+### Kable Tables
+
+We can build nice tables using `kableR` and `kableExtra`. Let's look at a few options.
+
+```{r}
+# Use a smaller dataset as an example
+NFL21 <- NFL_2021_Team_Passing %>% select(2:8) %>% slice_head(n = 5)
+
+# Default output for tabular data
+NFL21
+```
+
+You can find additional details on customizing kable tables at \ https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_pdf.pdf
+
+```{r}
+# Output using Kable (with no additional options)
+library(kableExtra)
+
+# Output using Kable and Kable-Styling and some additional options
+NFL21 %>% kable() %>% kable_styling(latex_options="hold_position")
+```
+
+\vfill
+\newpage
+
+If you are going to use kable tables frequently in a document, you can write a short function to set your default options. After I ran the function below, the function `kt` will produce a kable table with my options set.
+
+```{r}
+# kable table global setup
+kt <- function(data) {
+   knitr::kable(data, digits=3, align=c('l','c','c','c','c','c','c','c','c')) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+}
+```
+
+```{r}
+NFL21 %>% kt()
+```
 
 \newpage
 
 ## Baseball
 
-### Basic Baseball Hitting Statistics
+Baseball rules YouTube video: https://www.youtube.com/watch?v=skOsApsF0jQ&t=63s
+
+### Basic Hitting Statistics
 
 - **Plate Appearances** (PA): number of completed batting appearances
 
@@ -545,8 +635,9 @@ NFL_2021_Team_Passing %>%
 
 - **On-base Plus Slugging** (OPS): On-base percentage plus slugging average
 
+\newpage
 
-### Basic Baseball Hitting Statistics
+### Basic Pitching Statistics
 
 - **Innings Pitched** (IP): Number of outs recorded while pitching divided by three
 
@@ -597,9 +688,14 @@ The $FIP_{constant}$ is generally around 3.10 and is put FIP on a scale similar 
 
 - **Wins Above Replacement** (WAR): Estimated number of wins that a player has outperformed a replacement player by with the same playing time. This is one of the most crucial statistics in Sabermetrics.
 
-More about WAR from [Fangraphs](https://library.fangraphs.com/misc/war/)
+More about WAR from Fangraphs: https://library.fangraphs.com/misc/war/
 
-*References: https://www.baseball-reference.com/bullpen/Baseball_statistics, https://blogs.fangraphs.com/glossary/, https://library.fangraphs.com/fangraphs-library-glossary/*
+*References:* \
+https://www.baseball-reference.com/bullpen/Baseball_statistics \
+https://blogs.fangraphs.com/glossary/ \
+https://library.fangraphs.com/fangraphs-library-glossary/ \
+
+\newpage
 
 ### Calculating Advanced Hitting Statistics
 
@@ -608,19 +704,26 @@ Using the Colorado Rockies 2021 individual hitting statistics, calculate the AVG
 :::
 
 ```{r, message=F}
+# load data file and look at the header
 rox21 <- read_csv("data/rockies_hitting2021.csv")
-head(rox21)
+rox21 %>% slice_head(n=5) %>% kt()
 ```
+
 ```{r}
+# Create new variables using the mutate function
 rox21 <- rox21 %>% 
-  mutate(AVG = round(H/AB,3)) %>%
-  mutate(OBA = round((H + BB + HBP)/(AB + BB + HBP + SF),3)) %>%
-  mutate(SLG = round(((H-`2B`-`3B`-HR) + 2*`2B` + 3*`3B` + 4*HR)/AB,3)) %>%
-  mutate(OPS = round(SLG + OBA,3)) %>%
-  mutate(wOBA = round((0.692 * (BB - IBB) + 0.722 * HBP + 0.879 * (H-`2B`-`3B`-HR) + 1.242 * `2B` + 1.568 * `3B` + 2.007 * HR)/(AB + BB - IBB + SF + HBP),3)) %>%
-  mutate(ISO = round(SLG-AVG,3))
-rox21 %>% select(Name,PA,AVG,OBA,SLG,OPS,wOBA,ISO)
+  mutate(AVG = H/AB,3) %>%
+  mutate(OBA = (H + BB + HBP)/(AB + BB + HBP + SF)) %>%
+  mutate(SLG = ((H-`2B`-`3B`-HR) + 2*`2B` + 3*`3B` + 4*HR)/AB) %>%
+  mutate(OPS = SLG + OBA) %>%
+  mutate(wOBA = (0.692 * (BB - IBB) + 0.722 * HBP + 0.879 * (H-`2B`-`3B`-HR) + 1.242 * `2B` + 1.568 * `3B` + 2.007 * HR)/(AB + BB - IBB + SF + HBP)) %>%
+  mutate(ISO = SLG-AVG)
+rox21 %>% slice_head(n=5) %>% select(Name,PA,AVG,OBA,SLG,OPS,wOBA,ISO) %>% kt()
 ```
+
+\vfill
+\newpage
+
 :::{.example}
 oWAR is Baseball Reference's offensive WAR statistic. Note that Baseball Reference and Fangraphs use different formulas when calculating WAR though their results are typically similar. For Rockies players with at least 100 at-bats in 2021, what hitting statistics are most and least correlated to oWAR?
 :::
@@ -639,6 +742,33 @@ rox21_100 %>% select(oWAR,H,`2B`,`3B`,HR,R,RBI) %>% ggpairs()
 rox21_100 %>% select(oWAR,AVG,OBA,SLG,OPS,wOBA) %>% ggpairs()
 ```
 
+\newpage
+
+### Evaluating Advanced Pitching Statistics
+
+Earned run average (ERA) has been traditionally used to evaluate a pitcher, however, it has some flaws. First of all, it is highly dependent on the fielders playing behind the pitcher. If a pitcher's shortstop has poor range, he won't convert as many groundballs into outs as a shortstop with good range. ERA is also a noisy measurement in that can be affected easily by random luck.
+
+To overcome some of the downsides of ERA, FIP and xFIP were developed to help reduce the variance (noise) of the measurement and to remove factors, like defense, that are not a function of the pitcher's ability.
+
+Let's look at the twenty starting pitchers that had the most innings pitched in MLB for the total of the 2020 and 2021 seasons. We want to examine the year-to-year correlation between ERA, FIP, and xFIP.
+
+```{r, message=F}
+pitchers2021 <- read_csv("data/MLBpitchers20-21.csv")
+pitchers2021 %>% slice_head(n=5) %>% kt()
+```
+
+\vfill
+\newpage
+
+Let's look at the correlations between these variables, paying close attention to what variables are most correlated with ERA20, a pitcher's ERA in 2020.
+
+```{r}
+pitchers2021 %>% select(-Player) %>% ggpairs(title="Correlation plot of pitching statistics, MLB 2020-2021")
+```
+
+This is a small dataset that only contains twenty pitchers (samples), but you will notice that ERA20 is more highly correlated with FIP21 and xFIP21 than ERA21. In other words, FIP and xFIP are likely better predictors of ERA success in the future rather than ERA success in the past. 
+
+\vfill
 \newpage
 
 ## Football
@@ -674,7 +804,10 @@ rox21_100 %>% select(oWAR,AVG,OBA,SLG,OPS,wOBA) %>% ggpairs()
 - **Player Efficiency Rating (PER)**: According to its creator John Hollinger, 
 "The PER sums up all a player's positive accomplishments, subtracts the negative accomplishments, and returns a per-minute rating of a player's performance." This statistic rewards great offensive performance more than great defensive plays.
 
-*References: https://www.basketball-reference.com/about/per.html, https://www.basketball-reference.com/about/ws.html, https://www.basketball-reference.com/about/glossary.html*
+*References:* \
+https://www.basketball-reference.com/about/per.html \
+https://www.basketball-reference.com/about/ws.html \
+https://www.basketball-reference.com/about/glossary.html
 
 
 ### Four Factors
@@ -683,7 +816,8 @@ Tibbles are a type of data frame supported by the `tidyverse` package. The follo
 
 ```{r four factors}
 
-basketball_data <- tibble(team = c("CSU","WYO"), FG = c(14,15), FGA = c(48,60), THREEP = c(5,4), FT = c(10,4), FTA = c(14,4), ORB = c(2,14), DRB = c(31,30), TOV = c(5,12)); basketball_data
+basketball_data <- tibble(team = c("CSU","WYO"), FG = c(14,15), FGA = c(48,60), THREEP = c(5,4), FT = c(10,4), FTA = c(14,4), ORB = c(2,14), DRB = c(31,30), TOV = c(5,12))
+basketball_data %>% kt()
 ```
 
 This tibble contains all the data needed to calculate the *Four Factors*. The Four Factors of a basketball game are statistics formulated by Dean Oliver, former Director of Quantitative Analysis for the Denver Nuggets (among other roles). These statistics are also promoted by sports data platforms like Hudl.com.
@@ -717,12 +851,12 @@ TOVPCT <- round(TOV / (FGA + .44 * FTA + TOV), 3) * 100
 ORBPCT <- round(c(ORB[1]/(ORB[1]+DRB[2]), ORB[2]/(ORB[2]+DRB[1])), 3) * 100
 FTFACTOR <- round(FT/FGA, 3) * 100
 
-basketball_data %>% add_column(eFG, TOVPCT, ORBPCT, FTFACTOR)
+basketball_data %>% add_column(eFG, TOVPCT, ORBPCT, FTFACTOR) %>% kt()
 ```
 
 While this method does produce Four Factors data, it could be difficult to scale for calculating the same statistics for a sample of several games. In the next section, we will introduce an `R` package that aids in the calculation of Four Factors.
 
-### BasketballAnalyzeR Four Factors
+#### BasketballAnalyzeR Four Factors
 
 The authors of "Basketball Data Science With Applications in R" developed the `BasketballAnalyzeR` package to be used in conjunction with the book. `BasketballAnalyzeR` includes built-in datasets from the 2017-18 NBA season and provides many functions for analyzing and plotting basketball data. One such function is `fourfactors`, which offers a simpler way to perform a four factors analysis.
 
@@ -732,7 +866,7 @@ library("BasketballAnalyzeR")
 teams <- c("DEN", "CLE", "GSW") #Nuggets, Cavaliers, Warriors
 team_data <- which(Tadd$team %in% teams)
 four_factors_teams <- fourfactors(Tbox[team_data, ], Obox[team_data, ])
-print(four_factors_teams)
+four_factors_teams %>% select(1,8:15) %>% kt()
 ```
 
 This is a much simpler and neater way to calculate Four Factors.
@@ -741,7 +875,7 @@ In the 2017-18 season, the Warriors and Cavaliers met in the NBA Finals, while t
 
 A: Factor 3 (rebounding percentage), both offensive and defensive.
 
-### BasketballAnalyzeR Shot Charts
+### Shot Charts
 
 The `BasketballAnalyzeR` package includes shot location data for all players for the 2017-18 NBA season and has a function called `shotchart` that allows for the plotting of shot data.
 
@@ -809,7 +943,9 @@ Q: In general, did Steph Curry tend to shoot closer to the basket during plays o
 
 A: There is not a perfect correlation, but it seems that two-point field goals were attempted more often during longer plays, while shots taken outside the three-point arc were taken during plays of a shorter duration. 
 
-*References: https://rdrr.io/cran/BasketballAnalyzeR/; Basketball Data Science (Zuccolotto and Manisera, 2020)*
+*References:*
+https://rdrr.io/cran/BasketballAnalyzeR/ \
+Basketball Data Science (Zuccolotto and Manisera, 2020)
 
 
 \newpage
@@ -835,7 +971,8 @@ Here are some basic statistics that are used often to describe hockey games.
 
 - **Penalty Minutes (PIM)**: The amount of penalty time an individual player is assigned for their infractions. PIM may be different than the amount of time the player actually spends in the penalty box.
 
-*Reference: https://www.milehighhockey.com/pages/stats*
+*Reference:* \
+https://www.milehighhockey.com/pages/stats
 
 
 ### Advanced Hockey Statistics
@@ -848,7 +985,9 @@ Here are some basic statistics that are used often to describe hockey games.
 
 Because the flow of a hockey game is usually quite different in situations other than the normal 5 on 5, such as a power play (5 on 4) or concurrent penalties (4 on 4), many hockey databases separate data by the type of game situation. We will see this below with a dataset from [MoneyPuck](www.moneypuck.com), but it is also present on [Natural Stat Trick](https://www.naturalstattrick.com/), [QuantHockey](www.quanthockey.com), and [hockey-reference](www.hockey-reference.com).
 
-*References: https://www.nhl.com/lightning/news/hockey-analytics-101-understanding-advanced-stats-and-how-theyre-measured/c-735819, https://theathletic.com/121980/2017/10/09/an-advanced-stat-primer-understanding-basic-hockey-metrics/*
+*References:* \
+https://www.nhl.com/lightning/news/hockey-analytics-101-understanding-advanced-stats-and-how-theyre-measured/c-735819 \
+https://theathletic.com/121980/2017/10/09/an-advanced-stat-primer-understanding-basic-hockey-metrics/
 
 ### Actual vs. Expected Goals
 :::{.example}
@@ -858,7 +997,7 @@ For this example, we'll use a set of NHL data from moneypuck.com. First, let's l
 ```{r hockey_ggplot1, message=F, warning=F}
 nhl_2022_data <- read_csv("https://moneypuck.com/moneypuck/playerData/seasonSummary/2021/regular/teams.csv")
 
-head(nhl_2022_data)
+nhl_2022_data %>% slice_head(n=10) %>% select(3,6,8,9,10) %>% kt()
 ```
 
 We can create nice looking tables using the ``kableExtra'' package. Let's look at the first eight rows and a samll selection of columns of the data frame and format the table output using a kable table.
@@ -866,7 +1005,7 @@ We can create nice looking tables using the ``kableExtra'' package. Let's look a
 ```{r, message=F}
 library("kableExtra")
 
-nhl_2022_data[1:8, c(3,6:9)] %>% kbl() %>% kable_styling()
+nhl_2022_data[1:8, c(3,6:9)] %>% kt()
 ```
 
 This dataset includes a *lot* of covariates. It also splits these data by different game situations: even-strength (5 on 5), power play (5 on 4), etc. Let's subset the data to include all game situations.
@@ -917,7 +1056,7 @@ For this next example, let's use goalie data from the 2021-2022 season from [Nat
 
 ```{r,message=F}
 goalie_data <- read.csv("data/GoalieTotals_NaturalStatTrick.csv")
-head(goalie_data)
+goalie_data %>% select(2,3,4,5,6,7,8,12) %>% arrange(-TOI) %>% slice_head(n=10) %>% kt()
 ```
 
 The dataset includes 119 goalies, but many of them didn't play very much. We can subset the data to include only goaltenders that faced at least 500 shots.
@@ -929,8 +1068,8 @@ Which goalie had the most playing time? What was his team, and how much time did
 ```{r goalie data 2}
 filtered_goalie_data <- filter(goalie_data, Shots.Against >= 500)
 
-filtered_goalie_data %>% filter(GAA == min(GAA)) %>% select(Player, Team, GAA)
-filtered_goalie_data %>% filter(TOI == max(TOI)) %>% select(Player, Team, TOI)
+filtered_goalie_data %>% filter(GAA == min(GAA)) %>% select(Player, Team, GAA) %>% kt()
+filtered_goalie_data %>% filter(TOI == max(TOI)) %>% select(Player, Team, TOI) %>% kt()
 ``` 
 
 The following plot compares save percentage to the number of shots on goal faced for the qualified goalies. The dashed horizontal line is placed at the average shots on goal faced among qualified players, and the dashed vertical line is placed at the average save percentage among qualified players.
@@ -959,8 +1098,6 @@ The following plot uses the same 2021-2022 data from Moneypuck.com; it gives the
 :::
 
 ```{r}
-library("GGally")
-
 goal_stats <- nhl_data_all %>% select(shotsOnGoalFor, corsiPercentage, fenwickPercentage, goalsFor)
 ggpairs(goal_stats, title="Correlation plot of goals and relevant predictors, NHL 2021-22")
 ```
@@ -975,22 +1112,25 @@ In the article ["An advanced stat primer: Understanding basic hockey metrics"](h
 
 ## Volleyball
 
-### Basic Volleyball Statistics
+Volleyball rules Youtube video: https://www.youtube.com/watch?v=9g7nYQv-kPM
 
-To begin, let's go over some basic volleyball statistics. The following definitions come from [www.rookieroad.com](www.rookieroad.com)
+### Basic Volleyball Statistics
 
 -   A **Service Ace (SA)** occurs when a player's serve touches the ground on the other team's side without being touched by a player on that side.
 -   A **Kill (K)** occurs when a player gets the ball over the net without it being returned by the opponent.
 -   An **Assist (AST)** is a pass made directly before a player makes a kill.
 -   **Hitting Percentage (PCT)** is the number of attempted kills (minus errors) divided by the total number of kill attempts. This helps determine how well a player or team is succeeding at their kill attempts.
 
+*Reference:* \
+www.rookieroad.com
+
 For Volleyball EDA, we will be using CSU Women's Volleyball data from the last five seasons.
 
-```{r include=FALSE}
+```{r,message=F}
 # Load CSU Women's Volleyball Data
 csu_vb <- read_csv("data/csu_volleyball.csv")
 colnames(csu_vb)[3] <- "W_L"
-
+csu_vb %>% slice_head(n=10) %>% select(1:13) %>% kt()
 ```
 
 Let's look at a scatter plot of hitting percentage and the number of digs. While no conclusions can be drawn from such a plot, it can give us some insight into relationships worthy of further analysis. Before creating the plot using the code below, think about what you might expect the outcome to be.
@@ -1002,7 +1142,6 @@ Let's look at a scatter plot of hitting percentage and the number of digs. While
 dig_pct_viz <- ggplot(data = csu_vb, aes(x = DIG, y = PCT, color = W_L)) +
   geom_point()
 dig_pct_viz
-
 ```
 
 Let's change the axis titles, legend title, and add a main title.
@@ -1028,7 +1167,6 @@ pct_viz
 dig_viz <- ggplot(data = csu_vb, aes(x = DIG, y = W_L)) +
   geom_boxplot()
 dig_viz
-
 ```
 
 Let's modify these plots to make them more complete and visually appealing.
@@ -1045,7 +1183,6 @@ dig_viz +
        x = "Number of Digs (DIG)",
        y = "Win or Loss") +
   geom_boxplot(fill = "slateblue", alpha = 0.2)
-
 ```
 
 Box plots allow us to isolate each statistic (number of kills and hitting percentage) so we can more clearly determine the center and spread of each between wins and losses.
@@ -1053,6 +1190,8 @@ Box plots allow us to isolate each statistic (number of kills and hitting percen
 \newpage
 
 ## Soccer
+
+Rules of Soccer YouTube video: https://www.youtube.com/watch?v=dFLaabgXhpc
 
 ### Basic Soccer Statistics
 
@@ -1086,6 +1225,9 @@ Next we will look at some data specific to LaLiga, which is a soccer league in t
 # Get "Squad Standard Stats" Data
 big5_2021_stats <- fb_big5_advanced_season_stats(season_end_year = 2021, stat_type = "standard", team_or_player = "team")
 liga_2021_stats <- big5_2021_stats[which((big5_2021_stats$Comp == "La Liga")),]
+
+# look at the first ten entries and a selection of columns
+liga_2021_stats %>% select(Squad,Team_or_Opponent,Poss,Gls,Ast,xG_Expected,xA_Expected) %>% slice_head(n=10) %>% kt()
 ```
 
 ```{r, echo=F,message=F}
@@ -1154,76 +1296,5 @@ ggMarginal(act_exp_viz, type = "density")
 
 As you can see, we fit a line to the data. At first glance, it seems to have a positive slope slightly greater than 1. What does this mean in the scenario of actual and expected goals per game?
 
-### Density Ridges Plot
-
-At first glance, it seems that actual goals scored per game do not differ greatly from expected goals per game. Let us look at some density plots for actual and expected goals per game for five of the top teams in LaLiga over the last four seasons. These are the top five teams as of June 21st, 2022 on www.foxsports.com.
-
-
-```{r, message=F, warning=F}
-library(ggridges)
-
-# Get "Squad Standard Stats" data for the last four seasons
-top_liga_2021_stats <- read_csv("data/laliga21.csv")
-top_liga_2020_stats <- read_csv("data/laliga20.csv")
-top_liga_2019_stats <- read_csv("data/laliga19.csv")
-top_liga_2018_stats <- read_csv("data/laliga18.csv")
-
-top_liga_2021_stats <- top_liga_2021_stats[which(top_liga_2021_stats$Squad == "Real Madrid"|
-                                           top_liga_2021_stats$Squad == "Villarreal"|
-                                           top_liga_2021_stats$Squad == "Barcelona"|
-                                           top_liga_2021_stats$Squad == "Levante"|
-                                           top_liga_2021_stats$Squad == "Betis"),]
-top_liga_2020_stats <- top_liga_2020_stats[which(top_liga_2020_stats$Squad == "Real Madrid"|
-                                           top_liga_2020_stats$Squad == "Villarreal"|
-                                           top_liga_2020_stats$Squad == "Barcelona"|
-                                           top_liga_2020_stats$Squad == "Levante"|
-                                           top_liga_2020_stats$Squad == "Betis"),]
-top_liga_2019_stats <- top_liga_2019_stats[which(top_liga_2019_stats$Squad == "Real Madrid"|
-                                           top_liga_2019_stats$Squad == "Villarreal"|
-                                           top_liga_2019_stats$Squad == "Barcelona"|
-                                           top_liga_2019_stats$Squad == "Levante"|
-                                           top_liga_2019_stats$Squad == "Betis"),]
-top_liga_2018_stats <- top_liga_2018_stats[which(top_liga_2018_stats$Squad == "Real Madrid"|
-                                           top_liga_2018_stats$Squad == "Villarreal"|
-                                           top_liga_2018_stats$Squad == "Barcelona"|
-                                           top_liga_2018_stats$Squad == "Levante"|
-                                           top_liga_2018_stats$Squad == "Betis"),]
-
-# Combine all four seasons' data into one data frame
-top_liga_stats <- rbind(top_liga_2018_stats, top_liga_2019_stats, top_liga_2020_stats, top_liga_2021_stats)
-
-goals_act <- data.frame(top_liga_stats$Gls_Per[which(top_liga_stats$Team_or_Opponent == "team")])
-goals_act$team <- top_liga_stats$Squad[which(top_liga_stats$Team_or_Opponent == "team")]
-goals_act$exp_or_act <- "actual"
-goals_act$year <- top_liga_stats$Season_End_Year[which(top_liga_stats$Team_or_Opponent == "team")]
-colnames(goals_act)[1] <- "stats"
-goals_exp <- data.frame(top_liga_stats$xG_Per[which(top_liga_stats$Team_or_Opponent == "team")])
-goals_exp$team <- top_liga_stats$Squad[which(top_liga_stats$Team_or_Opponent == "team")]
-goals_exp$exp_or_act <- "expected"
-goals_exp$year <- top_liga_stats$Season_End_Year[which(top_liga_stats$Team_or_Opponent == "team")]
-colnames(goals_exp)[1] <- "stats"
-goals <- rbind(goals_act, goals_exp)
-
-# Plot density ridges
-ggplot(data = goals) +
-  geom_density_ridges(aes(x = stats, y = team, fill = exp_or_act, color = exp_or_act),
-                      alpha = 0.5, scale = 1) +
-  scale_x_continuous(limits = c(0.75,2.75)) +
-  scale_y_discrete(expand = expand_scale(add = c(0.2, 1))) +
-  ggtitle("Expected vs. Actual Goals Per Game") +
-  xlab("Goals Per Game") +
-  ylab("Team") +
-  scale_fill_cyclical(name = "Actual or Expected Goals",
-                      labels = c("Actual","Expected"),
-                      guide = "legend",
-                      values = c("#FF0000A0", "#A0A0A0A0")) +
-  scale_color_cyclical(name = "Actual or Expected Goals",
-                       labels = c("Actual","Expected"),
-                       guide = "legend",
-                       values = c("#FF0000A0", "#A0A0A0A0"))
-
-```
-
-Let us break down exactly what this visual is showing us. We are looking at the density of expected and actual goals per game for the top five teams in LaLiga, over the last four seasons (with the last season ending in 2021). We can see that Barcelona is typically scoring more goals than what is expected of them, as the density of actual goals is condensed around higher goal numbers than the density of expected goals. Villarreal, however, is performing just as well as what is expected of them based on expected and actual goals scored.
 
 

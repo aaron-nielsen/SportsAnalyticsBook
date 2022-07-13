@@ -1,0 +1,156 @@
+# Soccer
+
+Now that we have an understanding of some basic shooting statistics, let us go through some EDA examples. For this first example, we will need to install the "worldfootballR" package.
+
+```{r}
+library(worldfootballR)
+```
+
+Next we will look at some data specific to LaLiga, which is a soccer league in the men's top professional soccer division.
+
+```{r,eval=F,message=F}
+# Get "Squad Standard Stats" Data
+big5_2021_stats <- fb_big5_advanced_season_stats(season_end_year = 2021, stat_type = "standard", team_or_player = "team")
+liga_2021_stats <- big5_2021_stats[which((big5_2021_stats$Comp == "La Liga")),]
+
+# look at the first ten entries and a selection of columns
+liga_2021_stats %>% select(Squad,Team_or_Opponent,Poss,Gls,Ast,xG_Expected,xA_Expected) %>% slice_head(n=10) %>% kt()
+```
+
+```{r, echo=F,message=F}
+liga_2021_stats <- read_csv("data/liga_2021_stats.csv")
+```
+
+```{r}
+# Create visual for each team's goals per game
+team_goals_viz <- ggplot(data = liga_2021_stats[which(liga_2021_stats$Team_or_Opponent == "team"),], 
+                         aes(x = Squad, y = Gls_Per)) +
+  geom_bar(stat = "identity")
+team_goals_viz
+```
+
+This plot is a good starting point, but still looks pretty messy. Let's add a title, change the axis titles, and rotate the axis labels so they are not overlapping over one another.
+
+```{r}
+team_goals_viz <- team_goals_viz +
+  xlab("Team") +
+  ylab("Goals Per Game") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ggtitle("Goals Per Game by Team")
+team_goals_viz
+```
+
+This is already looking a lot better. Now, we will add the goals scored per game *against* each team. Why is this of interest? Well, at first glance, Barcelona seems like a pretty impressive team, as they score more goals per game than any other team in the league. However, what if they also have more goals scored against them than any other team in the league? This could be important context, so we will include it in the graph below.
+
+```{r}
+all_goals_viz <- ggplot(data = liga_2021_stats, aes(x = Squad, y = Gls_Per)) +
+  geom_bar(stat = "identity", aes(fill = Team_or_Opponent), position = "stack") +
+  xlab("Team") +
+  ylab("Goals Per 90 Minutes") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ggtitle("Goals Per Game by Team")
+all_goals_viz
+```
+
+This is looking pretty good, but let's clean it up just a bit by changing the legend title and labels.
+
+```{r}
+all_goals_viz +
+  scale_fill_discrete(name = "Team or Opponent", labels = c("Opponent","Team"))
+
+```
+
+What does this graph show us? Well, we are able to see the average number of goals scored for and against each team per game. It looks like Barcelona is scoring a lot more goals than they are letting be scored against them, while other teams like Valladolid tend to have a higher proportion of goals scored for the opposing team.
+
+### Scatter Plot
+
+In addition to simply knowing the average actual number of goals scored for and against each team per game, we may be interested in how this compares to the expected number of goals scored per game, as well.
+
+```{r, warning=F, message=F}
+library(ggExtra)
+act_exp_viz <- ggplot(data = liga_2021_stats, aes(x = xG_Per, y = Gls_Per, label = Squad)) +
+  geom_point() +
+  scale_x_continuous(limits = c(0.75,2.25)) +
+  scale_y_continuous(limits = c(0.75,2.25)) +
+  ggtitle("Expected vs. Actual Goals Per Game") +
+  xlab("Expected Goals Per Game") +
+  ylab("Actual Goals Per Game") +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme(aspect.ratio = 2/2)
+ggMarginal(act_exp_viz, type = "density")
+
+```
+
+As you can see, we fit a line to the data. At first glance, it seems to have a positive slope slightly greater than 1. What does this mean in the scenario of actual and expected goals per game?
+
+### Density Ridges Plot
+
+At first glance, it seems that actual goals scored per game do not differ greatly from expected goals per game. Let us look at some density plots for actual and expected goals per game for five of the top teams in LaLiga over the last four seasons. These are the top five teams as of June 21st, 2022 on www.foxsports.com.
+
+
+```{r, message=F, warning=F}
+library(ggridges)
+
+# Get "Squad Standard Stats" data for the last four seasons
+top_liga_2021_stats <- read_csv("data/laliga21.csv")
+top_liga_2020_stats <- read_csv("data/laliga20.csv")
+top_liga_2019_stats <- read_csv("data/laliga19.csv")
+top_liga_2018_stats <- read_csv("data/laliga18.csv")
+
+top_liga_2021_stats <- top_liga_2021_stats[which(top_liga_2021_stats$Squad == "Real Madrid"|
+                                           top_liga_2021_stats$Squad == "Villarreal"|
+                                           top_liga_2021_stats$Squad == "Barcelona"|
+                                           top_liga_2021_stats$Squad == "Levante"|
+                                           top_liga_2021_stats$Squad == "Betis"),]
+top_liga_2020_stats <- top_liga_2020_stats[which(top_liga_2020_stats$Squad == "Real Madrid"|
+                                           top_liga_2020_stats$Squad == "Villarreal"|
+                                           top_liga_2020_stats$Squad == "Barcelona"|
+                                           top_liga_2020_stats$Squad == "Levante"|
+                                           top_liga_2020_stats$Squad == "Betis"),]
+top_liga_2019_stats <- top_liga_2019_stats[which(top_liga_2019_stats$Squad == "Real Madrid"|
+                                           top_liga_2019_stats$Squad == "Villarreal"|
+                                           top_liga_2019_stats$Squad == "Barcelona"|
+                                           top_liga_2019_stats$Squad == "Levante"|
+                                           top_liga_2019_stats$Squad == "Betis"),]
+top_liga_2018_stats <- top_liga_2018_stats[which(top_liga_2018_stats$Squad == "Real Madrid"|
+                                           top_liga_2018_stats$Squad == "Villarreal"|
+                                           top_liga_2018_stats$Squad == "Barcelona"|
+                                           top_liga_2018_stats$Squad == "Levante"|
+                                           top_liga_2018_stats$Squad == "Betis"),]
+
+# Combine all four seasons' data into one data frame
+top_liga_stats <- rbind(top_liga_2018_stats, top_liga_2019_stats, top_liga_2020_stats, top_liga_2021_stats)
+
+goals_act <- data.frame(top_liga_stats$Gls_Per[which(top_liga_stats$Team_or_Opponent == "team")])
+goals_act$team <- top_liga_stats$Squad[which(top_liga_stats$Team_or_Opponent == "team")]
+goals_act$exp_or_act <- "actual"
+goals_act$year <- top_liga_stats$Season_End_Year[which(top_liga_stats$Team_or_Opponent == "team")]
+colnames(goals_act)[1] <- "stats"
+goals_exp <- data.frame(top_liga_stats$xG_Per[which(top_liga_stats$Team_or_Opponent == "team")])
+goals_exp$team <- top_liga_stats$Squad[which(top_liga_stats$Team_or_Opponent == "team")]
+goals_exp$exp_or_act <- "expected"
+goals_exp$year <- top_liga_stats$Season_End_Year[which(top_liga_stats$Team_or_Opponent == "team")]
+colnames(goals_exp)[1] <- "stats"
+goals <- rbind(goals_act, goals_exp)
+
+# Plot density ridges
+ggplot(data = goals) +
+  geom_density_ridges(aes(x = stats, y = team, fill = exp_or_act, color = exp_or_act),
+                      alpha = 0.5, scale = 1) +
+  scale_x_continuous(limits = c(0.75,2.75)) +
+  scale_y_discrete(expand = expand_scale(add = c(0.2, 1))) +
+  ggtitle("Expected vs. Actual Goals Per Game") +
+  xlab("Goals Per Game") +
+  ylab("Team") +
+  scale_fill_cyclical(name = "Actual or Expected Goals",
+                      labels = c("Actual","Expected"),
+                      guide = "legend",
+                      values = c("#FF0000A0", "#A0A0A0A0")) +
+  scale_color_cyclical(name = "Actual or Expected Goals",
+                       labels = c("Actual","Expected"),
+                       guide = "legend",
+                       values = c("#FF0000A0", "#A0A0A0A0"))
+
+```
+
+Let us break down exactly what this visual is showing us. We are looking at the density of expected and actual goals per game for the top five teams in LaLiga, over the last four seasons (with the last season ending in 2021). We can see that Barcelona is typically scoring more goals than what is expected of them, as the density of actual goals is condensed around higher goal numbers than the density of expected goals. Villarreal, however, is performing just as well as what is expected of them based on expected and actual goals scored.
