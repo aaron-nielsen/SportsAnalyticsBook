@@ -10,321 +10,321 @@ library("tidyverse")
 ```
 
 
-## Rules of Hockey
+<!-- ## Rules of Hockey -->
 
-[Link to YouTube video describing hockey rules](https://www.youtube.com/watch?v=nv2FUnHceqU)
+<!-- [Link to YouTube video describing hockey rules](https://www.youtube.com/watch?v=nv2FUnHceqU) -->
 
-## Basic Hockey Statistics
+<!-- ## Basic Hockey Statistics -->
 
-* **Goals (G)**: If a team scores, the skater on the scoring team who last touched the puck is credited with a goal.
+<!-- * **Goals (G)**: If a team scores, the skater on the scoring team who last touched the puck is credited with a goal. -->
 
-* **Assists (A)**: The players (up to two) on the scoring team who last touch the puck before the goalscorer are credited with assists, unless the opposing team has possession of the puck in between.
+<!-- * **Assists (A)**: The players (up to two) on the scoring team who last touch the puck before the goalscorer are credited with assists, unless the opposing team has possession of the puck in between. -->
 
-* **Points (PTS)**: Goals plus assists.
-  * Not to be confused with team points awarded in the regular season standings by the many hockey leagues, including the NHL (two points for a win, one point for an overtime/shootout loss, zero points for a regulation loss).
-  
-* **Shots On Goal (SOG)**: Shot attempts in which the puck has been shot directly on goal. Shot attempts which are blocked or miss the goal are not considered SOGs. A team's shots on goal should equal the opposing goaltender's saves plus the team's goals scored.
+<!-- * **Points (PTS)**: Goals plus assists. -->
+<!--   * Not to be confused with team points awarded in the regular season standings by the many hockey leagues, including the NHL (two points for a win, one point for an overtime/shootout loss, zero points for a regulation loss). -->
 
-* **Goals Against Average (GAA)**: Of a goaltender, the number of goals allowed by that goaltender adjusted to a per-60 minute rate.
+<!-- * **Shots On Goal (SOG)**: Shot attempts in which the puck has been shot directly on goal. Shot attempts which are blocked or miss the goal are not considered SOGs. A team's shots on goal should equal the opposing goaltender's saves plus the team's goals scored. -->
 
-* **Penalty Minutes (PIM)**: The amount of penalty time an individual player is assigned for their infractions. PIM may be different than the amount of time the player actually spends in the penalty box.
+<!-- * **Goals Against Average (GAA)**: Of a goaltender, the number of goals allowed by that goaltender adjusted to a per-60 minute rate. -->
 
-*Reference: https://www.milehighhockey.com/pages/stats*
+<!-- * **Penalty Minutes (PIM)**: The amount of penalty time an individual player is assigned for their infractions. PIM may be different than the amount of time the player actually spends in the penalty box. -->
 
+<!-- *Reference: https://www.milehighhockey.com/pages/stats* -->
 
-## Advanced Hockey Statistics
 
-* **CORSI**: CORSI only applies to 5 on 5 ("even-strength") situations. It is calculated as the difference between shot attempts on offense (shots on goal + blocked shots + missed shots) minus shot attempts allowed on defense. CORSI can also be expressed as a percentage, with percentages over 50% indicating that the player is on ice for more offensive shots than defensive shots.
+<!-- ## Advanced Hockey Statistics -->
 
-* **Expected Goals (xG)**: Expected Goals statistics give each shot an estimated probability of scoring a goal based on factors such as shot location and game situation. xG cannot be less than 0 or greater than 1 for any particular shot, and different platforms may have different methods of calculating expected goals.
+<!-- * **CORSI**: CORSI only applies to 5 on 5 ("even-strength") situations. It is calculated as the difference between shot attempts on offense (shots on goal + blocked shots + missed shots) minus shot attempts allowed on defense. CORSI can also be expressed as a percentage, with percentages over 50% indicating that the player is on ice for more offensive shots than defensive shots. -->
 
-* **Fenwick/Unblocked Shot Attempts (USAT)**: Similar to CORSI, but omits blocked shots from the calculation. This statistic is used in many Expected Goals calculations.
+<!-- * **Expected Goals (xG)**: Expected Goals statistics give each shot an estimated probability of scoring a goal based on factors such as shot location and game situation. xG cannot be less than 0 or greater than 1 for any particular shot, and different platforms may have different methods of calculating expected goals. -->
 
-Because the flow of a hockey game is usually quite different in situations other than the normal 5 on 5, such as a power play (5 on 4) or concurrent penalties (4 on 4), many hockey databases separate data by the type of game situation. We will see this below with a dataset from [MoneyPuck](www.moneypuck.com), but it is also present on [Natural Stat Trick](https://www.naturalstattrick.com/), [QuantHockey](www.quanthockey.com), and [hockey-reference](www.hockey-reference.com).
+<!-- * **Fenwick/Unblocked Shot Attempts (USAT)**: Similar to CORSI, but omits blocked shots from the calculation. This statistic is used in many Expected Goals calculations. -->
 
-*References: https://www.nhl.com/lightning/news/hockey-analytics-101-understanding-advanced-stats-and-how-theyre-measured/c-735819, https://theathletic.com/121980/2017/10/09/an-advanced-stat-primer-understanding-basic-hockey-metrics/*
+<!-- Because the flow of a hockey game is usually quite different in situations other than the normal 5 on 5, such as a power play (5 on 4) or concurrent penalties (4 on 4), many hockey databases separate data by the type of game situation. We will see this below with a dataset from [MoneyPuck](www.moneypuck.com), but it is also present on [Natural Stat Trick](https://www.naturalstattrick.com/), [QuantHockey](www.quanthockey.com), and [hockey-reference](www.hockey-reference.com). -->
 
+<!-- *References: https://www.nhl.com/lightning/news/hockey-analytics-101-understanding-advanced-stats-and-how-theyre-measured/c-735819, https://theathletic.com/121980/2017/10/09/an-advanced-stat-primer-understanding-basic-hockey-metrics/* -->
 
-## Hockey - Expected and Actual Goals
 
-For this example, we'll use a set of NHL data from moneypuck.com. First, let's load the data into `R` and open the data frame.
+<!-- ## Hockey - Expected and Actual Goals -->
 
-```{r hockey ggplot 1}
-nhl_2022_data <- read.csv("https://moneypuck.com/moneypuck/playerData/seasonSummary/2021/regular/teams.csv")
+<!-- For this example, we'll use a set of NHL data from moneypuck.com. First, let's load the data into `R` and open the data frame. -->
 
-View(nhl_2022_data)
-```
+<!-- ```{r hockey ggplot 1} -->
+<!-- nhl_2022_data <- read.csv("https://moneypuck.com/moneypuck/playerData/seasonSummary/2021/regular/teams.csv") -->
 
-This dataset includes a *lot* of covariates. It also splits these data by different game situations: even-strength (5 on 5), power play (5 on 4), etc. Let's subset the data to include all game situations.
+<!-- View(nhl_2022_data) -->
+<!-- ``` -->
 
-Use the `nrow` command to examine the number of columns in the new data frame. Check: Is it the same as the number of teams in the league for the 2021-2022 season?
+<!-- This dataset includes a *lot* of covariates. It also splits these data by different game situations: even-strength (5 on 5), power play (5 on 4), etc. Let's subset the data to include all game situations. -->
 
-```{r hockey ggplot 2}
-nhl_data_all <- filter(nhl_2022_data, situation == "all")
-View(nhl_data_all)
+<!-- Use the `nrow` command to examine the number of columns in the new data frame. Check: Is it the same as the number of teams in the league for the 2021-2022 season? -->
 
-nrow(nhl_data_all)
-```
+<!-- ```{r hockey ggplot 2} -->
+<!-- nhl_data_all <- filter(nhl_2022_data, situation == "all") -->
+<!-- View(nhl_data_all) -->
 
-The dataset includes an Expected Goals statistic for each team in the `xGoalsFor` column. Let's plot this quantity against the team's actual number of goals scored; this is given by the `goalsFor` column.
+<!-- nrow(nhl_data_all) -->
+<!-- ``` -->
 
-(Remember to always have a good title and axis labels!)
+<!-- The dataset includes an Expected Goals statistic for each team in the `xGoalsFor` column. Let's plot this quantity against the team's actual number of goals scored; this is given by the `goalsFor` column. -->
 
-```{r hockey ggplot 3}
-ggplot(data=nhl_data_all, aes(x=xGoalsFor, y=goalsFor)) + labs(x="Expected Goals Scored", y="Actual Goals Scored", title="NHL Teams: Expected vs. Actual Goals, 2021-22") + geom_point()
-```
+<!-- (Remember to always have a good title and axis labels!) -->
 
-As expected, there is a general positive correlation between expected and actual goals ($r \approx 0.8$). However, there is some variability - for example, the Kings only scored 7 more actual goals than the Ducks, despite having 56.6 more expected goals.
+<!-- ```{r hockey ggplot 3} -->
+<!-- ggplot(data=nhl_data_all, aes(x=xGoalsFor, y=goalsFor)) + labs(x="Expected Goals Scored", y="Actual Goals Scored", title="NHL Teams: Expected vs. Actual Goals, 2021-22") + geom_point() -->
+<!-- ``` -->
 
-Let's add a line to the graph using the `geom_abline` function corresponding to the line $y=x$, the line on which data points would fall if expected goals were equal to actual goals. We can also customize the line's color and type.
+<!-- As expected, there is a general positive correlation between expected and actual goals ($r \approx 0.8$). However, there is some variability - for example, the Kings only scored 7 more actual goals than the Ducks, despite having 56.6 more expected goals. -->
 
-```{r hockey ggplot 4}
-ggplot(data=nhl_data_all, aes(x=xGoalsFor, y=goalsFor)) + labs(x="Expected Goals Scored", y="Actual Goals Scored",title="NHL Teams: Expected vs. Actual Goals, 2021-22") + geom_point() + geom_abline(intercept=0, slope=1, color="red", linetype="dashed")
-```
+<!-- Let's add a line to the graph using the `geom_abline` function corresponding to the line $y=x$, the line on which data points would fall if expected goals were equal to actual goals. We can also customize the line's color and type. -->
 
-*Note: A slope of 0 and an intercept of 1 are actually the default parameters for the `geom_abline` function.*
+<!-- ```{r hockey ggplot 4} -->
+<!-- ggplot(data=nhl_data_all, aes(x=xGoalsFor, y=goalsFor)) + labs(x="Expected Goals Scored", y="Actual Goals Scored",title="NHL Teams: Expected vs. Actual Goals, 2021-22") + geom_point() + geom_abline(intercept=0, slope=1, color="red", linetype="dashed") -->
+<!-- ``` -->
 
-Q: What does it mean for a team's data point to fall below this line? Above it?
+<!-- *Note: A slope of 0 and an intercept of 1 are actually the default parameters for the `geom_abline` function.* -->
 
-A: If the data point is below the line, it means the expected goals were greater than the actual goals; if the data point is above the line, it means the actual goals were greater than the expected goals. 
+<!-- Q: What does it mean for a team's data point to fall below this line? Above it? -->
 
-Q: Do you think that a team's expected goals would be more likely to be closer to its actual goals for a ten-game stretch, an entire season, or five consecutive seasons? Why?
+<!-- A: If the data point is below the line, it means the expected goals were greater than the actual goals; if the data point is above the line, it means the actual goals were greater than the expected goals. -->
 
-<!-- Question could be reworded/clarified to mean "closer" in a relative (ratio) sense, rather than an absolute sense. -->
+<!-- Q: Do you think that a team's expected goals would be more likely to be closer to its actual goals for a ten-game stretch, an entire season, or five consecutive seasons? Why? -->
 
-A: We would expect that as sample size increases, the result would become closer to expectation. So, actual goals would be most likely closer to expected goals over a span of five seasons.
+<!-- <!-- Question could be reworded/clarified to mean "closer" in a relative (ratio) sense, rather than an absolute sense. --> -->
 
-<!--- This is basically conceptualizing the LLN, but that would rely on this calculation of expected goals being an unbiased estimator of actual goals. -->
+<!-- A: We would expect that as sample size increases, the result would become closer to expectation. So, actual goals would be most likely closer to expected goals over a span of five seasons. -->
 
-## Hockey - Goalie Data
+<!-- <!--- This is basically conceptualizing the LLN, but that would rely on this calculation of expected goals being an unbiased estimator of actual goals. --> -->
 
-For this next example, let's use goalie data from the 2021-2022 season from [Natural Stat Trick](https://www.naturalstattrick.com/). 
+<!-- ## Hockey - Goalie Data -->
 
-```{r goalie data 1}
-goalie_data <- read.csv("C:/Users/Fam/Downloads/GoalieTotals_NaturalStatTrick.csv")
-View(goalie_data)
-```
+<!-- For this next example, let's use goalie data from the 2021-2022 season from [Natural Stat Trick](https://www.naturalstattrick.com/). -->
 
-The dataset includes 119 goalies, but many of them didn't play very much. We can subset the data to include only goaltenders that faced at least 500 shots.
+<!-- ```{r goalie data 1} -->
+<!-- goalie_data <- read.csv("C:/Users/Fam/Downloads/GoalieTotals_NaturalStatTrick.csv") -->
+<!-- View(goalie_data) -->
+<!-- ``` -->
 
-Which player among qualified goalies had the best goals against average? On which team did he play, and what was his GAA?
+<!-- The dataset includes 119 goalies, but many of them didn't play very much. We can subset the data to include only goaltenders that faced at least 500 shots. -->
 
-Which goalie had the most playing time? What was his team, and how much time did he spend on the ice?
+<!-- Which player among qualified goalies had the best goals against average? On which team did he play, and what was his GAA? -->
 
-```{r goalie data 2}
-filtered_goalie_data <- filter(goalie_data, Shots.Against >= 500)
+<!-- Which goalie had the most playing time? What was his team, and how much time did he spend on the ice? -->
 
-filtered_goalie_data %>% filter(GAA == min(GAA)) %>% select(Player, Team, GAA)
-filtered_goalie_data %>% filter(TOI == max(TOI)) %>% select(Player, Team, TOI)
-``` 
+<!-- ```{r goalie data 2} -->
+<!-- filtered_goalie_data <- filter(goalie_data, Shots.Against >= 500) -->
 
-The following plot compares save percentage to the number of shots on goal faced for the qualified goalies. The dashed horizontal line is placed at the average shots on goal faced among qualified players, and the dashed vertical line is placed at the average save percentage among qualified players.
+<!-- filtered_goalie_data %>% filter(GAA == min(GAA)) %>% select(Player, Team, GAA) -->
+<!-- filtered_goalie_data %>% filter(TOI == max(TOI)) %>% select(Player, Team, TOI) -->
+<!-- ``` -->
 
-```{r goalie data 3, echo=FALSE}
-ggplot(data=filtered_goalie_data, aes(x=SV., y=Shots.Against)) + labs(x="Save Percentage", y="Shots On Goal Faced",title="NHL Goalies: Save Percentage vs. Volume of Shots, 2021-22") + geom_point() + geom_hline(yintercept=mean(filtered_goalie_data$Shots.Against), color="red", linetype="dashed") + geom_vline(xintercept=mean(filtered_goalie_data$SV.), color="red", linetype="dashed")
-```
+<!-- The following plot compares save percentage to the number of shots on goal faced for the qualified goalies. The dashed horizontal line is placed at the average shots on goal faced among qualified players, and the dashed vertical line is placed at the average save percentage among qualified players. -->
 
-Q: Which quadrant of the graph represents goalies that faced a higher than average number of shots, but had a below-average save percentage?
+<!-- ```{r goalie data 3, echo=FALSE} -->
+<!-- ggplot(data=filtered_goalie_data, aes(x=SV., y=Shots.Against)) + labs(x="Save Percentage", y="Shots On Goal Faced",title="NHL Goalies: Save Percentage vs. Volume of Shots, 2021-22") + geom_point() + geom_hline(yintercept=mean(filtered_goalie_data$Shots.Against), color="red", linetype="dashed") + geom_vline(xintercept=mean(filtered_goalie_data$SV.), color="red", linetype="dashed") -->
+<!-- ``` -->
 
-A: The second (upper left) quadrant.
+<!-- Q: Which quadrant of the graph represents goalies that faced a higher than average number of shots, but had a below-average save percentage? -->
 
-Q: Which quadrant represents goalies that had a high save percentage and faced a high volume of shots?
+<!-- A: The second (upper left) quadrant. -->
 
-A: The first (upper right) quadrant.
+<!-- Q: Which quadrant represents goalies that had a high save percentage and faced a high volume of shots? -->
 
-## Hockey - Correlation Plots
+<!-- A: The first (upper right) quadrant. -->
 
-When analyzing sports data, there may be many circumstances where statisticians consider which of several variables are most highly correlated to an outcome variable of interest. In this case, it can be useful to use a correlation plot (also known as a correlation matrix or correlogram). Tidyverse and related packages provide many options for creating correlation plots.
+<!-- ## Hockey - Correlation Plots -->
 
-Suppose a statistician has recently learned about some advanced hockey statistics and is interested in researching which stat has the highest correlation with goals scored. The statistician wants to compare team shots on goal, CORSI, and Fenwick to observe the association with goals scored for NHL teams.
+<!-- When analyzing sports data, there may be many circumstances where statisticians consider which of several variables are most highly correlated to an outcome variable of interest. In this case, it can be useful to use a correlation plot (also known as a correlation matrix or correlogram). Tidyverse and related packages provide many options for creating correlation plots. -->
 
-The following plot uses the same 2021-2022 data from Moneypuck.com; it gives the pairwise scatterplots and correlation values for each of the variables, as well as smoothed plots of each individual variable along the diagonals.
+<!-- Suppose a statistician has recently learned about some advanced hockey statistics and is interested in researching which stat has the highest correlation with goals scored. The statistician wants to compare team shots on goal, CORSI, and Fenwick to observe the association with goals scored for NHL teams. -->
 
-```{r hockey ggplot 5}
-library("GGally")
+<!-- The following plot uses the same 2021-2022 data from Moneypuck.com; it gives the pairwise scatterplots and correlation values for each of the variables, as well as smoothed plots of each individual variable along the diagonals. -->
 
-goal_stats <- nhl_data_all %>% select(shotsOnGoalFor, corsiPercentage, fenwickPercentage, goalsFor)
-ggpairs(goal_stats, title="Correlation plot of goals and relevant predictors, NHL 2021-22")
-```
+<!-- ```{r hockey ggplot 5} -->
+<!-- library("GGally") -->
 
-Q: Which of the variables has the strongest correlation with goals scored?
+<!-- goal_stats <- nhl_data_all %>% select(shotsOnGoalFor, corsiPercentage, fenwickPercentage, goalsFor) -->
+<!-- ggpairs(goal_stats, title="Correlation plot of goals and relevant predictors, NHL 2021-22") -->
+<!-- ``` -->
 
-A: CORSI percentage, r = .702.
+<!-- Q: Which of the variables has the strongest correlation with goals scored? -->
 
-In the article ["An advanced stat primer: Understanding basic hockey metrics"](https://theathletic.com/121980/2017/10/09/an-advanced-stat-primer-understanding-basic-hockey-metrics/), Charlie O'Connor states, "Generally speaking, Corsi is more predictive of future goal differential than Fenwick... however, Fenwick forms the basis for the most widely-used Expected Goals models." Let's use the same predictors in a correlation plot with Expected Goals percentage. Does Fenwick have the strongest correlation with xGoal percentage?
+<!-- A: CORSI percentage, r = .702. -->
 
-```{r hockey ggplot 6}
-xGoal_stats <- nhl_data_all %>% select(shotsOnGoalFor, corsiPercentage, fenwickPercentage, xGoalsPercentage)
-ggpairs(xGoal_stats, title="Correlation plot of expected goals and relevant predictors, NHL 2021-22")
-```
+<!-- In the article ["An advanced stat primer: Understanding basic hockey metrics"](https://theathletic.com/121980/2017/10/09/an-advanced-stat-primer-understanding-basic-hockey-metrics/), Charlie O'Connor states, "Generally speaking, Corsi is more predictive of future goal differential than Fenwick... however, Fenwick forms the basis for the most widely-used Expected Goals models." Let's use the same predictors in a correlation plot with Expected Goals percentage. Does Fenwick have the strongest correlation with xGoal percentage? -->
 
+<!-- ```{r hockey ggplot 6} -->
+<!-- xGoal_stats <- nhl_data_all %>% select(shotsOnGoalFor, corsiPercentage, fenwickPercentage, xGoalsPercentage) -->
+<!-- ggpairs(xGoal_stats, title="Correlation plot of expected goals and relevant predictors, NHL 2021-22") -->
+<!-- ``` -->
 
-## Rules of Basketball
 
-[Link to YouTube video describing basketball rules](https://www.youtube.com/watch?v=wYjp2zoqQrs)
+<!-- ## Rules of Basketball -->
 
-## Basic Basketball Statistics
+<!-- [Link to YouTube video describing basketball rules](https://www.youtube.com/watch?v=wYjp2zoqQrs) -->
 
-* **Field Goal (FG)**: A made shot from either 2- or 3-point range. Free throws, worth 1 point, are not considered field goals. Field goal statistics often include attempts, makes, and percentage.
+<!-- ## Basic Basketball Statistics -->
 
-* **Free Throw (FT)**: After certain fouls, the clock stops and a player shoots an uncontested shot from the foul line. These free throws are worth 1 point each; like with field goals, FT statistics often include attempts, makes, and percentage.
+<!-- * **Field Goal (FG)**: A made shot from either 2- or 3-point range. Free throws, worth 1 point, are not considered field goals. Field goal statistics often include attempts, makes, and percentage. -->
 
-* **Assists (AST)**: A player is credited with an assist if they pass the ball to a teammate and the teammate scores a field goal after zero or one dribbles. No more than one assist can be recorded per field goal.
+<!-- * **Free Throw (FT)**: After certain fouls, the clock stops and a player shoots an uncontested shot from the foul line. These free throws are worth 1 point each; like with field goals, FT statistics often include attempts, makes, and percentage. -->
 
-* **Turnover (TO)**: A player or team can be charged with a turnover for an action or violation that ends their offensive possession before being able to attempt a field goal. For a player (especially a guard), TOs can be compared to assists using Assist:Turnover ratio.
+<!-- * **Assists (AST)**: A player is credited with an assist if they pass the ball to a teammate and the teammate scores a field goal after zero or one dribbles. No more than one assist can be recorded per field goal. -->
 
-* **Rebound (REB)**: The first player to gain control of the ball following a missed field goal is credited with a rebound. If the player is on the same team as the field goal shooter, it is an offensive rebound; otherwise, a defensive rebound.
+<!-- * **Turnover (TO)**: A player or team can be charged with a turnover for an action or violation that ends their offensive possession before being able to attempt a field goal. For a player (especially a guard), TOs can be compared to assists using Assist:Turnover ratio. -->
 
-* **Points per Possession (PPP)**: Divides a team's points by number of possessions to account for a team's pace.
+<!-- * **Rebound (REB)**: The first player to gain control of the ball following a missed field goal is credited with a rebound. If the player is on the same team as the field goal shooter, it is an offensive rebound; otherwise, a defensive rebound. -->
 
-## Advanced Basketball Statistics
+<!-- * **Points per Possession (PPP)**: Divides a team's points by number of possessions to account for a team's pace. -->
 
-* **True Shooting Percentage (TS%)**: Unlike traditional shooting percentage, this statistic considers both field goals and free throws. It also gives more weight to shots that are worth more points. 
+<!-- ## Advanced Basketball Statistics -->
 
-* **Win Shares**: Win shares give each player points for actions that contribute to a team's success. Win shares take into account a variety of offensive and defensive statistics, but can be calculated using different methods on different platforms.
+<!-- * **True Shooting Percentage (TS%)**: Unlike traditional shooting percentage, this statistic considers both field goals and free throws. It also gives more weight to shots that are worth more points.  -->
 
-* **Value Over Replacement Player (VORP)**: This is basketball's response to baseball's WAR. VORP is a rate statistic that estimates a player's offensive output as compared to an "average" player.
+<!-- * **Win Shares**: Win shares give each player points for actions that contribute to a team's success. Win shares take into account a variety of offensive and defensive statistics, but can be calculated using different methods on different platforms. -->
 
-* **Player Efficiency Rating (PER)**: According to its creator John Hollinger, 
-"The PER sums up all a player's positive accomplishments, subtracts the negative accomplishments, and returns a per-minute rating of a player's performance." This statistic rewards great offensive performance more than great defensive plays.
+<!-- * **Value Over Replacement Player (VORP)**: This is basketball's response to baseball's WAR. VORP is a rate statistic that estimates a player's offensive output as compared to an "average" player. -->
 
-*References: https://www.basketball-reference.com/about/per.html, https://www.basketball-reference.com/about/ws.html, https://www.basketball-reference.com/about/glossary.html*
+<!-- * **Player Efficiency Rating (PER)**: According to its creator John Hollinger,  -->
+<!-- "The PER sums up all a player's positive accomplishments, subtracts the negative accomplishments, and returns a per-minute rating of a player's performance." This statistic rewards great offensive performance more than great defensive plays. -->
 
+<!-- *References: https://www.basketball-reference.com/about/per.html, https://www.basketball-reference.com/about/ws.html, https://www.basketball-reference.com/about/glossary.html* -->
 
-## Basketball - Four Factors
 
-Tibbles are a type of data frame supported by the `tidyverse` package. The following tibble contains data from a Mountain West tournament game played between the CSU and Wyoming women's basketball teams during the 2021-2022 season, which CSU won 51-38. [(Here's the link to the box score on the CSU athletics website.)](https://csurams.com/sports/womens-basketball/stats/2021-22/wyoming/boxscore/16095)
+<!-- ## Basketball - Four Factors -->
 
-```{r four factors}
-library("tibble")
+<!-- Tibbles are a type of data frame supported by the `tidyverse` package. The following tibble contains data from a Mountain West tournament game played between the CSU and Wyoming women's basketball teams during the 2021-2022 season, which CSU won 51-38. [(Here's the link to the box score on the CSU athletics website.)](https://csurams.com/sports/womens-basketball/stats/2021-22/wyoming/boxscore/16095) -->
 
-basketball_data <- tibble(team = c("CSU","WYO"), FG = c(14,15), FGA = c(48,60), THREEP = c(5,4), FT = c(10,4), FTA = c(14,4), ORB = c(2,14), DRB = c(31,30), TOV = c(5,12)); basketball_data
-```
+<!-- ```{r four factors} -->
+<!-- library("tibble") -->
 
-This tibble contains all the data needed to calculate the *Four Factors*. The Four Factors of a basketball game are statistics formulated by Dean Oliver, former Director of Quantitative Analysis for the Denver Nuggets (among other roles). These statistics are also promoted by sports data platforms like Hudl.com.
+<!-- basketball_data <- tibble(team = c("CSU","WYO"), FG = c(14,15), FGA = c(48,60), THREEP = c(5,4), FT = c(10,4), FTA = c(14,4), ORB = c(2,14), DRB = c(31,30), TOV = c(5,12)); basketball_data -->
+<!-- ``` -->
 
-The Four Factors each have offensive and defensive versions; for this example, we'll focus on the offensive perspective.
+<!-- This tibble contains all the data needed to calculate the *Four Factors*. The Four Factors of a basketball game are statistics formulated by Dean Oliver, former Director of Quantitative Analysis for the Denver Nuggets (among other roles). These statistics are also promoted by sports data platforms like Hudl.com. -->
 
-The first is **Effective Field Goal Percentage**, commonly abbreviated eFG%. The formula is as follows:
+<!-- The Four Factors each have offensive and defensive versions; for this example, we'll focus on the offensive perspective. -->
 
-$eFG\% = \frac{FG\ +\ 0.5(3P)}{FGA}$
+<!-- The first is **Effective Field Goal Percentage**, commonly abbreviated eFG%. The formula is as follows: -->
 
-Secondly, **Turnover Percentage** (TOV%) is calculated as:
+<!-- $eFG\% = \frac{FG\ +\ 0.5(3P)}{FGA}$ -->
 
-$TOV\% = \frac{TOV}{FGA\ +\ 0.44(FTA)\ +\ TOV}$
+<!-- Secondly, **Turnover Percentage** (TOV%) is calculated as: -->
 
-Next, **Rebounding Percentage** (ORB%) is computed as:
+<!-- $TOV\% = \frac{TOV}{FGA\ +\ 0.44(FTA)\ +\ TOV}$ -->
 
-$ORB\% = \frac{ORB}{ORB\ +\ Opponent\ DRB}$
+<!-- Next, **Rebounding Percentage** (ORB%) is computed as: -->
 
-Finally, the **Free Throw Factor** is found using:
+<!-- $ORB\% = \frac{ORB}{ORB\ +\ Opponent\ DRB}$ -->
 
-$FT\ factor = \frac{FT}{FGA}$
+<!-- Finally, the **Free Throw Factor** is found using: -->
 
-Note: You do not have to know these formulas for the test. They are just used for this example.
+<!-- $FT\ factor = \frac{FT}{FGA}$ -->
 
-Let's calculate the values of eFG%, TOV%, ORB%, and Free Throw Factor for both CSU and Wyoming and add them as new columns in the tibble using the `add_column` function.
+<!-- Note: You do not have to know these formulas for the test. They are just used for this example. -->
 
-```{r four factors 2}
-attach(basketball_data)
-eFG <- round((FG + .5 * THREEP)/FGA, 3) * 100
-TOVPCT <- round(TOV / (FGA + .44 * FTA + TOV), 3) * 100
-ORBPCT <- round(c(ORB[1]/(ORB[1]+DRB[2]), ORB[2]/(ORB[2]+DRB[1])), 3) * 100
-FTFACTOR <- round(FT/FGA, 3) * 100
+<!-- Let's calculate the values of eFG%, TOV%, ORB%, and Free Throw Factor for both CSU and Wyoming and add them as new columns in the tibble using the `add_column` function. -->
 
-basketball_data %>% add_column(eFG, TOVPCT, ORBPCT, FTFACTOR)
-```
+<!-- ```{r four factors 2} -->
+<!-- attach(basketball_data) -->
+<!-- eFG <- round((FG + .5 * THREEP)/FGA, 3) * 100 -->
+<!-- TOVPCT <- round(TOV / (FGA + .44 * FTA + TOV), 3) * 100 -->
+<!-- ORBPCT <- round(c(ORB[1]/(ORB[1]+DRB[2]), ORB[2]/(ORB[2]+DRB[1])), 3) * 100 -->
+<!-- FTFACTOR <- round(FT/FGA, 3) * 100 -->
 
-While this method does produce Four Factors data, it could be difficult to scale for calculating the same statistics for a sample of several games. In the next section, we will introduce an `R` package that aids in the calculation of Four Factors.
+<!-- basketball_data %>% add_column(eFG, TOVPCT, ORBPCT, FTFACTOR) -->
+<!-- ``` -->
 
-## Basketball - BasketballAnalyzeR Four Factors
+<!-- While this method does produce Four Factors data, it could be difficult to scale for calculating the same statistics for a sample of several games. In the next section, we will introduce an `R` package that aids in the calculation of Four Factors. -->
 
-The authors of "Basketball Data Science With Applications in R" developed the `BasketballAnalyzeR` package to be used in conjunction with the book. `BasketballAnalyzeR` includes built-in datasets from the 2017-18 NBA season and provides many functions for analyzing and plotting basketball data. One such function is `fourfactors`, which offers a simpler way to perform a four factors analysis.
+<!-- ## Basketball - BasketballAnalyzeR Four Factors -->
 
-```{r basketballanalyzer 1, message=FALSE, warning=FALSE}
-library("BasketballAnalyzeR")
+<!-- The authors of "Basketball Data Science With Applications in R" developed the `BasketballAnalyzeR` package to be used in conjunction with the book. `BasketballAnalyzeR` includes built-in datasets from the 2017-18 NBA season and provides many functions for analyzing and plotting basketball data. One such function is `fourfactors`, which offers a simpler way to perform a four factors analysis. -->
 
-teams <- c("DEN", "CLE", "GSW") #Nuggets, Cavaliers, Warriors
-team_data <- which(Tadd$team %in% teams)
-four_factors_teams <- fourfactors(Tbox[team_data, ], Obox[team_data, ])
-print(four_factors_teams)
-```
+<!-- ```{r basketballanalyzer 1, message=FALSE, warning=FALSE} -->
+<!-- library("BasketballAnalyzeR") -->
 
-This is a much simpler and neater way to calculate Four Factors.
+<!-- teams <- c("DEN", "CLE", "GSW") #Nuggets, Cavaliers, Warriors -->
+<!-- team_data <- which(Tadd$team %in% teams) -->
+<!-- four_factors_teams <- fourfactors(Tbox[team_data, ], Obox[team_data, ]) -->
+<!-- print(four_factors_teams) -->
+<!-- ``` -->
 
-In the 2017-18 season, the Warriors and Cavaliers met in the NBA Finals, while the Nuggets just missed the playoffs. It would be expected that the two Finals teams would have higher values for the Four Factors. While this is mostly true, for which of the Four Factors did the Nuggets have the highest value?
+<!-- This is a much simpler and neater way to calculate Four Factors. -->
 
-A: Factor 3 (rebounding percentage), both offensive and defensive.
+<!-- In the 2017-18 season, the Warriors and Cavaliers met in the NBA Finals, while the Nuggets just missed the playoffs. It would be expected that the two Finals teams would have higher values for the Four Factors. While this is mostly true, for which of the Four Factors did the Nuggets have the highest value? -->
 
-## Basketball - BasketballAnalyzeR Shot Charts
+<!-- A: Factor 3 (rebounding percentage), both offensive and defensive. -->
 
-The `BasketballAnalyzeR` package includes shot location data for all players for the 2017-18 NBA season and has a function called `shotchart` that allows for the plotting of shot data.
+<!-- ## Basketball - BasketballAnalyzeR Shot Charts -->
 
-Let's plot shot location data for Nikola Jokic. First, the coordinates must be transformed so that the point (0,0) is located at the corner of the court; the original coordinates place the origin at the center of the hoop.
+<!-- The `BasketballAnalyzeR` package includes shot location data for all players for the 2017-18 NBA season and has a function called `shotchart` that allows for the plotting of shot data. -->
 
-```{r basketballanalyzer 2}
-PbP <- PbPmanipulation(PbP.BDB)
+<!-- Let's plot shot location data for Nikola Jokic. First, the coordinates must be transformed so that the point (0,0) is located at the corner of the court; the original coordinates place the origin at the center of the hoop. -->
 
-jokic_data <- subset(PbP, player == "Nikola Jokic")
-jokic_data$xx <- jokic_data$original_x/10 #transformation
-jokic_data$yy <- jokic_data$original_y/10 - 41.75 #transformation
-```
+<!-- ```{r basketballanalyzer 2} -->
+<!-- PbP <- PbPmanipulation(PbP.BDB) -->
 
-`BasketballAnalyzeR` supports three types of density visualizations within `shotchart`, one being `density-polygons`. Since `shotchart` is a `ggplot` object, a chart title can be added using `ggtitle`.
+<!-- jokic_data <- subset(PbP, player == "Nikola Jokic") -->
+<!-- jokic_data$xx <- jokic_data$original_x/10 #transformation -->
+<!-- jokic_data$yy <- jokic_data$original_y/10 - 41.75 #transformation -->
+<!-- ``` -->
 
-```{r basketballanalyzer 3}
-shotchart(data = jokic_data, x="xx", y="yy", type="density-polygons") + ggtitle("Nikola Jokic Shot Data, 2017-18")
-```
+<!-- `BasketballAnalyzeR` supports three types of density visualizations within `shotchart`, one being `density-polygons`. Since `shotchart` is a `ggplot` object, a chart title can be added using `ggtitle`. -->
 
-It seems most shots attempts from Jokic were in the paint; this is hardly surprising, since he plays the center position. Here's the same chart with `density-hexbin`:
+<!-- ```{r basketballanalyzer 3} -->
+<!-- shotchart(data = jokic_data, x="xx", y="yy", type="density-polygons") + ggtitle("Nikola Jokic Shot Data, 2017-18") -->
+<!-- ``` -->
 
-```{r basketballanalyzer 4}
-shotchart(data = jokic_data, x="xx", y="yy", type="density-hexbin") + ggtitle("Nikola Jokic Shot Data, 2017-18")
-```
+<!-- It seems most shots attempts from Jokic were in the paint; this is hardly surprising, since he plays the center position. Here's the same chart with `density-hexbin`: -->
 
-The same chart with `density-raster`:
+<!-- ```{r basketballanalyzer 4} -->
+<!-- shotchart(data = jokic_data, x="xx", y="yy", type="density-hexbin") + ggtitle("Nikola Jokic Shot Data, 2017-18") -->
+<!-- ``` -->
 
-```{r basketballanalyzer 5}
-shotchart(data = jokic_data, x="xx", y="yy", type="density-raster") + ggtitle("Nikola Jokic Shot Data, 2017-18")
-```
+<!-- The same chart with `density-raster`: -->
 
-Within the `shotchart` function, setting `scatter=TRUE` overlays the shots on the chart. Point size and transparency can also be customized.
+<!-- ```{r basketballanalyzer 5} -->
+<!-- shotchart(data = jokic_data, x="xx", y="yy", type="density-raster") + ggtitle("Nikola Jokic Shot Data, 2017-18") -->
+<!-- ``` -->
 
-```{r basketballanalyzer 6}
-shotchart(data = jokic_data, x="xx", y="yy", type="density-raster", scatter=TRUE) + ggtitle("Nikola Jokic Shot Data, 2017-18")
-```
+<!-- Within the `shotchart` function, setting `scatter=TRUE` overlays the shots on the chart. Point size and transparency can also be customized. -->
 
-Let's now compare shot charts of Nikola Jokic, Steph Curry, and Lebron James. This group of players includes one member of each team for which we calculated Four Factors.
+<!-- ```{r basketballanalyzer 6} -->
+<!-- shotchart(data = jokic_data, x="xx", y="yy", type="density-raster", scatter=TRUE) + ggtitle("Nikola Jokic Shot Data, 2017-18") -->
+<!-- ``` -->
 
-```{r basketballanalyzer 7}
-curry_data <- subset(PbP, player == "Stephen Curry")
-curry_data$xx <- curry_data$original_x/10 #transformation
-curry_data$yy <- curry_data$original_y/10 - 41.75 #transformation
+<!-- Let's now compare shot charts of Nikola Jokic, Steph Curry, and Lebron James. This group of players includes one member of each team for which we calculated Four Factors. -->
 
-james_data <- subset(PbP, player == "LeBron James")
-james_data$xx <- james_data$original_x/10 #transformation
-james_data$yy <- james_data$original_y/10 - 41.75 #transformation
+<!-- ```{r basketballanalyzer 7} -->
+<!-- curry_data <- subset(PbP, player == "Stephen Curry") -->
+<!-- curry_data$xx <- curry_data$original_x/10 #transformation -->
+<!-- curry_data$yy <- curry_data$original_y/10 - 41.75 #transformation -->
 
-shotchart(data = jokic_data, x="xx", y="yy", type="density-raster") + ggtitle("Nikola Jokic Shot Data, 2017-18")
-shotchart(data = curry_data, x="xx", y="yy", type="density-raster") + ggtitle("Steph Curry Shot Data, 2017-18")
-shotchart(data = james_data, x="xx", y="yy", type="density-raster") + ggtitle("Lebron James Shot Data, 2017-18")
-```
+<!-- james_data <- subset(PbP, player == "LeBron James") -->
+<!-- james_data$xx <- james_data$original_x/10 #transformation -->
+<!-- james_data$yy <- james_data$original_y/10 - 41.75 #transformation -->
 
-Q: Of the three players (Jokic, Curry, James), which took the highest percentage of their three-point shots from the right side of the court (when facing the basket)?
+<!-- shotchart(data = jokic_data, x="xx", y="yy", type="density-raster") + ggtitle("Nikola Jokic Shot Data, 2017-18") -->
+<!-- shotchart(data = curry_data, x="xx", y="yy", type="density-raster") + ggtitle("Steph Curry Shot Data, 2017-18") -->
+<!-- shotchart(data = james_data, x="xx", y="yy", type="density-raster") + ggtitle("Lebron James Shot Data, 2017-18") -->
+<!-- ``` -->
 
-A: Nikola Jokic shot almost all of his attempts from the right side. Steph Curry took many shots from beyond the arc and tended toward the left side, while James was split between the right side and the center.
+<!-- Q: Of the three players (Jokic, Curry, James), which took the highest percentage of their three-point shots from the right side of the court (when facing the basket)? -->
 
-Now, let's focus on Steph Curry's shooting. The following chart splits the court into zones based on angle and distance from the basket. The color in each zone represents the average length of the play leading up to that shot among shots taken in that zone.
+<!-- A: Nikola Jokic shot almost all of his attempts from the right side. Steph Curry took many shots from beyond the arc and tended toward the left side, while James was split between the right side and the center. -->
 
-```{r basketballanalyzer 8}
-shotchart(data = curry_data, x="xx", y="yy", z="playlength", type="sectors", num.sect = 7, scatter=TRUE, pt.alpha=.3) + ggtitle("Steph Curry Shot Data, 2017-18")
-```
+<!-- Now, let's focus on Steph Curry's shooting. The following chart splits the court into zones based on angle and distance from the basket. The color in each zone represents the average length of the play leading up to that shot among shots taken in that zone. -->
 
-Q: In general, did Steph Curry tend to shoot closer to the basket during plays of a longer duration or a shorter duration?
+<!-- ```{r basketballanalyzer 8} -->
+<!-- shotchart(data = curry_data, x="xx", y="yy", z="playlength", type="sectors", num.sect = 7, scatter=TRUE, pt.alpha=.3) + ggtitle("Steph Curry Shot Data, 2017-18") -->
+<!-- ``` -->
 
-A: There is not a perfect correlation, but it seems that two-point field goals were attempted more often during longer plays, while shots taken outside the three-point arc were taken during plays of a shorter duration. 
+<!-- Q: In general, did Steph Curry tend to shoot closer to the basket during plays of a longer duration or a shorter duration? -->
 
-*References: https://rdrr.io/cran/BasketballAnalyzeR/; Basketball Data Science (Zuccolotto and Manisera, 2020)*
+<!-- A: There is not a perfect correlation, but it seems that two-point field goals were attempted more often during longer plays, while shots taken outside the three-point arc were taken during plays of a shorter duration.  -->
+
+<!-- *References: https://rdrr.io/cran/BasketballAnalyzeR/; Basketball Data Science (Zuccolotto and Manisera, 2020)* -->
 
 <!-- ## Law of Total Probability - Hockey -->
 
@@ -455,41 +455,41 @@ A: There is not a perfect correlation, but it seems that two-point field goals w
 
 <!-- If we are interested in the probability of the team winning two of the next five games, drawing two, and losing one, we cannot use the binomial theorem. That involves three outcomes, and would be represented as a multinomial. <!--- assuming regularity conditions such as independence. --> -->
 
-## Multinomial Distribution - Baseball
+<!-- ## Multinomial Distribution - Baseball -->
 
-The following PMF displays the number of possible bases for a hit in baseball against the frequency of that type of hit for Hank Aaron, who is third all-time in Major League baseball hits with 3,771.
+<!-- The following PMF displays the number of possible bases for a hit in baseball against the frequency of that type of hit for Hank Aaron, who is third all-time in Major League baseball hits with 3,771. -->
 
-```{r multinomial, include=F}
-Number_bases <- c(1:4)
-Hit_Frequency <- c(2294, 624, 98, 755)
-Hit_Proportion <- round(Hit_Frequency / sum(Hit_Frequency), 5)
+<!-- ```{r multinomial, include=F} -->
+<!-- Number_bases <- c(1:4) -->
+<!-- Hit_Frequency <- c(2294, 624, 98, 755) -->
+<!-- Hit_Proportion <- round(Hit_Frequency / sum(Hit_Frequency), 5) -->
 
-Hank_Aaron_PMF <- data.frame(Number_bases, Hit_Proportion); Hank_Aaron_PMF
-```
+<!-- Hank_Aaron_PMF <- data.frame(Number_bases, Hit_Proportion); Hank_Aaron_PMF -->
+<!-- ``` -->
 
-| Number of Bases, $x$  | 1 | 2 | 3 | 4 |
-|:---------------------:|:-:|:-:|:-:|:-:|
-| Probability, $P(X=x)$ | 0.61 | 0.16 | 0.03 | 0.20 |
+<!-- | Number of Bases, $x$  | 1 | 2 | 3 | 4 | -->
+<!-- |:---------------------:|:-:|:-:|:-:|:-:| -->
+<!-- | Probability, $P(X=x)$ | 0.61 | 0.16 | 0.03 | 0.20 | -->
 
-Q: What is the probability that a randomly selected subset of 5 hits from Hank Aaron includes three singles, one double, and one home run?
+<!-- Q: What is the probability that a randomly selected subset of 5 hits from Hank Aaron includes three singles, one double, and one home run? -->
 
-<!-- note: assumes sampling with replacement. Without replacement would be a multivariate hypergeometric and would slightly increase the probability.  -->
+<!-- <!-- note: assumes sampling with replacement. Without replacement would be a multivariate hypergeometric and would slightly increase the probability.  --> -->
 
-A: From the Multinomial PMF, this is $P(X_1 = 3, X_2 = 1, X_3 = 0, X_4 = 1) = \frac{5!}{3!\ \cdot 1!\ \cdot 0!\ \cdot 1!}\ (.61)^3\cdot\ (.16)^1\cdot\ (.03)^0\cdot\ (.20)^1 \approx .145$
+<!-- A: From the Multinomial PMF, this is $P(X_1 = 3, X_2 = 1, X_3 = 0, X_4 = 1) = \frac{5!}{3!\ \cdot 1!\ \cdot 0!\ \cdot 1!}\ (.61)^3\cdot\ (.16)^1\cdot\ (.03)^0\cdot\ (.20)^1 \approx .145$ -->
 
-The probability can also be found in `R` using the `dmultinom` function.
+<!-- The probability can also be found in `R` using the `dmultinom` function. -->
 
-```{r multinomial 2}
-dmultinom(x = c(3, 1, 0, 1), prob = c(.61, .16, .03, .20))
-```
+<!-- ```{r multinomial 2} -->
+<!-- dmultinom(x = c(3, 1, 0, 1), prob = c(.61, .16, .03, .20)) -->
+<!-- ``` -->
 
 <!-- ## Geometric (First Success) RVs -->
 
 <!-- Caution: Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful. -->
 
 <!-- ```{r} -->
-<!-- set.seed(2022) -->
-<!-- geometric <- rgeom(100, 1/3) -->
+<!-- set.seed(2020) -->
+<!-- geometric <- rgeom(1e4, 1/10) -->
 <!-- head(geometric, 20) -->
 <!-- ``` -->
 
@@ -500,7 +500,7 @@ dmultinom(x = c(3, 1, 0, 1), prob = c(.61, .16, .03, .20))
 <!-- head(first_success, 20) -->
 <!-- mean(first_success) -->
 <!-- ``` -->
-<!-- The mean of this sample of variables is 3.03, which is close to the expected mean of $\frac{1}{p} = 3$. -->
+<!-- The mean of this sample of variables is 10.11, which is close to the expected mean of $\frac{1}{p} = 10$. -->
 
 <!-- ## Geometric Distribution - Hockey -->
 
@@ -723,4 +723,97 @@ dmultinom(x = c(3, 1, 0, 1), prob = c(.61, .16, .03, .20))
 <!-- <!-- https://stackoverflow.com/questions/28731582/maximum-consecutive-repeats-in-a-vector-in-r --> -->
 
 <!-- The team had a 4+ game winning streak in about 20% of the simulations.  -->
+
+
+<!-- # Properties of the Linear Correlation Coefficient -->
+
+<!-- Pearson's correlation coefficient is unaffected by changes in location (adding a constant) or scale (multiplying by a constant) of data. To illustrate this concept, let's consider the correlation between the number of points scored by the winning team of the Super Bowl and 1) the number of the Super Bowl {1, 2, 3, ... , 56} and 2) the year of the Super Bowl {1967, 1968, 1969, ... , 2022}. -->
+
+<!-- ```{r correlation properties, include=FALSE} -->
+<!-- Super_Bowl_Number <- c(1:56) -->
+<!-- Super_Bowl_Year <- c(1967:2022) -->
+<!-- Winning_Team_Points <- c(35,33,16,23,16,24,14,24,16,21,32,27,25,31,27,26,27,38,38,46,39,42,20,55,20,37,52,30,49,27,35,31,34,23,34,20,48,32,24,21,29,17,27,31,31,21,34,43,28,24,34,41,13,31,31,23) -->
+
+<!-- Super_Bowl_Data <- data.frame(Super_Bowl_Number, Super_Bowl_Year, Winning_Team_Points) -->
+<!-- ``` -->
+
+<!-- ```{r correlation properties 2, echo=FALSE} -->
+<!-- ggplot(Super_Bowl_Data, aes(x=Super_Bowl_Number, y=Winning_Team_Points)) +  -->
+<!--     geom_point() + -->
+<!--     geom_line(color="red") + -->
+<!--     ggtitle("Super Bowl Number and Points Scored by Winning Team") -->
+
+<!-- ggplot(Super_Bowl_Data, aes(x=Super_Bowl_Year, y=Winning_Team_Points)) +  -->
+<!--     geom_point() + -->
+<!--     geom_line(color="red") + -->
+<!--     ggtitle("Super Bowl Number and Points Scored by Winning Team") -->
+<!-- ``` -->
+
+<!-- ```{r correlation properties 3} -->
+<!-- cor(Super_Bowl_Number, Winning_Team_Points) -->
+<!-- cor(Super_Bowl_Year, Winning_Team_Points) -->
+<!-- ``` -->
+
+<!-- The only difference between the two plots is that the x-axis is shifted. Since the change is essentially a linear (location) transformation, the correlations are identical. -->
+
+<!-- Note: The correlations were equal only because there has been a one-to-one relationship between Super Bowl number and year since 1967. Major League Baseball has had years in which no World Series was held (1904 - boycott, 1994 - players' strike); thus, the same example applied to the MLB would produce slightly different correlation coefficients. -->
+
+<!-- Q: The correlation coefficient is positive. What does this mean in terms of the trend of number of points scored by Super Bowl winners over time? -->
+
+<!-- A: Winners of more recent Super Bowls are more likely to have scored more points than winners of older Super Bowls. -->
+
+<!-- In a similar way to the example above, the correlation between a basketball player's career field goal attempts and three-pointers made and the correlation between the same player's career FGA and points scored from three-point field goals are exactly the same, due to the scale invariance property of correlation. -->
+
+<!-- <!-- Note to Aaron: This could be a good homework exercise. Find data or simulate career FGA and 3PM for basketball players, then show that the two correlations described above are equal. --> -->
+
+
+<!-- # Confounding Example -->
+
+<!-- A statistician hypothesizes that an NBA team's draft position can be used to predict the number of regular-season wins for the team for the upcoming season. To investigate the relationship, they decide to estimate the following simple linear regression model: -->
+
+<!-- $Wins\ = \beta_0 + \beta_1(Draft\ Position) + \epsilon_i$ -->
+
+<!-- Using 2021-22 NBA data, the estimated intercept and slope for the model are: -->
+
+<!-- ```{r confounding example, echo=FALSE} -->
+<!-- NBA_Data <- read.csv("C:/Users/Fam/Downloads/NBA Draft and Win Data.csv") -->
+
+<!-- #Note: Here, draft position is defined as the position the team "earns" in the drafting order based on their previous season performance, lottery draw, etc. This is not the same as draft pick number(s), as those are affected by trades and other factors. -->
+
+<!-- lm(Wins_2021_2022 ~ Draft_Position_2021, data=NBA_Data) -->
+<!-- ``` -->
+
+<!-- Interpret the estimated slope in this model. -->
+
+<!-- A: For every one-unit increase in draft position, the expected number of wins for the team increases by 0.6928. -->
+
+<!-- After looking at the results of the model and the interpretation for the slope, one might identify that having a higher draft position is associated with more wins in the following season and conclude that teams with high draft picks should trade for lower draft picks in order to have a higher expected number of games won in the following season. What is the flaw in this reasoning? -->
+
+<!-- <!-- possible answer: Teams receive higher draft positions when they are performing  worse in the previous season. Thus, it is expected that high draft picks will go to worse teams, and one high draft pick usually doesn't completely turn a team around in one season. From a statistical perspective, this SLR model does not take into account any confounding variables. --> -->
+
+<!-- $~$ <!-- for whitespace --> -->
+
+<!-- $~$ -->
+
+<!-- $~$ -->
+
+<!-- Recognizing that the SLR model may lead to erroneous lines of logic, the statistician decides to tackle the confounding by adding the wins for the team in the previous season to the model as a covariate. The theoretical model being estimated is now as follows: -->
+
+<!-- $Wins\ = \beta_0 + \beta_1(Draft\ Position) + \beta_2(Previous\ Season\ Wins) + \epsilon_i$ -->
+
+<!-- ```{r confounding example 2, echo=FALSE} -->
+<!-- #Note: The 2021-22 season had an 82 game regular season, while the 2020-21 season had 72. (There hasn't been two consecutive seasons with equal numbers of GP since 2017-18, 2018-19). I considered having win percentage as the response variable, but ultimately decided to scale 2020-21 wins to an 82-game season and go from there. -->
+
+<!-- lm(Wins_2021_2022 ~ Draft_Position_2021 + Wins_2020_2021_Scaled, data=NBA_Data) -->
+<!-- ``` -->
+
+<!-- When controlling for an NBA team's wins in the previous season, the sign for the slope coefficient for draft position flips to a negative. This suggests that for teams with the same winning percentage in the previous season, a lower draft position is associated with more wins in the following season. The results of this model, which included an important confounding variable, aligned with the conventional wisdom that lower draft positions are helpful for a team's future success.  -->
+
+<!-- <!-- Note: I don't want to interpret the coefficients too in-depth in this second model since the two predictors are strongly correlated (high multicollinearity). The important concept here is the sign change of the draft position variable slope. --> -->
+
+<!-- <!-- Homework problem idea: Use these models and the predict() function in R to simulate win totals for an NBA season. Include random noise in the model by picking a residual variance sigms and adding rnorm(0, sigma) to each observation. Then check to see if the totsl number of wins is close to (82/2)*30 = 1230 and see how the variance and histogram of the simulated win totals compare to actual NBA season results. Can also test the sensitivity of the simulation to different values of residual variance. --> -->
+
+<!-- *Data: https://en.wikipedia.org/wiki/2021_NBA_draft, https://www.nba.com/standings?GroupBy=conf&Season=2020-21&Section=overall* -->
+
+
 

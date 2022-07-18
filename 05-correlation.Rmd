@@ -1,1 +1,50 @@
 # Correlation
+
+## Pearson's Correlation Coefficient
+
+### Properties of the Linear Correlation Coefficient
+
+Pearson's correlation coefficient is unaffected by changes in location (adding a constant) or scale (multiplying by a constant) of data. To illustrate this concept, let's consider the correlation between the number of points scored by the winning team of the Super Bowl and 1) the number of the Super Bowl {1, 2, 3, ... , 56} and 2) the year of the Super Bowl {1967, 1968, 1969, ... , 2022}.
+
+```{r correlation properties, include=FALSE}
+Super_Bowl_Number <- c(1:56)
+Super_Bowl_Year <- c(1967:2022)
+Winning_Team_Points <- c(35,33,16,23,16,24,14,24,16,21,32,27,25,31,27,26,27,38,38,46,39,42,20,55,20,37,52,30,49,27,35,31,34,23,34,20,48,32,24,21,29,17,27,31,31,21,34,43,28,24,34,41,13,31,31,23)
+
+Super_Bowl_Data <- data.frame(Super_Bowl_Number, Super_Bowl_Year, Winning_Team_Points)
+```
+
+```{r correlation properties 2, echo=FALSE}
+ggplot(Super_Bowl_Data, aes(x=Super_Bowl_Number, y=Winning_Team_Points)) + 
+    geom_point() +
+    geom_line(color="red") +
+    ggtitle("Super Bowl Number and Points Scored by Winning Team")
+
+ggplot(Super_Bowl_Data, aes(x=Super_Bowl_Year, y=Winning_Team_Points)) + 
+    geom_point() +
+    geom_line(color="red") +
+    ggtitle("Super Bowl Number and Points Scored by Winning Team")
+```
+
+```{r correlation properties 3}
+cor(Super_Bowl_Number, Winning_Team_Points)
+cor(Super_Bowl_Year, Winning_Team_Points)
+```
+
+The only difference between the two plots is that the x-axis is shifted. Since the change is essentially a linear (location) transformation, the correlations are identical.
+
+Note: The correlations were equal only because there has been a one-to-one relationship between Super Bowl number and year since 1967. Major League Baseball has had years in which no World Series was held (1904 - boycott, 1994 - players' strike); thus, the same example applied to the MLB would produce slightly different correlation coefficients.
+
+Q: The correlation coefficient is positive. What does this mean in terms of the trend of number of points scored by Super Bowl winners over time?
+
+A: Winners of more recent Super Bowls are more likely to have scored more points than winners of older Super Bowls.
+
+In a similar way to the example above, the correlation between a basketball player's career field goal attempts and three-pointers made and the correlation between the same player's career FGA and points scored from three-point field goals are exactly the same, due to the scale invariance property of correlation.
+
+<!-- Note to Aaron: This could be a good homework exercise. Find data or simulate career FGA and 3PM for basketball players, then show that the two correlations described above are equal. -->
+
+## Rank Correlation
+
+## Autocorrelation
+
+## Association of Categorical Variables

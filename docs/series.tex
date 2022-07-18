@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-07-13}
+\date{2022-07-18}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -1407,6 +1407,220 @@ This is a small dataset that only contains twenty pitchers (samples), but you wi
 \hypertarget{football}{%
 \section{Football}\label{football}}
 
+\href{https://www.youtube.com/watch?v=Ddwp1HyEFRE}{Link to YouTube video describing football rules}
+
+\hypertarget{basic-football-statistics}{%
+\subsection{Basic Football Statistics}\label{basic-football-statistics}}
+
+\begin{itemize}
+\item
+  \textbf{Yards} (Yd): Number of yards gained from the line of scrimmage (can be broken down into Offense: Rushing and Passing Yards, Defense: Rushing and Passing Yards Allowed, and Special Teams: Kick and Punt Return Yards)
+\item
+  \textbf{Touchdowns} (TD): Number of times the offense carries or passes the ball successfully into the end zone of the opposing side (can be broken down into: Offensive TDs: Rushing and Passing TDs, Defensive TDs: interception or fumble recovery for a touchdown, and Special Teams TDs: kick or punt return touchdowns)
+\item
+  \textbf{Sacks} (Sk): Number of times a player or a team tackles the quarterback behind the line of scrimmage before he can throw a pass
+\item
+  \textbf{Interceptions} (INT): Number of times a player or a team catches an opponent's pass
+\end{itemize}
+
+\hypertarget{advanced-football-statistics}{%
+\subsection{Advanced Football Statistics}\label{advanced-football-statistics}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Passer Rating (or Passing Efficiency)}: Measure of performance of a quarterback
+\end{itemize}
+
+For NFL, the formula is as follows:\\
+
+\[Passer Rating_{NFL} = \left(\frac{a+b+c+d}{6}\right) \cdot 100\]
+
+where:
+\[a = \left(\frac{COMP}{ATT}-0.3\right) \cdot 5\]
+\[b = \left(\frac{YDS}{ATT} - 3\right) \cdot 0.25\]
+\[c = \left(\frac{TD}{ATT}\right) \cdot 20\]
+\[d = 2.375 - \left(\frac{INT}{ATT} \cdot 25\right)\]
+
+ATT = Number of passing attempts, COMP = Number of completions, YDS = Passing yards, TD = Touchdown passes, INT = Interceptions\\
+
+\emph{Note:} If the result of any calculation is greater than 2.375, it is set to 2.375. If the result is a negative number, it is set to zero.\\
+
+For College Football, the formula is as follows:\\
+
+\[Passer Rating_{NCAAF} = \frac{(8.4 \cdot YDS) + (330 \cdot TD) + (100 \cdot COMP) - (200 \cdot INT)}{ATT}\]
+
+\begin{itemize}
+\item
+  \textbf{Total Quarterback Rating} (QBR): Proprietary measure of performance of a quarterback developed by ESPN in 2011. This is a more comprehensive measurement of quarterback performance that accounts for the quarterback's impact on his team's passes, rushes, turnovers, and penalties in terms of \textbf{expected points added}.
+\item
+  \textbf{Expected Points Added} (EPA): Measure of how many points a player or a play is worth to a team.
+\end{itemize}
+
+\emph{References:}\\
+\url{https://www.pro-football-reference.com/about/glossary.htm}\strut \\
+\url{https://en.wikipedia.org/wiki/Passer_rating}
+
+\newpage
+
+\begin{example}
+Individual NFL quarterback passing statistics for the 2021 season are provided in \texttt{NFL\_Ind\_Passing\_2021.csv}. Note that this dataset only includes quarterbacks with at least 100 passing yards in 2021. Passer efficiency is given in the \texttt{RTG} column.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Data: https://www.espn.com/nfl/stats/player}
+\NormalTok{QB\_21 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/NFL\_Ind\_Passing\_2021.csv"}\NormalTok{)}
+\NormalTok{QB\_21 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\SpecialCharTok{:}\DecValTok{8}\NormalTok{, }\DecValTok{11}\SpecialCharTok{:}\DecValTok{12}\NormalTok{, }\DecValTok{15}\SpecialCharTok{:}\DecValTok{16}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kt}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c|c|c|c|c|c|c|l|c}
+\hline
+Name & GP & CMP & ATT & CMP\% & YDS & AVG & TD & INT & QBR & RTG\\
+\hline
+Tom Brady & 17 & 485 & 719 & 67.5 & 5316 & 7.4 & 43 & 12 & 68.1 & 102.1\\
+\hline
+Justin Herbert & 17 & 443 & 672 & 65.9 & 5014 & 7.5 & 38 & 15 & 65.6 & 97.7\\
+\hline
+Patrick Mahomes & 17 & 436 & 658 & 66.3 & 4839 & 7.4 & 37 & 13 & 62.2 & 98.5\\
+\hline
+Josh Allen & 17 & 409 & 646 & 63.3 & 4407 & 6.8 & 36 & 15 & 60.7 & 92.2\\
+\hline
+Derek Carr & 17 & 428 & 626 & 68.4 & 4804 & 7.7 & 23 & 14 & 52.4 & 94.0\\
+\hline
+Ben Roethlisberger & 16 & 390 & 605 & 64.5 & 3740 & 6.2 & 22 & 10 & 35.6 & 86.8\\
+\hline
+Trevor Lawrence & 17 & 359 & 602 & 59.6 & 3641 & 6.0 & 12 & 17 & 33.5 & 71.9\\
+\hline
+Matthew Stafford & 17 & 404 & 601 & 67.2 & 4886 & 8.1 & 41 & 17 & 63.8 & 102.9\\
+\hline
+Dak Prescott & 16 & 410 & 596 & 68.8 & 4449 & 7.5 & 37 & 10 & 54.6 & 104.2\\
+\hline
+Kirk Cousins & 16 & 372 & 561 & 66.3 & 4221 & 7.5 & 33 & 7 & 52.3 & 103.1\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(QB\_21)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "Name"  "Team"  "GP"    "CMP"   "ATT"   "CMP%"  "YDS"   "AVG"   "YDS/G"
+## [10] "LNG"   "TD"    "INT"   "SACK"  "SYL"   "QBR"   "RTG"
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Confirm this is passer rating by creating a new variable to calculate passer rating using the provided statistics.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create intermediate variables}
+\NormalTok{QB\_21 }\OtherTok{\textless{}{-}}\NormalTok{ QB\_21 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{a =}\NormalTok{ (CMP}\SpecialCharTok{/}\NormalTok{ATT }\SpecialCharTok{{-}} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{b =}\NormalTok{ (YDS}\SpecialCharTok{/}\NormalTok{ATT }\SpecialCharTok{{-}} \DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \FloatTok{0.25}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{c =}\NormalTok{ (TD}\SpecialCharTok{/}\NormalTok{ATT) }\SpecialCharTok{*} \DecValTok{20}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{d =} \FloatTok{2.375} \SpecialCharTok{{-}}\NormalTok{ (INT}\SpecialCharTok{/}\NormalTok{ATT }\SpecialCharTok{*} \DecValTok{25}\NormalTok{))}
+
+\CommentTok{\# Check to see if a,b,c,d are less than 0 or greater than 2.375}
+\NormalTok{QB\_21 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{summarize}\NormalTok{(}\FunctionTok{min}\NormalTok{(a), }\FunctionTok{max}\NormalTok{(a), }\FunctionTok{min}\NormalTok{(b), }\FunctionTok{max}\NormalTok{(b), }\FunctionTok{min}\NormalTok{(c), }\FunctionTok{max}\NormalTok{(c), }\FunctionTok{min}\NormalTok{(d), }\FunctionTok{max}\NormalTok{(d))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 8
+##   `min(a)` `max(a)` `min(b)` `max(b)` `min(c)` `max(c)` `min(d)` `max(d)`
+##      <dbl>    <dbl>    <dbl>    <dbl>    <dbl>    <dbl>    <dbl>    <dbl>
+## 1     1.19     2.02    0.433     1.47    0.319     1.74    0.860     2.19
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{QB\_21 }\OtherTok{\textless{}{-}}\NormalTok{ QB\_21 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{PR =}\NormalTok{ (a }\SpecialCharTok{+}\NormalTok{ b }\SpecialCharTok{+}\NormalTok{ c }\SpecialCharTok{+}\NormalTok{ d)}\SpecialCharTok{/}\DecValTok{6} \SpecialCharTok{*} \DecValTok{100}\NormalTok{)}
+
+\NormalTok{QB\_21 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(Name, RTG, PR) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{kt}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c}
+\hline
+Name & RTG & PR\\
+\hline
+Tom Brady & 102.1 & 102.083\\
+\hline
+Justin Herbert & 97.7 & 97.656\\
+\hline
+Patrick Mahomes & 98.5 & 98.455\\
+\hline
+Josh Allen & 92.2 & 92.170\\
+\hline
+Derek Carr & 94.0 & 93.963\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  What counting statistics are most correlated with passer rating and with QBR?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Grab the counting statistics and create a correlation plot with PR and QBR}
+\NormalTok{QB\_21 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(PR, QBR, CMP, ATT, YDS, TD, INT, SACK, SYL) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{ggpairs}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  What rate statistics are most correlated with passer efficiency and with QBR? Use CMP\% (completion percentage, completions per attempt), AVG (average yards per attempt), YDS/G (yards per game), and create new variables for interceptions per attempt, touchdowns per attempt, and sacks per attempt.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Grab the counting statistics and create a correlation plot with PR and QBR}
+\NormalTok{QB\_21 }\OtherTok{\textless{}{-}}\NormalTok{ QB\_21 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{INTp =}\NormalTok{ INT}\SpecialCharTok{/}\NormalTok{ATT) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{TDp =}\NormalTok{ TD}\SpecialCharTok{/}\NormalTok{ATT) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{SACKp =}\NormalTok{ SACK}\SpecialCharTok{/}\NormalTok{ATT)}
+
+\NormalTok{QB\_21 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(PR, QBR, }\StringTok{\textasciigrave{}}\AttributeTok{CMP\%}\StringTok{\textasciigrave{}}\NormalTok{, AVG, }\StringTok{\textasciigrave{}}\AttributeTok{YDS/G}\StringTok{\textasciigrave{}}\NormalTok{, INTp, TDp, SACKp) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{ggpairs}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-22-1.pdf}
+
 \newpage
 
 \hypertarget{basketball}{%
@@ -1846,7 +2060,7 @@ The dataset includes an Expected Goals statistic for each team in the \texttt{xG
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-21-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-25-1.pdf}
 
 As expected, there is a general positive correlation between expected and actual goals (\(r \approx 0.8\)). However, there is some variability - for example, the Kings only scored 7 more actual goals than the Ducks, despite having 56.6 more expected goals.
 
@@ -1860,7 +2074,7 @@ Let's add a line to the graph using the \texttt{geom\_abline} function correspon
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-22-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-26-1.pdf}
 
 \emph{Note: A slope of 0 and an intercept of 1 are actually the default parameters for the function.}
 
@@ -1969,7 +2183,7 @@ Juuse Saros & NSH & 3931.383\\
 
 The following plot compares save percentage to the number of shots on goal faced for the qualified goalies. The dashed horizontal line is placed at the average shots on goal faced among qualified players, and the dashed vertical line is placed at the average save percentage among qualified players.
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-24-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-28-1.pdf}
 
 Q: Which quadrant of the graph represents goalies that faced a higher than average number of shots, but had a below-average save percentage?
 
@@ -1998,13 +2212,23 @@ The following plot uses the same 2021-2022 data from Moneypuck.com; it gives the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-25-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-29-1.pdf}
 
 Q: Which of the variables has the strongest correlation with goals scored?
 
 A: CORSI percentage, r = .702.
 
 In the article \href{https://theathletic.com/121980/2017/10/09/an-advanced-stat-primer-understanding-basic-hockey-metrics/}{``An advanced stat primer: Understanding basic hockey metrics''}, Charlie O'Connor states, ``Generally speaking, Corsi is more predictive of future goal differential than Fenwick\ldots{} however, Fenwick forms the basis for the most widely-used Expected Goals models.'' Let's use the same predictors in a correlation plot with Expected Goals percentage. Does Fenwick have the strongest correlation with xGoal percentage?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{xGoal\_stats }\OtherTok{\textless{}{-}}\NormalTok{ nhl\_data\_all }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(shotsOnGoalFor, corsiPercentage, fenwickPercentage, xGoalsPercentage)}
+\FunctionTok{ggpairs}\NormalTok{(xGoal\_stats, }\AttributeTok{title =} \StringTok{"Correlation plot of expected goals and relevant predictors, NHL 2021{-}22"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/hockey ggplot 6-1.pdf}
 
 \newpage
 
@@ -2040,35 +2264,36 @@ For Volleyball EDA, we will be using CSU Women's Volleyball data from the last f
 \FunctionTok{colnames}\NormalTok{(csu\_vb)[}\DecValTok{3}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"W\_L"}
 \NormalTok{csu\_vb }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{13}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c|c|c|c|c|c|c|l|c|c|c|c|c|c|c|c|l}
+\begin{tabular}{l|c|c|c|c|c|c|c|c|l|c|c|c}
 \hline
-Date & Opponent & W\_L & SP & K & E & TA & PCT & AST & SA & SE & RE & DIG & BS & BA & BE & TB & BHE & PTS\\
+Date & Opponent & W\_L & SP & K & E & TA & PCT & AST & SA & SE & RE & DIG\\
 \hline
-8/25/17 & Duke & L & 5 & 66 & 28 & 179 & 0.212 & 64 & 5 & 13 & 6 & 84 & 4 & 24 & 1 & 16.0 & 2 & 87.0\\
+8/25/17 & Duke & L & 5 & 66 & 28 & 179 & 0.212 & 64 & 5 & 13 & 6 & 84\\
 \hline
-8/26/17 & Central Florida & W & 4 & 56 & 18 & 126 & 0.302 & 52 & 7 & 10 & 7 & 49 & 1 & 14 & 2 & 8.0 & 3 & 71.0\\
+8/26/17 & Central Florida & W & 4 & 56 & 18 & 126 & 0.302 & 52 & 7 & 10 & 7 & 49\\
 \hline
-8/29/17 & Northern Colorado & W & 3 & 39 & 8 & 77 & 0.403 & 38 & 5 & 12 & 4 & 29 & 2 & 10 & 1 & 7.0 & 0 & 51.0\\
+8/29/17 & Northern Colorado & W & 3 & 39 & 8 & 77 & 0.403 & 38 & 5 & 12 & 4 & 29\\
 \hline
-9/1/17 & vs TCU & W & 5 & 62 & 20 & 149 & 0.282 & 59 & 6 & 10 & 7 & 65 & 4 & 30 & 4 & 19.0 & 2 & 87.0\\
+9/1/17 & vs TCU & W & 5 & 62 & 20 & 149 & 0.282 & 59 & 6 & 10 & 7 & 65\\
 \hline
-9/1/17 & vs UNC Asheville & W & 3 & 41 & 7 & 80 & 0.425 & 39 & 8 & 8 & 5 & 28 & 0 & 18 & 2 & 9.0 & 0 & 58.0\\
+9/1/17 & vs UNC Asheville & W & 3 & 41 & 7 & 80 & 0.425 & 39 & 8 & 8 & 5 & 28\\
 \hline
-9/2/17 & at Florida State & W & 3 & 48 & 12 & 95 & 0.379 & 45 & 6 & 4 & 1 & 42 & 3 & 10 & 4 & 8.0 & 0 & 62.0\\
+9/2/17 & at Florida State & W & 3 & 48 & 12 & 95 & 0.379 & 45 & 6 & 4 & 1 & 42\\
 \hline
-9/8/17 & Ball State & W & 4 & 59 & 24 & 145 & 0.241 & 56 & 6 & 8 & 3 & 44 & 3 & 19 & 2 & 12.5 & 1 & 77.5\\
+9/8/17 & Ball State & W & 4 & 59 & 24 & 145 & 0.241 & 56 & 6 & 8 & 3 & 44\\
 \hline
-9/8/17 & Michigan & W & 3 & 48 & 8 & 101 & 0.396 & 46 & 3 & 6 & 4 & 37 & 1 & 6 & 0 & 4.0 & 0 & 55.0\\
+9/8/17 & Michigan & W & 3 & 48 & 8 & 101 & 0.396 & 46 & 3 & 6 & 4 & 37\\
 \hline
-9/10/17 & Idaho State & W & 3 & 46 & 11 & 92 & 0.380 & 46 & 4 & 3 & 4 & 48 & 1 & 22 & 1 & 12.0 & 1 & 62.0\\
+9/10/17 & Idaho State & W & 3 & 46 & 11 & 92 & 0.380 & 46 & 4 & 3 & 4 & 48\\
 \hline
-9/15/17 & UAlbany & W & 3 & 41 & 7 & 73 & 0.466 & 36 & 5 & 5 & 1 & 30 & 1 & 16 & 1 & 9.0 & 2 & 55.0\\
+9/15/17 & UAlbany & W & 3 & 41 & 7 & 73 & 0.466 & 36 & 5 & 5 & 1 & 30\\
 \hline
 \end{tabular}
 \end{table}
@@ -2086,7 +2311,7 @@ Let's look at a scatter plot of hitting percentage and the number of digs. While
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-27-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-31-1.pdf}
 
 Let's change the axis titles, legend title, and add a main title.
 
@@ -2097,7 +2322,7 @@ Let's change the axis titles, legend title, and add a main title.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-28-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-32-1.pdf}
 
 What can we learn from this visual? Well, we can see that there is a weak linear relationship between the number of digs and hitting percentage. To an extent, hitting percentage decreases as the number of digs increases. Why is this the case? Maybe if a team has a really high hitting percentage, this means that the opposing team does not have as many opportunities to attack the other team offensively, reducing the number of opportunities for digs. It also seems that while wins and losses are somewhat evenly spread across the number of digs, there is a more clear cutoff for hitting percentage. It seems that the majority of wins are associated with a hitting percentage of at least 0.2, while the majority of losses are associated with a hitting percentage of less than 0.3.
 
@@ -2113,7 +2338,7 @@ Now let's take a closer look at the distribution of hitting percentage and digs 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-29-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-33-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2122,7 +2347,7 @@ Now let's take a closer look at the distribution of hitting percentage and digs 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-29-2.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-33-2.pdf}
 
 Let's modify these plots to make them more complete and visually appealing.
 
@@ -2133,7 +2358,7 @@ Let's modify these plots to make them more complete and visually appealing.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-30-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-34-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2142,7 +2367,7 @@ Let's modify these plots to make them more complete and visually appealing.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-30-2.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-34-2.pdf}
 
 Box plots allow us to isolate each statistic (number of kills and hitting percentage) so we can more clearly determine the center and spread of each between wins and losses.
 
@@ -2217,7 +2442,7 @@ Next we will look at some data specific to LaLiga, which is a soccer league in t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-34-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-38-1.pdf}
 
 This plot is a good starting point, but still looks pretty messy. Let's add a title, change the axis titles, and rotate the axis labels so they are not overlapping over one another.
 
@@ -2229,7 +2454,7 @@ This plot is a good starting point, but still looks pretty messy. Let's add a ti
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-35-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-39-1.pdf}
 
 This is already looking a lot better. Now, we will add the goals scored per game \emph{against} each team. Why is this of interest? Well, at first glance, Barcelona seems like a pretty impressive team, as they score more goals per game than any other team in the league. However, what if they also have more goals scored against them than any other team in the league? This could be important context, so we will include it in the graph below.
 
@@ -2242,7 +2467,7 @@ This is already looking a lot better. Now, we will add the goals scored per game
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-36-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-40-1.pdf}
 
 This is looking pretty good, but let's clean it up just a bit by changing the legend title and labels.
 
@@ -2253,7 +2478,7 @@ This is looking pretty good, but let's clean it up just a bit by changing the le
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-37-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-41-1.pdf}
 
 What does this graph show us? Well, we are able to see the average number of goals scored for and against each team per game. It looks like Barcelona is scoring a lot more goals than they are letting be scored against them, while other teams like Valladolid tend to have a higher proportion of goals scored for the opposing team.
 
@@ -2273,7 +2498,7 @@ In addition to simply knowing the average actual number of goals scored for and 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-38-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-42-1.pdf}
 
 As you can see, we fit a line to the data. At first glance, it seems to have a positive slope slightly greater than 1. What does this mean in the scenario of actual and expected goals per game?
 
@@ -2565,6 +2790,247 @@ Suppose a set consists of \(k\) elements (k-tuples) and that there are \(n_1\) p
 \hypertarget{odds-and-gambling}{%
 \section{Odds and Gambling}\label{odds-and-gambling}}
 
+\hypertarget{sports-betting-in-usa}{%
+\subsection{Sports Betting in USA}\label{sports-betting-in-usa}}
+
+In 2018, the United States Supreme Court overturned a 1992 federal law that banned commercial sports betting in most states. For more about this ruling, see this New York Times article: \url{https://www.nytimes.com/2018/05/14/us/politics/supreme-court-sports-betting-new-jersey.html}
+
+In Colorado, you must be at least 21 years old to gamble including betting on sports games.
+
+\hypertarget{gambling-addiction}{%
+\subsection{Gambling Addiction}\label{gambling-addiction}}
+
+Gambling addiction, compulsive gambling, or gambling disorder is a serious impulse-control disorder. Here is a link to the Mayo Clinic's discussion of compulsive gambling: \url{https://www.mayoclinic.org/diseases-conditions/compulsive-gambling/symptoms-causes/syc-20355178}
+
+Gambling is \textbf{\emph{not}} encouraged and can lead to numerous problems. If you choose to gamble on sports, don't bet beyond your means and seek help if you worry that you may be suffering from gambling addiction.
+
+\hypertarget{odds-definition}{%
+\subsection{Odds Definition}\label{odds-definition}}
+
+In this chapter so far, we have quantified uncertainty using probabilities (numbers between 0 and 1) and percentages (numbers between 0 and 100). We can also quantify uncertainty using \textbf{odds}.
+
+\begin{definition}
+The \textbf{\emph{odds}} (in favor) of an outcome \(A\) is the probability of \(A\) divided by the probability of \(A^C\).
+
+\[Odds = \frac{p}{1-p}\]
+\end{definition}
+
+\textbf{Note:} We may also be given the \textbf{odds against} a particular outcome. In this case, we have \(Odds Against = \frac{1-p}{p}\).\\
+
+\textbf{Some Common Odds:}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c|c|c|c|c}
+\hline
+Odds & p & q & Odds & p & q\\
+\hline
+0:1 & 0.000 & 1.000 & 1:0 & 1.000 & 0.000\\
+\hline
+1:1 & 0.500 & 0.500 & 1:1 & 0.500 & 0.500\\
+\hline
+2:1 & 0.667 & 0.333 & 1:2 & 0.333 & 0.667\\
+\hline
+3:1 & 0.750 & 0.250 & 1:3 & 0.250 & 0.750\\
+\hline
+4:1 & 0.800 & 0.200 & 1:4 & 0.200 & 0.800\\
+\hline
+5:1 & 0.833 & 0.167 & 1:5 & 0.167 & 0.833\\
+\hline
+10:1 & 0.909 & 0.091 & 1:10 & 0.091 & 0.909\\
+\hline
+100:1 & 0.990 & 0.010 & 1:100 & 0.010 & 0.990\\
+\hline
+\end{tabular}
+\end{table}
+
+In the following table, the odds of an outcome along with the probability of the outcome, \emph{p}, and the probability of the outcome's complement, \emph{q=1-p} are given.
+
+\begin{example}
+For the following examples, convert between probability and odds.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Suppose that the probability that the Cubs win the 2025 World Series is 0.03. What are the odds in favor?\\
+\end{enumerate}
+
+\hfill\break
+\hfill\break
+\hfill\break
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Suppose that the odds that the Rockies win the World Series in 2025 is 100:1. What is the probability in favor?\\
+\end{enumerate}
+
+\hfill\break
+\hfill\break
+\hfill\break
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Suppose there is a 1\% chance that CSU wins a national championship in any sport in the next decade. What are the probability and the odds against CSU winning a national championship in the next decade?\\
+\end{enumerate}
+
+\hfill\break
+\hfill\break
+\hfill\break
+
+\begin{example}
+Suppose that there are three finalists in an Olympic competition. It is estimated that Athlete A has a 50\% chance of winning, Athlete B has a 40\% chance of winning, and Player C has a 10\% chance of winning. Calculate the odds against each of the athletes winning the competition.
+\end{example}
+
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+
+\hypertarget{gambling-odds}{%
+\subsection{Gambling Odds}\label{gambling-odds}}
+
+Gambling odds are a bit different that odds in a probability context. Gambling odds tell the amount that the bookmaker will pay out for a winning bet. For example, if a bookmaker is offering ``10:1'' that the Rockies win the next World Series, the bookmaker will pay out 10x the original wager plus the original wager if the Rockies win the World Series and the bookmaker will keep the original bet if the Rockies fail to win the World Series.
+
+\begin{definition}
+\textbf{\emph{Fractional odds}} are common in horse racing and quote the net total that will be paid out to the bettor, should he or she win, relative to the stake. The numerator and denominator of fractional odds are always positive integers. For example, a \$100 wager on a ``5:1'' bet would result in a payout of \(5 \cdot \$100 + \$100 = \$600\) if the wager is correct and a payout of \$0 if the wager is incorrect.
+\end{definition}
+
+\begin{definition}
+A \textbf{\emph{moneyline bet}} are common bets in American sports. When the moneyline is positive, the figure tells what the winning payout would be on a \$100 bet. When the moneyline is negative, the figure tells what wager is required for a winning payout of \$100.
+\end{definition}
+
+\begin{example}
+For the following scenarios, assume a wager of \$100. Calculate the payout for a winning bet.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  Fractional odds of 4/1\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  Moneyline +400\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  Moneyline -300\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+\textbf{Note:} A \emph{moneyline wager} refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds.
+
+\begin{definition}
+The \textbf{\emph{implied probability}} of a wager is the probability that corresponds to the odds of the wager.
+
+\[Implied Probability = \frac{Odds}{Odds+1}\]
+
+If we are dealing with moneyline bets, we have the following:
+
+If ML is negative:
+\[Implied Probability = \frac{-ML_{NEG}}{-ML_{NEG}+100}\]
+
+If ML is positive:
+\[Implied Probability = \frac{100}{ML_{POS}+100}\]
+\end{definition}
+
+\begin{example}
+Calculate the implied probabilities for the following examples.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  Fractional odds of 4/1\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  Moneyline -125\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  Moneyline +125\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+\begin{example}
+Suppose that for an upcoming NFL game, a moneyline wager on the Broncos is -105 and a moneyline wager on the Raiders is -120.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  Calculate the implied probabilities of the two possible outcomes. (Note that sometime ties are an optional wager. Other times, ties will result in a push, that is, no winner.)\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  What is the sum of the implied probabilities?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  Does the result from (b) violate the axioms of probability? If so, why?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+\textbf{Note:} The goal of bookmaking is to make money, so there will be almost certainly be a house advantage. This means that the sum of the implied probabilities will be greater than 1.
+
+\begin{example}
+Suppose that a bookmaker is offering a moneyline wager on the Broncos at -105 and a moneyline wager on the Raiders at -120. Calculate the bookmakers expected winnings based on the following amounts of total bets.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  \$500 wagered on the Broncos, \$500 wagered on the Raiders\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  \$250 wagered on the Broncos, \$750 wagered on the Raiders\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  \$750 wagered on the Broncos, \$250 wagered on the Raiders\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  \$0 wagered on the Broncos, \$1000 wagered on the Raiders\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  \$1000 wagered on the Broncos, \$0 wagered on the Raiders\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+\emph{Reference:}\\
+\url{https://www.wikihow.com/Calculate-Odds}
+
 \newpage
 
 \hypertarget{random-variables}{%
@@ -2797,7 +3263,7 @@ Complete 10,000 simulations of the four game series between the Rockies and Cubs
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-40-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-46-1.pdf}
 
 \hypertarget{binomial-coefficient-symmetry}{%
 \subsubsection{Binomial Coefficient Symmetry}\label{binomial-coefficient-symmetry}}
@@ -2916,7 +3382,7 @@ Let's plot the sample distribution of shots required to score a goal from the si
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-44-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-50-1.pdf}
 
 \newpage
 
@@ -2978,7 +3444,7 @@ We can also plot the PMF of Y to check visually.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-46-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-52-1.pdf}
 
 Let's check whether using a Poisson distribution was appropriate by comparing it to the actual 2021 Colorado Rapids match results.
 
@@ -3077,7 +3543,7 @@ In 1997-1998 with the Los Angeles Lakers, Shaquille O'Neal attempted an average 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-48-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-54-1.pdf}
 (b) Plot the PMF of a Poisson(11.35) random variable.
 
 \begin{Shaded}
@@ -3087,7 +3553,7 @@ In 1997-1998 with the Los Angeles Lakers, Shaquille O'Neal attempted an average 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-49-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-55-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -3223,7 +3689,7 @@ Using Shaq's 1997-1998 data, model his per game free throw attempts as a Negativ
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-53-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-59-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -3607,6 +4073,36 @@ A: We don't know the proportion of the player's at-bats that came against left-h
 
 \emph{Other possible issues: low sample size of player's at-bats, the fact that pro pitchers will be harder to hit against than non-pros}
 
+\hypertarget{multinomial-distribution---baseball}{%
+\subsection{Multinomial Distribution - Baseball}\label{multinomial-distribution---baseball}}
+
+The following PMF displays the number of possible bases for a hit in baseball against the frequency of that type of hit for Hank Aaron, who is third all-time in Major League baseball hits with 3,771.
+
+\begin{longtable}[]{@{}ccccc@{}}
+\toprule
+Number of Bases, \(x\) & 1 & 2 & 3 & 4 \\
+\midrule
+\endhead
+Probability, \(P(X=x)\) & 0.61 & 0.16 & 0.03 & 0.20 \\
+\bottomrule
+\end{longtable}
+
+Q: What is the probability that a randomly selected subset of 5 hits from Hank Aaron includes three singles, one double, and one home run?
+
+A: From the Multinomial PMF, this is \(P(X_1 = 3, X_2 = 1, X_3 = 0, X_4 = 1) = \frac{5!}{3!\ \cdot 1!\ \cdot 0!\ \cdot 1!}\ (.61)^3\cdot\ (.16)^1\cdot\ (.03)^0\cdot\ (.20)^1 \approx .145\)
+
+The probability can also be found in \texttt{R} using the \texttt{dmultinom} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dmultinom}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{prob =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.61}\NormalTok{, }\FloatTok{0.16}\NormalTok{, }\FloatTok{0.03}\NormalTok{, }\FloatTok{0.2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1452678
+\end{verbatim}
+
 \hypertarget{monte-carlo-simulation}{%
 \chapter{Monte Carlo Simulation}\label{monte-carlo-simulation}}
 
@@ -3731,7 +4227,7 @@ In more complicated simulations, there may not be an easy formula to use to calc
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-61-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-67-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4032,7 +4528,7 @@ For the number of free throw attempts per game, we could model this as a Poisson
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-67-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-73-1.pdf}
 
 Notice that the mean of our simulation is somewhat close to Shaq's true season average number of free throw attempts but the variance of the simulation is far too low.
 
@@ -4093,7 +4589,7 @@ Using resampling, simulate the number of free throws Shaq would attempt while wi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-68-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-74-1.pdf}
 
 This simulation is biased low on the variance but is better than the earlier simulation.
 
@@ -4108,116 +4604,115 @@ One reason that you may want to do complicated simulations like the example abov
 \hypertarget{correlation}{%
 \chapter{Correlation}\label{correlation}}
 
+\hypertarget{pearsons-correlation-coefficient}{%
+\section{Pearson's Correlation Coefficient}\label{pearsons-correlation-coefficient}}
+
+\hypertarget{properties-of-the-linear-correlation-coefficient}{%
+\subsection{Properties of the Linear Correlation Coefficient}\label{properties-of-the-linear-correlation-coefficient}}
+
+Pearson's correlation coefficient is unaffected by changes in location (adding a constant) or scale (multiplying by a constant) of data. To illustrate this concept, let's consider the correlation between the number of points scored by the winning team of the Super Bowl and 1) the number of the Super Bowl \{1, 2, 3, \ldots{} , 56\} and 2) the year of the Super Bowl \{1967, 1968, 1969, \ldots{} , 2022\}.
+
+\includegraphics{series_files/figure-latex/correlation properties 2-1.pdf} \includegraphics{series_files/figure-latex/correlation properties 2-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(Super\_Bowl\_Number, Winning\_Team\_Points)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1063479
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(Super\_Bowl\_Year, Winning\_Team\_Points)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1063479
+\end{verbatim}
+
+The only difference between the two plots is that the x-axis is shifted. Since the change is essentially a linear (location) transformation, the correlations are identical.
+
+Note: The correlations were equal only because there has been a one-to-one relationship between Super Bowl number and year since 1967. Major League Baseball has had years in which no World Series was held (1904 - boycott, 1994 - players' strike); thus, the same example applied to the MLB would produce slightly different correlation coefficients.
+
+Q: The correlation coefficient is positive. What does this mean in terms of the trend of number of points scored by Super Bowl winners over time?
+
+A: Winners of more recent Super Bowls are more likely to have scored more points than winners of older Super Bowls.
+
+In a similar way to the example above, the correlation between a basketball player's career field goal attempts and three-pointers made and the correlation between the same player's career FGA and points scored from three-point field goals are exactly the same, due to the scale invariance property of correlation.
+
+\hypertarget{rank-correlation}{%
+\section{Rank Correlation}\label{rank-correlation}}
+
+\hypertarget{autocorrelation}{%
+\section{Autocorrelation}\label{autocorrelation}}
+
+\hypertarget{association-of-categorical-variables}{%
+\section{Association of Categorical Variables}\label{association-of-categorical-variables}}
+
 \hypertarget{linear-regression}{%
 \chapter{Linear Regression}\label{linear-regression}}
 
-\hypertarget{text-solutions}{%
-\chapter{Text solutions}\label{text-solutions}}
+\hypertarget{simple-linear-regression}{%
+\section{Simple Linear Regression}\label{simple-linear-regression}}
 
-\hypertarget{chapter-1}{%
-\section{Chapter 1}\label{chapter-1}}
+\hypertarget{multiple-linear-regression}{%
+\section{Multiple Linear Regression}\label{multiple-linear-regression}}
 
-\textbf{\emph{Example 1.1:}}\\
-Population: all season passing totals of Manning's career\\
-Sample: season passing totals of Manning's career with Broncos
+\hypertarget{confounding-variables}{%
+\section{Confounding Variables}\label{confounding-variables}}
 
-\textbf{\emph{Example 1.2:}}\\
-Discrete: Passing yards, Passing TDs\\
-Continuous: Passing attempt release times, Average yards per pass by game
+\begin{example}
+A statistician hypothesizes that an NBA team's draft position can be used to predict the number of regular-season wins for the team for the upcoming season. To investigate the relationship, they decide to estimate the following simple linear regression model:
 
-\textbf{\emph{Example 1.3:}}\\
-Nominal: Pass result (completion, incomplete, interception)\\
-Ordinal: Season injury status (no injuries, some injuries, missed full year)
+\(Wins\ = \beta_0 + \beta_1(Draft\ Position) + \epsilon_i\)
 
-\textbf{\emph{Example 1.4:}}\\
-\((4659 + 5477 + 4727 + 2249)/4 = 4278\)
+Using 2021-22 NBA data, the estimated intercept and slope for the model are:
 
-\textbf{\emph{Example 1.5:}}\\
-Colts ordered data: 3739, 3747, 4002, 4040, 4131, 4135, \textbf{4200}, 4267, 4397, 4413, 4500, 4557, 4700
-Broncos ordered data: 2249, 4659, 4727, 5477 \(\to (4659+4727)/2 = 4693\)
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Wins_2021_2022 ~ Draft_Position_2021, data = NBA_Data)
+## 
+## Coefficients:
+##         (Intercept)  Draft_Position_2021  
+##             30.2621               0.6928
+\end{verbatim}
 
-\textbf{\emph{Example 1.6:}}\\
-Wins: 12, Games: 16, p=12/16=0.75
+Interpret the estimated slope in this model.
+\end{example}
 
-\hypertarget{aarons-stuff}{%
-\chapter{Aaron's stuff}\label{aarons-stuff}}
+A: For every one-unit increase in draft position, the expected number of wins for the team increases by 0.6928.
 
-\hypertarget{notes-for-chapter-2-probability}{%
-\section{Notes for Chapter 2 (Probability)}\label{notes-for-chapter-2-probability}}
+After looking at the results of the model and the interpretation for the slope, one might identify that having a higher draft position is associated with more wins in the following season and conclude that teams with high draft picks should trade for lower draft picks in order to have a higher expected number of games won in the following season. What is the flaw in this reasoning?
 
-\textbf{Axioms of Probability:}
+\(~\)
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \(P(A) \geq 0\)
-\item
-  \(P(\Omega)=1\)
-\item
-  If \(A_1, A_2, \ldots, A_n\) are disjoint events, then \(P(\cup_{i=1}^n A_i) = \sum_{i=1}^n P(A_i)\)
-\end{enumerate}
+\(~\)
 
-\begin{theorem}[Bayes theorem]
-Let \(A\) and \(B\) be events in \(\Omega\) such that \(P(B)>0\). Then we have the following:
-\[
-P(A|B) = \frac{P(B|A)P(A)}{P(B)}
-\]
-\end{theorem}
+\(~\)
 
-\hypertarget{suggested-readings}{%
-\section{Suggested Readings}\label{suggested-readings}}
+Recognizing that the SLR model may lead to erroneous lines of logic, the statistician decides to tackle the confounding by adding the wins for the team in the previous season to the model as a covariate. The theoretical model being estimated is now as follows:
 
-\hypertarget{moneyball}{%
-\subsection{Moneyball}\label{moneyball}}
+\(Wins\ = \beta_0 + \beta_1(Draft\ Position) + \beta_2(Previous\ Season\ Wins) + \epsilon_i\)
 
-Moneyball, Chapter 2, How to Find a Ballplayer \citep{lewis2004moneyball}
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Wins_2021_2022 ~ Draft_Position_2021 + Wins_2020_2021_Scaled, 
+##     data = NBA_Data)
+## 
+## Coefficients:
+##           (Intercept)    Draft_Position_2021  Wins_2020_2021_Scaled  
+##               -12.731                 -1.859                  2.013
+\end{verbatim}
 
-Near the end of the chapter (page 40), Michael Lewis give a list of players the Oakland Athletics hoped to draft. How did these players turn out? Find the WAR for each of the players in their pre-free agency years and compare it against the Rockies draft picks in the same rounds from the same draft.
+When controlling for an NBA team's wins in the previous season, the sign for the slope coefficient for draft position flips to a negative. This suggests that for teams with the same winning percentage in the previous season, a lower draft position is associated with more wins in the following season. The results of this model, which included an important confounding variable, aligned with the conventional wisdom that lower draft positions are helpful for a team's future success.
 
-\hypertarget{future-value}{%
-\subsection{Future Value}\label{future-value}}
-
-Future Value, Chapter 7, How to Scout \citep{longenhagen2020future}
-
-If a player receives a running grade of 40, approximately what proportion of MLB players have a lower have a lower running grade?
-
-For a given tool, about 95\% of all player grades fall between what two bounds? (Consider the middle 95\% of the distribution of grades.)
-
-\hypertarget{notes-for-chapter-4-simulation}{%
-\section{Notes for Chapter 4 (Simulation)}\label{notes-for-chapter-4-simulation}}
-
-\hypertarget{baseball-simulation-example}{%
-\subsection{Baseball Simulation Example}\label{baseball-simulation-example}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tidyverse)}
-\end{Highlighting}
-\end{Shaded}
-
-This is a baseball example for chapter 4.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2022}\NormalTok{)}
-\NormalTok{n.sims }\OtherTok{\textless{}{-}} \DecValTok{1000}
-\NormalTok{hits }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n.sims)}
-\NormalTok{avg }\OtherTok{\textless{}{-}} \FloatTok{0.3}
-\NormalTok{atbats.mean }\OtherTok{\textless{}{-}} \DecValTok{450}
-\NormalTok{atbats.sd }\OtherTok{\textless{}{-}} \DecValTok{100}
-\NormalTok{sim.atbats }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(n.sims, atbats.mean, atbats.sd))}
-
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n.sims) \{}
-\NormalTok{    sim.hits }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, sim.atbats[i], avg)}
-\NormalTok{    hits[i] }\OtherTok{=}\NormalTok{ sim.hits}
-\NormalTok{\}}
-\NormalTok{hits.df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Hits =}\NormalTok{ hits)}
-\NormalTok{hits.df }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Hits)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{series_files/figure-latex/baseball-sim-1.pdf}
+\emph{Data: \url{https://en.wikipedia.org/wiki/2021_NBA_draft}, \url{https://www.nba.com/standings?GroupBy=conf\&Season=2020-21\&Section=overall}}
 
   \bibliography{book.bib,packages.bib}
 

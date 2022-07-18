@@ -1,1 +1,56 @@
 # Linear Regression  
+
+## Simple Linear Regression
+
+## Multiple Linear Regression
+
+## Confounding Variables
+
+:::{.example}
+
+A statistician hypothesizes that an NBA team's draft position can be used to predict the number of regular-season wins for the team for the upcoming season. To investigate the relationship, they decide to estimate the following simple linear regression model:
+
+$Wins\ = \beta_0 + \beta_1(Draft\ Position) + \epsilon_i$
+
+Using 2021-22 NBA data, the estimated intercept and slope for the model are:
+
+```{r confounding example, echo=FALSE}
+NBA_Data <- read.csv("data/NBA_Draft_and_Win_Data.csv")
+
+#Note: Here, draft position is defined as the position the team "earns" in the drafting order based on their previous season performance, lottery draw, etc. This is not the same as draft pick number(s), as those are affected by trades and other factors.
+
+lm(Wins_2021_2022 ~ Draft_Position_2021, data=NBA_Data)
+```
+
+Interpret the estimated slope in this model.
+:::
+
+A: For every one-unit increase in draft position, the expected number of wins for the team increases by 0.6928.
+
+After looking at the results of the model and the interpretation for the slope, one might identify that having a higher draft position is associated with more wins in the following season and conclude that teams with high draft picks should trade for lower draft picks in order to have a higher expected number of games won in the following season. What is the flaw in this reasoning?
+
+<!-- possible answer: Teams receive higher draft positions when they are performing  worse in the previous season. Thus, it is expected that high draft picks will go to worse teams, and one high draft pick usually doesn't completely turn a team around in one season. From a statistical perspective, this SLR model does not take into account any confounding variables. -->
+
+$~$ <!-- for whitespace -->
+
+$~$
+
+$~$
+
+Recognizing that the SLR model may lead to erroneous lines of logic, the statistician decides to tackle the confounding by adding the wins for the team in the previous season to the model as a covariate. The theoretical model being estimated is now as follows:
+
+$Wins\ = \beta_0 + \beta_1(Draft\ Position) + \beta_2(Previous\ Season\ Wins) + \epsilon_i$
+
+```{r confounding example 2, echo=FALSE}
+#Note: The 2021-22 season had an 82 game regular season, while the 2020-21 season had 72. (There hasn't been two consecutive seasons with equal numbers of GP since 2017-18, 2018-19). I considered having win percentage as the response variable, but ultimately decided to scale 2020-21 wins to an 82-game season and go from there.
+
+lm(Wins_2021_2022 ~ Draft_Position_2021 + Wins_2020_2021_Scaled, data=NBA_Data)
+```
+
+When controlling for an NBA team's wins in the previous season, the sign for the slope coefficient for draft position flips to a negative. This suggests that for teams with the same winning percentage in the previous season, a lower draft position is associated with more wins in the following season. The results of this model, which included an important confounding variable, aligned with the conventional wisdom that lower draft positions are helpful for a team's future success. 
+
+<!-- Note: I don't want to interpret the coefficients too in-depth in this second model since the two predictors are strongly correlated (high multicollinearity). The important concept here is the sign change of the draft position variable slope. -->
+
+<!-- Homework problem idea: Use these models and the predict() function in R to simulate win totals for an NBA season. Include random noise in the model by picking a residual variance sigms and adding rnorm(0, sigma) to each observation. Then check to see if the totsl number of wins is close to (82/2)*30 = 1230 and see how the variance and histogram of the simulated win totals compare to actual NBA season results. Can also test the sensitivity of the simulation to different values of residual variance. -->
+
+*Data: https://en.wikipedia.org/wiki/2021_NBA_draft, https://www.nba.com/standings?GroupBy=conf&Season=2020-21&Section=overall*

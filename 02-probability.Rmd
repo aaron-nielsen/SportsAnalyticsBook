@@ -1,5 +1,15 @@
 # Probability
 
+```{r, echo=F, message=F, warning=F}
+library(tidyverse)
+library(kableExtra)
+
+# kable table global setup
+kt <- function(data) {
+   knitr::kable(data, digits=3, align=c('l','c','c','c','c','c','c','c','c')) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+}
+```
+
 ## Chapter Preview {-}
 Probability is the study of randomness. In this chapter, we will define probability, learn rules of probability, and apply these rules to sports data.
 
@@ -268,6 +278,208 @@ Suppose a set consists of $k$ elements (k-tuples) and that there are $n_1$ possi
 \newpage
 
 ## Odds and Gambling
+
+### Sports Betting in USA
+
+In 2018, the United States Supreme Court overturned a 1992 federal law that banned commercial sports betting in most states. For more about this ruling, see this New York Times article: https://www.nytimes.com/2018/05/14/us/politics/supreme-court-sports-betting-new-jersey.html
+
+In Colorado, you must be at least 21 years old to gamble including betting on sports games.
+
+### Gambling Addiction
+
+Gambling addiction, compulsive gambling, or gambling disorder is a serious impulse-control disorder. Here is a link to the Mayo Clinic's discussion of compulsive gambling: https://www.mayoclinic.org/diseases-conditions/compulsive-gambling/symptoms-causes/syc-20355178
+
+Gambling is ***not*** encouraged and can lead to numerous problems. If you choose to gamble on sports, don't bet beyond your means and seek help if you worry that you may be suffering from gambling addiction.
+
+### Odds Definition
+
+In this chapter so far, we have quantified uncertainty using probabilities (numbers between 0 and 1) and percentages (numbers between 0 and 100). We can also quantify uncertainty using **odds**.
+
+:::{.definition}
+The ***odds*** (in favor) of an outcome $A$ is the probability of $A$ divided by the probability of $A^C$.
+
+\[Odds = \frac{p}{1-p}\]
+:::
+
+**Note:** We may also be given the **odds against** a particular outcome. In this case, we have $Odds Against = \frac{1-p}{p}$.\
+
+**Some Common Odds:**
+
+```{r, echo=F}
+a1 <- c(0:5,10,100)
+a2 <- c(rep(1,8))
+b1 <- c(rep(1,8))
+b2 <- c(0:5,10,100)
+p1 <- a1/(a1+b1)
+p2 <- a2/(a2+b2)
+q1 <- b1/(a1+b1)
+q2 <- b2/(a2+b2)
+odds1 <- c("0:1","1:1","2:1","3:1","4:1","5:1","10:1","100:1")
+odds2 <- c("1:0","1:1","1:2","1:3","1:4","1:5","1:10","1:100")
+odds_df <- data.frame(Odds = odds1, p = p1, q = q1, Odds = odds2, p = p2, q = q2)
+names(odds_df) = c("Odds","p","q","Odds","p","q")
+odds_df %>% kt()
+```
+
+In the following table, the odds of an outcome along with the probability of the outcome, *p*, and the probability of the outcome's complement, *q=1-p* are given.
+
+:::{.example}
+For the following examples, convert between probability and odds.
+:::
+
+(a) Suppose that the probability that the Cubs win the 2025 World Series is 0.03. What are the odds in favor? \
+
+\
+\
+\
+
+(b) Suppose that the odds that the Rockies win the World Series in 2025 is 100:1. What is the probability in favor? \
+
+\
+\
+\
+
+(c) Suppose there is a 1\% chance that CSU wins a national championship in any sport in the next decade. What are the probability and the odds against CSU winning a national championship in the next decade?\
+
+\
+\
+\
+
+:::{.example}
+Suppose that there are three finalists in an Olympic competition. It is estimated that Athlete A has a 50\% chance of winning, Athlete B has a 40\% chance of winning, and Player C has a 10\% chance of winning. Calculate the odds against each of the athletes winning the competition.
+:::
+
+\
+\
+\
+\
+\
+
+### Gambling Odds
+
+Gambling odds are a bit different that odds in a probability context. Gambling odds tell the amount that the bookmaker will pay out for a winning bet. For example, if a bookmaker is offering "10:1" that the Rockies win the next World Series, the bookmaker will pay out 10x the original wager plus the original wager if the Rockies win the World Series and the bookmaker will keep the original bet if the Rockies fail to win the World Series.
+
+:::{.definition}
+***Fractional odds*** are common in horse racing and quote the net total that will be paid out to the bettor, should he or she win, relative to the stake. The numerator and denominator of fractional odds are always positive integers. For example, a \$100 wager on a "5:1" bet would result in a payout of $5 \cdot \$100 + \$100 = \$600$ if the wager is correct and a payout of \$0 if the wager is incorrect.
+:::
+
+:::{.definition}
+A ***moneyline bet*** are common bets in American sports. When the moneyline is positive, the figure tells what the winning payout would be on a \$100 bet. When the moneyline is negative, the figure tells what wager is required for a winning payout of \$100.
+:::
+
+:::{.example}
+For the following scenarios, assume a wager of \$100. Calculate the payout for a winning bet.
+:::
+
+(a) Fractional odds of 4/1 \
+\
+\
+\
+
+(b) Moneyline +400 \
+\
+\
+\
+
+(c) Moneyline -300 \
+\
+\
+\
+
+**Note:** A *moneyline wager* refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds.
+
+:::{.definition}
+The ***implied probability*** of a wager is the probability that corresponds to the odds of the wager.
+
+\[Implied Probability = \frac{Odds}{Odds+1}\]
+
+If we are dealing with moneyline bets, we have the following:
+
+If ML is negative:
+\[Implied Probability = \frac{-ML_{NEG}}{-ML_{NEG}+100}\]
+
+If ML is positive:
+\[Implied Probability = \frac{100}{ML_{POS}+100}\]
+:::
+
+:::{.example}
+Calculate the implied probabilities for the following examples.
+:::
+
+(a) Fractional odds of 4/1 \
+\
+\
+\
+
+(b) Moneyline -125 \
+\
+\
+\
+
+(c) Moneyline +125 \
+\
+\
+\
+
+:::{.example}
+Suppose that for an upcoming NFL game, a moneyline wager on the Broncos is -105 and a moneyline wager on the Raiders is -120.
+:::
+
+(a) Calculate the implied probabilities of the two possible outcomes. (Note that sometime ties are an optional wager. Other times, ties will result in a push, that is, no winner.) \
+\
+\
+\
+
+(b) What is the sum of the implied probabilities? \
+\
+\
+\
+
+(c) Does the result from (b) violate the axioms of probability? If so, why? \
+\
+\
+\
+
+
+**Note:** The goal of bookmaking is to make money, so there will be almost certainly be a house advantage. This means that the sum of the implied probabilities will be greater than 1.
+
+:::{.example}
+Suppose that a bookmaker is offering a moneyline wager on the Broncos at -105 and a moneyline wager on the Raiders at -120. Calculate the bookmakers expected winnings based on the following amounts of total bets.
+:::
+
+(a) \$500 wagered on the Broncos, \$500 wagered on the Raiders \
+\
+\
+\
+
+(b) \$250 wagered on the Broncos, \$750 wagered on the Raiders \
+\
+\
+\
+
+(c) \$750 wagered on the Broncos, \$250 wagered on the Raiders \
+\
+\
+\
+
+(d) \$0 wagered on the Broncos, \$1000 wagered on the Raiders \
+\
+\
+\
+
+(e) \$1000 wagered on the Broncos, \$0 wagered on the Raiders \
+\
+\
+\
+
+
+
+
+*Reference:* \
+https://www.wikihow.com/Calculate-Odds
+
+
+
 
 \newpage
 
@@ -972,5 +1184,33 @@ A: We don't know the proportion of the player's at-bats that came against left-h
 
  
 *Other possible issues: low sample size of player's at-bats, the fact that pro pitchers will be harder to hit against than non-pros*
+
+### Multinomial Distribution - Baseball
+
+The following PMF displays the number of possible bases for a hit in baseball against the frequency of that type of hit for Hank Aaron, who is third all-time in Major League baseball hits with 3,771.
+
+```{r multinomial, include=F}
+Number_bases <- c(1:4)
+Hit_Frequency <- c(2294, 624, 98, 755)
+Hit_Proportion <- round(Hit_Frequency / sum(Hit_Frequency), 5)
+
+Hank_Aaron_PMF <- data.frame(Number_bases, Hit_Proportion); Hank_Aaron_PMF
+```
+
+| Number of Bases, $x$  | 1 | 2 | 3 | 4 |
+|:---------------------:|:-:|:-:|:-:|:-:|
+| Probability, $P(X=x)$ | 0.61 | 0.16 | 0.03 | 0.20 |
+
+Q: What is the probability that a randomly selected subset of 5 hits from Hank Aaron includes three singles, one double, and one home run?
+
+<!-- note: assumes sampling with replacement. Without replacement would be a multivariate hypergeometric and would slightly increase the probability.  -->
+
+A: From the Multinomial PMF, this is $P(X_1 = 3, X_2 = 1, X_3 = 0, X_4 = 1) = \frac{5!}{3!\ \cdot 1!\ \cdot 0!\ \cdot 1!}\ (.61)^3\cdot\ (.16)^1\cdot\ (.03)^0\cdot\ (.20)^1 \approx .145$
+
+The probability can also be found in `R` using the `dmultinom` function.
+
+```{r multinomial 2}
+dmultinom(x = c(3, 1, 0, 1), prob = c(.61, .16, .03, .20))
+```
 
 

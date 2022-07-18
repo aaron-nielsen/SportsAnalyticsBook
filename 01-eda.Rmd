@@ -773,6 +773,99 @@ This is a small dataset that only contains twenty pitchers (samples), but you wi
 
 ## Football
 
+[Link to YouTube video describing football rules](https://www.youtube.com/watch?v=Ddwp1HyEFRE)
+
+### Basic Football Statistics
+
+- **Yards** (Yd): Number of yards gained from the line of scrimmage (can be broken down into Offense: Rushing and Passing Yards, Defense: Rushing and Passing Yards Allowed, and Special Teams: Kick and Punt Return Yards)
+
+- **Touchdowns** (TD): Number of times the offense carries or passes the ball successfully into the end zone of the opposing side (can be broken down into: Offensive TDs: Rushing and Passing TDs, Defensive TDs: interception or fumble recovery for a touchdown, and Special Teams TDs: kick or punt return touchdowns)
+
+- **Sacks** (Sk): Number of times a player or a team tackles the quarterback behind the line of scrimmage before he can throw a pass
+
+- **Interceptions** (INT): Number of times a player or a team catches an opponent's pass
+
+### Advanced Football Statistics
+
+- **Passer Rating (or Passing Efficiency)**: Measure of performance of a quarterback
+
+For NFL, the formula is as follows: \
+
+\[Passer Rating_{NFL} = \left(\frac{a+b+c+d}{6}\right) \cdot 100\]
+
+where:
+\[a = \left(\frac{COMP}{ATT}-0.3\right) \cdot 5\]
+\[b = \left(\frac{YDS}{ATT} - 3\right) \cdot 0.25\]
+\[c = \left(\frac{TD}{ATT}\right) \cdot 20\]
+\[d = 2.375 - \left(\frac{INT}{ATT} \cdot 25\right)\]
+
+ATT = Number of passing attempts, COMP = Number of completions, YDS = Passing yards, TD = Touchdown passes, INT = Interceptions \
+
+*Note:* If the result of any calculation is greater than 2.375, it is set to 2.375. If the result is a negative number, it is set to zero. \
+
+For College Football, the formula is as follows: \
+
+\[Passer Rating_{NCAAF} = \frac{(8.4 \cdot YDS) + (330 \cdot TD) + (100 \cdot COMP) - (200 \cdot INT)}{ATT}\]
+
+- **Total Quarterback Rating** (QBR): Proprietary measure of performance of a quarterback developed by ESPN in 2011. This is a more comprehensive measurement of quarterback performance that accounts for the quarterback's impact on his team's passes, rushes, turnovers, and penalties in terms of **expected points added**.
+
+- **Expected Points Added** (EPA): Measure of how many points a player or a play is worth to a team.
+
+*References:* \
+https://www.pro-football-reference.com/about/glossary.htm \
+https://en.wikipedia.org/wiki/Passer_rating
+
+\newpage
+
+:::{.example}
+Individual NFL quarterback passing statistics for the 2021 season are provided in `NFL_Ind_Passing_2021.csv`.  Note that this dataset only includes quarterbacks with at least 100 passing yards in 2021. Passer efficiency is given in the `RTG` column. 
+:::
+
+```{r, message=F}
+# Data: https://www.espn.com/nfl/stats/player
+QB_21 <- read_csv("data/NFL_Ind_Passing_2021.csv")
+QB_21 %>% select(1,3:8,11:12,15:16) %>% slice_head(n=10) %>% kt()
+names(QB_21)
+```
+
+(a) Confirm this is passer rating by creating a new variable to calculate passer rating using the provided statistics. 
+
+```{r}
+# Create intermediate variables
+QB_21 <- QB_21 %>% 
+  mutate(a = (CMP/ATT-0.3)*5) %>%
+  mutate(b = (YDS/ATT-3)*0.25) %>%
+  mutate(c = (TD/ATT)*20) %>%
+  mutate(d = 2.375 -(INT/ATT*25))
+
+# Check to see if a,b,c,d are less than 0 or greater than 2.375
+QB_21 %>% summarize(min(a),max(a),min(b),max(b),min(c),max(c),min(d),max(d))
+
+QB_21 <- QB_21 %>%
+  mutate(PR = (a+b+c+d)/6*100)
+
+QB_21 %>% select(Name,RTG,PR) %>% slice_head(n=5) %>% kt()
+```
+
+(b) What counting statistics are most correlated with passer rating and with QBR?
+
+```{r}
+# Grab the counting statistics and create a correlation plot with PR and QBR
+QB_21 %>% select(PR,QBR,CMP,ATT,YDS,TD,INT,SACK,SYL) %>% ggpairs()
+```
+
+(c) What rate statistics are most correlated with passer efficiency and with QBR? Use CMP% (completion percentage, completions per attempt), AVG (average yards per attempt), YDS/G (yards per game), and create new variables for interceptions per attempt, touchdowns per attempt, and sacks per attempt.
+
+```{r}
+# Grab the counting statistics and create a correlation plot with PR and QBR
+QB_21 <- QB_21 %>% 
+  mutate(INTp = INT/ATT) %>%
+  mutate(TDp = TD/ATT) %>%
+  mutate(SACKp = SACK/ATT)
+
+QB_21 %>% select(PR,QBR,`CMP%`,AVG,`YDS/G`,INTp,TDp,SACKp) %>% ggpairs()
+```
+
 \newpage
 
 ## Basketball
@@ -1107,6 +1200,11 @@ Q: Which of the variables has the strongest correlation with goals scored?
 A: CORSI percentage, r = .702.
 
 In the article ["An advanced stat primer: Understanding basic hockey metrics"](https://theathletic.com/121980/2017/10/09/an-advanced-stat-primer-understanding-basic-hockey-metrics/), Charlie O'Connor states, "Generally speaking, Corsi is more predictive of future goal differential than Fenwick... however, Fenwick forms the basis for the most widely-used Expected Goals models." Let's use the same predictors in a correlation plot with Expected Goals percentage. Does Fenwick have the strongest correlation with xGoal percentage?
+
+```{r hockey ggplot 6}
+xGoal_stats <- nhl_data_all %>% select(shotsOnGoalFor, corsiPercentage, fenwickPercentage, xGoalsPercentage)
+ggpairs(xGoal_stats, title="Correlation plot of expected goals and relevant predictors, NHL 2021-22")
+```
 
 \newpage
 
