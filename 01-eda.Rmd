@@ -1,5 +1,15 @@
 # Exploratory Data Analysis
 
+```{r, echo=F, message=F}
+library(tidyverse)
+library(kableExtra)
+
+# kable table global setup
+kt <- function(data) {
+   knitr::kable(data, digits=3, align=c('l','c','c','c','c','c','c','c','c')) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+}
+```
+
 ## Getting Started With R
  
 ### Installing R
@@ -544,6 +554,7 @@ NFL_2021_Team_Passing$Abbr <- c("TB","LAC","DAL","KC","LAR","LV","CIN","GB","BUF
 NFL_2021_Team_Passing %>%
   ggplot(aes(x=Yds,y=TD,label=Abbr)) + 
   geom_point() +
+  scale_x_continuous(limits=c(2750,5250)) +
   labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021") +
   geom_text_repel(box.padding = 0.3) 
 ```
@@ -736,7 +747,8 @@ rox21_100 <- rox21 %>% filter(AB >= 100)
 library("GGally")
 
 # Standard hitting statistics
-rox21_100 %>% select(oWAR,H,`2B`,`3B`,HR,R,RBI) %>% ggpairs()
+rox21_100 %>% select(oWAR,H,`2B`,`3B`,HR,R,RBI) %>% ggpairs() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 # Rate statistics
 rox21_100 %>% select(oWAR,AVG,OBA,SLG,OPS,wOBA) %>% ggpairs()

@@ -214,11 +214,13 @@ head(FT0.ind)
 sum(FT0.ind)/n.sims
 ```
 
-## A few reminders/tips for simulation, and a basic example
+\newpage
 
+:::{.example}
 The number of regulation goals scored in a game by Hockey Team A, $X$, is a Poisson(4) random variable, and the same for Hockey Team B, $Y$, is a Poisson(3.2) random variable.
 
 A statistician is interested in the probability that Team A defeats Team B in regulation. This is $P(X > Y)$, which is difficult to calculate manually. However, using simulation, we can straightforwardly obtain an accurate estimation of this quantity.
+:::
 
 There are many built-in functions in `R` that allow users to generate realizations from common probability distributions (`rnorm`, `rbinom`, `rexp`, etc.) Let's use the `rpois` function to simulate the appropriate variables, remembering to set a seed so that our results are easily replicable.
  
@@ -242,7 +244,7 @@ Why does this work? First, operations to vectors are executed elementwise, meani
 These tips will help you be more efficient when performing simulation tasks in `R`.
 
 ```{r hockey poisson simulation 3, include=FALSE}
-#computation for finding the theoretical value of P(X>Y) to within at least 7 decimal points. There's probably an easier way to do this.
+# computation for finding the theoretical value of P(X>Y) to within at least 7 decimal points. There's probably an easier way to do this.
 
 v <- rep(NA, 50)
 
@@ -263,7 +265,7 @@ A: We can simulate a season for the team, find the longest winning streak in tha
 ```{r basketball streaks simulation}
 set.seed(2022)
 
-nReps <- 1e4
+nReps <- 10000
 longest_streak <- rep(NA, nReps)
 
 for (i in 1:nReps) {
@@ -279,6 +281,44 @@ mean(longest_streak >= 4)
 <!-- https://stackoverflow.com/questions/28731582/maximum-consecutive-repeats-in-a-vector-in-r -->
 
 The team had a 4+ game winning streak in about 20% of the simulations. 
+
+## Hit Streak Simulation
+
+:::{.example}
+In 1941, Joe DiMaggio had a 56-game hitting streak which is an all-time record in MLB. How unlikely was such an outcome? Let's build a simulation to estimate the probability of a 56-game hitting streak using DiMaggio's statistics.
+
+DiMaggio had 193 hits in 622 plate appearances over 139 games. We will simulate DiMaggio's season of 139 games many times to estimate the probability of a 56-game hitting streak. Assume that in each game DiMaggio has a 50\% chance of 4 plate appearance and a 50\% chance of 5 plate appearances. For a plate appearance, DiMaggio had a probability of $193/622 = 0.310$ of getting a hit.
+
+The probability of DiMaggio getting at least one hit in a 4 plate appearance game is: $P(one \, or \, more \, hits) = 1 - P(no hit) = 1-0.69^4 = 0.7733.
+
+The probability of DiMaggio getting at least one hit in a 5 plate appearance game is: $P(one \, or \, more \, hits) = 1 - P(no hit) = 1-0.69^5 = 0.8436.
+:::
+
+```{r}
+set.seed(2022)
+n.sims <- 10000
+n.games <- 139
+
+longest.streak <- rep(0, n.sims)
+sim.games <- rep(0,n.games)
+
+p4 <- 0.7733
+p5 <- 0.8436
+
+for( i in 1: n.sims){
+  for( j in 1:139){
+    sim.ab <- sample(x=c(4,5),size=1,replace=T)
+    sim.games[j] <- rbinom(n = 1,size = sim.ab,prob = 0.310)
+  }
+  sim.hits <- ifelse(sim.games > 0,1,0)
+  streaks <- rle(sim.hits)
+  longest.streak[i] <- max(streaks$lengths[streaks$values==1])
+}
+
+table(longest.streak)
+hist(longest.streak)
+```
+
 
 ## Shaq FT simulation
 

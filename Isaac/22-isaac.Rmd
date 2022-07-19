@@ -18,7 +18,8 @@ library(dplyr)
 library(rvest)
 library(tidyverse)
 library(kableExtra)
-
+library(ggplot2)
+library(reshape2)
 ```
 
 
@@ -218,7 +219,7 @@ nfl2 <- nfl2 %>%
 # filter by only plays on 4th down
 down4 = filter(nfl2, nfl2['down']==4)
 
-#see what play types are run on first down and remove the noise
+#see what play types are run on fourth down and remove the noise
 group_by(down4,PlayType) %>%
   summarize(Count=n())%>%
   mutate(Percentage=Count/sum(Count))
@@ -248,6 +249,164 @@ down4 %>%
 ```
 11% of 4th downs are gone for and 40% of those are successful, regardless of how many yards to go there are
 
+
+
+#### Sandbox for football play by play data
+```{r}
+
+nfl=read.csv('~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/data/nfl_pbp.csv')
+nfl2 <- select(nfl, c('down','yrdline100','ydstogo','Touchdown','PlayType','FieldGoalResult','FieldGoalDistance'))
+head(nfl2)
+
+
+## for each (grouping of 10 yards?) we get all the 4th down playtypes of fieldgoal and normal plays and see probability of success for each option, for each group
+# filter by only plays on 4th down
+down4 = filter(nfl2, nfl2['down']==4)
+
+#see what play types are run on first down and remove the noise
+group_by(down4,PlayType) %>%
+  summarize(Count=n())%>%
+  mutate(Percentage=Count/sum(Count))
+down3 = filter(down4, down4['PlayType']!='No Play' || down4['PlayType']!= 'QB Kneel' || down4['PlayType']!= 'Timeout' || down4['PlayType']!= 'Punt')
+head(down3)
+## create 10 grouping dataframes (99-90,89-80,79-70,69-60,59-50,49-40,39-30,29-20,19-10,9-0)
+x <- c("playtype", "outcome")
+df99_90 <- data.frame(matrix(ncol = 2, nrow = 0))
+colnames(df99_90) <- x
+df89_80 <- data.frame(matrix(ncol = 2, nrow = 0))
+colnames(df89_80) <- x
+df79_70 <- data.frame(matrix(ncol = 2, nrow = 0))
+colnames(df79_70) <- x
+df69_60 <- data.frame(matrix(ncol = 2, nrow = 0))
+colnames(df69_60) <- x
+df59_50 <- data.frame(matrix(ncol = 2, nrow = 0))
+colnames(df59_50) <- x
+df49_40 <- data.frame(matrix(ncol = 2, nrow = 0))
+colnames(df49_40) <- x
+df39_30 <- data.frame(matrix(ncol = 2, nrow = 0))
+colnames(df39_30) <- x
+df29_20 <- data.frame(matrix(ncol = 2, nrow = 0))
+colnames(df29_20) <- x
+df19_10 <- data.frame(matrix(ncol = 2, nrow = 0))
+colnames(df19_10) <- x
+df09_00 <- data.frame(matrix(ncol = 2, nrow = 0))
+colnames(df09_00) <- x
+
+
+
+## create final dataframe with 3 columns: distance to goal, field goal probability, td probability
+#df_prob <- data.frame(matrix(ncol = 3, nrow = 0))
+#y = c('distance_to_goal','fg_prob','td_prob')
+#colnames(df_prob) <- x
+#down3 %>%
+#  group_split(yrdline100)
+
+down3 %>%
+  mutate(distance = case_when(down3['yrdline100']<100 & down3['yrdline100'] >89 ~ 90,
+                           down3['yrdline100']<90 & down3['yrdline100'] >79 ~ 80,
+                           down3['yrdline100']<80 & down3['yrdline100'] >69 ~ 70,
+                           down3['yrdline100']<70 & down3['yrdline100'] >59 ~ 60,
+                           down3['yrdline100']<60 & down3['yrdline100'] >49 ~ 50,
+                           down3['yrdline100']<50 & down3['yrdline100'] >39 ~ 40,
+                           down3['yrdline100']<40 & down3['yrdline100'] >29 ~ 30,
+                           down3['yrdline100']<30 & down3['yrdline100'] >19 ~ 20,
+                           down3['yrdline100']<20 & down3['yrdline100'] >9 ~ 10,
+                           down3['yrdline100']<10 ~ 0
+    )) -> down3
+down3 %>%
+  group_split(distance) -> yrd_df
+
+df99_90 <- yrd_df[[10]]
+df89_80 <- yrd_df[[9]]
+df79_70 <- yrd_df[[8]]
+df69_60 <- yrd_df[[7]]
+df59_50 <- yrd_df[[6]]
+df49_40 <- yrd_df[[5]]
+df39_30 <- yrd_df[[4]]
+df29_20 <- yrd_df[[3]]
+df19_10 <- yrd_df[[2]]
+df09_00 <- yrd_df[[1]]
+df09_00 %>%
+  filter(df09_00['PlayType']=='Field Goal') %>%
+  group_by(FieldGoalResult) %>%
+    summarize(Count=n())%>%
+    mutate(Percentage=Count/sum(Count))
+df09_00 %>%
+  filter(df09_00['PlayType']!='Field Goal' && df09_00['PlayType']!='Punt') %>%
+  group_by(Touchdown) %>%
+    summarize(Count=n())%>%
+    mutate(Percentage=Count/sum(Count))
+
+```
+
+
+
+#### Probability of Outcome based on Field Position Graph
+```{r}
+nfl=read.csv('~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/data/nfl_pbp.csv')
+nfl2 <- select(nfl, c('yrdline100','No_Score_Prob','Field_Goal_Prob','Touchdown_Prob'))
+nfl2 %>%
+  na.omit() -> nfl2
+nfl2
+df <- melt(nfl2 ,  id.vars = 'yrdline100')
+
+nfl2 %>%
+  group_by(yrdline100) %>%
+    summarize(mean(Touchdown_Prob, na.rm=T)) -> td_prob
+nfl2 %>%
+  group_by(yrdline100) %>%
+    summarize(mean(Field_Goal_Prob, na.rm=T)) -> fg_prob
+nfl2 %>%
+  group_by(yrdline100) %>%
+    summarize(mean(No_Score_Prob, na.rm=T)) -> no_prob
+x <- c('yrdline100','probability', 'Outcome')
+colnames(td_prob) <- x
+ind <- data.frame(ncol = 1, nrow=nrow(td_prob))
+ind= 'TD'
+td_prob <- cbind(td_prob,ind)
+ind2 <- data.frame(ncol=1, nrow=nrow(fg_prob))
+ind2='FG'
+fg_prob <- cbind(fg_prob, ind2)
+colnames(td_prob) <- x
+colnames(fg_prob) <- x
+prob_df <- rbind(td_prob, fg_prob)
+colnames(prob_df) <- x
+ggplot(prob_df, aes(yrdline100,probability, col=Outcome)) + 
+  geom_point(size=0.5)+geom_smooth()+xlab('Distance to Endzone')+ylab('Probability')+ggtitle('Probability of Outcome based on Field Position')
+```
+Q: Why does the probability of scoring a field goal get lower as a team is within 10 yards of the endzone?
+
+A: When a team is close to the endzone, they probability of scoring a touchdown goes way up so teams are less likely to attempt field goals since the expected value of attempting a touchdown is higher than the expected value of attempting a field goal.
+
+
+#### Should they go for it? (Based on historical data)
+```{r}
+yrd = 45
+togo = 3
+
+
+nfl=read.csv('~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/data/nfl_pbp.csv')
+nfl2 <- select(nfl, c('down','yrdline100','ydstogo','Yards.Gained','Touchdown','PlayType','FieldGoalResult','FieldGoalDistance'))
+nfl2 <- nfl2 %>%
+  mutate(FirstDown = case_when(
+    ydstogo < Yards.Gained ~ 1,
+    ydstogo > Yards.Gained ~ 0
+    ))
+# filter by only plays on 4th down
+down4 = filter(nfl2, nfl2['down']==4)
+down4 = filter(down4, down4['PlayType']!='No Play' || down4['PlayType']!= 'QB Kneel' || down4['PlayType']!= 'Timeout')
+down4 <- down4 %>% 
+  filter(PlayType!= 'Punt') %>%
+  mutate(GoForIt = case_when(
+    PlayType == 'Pass' ~ 1,
+    PlayType == 'Run' ~ 1,
+    PlayType == 'Sack' ~ 1,
+    PlayType == 'Field Goal' ~ 0 
+  ))
+head(down4)
+
+## want to find every play with same situation and group by playtype and find success rate for going for it or kicking field goal
+```
 
 
 #### Football Sample Space (Probability)

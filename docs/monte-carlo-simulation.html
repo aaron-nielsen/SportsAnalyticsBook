@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2022-07-18" />
+<meta name="date" content="2022-07-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -240,17 +240,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.8.3" data-path="probability.html"><a href="probability.html#expectation---baseball"><i class="fa fa-check"></i><b>2.8.3</b> Expectation - Baseball</a></li>
 <li class="chapter" data-level="2.8.4" data-path="probability.html"><a href="probability.html#basketball-scenario"><i class="fa fa-check"></i><b>2.8.4</b> Basketball Scenario</a></li>
 <li class="chapter" data-level="2.8.5" data-path="probability.html"><a href="probability.html#multiple-probability-distributions---basketball"><i class="fa fa-check"></i><b>2.8.5</b> Multiple Probability Distributions - Basketball</a></li>
-<li class="chapter" data-level="2.8.6" data-path="probability.html"><a href="probability.html#law-of-total-probability---hockey"><i class="fa fa-check"></i><b>2.8.6</b> Law of Total Probability - Hockey</a></li>
-<li class="chapter" data-level="2.8.7" data-path="probability.html"><a href="probability.html#law-of-total-probability---baseball"><i class="fa fa-check"></i><b>2.8.7</b> Law of Total Probability - Baseball</a></li>
-<li class="chapter" data-level="2.8.8" data-path="probability.html"><a href="probability.html#multinomial-distribution---baseball"><i class="fa fa-check"></i><b>2.8.8</b> Multinomial Distribution - Baseball</a></li>
+<li class="chapter" data-level="2.8.6" data-path="probability.html"><a href="probability.html#law-of-total-probability---baseball"><i class="fa fa-check"></i><b>2.8.6</b> Law of Total Probability - Baseball</a></li>
+<li class="chapter" data-level="2.8.7" data-path="probability.html"><a href="probability.html#multinomial-distribution---baseball"><i class="fa fa-check"></i><b>2.8.7</b> Multinomial Distribution - Baseball</a></li>
+<li class="chapter" data-level="2.8.8" data-path="probability.html"><a href="probability.html#bayes---injured-baseball-player"><i class="fa fa-check"></i><b>2.8.8</b> Bayes - injured baseball player</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Simulation</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#basics"><i class="fa fa-check"></i><b>3.1</b> Basics</a></li>
 <li class="chapter" data-level="3.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#estimating-probabilities"><i class="fa fa-check"></i><b>3.2</b> Estimating Probabilities</a></li>
-<li class="chapter" data-level="3.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#a-few-reminderstips-for-simulation-and-a-basic-example"><i class="fa fa-check"></i><b>3.3</b> A few reminders/tips for simulation, and a basic example</a></li>
-<li class="chapter" data-level="3.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#streak-simulation---basketball"><i class="fa fa-check"></i><b>3.4</b> Streak Simulation - Basketball</a></li>
+<li class="chapter" data-level="3.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#streak-simulation---basketball"><i class="fa fa-check"></i><b>3.3</b> Streak Simulation - Basketball</a></li>
+<li class="chapter" data-level="3.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#hit-streak-simulation"><i class="fa fa-check"></i><b>3.4</b> Hit Streak Simulation</a></li>
 <li class="chapter" data-level="3.5" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#shaq-ft-simulation"><i class="fa fa-check"></i><b>3.5</b> Shaq FT simulation</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>4</b> Statistical Inference</a>
@@ -311,95 +311,95 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>set.seed()</code> allows us to replicate any simulation by giving the initial seed for the simulation. The actual number that is “seeded” is not particularly important though if you want to replicate the same simulations, you will want to re-use this number.</p>
 <div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-104" class="example"><strong>Example 3.1  </strong></span>Simulate 10 overtime coin tosses with and without using <code>set.seed()</code> and compare the results</p>
+<p><span id="exm:unlabeled-div-118" class="example"><strong>Example 3.1  </strong></span>Simulate 10 overtime coin tosses with and without using <code>set.seed()</code> and compare the results</p>
 </div>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="monte-carlo-simulation.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample 1</span></span>
-<span id="cb177-2"><a href="monte-carlo-simulation.html#cb177-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;H&quot;</span>, <span class="st">&quot;T&quot;</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">replace =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="monte-carlo-simulation.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample 1</span></span>
+<span id="cb171-2"><a href="monte-carlo-simulation.html#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;H&quot;</span>, <span class="st">&quot;T&quot;</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">replace =</span> T)</span></code></pre></div>
 <pre><code>##  [1] &quot;T&quot; &quot;H&quot; &quot;T&quot; &quot;T&quot; &quot;T&quot; &quot;H&quot; &quot;H&quot; &quot;T&quot; &quot;H&quot; &quot;H&quot;</code></pre>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="monte-carlo-simulation.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample 2</span></span>
-<span id="cb179-2"><a href="monte-carlo-simulation.html#cb179-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;H&quot;</span>, <span class="st">&quot;T&quot;</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">replace =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="monte-carlo-simulation.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample 2</span></span>
+<span id="cb173-2"><a href="monte-carlo-simulation.html#cb173-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;H&quot;</span>, <span class="st">&quot;T&quot;</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">replace =</span> T)</span></code></pre></div>
 <pre><code>##  [1] &quot;H&quot; &quot;T&quot; &quot;T&quot; &quot;T&quot; &quot;H&quot; &quot;T&quot; &quot;T&quot; &quot;T&quot; &quot;T&quot; &quot;H&quot;</code></pre>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="monte-carlo-simulation.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample 3</span></span>
-<span id="cb181-2"><a href="monte-carlo-simulation.html#cb181-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
-<span id="cb181-3"><a href="monte-carlo-simulation.html#cb181-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;H&quot;</span>, <span class="st">&quot;T&quot;</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">replace =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="monte-carlo-simulation.html#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample 3</span></span>
+<span id="cb175-2"><a href="monte-carlo-simulation.html#cb175-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
+<span id="cb175-3"><a href="monte-carlo-simulation.html#cb175-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;H&quot;</span>, <span class="st">&quot;T&quot;</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">replace =</span> T)</span></code></pre></div>
 <pre><code>##  [1] &quot;H&quot; &quot;T&quot; &quot;H&quot; &quot;T&quot; &quot;T&quot; &quot;T&quot; &quot;T&quot; &quot;T&quot; &quot;T&quot; &quot;H&quot;</code></pre>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="monte-carlo-simulation.html#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample 4</span></span>
-<span id="cb183-2"><a href="monte-carlo-simulation.html#cb183-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
-<span id="cb183-3"><a href="monte-carlo-simulation.html#cb183-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;H&quot;</span>, <span class="st">&quot;T&quot;</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">replace =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="monte-carlo-simulation.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample 4</span></span>
+<span id="cb177-2"><a href="monte-carlo-simulation.html#cb177-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
+<span id="cb177-3"><a href="monte-carlo-simulation.html#cb177-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;H&quot;</span>, <span class="st">&quot;T&quot;</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">replace =</span> T)</span></code></pre></div>
 <pre><code>##  [1] &quot;H&quot; &quot;T&quot; &quot;H&quot; &quot;T&quot; &quot;T&quot; &quot;T&quot; &quot;T&quot; &quot;T&quot; &quot;T&quot; &quot;H&quot;</code></pre>
 <p>Simulation can be very helpful when you want to estimate quantities that are not easily solved using analytical methods like formulas.</p>
 <div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-105" class="example"><strong>Example 3.2  </strong></span>Shaquille O’Neal has a career free throw percentage of 52.7%. Suppose that Shaq takes 10 free throw shots. What is the probability that he makes all 10 shots?</p>
+<p><span id="exm:unlabeled-div-119" class="example"><strong>Example 3.2  </strong></span>Shaquille O’Neal has a career free throw percentage of 52.7%. Suppose that Shaq takes 10 free throw shots. What is the probability that he makes all 10 shots?</p>
 </div>
 <p>In this case, we can calculate the exact probability of interest using binomial random variable.</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="monte-carlo-simulation.html#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.527</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="monte-carlo-simulation.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.527</span>)</span></code></pre></div>
 <pre><code>## [1] 0.001652366</code></pre>
 <p>In more complicated simulations, there may not be an easy formula to use to calculate the value of interest. In these situations, simulation can be very helpful in estimating quantities.</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="monte-carlo-simulation.html#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
-<span id="cb187-2"><a href="monte-carlo-simulation.html#cb187-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb187-3"><a href="monte-carlo-simulation.html#cb187-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of Simulations</span></span>
-<span id="cb187-4"><a href="monte-carlo-simulation.html#cb187-4" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb187-5"><a href="monte-carlo-simulation.html#cb187-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb187-6"><a href="monte-carlo-simulation.html#cb187-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize FT variable with 10000 zeros</span></span>
-<span id="cb187-7"><a href="monte-carlo-simulation.html#cb187-7" aria-hidden="true" tabindex="-1"></a>FT <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
-<span id="cb187-8"><a href="monte-carlo-simulation.html#cb187-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb187-9"><a href="monte-carlo-simulation.html#cb187-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims) {</span>
-<span id="cb187-10"><a href="monte-carlo-simulation.html#cb187-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Simulate 10 free throws</span></span>
-<span id="cb187-11"><a href="monte-carlo-simulation.html#cb187-11" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> T, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.473</span>, <span class="fl">0.527</span>))</span>
-<span id="cb187-12"><a href="monte-carlo-simulation.html#cb187-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb187-13"><a href="monte-carlo-simulation.html#cb187-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the number of free throws made and store them in FT</span></span>
-<span id="cb187-14"><a href="monte-carlo-simulation.html#cb187-14" aria-hidden="true" tabindex="-1"></a>    FT[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(temp)</span>
-<span id="cb187-15"><a href="monte-carlo-simulation.html#cb187-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb187-16"><a href="monte-carlo-simulation.html#cb187-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb187-17"><a href="monte-carlo-simulation.html#cb187-17" aria-hidden="true" tabindex="-1"></a>FT <span class="sc">%&gt;%</span></span>
-<span id="cb187-18"><a href="monte-carlo-simulation.html#cb187-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb187-19"><a href="monte-carlo-simulation.html#cb187-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> FT)) <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Number of free throws made out of 10&quot;</span>) <span class="sc">+</span></span>
-<span id="cb187-20"><a href="monte-carlo-simulation.html#cb187-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="monte-carlo-simulation.html#cb188-1" aria-hidden="true" tabindex="-1"></a>prob10 <span class="ot">&lt;-</span> <span class="fu">sum</span>(FT <span class="sc">==</span> <span class="dv">10</span>)<span class="sc">/</span>n.sims</span>
-<span id="cb188-2"><a href="monte-carlo-simulation.html#cb188-2" aria-hidden="true" tabindex="-1"></a>prob10</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="monte-carlo-simulation.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
+<span id="cb181-2"><a href="monte-carlo-simulation.html#cb181-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-3"><a href="monte-carlo-simulation.html#cb181-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of Simulations</span></span>
+<span id="cb181-4"><a href="monte-carlo-simulation.html#cb181-4" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb181-5"><a href="monte-carlo-simulation.html#cb181-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-6"><a href="monte-carlo-simulation.html#cb181-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize FT variable with 10000 zeros</span></span>
+<span id="cb181-7"><a href="monte-carlo-simulation.html#cb181-7" aria-hidden="true" tabindex="-1"></a>FT <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
+<span id="cb181-8"><a href="monte-carlo-simulation.html#cb181-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-9"><a href="monte-carlo-simulation.html#cb181-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims) {</span>
+<span id="cb181-10"><a href="monte-carlo-simulation.html#cb181-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Simulate 10 free throws</span></span>
+<span id="cb181-11"><a href="monte-carlo-simulation.html#cb181-11" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> T, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.473</span>, <span class="fl">0.527</span>))</span>
+<span id="cb181-12"><a href="monte-carlo-simulation.html#cb181-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-13"><a href="monte-carlo-simulation.html#cb181-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the number of free throws made and store them in FT</span></span>
+<span id="cb181-14"><a href="monte-carlo-simulation.html#cb181-14" aria-hidden="true" tabindex="-1"></a>    FT[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(temp)</span>
+<span id="cb181-15"><a href="monte-carlo-simulation.html#cb181-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb181-16"><a href="monte-carlo-simulation.html#cb181-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-17"><a href="monte-carlo-simulation.html#cb181-17" aria-hidden="true" tabindex="-1"></a>FT <span class="sc">%&gt;%</span></span>
+<span id="cb181-18"><a href="monte-carlo-simulation.html#cb181-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb181-19"><a href="monte-carlo-simulation.html#cb181-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> FT)) <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Number of free throws made out of 10&quot;</span>) <span class="sc">+</span></span>
+<span id="cb181-20"><a href="monte-carlo-simulation.html#cb181-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>))</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="monte-carlo-simulation.html#cb182-1" aria-hidden="true" tabindex="-1"></a>prob10 <span class="ot">&lt;-</span> <span class="fu">sum</span>(FT <span class="sc">==</span> <span class="dv">10</span>)<span class="sc">/</span>n.sims</span>
+<span id="cb182-2"><a href="monte-carlo-simulation.html#cb182-2" aria-hidden="true" tabindex="-1"></a>prob10</span></code></pre></div>
 <pre><code>## [1] 0.0023</code></pre>
 <p>The estimated probability that Shaq goes 10-for-10 in free throw attempts based on his career average is 0.0023.</p>
 <p>If we run the simulation again with a different seed, we will get another estimate (0.0019).</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="monte-carlo-simulation.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb190-2"><a href="monte-carlo-simulation.html#cb190-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-3"><a href="monte-carlo-simulation.html#cb190-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of Simulations</span></span>
-<span id="cb190-4"><a href="monte-carlo-simulation.html#cb190-4" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb190-5"><a href="monte-carlo-simulation.html#cb190-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-6"><a href="monte-carlo-simulation.html#cb190-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize FT variable with 10000 zeros</span></span>
-<span id="cb190-7"><a href="monte-carlo-simulation.html#cb190-7" aria-hidden="true" tabindex="-1"></a>FT <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
-<span id="cb190-8"><a href="monte-carlo-simulation.html#cb190-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-9"><a href="monte-carlo-simulation.html#cb190-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims) {</span>
-<span id="cb190-10"><a href="monte-carlo-simulation.html#cb190-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Simulate 10 free throws</span></span>
-<span id="cb190-11"><a href="monte-carlo-simulation.html#cb190-11" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> T, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.473</span>, <span class="fl">0.527</span>))</span>
-<span id="cb190-12"><a href="monte-carlo-simulation.html#cb190-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-13"><a href="monte-carlo-simulation.html#cb190-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the number of free throws made and store them in FT</span></span>
-<span id="cb190-14"><a href="monte-carlo-simulation.html#cb190-14" aria-hidden="true" tabindex="-1"></a>    FT[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(temp)</span>
-<span id="cb190-15"><a href="monte-carlo-simulation.html#cb190-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb190-16"><a href="monte-carlo-simulation.html#cb190-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-17"><a href="monte-carlo-simulation.html#cb190-17" aria-hidden="true" tabindex="-1"></a>prob10 <span class="ot">&lt;-</span> <span class="fu">sum</span>(FT <span class="sc">==</span> <span class="dv">10</span>)<span class="sc">/</span>n.sims</span>
-<span id="cb190-18"><a href="monte-carlo-simulation.html#cb190-18" aria-hidden="true" tabindex="-1"></a>prob10</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="monte-carlo-simulation.html#cb184-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb184-2"><a href="monte-carlo-simulation.html#cb184-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb184-3"><a href="monte-carlo-simulation.html#cb184-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of Simulations</span></span>
+<span id="cb184-4"><a href="monte-carlo-simulation.html#cb184-4" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb184-5"><a href="monte-carlo-simulation.html#cb184-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb184-6"><a href="monte-carlo-simulation.html#cb184-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize FT variable with 10000 zeros</span></span>
+<span id="cb184-7"><a href="monte-carlo-simulation.html#cb184-7" aria-hidden="true" tabindex="-1"></a>FT <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
+<span id="cb184-8"><a href="monte-carlo-simulation.html#cb184-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb184-9"><a href="monte-carlo-simulation.html#cb184-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims) {</span>
+<span id="cb184-10"><a href="monte-carlo-simulation.html#cb184-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Simulate 10 free throws</span></span>
+<span id="cb184-11"><a href="monte-carlo-simulation.html#cb184-11" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> T, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.473</span>, <span class="fl">0.527</span>))</span>
+<span id="cb184-12"><a href="monte-carlo-simulation.html#cb184-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb184-13"><a href="monte-carlo-simulation.html#cb184-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the number of free throws made and store them in FT</span></span>
+<span id="cb184-14"><a href="monte-carlo-simulation.html#cb184-14" aria-hidden="true" tabindex="-1"></a>    FT[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(temp)</span>
+<span id="cb184-15"><a href="monte-carlo-simulation.html#cb184-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb184-16"><a href="monte-carlo-simulation.html#cb184-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb184-17"><a href="monte-carlo-simulation.html#cb184-17" aria-hidden="true" tabindex="-1"></a>prob10 <span class="ot">&lt;-</span> <span class="fu">sum</span>(FT <span class="sc">==</span> <span class="dv">10</span>)<span class="sc">/</span>n.sims</span>
+<span id="cb184-18"><a href="monte-carlo-simulation.html#cb184-18" aria-hidden="true" tabindex="-1"></a>prob10</span></code></pre></div>
 <pre><code>## [1] 0.0019</code></pre>
 <p>As we increase the number of simulations, the estimate will become more accurate.</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="monte-carlo-simulation.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb192-2"><a href="monte-carlo-simulation.html#cb192-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb192-3"><a href="monte-carlo-simulation.html#cb192-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of Simulations</span></span>
-<span id="cb192-4"><a href="monte-carlo-simulation.html#cb192-4" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="fl">1e+05</span></span>
-<span id="cb192-5"><a href="monte-carlo-simulation.html#cb192-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb192-6"><a href="monte-carlo-simulation.html#cb192-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize FT variable with 10000 zeros</span></span>
-<span id="cb192-7"><a href="monte-carlo-simulation.html#cb192-7" aria-hidden="true" tabindex="-1"></a>FT <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
-<span id="cb192-8"><a href="monte-carlo-simulation.html#cb192-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb192-9"><a href="monte-carlo-simulation.html#cb192-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims) {</span>
-<span id="cb192-10"><a href="monte-carlo-simulation.html#cb192-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Simulate 10 free throws</span></span>
-<span id="cb192-11"><a href="monte-carlo-simulation.html#cb192-11" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> T, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.473</span>, <span class="fl">0.527</span>))</span>
-<span id="cb192-12"><a href="monte-carlo-simulation.html#cb192-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb192-13"><a href="monte-carlo-simulation.html#cb192-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the number of free throws made and store them in FT</span></span>
-<span id="cb192-14"><a href="monte-carlo-simulation.html#cb192-14" aria-hidden="true" tabindex="-1"></a>    FT[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(temp)</span>
-<span id="cb192-15"><a href="monte-carlo-simulation.html#cb192-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb192-16"><a href="monte-carlo-simulation.html#cb192-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb192-17"><a href="monte-carlo-simulation.html#cb192-17" aria-hidden="true" tabindex="-1"></a>prob10 <span class="ot">&lt;-</span> <span class="fu">sum</span>(FT <span class="sc">==</span> <span class="dv">10</span>)<span class="sc">/</span>n.sims</span>
-<span id="cb192-18"><a href="monte-carlo-simulation.html#cb192-18" aria-hidden="true" tabindex="-1"></a>prob10</span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="monte-carlo-simulation.html#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb186-2"><a href="monte-carlo-simulation.html#cb186-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-3"><a href="monte-carlo-simulation.html#cb186-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of Simulations</span></span>
+<span id="cb186-4"><a href="monte-carlo-simulation.html#cb186-4" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="fl">1e+05</span></span>
+<span id="cb186-5"><a href="monte-carlo-simulation.html#cb186-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-6"><a href="monte-carlo-simulation.html#cb186-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize FT variable with 10000 zeros</span></span>
+<span id="cb186-7"><a href="monte-carlo-simulation.html#cb186-7" aria-hidden="true" tabindex="-1"></a>FT <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
+<span id="cb186-8"><a href="monte-carlo-simulation.html#cb186-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-9"><a href="monte-carlo-simulation.html#cb186-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims) {</span>
+<span id="cb186-10"><a href="monte-carlo-simulation.html#cb186-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Simulate 10 free throws</span></span>
+<span id="cb186-11"><a href="monte-carlo-simulation.html#cb186-11" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> T, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.473</span>, <span class="fl">0.527</span>))</span>
+<span id="cb186-12"><a href="monte-carlo-simulation.html#cb186-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-13"><a href="monte-carlo-simulation.html#cb186-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the number of free throws made and store them in FT</span></span>
+<span id="cb186-14"><a href="monte-carlo-simulation.html#cb186-14" aria-hidden="true" tabindex="-1"></a>    FT[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(temp)</span>
+<span id="cb186-15"><a href="monte-carlo-simulation.html#cb186-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb186-16"><a href="monte-carlo-simulation.html#cb186-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-17"><a href="monte-carlo-simulation.html#cb186-17" aria-hidden="true" tabindex="-1"></a>prob10 <span class="ot">&lt;-</span> <span class="fu">sum</span>(FT <span class="sc">==</span> <span class="dv">10</span>)<span class="sc">/</span>n.sims</span>
+<span id="cb186-18"><a href="monte-carlo-simulation.html#cb186-18" aria-hidden="true" tabindex="-1"></a>prob10</span></code></pre></div>
 <pre><code>## [1] 0.00174</code></pre>
 <p>One way to simulate data is to make assumptions about the distributions of the underlying data. The random variables given in the last chapter as possible candidates.</p>
 </div>
@@ -407,12 +407,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.2</span> Estimating Probabilities<a href="monte-carlo-simulation.html#estimating-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can use simulation to estimate probabilities of different events occurring. One way to do this is for each simulation to record a “1” if the event of interest occurs and a “0” if the event of interest does not occur.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-106" class="definition"><strong>Definition 3.1  </strong></span>The <strong><em>indicator function</em></strong>, <span class="math inline">\(I(A)\)</span>, is defined such that <span class="math inline">\(I(A)\)</span> is equal to 1 if <span class="math inline">\(A\)</span> occurs and is equal to 0 if <span class="math inline">\(A\)</span> does not occur.</p>
+<p><span id="def:unlabeled-div-120" class="definition"><strong>Definition 3.1  </strong></span>The <strong><em>indicator function</em></strong>, <span class="math inline">\(I(A)\)</span>, is defined such that <span class="math inline">\(I(A)\)</span> is equal to 1 if <span class="math inline">\(A\)</span> occurs and is equal to 0 if <span class="math inline">\(A\)</span> does not occur.</p>
 </div>
 <p>For instance, suppose we roll a die and a “6” is on top. Then we have the following: <span class="math inline">\(I(6)=1, I(5)=0, I(even)=1, I(odd)=0\)</span>.</p>
 <p>One way to calculate probabilities is to use the following rule: <span class="math inline">\(P(A) = E[I(A)]\)</span>. The probability that <span class="math inline">\(A\)</span> occurs is equal to the expected value of the indicator function of <span class="math inline">\(A\)</span>.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-107" class="example"><strong>Example 3.3  </strong></span>During the 2021 WNBA season, Kahleah Copper of the Chicago Sky had a free throw percentage of 81.8%. She played a total of 32 games and the probability mass function for number of free throw attempts per game are given in the table below. Estimate the probability that Copper did not make a free throw in a game. [Note: Copper did not make a free throw in 6 out of the 32 games for a probability of 0.1875.]</p>
+<p><span id="exm:unlabeled-div-121" class="example"><strong>Example 3.3  </strong></span>During the 2021 WNBA season, Kahleah Copper of the Chicago Sky had a free throw percentage of 81.8%. She played a total of 32 games and the probability mass function for number of free throw attempts per game are given in the table below. Estimate the probability that Copper did not make a free throw in a game. [Note: Copper did not make a free throw in 6 out of the 32 games for a probability of 0.1875.]</p>
 </div>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <tbody>
@@ -505,152 +505,191 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="monte-carlo-simulation.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
-<span id="cb194-2"><a href="monte-carlo-simulation.html#cb194-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb194-3"><a href="monte-carlo-simulation.html#cb194-3" aria-hidden="true" tabindex="-1"></a>games <span class="ot">&lt;-</span> <span class="dv">32</span></span>
-<span id="cb194-4"><a href="monte-carlo-simulation.html#cb194-4" aria-hidden="true" tabindex="-1"></a>FTprob <span class="ot">&lt;-</span> <span class="fl">0.818</span></span>
-<span id="cb194-5"><a href="monte-carlo-simulation.html#cb194-5" aria-hidden="true" tabindex="-1"></a>FTA <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">8</span></span>
-<span id="cb194-6"><a href="monte-carlo-simulation.html#cb194-6" aria-hidden="true" tabindex="-1"></a>nFTA <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
-<span id="cb194-7"><a href="monte-carlo-simulation.html#cb194-7" aria-hidden="true" tabindex="-1"></a>pFTA <span class="ot">&lt;-</span> nFTA<span class="sc">/</span><span class="dv">32</span></span>
-<span id="cb194-8"><a href="monte-carlo-simulation.html#cb194-8" aria-hidden="true" tabindex="-1"></a>FT <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
-<span id="cb194-9"><a href="monte-carlo-simulation.html#cb194-9" aria-hidden="true" tabindex="-1"></a>FT0.ind <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
-<span id="cb194-10"><a href="monte-carlo-simulation.html#cb194-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb194-11"><a href="monte-carlo-simulation.html#cb194-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate the number of FTA per game</span></span>
-<span id="cb194-12"><a href="monte-carlo-simulation.html#cb194-12" aria-hidden="true" tabindex="-1"></a>FTA.sim <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> FTA, <span class="at">size =</span> n.sims, <span class="at">replace =</span> T, <span class="at">prob =</span> pFTA)</span>
-<span id="cb194-13"><a href="monte-carlo-simulation.html#cb194-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb194-14"><a href="monte-carlo-simulation.html#cb194-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate 10,000 games and record number of FT made</span></span>
-<span id="cb194-15"><a href="monte-carlo-simulation.html#cb194-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims) {</span>
-<span id="cb194-16"><a href="monte-carlo-simulation.html#cb194-16" aria-hidden="true" tabindex="-1"></a>    FT[i] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">size =</span> FTA.sim[i], <span class="at">prob =</span> <span class="fl">0.818</span>)</span>
-<span id="cb194-17"><a href="monte-carlo-simulation.html#cb194-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb194-18"><a href="monte-carlo-simulation.html#cb194-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb194-19"><a href="monte-carlo-simulation.html#cb194-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the header of the simulated data</span></span>
-<span id="cb194-20"><a href="monte-carlo-simulation.html#cb194-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(FT)</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="monte-carlo-simulation.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
+<span id="cb188-2"><a href="monte-carlo-simulation.html#cb188-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb188-3"><a href="monte-carlo-simulation.html#cb188-3" aria-hidden="true" tabindex="-1"></a>games <span class="ot">&lt;-</span> <span class="dv">32</span></span>
+<span id="cb188-4"><a href="monte-carlo-simulation.html#cb188-4" aria-hidden="true" tabindex="-1"></a>FTprob <span class="ot">&lt;-</span> <span class="fl">0.818</span></span>
+<span id="cb188-5"><a href="monte-carlo-simulation.html#cb188-5" aria-hidden="true" tabindex="-1"></a>FTA <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">8</span></span>
+<span id="cb188-6"><a href="monte-carlo-simulation.html#cb188-6" aria-hidden="true" tabindex="-1"></a>nFTA <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb188-7"><a href="monte-carlo-simulation.html#cb188-7" aria-hidden="true" tabindex="-1"></a>pFTA <span class="ot">&lt;-</span> nFTA<span class="sc">/</span><span class="dv">32</span></span>
+<span id="cb188-8"><a href="monte-carlo-simulation.html#cb188-8" aria-hidden="true" tabindex="-1"></a>FT <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
+<span id="cb188-9"><a href="monte-carlo-simulation.html#cb188-9" aria-hidden="true" tabindex="-1"></a>FT0.ind <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
+<span id="cb188-10"><a href="monte-carlo-simulation.html#cb188-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb188-11"><a href="monte-carlo-simulation.html#cb188-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate the number of FTA per game</span></span>
+<span id="cb188-12"><a href="monte-carlo-simulation.html#cb188-12" aria-hidden="true" tabindex="-1"></a>FTA.sim <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> FTA, <span class="at">size =</span> n.sims, <span class="at">replace =</span> T, <span class="at">prob =</span> pFTA)</span>
+<span id="cb188-13"><a href="monte-carlo-simulation.html#cb188-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb188-14"><a href="monte-carlo-simulation.html#cb188-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate 10,000 games and record number of FT made</span></span>
+<span id="cb188-15"><a href="monte-carlo-simulation.html#cb188-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims) {</span>
+<span id="cb188-16"><a href="monte-carlo-simulation.html#cb188-16" aria-hidden="true" tabindex="-1"></a>    FT[i] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">size =</span> FTA.sim[i], <span class="at">prob =</span> <span class="fl">0.818</span>)</span>
+<span id="cb188-17"><a href="monte-carlo-simulation.html#cb188-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb188-18"><a href="monte-carlo-simulation.html#cb188-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb188-19"><a href="monte-carlo-simulation.html#cb188-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the header of the simulated data</span></span>
+<span id="cb188-20"><a href="monte-carlo-simulation.html#cb188-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(FT)</span></code></pre></div>
 <pre><code>## [1] 6 3 0 0 1 1</code></pre>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="monte-carlo-simulation.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create indicator function for 0 FT made</span></span>
-<span id="cb196-2"><a href="monte-carlo-simulation.html#cb196-2" aria-hidden="true" tabindex="-1"></a>FT0.ind <span class="ot">=</span> FT <span class="sc">==</span> <span class="dv">0</span></span>
-<span id="cb196-3"><a href="monte-carlo-simulation.html#cb196-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(FT0.ind)</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="monte-carlo-simulation.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create indicator function for 0 FT made</span></span>
+<span id="cb190-2"><a href="monte-carlo-simulation.html#cb190-2" aria-hidden="true" tabindex="-1"></a>FT0.ind <span class="ot">=</span> FT <span class="sc">==</span> <span class="dv">0</span></span>
+<span id="cb190-3"><a href="monte-carlo-simulation.html#cb190-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(FT0.ind)</span></code></pre></div>
 <pre><code>## [1] FALSE FALSE  TRUE  TRUE FALSE FALSE</code></pre>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="monte-carlo-simulation.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate probability of 0 FT made</span></span>
-<span id="cb198-2"><a href="monte-carlo-simulation.html#cb198-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(FT0.ind)<span class="sc">/</span>n.sims</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="monte-carlo-simulation.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate probability of 0 FT made</span></span>
+<span id="cb192-2"><a href="monte-carlo-simulation.html#cb192-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(FT0.ind)<span class="sc">/</span>n.sims</span></code></pre></div>
 <pre><code>## [1] 0.1711</code></pre>
-</div>
-<div id="a-few-reminderstips-for-simulation-and-a-basic-example" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> A few reminders/tips for simulation, and a basic example<a href="monte-carlo-simulation.html#a-few-reminderstips-for-simulation-and-a-basic-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The number of regulation goals scored in a game by Hockey Team A, <span class="math inline">\(X\)</span>, is a Poisson(4) random variable, and the same for Hockey Team B, <span class="math inline">\(Y\)</span>, is a Poisson(3.2) random variable.</p>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-122" class="example"><strong>Example 3.4  </strong></span>The number of regulation goals scored in a game by Hockey Team A, <span class="math inline">\(X\)</span>, is a Poisson(4) random variable, and the same for Hockey Team B, <span class="math inline">\(Y\)</span>, is a Poisson(3.2) random variable.</p>
 <p>A statistician is interested in the probability that Team A defeats Team B in regulation. This is <span class="math inline">\(P(X &gt; Y)\)</span>, which is difficult to calculate manually. However, using simulation, we can straightforwardly obtain an accurate estimation of this quantity.</p>
+</div>
 <p>There are many built-in functions in <code>R</code> that allow users to generate realizations from common probability distributions (<code>rnorm</code>, <code>rbinom</code>, <code>rexp</code>, etc.) Let’s use the <code>rpois</code> function to simulate the appropriate variables, remembering to set a seed so that our results are easily replicable.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="monte-carlo-simulation.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
-<span id="cb200-2"><a href="monte-carlo-simulation.html#cb200-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb200-3"><a href="monte-carlo-simulation.html#cb200-3" aria-hidden="true" tabindex="-1"></a>nReps <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb200-4"><a href="monte-carlo-simulation.html#cb200-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb200-5"><a href="monte-carlo-simulation.html#cb200-5" aria-hidden="true" tabindex="-1"></a>team_A_goals <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> nReps, <span class="at">lambda =</span> <span class="dv">4</span>)</span>
-<span id="cb200-6"><a href="monte-carlo-simulation.html#cb200-6" aria-hidden="true" tabindex="-1"></a>team_B_goals <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> nReps, <span class="at">lambda =</span> <span class="fl">3.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="monte-carlo-simulation.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb194-2"><a href="monte-carlo-simulation.html#cb194-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb194-3"><a href="monte-carlo-simulation.html#cb194-3" aria-hidden="true" tabindex="-1"></a>nReps <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb194-4"><a href="monte-carlo-simulation.html#cb194-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb194-5"><a href="monte-carlo-simulation.html#cb194-5" aria-hidden="true" tabindex="-1"></a>team_A_goals <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> nReps, <span class="at">lambda =</span> <span class="dv">4</span>)</span>
+<span id="cb194-6"><a href="monte-carlo-simulation.html#cb194-6" aria-hidden="true" tabindex="-1"></a>team_B_goals <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> nReps, <span class="at">lambda =</span> <span class="fl">3.2</span>)</span></code></pre></div>
 <p>Now, to find <span class="math inline">\(P(X &gt; Y)\)</span>, we can use the following line of code:</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="monte-carlo-simulation.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(team_A_goals <span class="sc">&gt;</span> team_B_goals)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="monte-carlo-simulation.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(team_A_goals <span class="sc">&gt;</span> team_B_goals)</span></code></pre></div>
 <pre><code>## [1] 0.5415</code></pre>
 <p>Why does this work? First, operations to vectors are executed elementwise, meaning that <code>R</code> compares <code>team_A_goals[1]</code> to <code>team_B_goals[1]</code>, then <code>team_A_goals[2]</code> to <code>team_B_goals[2]</code>, and so on. Second, logical operators are stored as zeroes (when the condition is false) and ones (when the condition is true). The mean of a vector of zeroes and ones is the proportion of ones, which is the frequency of the logical statement being true. In our simulation, it was 0.5415. The true value is 0.5427, meaning that the simulation was quite accurate.</p>
 <p>These tips will help you be more efficient when performing simulation tasks in <code>R</code>.</p>
 </div>
-<div id="streak-simulation---basketball" class="section level2 hasAnchor" number="3.4">
-<h2><span class="header-section-number">3.4</span> Streak Simulation - Basketball<a href="monte-carlo-simulation.html#streak-simulation---basketball" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="streak-simulation---basketball" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Streak Simulation - Basketball<a href="monte-carlo-simulation.html#streak-simulation---basketball" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Suppose an NBA team is in the middle of a rebuild and has a 25% probability of winning each of its games in the following 82-game season.</p>
 <p>Q: What is the probability that the team will go on at least one winning streak of four or more games over the course of the 82-game season?</p>
 <p>A: We can simulate a season for the team, find the longest winning streak in that season, and store it in a vector. After repeating that process 10,000 times, we can then find the proportion of the values in that vector that are greater than or equal to 4.</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="monte-carlo-simulation.html#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
-<span id="cb203-2"><a href="monte-carlo-simulation.html#cb203-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb203-3"><a href="monte-carlo-simulation.html#cb203-3" aria-hidden="true" tabindex="-1"></a>nReps <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb203-4"><a href="monte-carlo-simulation.html#cb203-4" aria-hidden="true" tabindex="-1"></a>longest_streak <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, nReps)</span>
-<span id="cb203-5"><a href="monte-carlo-simulation.html#cb203-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb203-6"><a href="monte-carlo-simulation.html#cb203-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nReps) {</span>
-<span id="cb203-7"><a href="monte-carlo-simulation.html#cb203-7" aria-hidden="true" tabindex="-1"></a>    game_results <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">n =</span> <span class="dv">82</span>, <span class="at">prob =</span> <span class="fl">0.25</span>)  <span class="co"># 1=win, 0=loss</span></span>
-<span id="cb203-8"><a href="monte-carlo-simulation.html#cb203-8" aria-hidden="true" tabindex="-1"></a>    streaks <span class="ot">&lt;-</span> <span class="fu">rle</span>(game_results)</span>
-<span id="cb203-9"><a href="monte-carlo-simulation.html#cb203-9" aria-hidden="true" tabindex="-1"></a>    longest_streak[i] <span class="ot">&lt;-</span> <span class="fu">max</span>(streaks<span class="sc">$</span>lengths[streaks<span class="sc">$</span>values <span class="sc">==</span> <span class="dv">1</span>])</span>
-<span id="cb203-10"><a href="monte-carlo-simulation.html#cb203-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb203-11"><a href="monte-carlo-simulation.html#cb203-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb203-12"><a href="monte-carlo-simulation.html#cb203-12" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(longest_streak)</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="monte-carlo-simulation.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb197-2"><a href="monte-carlo-simulation.html#cb197-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-3"><a href="monte-carlo-simulation.html#cb197-3" aria-hidden="true" tabindex="-1"></a>nReps <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb197-4"><a href="monte-carlo-simulation.html#cb197-4" aria-hidden="true" tabindex="-1"></a>longest_streak <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, nReps)</span>
+<span id="cb197-5"><a href="monte-carlo-simulation.html#cb197-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-6"><a href="monte-carlo-simulation.html#cb197-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nReps) {</span>
+<span id="cb197-7"><a href="monte-carlo-simulation.html#cb197-7" aria-hidden="true" tabindex="-1"></a>    game_results <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">n =</span> <span class="dv">82</span>, <span class="at">prob =</span> <span class="fl">0.25</span>)  <span class="co"># 1=win, 0=loss</span></span>
+<span id="cb197-8"><a href="monte-carlo-simulation.html#cb197-8" aria-hidden="true" tabindex="-1"></a>    streaks <span class="ot">&lt;-</span> <span class="fu">rle</span>(game_results)</span>
+<span id="cb197-9"><a href="monte-carlo-simulation.html#cb197-9" aria-hidden="true" tabindex="-1"></a>    longest_streak[i] <span class="ot">&lt;-</span> <span class="fu">max</span>(streaks<span class="sc">$</span>lengths[streaks<span class="sc">$</span>values <span class="sc">==</span> <span class="dv">1</span>])</span>
+<span id="cb197-10"><a href="monte-carlo-simulation.html#cb197-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb197-11"><a href="monte-carlo-simulation.html#cb197-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-12"><a href="monte-carlo-simulation.html#cb197-12" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(longest_streak)</span></code></pre></div>
 <pre><code>## longest_streak
 ##    1    2    3    4    5    6    7    8    9 
 ##  116 3626 4233 1480  410  105   21    7    2</code></pre>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="monte-carlo-simulation.html#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(longest_streak <span class="sc">&gt;=</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="monte-carlo-simulation.html#cb199-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(longest_streak <span class="sc">&gt;=</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## [1] 0.2025</code></pre>
 <!-- https://stackoverflow.com/questions/28731582/maximum-consecutive-repeats-in-a-vector-in-r -->
 <p>The team had a 4+ game winning streak in about 20% of the simulations.</p>
 </div>
+<div id="hit-streak-simulation" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Hit Streak Simulation<a href="monte-carlo-simulation.html#hit-streak-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="example">
+<p><span id="exm:unlabeled-div-123" class="example"><strong>Example 3.5  </strong></span>In 1941, Joe DiMaggio had a 56-game hitting streak which is an all-time record in MLB. How unlikely was such an outcome? Let’s build a simulation to estimate the probability of a 56-game hitting streak using DiMaggio’s statistics.</p>
+<p>DiMaggio had 193 hits in 622 plate appearances over 139 games. We will simulate DiMaggio’s season of 139 games many times to estimate the probability of a 56-game hitting streak. Assume that in each game DiMaggio has a 50% chance of 4 plate appearance and a 50% chance of 5 plate appearances. For a plate appearance, DiMaggio had a probability of <span class="math inline">\(193/622 = 0.310\)</span> of getting a hit.</p>
+<p>The probability of DiMaggio getting at least one hit in a 4 plate appearance game is: $P(one , or , more , hits) = 1 - P(no hit) = 1-0.69^4 = 0.7733.</p>
+<p>The probability of DiMaggio getting at least one hit in a 5 plate appearance game is: $P(one , or , more , hits) = 1 - P(no hit) = 1-0.69^5 = 0.8436.</p>
+</div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="monte-carlo-simulation.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb201-2"><a href="monte-carlo-simulation.html#cb201-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb201-3"><a href="monte-carlo-simulation.html#cb201-3" aria-hidden="true" tabindex="-1"></a>n.games <span class="ot">&lt;-</span> <span class="dv">139</span></span>
+<span id="cb201-4"><a href="monte-carlo-simulation.html#cb201-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb201-5"><a href="monte-carlo-simulation.html#cb201-5" aria-hidden="true" tabindex="-1"></a>longest.streak <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
+<span id="cb201-6"><a href="monte-carlo-simulation.html#cb201-6" aria-hidden="true" tabindex="-1"></a>sim.games <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.games)</span>
+<span id="cb201-7"><a href="monte-carlo-simulation.html#cb201-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb201-8"><a href="monte-carlo-simulation.html#cb201-8" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fl">0.7733</span></span>
+<span id="cb201-9"><a href="monte-carlo-simulation.html#cb201-9" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> <span class="fl">0.8436</span></span>
+<span id="cb201-10"><a href="monte-carlo-simulation.html#cb201-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb201-11"><a href="monte-carlo-simulation.html#cb201-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims) {</span>
+<span id="cb201-12"><a href="monte-carlo-simulation.html#cb201-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">139</span>) {</span>
+<span id="cb201-13"><a href="monte-carlo-simulation.html#cb201-13" aria-hidden="true" tabindex="-1"></a>        sim.ab <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">replace =</span> T)</span>
+<span id="cb201-14"><a href="monte-carlo-simulation.html#cb201-14" aria-hidden="true" tabindex="-1"></a>        sim.games[j] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">size =</span> sim.ab, <span class="at">prob =</span> <span class="fl">0.31</span>)</span>
+<span id="cb201-15"><a href="monte-carlo-simulation.html#cb201-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb201-16"><a href="monte-carlo-simulation.html#cb201-16" aria-hidden="true" tabindex="-1"></a>    sim.hits <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(sim.games <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb201-17"><a href="monte-carlo-simulation.html#cb201-17" aria-hidden="true" tabindex="-1"></a>    streaks <span class="ot">&lt;-</span> <span class="fu">rle</span>(sim.hits)</span>
+<span id="cb201-18"><a href="monte-carlo-simulation.html#cb201-18" aria-hidden="true" tabindex="-1"></a>    longest.streak[i] <span class="ot">&lt;-</span> <span class="fu">max</span>(streaks<span class="sc">$</span>lengths[streaks<span class="sc">$</span>values <span class="sc">==</span> <span class="dv">1</span>])</span>
+<span id="cb201-19"><a href="monte-carlo-simulation.html#cb201-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb201-20"><a href="monte-carlo-simulation.html#cb201-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb201-21"><a href="monte-carlo-simulation.html#cb201-21" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(longest.streak)</span></code></pre></div>
+<pre><code>## longest.streak
+##   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25 
+##   1   5  33 112 257 426 633 746 881 891 826 796 708 612 556 450 357 311 284 226 
+##  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45 
+## 181 146 103  93  74  62  46  39  28  15  17  20  18  10   8   3   7   3   2   2 
+##  46  47  48  49  50  51  53  54 
+##   3   3   1   1   1   1   1   1</code></pre>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="monte-carlo-simulation.html#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(longest.streak)</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+</div>
 <div id="shaq-ft-simulation" class="section level2 hasAnchor" number="3.5">
 <h2><span class="header-section-number">3.5</span> Shaq FT simulation<a href="monte-carlo-simulation.html#shaq-ft-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="example">
-<p><span id="exm:unlabeled-div-108" class="example"><strong>Example 3.4  </strong></span>In 1997-1998 with the Los Angeles Lakers, Shaq attempted an average of 11.35 free throws per game with a standard deviation of 4.04. While with the Lakers, Shaq played in an average of 63.6 games per year with a standard deviation of 10.6. Create a simulation to model the season total number of free throw attempts that Shaq would have while with the Lakers.</p>
+<p><span id="exm:unlabeled-div-124" class="example"><strong>Example 3.6  </strong></span>In 1997-1998 with the Los Angeles Lakers, Shaq attempted an average of 11.35 free throws per game with a standard deviation of 4.04. While with the Lakers, Shaq played in an average of 63.6 games per year with a standard deviation of 10.6. Create a simulation to model the season total number of free throw attempts that Shaq would have while with the Lakers.</p>
 <p>Note: his actual season totals of free throws attempted while with the Lakers were: 479, 681, 498, 824, 972, 712, 725, 676</p>
 </div>
 <p>Let’s model the number of games that Shaq played in as a Binomial random variable. There are 82 regular sesaon games, so let <span class="math inline">\(n=82\)</span>. Shaq played in an average of 63.6 games, so let <span class="math inline">\(p=\frac{64.25}{82}=0.784\)</span>. Shaq played in about 78% of the games during his career with the Lakers.</p>
 <p>For the number of free throw attempts per game, we could model this as a Poisson random variable or a Negative Binomial random variable. As noted in the previous chapter, the variance of Shaq’s FT attempts is a fair bit greater than the mean which means that it is overdispersed. Negative Binomial may be a more appropriate model than a Poisson. From last chapter, we found <span class="math inline">\(\hat{r}=25.85\)</span> and <span class="math inline">\(\hat{p}=0.305\)</span>.</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="monte-carlo-simulation.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
-<span id="cb207-2"><a href="monte-carlo-simulation.html#cb207-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb207-3"><a href="monte-carlo-simulation.html#cb207-3" aria-hidden="true" tabindex="-1"></a>FT <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
-<span id="cb207-4"><a href="monte-carlo-simulation.html#cb207-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb207-5"><a href="monte-carlo-simulation.html#cb207-5" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate the number of games played in a season, round to a whole number</span></span>
-<span id="cb207-6"><a href="monte-carlo-simulation.html#cb207-6" aria-hidden="true" tabindex="-1"></a>games.sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> n.sims, <span class="at">size =</span> <span class="dv">82</span>, <span class="at">prob =</span> <span class="fl">0.784</span>)</span>
-<span id="cb207-7"><a href="monte-carlo-simulation.html#cb207-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb207-8"><a href="monte-carlo-simulation.html#cb207-8" aria-hidden="true" tabindex="-1"></a><span class="co"># number of games can&#39;t exceed 82 games (regular season total)</span></span>
-<span id="cb207-9"><a href="monte-carlo-simulation.html#cb207-9" aria-hidden="true" tabindex="-1"></a>games.sim[games.sim <span class="sc">&gt;</span> <span class="dv">82</span>] <span class="ot">=</span> <span class="dv">82</span></span>
-<span id="cb207-10"><a href="monte-carlo-simulation.html#cb207-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb207-11"><a href="monte-carlo-simulation.html#cb207-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims) {</span>
-<span id="cb207-12"><a href="monte-carlo-simulation.html#cb207-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># simulate the season total FT attempts in each simulation</span></span>
-<span id="cb207-13"><a href="monte-carlo-simulation.html#cb207-13" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">rnbinom</span>(<span class="at">n =</span> games.sim[i], <span class="at">size =</span> <span class="fl">25.85</span>, <span class="at">prob =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.305</span>)</span>
-<span id="cb207-14"><a href="monte-carlo-simulation.html#cb207-14" aria-hidden="true" tabindex="-1"></a>    FT[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(temp)</span>
-<span id="cb207-15"><a href="monte-carlo-simulation.html#cb207-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb207-16"><a href="monte-carlo-simulation.html#cb207-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb207-17"><a href="monte-carlo-simulation.html#cb207-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulated mean and SD of season totals of free throw attempts</span></span>
-<span id="cb207-18"><a href="monte-carlo-simulation.html#cb207-18" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(FT), <span class="fu">sd</span>(FT))</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="monte-carlo-simulation.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
+<span id="cb204-2"><a href="monte-carlo-simulation.html#cb204-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb204-3"><a href="monte-carlo-simulation.html#cb204-3" aria-hidden="true" tabindex="-1"></a>FT <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
+<span id="cb204-4"><a href="monte-carlo-simulation.html#cb204-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb204-5"><a href="monte-carlo-simulation.html#cb204-5" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate the number of games played in a season, round to a whole number</span></span>
+<span id="cb204-6"><a href="monte-carlo-simulation.html#cb204-6" aria-hidden="true" tabindex="-1"></a>games.sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> n.sims, <span class="at">size =</span> <span class="dv">82</span>, <span class="at">prob =</span> <span class="fl">0.784</span>)</span>
+<span id="cb204-7"><a href="monte-carlo-simulation.html#cb204-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb204-8"><a href="monte-carlo-simulation.html#cb204-8" aria-hidden="true" tabindex="-1"></a><span class="co"># number of games can&#39;t exceed 82 games (regular season total)</span></span>
+<span id="cb204-9"><a href="monte-carlo-simulation.html#cb204-9" aria-hidden="true" tabindex="-1"></a>games.sim[games.sim <span class="sc">&gt;</span> <span class="dv">82</span>] <span class="ot">=</span> <span class="dv">82</span></span>
+<span id="cb204-10"><a href="monte-carlo-simulation.html#cb204-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb204-11"><a href="monte-carlo-simulation.html#cb204-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims) {</span>
+<span id="cb204-12"><a href="monte-carlo-simulation.html#cb204-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># simulate the season total FT attempts in each simulation</span></span>
+<span id="cb204-13"><a href="monte-carlo-simulation.html#cb204-13" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">rnbinom</span>(<span class="at">n =</span> games.sim[i], <span class="at">size =</span> <span class="fl">25.85</span>, <span class="at">prob =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.305</span>)</span>
+<span id="cb204-14"><a href="monte-carlo-simulation.html#cb204-14" aria-hidden="true" tabindex="-1"></a>    FT[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(temp)</span>
+<span id="cb204-15"><a href="monte-carlo-simulation.html#cb204-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb204-16"><a href="monte-carlo-simulation.html#cb204-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb204-17"><a href="monte-carlo-simulation.html#cb204-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulated mean and SD of season totals of free throw attempts</span></span>
+<span id="cb204-18"><a href="monte-carlo-simulation.html#cb204-18" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(FT), <span class="fu">sd</span>(FT))</span></code></pre></div>
 <pre><code>## [1] 730.47550  53.20566</code></pre>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="monte-carlo-simulation.html#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Actual mean and SD of season totals of free throw attempts</span></span>
-<span id="cb209-2"><a href="monte-carlo-simulation.html#cb209-2" aria-hidden="true" tabindex="-1"></a>FT.actual <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">479</span>, <span class="dv">681</span>, <span class="dv">498</span>, <span class="dv">824</span>, <span class="dv">972</span>, <span class="dv">712</span>, <span class="dv">725</span>, <span class="dv">676</span>)</span>
-<span id="cb209-3"><a href="monte-carlo-simulation.html#cb209-3" aria-hidden="true" tabindex="-1"></a>FT.actual.mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(FT.actual)</span>
-<span id="cb209-4"><a href="monte-carlo-simulation.html#cb209-4" aria-hidden="true" tabindex="-1"></a>FT.actual.var <span class="ot">&lt;-</span> <span class="fu">var</span>(FT.actual) <span class="sc">*</span> <span class="dv">7</span><span class="sc">/</span><span class="dv">8</span>  <span class="co"># population variance</span></span>
-<span id="cb209-5"><a href="monte-carlo-simulation.html#cb209-5" aria-hidden="true" tabindex="-1"></a>FT.actual.sd <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(FT.actual.var)</span>
-<span id="cb209-6"><a href="monte-carlo-simulation.html#cb209-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(FT.actual.mean, FT.actual.sd)</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="monte-carlo-simulation.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Actual mean and SD of season totals of free throw attempts</span></span>
+<span id="cb206-2"><a href="monte-carlo-simulation.html#cb206-2" aria-hidden="true" tabindex="-1"></a>FT.actual <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">479</span>, <span class="dv">681</span>, <span class="dv">498</span>, <span class="dv">824</span>, <span class="dv">972</span>, <span class="dv">712</span>, <span class="dv">725</span>, <span class="dv">676</span>)</span>
+<span id="cb206-3"><a href="monte-carlo-simulation.html#cb206-3" aria-hidden="true" tabindex="-1"></a>FT.actual.mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(FT.actual)</span>
+<span id="cb206-4"><a href="monte-carlo-simulation.html#cb206-4" aria-hidden="true" tabindex="-1"></a>FT.actual.var <span class="ot">&lt;-</span> <span class="fu">var</span>(FT.actual) <span class="sc">*</span> <span class="dv">7</span><span class="sc">/</span><span class="dv">8</span>  <span class="co"># population variance</span></span>
+<span id="cb206-5"><a href="monte-carlo-simulation.html#cb206-5" aria-hidden="true" tabindex="-1"></a>FT.actual.sd <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(FT.actual.var)</span>
+<span id="cb206-6"><a href="monte-carlo-simulation.html#cb206-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(FT.actual.mean, FT.actual.sd)</span></code></pre></div>
 <pre><code>## [1] 695.8750 150.2393</code></pre>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="monte-carlo-simulation.html#cb211-1" aria-hidden="true" tabindex="-1"></a>FT <span class="sc">%&gt;%</span></span>
-<span id="cb211-2"><a href="monte-carlo-simulation.html#cb211-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb211-3"><a href="monte-carlo-simulation.html#cb211-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> FT)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">color =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;purple&quot;</span>) <span class="sc">+</span></span>
-<span id="cb211-4"><a href="monte-carlo-simulation.html#cb211-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;Simulated Season FT Attempt Totals by Shaq with Lakers&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="monte-carlo-simulation.html#cb208-1" aria-hidden="true" tabindex="-1"></a>FT <span class="sc">%&gt;%</span></span>
+<span id="cb208-2"><a href="monte-carlo-simulation.html#cb208-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb208-3"><a href="monte-carlo-simulation.html#cb208-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> FT)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">color =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;purple&quot;</span>) <span class="sc">+</span></span>
+<span id="cb208-4"><a href="monte-carlo-simulation.html#cb208-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;Simulated Season FT Attempt Totals by Shaq with Lakers&quot;</span>)</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
 <p>Notice that the mean of our simulation is somewhat close to Shaq’s true season average number of free throw attempts but the variance of the simulation is far too low.</p>
 <p>We can also simulate data using resampling. In this case, rather than simulating random variables according to a distribution, we can use our actual data as a sampling distribution.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-109" class="example"><strong>Example 3.5  </strong></span>Using resampling, simulate the number of free throws Shaq would attempt while with the Lakers. Compare the mean and variance of the simulation to Shaq’s actual statistics.</p>
+<p><span id="exm:unlabeled-div-125" class="example"><strong>Example 3.7  </strong></span>Using resampling, simulate the number of free throws Shaq would attempt while with the Lakers. Compare the mean and variance of the simulation to Shaq’s actual statistics.</p>
 </div>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="monte-carlo-simulation.html#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
-<span id="cb212-2"><a href="monte-carlo-simulation.html#cb212-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb212-3"><a href="monte-carlo-simulation.html#cb212-3" aria-hidden="true" tabindex="-1"></a>FT <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
-<span id="cb212-4"><a href="monte-carlo-simulation.html#cb212-4" aria-hidden="true" tabindex="-1"></a>shaq.games <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">51</span>, <span class="dv">60</span>, <span class="dv">49</span>, <span class="dv">79</span>, <span class="dv">74</span>, <span class="dv">67</span>, <span class="dv">67</span>, <span class="dv">67</span>)</span>
-<span id="cb212-5"><a href="monte-carlo-simulation.html#cb212-5" aria-hidden="true" tabindex="-1"></a>shaq.FTA <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/shaqFT.csv&quot;</span>, <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb212-6"><a href="monte-carlo-simulation.html#cb212-6" aria-hidden="true" tabindex="-1"></a>shaq.FTA <span class="ot">&lt;-</span> shaq.FTA<span class="sc">$</span>X1</span>
-<span id="cb212-7"><a href="monte-carlo-simulation.html#cb212-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb212-8"><a href="monte-carlo-simulation.html#cb212-8" aria-hidden="true" tabindex="-1"></a><span class="co"># sample (with replacement) from Shaq&#39;s FTA game totals</span></span>
-<span id="cb212-9"><a href="monte-carlo-simulation.html#cb212-9" aria-hidden="true" tabindex="-1"></a>games.sim <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> shaq.games, <span class="at">size =</span> n.sims, <span class="at">replace =</span> T)</span>
-<span id="cb212-10"><a href="monte-carlo-simulation.html#cb212-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb212-11"><a href="monte-carlo-simulation.html#cb212-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims) {</span>
-<span id="cb212-12"><a href="monte-carlo-simulation.html#cb212-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># sample (with replacement) from Shaq&#39;s FTA game totals</span></span>
-<span id="cb212-13"><a href="monte-carlo-simulation.html#cb212-13" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> shaq.FTA, <span class="at">size =</span> games.sim[i], <span class="at">replace =</span> T)</span>
-<span id="cb212-14"><a href="monte-carlo-simulation.html#cb212-14" aria-hidden="true" tabindex="-1"></a>    FT[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(temp)</span>
-<span id="cb212-15"><a href="monte-carlo-simulation.html#cb212-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb212-16"><a href="monte-carlo-simulation.html#cb212-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb212-17"><a href="monte-carlo-simulation.html#cb212-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulated mean and SD of season totals of free throw attempts</span></span>
-<span id="cb212-18"><a href="monte-carlo-simulation.html#cb212-18" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(FT), <span class="fu">sd</span>(FT))</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="monte-carlo-simulation.html#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
+<span id="cb209-2"><a href="monte-carlo-simulation.html#cb209-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb209-3"><a href="monte-carlo-simulation.html#cb209-3" aria-hidden="true" tabindex="-1"></a>FT <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
+<span id="cb209-4"><a href="monte-carlo-simulation.html#cb209-4" aria-hidden="true" tabindex="-1"></a>shaq.games <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">51</span>, <span class="dv">60</span>, <span class="dv">49</span>, <span class="dv">79</span>, <span class="dv">74</span>, <span class="dv">67</span>, <span class="dv">67</span>, <span class="dv">67</span>)</span>
+<span id="cb209-5"><a href="monte-carlo-simulation.html#cb209-5" aria-hidden="true" tabindex="-1"></a>shaq.FTA <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/shaqFT.csv&quot;</span>, <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb209-6"><a href="monte-carlo-simulation.html#cb209-6" aria-hidden="true" tabindex="-1"></a>shaq.FTA <span class="ot">&lt;-</span> shaq.FTA<span class="sc">$</span>X1</span>
+<span id="cb209-7"><a href="monte-carlo-simulation.html#cb209-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-8"><a href="monte-carlo-simulation.html#cb209-8" aria-hidden="true" tabindex="-1"></a><span class="co"># sample (with replacement) from Shaq&#39;s FTA game totals</span></span>
+<span id="cb209-9"><a href="monte-carlo-simulation.html#cb209-9" aria-hidden="true" tabindex="-1"></a>games.sim <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> shaq.games, <span class="at">size =</span> n.sims, <span class="at">replace =</span> T)</span>
+<span id="cb209-10"><a href="monte-carlo-simulation.html#cb209-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-11"><a href="monte-carlo-simulation.html#cb209-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims) {</span>
+<span id="cb209-12"><a href="monte-carlo-simulation.html#cb209-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># sample (with replacement) from Shaq&#39;s FTA game totals</span></span>
+<span id="cb209-13"><a href="monte-carlo-simulation.html#cb209-13" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> shaq.FTA, <span class="at">size =</span> games.sim[i], <span class="at">replace =</span> T)</span>
+<span id="cb209-14"><a href="monte-carlo-simulation.html#cb209-14" aria-hidden="true" tabindex="-1"></a>    FT[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(temp)</span>
+<span id="cb209-15"><a href="monte-carlo-simulation.html#cb209-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb209-16"><a href="monte-carlo-simulation.html#cb209-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-17"><a href="monte-carlo-simulation.html#cb209-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulated mean and SD of season totals of free throw attempts</span></span>
+<span id="cb209-18"><a href="monte-carlo-simulation.html#cb209-18" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(FT), <span class="fu">sd</span>(FT))</span></code></pre></div>
 <pre><code>## [1] 695.8883 112.6666</code></pre>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="monte-carlo-simulation.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Actual mean and SD of season totals of free throw attempts</span></span>
-<span id="cb214-2"><a href="monte-carlo-simulation.html#cb214-2" aria-hidden="true" tabindex="-1"></a>FT.actual <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">479</span>, <span class="dv">681</span>, <span class="dv">498</span>, <span class="dv">824</span>, <span class="dv">972</span>, <span class="dv">712</span>, <span class="dv">725</span>, <span class="dv">676</span>)</span>
-<span id="cb214-3"><a href="monte-carlo-simulation.html#cb214-3" aria-hidden="true" tabindex="-1"></a>FT.actual.mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(FT.actual)</span>
-<span id="cb214-4"><a href="monte-carlo-simulation.html#cb214-4" aria-hidden="true" tabindex="-1"></a>FT.actual.var <span class="ot">&lt;-</span> <span class="fu">var</span>(FT.actual) <span class="sc">*</span> <span class="dv">7</span><span class="sc">/</span><span class="dv">8</span>  <span class="co"># population variance</span></span>
-<span id="cb214-5"><a href="monte-carlo-simulation.html#cb214-5" aria-hidden="true" tabindex="-1"></a>FT.actual.sd <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(FT.actual.var)</span>
-<span id="cb214-6"><a href="monte-carlo-simulation.html#cb214-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(FT.actual.mean, FT.actual.sd)</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="monte-carlo-simulation.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Actual mean and SD of season totals of free throw attempts</span></span>
+<span id="cb211-2"><a href="monte-carlo-simulation.html#cb211-2" aria-hidden="true" tabindex="-1"></a>FT.actual <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">479</span>, <span class="dv">681</span>, <span class="dv">498</span>, <span class="dv">824</span>, <span class="dv">972</span>, <span class="dv">712</span>, <span class="dv">725</span>, <span class="dv">676</span>)</span>
+<span id="cb211-3"><a href="monte-carlo-simulation.html#cb211-3" aria-hidden="true" tabindex="-1"></a>FT.actual.mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(FT.actual)</span>
+<span id="cb211-4"><a href="monte-carlo-simulation.html#cb211-4" aria-hidden="true" tabindex="-1"></a>FT.actual.var <span class="ot">&lt;-</span> <span class="fu">var</span>(FT.actual) <span class="sc">*</span> <span class="dv">7</span><span class="sc">/</span><span class="dv">8</span>  <span class="co"># population variance</span></span>
+<span id="cb211-5"><a href="monte-carlo-simulation.html#cb211-5" aria-hidden="true" tabindex="-1"></a>FT.actual.sd <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(FT.actual.var)</span>
+<span id="cb211-6"><a href="monte-carlo-simulation.html#cb211-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(FT.actual.mean, FT.actual.sd)</span></code></pre></div>
 <pre><code>## [1] 695.8750 150.2393</code></pre>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="monte-carlo-simulation.html#cb216-1" aria-hidden="true" tabindex="-1"></a>FT <span class="sc">%&gt;%</span></span>
-<span id="cb216-2"><a href="monte-carlo-simulation.html#cb216-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb216-3"><a href="monte-carlo-simulation.html#cb216-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> FT)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">color =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;purple&quot;</span>) <span class="sc">+</span></span>
-<span id="cb216-4"><a href="monte-carlo-simulation.html#cb216-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;Simulated Season FT Attempt Totals by Shaq with Lakers&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="monte-carlo-simulation.html#cb213-1" aria-hidden="true" tabindex="-1"></a>FT <span class="sc">%&gt;%</span></span>
+<span id="cb213-2"><a href="monte-carlo-simulation.html#cb213-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb213-3"><a href="monte-carlo-simulation.html#cb213-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> FT)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">color =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;purple&quot;</span>) <span class="sc">+</span></span>
+<span id="cb213-4"><a href="monte-carlo-simulation.html#cb213-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;Simulated Season FT Attempt Totals by Shaq with Lakers&quot;</span>)</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
 <p>This simulation is biased low on the variance but is better than the earlier simulation.</p>
 <p>One reason that you may want to do complicated simulations like the example above is to make predictions for a player’s future seasons.</p>
 

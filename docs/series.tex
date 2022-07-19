@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-07-18}
+\date{2022-07-19}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -741,23 +741,6 @@ If you have already installed the \textbf{tidyverse} package, it should have als
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
-\end{verbatim}
-
-\begin{verbatim}
-## v ggplot2 3.3.6     v dplyr   1.0.9
-## v tibble  3.1.7     v stringr 1.4.0
-## v tidyr   1.2.0     v forcats 0.5.1
-## v purrr   0.3.4
-\end{verbatim}
-
-\begin{verbatim}
-## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-\end{verbatim}
-
 Let's load the file ``NFL\_2021\_Team\_Passing.csv'' which contains NFL Team Passing Statistics, 2021 from \url{https://www.pro-football-reference.com/years/2021/index.htm\#passing}
 
 \begin{Shaded}
@@ -904,7 +887,7 @@ We can also order the teams from most team passing touchdowns to least using the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-9-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-10-1.pdf}
 
 \vfill
 \newpage
@@ -971,10 +954,16 @@ Many sports leagues have around 30 teams, so a clean scatterplot with labels can
     \StringTok{"WAS"}\NormalTok{, }\StringTok{"JAC"}\NormalTok{, }\StringTok{"SEA"}\NormalTok{, }\StringTok{"TEN"}\NormalTok{, }\StringTok{"PHI"}\NormalTok{, }\StringTok{"IND"}\NormalTok{, }\StringTok{"CLE"}\NormalTok{, }\StringTok{"HOU"}\NormalTok{, }\StringTok{"CAR"}\NormalTok{, }\StringTok{"CHI"}\NormalTok{, }\StringTok{"NYG"}\NormalTok{,}
     \StringTok{"NO"}\NormalTok{)}
 \NormalTok{NFL\_2021\_Team\_Passing }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Yds, }\AttributeTok{y =}\NormalTok{ TD, }\AttributeTok{label =}\NormalTok{ Abbr)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Team Passing Yards"}\NormalTok{,}
-    \AttributeTok{y =} \StringTok{"Team Passing Touchdowns"}\NormalTok{, }\AttributeTok{title =} \StringTok{"NFL Team Passing Yards, 2021"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{geom\_text\_repel}\NormalTok{(}\AttributeTok{box.padding =} \FloatTok{0.3}\NormalTok{)}
+    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Yds, }\AttributeTok{y =}\NormalTok{ TD, }\AttributeTok{label =}\NormalTok{ Abbr)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{2750}\NormalTok{,}
+    \DecValTok{5250}\NormalTok{)) }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Team Passing Yards"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Team Passing Touchdowns"}\NormalTok{, }\AttributeTok{title =} \StringTok{"NFL Team Passing Yards, 2021"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_text\_repel}\NormalTok{(}\AttributeTok{box.padding =} \FloatTok{0.3}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## Warning: ggrepel: 1 unlabeled data points (too many overlaps). Consider
+## increasing max.overlaps
+\end{verbatim}
 
 \includegraphics{series_files/figure-latex/scatter4-1.pdf}
 \end{example}
@@ -1015,22 +1004,7 @@ You can find additional details on customizing kable tables at ~\url{https://cra
 \begin{Highlighting}[]
 \CommentTok{\# Output using Kable (with no additional options)}
 \FunctionTok{library}\NormalTok{(kableExtra)}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-## 
-## Attaching package: 'kableExtra'
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:dplyr':
-## 
-##     group_rows
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \CommentTok{\# Output using Kable and Kable{-}Styling and some additional options}
 \NormalTok{NFL21 }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{kable}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
@@ -1328,11 +1302,11 @@ oWAR is Baseball Reference's offensive WAR statistic. Note that Baseball Referen
 \CommentTok{\# Standard hitting statistics}
 \NormalTok{rox21\_100 }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{select}\NormalTok{(oWAR, H, }\StringTok{\textasciigrave{}}\AttributeTok{2B}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{3B}\StringTok{\textasciigrave{}}\NormalTok{, HR, R, RBI) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{ggpairs}\NormalTok{()}
+    \FunctionTok{ggpairs}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-16-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-17-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1343,7 +1317,7 @@ oWAR is Baseball Reference's offensive WAR statistic. Note that Baseball Referen
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-16-2.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-17-2.pdf}
 
 \newpage
 
@@ -1397,7 +1371,7 @@ Let's look at the correlations between these variables, paying close attention t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-18-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-19-1.pdf}
 
 This is a small dataset that only contains twenty pitchers (samples), but you will notice that ERA20 is more highly correlated with FIP21 and xFIP21 than ERA21. In other words, FIP and xFIP are likely better predictors of ERA success in the future rather than ERA success in the past.
 
@@ -1595,7 +1569,7 @@ Derek Carr & 94.0 & 93.963\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-21-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-22-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -1619,7 +1593,7 @@ Derek Carr & 94.0 & 93.963\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-22-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-23-1.pdf}
 
 \newpage
 
@@ -2060,7 +2034,7 @@ The dataset includes an Expected Goals statistic for each team in the \texttt{xG
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-25-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-26-1.pdf}
 
 As expected, there is a general positive correlation between expected and actual goals (\(r \approx 0.8\)). However, there is some variability - for example, the Kings only scored 7 more actual goals than the Ducks, despite having 56.6 more expected goals.
 
@@ -2074,7 +2048,7 @@ Let's add a line to the graph using the \texttt{geom\_abline} function correspon
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-26-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-27-1.pdf}
 
 \emph{Note: A slope of 0 and an intercept of 1 are actually the default parameters for the function.}
 
@@ -2183,7 +2157,7 @@ Juuse Saros & NSH & 3931.383\\
 
 The following plot compares save percentage to the number of shots on goal faced for the qualified goalies. The dashed horizontal line is placed at the average shots on goal faced among qualified players, and the dashed vertical line is placed at the average save percentage among qualified players.
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-28-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-29-1.pdf}
 
 Q: Which quadrant of the graph represents goalies that faced a higher than average number of shots, but had a below-average save percentage?
 
@@ -2212,7 +2186,7 @@ The following plot uses the same 2021-2022 data from Moneypuck.com; it gives the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-29-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-30-1.pdf}
 
 Q: Which of the variables has the strongest correlation with goals scored?
 
@@ -2311,7 +2285,7 @@ Let's look at a scatter plot of hitting percentage and the number of digs. While
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-31-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-32-1.pdf}
 
 Let's change the axis titles, legend title, and add a main title.
 
@@ -2322,7 +2296,7 @@ Let's change the axis titles, legend title, and add a main title.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-32-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-33-1.pdf}
 
 What can we learn from this visual? Well, we can see that there is a weak linear relationship between the number of digs and hitting percentage. To an extent, hitting percentage decreases as the number of digs increases. Why is this the case? Maybe if a team has a really high hitting percentage, this means that the opposing team does not have as many opportunities to attack the other team offensively, reducing the number of opportunities for digs. It also seems that while wins and losses are somewhat evenly spread across the number of digs, there is a more clear cutoff for hitting percentage. It seems that the majority of wins are associated with a hitting percentage of at least 0.2, while the majority of losses are associated with a hitting percentage of less than 0.3.
 
@@ -2338,7 +2312,7 @@ Now let's take a closer look at the distribution of hitting percentage and digs 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-33-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-34-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2347,7 +2321,7 @@ Now let's take a closer look at the distribution of hitting percentage and digs 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-33-2.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-34-2.pdf}
 
 Let's modify these plots to make them more complete and visually appealing.
 
@@ -2358,7 +2332,7 @@ Let's modify these plots to make them more complete and visually appealing.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-34-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-35-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2367,7 +2341,7 @@ Let's modify these plots to make them more complete and visually appealing.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-34-2.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-35-2.pdf}
 
 Box plots allow us to isolate each statistic (number of kills and hitting percentage) so we can more clearly determine the center and spread of each between wins and losses.
 
@@ -2442,7 +2416,7 @@ Next we will look at some data specific to LaLiga, which is a soccer league in t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-38-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-39-1.pdf}
 
 This plot is a good starting point, but still looks pretty messy. Let's add a title, change the axis titles, and rotate the axis labels so they are not overlapping over one another.
 
@@ -2454,7 +2428,7 @@ This plot is a good starting point, but still looks pretty messy. Let's add a ti
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-39-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-40-1.pdf}
 
 This is already looking a lot better. Now, we will add the goals scored per game \emph{against} each team. Why is this of interest? Well, at first glance, Barcelona seems like a pretty impressive team, as they score more goals per game than any other team in the league. However, what if they also have more goals scored against them than any other team in the league? This could be important context, so we will include it in the graph below.
 
@@ -2467,7 +2441,7 @@ This is already looking a lot better. Now, we will add the goals scored per game
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-40-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-41-1.pdf}
 
 This is looking pretty good, but let's clean it up just a bit by changing the legend title and labels.
 
@@ -2478,7 +2452,7 @@ This is looking pretty good, but let's clean it up just a bit by changing the le
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-41-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-42-1.pdf}
 
 What does this graph show us? Well, we are able to see the average number of goals scored for and against each team per game. It looks like Barcelona is scoring a lot more goals than they are letting be scored against them, while other teams like Valladolid tend to have a higher proportion of goals scored for the opposing team.
 
@@ -2498,7 +2472,7 @@ In addition to simply knowing the average actual number of goals scored for and 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-42-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-43-1.pdf}
 
 As you can see, we fit a line to the data. At first glance, it seems to have a positive slope slightly greater than 1. What does this mean in the scenario of actual and expected goals per game?
 
@@ -2527,7 +2501,7 @@ An \textbf{\emph{event}} is any collection (subset) of outcomes contained in the
 \end{definition}
 
 \begin{example}
-\[ \]
+Give an example of a discrete random variable in a sports context.
 \end{example}
 
 \hfill\break
@@ -2537,7 +2511,7 @@ An \textbf{\emph{event}} is any collection (subset) of outcomes contained in the
 \hfill\break
 
 \begin{example}
-\[ \]
+Give an example of a continuous random variable in a sports context.
 \end{example}
 
 ~\\
@@ -2671,6 +2645,61 @@ We can convert to percentages by multiplying probabilities by 100, however, this
   \(P([A \cap B]^c) = P(A^c \cup B^c)\)
 \end{itemize}
 
+\newpage
+
+\begin{example}
+In 2001, Barry Bonds broke the single season home run record with 73 home runs. In this season, he had 664 plate appearances (476 at-bats), 156 hits, 177 walks, 9 hit by pitches, and 2 sacrifice flies. Use this information to answer the following questions.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  Plate appearances that result in a walk, hit by pitch, or sacrifice fly are not counted towards a player's at-bats. Confirm that Bonds had 476 official at-bats.\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\item
+  Suppose an at-bat is chosen at random. What is the probability that Bonds got a hit? (This is his batting average.)\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\end{enumerate}
+
+\emph{For the following examples, assume that one of Bonds' plate appearances is chosen at random.}\\
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\item
+  What is the probability that Bonds reached base via a hit, walk, or hit by pitch? (This is his on-base average/percentage.)\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\item
+  What is the probability that Bonds did not reach base?\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\item
+  Calculate \(P\left(HBP \cup Walk\right)\)\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\item
+  Calculate \(P\left(HBP^c \cap Walk^c\right)\)\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\end{enumerate}
+
+\newpage
+
 \hypertarget{laws-of-probability}{%
 \subsection{Laws of Probability}\label{laws-of-probability}}
 
@@ -2680,16 +2709,63 @@ Let \(A\) and \(B\) be two events such that \(P(B)>0\). Then the \textbf{\emph{c
 \end{definition}
 
 \begin{example}
-In 2001, Barry Bonds broke the single season home run record with 73 home runs. In this season, he had 664 plate appearances, 156 hits, 177 walks and 9 hit by pitches. Given that Bonds reached base (via hit, walk, or HBP), what was the probability that he got a hit?
+In 1998, Sammy Sosa hit 66 home runs in 722 plate appearances, the third highest single season homework total ever. During June 1998, Sosa 20 home runs in 121 plate appearances. Suppose a randomly selected plate appearance is selected. Calculate the following probabilities.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  \(P(HR)\)\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\item
+  \(P(HR \cap June)\)\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\item
+  \(P(June)\)\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\item
+  \(P(HR|June)\)\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\item
+  \(P(June|HR)\)\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\item
+  \(P(HR|June^c)\)\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\end{enumerate}
+
+\begin{theorem}[Multiplication Rule]
+For any two events \(A\) and \(B\), \(P(A \cap B) = P(B|A) \cdot P(A)\).
+\end{theorem}
+
+\begin{example}
+Calculate the probability that a randomly selected plate appearance from Sosa's 1998 season is a home run in June.
 \end{example}
 
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
-\begin{theorem}[Multiplication Rule]
-For any two events \(A\) and \(B\), \(P(A \cap B) = P(B|A) \cdot P(A)\).
-\end{theorem}
+\newpage
 
 \begin{definition}
 Events \(A_1, A_2, \ldots, A_n\) are said to form a \textbf{\emph{partition}} of a sample space \(\Omega\) if both:\\
@@ -2702,6 +2778,14 @@ Suppose events \(A_1, A_2, \ldots, A_n\) form a partition of \(\Omega\), then:
 \(P(B) = P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + \ldots P(B|A_n)P(A_n)\)
 \end{theorem}
 
+\begin{example}
+What is one possible way to partition Sosa's plate appearances in 1998?
+\end{example}
+
+\hfill\break
+\hfill\break
+\hfill\break
+
 \begin{theorem}[Bayes Theorem: simple version]
 Suppose events \(B\) and \(C\) form a partition of \(\Omega\), then:
 \(P(B|A) = \frac{P(B \cap A)}{P(A)} = \frac{P(A|B)P(B)}{P(A|B)P(B)+P(A|C)P(C)}\)
@@ -2713,7 +2797,15 @@ Suppose events \(B_1, B_2, \ldots, B_n\) form a partition of \(\Omega\), then:
 \end{theorem}
 
 \begin{example}
-Over the course of a season, a hockey player scored a goal 30\% of the time during a home game, and \(P(player\ scores\ |\ away\ game) = .18\). Assume all games are either home or away. Use this information to answer the following questions.
+Given that Sosa hit a home run in 1998, what is the probability that he hit it in June?
+\end{example}
+
+\hfill\break
+\hfill\break
+\hfill\break
+
+\begin{example}
+Over the course of a season, a hockey player scored a goal 30\% of the time during a home game, and 18\%. Assume all games are either home or away. Use this information to answer the following questions.
 \end{example}
 
 \begin{enumerate}
@@ -2737,27 +2829,6 @@ Over the course of a season, a hockey player scored a goal 30\% of the time duri
 
 \newpage
 
-\begin{example}
-Injured Baserunner (Prob)
-A runner on first base with 2 out and nobody else on base will attempt to steal second base on the first pitch 70\% of the time if he is fully healthy but only 10\% of the time if he is playing through an injury. Assume that 80\% of the player population is healthy. You see a randomly selected runner not attempt a steal in this situation. What is the probability that the runner is playing through an injury?
-\end{example}
-
-From Bayes Theorem:
-
-Pr(Injury given No Steal) = Pr(No Steal given Injury)*Pr(Injury)/P(No Steal).
-
-Pr(No Steal given Injury) = 1 - Pr(Steal given Injury) = 0.9.
-
-Pr(Injury) = 1- Pr(Healthy) = 0.2.
-
-Pr(No Steal) = Pr(No Steal given Injury)*Pr(Injury)+Pr(No Steal given Healthy)*Pr(Healthy).
-
-Pr(No Steal) = 0.9*0.2+0.7*0.8 = 0.74.
-
-Therefore Pr(Injury given No Steal) = 0.9*0.2/0.74 = 0.243.
-
-\newpage
-
 \hypertarget{combinatorics}{%
 \section{Combinatorics}\label{combinatorics}}
 
@@ -2769,21 +2840,65 @@ The \textbf{\emph{factorial function (\(n!\))}} is defined for all positive inte
 
 Note that \(0! \equiv 1\) and \(1! \equiv 1\).
 
+\begin{example}
+A baseball/softball batting lineup has nine ordered players. Suppose the manager has selected the nine players to bat. How many different batting orders are there possible?
+\end{example}
+
+\hfill\break
+\hfill\break
+\hfill\break
+
 \begin{definition}
 An ordered subset is called a \textbf{\emph{permutation}}. The number of permutations of size \(k\) that can be formed from the \(n\) elements in a set is given by: \(P_{n,k} = \frac{n!}{(n-k)!}\)
 \end{definition}
+
+\begin{example}
+In MLB, each team has a 26-person roster, of which about 13 are hitters. Assuming one of the batters is the designated hitter, how many different batting lineups of 9 players can a manager create?
+\end{example}
+
+\hfill\break
+\hfill\break
+\hfill\break
 
 \begin{definition}
 An unordered subset is called a \textbf{\emph{combination}}. The number of combinations of size \(k\) that can be formed from the \(n\) elements in a set is given by: \(C_{n,k} = {n \choose k} = \frac{n!}{k! \cdot (n-k)!}\)
 \end{definition}
 
+\begin{example}
+Suppose a manager has 13 hitters to choose from to fill out a starting lineup of 9 players. Ignoring positions, how many different ways can the manager pick a 9-person lineup from 13 possible hitters?
+\end{example}
+
 \begin{theorem}[Product Rule for Ordered Pairs]
 If the first element of an ordered pair can be selected in \(n_1\) ways and for each of the these \(n_1\) ways the second element of the pair can be selected in \(n_2\) ways, then the number of pairs is \(n_1 \cdot n_2\).
 \end{theorem}
 
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
+
 \begin{theorem}[Generalized Product Rule]
 Suppose a set consists of \(k\) elements (k-tuples) and that there are \(n_1\) possible choices for the first element, \(n_2\) possible choices for the second element, \ldots{} , and \(n_k\) possible choices for the \(k^\text{th}\) element, then there are \(n_1 \cdot n_2 \cdot \ldots \cdot n_k\) possible k-tuples.
 \end{theorem}
+
+\begin{example}
+A baseball manager selects nine hitters and one pitcher for a starting lineup. Suppose they can choose from 13 hitters and 13 hitters. How many different possible lineups can the manager choose from?
+\end{example}
+
+\hfill\break
+\hfill\break
+\hfill\break
+
+\begin{example}
+In softball, rules sometimes allow for a ``designated player''. This player hits for any position player or pitcher but isn't required to play defense. There is some flexibility to allow the designated player to temporarily play a position during the game however. For more on the designated player rule in softball, visit: \url{https://cdn2.sportngin.com/attachments/document/c780-2407390/DPFlexRuleExplained.pdf}
+
+In 2022, the CSU softball team had 24 players. Three of these players were only pitchers and two of these players were both pitchers and fielders. How many different lineups of 10 (8 non-pitching position players, 1 pitcher, 1 designated player) are possible for CSU?
+\end{example}
+
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
 
 \newpage
 
@@ -2934,17 +3049,17 @@ For the following scenarios, assume a wager of \$100. Calculate the payout for a
 \textbf{Note:} A \emph{moneyline wager} refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds.
 
 \begin{definition}
-The \textbf{\emph{implied probability}} of a wager is the probability that corresponds to the odds of the wager.
+The \textbf{\emph{implied probability}}, \(\tilde{p}\), of a wager is the probability that corresponds to the odds of the wager.
 
-\[Implied Probability = \frac{Odds}{Odds+1}\]
+\[\tilde{p} = \frac{Odds}{Odds+1}\]
 
 If we are dealing with moneyline bets, we have the following:
 
 If ML is negative:
-\[Implied Probability = \frac{-ML_{NEG}}{-ML_{NEG}+100}\]
+\[\tilde{p} = \frac{-ML_{NEG}}{-ML_{NEG}+100}\]
 
 If ML is positive:
-\[Implied Probability = \frac{100}{ML_{POS}+100}\]
+\[\tilde{p} = \frac{100}{ML_{POS}+100}\]
 \end{definition}
 
 \begin{example}
@@ -2995,6 +3110,12 @@ Suppose that for an upcoming NFL game, a moneyline wager on the Broncos is -105 
 
 \textbf{Note:} The goal of bookmaking is to make money, so there will be almost certainly be a house advantage. This means that the sum of the implied probabilities will be greater than 1.
 
+\begin{definition}
+The \textbf{\emph{house advantage}} (or \textbf{\emph{hold percentage}}) is the percentage of money that sportsbooks keep for every dollar earned.
+
+\[House \, Advantage = 100 \cdot \sum_{i=1}^n \tilde{p}_i - 100\]
+\end{definition}
+
 \begin{example}
 Suppose that a bookmaker is offering a moneyline wager on the Broncos at -105 and a moneyline wager on the Raiders at -120. Calculate the bookmakers expected winnings based on the following amounts of total bets.
 \end{example}
@@ -3023,6 +3144,74 @@ Suppose that a bookmaker is offering a moneyline wager on the Broncos at -105 an
   \strut \\
 \item
   \$1000 wagered on the Broncos, \$0 wagered on the Raiders\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  What is the house advantage?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+\newpage
+
+\begin{example}
+A \textbf{\emph{point spread bet}} is a bet based on the projected margin of victory that can result in a win, loss, or push.
+
+For example, if a sportsbook offers Rockies -1.5 against the Cubs and you bet on the Rockies, if the Rockies win by 2 or more runs, you win and if the Rockies win by 1 run or lose, then you lose.
+\end{example}
+
+\begin{example}
+Suppose a sportsbook offers Broncos +14 against the Raiders at -110 (they also offer Raiders -14 at -110) and you have \$20 to wager. Calculate the payout for the following scenarios.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  You bet \$20 on the Broncos and the final score is Broncos 21 Raiders 20. What is your payout?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  You bet \$20 on the Raiders and the final score is Broncos 21 Raiders 20. What is your payout?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  You bet \$10 on the Broncos and \$10 on the Raiders and the final score is Broncos 21 Raiders 20. What is your payout?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+\begin{example}
+A \textbf{\emph{parlay bet}} is a combination of multiple bets where the winnings from a winning bet are placed on other bets. All bets must be win for the parlay bet to pay out.
+\end{example}
+
+\begin{example}
+Suppose that CSU is a three point favorite (-3) against CU in a women's basketball game and the over/under on total number of points is 97. Assume that the price of bets is -110.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  Suppose you place two bets, CSU -3 and Over 97, and the outcome of the game is CSU 60 CU 40. What is your payout?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  Suppose you place a parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 60 CU 40. What is your payout?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  Suppose you place two bets, CSU -3 and Over 97, and the outcome of the game is CSU 44 CU 40. What is your payout?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  Suppose you place a parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 44 CU 40. What is your payout?\\
   \strut \\
   \strut \\
   \strut \\
@@ -3073,9 +3262,9 @@ The probability distribution for a continuous random variable, \(f(x)\), is call
 \begin{example}
 Suppose the Colorado Rockies are playing a four game series against the Chicago Cubs and that the Rockies have a 65\% chance of winning an individual game. Further, assume that the games are independent. The following PMF describes the outcomes (number of Rockies wins) and their probabilities.
 
-\begin{table}
+\begin{table}[H]
 \centering
-\begin{tabular}{l|r|r|r|r|r}
+\begin{tabular}{l|l|c|c|c|c}
 \hline
 Rockies wins, X & 0.000 & 1.000 & 2.000 & 3.000 & 4.000\\
 \hline
@@ -3263,7 +3452,7 @@ Complete 10,000 simulations of the four game series between the Rockies and Cubs
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-46-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-47-1.pdf}
 
 \hypertarget{binomial-coefficient-symmetry}{%
 \subsubsection{Binomial Coefficient Symmetry}\label{binomial-coefficient-symmetry}}
@@ -3382,7 +3571,7 @@ Let's plot the sample distribution of shots required to score a goal from the si
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-50-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-51-1.pdf}
 
 \newpage
 
@@ -3444,7 +3633,7 @@ We can also plot the PMF of Y to check visually.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-52-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-53-1.pdf}
 
 Let's check whether using a Poisson distribution was appropriate by comparing it to the actual 2021 Colorado Rapids match results.
 
@@ -3543,7 +3732,7 @@ In 1997-1998 with the Los Angeles Lakers, Shaquille O'Neal attempted an average 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-54-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-55-1.pdf}
 (b) Plot the PMF of a Poisson(11.35) random variable.
 
 \begin{Shaded}
@@ -3553,7 +3742,7 @@ In 1997-1998 with the Los Angeles Lakers, Shaquille O'Neal attempted an average 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-55-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-56-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -3689,7 +3878,7 @@ Using Shaq's 1997-1998 data, model his per game free throw attempts as a Negativ
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-59-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-60-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -4047,23 +4236,6 @@ Q: What are the advantages of using the Poisson distribution to model Major Leag
 
 A: Poisson random variables can take on the natural numbers (including zero), which aligns with the number of goals that can be scored in a match. One disadvantage is that it is possible for a Poisson to take on values that are not realistic for the situation, such as double-digit integers or higher. Only one game in MLS history has had a team score more than seven goals in a game. However, when \(\lambda\) is small (such as 1.5), these extreme values are relatively unlikely.
 
-\hypertarget{law-of-total-probability---hockey}{%
-\subsection{Law of Total Probability - Hockey}\label{law-of-total-probability---hockey}}
-
-Over the course of a season, a hockey player scored a goal 30\% of the time during a home game, and \(P(player\ scores\ |\ away\ game) = .18\). Assume all games are either home or away.
-
-Q: What is the probability the player scored a goal in any game if there were an equal number of home and away games?
-
-A: \(P(score) = P(score|home)P(home) + P(score|away)P(away) = .3(.5) + .18(.5) = .24\)
-
-Q: What is the probability the player scored a goal in any game if there were twice as many home games as away games?
-
-A: \(P(score) = P(score|home)P(home) + P(score|away)P(away) = .3(\frac{2}{3}) + .18(\frac{1}{3}) = .26\)
-
-Q: What is the probability the player scored a goal in any game if the ratio of home games to away games is 2:3?
-
-A: \(P(score) = P(score|home)P(home) + P(score|away)P(away) = .3(\frac{2}{5}) + .18(\frac{3}{5}) = .228\)
-
 \hypertarget{law-of-total-probability---baseball}{%
 \subsection{Law of Total Probability - Baseball}\label{law-of-total-probability---baseball}}
 
@@ -4102,6 +4274,27 @@ The probability can also be found in \texttt{R} using the \texttt{dmultinom} fun
 \begin{verbatim}
 ## [1] 0.1452678
 \end{verbatim}
+
+\hypertarget{bayes---injured-baseball-player}{%
+\subsection{Bayes - injured baseball player}\label{bayes---injured-baseball-player}}
+
+\begin{example}
+A runner on first base with 2 out and nobody else on base will attempt to steal second base on the first pitch 70\% of the time if he is fully healthy but only 10\% of the time if he is playing through an injury. Assume that 80\% of the player population is healthy. You see a randomly selected runner not attempt a steal in this situation. What is the probability that the runner is playing through an injury?
+\end{example}
+
+From Bayes Theorem:
+
+Pr(Injury given No Steal) = Pr(No Steal given Injury)*Pr(Injury)/P(No Steal).
+
+Pr(No Steal given Injury) = 1 - Pr(Steal given Injury) = 0.9.
+
+Pr(Injury) = 1- Pr(Healthy) = 0.2.
+
+Pr(No Steal) = Pr(No Steal given Injury)*Pr(Injury)+Pr(No Steal given Healthy)*Pr(Healthy).
+
+Pr(No Steal) = 0.9*0.2+0.7*0.8 = 0.74.
+
+Therefore Pr(Injury given No Steal) = 0.9*0.2/0.74 = 0.243.
 
 \hypertarget{monte-carlo-simulation}{%
 \chapter{Monte Carlo Simulation}\label{monte-carlo-simulation}}
@@ -4227,7 +4420,7 @@ In more complicated simulations, there may not be an easy formula to use to calc
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-67-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-68-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4384,12 +4577,13 @@ During the 2021 WNBA season, Kahleah Copper of the Chicago Sky had a free throw 
 ## [1] 0.1711
 \end{verbatim}
 
-\hypertarget{a-few-reminderstips-for-simulation-and-a-basic-example}{%
-\section{A few reminders/tips for simulation, and a basic example}\label{a-few-reminderstips-for-simulation-and-a-basic-example}}
+\newpage
 
+\begin{example}
 The number of regulation goals scored in a game by Hockey Team A, \(X\), is a Poisson(4) random variable, and the same for Hockey Team B, \(Y\), is a Poisson(3.2) random variable.
 
 A statistician is interested in the probability that Team A defeats Team B in regulation. This is \(P(X > Y)\), which is difficult to calculate manually. However, using simulation, we can straightforwardly obtain an accurate estimation of this quantity.
+\end{example}
 
 There are many built-in functions in \texttt{R} that allow users to generate realizations from common probability distributions (\texttt{rnorm}, \texttt{rbinom}, \texttt{rexp}, etc.) Let's use the \texttt{rpois} function to simulate the appropriate variables, remembering to set a seed so that our results are easily replicable.
 
@@ -4464,6 +4658,63 @@ A: We can simulate a season for the team, find the longest winning streak in tha
 
 The team had a 4+ game winning streak in about 20\% of the simulations.
 
+\hypertarget{hit-streak-simulation}{%
+\section{Hit Streak Simulation}\label{hit-streak-simulation}}
+
+\begin{example}
+In 1941, Joe DiMaggio had a 56-game hitting streak which is an all-time record in MLB. How unlikely was such an outcome? Let's build a simulation to estimate the probability of a 56-game hitting streak using DiMaggio's statistics.
+
+DiMaggio had 193 hits in 622 plate appearances over 139 games. We will simulate DiMaggio's season of 139 games many times to estimate the probability of a 56-game hitting streak. Assume that in each game DiMaggio has a 50\% chance of 4 plate appearance and a 50\% chance of 5 plate appearances. For a plate appearance, DiMaggio had a probability of \(193/622 = 0.310\) of getting a hit.
+
+The probability of DiMaggio getting at least one hit in a 4 plate appearance game is: \$P(one , or , more , hits) = 1 - P(no hit) = 1-0.69\^{}4 = 0.7733.
+
+The probability of DiMaggio getting at least one hit in a 5 plate appearance game is: \$P(one , or , more , hits) = 1 - P(no hit) = 1-0.69\^{}5 = 0.8436.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2022}\NormalTok{)}
+\NormalTok{n.sims }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{n.games }\OtherTok{\textless{}{-}} \DecValTok{139}
+
+\NormalTok{longest.streak }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n.sims)}
+\NormalTok{sim.games }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n.games)}
+
+\NormalTok{p4 }\OtherTok{\textless{}{-}} \FloatTok{0.7733}
+\NormalTok{p5 }\OtherTok{\textless{}{-}} \FloatTok{0.8436}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n.sims) \{}
+    \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{139}\NormalTok{) \{}
+\NormalTok{        sim.ab }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{), }\AttributeTok{size =} \DecValTok{1}\NormalTok{, }\AttributeTok{replace =}\NormalTok{ T)}
+\NormalTok{        sim.games[j] }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\AttributeTok{n =} \DecValTok{1}\NormalTok{, }\AttributeTok{size =}\NormalTok{ sim.ab, }\AttributeTok{prob =} \FloatTok{0.31}\NormalTok{)}
+\NormalTok{    \}}
+\NormalTok{    sim.hits }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(sim.games }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{    streaks }\OtherTok{\textless{}{-}} \FunctionTok{rle}\NormalTok{(sim.hits)}
+\NormalTok{    longest.streak[i] }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(streaks}\SpecialCharTok{$}\NormalTok{lengths[streaks}\SpecialCharTok{$}\NormalTok{values }\SpecialCharTok{==} \DecValTok{1}\NormalTok{])}
+\NormalTok{\}}
+
+\FunctionTok{table}\NormalTok{(longest.streak)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## longest.streak
+##   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25 
+##   1   5  33 112 257 426 633 746 881 891 826 796 708 612 556 450 357 311 284 226 
+##  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45 
+## 181 146 103  93  74  62  46  39  28  15  17  20  18  10   8   3   7   3   2   2 
+##  46  47  48  49  50  51  53  54 
+##   3   3   1   1   1   1   1   1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(longest.streak)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-74-1.pdf}
+
 \hypertarget{shaq-ft-simulation}{%
 \section{Shaq FT simulation}\label{shaq-ft-simulation}}
 
@@ -4528,7 +4779,7 @@ For the number of free throw attempts per game, we could model this as a Poisson
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-73-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-75-1.pdf}
 
 Notice that the mean of our simulation is somewhat close to Shaq's true season average number of free throw attempts but the variance of the simulation is far too low.
 
@@ -4589,7 +4840,7 @@ Using resampling, simulate the number of free throws Shaq would attempt while wi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-74-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-76-1.pdf}
 
 This simulation is biased low on the variance but is better than the earlier simulation.
 

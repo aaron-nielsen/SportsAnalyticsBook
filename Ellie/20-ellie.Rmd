@@ -345,10 +345,22 @@ $$
 
 Therefore, the probability of the CSU Women's Volleyball Team winning the second game given that they win the first game is 68.75%.
 
-### Hockey: Linear Regression
+### Autocorrelation (from Analytic Methods in Sports pg. 134)
 
-using auto correlation, pg. 134
-rank correlation, pg. 129 (ranking for passing and rushing yards)
-random forests
+```{r}
+
+```
+
+
+
+
+### Rank Correlation (from Analytic Methods in Sports pg. 129)
+
+
+
+
+
+### Random Forests
+
 
 ------------------------------------------------------------------------

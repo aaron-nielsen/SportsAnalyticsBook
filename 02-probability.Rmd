@@ -6,7 +6,7 @@ library(kableExtra)
 
 # kable table global setup
 kt <- function(data) {
-   knitr::kable(data, digits=3, align=c('l','c','c','c','c','c','c','c','c')) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+   knitr::kable(data, digits=3, align=c('l',rep('c',20))) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
 }
 ```
 
@@ -30,7 +30,7 @@ An ***event*** is any collection (subset) of outcomes contained in the sample sp
 :::
 
 :::{.example}
-$$ $$
+Give an example of a discrete random variable in a sports context.
 :::
 \
 \
@@ -39,7 +39,8 @@ $$ $$
 \
 
 :::{.example}
-$$ $$
+
+Give an example of a continuous random variable in a sports context.
 :::
 \ 
 \
@@ -163,6 +164,52 @@ We can convert to percentages by multiplying probabilities by 100, however, this
 
 - $P([A \cap B]^c) = P(A^c \cup B^c)$
 
+\newpage
+
+:::{.example}
+In 2001, Barry Bonds broke the single season home run record with 73 home runs. In this season, he had 664 plate appearances (476 at-bats), 156 hits, 177 walks, 9 hit by pitches, and 2 sacrifice flies. Use this information to answer the following questions.
+:::
+
+(a) Plate appearances that result in a walk, hit by pitch, or sacrifice fly are not counted towards a player's at-bats. Confirm that Bonds had 476 official at-bats. \
+\
+\
+\
+\vfill
+
+(b) Suppose an at-bat is chosen at random. What is the probability that Bonds got a hit? (This is his batting average.) \
+\
+\
+\
+\vfill
+
+*For the following examples, assume that one of Bonds' plate appearances is chosen at random.* \
+
+(c) What is the probability that Bonds reached base via a hit, walk, or hit by pitch? (This is his on-base average/percentage.) \
+\
+\
+\
+\vfill
+
+(d) What is the probability that Bonds did not reach base? \
+\
+\
+\
+\vfill
+
+(e) Calculate $P\left(HBP \cup Walk\right)$ \
+\
+\
+\
+\vfill
+
+(f) Calculate $P\left(HBP^c \cap Walk^c\right)$ \
+\
+\
+\
+\vfill
+
+\newpage
+
 
 ### Laws of Probability
 
@@ -172,16 +219,63 @@ $P(A|B) = \frac{P(A \cap B)}{P(B)}$
 :::
 
 :::{ .example}
-In 2001, Barry Bonds broke the single season home run record with 73 home runs. In this season, he had 664 plate appearances, 156 hits, 177 walks and 9 hit by pitches. Given that Bonds reached base (via hit, walk, or HBP), what was the probability that he got a hit?
+In 1998, Sammy Sosa hit 66 home runs in 722 plate appearances, the third highest single season homework total ever. During June 1998, Sosa 20 home runs in 121 plate appearances. Suppose a randomly selected plate appearance is selected. Calculate the following probabilities.
 :::
 
+(a) $P(HR)$ \
 \
 \
 \
+\vfill
+
+
+(b) $P(HR \cap June)$ \
+\
+\
+\
+\vfill
+
+(c) $P(June)$ \
+\
+\
+\
+\vfill
+
+(d) $P(HR|June)$ \
+\
+\
+\
+\vfill
+
+(e) $P(June|HR)$ \
+\
+\
+\
+\vfill
+
+(f) $P(HR|June^c)$ \
+\
+\
+\
+\vfill
+
 
 :::{.theorem name="Multiplication Rule"}
 For any two events $A$ and $B$, $P(A \cap B) = P(B|A) \cdot P(A)$.
 :::
+
+:::{.example}
+Calculate the probability that a randomly selected plate appearance from Sosa's 1998 season is a home run in June.
+:::
+
+\
+\
+\
+\vfill
+
+\newpage
+
+
 
 :::{.definition}
 Events $A_1, A_2, \ldots, A_n$ are said to form a ***partition*** of a sample space $\Omega$ if both: \
@@ -194,6 +288,14 @@ Events $A_1, A_2, \ldots, A_n$ are said to form a ***partition*** of a sample sp
 Suppose events $A_1, A_2, \ldots, A_n$ form a partition of $\Omega$, then:
 $P(B) = P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + \ldots P(B|A_n)P(A_n)$
 :::
+
+:::{.example}
+What is one possible way to partition Sosa's plate appearances in 1998?
+:::
+
+\
+\
+\
 
 
 
@@ -208,7 +310,16 @@ $P(B_k|A) = \frac{P(B_k \cap A)}{P(A)} = \frac{P(A|B_k)P(B_k)}{P(A|B_1)P(B_1)+P(
 :::
 
 :::{.example}
-Over the course of a season, a hockey player scored a goal 30% of the time during a home game, and $P(player\ scores\ |\ away\ game) = .18$. Assume all games are either home or away. Use this information to answer the following questions.
+Given that Sosa hit a home run in 1998, what is the probability that he hit it in June?
+:::
+
+\
+\
+\
+
+
+:::{.example}
+Over the course of a season, a hockey player scored a goal 30% of the time during a home game, and 18%. Assume all games are either home or away. Use this information to answer the following questions.
 :::
 
 (a) What is the probability the player scored a goal in any game if there were an equal number of home and away games? \
@@ -226,26 +337,6 @@ Over the course of a season, a hockey player scored a goal 30% of the time durin
 \
 \
 
-\newpage
-
-:::{.example}
-Injured Baserunner (Prob)
-A runner on first base with 2 out and nobody else on base will attempt to steal second base on the first pitch 70% of the time if he is fully healthy but only 10% of the time if he is playing through an injury. Assume that 80% of the player population is healthy. You see a randomly selected runner not attempt a steal in this situation. What is the probability that the runner is playing through an injury?
-:::
-
-From Bayes Theorem:  
-
-Pr(Injury given No Steal) = Pr(No Steal given Injury)\*Pr(Injury)/P(No Steal).  
-
-Pr(No Steal given Injury) = 1 - Pr(Steal given Injury) = 0.9.  
-
-Pr(Injury) = 1- Pr(Healthy) = 0.2.  
-
-Pr(No Steal) = Pr(No Steal given Injury)\*Pr(Injury)+Pr(No Steal given Healthy)\*Pr(Healthy).  
-
-Pr(No Steal) = 0.9\*0.2+0.7\*0.8 = 0.74.  
-
-Therefore Pr(Injury given No Steal) = 0.9\*0.2/0.74 = 0.243.  
 
 \newpage
 
@@ -259,21 +350,65 @@ The ***factorial function ($n!$)*** is defined for all positive integers by: $n!
 
 Note that $0! \equiv 1$ and $1! \equiv 1$.
 
+:::{.example}
+A baseball/softball batting lineup has nine ordered players. Suppose the manager has selected the nine players to bat. How many different batting orders are there possible?
+:::
+
+\
+\
+\
+
 :::{.definition}
 An ordered subset is called a ***permutation***. The number of permutations of size $k$ that can be formed from the $n$ elements in a set is given by: $P_{n,k} = \frac{n!}{(n-k)!}$
 :::
 
+:::{.example}
+In MLB, each team has a 26-person roster, of which about 13 are hitters. Assuming one of the batters is the designated hitter, how many different batting lineups of 9 players can a manager create?
+:::
+
+\
+\
+\
+
 :::{.definition}
 An unordered subset is called a ***combination***. The number of combinations of size $k$ that can be formed from the $n$ elements in a set is given by: $C_{n,k} = {n \choose k} = \frac{n!}{k! \cdot (n-k)!}$
+:::
+
+:::{.example}
+Suppose a manager has 13 hitters to choose from to fill out a starting lineup of 9 players. Ignoring positions, how many different ways can the manager pick a 9-person lineup from 13 possible hitters?
 :::
 
 :::{.theorem name="Product Rule for Ordered Pairs"}
 If the first element of an ordered pair can be selected in $n_1$ ways and for each of the these $n_1$ ways the second element of the pair can be selected in $n_2$ ways, then the number of pairs is $n_1 \cdot n_2$.
 :::
 
+\
+\
+\
+\
+
 :::{.theorem name="Generalized Product Rule"}
 Suppose a set consists of $k$ elements (k-tuples) and that there are $n_1$ possible choices for the first element, $n_2$ possible choices for the second element, ... , and $n_k$ possible choices for the $k^\text{th}$ element, then there are $n_1 \cdot n_2 \cdot \ldots \cdot n_k$ possible k-tuples.
 :::
+
+:::{.example}
+A baseball manager selects nine hitters and one pitcher for a starting lineup. Suppose they can choose from 13 hitters and 13 hitters. How many different possible lineups can the manager choose from?
+:::
+
+\
+\
+\
+
+:::{.example}
+In softball, rules sometimes allow for a "designated player". This player hits for any position player or pitcher but isn't required to play defense. There is some flexibility to allow the designated player to temporarily play a position during the game however. For more on the designated player rule in softball, visit: https://cdn2.sportngin.com/attachments/document/c780-2407390/DPFlexRuleExplained.pdf
+
+In 2022, the CSU softball team had 24 players. Three of these players were only pitchers and two of these players were both pitchers and fielders. How many different lineups of 10 (8 non-pitching position players, 1 pitcher, 1 designated player) are possible for CSU?
+:::
+
+\
+\
+\
+\
 
 \newpage
 
@@ -389,17 +524,17 @@ For the following scenarios, assume a wager of \$100. Calculate the payout for a
 **Note:** A *moneyline wager* refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds.
 
 :::{.definition}
-The ***implied probability*** of a wager is the probability that corresponds to the odds of the wager.
+The ***implied probability***, $\tilde{p}$, of a wager is the probability that corresponds to the odds of the wager.
 
-\[Implied Probability = \frac{Odds}{Odds+1}\]
+\[\tilde{p} = \frac{Odds}{Odds+1}\]
 
 If we are dealing with moneyline bets, we have the following:
 
 If ML is negative:
-\[Implied Probability = \frac{-ML_{NEG}}{-ML_{NEG}+100}\]
+\[\tilde{p} = \frac{-ML_{NEG}}{-ML_{NEG}+100}\]
 
 If ML is positive:
-\[Implied Probability = \frac{100}{ML_{POS}+100}\]
+\[\tilde{p} = \frac{100}{ML_{POS}+100}\]
 :::
 
 :::{.example}
@@ -443,6 +578,13 @@ Suppose that for an upcoming NFL game, a moneyline wager on the Broncos is -105 
 
 **Note:** The goal of bookmaking is to make money, so there will be almost certainly be a house advantage. This means that the sum of the implied probabilities will be greater than 1.
 
+:::{.definition}
+The ***house advantage*** (or ***hold percentage***) is the percentage of money that sportsbooks keep for every dollar earned.
+
+\[House \, Advantage = 100 \cdot \sum_{i=1}^n \tilde{p}_i - 100\]
+:::
+
+
 :::{.example}
 Suppose that a bookmaker is offering a moneyline wager on the Broncos at -105 and a moneyline wager on the Raiders at -120. Calculate the bookmakers expected winnings based on the following amounts of total bets.
 :::
@@ -468,6 +610,66 @@ Suppose that a bookmaker is offering a moneyline wager on the Broncos at -105 an
 \
 
 (e) \$1000 wagered on the Broncos, \$0 wagered on the Raiders \
+\
+\
+\
+
+(f) What is the house advantage? \
+\
+\
+\
+
+\newpage
+
+:::{.example}
+A ***point spread bet*** is a bet based on the projected margin of victory that can result in a win, loss, or push.
+
+For example, if a sportsbook offers Rockies -1.5 against the Cubs and you bet on the Rockies, if the Rockies win by 2 or more runs, you win and if the Rockies win by 1 run or lose, then you lose.
+:::
+
+:::{.example}
+Suppose a sportsbook offers Broncos +14 against the Raiders at -110 (they also offer Raiders -14 at -110) and you have \$20 to wager. Calculate the payout for the following scenarios.
+:::
+
+(a) You bet \$20 on the Broncos and the final score is Broncos 21 Raiders 20. What is your payout? \
+\
+\
+\
+
+(b) You bet \$20 on the Raiders and the final score is Broncos 21 Raiders 20. What is your payout? \
+\
+\
+\
+
+(c) You bet \$10 on the Broncos and \$10 on the Raiders and the final score is Broncos 21 Raiders 20. What is your payout? \
+\
+\
+\
+
+:::{.example}
+A ***parlay bet*** is a combination of multiple bets where the winnings from a winning bet are placed on other bets. All bets must be win for the parlay bet to pay out.
+:::
+
+:::{.example}
+Suppose that CSU is a three point favorite (-3) against CU in a women's basketball game and the over/under on total number of points is 97. Assume that the price of bets is -110.
+:::
+
+(a) Suppose you place two bets, CSU -3 and Over 97, and the outcome of the game is CSU 60 CU 40. What is your payout? \
+\
+\
+\
+
+(b) Suppose you place a parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 60 CU 40. What is your payout? \
+\
+\
+\
+
+(c) Suppose you place two bets, CSU -3 and Over 97, and the outcome of the game is CSU 44 CU 40. What is your payout? \
+\
+\
+\
+
+(d) Suppose you place a parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 44 CU 40. What is your payout? \
 \
 \
 \
@@ -529,7 +731,7 @@ x <- 0:4
 px <- c(0.015, 0.111, 0.311, 0.384, 0.179)
 df <- t(data.frame(x,px))
 row.names(df) = c("Rockies wins, X","Probability, p(X)")
-df %>% kable() %>% kable_styling(full_width = F)
+df %>% kt()
 ```
 
 What is the probability that the Rockies win zero games? What is the probability that the Rockies win at least two games? Why might the independence assumption be false?
@@ -1160,22 +1362,6 @@ Q: What are the advantages of using the Poisson distribution to model Major Leag
 A: Poisson random variables can take on the natural numbers (including zero), which aligns with the number of goals that can be scored in a match. One disadvantage is that it is possible for a Poisson to take on values that are not realistic for the situation, such as double-digit integers or higher. Only one game in MLS history has had a team score more than seven goals in a game. However, when $\lambda$ is small (such as 1.5), these extreme values are relatively unlikely.
 
 
-### Law of Total Probability - Hockey
-
-Over the course of a season, a hockey player scored a goal 30% of the time during a home game, and $P(player\ scores\ |\ away\ game) = .18$. Assume all games are either home or away.
-
-Q: What is the probability the player scored a goal in any game if there were an equal number of home and away games?
-
-A: $P(score) = P(score|home)P(home) + P(score|away)P(away) = .3(.5) + .18(.5) = .24$
-
-Q: What is the probability the player scored a goal in any game if there were twice as many home games as away games?
-
-A: $P(score) = P(score|home)P(home) + P(score|away)P(away) = .3(\frac{2}{3}) + .18(\frac{1}{3}) = .26$
-
-Q: What is the probability the player scored a goal in any game if the ratio of home games to away games is 2:3?
-
-A: $P(score) = P(score|home)P(home) + P(score|away)P(away) = .3(\frac{2}{5}) + .18(\frac{3}{5}) = .228$
-
 ### Law of Total Probability - Baseball
 
 You work in the front office of a professional baseball club and have just learned that a certain prospect hits .200 against left-handed pitchers and .400 against right-handed pitchers (their overall batting average is unknown). The general manager of the team overhears you talking about the .400 statistic of the player and becomes very exited that they have the chance to draft a .400 hitter. What would you say to caution the GM that the player might not be a remarkable hitter?
@@ -1214,3 +1400,22 @@ dmultinom(x = c(3, 1, 0, 1), prob = c(.61, .16, .03, .20))
 ```
 
 
+### Bayes - injured baseball player
+
+:::{.example}
+A runner on first base with 2 out and nobody else on base will attempt to steal second base on the first pitch 70% of the time if he is fully healthy but only 10% of the time if he is playing through an injury. Assume that 80% of the player population is healthy. You see a randomly selected runner not attempt a steal in this situation. What is the probability that the runner is playing through an injury?
+:::
+
+From Bayes Theorem:  
+
+Pr(Injury given No Steal) = Pr(No Steal given Injury)\*Pr(Injury)/P(No Steal).  
+
+Pr(No Steal given Injury) = 1 - Pr(Steal given Injury) = 0.9.  
+
+Pr(Injury) = 1- Pr(Healthy) = 0.2.  
+
+Pr(No Steal) = Pr(No Steal given Injury)\*Pr(Injury)+Pr(No Steal given Healthy)\*Pr(Healthy).  
+
+Pr(No Steal) = 0.9\*0.2+0.7\*0.8 = 0.74.  
+
+Therefore Pr(Injury given No Steal) = 0.9\*0.2/0.74 = 0.243.  
