@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  19 JUL 2022 15:12
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  20 JUL 2022 13:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2455,8 +2455,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 4317--4318
 [117
 
 ] [118]
-File: series_files/figure-latex/unnamed-chunk-68-1.pdf Graphic file (type pdf)
-<use series_files/figure-latex/unnamed-chunk-68-1.pdf>
+File: series_files/figure-latex/unnamed-chunk-69-1.pdf Graphic file (type pdf)
+<use series_files/figure-latex/unnamed-chunk-69-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -2465,49 +2465,88 @@ Overfull \vbox (3.5878pt too high) detected at line 4641
  []
 
 [123]
-Overfull \vbox (3.58768pt too high) detected at line 4698
- []
-
-[124]
-Overfull \hbox (1.64238pt too wide) in paragraph at lines 4708--4708
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 4701--4701
 []\TU/lmtt/m/n/10.95 ##   6   7   8   9  10  11  12  13  14  15  16  17  18  19
   20  21  22  23  24  25[] 
  []
 
 
-Overfull \hbox (1.64238pt too wide) in paragraph at lines 4708--4708
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 4701--4701
 []\TU/lmtt/m/n/10.95 ##   1   5  33 112 257 426 633 746 881 891 826 796 708 612
  556 450 357 311 284 226[] 
  []
 
-
-Overfull \hbox (1.64238pt too wide) in paragraph at lines 4708--4708
+[124]
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 4701--4701
 []\TU/lmtt/m/n/10.95 ##  26  27  28  29  30  31  32  33  34  35  36  37  38  39
   40  41  42  43  44  45[] 
  []
 
 
-Overfull \hbox (1.64238pt too wide) in paragraph at lines 4708--4708
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 4701--4701
 []\TU/lmtt/m/n/10.95 ## 181 146 103  93  74  62  46  39  28  15  17  20  18  10
    8   3   7   3   2   2[] 
  []
 
-File: series_files/figure-latex/unnamed-chunk-74-1.pdf Graphic file (type pdf)
-<use series_files/figure-latex/unnamed-chunk-74-1.pdf>
-[125]
 File: series_files/figure-latex/unnamed-chunk-75-1.pdf Graphic file (type pdf)
 <use series_files/figure-latex/unnamed-chunk-75-1.pdf>
+[125]
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 4790--4790
+[]\TU/lmtt/m/n/10.95 ##    6    7    8    9   10   11   12   13   14   15   16 
+  17   18   19   20   21[] 
+ []
+
+
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 4790--4790
+[]\TU/lmtt/m/n/10.95 ##    4   48  304 1149 2466 4502 6276 7666 8662 8963 8636 
+7998 7079 6182 5208 4448[] 
+ []
+
+
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 4790--4790
+[]\TU/lmtt/m/n/10.95 ##   22   23   24   25   26   27   28   29   30   31   32 
+  33   34   35   36   37[] 
+ []
+
+
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 4790--4790
+[]\TU/lmtt/m/n/10.95 ## 3771 3054 2579 2119 1690 1424 1138  929  743  596  464 
+ 361  302  216  187  173[] 
+ []
+
+
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 4790--4790
+[]\TU/lmtt/m/n/10.95 ##   38   39   40   41   42   43   44   45   46   47   48 
+  49   50   51   52   53[] 
+ []
+
+
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 4790--4790
+[]\TU/lmtt/m/n/10.95 ##  135  110   73   73   64   39   39   26   20   15   14 
+  12    8    6    9    4[] 
+ []
+
+[126]
+File: series_files/figure-latex/unnamed-chunk-76-1.pdf Graphic file (type pdf)
+<use series_files/figure-latex/unnamed-chunk-76-1.pdf>
+[127]
+Overfull \vbox (3.5877pt too high) detected at line 4886
+ []
+
+[128]
+File: series_files/figure-latex/unnamed-chunk-77-1.pdf Graphic file (type pdf)
+<use series_files/figure-latex/unnamed-chunk-77-1.pdf>
+[129]
+File: series_files/figure-latex/unnamed-chunk-78-1.pdf Graphic file (type pdf)
+<use series_files/figure-latex/unnamed-chunk-78-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[126] [127]
-File: series_files/figure-latex/unnamed-chunk-76-1.pdf Graphic file (type pdf)
-<use series_files/figure-latex/unnamed-chunk-76-1.pdf>
-[128]
-Chapter 4.
-[129
+[130] [131] [132
 
-] [130
+]
+Chapter 4.
+[133] [134
 
 ]
 Chapter 5.
@@ -2518,27 +2557,27 @@ File: series_files/figure-latex/correlation properties 2-2.pdf Graphic file (ty
 pe pdf)
 <use series_files/figure-latex/correlation properties 2-2.pdf>
 
-Underfull \hbox (badness 10000) in paragraph at lines 4866--4867
+Underfull \hbox (badness 10000) in paragraph at lines 4985--4986
 [][]
  []
 
 
 Underfull \vbox (badness 1418) has occurred while \output is active []
 
-[131] [132] [133] [134
+[135] [136] [137] [138
 
 ]
 Chapter 6.
-[135]
+[139]
 No file series.bbl.
-[136] (./series.aux) ) 
+[140] (./series.aux) ) 
 Here is how much of TeX's memory you used:
- 22657 strings out of 476179
- 427383 string characters out of 5809544
- 904888 words of memory out of 5000000
- 42988 multiletter control sequences out of 15000+600000
+ 22665 strings out of 476179
+ 427796 string characters out of 5809544
+ 904892 words of memory out of 5000000
+ 42995 multiletter control sequences out of 15000+600000
  475878 words of font info for 90 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 86i,10n,121p,1003b,507s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,10n,121p,1003b,526s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on series.pdf (136 pages).
+Output written on series.pdf (140 pages).

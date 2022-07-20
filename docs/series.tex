@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-07-19}
+\date{2022-07-20}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -4420,7 +4420,7 @@ In more complicated simulations, there may not be an easy formula to use to calc
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-68-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-69-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4658,17 +4658,13 @@ A: We can simulate a season for the team, find the longest winning streak in tha
 
 The team had a 4+ game winning streak in about 20\% of the simulations.
 
-\hypertarget{hit-streak-simulation}{%
-\section{Hit Streak Simulation}\label{hit-streak-simulation}}
+\hypertarget{hitting-streak-simulation}{%
+\section{Hitting Streak Simulation}\label{hitting-streak-simulation}}
 
 \begin{example}
-In 1941, Joe DiMaggio had a 56-game hitting streak which is an all-time record in MLB. How unlikely was such an outcome? Let's build a simulation to estimate the probability of a 56-game hitting streak using DiMaggio's statistics.
+In 1941, Joe DiMaggio had a 56-game hitting streak which is an all-time record in MLB. How unlikely was such an outcome? Let's build a simulation to estimate the probability of a hitting streak of at least 56 games using DiMaggio's statistics.
 
 DiMaggio had 193 hits in 622 plate appearances over 139 games. We will simulate DiMaggio's season of 139 games many times to estimate the probability of a 56-game hitting streak. Assume that in each game DiMaggio has a 50\% chance of 4 plate appearance and a 50\% chance of 5 plate appearances. For a plate appearance, DiMaggio had a probability of \(193/622 = 0.310\) of getting a hit.
-
-The probability of DiMaggio getting at least one hit in a 4 plate appearance game is: \$P(one , or , more , hits) = 1 - P(no hit) = 1-0.69\^{}4 = 0.7733.
-
-The probability of DiMaggio getting at least one hit in a 5 plate appearance game is: \$P(one , or , more , hits) = 1 - P(no hit) = 1-0.69\^{}5 = 0.8436.
 \end{example}
 
 \begin{Shaded}
@@ -4679,9 +4675,6 @@ The probability of DiMaggio getting at least one hit in a 5 plate appearance gam
 
 \NormalTok{longest.streak }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n.sims)}
 \NormalTok{sim.games }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n.games)}
-
-\NormalTok{p4 }\OtherTok{\textless{}{-}} \FloatTok{0.7733}
-\NormalTok{p5 }\OtherTok{\textless{}{-}} \FloatTok{0.8436}
 
 \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n.sims) \{}
     \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{139}\NormalTok{) \{}
@@ -4709,11 +4702,137 @@ The probability of DiMaggio getting at least one hit in a 5 plate appearance gam
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{hist}\NormalTok{(longest.streak)}
+\NormalTok{longest.streak }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ longest.streak)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Longest Hitting Streak for 10,000 Simulated DiMaggio 1941 Seasons"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Max Hitting Streak in a Simulation Season"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-74-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-75-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(longest.streak)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 17.7386
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(longest.streak }\SpecialCharTok{\textgreater{}} \DecValTok{55}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+This code is slow because we have nested for loops. When at all possible, you would like to avoid using nested for loops.
+
+Running the simulation above with \texttt{set.seed(2022)} and \texttt{n.sims=10000}, we get \(P(Streak \geq 66) = 0\). No hitting streak of 56 games or more in this simulation.
+
+If we run the simulation again with \texttt{set.seed(2022)} but increase \texttt{n.sims=100000}, we get \(P(Streak \geq 66) = \frac{9}{100000} = 9 \cdot 10^{-5}\). In other words, we estimate the probability that DiMaggio gets a hitting streak of at least 56 games in 100000 simulated seasons is about 1-in-10000.
+
+This simulation is slow, so let's try coding it up in a few different ways to show you some options when simulating.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Alternate DiMaggio hitting streak simulation}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2022}\NormalTok{)}
+\NormalTok{n.sims }\OtherTok{\textless{}{-}} \FloatTok{1e+05}
+\NormalTok{n.games }\OtherTok{\textless{}{-}} \DecValTok{139}
+
+\NormalTok{longest.streak }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n.sims)}
+
+\CommentTok{\# simulate at bats for n.sims * n.games = 139*100000}
+\NormalTok{sim.games }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{), }\AttributeTok{size =}\NormalTok{ n.sims }\SpecialCharTok{*}\NormalTok{ n.games, }\AttributeTok{replace =}\NormalTok{ T)}
+\NormalTok{sim.games }\OtherTok{\textless{}{-}} \FunctionTok{as.matrix}\NormalTok{(sim.games, }\AttributeTok{nrow =}\NormalTok{ n.sims, }\AttributeTok{ncol =}\NormalTok{ n.games)}
+
+\CommentTok{\# count number of 4 and 5 at bat games}
+\NormalTok{n4 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(sim.games }\SpecialCharTok{==} \DecValTok{4}\NormalTok{)}
+\NormalTok{n5 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(sim.games }\SpecialCharTok{==} \DecValTok{5}\NormalTok{)}
+
+\CommentTok{\# simulate number of hits in 4 at bat games}
+\NormalTok{hits4 }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\AttributeTok{n =}\NormalTok{ n4, }\AttributeTok{size =} \DecValTok{4}\NormalTok{, }\AttributeTok{prob =} \FloatTok{0.31}\NormalTok{)}
+\NormalTok{hits5 }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\AttributeTok{n =}\NormalTok{ n5, }\AttributeTok{size =} \DecValTok{5}\NormalTok{, }\AttributeTok{prob =} \FloatTok{0.31}\NormalTok{)}
+
+\CommentTok{\# hit games: 1 = got at least one hit, 0 = not hit}
+\NormalTok{hits4i }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(hits4 }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{hits5i }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(hits5 }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+
+\NormalTok{sim.hit.games }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, }\AttributeTok{ncol =}\NormalTok{ n.games, }\AttributeTok{nrow =}\NormalTok{ n.sims)}
+\NormalTok{sim.hit.games[}\FunctionTok{which}\NormalTok{(sim.games }\SpecialCharTok{==} \DecValTok{4}\NormalTok{)] }\OtherTok{=}\NormalTok{ hits4i}
+\NormalTok{sim.hit.games[}\FunctionTok{which}\NormalTok{(sim.games }\SpecialCharTok{==} \DecValTok{5}\NormalTok{)] }\OtherTok{=}\NormalTok{ hits5i}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n.sims) \{}
+\NormalTok{    streaks }\OtherTok{\textless{}{-}} \FunctionTok{rle}\NormalTok{(sim.hit.games[i, ])}
+\NormalTok{    longest.streak[i] }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(streaks}\SpecialCharTok{$}\NormalTok{lengths[streaks}\SpecialCharTok{$}\NormalTok{values }\SpecialCharTok{==} \DecValTok{1}\NormalTok{])}
+\NormalTok{\}}
+
+\FunctionTok{table}\NormalTok{(longest.streak)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## longest.streak
+##    6    7    8    9   10   11   12   13   14   15   16   17   18   19   20   21 
+##    4   48  304 1149 2466 4502 6276 7666 8662 8963 8636 7998 7079 6182 5208 4448 
+##   22   23   24   25   26   27   28   29   30   31   32   33   34   35   36   37 
+## 3771 3054 2579 2119 1690 1424 1138  929  743  596  464  361  302  216  187  173 
+##   38   39   40   41   42   43   44   45   46   47   48   49   50   51   52   53 
+##  135  110   73   73   64   39   39   26   20   15   14   12    8    6    9    4 
+##   54   55   56   57   58   59   62   63   65   76 
+##    1    3    3    3    1    1    1    1    1    1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{longest.streak }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ longest.streak)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Longest Hitting Streak for 10,000 Simulated DiMaggio 1941 Seasons"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Max Hitting Streak in a Simulation Season"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{series_files/figure-latex/unnamed-chunk-76-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(longest.streak)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 17.7014
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(longest.streak }\SpecialCharTok{\textgreater{}} \DecValTok{55}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.00012
+\end{verbatim}
+
+The code for this alternate simulation is a bit less intuitive but it is much faster.
+
+Running the alternate simulation above with \texttt{set.seed(2022)} and \texttt{n.sims=100000}, we get \(P(Streak \geq 66) = 0.00012\).
+
+Running the simulation above with \texttt{set.seed(2022)} and \texttt{n.sims=1000000}, we get \(P(Streak \geq 66) = 0.000132\).
+
+All of these simulations suggest that using DiMaggio's 1941 statistics of having a hitting streak of at least 56 games was about 1-in-8000.
+
+Other authors have used different simulation and mathematical methods for estimating the rarity of Dimaggio's 56 game hitting streak.
+
+Billie et al (2010) used an at-bat rather than plate appearance simulation and estimated the likelihood as 1-in-5000.
+
+Rothman et al (2010) estimated the likelihood as 1-in-10000.
 
 \hypertarget{shaq-ft-simulation}{%
 \section{Shaq FT simulation}\label{shaq-ft-simulation}}
@@ -4779,7 +4898,7 @@ For the number of free throw attempts per game, we could model this as a Poisson
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-75-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-77-1.pdf}
 
 Notice that the mean of our simulation is somewhat close to Shaq's true season average number of free throw attempts but the variance of the simulation is far too low.
 
@@ -4840,7 +4959,7 @@ Using resampling, simulate the number of free throws Shaq would attempt while wi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{series_files/figure-latex/unnamed-chunk-76-1.pdf}
+\includegraphics{series_files/figure-latex/unnamed-chunk-78-1.pdf}
 
 This simulation is biased low on the variance but is better than the earlier simulation.
 

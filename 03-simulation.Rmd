@@ -5,6 +5,16 @@ output:
 ---
 # Monte Carlo Simulation 
 
+```{r, echo=F, message=F,warning=F}
+library(tidyverse)
+library(kableExtra)
+
+# kable table global setup
+kt <- function(data) {
+  knitr::kable(data, digits=3, align=c('l','c','c','c','c','c','c','c','c')) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+}
+```
+
 ## Basics
 
 Monte Carlo Simulation is a collection of computer-driven, computational algorithms that use repeated random sampling to calculate estimates. The basic steps for such a simulation are as follows:
@@ -183,7 +193,7 @@ df <- t(data.frame(FTA,nFTA,pFTA))
 row.names(df) = c("Free Throw Attempts Per Game, FTA","Number of Occurrences, nFTA","Probability, p(FTA)")
 kable(digitsByRows(df,c(0,0,3)),row.names=F) %>% kable_styling(full_width = F)
 ```
- 
+
 ```{r}
 set.seed(2020)
 n.sims <- 10000
@@ -223,7 +233,7 @@ A statistician is interested in the probability that Team A defeats Team B in re
 :::
 
 There are many built-in functions in `R` that allow users to generate realizations from common probability distributions (`rnorm`, `rbinom`, `rexp`, etc.) Let's use the `rpois` function to simulate the appropriate variables, remembering to set a seed so that our results are easily replicable.
- 
+
 ```{r hockey poisson simulation 1}
 set.seed(2022)
 
@@ -282,16 +292,12 @@ mean(longest_streak >= 4)
 
 The team had a 4+ game winning streak in about 20% of the simulations. 
 
-## Hit Streak Simulation
+## Hitting Streak Simulation
 
 :::{.example}
-In 1941, Joe DiMaggio had a 56-game hitting streak which is an all-time record in MLB. How unlikely was such an outcome? Let's build a simulation to estimate the probability of a 56-game hitting streak using DiMaggio's statistics.
+In 1941, Joe DiMaggio had a 56-game hitting streak which is an all-time record in MLB. How unlikely was such an outcome? Let's build a simulation to estimate the probability of a hitting streak of at least 56 games using DiMaggio's statistics.
 
 DiMaggio had 193 hits in 622 plate appearances over 139 games. We will simulate DiMaggio's season of 139 games many times to estimate the probability of a 56-game hitting streak. Assume that in each game DiMaggio has a 50\% chance of 4 plate appearance and a 50\% chance of 5 plate appearances. For a plate appearance, DiMaggio had a probability of $193/622 = 0.310$ of getting a hit.
-
-The probability of DiMaggio getting at least one hit in a 4 plate appearance game is: $P(one \, or \, more \, hits) = 1 - P(no hit) = 1-0.69^4 = 0.7733.
-
-The probability of DiMaggio getting at least one hit in a 5 plate appearance game is: $P(one \, or \, more \, hits) = 1 - P(no hit) = 1-0.69^5 = 0.8436.
 :::
 
 ```{r}
@@ -301,9 +307,6 @@ n.games <- 139
 
 longest.streak <- rep(0, n.sims)
 sim.games <- rep(0,n.games)
-
-p4 <- 0.7733
-p5 <- 0.8436
 
 for( i in 1: n.sims){
   for( j in 1:139){
@@ -316,9 +319,80 @@ for( i in 1: n.sims){
 }
 
 table(longest.streak)
-hist(longest.streak)
+longest.streak %>% 
+  as.data.frame() %>% 
+  ggplot(aes(x=longest.streak)) + 
+  geom_histogram(binwidth=2) +
+  labs(title = "Longest Hitting Streak for 10,000 Simulated DiMaggio 1941 Seasons") +
+  xlab("Max Hitting Streak in a Simulation Season")
+mean(longest.streak)
+mean(longest.streak>55)
+```
+This code is slow because we have nested for loops. When at all possible, you would like to avoid using nested for loops.
+
+Running the simulation above with `set.seed(2022)` and `n.sims=10000`, we get $P(Streak \geq 66) = 0$. No hitting streak of 56 games or more in this simulation.
+
+If we run the simulation again with `set.seed(2022)` but increase `n.sims=100000`, we get $P(Streak \geq 66) = \frac{9}{100000} = 9 \cdot 10^{-5}$. In other words, we estimate the probability that DiMaggio gets a hitting streak of at least 56 games in 100000 simulated seasons is about 1-in-10000.
+
+This simulation is slow, so let's try coding it up in a few different ways to show you some options when simulating.
+
+```{r}
+# Alternate DiMaggio hitting streak simulation 
+set.seed(2022)
+n.sims <- 100000
+n.games <- 139
+
+longest.streak <- rep(0, n.sims)
+
+# simulate at bats for n.sims * n.games = 139*100000
+sim.games <- sample(c(4,5),size=n.sims*n.games,replace=T)
+sim.games <- as.matrix(sim.games,nrow=n.sims,ncol=n.games)
+
+# count number of 4 and 5 at bat games
+n4 <- sum(sim.games == 4)
+n5 <- sum(sim.games == 5)
+
+# simulate number of hits in 4 at bat games
+hits4 <- rbinom(n=n4,size=4,prob=0.310)
+hits5 <- rbinom(n=n5,size=5,prob=0.310)
+
+# hit games: 1 = got at least one hit, 0 = not hit
+hits4i <- ifelse(hits4 > 0,1,0)
+hits5i <- ifelse(hits5 > 0,1,0)
+
+sim.hit.games <- matrix(0,ncol=n.games,nrow=n.sims)
+sim.hit.games[which(sim.games == 4)] = hits4i
+sim.hit.games[which(sim.games == 5)] = hits5i
+
+for( i in 1:n.sims){
+  streaks <- rle(sim.hit.games[i,])
+  longest.streak[i] <- max(streaks$lengths[streaks$values==1])
+}
+
+table(longest.streak)
+longest.streak %>% 
+  as.data.frame() %>% 
+  ggplot(aes(x=longest.streak)) + 
+  geom_histogram(binwidth=2) +
+  labs(title = "Longest Hitting Streak for 10,000 Simulated DiMaggio 1941 Seasons") +
+  xlab("Max Hitting Streak in a Simulation Season")
+mean(longest.streak)
+mean(longest.streak>55)
 ```
 
+The code for this alternate simulation is a bit less intuitive but it is much faster.
+
+Running the alternate simulation above with `set.seed(2022)` and `n.sims=100000`, we get $P(Streak \geq 66) = 0.00012$. 
+
+Running the simulation above with `set.seed(2022)` and `n.sims=1000000`, we get $P(Streak \geq 66) = 0.000132$. 
+
+All of these simulations suggest that using DiMaggio's 1941 statistics of having a hitting streak of at least 56 games was about 1-in-8000.
+
+Other authors have used different simulation and mathematical methods for estimating the rarity of Dimaggio's 56 game hitting streak.
+
+Billie et al (2010) used an at-bat rather than plate appearance simulation and estimated the likelihood as 1-in-5000. 
+
+Rothman et al (2010) estimated the likelihood as 1-in-10000.
 
 ## Shaq FT simulation
 
