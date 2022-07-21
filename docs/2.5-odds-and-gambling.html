@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="2.5 Odds and Gambling | Sports Analytics" />
+<meta property="og:type" content="book" />
+<meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+<meta property="og:description" content="2.5 Odds and Gambling | Sports Analytics Notes" />
+<meta name="github-repo" content="aaron-nielsen.github.io/SportsAnalyticsBook/" />
+
+<meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
+
+<meta name="date" content="2022-07-21" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="2.5 Odds and Gambling | Sports Analytics Notes">
+
+<title>2.5 Odds and Gambling | Sports Analytics</title>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+/* show arrow before summary tag as in bootstrap
+TODO: remove if boostrap in updated in html_document (rmarkdown#1485) */
+details > summary {
+  display: list-item;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#about">About</a></li>
+<li class="has-sub"><a href="1-exploratory-data-analysis.html#exploratory-data-analysis"><span class="toc-section-number">1</span> Exploratory Data Analysis</a>
+<ul>
+<li class="has-sub"><a href="1.1-getting-started-with-r.html#getting-started-with-r"><span class="toc-section-number">1.1</span> Getting Started With R</a>
+<ul>
+<li><a href="1.1-getting-started-with-r.html#installing-r"><span class="toc-section-number">1.1.1</span> Installing R</a></li>
+<li><a href="1.1-getting-started-with-r.html#some-r-basics"><span class="toc-section-number">1.1.2</span> Some R Basics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.2-descriptive-statistics.html#descriptive-statistics"><span class="toc-section-number">1.2</span> Descriptive Statistics</a>
+<ul>
+<li><a href="1.2-descriptive-statistics.html#definitions"><span class="toc-section-number">1.2.1</span> Definitions</a></li>
+<li><a href="1.2-descriptive-statistics.html#descriptive-statistics-1"><span class="toc-section-number">1.2.2</span> Descriptive Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.3-visualizations.html#visualizations"><span class="toc-section-number">1.3</span> Visualizations</a>
+<ul>
+<li><a href="1.3-visualizations.html#histograms"><span class="toc-section-number">1.3.1</span> Histograms</a></li>
+<li><a href="1.3-visualizations.html#bar-plots"><span class="toc-section-number">1.3.2</span> Bar Plots</a></li>
+<li><a href="1.3-visualizations.html#scatter-plots"><span class="toc-section-number">1.3.3</span> Scatter Plots</a></li>
+<li><a href="1.3-visualizations.html#kable-tables"><span class="toc-section-number">1.3.4</span> Kable Tables</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.4-baseball.html#baseball"><span class="toc-section-number">1.4</span> Baseball</a>
+<ul>
+<li><a href="1.4-baseball.html#basic-hitting-statistics"><span class="toc-section-number">1.4.1</span> Basic Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#basic-pitching-statistics"><span class="toc-section-number">1.4.2</span> Basic Pitching Statistics</a></li>
+<li><a href="1.4-baseball.html#advanced-baseball-hitting-statistics"><span class="toc-section-number">1.4.3</span> Advanced Baseball Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#advanced-baseball-pitching-statistics"><span class="toc-section-number">1.4.4</span> Advanced Baseball Pitching Statistics</a></li>
+<li><a href="1.4-baseball.html#wins-above-replacement"><span class="toc-section-number">1.4.5</span> Wins Above Replacement</a></li>
+<li><a href="1.4-baseball.html#calculating-advanced-hitting-statistics"><span class="toc-section-number">1.4.6</span> Calculating Advanced Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#evaluating-advanced-pitching-statistics"><span class="toc-section-number">1.4.7</span> Evaluating Advanced Pitching Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.5-football.html#football"><span class="toc-section-number">1.5</span> Football</a>
+<ul>
+<li><a href="1.5-football.html#basic-football-statistics"><span class="toc-section-number">1.5.1</span> Basic Football Statistics</a></li>
+<li><a href="1.5-football.html#advanced-football-statistics"><span class="toc-section-number">1.5.2</span> Advanced Football Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.6-basketball.html#basketball"><span class="toc-section-number">1.6</span> Basketball</a>
+<ul>
+<li><a href="1.6-basketball.html#basic-basketball-statistics"><span class="toc-section-number">1.6.1</span> Basic Basketball Statistics</a></li>
+<li><a href="1.6-basketball.html#advanced-basketball-statistics"><span class="toc-section-number">1.6.2</span> Advanced Basketball Statistics</a></li>
+<li><a href="1.6-basketball.html#four-factors"><span class="toc-section-number">1.6.3</span> Four Factors</a></li>
+<li><a href="1.6-basketball.html#shot-charts"><span class="toc-section-number">1.6.4</span> Shot Charts</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.7-hockey.html#hockey"><span class="toc-section-number">1.7</span> Hockey</a>
+<ul>
+<li><a href="1.7-hockey.html#basic-hockey-statistics"><span class="toc-section-number">1.7.1</span> Basic Hockey Statistics</a></li>
+<li><a href="1.7-hockey.html#advanced-hockey-statistics"><span class="toc-section-number">1.7.2</span> Advanced Hockey Statistics</a></li>
+<li><a href="1.7-hockey.html#actual-vs.-expected-goals"><span class="toc-section-number">1.7.3</span> Actual vs. Expected Goals</a></li>
+<li><a href="1.7-hockey.html#goalie-statistics"><span class="toc-section-number">1.7.4</span> Goalie Statistics</a></li>
+<li><a href="1.7-hockey.html#correlation-plots"><span class="toc-section-number">1.7.5</span> Correlation Plots</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.8-volleyball.html#volleyball"><span class="toc-section-number">1.8</span> Volleyball</a>
+<ul>
+<li><a href="1.8-volleyball.html#basic-volleyball-statistics"><span class="toc-section-number">1.8.1</span> Basic Volleyball Statistics</a></li>
+<li><a href="1.8-volleyball.html#scatter-plot"><span class="toc-section-number">1.8.2</span> Scatter Plot</a></li>
+<li><a href="1.8-volleyball.html#box-plot"><span class="toc-section-number">1.8.3</span> Box Plot</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.9-soccer.html#soccer"><span class="toc-section-number">1.9</span> Soccer</a>
+<ul>
+<li><a href="1.9-soccer.html#basic-soccer-statistics"><span class="toc-section-number">1.9.1</span> Basic Soccer Statistics</a></li>
+<li><a href="1.9-soccer.html#advanced-soccer-statistics"><span class="toc-section-number">1.9.2</span> Advanced Soccer Statistics</a></li>
+<li><a href="1.9-soccer.html#bar-plot"><span class="toc-section-number">1.9.3</span> Bar Plot</a></li>
+<li><a href="1.9-soccer.html#scatter-plot-1"><span class="toc-section-number">1.9.4</span> Scatter Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="2-probability.html#probability"><span class="toc-section-number">2</span> Probability</a>
+<ul>
+<li><a href="chapter-preview.html#chapter-preview">Chapter Preview</a></li>
+<li><a href="2.1-definitions-1.html#definitions-1"><span class="toc-section-number">2.1</span> Definitions</a></li>
+<li><a href="2.2-set-theory.html#set-theory"><span class="toc-section-number">2.2</span> Set Theory</a></li>
+<li class="has-sub"><a href="2.3-axioms-properties-and-laws.html#axioms-properties-and-laws"><span class="toc-section-number">2.3</span> Axioms, Properties, and Laws</a>
+<ul>
+<li><a href="2.3-axioms-properties-and-laws.html#axioms-of-probability"><span class="toc-section-number">2.3.1</span> Axioms of Probability</a></li>
+<li><a href="2.3-axioms-properties-and-laws.html#properties-of-probability"><span class="toc-section-number">2.3.2</span> Properties of Probability</a></li>
+<li><a href="2.3-axioms-properties-and-laws.html#laws-of-probability"><span class="toc-section-number">2.3.3</span> Laws of Probability</a></li>
+</ul></li>
+<li><a href="2.4-combinatorics.html#combinatorics"><span class="toc-section-number">2.4</span> Combinatorics</a></li>
+<li class="has-sub"><a href="2.5-odds-and-gambling.html#odds-and-gambling"><span class="toc-section-number">2.5</span> Odds and Gambling</a>
+<ul>
+<li><a href="2.5-odds-and-gambling.html#sports-betting-in-usa"><span class="toc-section-number">2.5.1</span> Sports Betting in USA</a></li>
+<li><a href="2.5-odds-and-gambling.html#gambling-addiction"><span class="toc-section-number">2.5.2</span> Gambling Addiction</a></li>
+<li><a href="2.5-odds-and-gambling.html#odds-definition"><span class="toc-section-number">2.5.3</span> Odds Definition</a></li>
+<li><a href="2.5-odds-and-gambling.html#gambling-odds"><span class="toc-section-number">2.5.4</span> Gambling Odds</a></li>
+</ul></li>
+<li><a href="2.6-random-variables.html#random-variables"><span class="toc-section-number">2.6</span> Random Variables</a></li>
+<li class="has-sub"><a href="2.7-common-random-variables.html#common-random-variables"><span class="toc-section-number">2.7</span> Common Random Variables</a>
+<ul>
+<li><a href="2.7-common-random-variables.html#binomial-rvs"><span class="toc-section-number">2.7.1</span> Binomial RVs</a></li>
+<li><a href="2.7-common-random-variables.html#geometric-rvs"><span class="toc-section-number">2.7.2</span> Geometric RVs</a></li>
+<li><a href="2.7-common-random-variables.html#poisson-rvs"><span class="toc-section-number">2.7.3</span> Poisson RVs</a></li>
+<li><a href="2.7-common-random-variables.html#negative-binomial-rvs"><span class="toc-section-number">2.7.4</span> Negative Binomial RVs</a></li>
+<li><a href="2.7-common-random-variables.html#normal-rvs"><span class="toc-section-number">2.7.5</span> Normal RVs</a></li>
+</ul></li>
+<li class="has-sub"><a href="2.8-extra-stuff.html#extra-stuff"><span class="toc-section-number">2.8</span> Extra Stuff</a>
+<ul>
+<li><a href="2.8-extra-stuff.html#sets-and-conditional-probability"><span class="toc-section-number">2.8.1</span> Sets and Conditional Probability</a></li>
+<li><a href="2.8-extra-stuff.html#binomials-and-multinomials"><span class="toc-section-number">2.8.2</span> Binomials and Multinomials</a></li>
+<li><a href="2.8-extra-stuff.html#expectation---baseball"><span class="toc-section-number">2.8.3</span> Expectation - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#basketball-scenario"><span class="toc-section-number">2.8.4</span> Basketball Scenario</a></li>
+<li><a href="2.8-extra-stuff.html#multiple-probability-distributions---basketball"><span class="toc-section-number">2.8.5</span> Multiple Probability Distributions - Basketball</a></li>
+<li><a href="2.8-extra-stuff.html#law-of-total-probability---baseball"><span class="toc-section-number">2.8.6</span> Law of Total Probability - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#multinomial-distribution---baseball"><span class="toc-section-number">2.8.7</span> Multinomial Distribution - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#bayes---injured-baseball-player"><span class="toc-section-number">2.8.8</span> Bayes - injured baseball player</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="3-monte-carlo-simulation.html#monte-carlo-simulation"><span class="toc-section-number">3</span> Monte Carlo Simulation</a>
+<ul>
+<li><a href="3.1-basics.html#basics"><span class="toc-section-number">3.1</span> Basics</a></li>
+<li><a href="3.2-estimating-probabilities.html#estimating-probabilities"><span class="toc-section-number">3.2</span> Estimating Probabilities</a></li>
+<li class="has-sub"><a href="3.3-simulating-streaks.html#simulating-streaks"><span class="toc-section-number">3.3</span> Simulating Streaks</a>
+<ul>
+<li><a href="3.3-simulating-streaks.html#winning-streak-simulation"><span class="toc-section-number">3.3.1</span> Winning Streak Simulation</a></li>
+<li><a href="3.3-simulating-streaks.html#hitting-streak-simulation"><span class="toc-section-number">3.3.2</span> Hitting Streak Simulation</a></li>
+</ul></li>
+<li class="has-sub"><a href="3.4-gambling-simulations.html#gambling-simulations"><span class="toc-section-number">3.4</span> Gambling Simulations</a>
+<ul>
+<li><a href="3.4-gambling-simulations.html#martingale-system"><span class="toc-section-number">3.4.1</span> Martingale System</a></li>
+</ul></li>
+<li class="has-sub"><a href="3.5-extra-stuff-1.html#extra-stuff-1"><span class="toc-section-number">3.5</span> Extra stuff</a>
+<ul>
+<li><a href="3.5-extra-stuff-1.html#shaq-ft-simulation"><span class="toc-section-number">3.5.1</span> Shaq FT simulation</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="4-statistical-inference.html#statistical-inference"><span class="toc-section-number">4</span> Statistical Inference</a>
+<ul>
+<li><a href="4.1-one-sample-and-two-sample-t-tests-and-confidence-intervals.html#one-sample-and-two-sample-t-tests-and-confidence-intervals"><span class="toc-section-number">4.1</span> One Sample and Two Sample t-tests and confidence intervals</a></li>
+</ul></li>
+<li class="has-sub"><a href="5-correlation.html#correlation"><span class="toc-section-number">5</span> Correlation</a>
+<ul>
+<li class="has-sub"><a href="5.1-pearsons-correlation-coefficient.html#pearsons-correlation-coefficient"><span class="toc-section-number">5.1</span> Pearson’s Correlation Coefficient</a>
+<ul>
+<li><a href="5.1-pearsons-correlation-coefficient.html#properties-of-the-linear-correlation-coefficient"><span class="toc-section-number">5.1.1</span> Properties of the Linear Correlation Coefficient</a></li>
+</ul></li>
+<li><a href="5.2-rank-correlation.html#rank-correlation"><span class="toc-section-number">5.2</span> Rank Correlation</a></li>
+<li><a href="5.3-autocorrelation.html#autocorrelation"><span class="toc-section-number">5.3</span> Autocorrelation</a></li>
+<li><a href="5.4-association-of-categorical-variables.html#association-of-categorical-variables"><span class="toc-section-number">5.4</span> Association of Categorical Variables</a></li>
+</ul></li>
+<li class="has-sub"><a href="6-linear-regression.html#linear-regression"><span class="toc-section-number">6</span> Linear Regression</a>
+<ul>
+<li><a href="6.1-simple-linear-regression.html#simple-linear-regression"><span class="toc-section-number">6.1</span> Simple Linear Regression</a></li>
+<li><a href="6.2-multiple-linear-regression.html#multiple-linear-regression"><span class="toc-section-number">6.2</span> Multiple Linear Regression</a></li>
+<li><a href="6.3-confounding-variables.html#confounding-variables"><span class="toc-section-number">6.3</span> Confounding Variables</a></li>
+</ul></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="odds-and-gambling" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Odds and Gambling</h2>
+<div id="sports-betting-in-usa" class="section level3" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Sports Betting in USA</h3>
+<p>In 2018, the United States Supreme Court overturned a 1992 federal law that banned commercial sports betting in most states. For more about this ruling, see this New York Times article: <a href="https://www.nytimes.com/2018/05/14/us/politics/supreme-court-sports-betting-new-jersey.html" class="uri">https://www.nytimes.com/2018/05/14/us/politics/supreme-court-sports-betting-new-jersey.html</a></p>
+<p>In Colorado, you must be at least 21 years old to gamble including betting on sports games.</p>
+</div>
+<div id="gambling-addiction" class="section level3" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> Gambling Addiction</h3>
+<p>Gambling addiction, compulsive gambling, or gambling disorder is a serious impulse-control disorder. Here is a link to the Mayo Clinic’s discussion of compulsive gambling: <a href="https://www.mayoclinic.org/diseases-conditions/compulsive-gambling/symptoms-causes/syc-20355178" class="uri">https://www.mayoclinic.org/diseases-conditions/compulsive-gambling/symptoms-causes/syc-20355178</a></p>
+<p>Gambling is <strong><em>not</em></strong> encouraged and can lead to numerous problems. If you choose to gamble on sports, don’t bet beyond your means and seek help if you worry that you may be suffering from gambling addiction.</p>
+</div>
+<div id="odds-definition" class="section level3" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> Odds Definition</h3>
+<p>In this chapter so far, we have quantified uncertainty using probabilities (numbers between 0 and 1) and percentages (numbers between 0 and 100). We can also quantify uncertainty using <strong>odds</strong>.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-77" class="definition"><strong>Definition 2.14  </strong></span>The <strong><em>odds</em></strong> (in favor) of an outcome <span class="math inline">\(A\)</span> is the probability of <span class="math inline">\(A\)</span> divided by the probability of <span class="math inline">\(A^C\)</span>.</p>
+<p><span class="math display">\[Odds = \frac{p}{1-p}\]</span></p>
+</div>
+<p><strong>Note:</strong> We may also be given the <strong>odds against</strong> a particular outcome. In this case, we have <span class="math inline">\(Odds Against = \frac{1-p}{p}\)</span>.<br />
+</p>
+<p><strong>Some Common Odds:</strong></p>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Odds
+</th>
+<th style="text-align:center;">
+p
+</th>
+<th style="text-align:center;">
+q
+</th>
+<th style="text-align:center;">
+Odds
+</th>
+<th style="text-align:center;">
+p
+</th>
+<th style="text-align:center;">
+q
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+0:1
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+<td style="text-align:center;">
+1:0
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1:1
+</td>
+<td style="text-align:center;">
+0.500
+</td>
+<td style="text-align:center;">
+0.500
+</td>
+<td style="text-align:center;">
+1:1
+</td>
+<td style="text-align:center;">
+0.500
+</td>
+<td style="text-align:center;">
+0.500
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2:1
+</td>
+<td style="text-align:center;">
+0.667
+</td>
+<td style="text-align:center;">
+0.333
+</td>
+<td style="text-align:center;">
+1:2
+</td>
+<td style="text-align:center;">
+0.333
+</td>
+<td style="text-align:center;">
+0.667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3:1
+</td>
+<td style="text-align:center;">
+0.750
+</td>
+<td style="text-align:center;">
+0.250
+</td>
+<td style="text-align:center;">
+1:3
+</td>
+<td style="text-align:center;">
+0.250
+</td>
+<td style="text-align:center;">
+0.750
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4:1
+</td>
+<td style="text-align:center;">
+0.800
+</td>
+<td style="text-align:center;">
+0.200
+</td>
+<td style="text-align:center;">
+1:4
+</td>
+<td style="text-align:center;">
+0.200
+</td>
+<td style="text-align:center;">
+0.800
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5:1
+</td>
+<td style="text-align:center;">
+0.833
+</td>
+<td style="text-align:center;">
+0.167
+</td>
+<td style="text-align:center;">
+1:5
+</td>
+<td style="text-align:center;">
+0.167
+</td>
+<td style="text-align:center;">
+0.833
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10:1
+</td>
+<td style="text-align:center;">
+0.909
+</td>
+<td style="text-align:center;">
+0.091
+</td>
+<td style="text-align:center;">
+1:10
+</td>
+<td style="text-align:center;">
+0.091
+</td>
+<td style="text-align:center;">
+0.909
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+100:1
+</td>
+<td style="text-align:center;">
+0.990
+</td>
+<td style="text-align:center;">
+0.010
+</td>
+<td style="text-align:center;">
+1:100
+</td>
+<td style="text-align:center;">
+0.010
+</td>
+<td style="text-align:center;">
+0.990
+</td>
+</tr>
+</tbody>
+</table>
+<p>In the following table, the odds of an outcome along with the probability of the outcome, <em>p</em>, and the probability of the outcome’s complement, <em>q=1-p</em> are given.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-78" class="example"><strong>Example 2.19  </strong></span>For the following examples, convert between probability and odds.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>Suppose that the probability that the Cubs win the 2025 World Series is 0.03. What are the odds in favor?<br />
+</li>
+</ol>
+<p><br />
+<br />
+<br />
+</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Suppose that the odds that the Rockies win the World Series in 2025 is 100:1. What is the probability in favor?<br />
+</li>
+</ol>
+<p><br />
+<br />
+<br />
+</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Suppose there is a 1% chance that CSU wins a national championship in any sport in the next decade. What are the probability and the odds against CSU winning a national championship in the next decade?<br />
+</li>
+</ol>
+<p><br />
+<br />
+<br />
+</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-79" class="example"><strong>Example 2.20  </strong></span>Suppose that there are three finalists in an Olympic competition. It is estimated that Athlete A has a 50% chance of winning, Athlete B has a 40% chance of winning, and Player C has a 10% chance of winning. Calculate the odds against each of the athletes winning the competition.</p>
+</div>
+<p><br />
+<br />
+<br />
+<br />
+<br />
+</p>
+</div>
+<div id="gambling-odds" class="section level3" number="2.5.4">
+<h3><span class="header-section-number">2.5.4</span> Gambling Odds</h3>
+<p>Gambling odds are a bit different that odds in a probability context. Gambling odds tell the amount that the bookmaker will pay out for a winning bet. For example, if a bookmaker is offering “10:1” that the Rockies win the next World Series, the bookmaker will pay out 10x the original wager plus the original wager if the Rockies win the World Series and the bookmaker will keep the original bet if the Rockies fail to win the World Series.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-80" class="definition"><strong>Definition 2.15  </strong></span><strong><em>Fractional odds</em></strong> are common in horse racing and quote the net total that will be paid out to the bettor, should he or she win, relative to the stake. The numerator and denominator of fractional odds are always positive integers. For example, a $100 wager on a “5:1” bet would result in a payout of <span class="math inline">\(5 \cdot \$100 + \$100 = \$600\)</span> if the wager is correct and a payout of $0 if the wager is incorrect.</p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-81" class="definition"><strong>Definition 2.16  </strong></span>A <strong><em>moneyline bet</em></strong> are common bets in American sports. When the moneyline is positive, the figure tells what the winning payout would be on a $100 bet. When the moneyline is negative, the figure tells what wager is required for a winning payout of $100.</p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-82" class="example"><strong>Example 2.21  </strong></span>For the following scenarios, assume a wager of $100. Calculate the payout for a winning bet.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li><p>Fractional odds of 4/1<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>Moneyline +400<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>Moneyline -300<br />
+<br />
+<br />
+<br />
+</p></li>
+</ol>
+<p><strong>Note:</strong> A <em>moneyline wager</em> refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-83" class="definition"><strong>Definition 2.17  </strong></span>The <strong><em>implied probability</em></strong>, <span class="math inline">\(\tilde{p}\)</span>, of a wager is the probability that corresponds to the odds of the wager.</p>
+<p><span class="math display">\[\tilde{p} = \frac{Odds}{Odds+1}\]</span></p>
+<p>If we are dealing with moneyline bets, we have the following:</p>
+<p>If ML is negative:
+<span class="math display">\[\tilde{p} = \frac{-ML_{NEG}}{-ML_{NEG}+100}\]</span></p>
+<p>If ML is positive:
+<span class="math display">\[\tilde{p} = \frac{100}{ML_{POS}+100}\]</span></p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-84" class="example"><strong>Example 2.22  </strong></span>Calculate the implied probabilities for the following examples.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li><p>Fractional odds of 4/1<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>Moneyline -125<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>Moneyline +125<br />
+<br />
+<br />
+<br />
+</p></li>
+</ol>
+<div class="example">
+<p><span id="exm:unlabeled-div-85" class="example"><strong>Example 2.23  </strong></span>Suppose that for an upcoming NFL game, a moneyline wager on the Broncos is -105 and a moneyline wager on the Raiders is -120.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li><p>Calculate the implied probabilities of the two possible outcomes. (Note that sometime ties are an optional wager. Other times, ties will result in a push, that is, no winner.)<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>What is the sum of the implied probabilities?<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>Does the result from (b) violate the axioms of probability? If so, why?<br />
+<br />
+<br />
+<br />
+</p></li>
+</ol>
+<p><strong>Note:</strong> The goal of bookmaking is to make money, so there will be almost certainly be a house advantage. This means that the sum of the implied probabilities will be greater than 1.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-86" class="definition"><strong>Definition 2.18  </strong></span>The <strong><em>house advantage</em></strong> (or <strong><em>hold percentage</em></strong>) is the percentage of money that sportsbooks keep for every dollar earned.</p>
+<p><span class="math display">\[House \, Advantage = 100 \cdot \sum_{i=1}^n \tilde{p}_i - 100\]</span></p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-87" class="example"><strong>Example 2.24  </strong></span>Suppose that a bookmaker is offering a moneyline wager on the Broncos at -105 and a moneyline wager on the Raiders at -120. Calculate the bookmakers expected winnings based on the following amounts of total bets.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li><p>$500 wagered on the Broncos, $500 wagered on the Raiders<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>$250 wagered on the Broncos, $750 wagered on the Raiders<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>$750 wagered on the Broncos, $250 wagered on the Raiders<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>$0 wagered on the Broncos, $1000 wagered on the Raiders<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>$1000 wagered on the Broncos, $0 wagered on the Raiders<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>What is the house advantage?<br />
+<br />
+<br />
+<br />
+</p></li>
+</ol>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-88" class="example"><strong>Example 2.25  </strong></span>A <strong><em>point spread bet</em></strong> is a bet based on the projected margin of victory that can result in a win, loss, or push.</p>
+<p>For example, if a sportsbook offers Rockies -1.5 against the Cubs and you bet on the Rockies, if the Rockies win by 2 or more runs, you win and if the Rockies win by 1 run or lose, then you lose.</p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-89" class="example"><strong>Example 2.26  </strong></span>Suppose a sportsbook offers Broncos +14 against the Raiders at -110 (they also offer Raiders -14 at -110) and you have $20 to wager. Calculate the payout for the following scenarios.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li><p>You bet $20 on the Broncos and the final score is Broncos 21 Raiders 20. What is your payout?<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>You bet $20 on the Raiders and the final score is Broncos 21 Raiders 20. What is your payout?<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>You bet $10 on the Broncos and $10 on the Raiders and the final score is Broncos 21 Raiders 20. What is your payout?<br />
+<br />
+<br />
+<br />
+</p></li>
+</ol>
+<div class="example">
+<p><span id="exm:unlabeled-div-90" class="example"><strong>Example 2.27  </strong></span>A <strong><em>parlay bet</em></strong> is a combination of multiple bets where the winnings from a winning bet are placed on other bets. All bets must be win for the parlay bet to pay out.</p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-91" class="example"><strong>Example 2.28  </strong></span>Suppose that CSU is a three point favorite (-3) against CU in a women’s basketball game and the over/under on total number of points is 97. Assume that the price of bets is -110.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li><p>Suppose you place two bets, CSU -3 and Over 97, and the outcome of the game is CSU 60 CU 40. What is your payout?<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>Suppose you place a parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 60 CU 40. What is your payout?<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>Suppose you place two bets, CSU -3 and Over 97, and the outcome of the game is CSU 44 CU 40. What is your payout?<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>Suppose you place a parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 44 CU 40. What is your payout?<br />
+<br />
+<br />
+<br />
+</p></li>
+</ol>
+<p><em>Reference:</em><br />
+<a href="https://www.wikihow.com/Calculate-Odds" class="uri">https://www.wikihow.com/Calculate-Odds</a></p>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<p style="text-align: center;">
+<a href="2.4-combinatorics.html"><button class="btn btn-default">Previous</button></a>
+<a href="2.6-random-variables.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="1.5 Football | Sports Analytics" />
+<meta property="og:type" content="book" />
+<meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+<meta property="og:description" content="1.5 Football | Sports Analytics Notes" />
+<meta name="github-repo" content="aaron-nielsen.github.io/SportsAnalyticsBook/" />
+
+<meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
+
+<meta name="date" content="2022-07-21" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="1.5 Football | Sports Analytics Notes">
+
+<title>1.5 Football | Sports Analytics</title>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+/* show arrow before summary tag as in bootstrap
+TODO: remove if boostrap in updated in html_document (rmarkdown#1485) */
+details > summary {
+  display: list-item;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#about">About</a></li>
+<li class="has-sub"><a href="1-exploratory-data-analysis.html#exploratory-data-analysis"><span class="toc-section-number">1</span> Exploratory Data Analysis</a>
+<ul>
+<li class="has-sub"><a href="1.1-getting-started-with-r.html#getting-started-with-r"><span class="toc-section-number">1.1</span> Getting Started With R</a>
+<ul>
+<li><a href="1.1-getting-started-with-r.html#installing-r"><span class="toc-section-number">1.1.1</span> Installing R</a></li>
+<li><a href="1.1-getting-started-with-r.html#some-r-basics"><span class="toc-section-number">1.1.2</span> Some R Basics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.2-descriptive-statistics.html#descriptive-statistics"><span class="toc-section-number">1.2</span> Descriptive Statistics</a>
+<ul>
+<li><a href="1.2-descriptive-statistics.html#definitions"><span class="toc-section-number">1.2.1</span> Definitions</a></li>
+<li><a href="1.2-descriptive-statistics.html#descriptive-statistics-1"><span class="toc-section-number">1.2.2</span> Descriptive Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.3-visualizations.html#visualizations"><span class="toc-section-number">1.3</span> Visualizations</a>
+<ul>
+<li><a href="1.3-visualizations.html#histograms"><span class="toc-section-number">1.3.1</span> Histograms</a></li>
+<li><a href="1.3-visualizations.html#bar-plots"><span class="toc-section-number">1.3.2</span> Bar Plots</a></li>
+<li><a href="1.3-visualizations.html#scatter-plots"><span class="toc-section-number">1.3.3</span> Scatter Plots</a></li>
+<li><a href="1.3-visualizations.html#kable-tables"><span class="toc-section-number">1.3.4</span> Kable Tables</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.4-baseball.html#baseball"><span class="toc-section-number">1.4</span> Baseball</a>
+<ul>
+<li><a href="1.4-baseball.html#basic-hitting-statistics"><span class="toc-section-number">1.4.1</span> Basic Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#basic-pitching-statistics"><span class="toc-section-number">1.4.2</span> Basic Pitching Statistics</a></li>
+<li><a href="1.4-baseball.html#advanced-baseball-hitting-statistics"><span class="toc-section-number">1.4.3</span> Advanced Baseball Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#advanced-baseball-pitching-statistics"><span class="toc-section-number">1.4.4</span> Advanced Baseball Pitching Statistics</a></li>
+<li><a href="1.4-baseball.html#wins-above-replacement"><span class="toc-section-number">1.4.5</span> Wins Above Replacement</a></li>
+<li><a href="1.4-baseball.html#calculating-advanced-hitting-statistics"><span class="toc-section-number">1.4.6</span> Calculating Advanced Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#evaluating-advanced-pitching-statistics"><span class="toc-section-number">1.4.7</span> Evaluating Advanced Pitching Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.5-football.html#football"><span class="toc-section-number">1.5</span> Football</a>
+<ul>
+<li><a href="1.5-football.html#basic-football-statistics"><span class="toc-section-number">1.5.1</span> Basic Football Statistics</a></li>
+<li><a href="1.5-football.html#advanced-football-statistics"><span class="toc-section-number">1.5.2</span> Advanced Football Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.6-basketball.html#basketball"><span class="toc-section-number">1.6</span> Basketball</a>
+<ul>
+<li><a href="1.6-basketball.html#basic-basketball-statistics"><span class="toc-section-number">1.6.1</span> Basic Basketball Statistics</a></li>
+<li><a href="1.6-basketball.html#advanced-basketball-statistics"><span class="toc-section-number">1.6.2</span> Advanced Basketball Statistics</a></li>
+<li><a href="1.6-basketball.html#four-factors"><span class="toc-section-number">1.6.3</span> Four Factors</a></li>
+<li><a href="1.6-basketball.html#shot-charts"><span class="toc-section-number">1.6.4</span> Shot Charts</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.7-hockey.html#hockey"><span class="toc-section-number">1.7</span> Hockey</a>
+<ul>
+<li><a href="1.7-hockey.html#basic-hockey-statistics"><span class="toc-section-number">1.7.1</span> Basic Hockey Statistics</a></li>
+<li><a href="1.7-hockey.html#advanced-hockey-statistics"><span class="toc-section-number">1.7.2</span> Advanced Hockey Statistics</a></li>
+<li><a href="1.7-hockey.html#actual-vs.-expected-goals"><span class="toc-section-number">1.7.3</span> Actual vs. Expected Goals</a></li>
+<li><a href="1.7-hockey.html#goalie-statistics"><span class="toc-section-number">1.7.4</span> Goalie Statistics</a></li>
+<li><a href="1.7-hockey.html#correlation-plots"><span class="toc-section-number">1.7.5</span> Correlation Plots</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.8-volleyball.html#volleyball"><span class="toc-section-number">1.8</span> Volleyball</a>
+<ul>
+<li><a href="1.8-volleyball.html#basic-volleyball-statistics"><span class="toc-section-number">1.8.1</span> Basic Volleyball Statistics</a></li>
+<li><a href="1.8-volleyball.html#scatter-plot"><span class="toc-section-number">1.8.2</span> Scatter Plot</a></li>
+<li><a href="1.8-volleyball.html#box-plot"><span class="toc-section-number">1.8.3</span> Box Plot</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.9-soccer.html#soccer"><span class="toc-section-number">1.9</span> Soccer</a>
+<ul>
+<li><a href="1.9-soccer.html#basic-soccer-statistics"><span class="toc-section-number">1.9.1</span> Basic Soccer Statistics</a></li>
+<li><a href="1.9-soccer.html#advanced-soccer-statistics"><span class="toc-section-number">1.9.2</span> Advanced Soccer Statistics</a></li>
+<li><a href="1.9-soccer.html#bar-plot"><span class="toc-section-number">1.9.3</span> Bar Plot</a></li>
+<li><a href="1.9-soccer.html#scatter-plot-1"><span class="toc-section-number">1.9.4</span> Scatter Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="2-probability.html#probability"><span class="toc-section-number">2</span> Probability</a>
+<ul>
+<li><a href="chapter-preview.html#chapter-preview">Chapter Preview</a></li>
+<li><a href="2.1-definitions-1.html#definitions-1"><span class="toc-section-number">2.1</span> Definitions</a></li>
+<li><a href="2.2-set-theory.html#set-theory"><span class="toc-section-number">2.2</span> Set Theory</a></li>
+<li class="has-sub"><a href="2.3-axioms-properties-and-laws.html#axioms-properties-and-laws"><span class="toc-section-number">2.3</span> Axioms, Properties, and Laws</a>
+<ul>
+<li><a href="2.3-axioms-properties-and-laws.html#axioms-of-probability"><span class="toc-section-number">2.3.1</span> Axioms of Probability</a></li>
+<li><a href="2.3-axioms-properties-and-laws.html#properties-of-probability"><span class="toc-section-number">2.3.2</span> Properties of Probability</a></li>
+<li><a href="2.3-axioms-properties-and-laws.html#laws-of-probability"><span class="toc-section-number">2.3.3</span> Laws of Probability</a></li>
+</ul></li>
+<li><a href="2.4-combinatorics.html#combinatorics"><span class="toc-section-number">2.4</span> Combinatorics</a></li>
+<li class="has-sub"><a href="2.5-odds-and-gambling.html#odds-and-gambling"><span class="toc-section-number">2.5</span> Odds and Gambling</a>
+<ul>
+<li><a href="2.5-odds-and-gambling.html#sports-betting-in-usa"><span class="toc-section-number">2.5.1</span> Sports Betting in USA</a></li>
+<li><a href="2.5-odds-and-gambling.html#gambling-addiction"><span class="toc-section-number">2.5.2</span> Gambling Addiction</a></li>
+<li><a href="2.5-odds-and-gambling.html#odds-definition"><span class="toc-section-number">2.5.3</span> Odds Definition</a></li>
+<li><a href="2.5-odds-and-gambling.html#gambling-odds"><span class="toc-section-number">2.5.4</span> Gambling Odds</a></li>
+</ul></li>
+<li><a href="2.6-random-variables.html#random-variables"><span class="toc-section-number">2.6</span> Random Variables</a></li>
+<li class="has-sub"><a href="2.7-common-random-variables.html#common-random-variables"><span class="toc-section-number">2.7</span> Common Random Variables</a>
+<ul>
+<li><a href="2.7-common-random-variables.html#binomial-rvs"><span class="toc-section-number">2.7.1</span> Binomial RVs</a></li>
+<li><a href="2.7-common-random-variables.html#geometric-rvs"><span class="toc-section-number">2.7.2</span> Geometric RVs</a></li>
+<li><a href="2.7-common-random-variables.html#poisson-rvs"><span class="toc-section-number">2.7.3</span> Poisson RVs</a></li>
+<li><a href="2.7-common-random-variables.html#negative-binomial-rvs"><span class="toc-section-number">2.7.4</span> Negative Binomial RVs</a></li>
+<li><a href="2.7-common-random-variables.html#normal-rvs"><span class="toc-section-number">2.7.5</span> Normal RVs</a></li>
+</ul></li>
+<li class="has-sub"><a href="2.8-extra-stuff.html#extra-stuff"><span class="toc-section-number">2.8</span> Extra Stuff</a>
+<ul>
+<li><a href="2.8-extra-stuff.html#sets-and-conditional-probability"><span class="toc-section-number">2.8.1</span> Sets and Conditional Probability</a></li>
+<li><a href="2.8-extra-stuff.html#binomials-and-multinomials"><span class="toc-section-number">2.8.2</span> Binomials and Multinomials</a></li>
+<li><a href="2.8-extra-stuff.html#expectation---baseball"><span class="toc-section-number">2.8.3</span> Expectation - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#basketball-scenario"><span class="toc-section-number">2.8.4</span> Basketball Scenario</a></li>
+<li><a href="2.8-extra-stuff.html#multiple-probability-distributions---basketball"><span class="toc-section-number">2.8.5</span> Multiple Probability Distributions - Basketball</a></li>
+<li><a href="2.8-extra-stuff.html#law-of-total-probability---baseball"><span class="toc-section-number">2.8.6</span> Law of Total Probability - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#multinomial-distribution---baseball"><span class="toc-section-number">2.8.7</span> Multinomial Distribution - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#bayes---injured-baseball-player"><span class="toc-section-number">2.8.8</span> Bayes - injured baseball player</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="3-monte-carlo-simulation.html#monte-carlo-simulation"><span class="toc-section-number">3</span> Monte Carlo Simulation</a>
+<ul>
+<li><a href="3.1-basics.html#basics"><span class="toc-section-number">3.1</span> Basics</a></li>
+<li><a href="3.2-estimating-probabilities.html#estimating-probabilities"><span class="toc-section-number">3.2</span> Estimating Probabilities</a></li>
+<li class="has-sub"><a href="3.3-simulating-streaks.html#simulating-streaks"><span class="toc-section-number">3.3</span> Simulating Streaks</a>
+<ul>
+<li><a href="3.3-simulating-streaks.html#winning-streak-simulation"><span class="toc-section-number">3.3.1</span> Winning Streak Simulation</a></li>
+<li><a href="3.3-simulating-streaks.html#hitting-streak-simulation"><span class="toc-section-number">3.3.2</span> Hitting Streak Simulation</a></li>
+</ul></li>
+<li class="has-sub"><a href="3.4-gambling-simulations.html#gambling-simulations"><span class="toc-section-number">3.4</span> Gambling Simulations</a>
+<ul>
+<li><a href="3.4-gambling-simulations.html#martingale-system"><span class="toc-section-number">3.4.1</span> Martingale System</a></li>
+</ul></li>
+<li class="has-sub"><a href="3.5-extra-stuff-1.html#extra-stuff-1"><span class="toc-section-number">3.5</span> Extra stuff</a>
+<ul>
+<li><a href="3.5-extra-stuff-1.html#shaq-ft-simulation"><span class="toc-section-number">3.5.1</span> Shaq FT simulation</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="4-statistical-inference.html#statistical-inference"><span class="toc-section-number">4</span> Statistical Inference</a>
+<ul>
+<li><a href="4.1-one-sample-and-two-sample-t-tests-and-confidence-intervals.html#one-sample-and-two-sample-t-tests-and-confidence-intervals"><span class="toc-section-number">4.1</span> One Sample and Two Sample t-tests and confidence intervals</a></li>
+</ul></li>
+<li class="has-sub"><a href="5-correlation.html#correlation"><span class="toc-section-number">5</span> Correlation</a>
+<ul>
+<li class="has-sub"><a href="5.1-pearsons-correlation-coefficient.html#pearsons-correlation-coefficient"><span class="toc-section-number">5.1</span> Pearson’s Correlation Coefficient</a>
+<ul>
+<li><a href="5.1-pearsons-correlation-coefficient.html#properties-of-the-linear-correlation-coefficient"><span class="toc-section-number">5.1.1</span> Properties of the Linear Correlation Coefficient</a></li>
+</ul></li>
+<li><a href="5.2-rank-correlation.html#rank-correlation"><span class="toc-section-number">5.2</span> Rank Correlation</a></li>
+<li><a href="5.3-autocorrelation.html#autocorrelation"><span class="toc-section-number">5.3</span> Autocorrelation</a></li>
+<li><a href="5.4-association-of-categorical-variables.html#association-of-categorical-variables"><span class="toc-section-number">5.4</span> Association of Categorical Variables</a></li>
+</ul></li>
+<li class="has-sub"><a href="6-linear-regression.html#linear-regression"><span class="toc-section-number">6</span> Linear Regression</a>
+<ul>
+<li><a href="6.1-simple-linear-regression.html#simple-linear-regression"><span class="toc-section-number">6.1</span> Simple Linear Regression</a></li>
+<li><a href="6.2-multiple-linear-regression.html#multiple-linear-regression"><span class="toc-section-number">6.2</span> Multiple Linear Regression</a></li>
+<li><a href="6.3-confounding-variables.html#confounding-variables"><span class="toc-section-number">6.3</span> Confounding Variables</a></li>
+</ul></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="football" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Football</h2>
+<p><a href="https://www.youtube.com/watch?v=Ddwp1HyEFRE">Link to YouTube video describing football rules</a></p>
+<div id="basic-football-statistics" class="section level3" number="1.5.1">
+<h3><span class="header-section-number">1.5.1</span> Basic Football Statistics</h3>
+<ul>
+<li><p><strong>Yards</strong> (Yd): Number of yards gained from the line of scrimmage (can be broken down into Offense: Rushing and Passing Yards, Defense: Rushing and Passing Yards Allowed, and Special Teams: Kick and Punt Return Yards)</p></li>
+<li><p><strong>Touchdowns</strong> (TD): Number of times the offense carries or passes the ball successfully into the end zone of the opposing side (can be broken down into: Offensive TDs: Rushing and Passing TDs, Defensive TDs: interception or fumble recovery for a touchdown, and Special Teams TDs: kick or punt return touchdowns)</p></li>
+<li><p><strong>Sacks</strong> (Sk): Number of times a player or a team tackles the quarterback behind the line of scrimmage before he can throw a pass</p></li>
+<li><p><strong>Interceptions</strong> (INT): Number of times a player or a team catches an opponent’s pass</p></li>
+</ul>
+</div>
+<div id="advanced-football-statistics" class="section level3" number="1.5.2">
+<h3><span class="header-section-number">1.5.2</span> Advanced Football Statistics</h3>
+<ul>
+<li><strong>Passer Rating (or Passing Efficiency)</strong>: Measure of performance of a quarterback</li>
+</ul>
+<p>For NFL, the formula is as follows:<br />
+</p>
+<p><span class="math display">\[Passer Rating_{NFL} = \left(\frac{a+b+c+d}{6}\right) \cdot 100\]</span></p>
+<p>where:
+<span class="math display">\[a = \left(\frac{COMP}{ATT}-0.3\right) \cdot 5\]</span>
+<span class="math display">\[b = \left(\frac{YDS}{ATT} - 3\right) \cdot 0.25\]</span>
+<span class="math display">\[c = \left(\frac{TD}{ATT}\right) \cdot 20\]</span>
+<span class="math display">\[d = 2.375 - \left(\frac{INT}{ATT} \cdot 25\right)\]</span></p>
+<p>ATT = Number of passing attempts, COMP = Number of completions, YDS = Passing yards, TD = Touchdown passes, INT = Interceptions<br />
+</p>
+<p><em>Note:</em> If the result of any calculation is greater than 2.375, it is set to 2.375. If the result is a negative number, it is set to zero.<br />
+</p>
+<p>For College Football, the formula is as follows:<br />
+</p>
+<p><span class="math display">\[Passer Rating_{NCAAF} = \frac{(8.4 \cdot YDS) + (330 \cdot TD) + (100 \cdot COMP) - (200 \cdot INT)}{ATT}\]</span></p>
+<ul>
+<li><p><strong>Total Quarterback Rating</strong> (QBR): Proprietary measure of performance of a quarterback developed by ESPN in 2011. This is a more comprehensive measurement of quarterback performance that accounts for the quarterback’s impact on his team’s passes, rushes, turnovers, and penalties in terms of <strong>expected points added</strong>.</p></li>
+<li><p><strong>Expected Points Added</strong> (EPA): Measure of how many points a player or a play is worth to a team.</p></li>
+</ul>
+<p><em>References:</em><br />
+<a href="https://www.pro-football-reference.com/about/glossary.htm" class="uri">https://www.pro-football-reference.com/about/glossary.htm</a><br />
+<a href="https://en.wikipedia.org/wiki/Passer_rating" class="uri">https://en.wikipedia.org/wiki/Passer_rating</a></p>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-36" class="example"><strong>Example 1.12  </strong></span>Individual NFL quarterback passing statistics for the 2021 season are provided in <code>NFL_Ind_Passing_2021.csv</code>. Note that this dataset only includes quarterbacks with at least 100 passing yards in 2021. Passer efficiency is given in the <code>RTG</code> column.</p>
+</div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="1.5-football.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data: https://www.espn.com/nfl/stats/player</span></span>
+<span id="cb68-2"><a href="1.5-football.html#cb68-2" aria-hidden="true" tabindex="-1"></a>QB_21 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/NFL_Ind_Passing_2021.csv&quot;</span>)</span>
+<span id="cb68-3"><a href="1.5-football.html#cb68-3" aria-hidden="true" tabindex="-1"></a>QB_21 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span>,<span class="dv">3</span><span class="sc">:</span><span class="dv">8</span>,<span class="dv">11</span><span class="sc">:</span><span class="dv">12</span>,<span class="dv">15</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kt</span>()</span></code></pre></div>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Name
+</th>
+<th style="text-align:center;">
+GP
+</th>
+<th style="text-align:center;">
+CMP
+</th>
+<th style="text-align:center;">
+ATT
+</th>
+<th style="text-align:center;">
+CMP%
+</th>
+<th style="text-align:center;">
+YDS
+</th>
+<th style="text-align:center;">
+AVG
+</th>
+<th style="text-align:center;">
+TD
+</th>
+<th style="text-align:center;">
+INT
+</th>
+<th style="text-align:left;">
+QBR
+</th>
+<th style="text-align:center;">
+RTG
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Tom Brady
+</td>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:center;">
+485
+</td>
+<td style="text-align:center;">
+719
+</td>
+<td style="text-align:center;">
+67.5
+</td>
+<td style="text-align:center;">
+5316
+</td>
+<td style="text-align:center;">
+7.4
+</td>
+<td style="text-align:center;">
+43
+</td>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:left;">
+68.1
+</td>
+<td style="text-align:center;">
+102.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Justin Herbert
+</td>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:center;">
+443
+</td>
+<td style="text-align:center;">
+672
+</td>
+<td style="text-align:center;">
+65.9
+</td>
+<td style="text-align:center;">
+5014
+</td>
+<td style="text-align:center;">
+7.5
+</td>
+<td style="text-align:center;">
+38
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:left;">
+65.6
+</td>
+<td style="text-align:center;">
+97.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Patrick Mahomes
+</td>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:center;">
+436
+</td>
+<td style="text-align:center;">
+658
+</td>
+<td style="text-align:center;">
+66.3
+</td>
+<td style="text-align:center;">
+4839
+</td>
+<td style="text-align:center;">
+7.4
+</td>
+<td style="text-align:center;">
+37
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:left;">
+62.2
+</td>
+<td style="text-align:center;">
+98.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Josh Allen
+</td>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:center;">
+409
+</td>
+<td style="text-align:center;">
+646
+</td>
+<td style="text-align:center;">
+63.3
+</td>
+<td style="text-align:center;">
+4407
+</td>
+<td style="text-align:center;">
+6.8
+</td>
+<td style="text-align:center;">
+36
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:left;">
+60.7
+</td>
+<td style="text-align:center;">
+92.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Derek Carr
+</td>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:center;">
+428
+</td>
+<td style="text-align:center;">
+626
+</td>
+<td style="text-align:center;">
+68.4
+</td>
+<td style="text-align:center;">
+4804
+</td>
+<td style="text-align:center;">
+7.7
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+14
+</td>
+<td style="text-align:left;">
+52.4
+</td>
+<td style="text-align:center;">
+94.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ben Roethlisberger
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+390
+</td>
+<td style="text-align:center;">
+605
+</td>
+<td style="text-align:center;">
+64.5
+</td>
+<td style="text-align:center;">
+3740
+</td>
+<td style="text-align:center;">
+6.2
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:left;">
+35.6
+</td>
+<td style="text-align:center;">
+86.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Trevor Lawrence
+</td>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:center;">
+359
+</td>
+<td style="text-align:center;">
+602
+</td>
+<td style="text-align:center;">
+59.6
+</td>
+<td style="text-align:center;">
+3641
+</td>
+<td style="text-align:center;">
+6.0
+</td>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:left;">
+33.5
+</td>
+<td style="text-align:center;">
+71.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Matthew Stafford
+</td>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:center;">
+404
+</td>
+<td style="text-align:center;">
+601
+</td>
+<td style="text-align:center;">
+67.2
+</td>
+<td style="text-align:center;">
+4886
+</td>
+<td style="text-align:center;">
+8.1
+</td>
+<td style="text-align:center;">
+41
+</td>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:left;">
+63.8
+</td>
+<td style="text-align:center;">
+102.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dak Prescott
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+410
+</td>
+<td style="text-align:center;">
+596
+</td>
+<td style="text-align:center;">
+68.8
+</td>
+<td style="text-align:center;">
+4449
+</td>
+<td style="text-align:center;">
+7.5
+</td>
+<td style="text-align:center;">
+37
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:left;">
+54.6
+</td>
+<td style="text-align:center;">
+104.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kirk Cousins
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+372
+</td>
+<td style="text-align:center;">
+561
+</td>
+<td style="text-align:center;">
+66.3
+</td>
+<td style="text-align:center;">
+4221
+</td>
+<td style="text-align:center;">
+7.5
+</td>
+<td style="text-align:center;">
+33
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:left;">
+52.3
+</td>
+<td style="text-align:center;">
+103.1
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="1.5-football.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(QB_21)</span></code></pre></div>
+<pre><code>##  [1] &quot;Name&quot;  &quot;Team&quot;  &quot;GP&quot;    &quot;CMP&quot;   &quot;ATT&quot;   &quot;CMP%&quot;  &quot;YDS&quot;   &quot;AVG&quot;   &quot;YDS/G&quot;
+## [10] &quot;LNG&quot;   &quot;TD&quot;    &quot;INT&quot;   &quot;SACK&quot;  &quot;SYL&quot;   &quot;QBR&quot;   &quot;RTG&quot;</code></pre>
+<ol style="list-style-type: lower-alpha">
+<li>Confirm this is passer rating by creating a new variable to calculate passer rating using the provided statistics.</li>
+</ol>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="1.5-football.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create intermediate variables</span></span>
+<span id="cb71-2"><a href="1.5-football.html#cb71-2" aria-hidden="true" tabindex="-1"></a>QB_21 <span class="ot">&lt;-</span> QB_21 <span class="sc">%&gt;%</span> </span>
+<span id="cb71-3"><a href="1.5-football.html#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">a =</span> (CMP<span class="sc">/</span>ATT<span class="fl">-0.3</span>)<span class="sc">*</span><span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb71-4"><a href="1.5-football.html#cb71-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">b =</span> (YDS<span class="sc">/</span>ATT<span class="dv">-3</span>)<span class="sc">*</span><span class="fl">0.25</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb71-5"><a href="1.5-football.html#cb71-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">c =</span> (TD<span class="sc">/</span>ATT)<span class="sc">*</span><span class="dv">20</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb71-6"><a href="1.5-football.html#cb71-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">d =</span> <span class="fl">2.375</span> <span class="sc">-</span>(INT<span class="sc">/</span>ATT<span class="sc">*</span><span class="dv">25</span>))</span>
+<span id="cb71-7"><a href="1.5-football.html#cb71-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-8"><a href="1.5-football.html#cb71-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Check to see if a,b,c,d are less than 0 or greater than 2.375</span></span>
+<span id="cb71-9"><a href="1.5-football.html#cb71-9" aria-hidden="true" tabindex="-1"></a>QB_21 <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="fu">min</span>(a),<span class="fu">max</span>(a),<span class="fu">min</span>(b),<span class="fu">max</span>(b),<span class="fu">min</span>(c),<span class="fu">max</span>(c),<span class="fu">min</span>(d),<span class="fu">max</span>(d))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 8
+##   `min(a)` `max(a)` `min(b)` `max(b)` `min(c)` `max(c)` `min(d)` `max(d)`
+##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1     1.19     2.02    0.433     1.47    0.319     1.74    0.860     2.19</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="1.5-football.html#cb73-1" aria-hidden="true" tabindex="-1"></a>QB_21 <span class="ot">&lt;-</span> QB_21 <span class="sc">%&gt;%</span></span>
+<span id="cb73-2"><a href="1.5-football.html#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PR =</span> (a<span class="sc">+</span>b<span class="sc">+</span>c<span class="sc">+</span>d)<span class="sc">/</span><span class="dv">6</span><span class="sc">*</span><span class="dv">100</span>)</span>
+<span id="cb73-3"><a href="1.5-football.html#cb73-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-4"><a href="1.5-football.html#cb73-4" aria-hidden="true" tabindex="-1"></a>QB_21 <span class="sc">%&gt;%</span> <span class="fu">select</span>(Name,RTG,PR) <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">kt</span>()</span></code></pre></div>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Name
+</th>
+<th style="text-align:center;">
+RTG
+</th>
+<th style="text-align:center;">
+PR
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Tom Brady
+</td>
+<td style="text-align:center;">
+102.1
+</td>
+<td style="text-align:center;">
+102.083
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Justin Herbert
+</td>
+<td style="text-align:center;">
+97.7
+</td>
+<td style="text-align:center;">
+97.656
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Patrick Mahomes
+</td>
+<td style="text-align:center;">
+98.5
+</td>
+<td style="text-align:center;">
+98.455
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Josh Allen
+</td>
+<td style="text-align:center;">
+92.2
+</td>
+<td style="text-align:center;">
+92.170
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Derek Carr
+</td>
+<td style="text-align:center;">
+94.0
+</td>
+<td style="text-align:center;">
+93.963
+</td>
+</tr>
+</tbody>
+</table>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>What counting statistics are most correlated with passer rating and with QBR?</li>
+</ol>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="1.5-football.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grab the counting statistics and create a correlation plot with PR and QBR</span></span>
+<span id="cb74-2"><a href="1.5-football.html#cb74-2" aria-hidden="true" tabindex="-1"></a>QB_21 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PR,QBR,CMP,ATT,YDS,TD,INT,SACK,SYL) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>What rate statistics are most correlated with passer efficiency and with QBR? Use CMP% (completion percentage, completions per attempt), AVG (average yards per attempt), YDS/G (yards per game), and create new variables for interceptions per attempt, touchdowns per attempt, and sacks per attempt.</li>
+</ol>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="1.5-football.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grab the counting statistics and create a correlation plot with PR and QBR</span></span>
+<span id="cb75-2"><a href="1.5-football.html#cb75-2" aria-hidden="true" tabindex="-1"></a>QB_21 <span class="ot">&lt;-</span> QB_21 <span class="sc">%&gt;%</span> </span>
+<span id="cb75-3"><a href="1.5-football.html#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">INTp =</span> INT<span class="sc">/</span>ATT) <span class="sc">%&gt;%</span></span>
+<span id="cb75-4"><a href="1.5-football.html#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TDp =</span> TD<span class="sc">/</span>ATT) <span class="sc">%&gt;%</span></span>
+<span id="cb75-5"><a href="1.5-football.html#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SACKp =</span> SACK<span class="sc">/</span>ATT)</span>
+<span id="cb75-6"><a href="1.5-football.html#cb75-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-7"><a href="1.5-football.html#cb75-7" aria-hidden="true" tabindex="-1"></a>QB_21 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PR,QBR,<span class="st">`</span><span class="at">CMP%</span><span class="st">`</span>,AVG,<span class="st">`</span><span class="at">YDS/G</span><span class="st">`</span>,INTp,TDp,SACKp) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<p style="text-align: center;">
+<a href="1.4-baseball.html"><button class="btn btn-default">Previous</button></a>
+<a href="1.6-basketball.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>

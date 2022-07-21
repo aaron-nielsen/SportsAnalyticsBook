@@ -20,8 +20,17 @@ url: https://aaron-nielsen.github.io/SportsAnalyticsBook/
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 library(formatR)
+library(tidyverse)
+library(kableExtra)
+
 # Set so that long lines in R will be wrapped:
-knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=FALSE)
+knitr::opts_chunk$set(cache=TRUE)
+
+# kable table global setup
+kt <- function(data) {
+  knitr::kable(data, digits=3, align=c('l',rep('c',20))) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+}
 ```
 
 # About {-}

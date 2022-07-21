@@ -257,6 +257,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gambling-simulations"><i class="fa fa-check"></i><b>3.4</b> Gambling Simulations</a>
 <ul>
 <li class="chapter" data-level="3.4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#martingale-system"><i class="fa fa-check"></i><b>3.4.1</b> Martingale System</a></li>
+<li class="chapter" data-level="3.4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gamblers-ruin"><i class="fa fa-check"></i><b>3.4.2</b> Gambler’s Ruin</a></li>
+<li class="chapter" data-level="3.4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-a-winning-system"><i class="fa fa-check"></i><b>3.4.3</b> Simulating a Winning System</a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#extra-stuff-1"><i class="fa fa-check"></i><b>3.5</b> Extra stuff</a>
 <ul>
@@ -628,19 +630,19 @@ Win, Win, Loss, Win, Win, Win, Win, Loss, Win, Loss, Win, Win, Win, Win, Loss, W
 <div class="example">
 <p><span id="exm:unlabeled-div-31" class="example"><strong>Example 1.7  </strong></span>Create a histogram of the NFL Team Passing Yards in 2021.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="exploratory-data-analysis.html#cb45-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Yds)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code></pre></div>
-<p><img src="series_files/figure-html/hist-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/hist-1.png" width="672" /></p>
 <p>Notice how <strong>%&gt;%</strong> is used to <strong>pipe</strong> the dataset into ggplot. This is using the pipe function from the <strong>dplyr</strong> package.</p>
 <p>By default, <strong>geom_histogram</strong> uses 30 bins but this is customizable. Let’s make the bins have a width of 200.</p>
 <p>All good visualizations have good labels. Let’s improve the axis labels and give the figure a title.</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="exploratory-data-analysis.html#cb46-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Yds)) <span class="sc">+</span> </span>
 <span id="cb46-2"><a href="exploratory-data-analysis.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">200</span>) <span class="sc">+</span></span>
 <span id="cb46-3"><a href="exploratory-data-analysis.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team Passing Yards&quot;</span>,<span class="at">y=</span><span class="st">&quot;Team Passing Touchdowns&quot;</span>,<span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/hist2-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/hist2-1.png" width="672" /></p>
 <p>We also have numerous options to change the appearance of plots when using <strong>ggplot</strong>. Let’s change the bins color to <em>blue</em> and change the bin borders to <em>white</em>.</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="exploratory-data-analysis.html#cb47-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Yds)) <span class="sc">+</span> </span>
 <span id="cb47-2"><a href="exploratory-data-analysis.html#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">binwidth =</span> <span class="dv">200</span>) <span class="sc">+</span></span>
 <span id="cb47-3"><a href="exploratory-data-analysis.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team Passing Yards&quot;</span>, <span class="at">y=</span><span class="st">&quot;Team Passing Touchdowns&quot;</span>, <span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/hist3-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/hist3-1.png" width="672" /></p>
 </div>
 </div>
 <div id="bar-plots" class="section level3 hasAnchor" number="1.3.2">
@@ -650,21 +652,21 @@ Win, Win, Loss, Win, Win, Win, Win, Loss, Win, Loss, Win, Win, Win, Win, Loss, W
 <p><span id="exm:unlabeled-div-32" class="example"><strong>Example 1.8  </strong></span>Create a bar plot with teams on the horizontal axis and passing touchdowns on the vertical axis.</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="exploratory-data-analysis.html#cb48-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Tm,<span class="at">y=</span>Yds)) <span class="sc">+</span></span>
 <span id="cb48-2"><a href="exploratory-data-analysis.html#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/bar-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/bar-1.png" width="672" /></p>
 <p>The team labels are a complete mess. Let’s fix this and make some adjustments to the axis labels and figure title.</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="exploratory-data-analysis.html#cb49-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Tm,<span class="at">y=</span>Yds)) <span class="sc">+</span></span>
 <span id="cb49-2"><a href="exploratory-data-analysis.html#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb49-3"><a href="exploratory-data-analysis.html#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team&quot;</span>, <span class="at">y=</span><span class="st">&quot;Team Passing Yards&quot;</span>, </span>
 <span id="cb49-4"><a href="exploratory-data-analysis.html#cb49-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>) <span class="sc">+</span></span>
 <span id="cb49-5"><a href="exploratory-data-analysis.html#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/bar2-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/bar2-1.png" width="672" /></p>
 <p>We can flip this graph if we like as well. Note that when we flip the graph, our labels get in reverse ordering, so this can be fixed using <strong>fct_rev()</strong> which is part of the <strong>forcats</strong> package.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="exploratory-data-analysis.html#cb50-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span> </span>
 <span id="cb50-2"><a href="exploratory-data-analysis.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">fct_rev</span>(Tm),<span class="at">y=</span>Yds)) <span class="sc">+</span></span>
 <span id="cb50-3"><a href="exploratory-data-analysis.html#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
 <span id="cb50-4"><a href="exploratory-data-analysis.html#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team Passing Yards&quot;</span>,<span class="at">y=</span><span class="st">&quot;Team&quot;</span>,<span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>) <span class="sc">+</span></span>
 <span id="cb50-5"><a href="exploratory-data-analysis.html#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="series_files/figure-html/bar3-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/bar3-1.png" width="672" /></p>
 </div>
 <p>We can also order the teams from most team passing touchdowns to least using the <code>forcats</code> package.</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="exploratory-data-analysis.html#cb51-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Tm =</span> <span class="fu">fct_reorder</span>(Tm,Yds)) <span class="sc">%&gt;%</span></span>
@@ -672,7 +674,7 @@ Win, Win, Loss, Win, Win, Win, Win, Loss, Win, Loss, Win, Win, Win, Win, Loss, W
 <span id="cb51-3"><a href="exploratory-data-analysis.html#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
 <span id="cb51-4"><a href="exploratory-data-analysis.html#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team Passing Yards&quot;</span>,<span class="at">y=</span><span class="st">&quot;Team Passing Yards&quot;</span>,<span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>) <span class="sc">+</span></span>
 <span id="cb51-5"><a href="exploratory-data-analysis.html#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
 <div id="scatter-plots" class="section level3 hasAnchor" number="1.3.3">
 <h3><span class="header-section-number">1.3.3</span> Scatter Plots<a href="exploratory-data-analysis.html#scatter-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -683,14 +685,14 @@ Win, Win, Loss, Win, Win, Win, Win, Loss, Win, Loss, Win, Win, Win, Win, Loss, W
 <span id="cb52-2"><a href="exploratory-data-analysis.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Yds,<span class="at">y=</span>TD,<span class="at">label=</span>Tm)) <span class="sc">+</span> </span>
 <span id="cb52-3"><a href="exploratory-data-analysis.html#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb52-4"><a href="exploratory-data-analysis.html#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team Passing Yards&quot;</span>,<span class="at">y=</span><span class="st">&quot;Team Passing Touchdowns&quot;</span>,<span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/scatter1-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/scatter1-1.png" width="672" /></p>
 <p>We may want to include team labels on this plot, however, it can get messy very quickly with a lot of points.</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="exploratory-data-analysis.html#cb53-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing <span class="sc">%&gt;%</span></span>
 <span id="cb53-2"><a href="exploratory-data-analysis.html#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Yds,<span class="at">y=</span>TD,<span class="at">label=</span>Tm)) <span class="sc">+</span> </span>
 <span id="cb53-3"><a href="exploratory-data-analysis.html#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb53-4"><a href="exploratory-data-analysis.html#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team Passing Yards&quot;</span>,<span class="at">y=</span><span class="st">&quot;Team Passing Touchdowns&quot;</span>,<span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>) <span class="sc">+</span></span>
 <span id="cb53-5"><a href="exploratory-data-analysis.html#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>()</span></code></pre></div>
-<p><img src="series_files/figure-html/scatter2-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/scatter2-1.png" width="672" /></p>
 <p>Many sports leagues have around 30 teams, so a clean scatterplot with labels can be tricky to make. Here are some options below.</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="exploratory-data-analysis.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install ggrepel package</span></span>
 <span id="cb54-2"><a href="exploratory-data-analysis.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
@@ -701,7 +703,7 @@ Win, Win, Loss, Win, Win, Win, Win, Loss, Win, Loss, Win, Win, Win, Win, Loss, W
 <span id="cb54-7"><a href="exploratory-data-analysis.html#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>()</span></code></pre></div>
 <pre><code>## Warning: ggrepel: 6 unlabeled data points (too many overlaps). Consider
 ## increasing max.overlaps</code></pre>
-<p><img src="series_files/figure-html/scatter3-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/scatter3-1.png" width="672" /></p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="exploratory-data-analysis.html#cb56-1" aria-hidden="true" tabindex="-1"></a>NFL_2021_Team_Passing<span class="sc">$</span>Abbr <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;TB&quot;</span>,<span class="st">&quot;LAC&quot;</span>,<span class="st">&quot;DAL&quot;</span>,<span class="st">&quot;KC&quot;</span>,<span class="st">&quot;LAR&quot;</span>,<span class="st">&quot;LV&quot;</span>,<span class="st">&quot;CIN&quot;</span>,<span class="st">&quot;GB&quot;</span>,<span class="st">&quot;BUF&quot;</span>,<span class="st">&quot;AZ&quot;</span>,<span class="st">&quot;MN&quot;</span>,<span class="st">&quot;SF&quot;</span>,</span>
 <span id="cb56-2"><a href="exploratory-data-analysis.html#cb56-2" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;BAL&quot;</span>,<span class="st">&quot;NE&quot;</span>,<span class="st">&quot;PIT&quot;</span>,<span class="st">&quot;ATL&quot;</span>,<span class="st">&quot;MIA&quot;</span>,<span class="st">&quot;DET&quot;</span>,<span class="st">&quot;DEN&quot;</span>,<span class="st">&quot;NYJ&quot;</span>,<span class="st">&quot;WAS&quot;</span>,<span class="st">&quot;JAC&quot;</span>,<span class="st">&quot;SEA&quot;</span>,</span>
 <span id="cb56-3"><a href="exploratory-data-analysis.html#cb56-3" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;TEN&quot;</span>,<span class="st">&quot;PHI&quot;</span>,<span class="st">&quot;IND&quot;</span>,<span class="st">&quot;CLE&quot;</span>,<span class="st">&quot;HOU&quot;</span>,<span class="st">&quot;CAR&quot;</span>,<span class="st">&quot;CHI&quot;</span>,<span class="st">&quot;NYG&quot;</span>,<span class="st">&quot;NO&quot;</span>)</span>
@@ -711,7 +713,7 @@ Win, Win, Loss, Win, Win, Win, Win, Loss, Win, Loss, Win, Win, Win, Win, Loss, W
 <span id="cb56-7"><a href="exploratory-data-analysis.html#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">2750</span>,<span class="dv">5250</span>)) <span class="sc">+</span></span>
 <span id="cb56-8"><a href="exploratory-data-analysis.html#cb56-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Team Passing Yards&quot;</span>,<span class="at">y=</span><span class="st">&quot;Team Passing Touchdowns&quot;</span>,<span class="at">title=</span><span class="st">&quot;NFL Team Passing Yards, 2021&quot;</span>) <span class="sc">+</span></span>
 <span id="cb56-9"><a href="exploratory-data-analysis.html#cb56-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">box.padding =</span> <span class="fl">0.3</span>) </span></code></pre></div>
-<p><img src="series_files/figure-html/scatter4-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/scatter4-1.png" width="672" /></p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1592,10 +1594,10 @@ Ryan McMahon*
 <span id="cb64-7"><a href="exploratory-data-analysis.html#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Standard hitting statistics</span></span>
 <span id="cb64-8"><a href="exploratory-data-analysis.html#cb64-8" aria-hidden="true" tabindex="-1"></a>rox21_100 <span class="sc">%&gt;%</span> <span class="fu">select</span>(oWAR,H,<span class="st">`</span><span class="at">2B</span><span class="st">`</span>,<span class="st">`</span><span class="at">3B</span><span class="st">`</span>,HR,R,RBI) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>() <span class="sc">+</span></span>
 <span id="cb64-9"><a href="exploratory-data-analysis.html#cb64-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="exploratory-data-analysis.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rate statistics</span></span>
 <span id="cb65-2"><a href="exploratory-data-analysis.html#cb65-2" aria-hidden="true" tabindex="-1"></a>rox21_100 <span class="sc">%&gt;%</span> <span class="fu">select</span>(oWAR,AVG,OBA,SLG,OPS,wOBA) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 </div>
 <div id="evaluating-advanced-pitching-statistics" class="section level3 hasAnchor" number="1.4.7">
@@ -1751,7 +1753,7 @@ Luis Castillo
 </table>
 <p>Let’s look at the correlations between these variables, paying close attention to what variables are most correlated with ERA20, a pitcher’s ERA in 2020.</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="exploratory-data-analysis.html#cb67-1" aria-hidden="true" tabindex="-1"></a>pitchers2021 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Player) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>(<span class="at">title=</span><span class="st">&quot;Correlation plot of pitching statistics, MLB 2020-2021&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>This is a small dataset that only contains twenty pitchers (samples), but you will notice that ERA20 is more highly correlated with FIP21 and xFIP21 than ERA21. In other words, FIP and xFIP are likely better predictors of ERA success in the future rather than ERA success in the past.</p>
 </div>
 </div>
@@ -2292,7 +2294,7 @@ Derek Carr
 </ol>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="exploratory-data-analysis.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grab the counting statistics and create a correlation plot with PR and QBR</span></span>
 <span id="cb74-2"><a href="exploratory-data-analysis.html#cb74-2" aria-hidden="true" tabindex="-1"></a>QB_21 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PR,QBR,CMP,ATT,YDS,TD,INT,SACK,SYL) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>What rate statistics are most correlated with passer efficiency and with QBR? Use CMP% (completion percentage, completions per attempt), AVG (average yards per attempt), YDS/G (yards per game), and create new variables for interceptions per attempt, touchdowns per attempt, and sacks per attempt.</li>
 </ol>
@@ -2303,7 +2305,7 @@ Derek Carr
 <span id="cb75-5"><a href="exploratory-data-analysis.html#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SACKp =</span> SACK<span class="sc">/</span>ATT)</span>
 <span id="cb75-6"><a href="exploratory-data-analysis.html#cb75-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-7"><a href="exploratory-data-analysis.html#cb75-7" aria-hidden="true" tabindex="-1"></a>QB_21 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PR,QBR,<span class="st">`</span><span class="at">CMP%</span><span class="st">`</span>,AVG,<span class="st">`</span><span class="at">YDS/G</span><span class="st">`</span>,INTp,TDp,SACKp) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -2729,16 +2731,16 @@ Golden State Warriors
 <span id="cb79-5"><a href="exploratory-data-analysis.html#cb79-5" aria-hidden="true" tabindex="-1"></a>jokic_data<span class="sc">$</span>yy <span class="ot">&lt;-</span> jokic_data<span class="sc">$</span>original_y<span class="sc">/</span><span class="dv">10</span> <span class="sc">-</span> <span class="fl">41.75</span> <span class="co">#transformation</span></span></code></pre></div>
 <p><code>BasketballAnalyzeR</code> supports three types of density visualizations within <code>shotchart</code>, one being <code>density-polygons</code>. Since <code>shotchart</code> is a <code>ggplot</code> object, a chart title can be added using <code>ggtitle</code>.</p>
 <div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="exploratory-data-analysis.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shotchart</span>(<span class="at">data =</span> jokic_data, <span class="at">x=</span><span class="st">&quot;xx&quot;</span>, <span class="at">y=</span><span class="st">&quot;yy&quot;</span>, <span class="at">type=</span><span class="st">&quot;density-polygons&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Nikola Jokic Shot Data, 2017-18&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/basketballanalyzer%203-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/basketballanalyzer%203-1.png" width="672" /></p>
 <p>It seems most shots attempts from Jokic were in the paint; this is hardly surprising, since he plays the center position. Here’s the same chart with <code>density-hexbin</code>:</p>
 <div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="exploratory-data-analysis.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shotchart</span>(<span class="at">data =</span> jokic_data, <span class="at">x=</span><span class="st">&quot;xx&quot;</span>, <span class="at">y=</span><span class="st">&quot;yy&quot;</span>, <span class="at">type=</span><span class="st">&quot;density-hexbin&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Nikola Jokic Shot Data, 2017-18&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/basketballanalyzer%204-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/basketballanalyzer%204-1.png" width="672" /></p>
 <p>The same chart with <code>density-raster</code>:</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="exploratory-data-analysis.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shotchart</span>(<span class="at">data =</span> jokic_data, <span class="at">x=</span><span class="st">&quot;xx&quot;</span>, <span class="at">y=</span><span class="st">&quot;yy&quot;</span>, <span class="at">type=</span><span class="st">&quot;density-raster&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Nikola Jokic Shot Data, 2017-18&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/basketballanalyzer%205-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/basketballanalyzer%205-1.png" width="672" /></p>
 <p>Within the <code>shotchart</code> function, setting <code>scatter=TRUE</code> overlays the shots on the chart. Point size and transparency can also be customized.</p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="exploratory-data-analysis.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shotchart</span>(<span class="at">data =</span> jokic_data, <span class="at">x=</span><span class="st">&quot;xx&quot;</span>, <span class="at">y=</span><span class="st">&quot;yy&quot;</span>, <span class="at">type=</span><span class="st">&quot;density-raster&quot;</span>, <span class="at">scatter=</span><span class="cn">TRUE</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Nikola Jokic Shot Data, 2017-18&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/basketballanalyzer%206-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/basketballanalyzer%206-1.png" width="672" /></p>
 <p>Let’s now compare shot charts of Nikola Jokic, Steph Curry, and Lebron James. This group of players includes one member of each team for which we calculated Four Factors.</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="exploratory-data-analysis.html#cb84-1" aria-hidden="true" tabindex="-1"></a>curry_data <span class="ot">&lt;-</span> <span class="fu">subset</span>(PbP, player <span class="sc">==</span> <span class="st">&quot;Stephen Curry&quot;</span>)</span>
 <span id="cb84-2"><a href="exploratory-data-analysis.html#cb84-2" aria-hidden="true" tabindex="-1"></a>curry_data<span class="sc">$</span>xx <span class="ot">&lt;-</span> curry_data<span class="sc">$</span>original_x<span class="sc">/</span><span class="dv">10</span> <span class="co">#transformation</span></span>
@@ -2749,16 +2751,16 @@ Golden State Warriors
 <span id="cb84-7"><a href="exploratory-data-analysis.html#cb84-7" aria-hidden="true" tabindex="-1"></a>james_data<span class="sc">$</span>yy <span class="ot">&lt;-</span> james_data<span class="sc">$</span>original_y<span class="sc">/</span><span class="dv">10</span> <span class="sc">-</span> <span class="fl">41.75</span> <span class="co">#transformation</span></span>
 <span id="cb84-8"><a href="exploratory-data-analysis.html#cb84-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb84-9"><a href="exploratory-data-analysis.html#cb84-9" aria-hidden="true" tabindex="-1"></a><span class="fu">shotchart</span>(<span class="at">data =</span> jokic_data, <span class="at">x=</span><span class="st">&quot;xx&quot;</span>, <span class="at">y=</span><span class="st">&quot;yy&quot;</span>, <span class="at">type=</span><span class="st">&quot;density-raster&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Nikola Jokic Shot Data, 2017-18&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/basketballanalyzer%207-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/basketballanalyzer%207-1.png" width="672" /></p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="exploratory-data-analysis.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shotchart</span>(<span class="at">data =</span> curry_data, <span class="at">x=</span><span class="st">&quot;xx&quot;</span>, <span class="at">y=</span><span class="st">&quot;yy&quot;</span>, <span class="at">type=</span><span class="st">&quot;density-raster&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Steph Curry Shot Data, 2017-18&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/basketballanalyzer%207-2.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/basketballanalyzer%207-2.png" width="672" /></p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="exploratory-data-analysis.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shotchart</span>(<span class="at">data =</span> james_data, <span class="at">x=</span><span class="st">&quot;xx&quot;</span>, <span class="at">y=</span><span class="st">&quot;yy&quot;</span>, <span class="at">type=</span><span class="st">&quot;density-raster&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Lebron James Shot Data, 2017-18&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/basketballanalyzer%207-3.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/basketballanalyzer%207-3.png" width="672" /></p>
 <p>Q: Of the three players (Jokic, Curry, James), which took the highest percentage of their three-point shots from the right side of the court (when facing the basket)?</p>
 <p>A: Nikola Jokic shot almost all of his attempts from the right side. Steph Curry took many shots from beyond the arc and tended toward the left side, while James was split between the right side and the center.</p>
 <p>Now, let’s focus on Steph Curry’s shooting. The following chart splits the court into zones based on angle and distance from the basket. The color in each zone represents the average length of the play leading up to that shot among shots taken in that zone.</p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="exploratory-data-analysis.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shotchart</span>(<span class="at">data =</span> curry_data, <span class="at">x=</span><span class="st">&quot;xx&quot;</span>, <span class="at">y=</span><span class="st">&quot;yy&quot;</span>, <span class="at">z=</span><span class="st">&quot;playlength&quot;</span>, <span class="at">type=</span><span class="st">&quot;sectors&quot;</span>, <span class="at">num.sect =</span> <span class="dv">7</span>, <span class="at">scatter=</span><span class="cn">TRUE</span>, <span class="at">pt.alpha=</span>.<span class="dv">3</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Steph Curry Shot Data, 2017-18&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/basketballanalyzer%208-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/basketballanalyzer%208-1.png" width="672" /></p>
 <p>Q: In general, did Steph Curry tend to shoot closer to the basket during plays of a longer duration or a shorter duration?</p>
 <p>A: There is not a perfect correlation, but it seems that two-point field goals were attempted more often during longer plays, while shots taken outside the three-point arc were taken during plays of a shorter duration.</p>
 <p><em>References:</em>
@@ -3169,11 +3171,11 @@ CBJ
 <p>The dataset includes an Expected Goals statistic for each team in the <code>xGoalsFor</code> column. Let’s plot this quantity against the team’s actual number of goals scored; this is given by the <code>goalsFor</code> column.</p>
 <p>(Remember to always have a good title and axis labels!)</p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="exploratory-data-analysis.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>nhl_data_all, <span class="fu">aes</span>(<span class="at">x=</span>xGoalsFor, <span class="at">y=</span>goalsFor)) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Expected Goals Scored&quot;</span>, <span class="at">y=</span><span class="st">&quot;Actual Goals Scored&quot;</span>, <span class="at">title=</span><span class="st">&quot;NHL Teams: Expected vs. Actual Goals, 2021-22&quot;</span>) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>As expected, there is a general positive correlation between expected and actual goals (<span class="math inline">\(r \approx 0.8\)</span>). However, there is some variability - for example, the Kings only scored 7 more actual goals than the Ducks, despite having 56.6 more expected goals.</p>
 <p>Let’s add a line to the graph using the <code>geom_abline</code> function corresponding to the line <span class="math inline">\(y=x\)</span>, the line on which data points would fall if expected goals were equal to actual goals. We can also customize the line’s color and type.</p>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="exploratory-data-analysis.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>nhl_data_all, <span class="fu">aes</span>(<span class="at">x=</span>xGoalsFor, <span class="at">y=</span>goalsFor)) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Expected Goals Scored&quot;</span>, <span class="at">y=</span><span class="st">&quot;Actual Goals Scored&quot;</span>,<span class="at">title=</span><span class="st">&quot;NHL Teams: Expected vs. Actual Goals, 2021-22&quot;</span>) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_abline</span>(<span class="at">intercept=</span><span class="dv">0</span>, <span class="at">slope=</span><span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <p><em>Note: A slope of 0 and an intercept of 1 are actually the default parameters for the function.</em></p>
 <p>Q: What does it mean for a team’s data point to fall below this line? Above it?</p>
 <p>A: If the data point is below the line, it means the expected goals were greater than the actual goals; if the data point is above the line, it means the actual goals were greater than the expected goals.</p>
@@ -3545,7 +3547,7 @@ NSH
 </tbody>
 </table>
 <p>The following plot compares save percentage to the number of shots on goal faced for the qualified goalies. The dashed horizontal line is placed at the average shots on goal faced among qualified players, and the dashed vertical line is placed at the average save percentage among qualified players.</p>
-<p><img src="series_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <p>Q: Which quadrant of the graph represents goalies that faced a higher than average number of shots, but had a below-average save percentage?</p>
 <p>A: The second (upper left) quadrant.</p>
 <p>Q: Which quadrant represents goalies that had a high save percentage and faced a high volume of shots?</p>
@@ -3560,13 +3562,13 @@ NSH
 </div>
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="exploratory-data-analysis.html#cb97-1" aria-hidden="true" tabindex="-1"></a>goal_stats <span class="ot">&lt;-</span> nhl_data_all <span class="sc">%&gt;%</span> <span class="fu">select</span>(shotsOnGoalFor, corsiPercentage, fenwickPercentage, goalsFor)</span>
 <span id="cb97-2"><a href="exploratory-data-analysis.html#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(goal_stats, <span class="at">title=</span><span class="st">&quot;Correlation plot of goals and relevant predictors, NHL 2021-22&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <p>Q: Which of the variables has the strongest correlation with goals scored?</p>
 <p>A: CORSI percentage, r = .702.</p>
 <p>In the article <a href="https://theathletic.com/121980/2017/10/09/an-advanced-stat-primer-understanding-basic-hockey-metrics/">“An advanced stat primer: Understanding basic hockey metrics”</a>, Charlie O’Connor states, “Generally speaking, Corsi is more predictive of future goal differential than Fenwick… however, Fenwick forms the basis for the most widely-used Expected Goals models.” Let’s use the same predictors in a correlation plot with Expected Goals percentage. Does Fenwick have the strongest correlation with xGoal percentage?</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="exploratory-data-analysis.html#cb98-1" aria-hidden="true" tabindex="-1"></a>xGoal_stats <span class="ot">&lt;-</span> nhl_data_all <span class="sc">%&gt;%</span> <span class="fu">select</span>(shotsOnGoalFor, corsiPercentage, fenwickPercentage, xGoalsPercentage)</span>
 <span id="cb98-2"><a href="exploratory-data-analysis.html#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(xGoal_stats, <span class="at">title=</span><span class="st">&quot;Correlation plot of expected goals and relevant predictors, NHL 2021-22&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/hockey%20ggplot%206-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/hockey%20ggplot%206-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -4053,13 +4055,13 @@ W
 <span id="cb100-2"><a href="exploratory-data-analysis.html#cb100-2" aria-hidden="true" tabindex="-1"></a>dig_pct_viz <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> csu_vb, <span class="fu">aes</span>(<span class="at">x =</span> DIG, <span class="at">y =</span> PCT, <span class="at">color =</span> W_L)) <span class="sc">+</span></span>
 <span id="cb100-3"><a href="exploratory-data-analysis.html#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
 <span id="cb100-4"><a href="exploratory-data-analysis.html#cb100-4" aria-hidden="true" tabindex="-1"></a>dig_pct_viz</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <p>Let’s change the axis titles, legend title, and add a main title.</p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="exploratory-data-analysis.html#cb101-1" aria-hidden="true" tabindex="-1"></a>dig_pct_viz <span class="sc">+</span></span>
 <span id="cb101-2"><a href="exploratory-data-analysis.html#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Wins and Losses by Number of Digs and Hitting Percentage&quot;</span>,</span>
 <span id="cb101-3"><a href="exploratory-data-analysis.html#cb101-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Number of Digs (DIG)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Hitting Percentage (PCT)&quot;</span>,</span>
 <span id="cb101-4"><a href="exploratory-data-analysis.html#cb101-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Win or Loss&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 <p>What can we learn from this visual? Well, we can see that there is a weak linear relationship between the number of digs and hitting percentage. To an extent, hitting percentage decreases as the number of digs increases. Why is this the case? Maybe if a team has a really high hitting percentage, this means that the opposing team does not have as many opportunities to attack the other team offensively, reducing the number of opportunities for digs. It also seems that while wins and losses are somewhat evenly spread across the number of digs, there is a more clear cutoff for hitting percentage. It seems that the majority of wins are associated with a hitting percentage of at least 0.2, while the majority of losses are associated with a hitting percentage of less than 0.3.</p>
 </div>
 <div id="box-plot" class="section level3 hasAnchor" number="1.8.3">
@@ -4068,24 +4070,24 @@ W
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="exploratory-data-analysis.html#cb102-1" aria-hidden="true" tabindex="-1"></a>pct_viz <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> csu_vb, <span class="fu">aes</span>(<span class="at">x =</span> PCT, <span class="at">y =</span> W_L)) <span class="sc">+</span></span>
 <span id="cb102-2"><a href="exploratory-data-analysis.html#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
 <span id="cb102-3"><a href="exploratory-data-analysis.html#cb102-3" aria-hidden="true" tabindex="-1"></a>pct_viz</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="exploratory-data-analysis.html#cb103-1" aria-hidden="true" tabindex="-1"></a>dig_viz <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> csu_vb, <span class="fu">aes</span>(<span class="at">x =</span> DIG, <span class="at">y =</span> W_L)) <span class="sc">+</span></span>
 <span id="cb103-2"><a href="exploratory-data-analysis.html#cb103-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
 <span id="cb103-3"><a href="exploratory-data-analysis.html#cb103-3" aria-hidden="true" tabindex="-1"></a>dig_viz</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-35-2.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-35-2.png" width="672" /></p>
 <p>Let’s modify these plots to make them more complete and visually appealing.</p>
 <div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="exploratory-data-analysis.html#cb104-1" aria-hidden="true" tabindex="-1"></a>pct_viz <span class="sc">+</span></span>
 <span id="cb104-2"><a href="exploratory-data-analysis.html#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Hitting Percentage for Wins and Losses&quot;</span>,</span>
 <span id="cb104-3"><a href="exploratory-data-analysis.html#cb104-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Hitting Percentage (PCT)&quot;</span>,</span>
 <span id="cb104-4"><a href="exploratory-data-analysis.html#cb104-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Win or Loss&quot;</span>) <span class="sc">+</span></span>
 <span id="cb104-5"><a href="exploratory-data-analysis.html#cb104-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;slateblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="exploratory-data-analysis.html#cb105-1" aria-hidden="true" tabindex="-1"></a>dig_viz <span class="sc">+</span></span>
 <span id="cb105-2"><a href="exploratory-data-analysis.html#cb105-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Number of Digs for Wins and Losses&quot;</span>,</span>
 <span id="cb105-3"><a href="exploratory-data-analysis.html#cb105-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Number of Digs (DIG)&quot;</span>,</span>
 <span id="cb105-4"><a href="exploratory-data-analysis.html#cb105-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Win or Loss&quot;</span>) <span class="sc">+</span></span>
 <span id="cb105-5"><a href="exploratory-data-analysis.html#cb105-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;slateblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-36-2.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-36-2.png" width="672" /></p>
 <p>Box plots allow us to isolate each statistic (number of kills and hitting percentage) so we can more clearly determine the center and spread of each between wins and losses.</p>
 <div style="page-break-after: always;"></div>
 </div>
@@ -4126,7 +4128,7 @@ W
 <span id="cb108-3"><a href="exploratory-data-analysis.html#cb108-3" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">aes</span>(<span class="at">x =</span> Squad, <span class="at">y =</span> Gls_Per)) <span class="sc">+</span></span>
 <span id="cb108-4"><a href="exploratory-data-analysis.html#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span>
 <span id="cb108-5"><a href="exploratory-data-analysis.html#cb108-5" aria-hidden="true" tabindex="-1"></a>team_goals_viz</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <p>This plot is a good starting point, but still looks pretty messy. Let’s add a title, change the axis titles, and rotate the axis labels so they are not overlapping over one another.</p>
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="exploratory-data-analysis.html#cb109-1" aria-hidden="true" tabindex="-1"></a>team_goals_viz <span class="ot">&lt;-</span> team_goals_viz <span class="sc">+</span></span>
 <span id="cb109-2"><a href="exploratory-data-analysis.html#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Team&quot;</span>) <span class="sc">+</span></span>
@@ -4134,7 +4136,7 @@ W
 <span id="cb109-4"><a href="exploratory-data-analysis.html#cb109-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
 <span id="cb109-5"><a href="exploratory-data-analysis.html#cb109-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Goals Per Game by Team&quot;</span>)</span>
 <span id="cb109-6"><a href="exploratory-data-analysis.html#cb109-6" aria-hidden="true" tabindex="-1"></a>team_goals_viz</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <p>This is already looking a lot better. Now, we will add the goals scored per game <em>against</em> each team. Why is this of interest? Well, at first glance, Barcelona seems like a pretty impressive team, as they score more goals per game than any other team in the league. However, what if they also have more goals scored against them than any other team in the league? This could be important context, so we will include it in the graph below.</p>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="exploratory-data-analysis.html#cb110-1" aria-hidden="true" tabindex="-1"></a>all_goals_viz <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> liga_2021_stats, <span class="fu">aes</span>(<span class="at">x =</span> Squad, <span class="at">y =</span> Gls_Per)) <span class="sc">+</span></span>
 <span id="cb110-2"><a href="exploratory-data-analysis.html#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="fu">aes</span>(<span class="at">fill =</span> Team_or_Opponent), <span class="at">position =</span> <span class="st">&quot;stack&quot;</span>) <span class="sc">+</span></span>
@@ -4143,11 +4145,11 @@ W
 <span id="cb110-5"><a href="exploratory-data-analysis.html#cb110-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
 <span id="cb110-6"><a href="exploratory-data-analysis.html#cb110-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Goals Per Game by Team&quot;</span>)</span>
 <span id="cb110-7"><a href="exploratory-data-analysis.html#cb110-7" aria-hidden="true" tabindex="-1"></a>all_goals_viz</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
 <p>This is looking pretty good, but let’s clean it up just a bit by changing the legend title and labels.</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="exploratory-data-analysis.html#cb111-1" aria-hidden="true" tabindex="-1"></a>all_goals_viz <span class="sc">+</span></span>
 <span id="cb111-2"><a href="exploratory-data-analysis.html#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Team or Opponent&quot;</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Opponent&quot;</span>,<span class="st">&quot;Team&quot;</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 <p>What does this graph show us? Well, we are able to see the average number of goals scored for and against each team per game. It looks like Barcelona is scoring a lot more goals than they are letting be scored against them, while other teams like Valladolid tend to have a higher proportion of goals scored for the opposing team.</p>
 </div>
 <div id="scatter-plot-1" class="section level3 hasAnchor" number="1.9.4">
@@ -4164,7 +4166,7 @@ W
 <span id="cb112-9"><a href="exploratory-data-analysis.html#cb112-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb112-10"><a href="exploratory-data-analysis.html#cb112-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">2</span>)</span>
 <span id="cb112-11"><a href="exploratory-data-analysis.html#cb112-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggMarginal</span>(act_exp_viz, <span class="at">type =</span> <span class="st">&quot;density&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <p>As you can see, we fit a line to the data. At first glance, it seems to have a positive slope slightly greater than 1. What does this mean in the scenario of actual and expected goals per game?</p>
 
 </div>
@@ -4218,7 +4220,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["series.pdf"],
+"download": ["textbook.pdf"],
 "search": {
 "engine": "fuse",
 "options": null

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="3.5 Extra stuff | Sports Analytics" />
+<meta property="og:type" content="book" />
+<meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+<meta property="og:description" content="3.5 Extra stuff | Sports Analytics Notes" />
+<meta name="github-repo" content="aaron-nielsen.github.io/SportsAnalyticsBook/" />
+
+<meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
+
+<meta name="date" content="2022-07-21" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="3.5 Extra stuff | Sports Analytics Notes">
+
+<title>3.5 Extra stuff | Sports Analytics</title>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+/* show arrow before summary tag as in bootstrap
+TODO: remove if boostrap in updated in html_document (rmarkdown#1485) */
+details > summary {
+  display: list-item;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#about">About</a></li>
+<li class="has-sub"><a href="1-exploratory-data-analysis.html#exploratory-data-analysis"><span class="toc-section-number">1</span> Exploratory Data Analysis</a>
+<ul>
+<li class="has-sub"><a href="1.1-getting-started-with-r.html#getting-started-with-r"><span class="toc-section-number">1.1</span> Getting Started With R</a>
+<ul>
+<li><a href="1.1-getting-started-with-r.html#installing-r"><span class="toc-section-number">1.1.1</span> Installing R</a></li>
+<li><a href="1.1-getting-started-with-r.html#some-r-basics"><span class="toc-section-number">1.1.2</span> Some R Basics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.2-descriptive-statistics.html#descriptive-statistics"><span class="toc-section-number">1.2</span> Descriptive Statistics</a>
+<ul>
+<li><a href="1.2-descriptive-statistics.html#definitions"><span class="toc-section-number">1.2.1</span> Definitions</a></li>
+<li><a href="1.2-descriptive-statistics.html#descriptive-statistics-1"><span class="toc-section-number">1.2.2</span> Descriptive Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.3-visualizations.html#visualizations"><span class="toc-section-number">1.3</span> Visualizations</a>
+<ul>
+<li><a href="1.3-visualizations.html#histograms"><span class="toc-section-number">1.3.1</span> Histograms</a></li>
+<li><a href="1.3-visualizations.html#bar-plots"><span class="toc-section-number">1.3.2</span> Bar Plots</a></li>
+<li><a href="1.3-visualizations.html#scatter-plots"><span class="toc-section-number">1.3.3</span> Scatter Plots</a></li>
+<li><a href="1.3-visualizations.html#kable-tables"><span class="toc-section-number">1.3.4</span> Kable Tables</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.4-baseball.html#baseball"><span class="toc-section-number">1.4</span> Baseball</a>
+<ul>
+<li><a href="1.4-baseball.html#basic-hitting-statistics"><span class="toc-section-number">1.4.1</span> Basic Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#basic-pitching-statistics"><span class="toc-section-number">1.4.2</span> Basic Pitching Statistics</a></li>
+<li><a href="1.4-baseball.html#advanced-baseball-hitting-statistics"><span class="toc-section-number">1.4.3</span> Advanced Baseball Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#advanced-baseball-pitching-statistics"><span class="toc-section-number">1.4.4</span> Advanced Baseball Pitching Statistics</a></li>
+<li><a href="1.4-baseball.html#wins-above-replacement"><span class="toc-section-number">1.4.5</span> Wins Above Replacement</a></li>
+<li><a href="1.4-baseball.html#calculating-advanced-hitting-statistics"><span class="toc-section-number">1.4.6</span> Calculating Advanced Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#evaluating-advanced-pitching-statistics"><span class="toc-section-number">1.4.7</span> Evaluating Advanced Pitching Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.5-football.html#football"><span class="toc-section-number">1.5</span> Football</a>
+<ul>
+<li><a href="1.5-football.html#basic-football-statistics"><span class="toc-section-number">1.5.1</span> Basic Football Statistics</a></li>
+<li><a href="1.5-football.html#advanced-football-statistics"><span class="toc-section-number">1.5.2</span> Advanced Football Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.6-basketball.html#basketball"><span class="toc-section-number">1.6</span> Basketball</a>
+<ul>
+<li><a href="1.6-basketball.html#basic-basketball-statistics"><span class="toc-section-number">1.6.1</span> Basic Basketball Statistics</a></li>
+<li><a href="1.6-basketball.html#advanced-basketball-statistics"><span class="toc-section-number">1.6.2</span> Advanced Basketball Statistics</a></li>
+<li><a href="1.6-basketball.html#four-factors"><span class="toc-section-number">1.6.3</span> Four Factors</a></li>
+<li><a href="1.6-basketball.html#shot-charts"><span class="toc-section-number">1.6.4</span> Shot Charts</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.7-hockey.html#hockey"><span class="toc-section-number">1.7</span> Hockey</a>
+<ul>
+<li><a href="1.7-hockey.html#basic-hockey-statistics"><span class="toc-section-number">1.7.1</span> Basic Hockey Statistics</a></li>
+<li><a href="1.7-hockey.html#advanced-hockey-statistics"><span class="toc-section-number">1.7.2</span> Advanced Hockey Statistics</a></li>
+<li><a href="1.7-hockey.html#actual-vs.-expected-goals"><span class="toc-section-number">1.7.3</span> Actual vs. Expected Goals</a></li>
+<li><a href="1.7-hockey.html#goalie-statistics"><span class="toc-section-number">1.7.4</span> Goalie Statistics</a></li>
+<li><a href="1.7-hockey.html#correlation-plots"><span class="toc-section-number">1.7.5</span> Correlation Plots</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.8-volleyball.html#volleyball"><span class="toc-section-number">1.8</span> Volleyball</a>
+<ul>
+<li><a href="1.8-volleyball.html#basic-volleyball-statistics"><span class="toc-section-number">1.8.1</span> Basic Volleyball Statistics</a></li>
+<li><a href="1.8-volleyball.html#scatter-plot"><span class="toc-section-number">1.8.2</span> Scatter Plot</a></li>
+<li><a href="1.8-volleyball.html#box-plot"><span class="toc-section-number">1.8.3</span> Box Plot</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.9-soccer.html#soccer"><span class="toc-section-number">1.9</span> Soccer</a>
+<ul>
+<li><a href="1.9-soccer.html#basic-soccer-statistics"><span class="toc-section-number">1.9.1</span> Basic Soccer Statistics</a></li>
+<li><a href="1.9-soccer.html#advanced-soccer-statistics"><span class="toc-section-number">1.9.2</span> Advanced Soccer Statistics</a></li>
+<li><a href="1.9-soccer.html#bar-plot"><span class="toc-section-number">1.9.3</span> Bar Plot</a></li>
+<li><a href="1.9-soccer.html#scatter-plot-1"><span class="toc-section-number">1.9.4</span> Scatter Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="2-probability.html#probability"><span class="toc-section-number">2</span> Probability</a>
+<ul>
+<li><a href="chapter-preview.html#chapter-preview">Chapter Preview</a></li>
+<li><a href="2.1-definitions-1.html#definitions-1"><span class="toc-section-number">2.1</span> Definitions</a></li>
+<li><a href="2.2-set-theory.html#set-theory"><span class="toc-section-number">2.2</span> Set Theory</a></li>
+<li class="has-sub"><a href="2.3-axioms-properties-and-laws.html#axioms-properties-and-laws"><span class="toc-section-number">2.3</span> Axioms, Properties, and Laws</a>
+<ul>
+<li><a href="2.3-axioms-properties-and-laws.html#axioms-of-probability"><span class="toc-section-number">2.3.1</span> Axioms of Probability</a></li>
+<li><a href="2.3-axioms-properties-and-laws.html#properties-of-probability"><span class="toc-section-number">2.3.2</span> Properties of Probability</a></li>
+<li><a href="2.3-axioms-properties-and-laws.html#laws-of-probability"><span class="toc-section-number">2.3.3</span> Laws of Probability</a></li>
+</ul></li>
+<li><a href="2.4-combinatorics.html#combinatorics"><span class="toc-section-number">2.4</span> Combinatorics</a></li>
+<li class="has-sub"><a href="2.5-odds-and-gambling.html#odds-and-gambling"><span class="toc-section-number">2.5</span> Odds and Gambling</a>
+<ul>
+<li><a href="2.5-odds-and-gambling.html#sports-betting-in-usa"><span class="toc-section-number">2.5.1</span> Sports Betting in USA</a></li>
+<li><a href="2.5-odds-and-gambling.html#gambling-addiction"><span class="toc-section-number">2.5.2</span> Gambling Addiction</a></li>
+<li><a href="2.5-odds-and-gambling.html#odds-definition"><span class="toc-section-number">2.5.3</span> Odds Definition</a></li>
+<li><a href="2.5-odds-and-gambling.html#gambling-odds"><span class="toc-section-number">2.5.4</span> Gambling Odds</a></li>
+</ul></li>
+<li><a href="2.6-random-variables.html#random-variables"><span class="toc-section-number">2.6</span> Random Variables</a></li>
+<li class="has-sub"><a href="2.7-common-random-variables.html#common-random-variables"><span class="toc-section-number">2.7</span> Common Random Variables</a>
+<ul>
+<li><a href="2.7-common-random-variables.html#binomial-rvs"><span class="toc-section-number">2.7.1</span> Binomial RVs</a></li>
+<li><a href="2.7-common-random-variables.html#geometric-rvs"><span class="toc-section-number">2.7.2</span> Geometric RVs</a></li>
+<li><a href="2.7-common-random-variables.html#poisson-rvs"><span class="toc-section-number">2.7.3</span> Poisson RVs</a></li>
+<li><a href="2.7-common-random-variables.html#negative-binomial-rvs"><span class="toc-section-number">2.7.4</span> Negative Binomial RVs</a></li>
+<li><a href="2.7-common-random-variables.html#normal-rvs"><span class="toc-section-number">2.7.5</span> Normal RVs</a></li>
+</ul></li>
+<li class="has-sub"><a href="2.8-extra-stuff.html#extra-stuff"><span class="toc-section-number">2.8</span> Extra Stuff</a>
+<ul>
+<li><a href="2.8-extra-stuff.html#sets-and-conditional-probability"><span class="toc-section-number">2.8.1</span> Sets and Conditional Probability</a></li>
+<li><a href="2.8-extra-stuff.html#binomials-and-multinomials"><span class="toc-section-number">2.8.2</span> Binomials and Multinomials</a></li>
+<li><a href="2.8-extra-stuff.html#expectation---baseball"><span class="toc-section-number">2.8.3</span> Expectation - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#basketball-scenario"><span class="toc-section-number">2.8.4</span> Basketball Scenario</a></li>
+<li><a href="2.8-extra-stuff.html#multiple-probability-distributions---basketball"><span class="toc-section-number">2.8.5</span> Multiple Probability Distributions - Basketball</a></li>
+<li><a href="2.8-extra-stuff.html#law-of-total-probability---baseball"><span class="toc-section-number">2.8.6</span> Law of Total Probability - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#multinomial-distribution---baseball"><span class="toc-section-number">2.8.7</span> Multinomial Distribution - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#bayes---injured-baseball-player"><span class="toc-section-number">2.8.8</span> Bayes - injured baseball player</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="3-monte-carlo-simulation.html#monte-carlo-simulation"><span class="toc-section-number">3</span> Monte Carlo Simulation</a>
+<ul>
+<li><a href="3.1-basics.html#basics"><span class="toc-section-number">3.1</span> Basics</a></li>
+<li><a href="3.2-estimating-probabilities.html#estimating-probabilities"><span class="toc-section-number">3.2</span> Estimating Probabilities</a></li>
+<li class="has-sub"><a href="3.3-simulating-streaks.html#simulating-streaks"><span class="toc-section-number">3.3</span> Simulating Streaks</a>
+<ul>
+<li><a href="3.3-simulating-streaks.html#winning-streak-simulation"><span class="toc-section-number">3.3.1</span> Winning Streak Simulation</a></li>
+<li><a href="3.3-simulating-streaks.html#hitting-streak-simulation"><span class="toc-section-number">3.3.2</span> Hitting Streak Simulation</a></li>
+</ul></li>
+<li class="has-sub"><a href="3.4-gambling-simulations.html#gambling-simulations"><span class="toc-section-number">3.4</span> Gambling Simulations</a>
+<ul>
+<li><a href="3.4-gambling-simulations.html#martingale-system"><span class="toc-section-number">3.4.1</span> Martingale System</a></li>
+</ul></li>
+<li class="has-sub"><a href="3.5-extra-stuff-1.html#extra-stuff-1"><span class="toc-section-number">3.5</span> Extra stuff</a>
+<ul>
+<li><a href="3.5-extra-stuff-1.html#shaq-ft-simulation"><span class="toc-section-number">3.5.1</span> Shaq FT simulation</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="4-statistical-inference.html#statistical-inference"><span class="toc-section-number">4</span> Statistical Inference</a>
+<ul>
+<li><a href="4.1-one-sample-and-two-sample-t-tests-and-confidence-intervals.html#one-sample-and-two-sample-t-tests-and-confidence-intervals"><span class="toc-section-number">4.1</span> One Sample and Two Sample t-tests and confidence intervals</a></li>
+</ul></li>
+<li class="has-sub"><a href="5-correlation.html#correlation"><span class="toc-section-number">5</span> Correlation</a>
+<ul>
+<li class="has-sub"><a href="5.1-pearsons-correlation-coefficient.html#pearsons-correlation-coefficient"><span class="toc-section-number">5.1</span> Pearson’s Correlation Coefficient</a>
+<ul>
+<li><a href="5.1-pearsons-correlation-coefficient.html#properties-of-the-linear-correlation-coefficient"><span class="toc-section-number">5.1.1</span> Properties of the Linear Correlation Coefficient</a></li>
+</ul></li>
+<li><a href="5.2-rank-correlation.html#rank-correlation"><span class="toc-section-number">5.2</span> Rank Correlation</a></li>
+<li><a href="5.3-autocorrelation.html#autocorrelation"><span class="toc-section-number">5.3</span> Autocorrelation</a></li>
+<li><a href="5.4-association-of-categorical-variables.html#association-of-categorical-variables"><span class="toc-section-number">5.4</span> Association of Categorical Variables</a></li>
+</ul></li>
+<li class="has-sub"><a href="6-linear-regression.html#linear-regression"><span class="toc-section-number">6</span> Linear Regression</a>
+<ul>
+<li><a href="6.1-simple-linear-regression.html#simple-linear-regression"><span class="toc-section-number">6.1</span> Simple Linear Regression</a></li>
+<li><a href="6.2-multiple-linear-regression.html#multiple-linear-regression"><span class="toc-section-number">6.2</span> Multiple Linear Regression</a></li>
+<li><a href="6.3-confounding-variables.html#confounding-variables"><span class="toc-section-number">6.3</span> Confounding Variables</a></li>
+</ul></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="extra-stuff-1" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Extra stuff</h2>
+<div id="shaq-ft-simulation" class="section level3" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Shaq FT simulation</h3>
+<div class="example">
+<p><span id="exm:unlabeled-div-127" class="example"><strong>Example 3.9  </strong></span>In 1997-1998 with the Los Angeles Lakers, Shaq attempted an average of 11.35 free throws per game with a standard deviation of 4.04. While with the Lakers, Shaq played in an average of 63.6 games per year with a standard deviation of 10.6. Create a simulation to model the season total number of free throw attempts that Shaq would have while with the Lakers.</p>
+<p>Note: his actual season totals of free throws attempted while with the Lakers were: 479, 681, 498, 824, 972, 712, 725, 676</p>
+</div>
+<p>Let’s model the number of games that Shaq played in as a Binomial random variable. There are 82 regular sesaon games, so let <span class="math inline">\(n=82\)</span>. Shaq played in an average of 63.6 games, so let <span class="math inline">\(p=\frac{64.25}{82}=0.784\)</span>. Shaq played in about 78% of the games during his career with the Lakers.</p>
+<p>For the number of free throw attempts per game, we could model this as a Poisson random variable or a Negative Binomial random variable. As noted in the previous chapter, the variance of Shaq’s FT attempts is a fair bit greater than the mean which means that it is overdispersed. Negative Binomial may be a more appropriate model than a Poisson. From last chapter, we found <span class="math inline">\(\hat{r}=25.85\)</span> and <span class="math inline">\(\hat{p}=0.305\)</span>.</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="3.5-extra-stuff-1.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
+<span id="cb230-2"><a href="3.5-extra-stuff-1.html#cb230-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb230-3"><a href="3.5-extra-stuff-1.html#cb230-3" aria-hidden="true" tabindex="-1"></a>FT <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,n.sims)</span>
+<span id="cb230-4"><a href="3.5-extra-stuff-1.html#cb230-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb230-5"><a href="3.5-extra-stuff-1.html#cb230-5" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate the number of games played in a season, round to a whole number</span></span>
+<span id="cb230-6"><a href="3.5-extra-stuff-1.html#cb230-6" aria-hidden="true" tabindex="-1"></a>games.sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> n.sims,<span class="at">size =</span> <span class="dv">82</span>,<span class="at">prob =</span> <span class="fl">0.784</span>)</span>
+<span id="cb230-7"><a href="3.5-extra-stuff-1.html#cb230-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb230-8"><a href="3.5-extra-stuff-1.html#cb230-8" aria-hidden="true" tabindex="-1"></a><span class="co"># number of games can&#39;t exceed 82 games (regular season total)</span></span>
+<span id="cb230-9"><a href="3.5-extra-stuff-1.html#cb230-9" aria-hidden="true" tabindex="-1"></a>games.sim[games.sim<span class="sc">&gt;</span><span class="dv">82</span>] <span class="ot">=</span> <span class="dv">82</span></span>
+<span id="cb230-10"><a href="3.5-extra-stuff-1.html#cb230-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb230-11"><a href="3.5-extra-stuff-1.html#cb230-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims){</span>
+<span id="cb230-12"><a href="3.5-extra-stuff-1.html#cb230-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulate the season total FT attempts in each simulation</span></span>
+<span id="cb230-13"><a href="3.5-extra-stuff-1.html#cb230-13" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">rnbinom</span>(<span class="at">n =</span> games.sim[i],<span class="at">size =</span> <span class="fl">25.85</span>,<span class="at">prob =</span> <span class="dv">1</span><span class="fl">-0.305</span>)</span>
+<span id="cb230-14"><a href="3.5-extra-stuff-1.html#cb230-14" aria-hidden="true" tabindex="-1"></a>  FT[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(temp)</span>
+<span id="cb230-15"><a href="3.5-extra-stuff-1.html#cb230-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb230-16"><a href="3.5-extra-stuff-1.html#cb230-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb230-17"><a href="3.5-extra-stuff-1.html#cb230-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulated mean and SD of season totals of free throw attempts</span></span>
+<span id="cb230-18"><a href="3.5-extra-stuff-1.html#cb230-18" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(FT),<span class="fu">sd</span>(FT))</span></code></pre></div>
+<pre><code>## [1] 730.47550  53.20566</code></pre>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="3.5-extra-stuff-1.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Actual mean and SD of season totals of free throw attempts</span></span>
+<span id="cb232-2"><a href="3.5-extra-stuff-1.html#cb232-2" aria-hidden="true" tabindex="-1"></a>FT.actual <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">479</span>, <span class="dv">681</span>, <span class="dv">498</span>, <span class="dv">824</span>, <span class="dv">972</span>, <span class="dv">712</span>, <span class="dv">725</span>, <span class="dv">676</span>)</span>
+<span id="cb232-3"><a href="3.5-extra-stuff-1.html#cb232-3" aria-hidden="true" tabindex="-1"></a>FT.actual.mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(FT.actual)</span>
+<span id="cb232-4"><a href="3.5-extra-stuff-1.html#cb232-4" aria-hidden="true" tabindex="-1"></a>FT.actual.var <span class="ot">&lt;-</span> <span class="fu">var</span>(FT.actual) <span class="sc">*</span> <span class="dv">7</span><span class="sc">/</span><span class="dv">8</span> <span class="co"># population variance</span></span>
+<span id="cb232-5"><a href="3.5-extra-stuff-1.html#cb232-5" aria-hidden="true" tabindex="-1"></a>FT.actual.sd <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(FT.actual.var)</span>
+<span id="cb232-6"><a href="3.5-extra-stuff-1.html#cb232-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(FT.actual.mean,FT.actual.sd)</span></code></pre></div>
+<pre><code>## [1] 695.8750 150.2393</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="3.5-extra-stuff-1.html#cb234-1" aria-hidden="true" tabindex="-1"></a>FT <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb234-2"><a href="3.5-extra-stuff-1.html#cb234-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>FT)) <span class="sc">+</span> </span>
+<span id="cb234-3"><a href="3.5-extra-stuff-1.html#cb234-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>,<span class="at">color =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;purple&quot;</span>) <span class="sc">+</span></span>
+<span id="cb234-4"><a href="3.5-extra-stuff-1.html#cb234-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Simulated Season FT Attempt Totals by Shaq with Lakers&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
+<p>Notice that the mean of our simulation is somewhat close to Shaq’s true season average number of free throw attempts but the variance of the simulation is far too low.</p>
+<p>We can also simulate data using resampling. In this case, rather than simulating random variables according to a distribution, we can use our actual data as a sampling distribution.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-128" class="example"><strong>Example 3.10  </strong></span>Using resampling, simulate the number of free throws Shaq would attempt while with the Lakers. Compare the mean and variance of the simulation to Shaq’s actual statistics.</p>
+</div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="3.5-extra-stuff-1.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
+<span id="cb235-2"><a href="3.5-extra-stuff-1.html#cb235-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb235-3"><a href="3.5-extra-stuff-1.html#cb235-3" aria-hidden="true" tabindex="-1"></a>FT <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,n.sims)</span>
+<span id="cb235-4"><a href="3.5-extra-stuff-1.html#cb235-4" aria-hidden="true" tabindex="-1"></a>shaq.games <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">51</span>,<span class="dv">60</span>,<span class="dv">49</span>,<span class="dv">79</span>,<span class="dv">74</span>,<span class="dv">67</span>,<span class="dv">67</span>,<span class="dv">67</span>)</span>
+<span id="cb235-5"><a href="3.5-extra-stuff-1.html#cb235-5" aria-hidden="true" tabindex="-1"></a>shaq.FTA <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/shaqFT.csv&quot;</span>, <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb235-6"><a href="3.5-extra-stuff-1.html#cb235-6" aria-hidden="true" tabindex="-1"></a>shaq.FTA <span class="ot">&lt;-</span> shaq.FTA<span class="sc">$</span>X1</span>
+<span id="cb235-7"><a href="3.5-extra-stuff-1.html#cb235-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb235-8"><a href="3.5-extra-stuff-1.html#cb235-8" aria-hidden="true" tabindex="-1"></a><span class="co"># sample (with replacement) from Shaq&#39;s FTA game totals</span></span>
+<span id="cb235-9"><a href="3.5-extra-stuff-1.html#cb235-9" aria-hidden="true" tabindex="-1"></a>games.sim <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> shaq.games,<span class="at">size =</span> n.sims,<span class="at">replace =</span> T)</span>
+<span id="cb235-10"><a href="3.5-extra-stuff-1.html#cb235-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb235-11"><a href="3.5-extra-stuff-1.html#cb235-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims){</span>
+<span id="cb235-12"><a href="3.5-extra-stuff-1.html#cb235-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sample (with replacement) from Shaq&#39;s FTA game totals</span></span>
+<span id="cb235-13"><a href="3.5-extra-stuff-1.html#cb235-13" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> shaq.FTA,<span class="at">size =</span> games.sim[i],<span class="at">replace =</span> T)</span>
+<span id="cb235-14"><a href="3.5-extra-stuff-1.html#cb235-14" aria-hidden="true" tabindex="-1"></a>  FT[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(temp)</span>
+<span id="cb235-15"><a href="3.5-extra-stuff-1.html#cb235-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb235-16"><a href="3.5-extra-stuff-1.html#cb235-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb235-17"><a href="3.5-extra-stuff-1.html#cb235-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulated mean and SD of season totals of free throw attempts</span></span>
+<span id="cb235-18"><a href="3.5-extra-stuff-1.html#cb235-18" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(FT),<span class="fu">sd</span>(FT))</span></code></pre></div>
+<pre><code>## [1] 695.8883 112.6666</code></pre>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="3.5-extra-stuff-1.html#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Actual mean and SD of season totals of free throw attempts</span></span>
+<span id="cb237-2"><a href="3.5-extra-stuff-1.html#cb237-2" aria-hidden="true" tabindex="-1"></a>FT.actual <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">479</span>, <span class="dv">681</span>, <span class="dv">498</span>, <span class="dv">824</span>, <span class="dv">972</span>, <span class="dv">712</span>, <span class="dv">725</span>, <span class="dv">676</span>)</span>
+<span id="cb237-3"><a href="3.5-extra-stuff-1.html#cb237-3" aria-hidden="true" tabindex="-1"></a>FT.actual.mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(FT.actual)</span>
+<span id="cb237-4"><a href="3.5-extra-stuff-1.html#cb237-4" aria-hidden="true" tabindex="-1"></a>FT.actual.var <span class="ot">&lt;-</span> <span class="fu">var</span>(FT.actual) <span class="sc">*</span> <span class="dv">7</span><span class="sc">/</span><span class="dv">8</span> <span class="co"># population variance</span></span>
+<span id="cb237-5"><a href="3.5-extra-stuff-1.html#cb237-5" aria-hidden="true" tabindex="-1"></a>FT.actual.sd <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(FT.actual.var)</span>
+<span id="cb237-6"><a href="3.5-extra-stuff-1.html#cb237-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(FT.actual.mean,FT.actual.sd)</span></code></pre></div>
+<pre><code>## [1] 695.8750 150.2393</code></pre>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="3.5-extra-stuff-1.html#cb239-1" aria-hidden="true" tabindex="-1"></a>FT <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb239-2"><a href="3.5-extra-stuff-1.html#cb239-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>FT)) <span class="sc">+</span> </span>
+<span id="cb239-3"><a href="3.5-extra-stuff-1.html#cb239-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>,<span class="at">color =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;purple&quot;</span>) <span class="sc">+</span></span>
+<span id="cb239-4"><a href="3.5-extra-stuff-1.html#cb239-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Simulated Season FT Attempt Totals by Shaq with Lakers&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<p>This simulation is biased low on the variance but is better than the earlier simulation.</p>
+<p>One reason that you may want to do complicated simulations like the example above is to make predictions for a player’s future seasons.</p>
+
+</div>
+</div>
+<!-- </div> -->
+<p style="text-align: center;">
+<a href="3.4-gambling-simulations.html"><button class="btn btn-default">Previous</button></a>
+<a href="4-statistical-inference.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="1.2 Descriptive Statistics | Sports Analytics" />
+<meta property="og:type" content="book" />
+<meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+<meta property="og:description" content="1.2 Descriptive Statistics | Sports Analytics Notes" />
+<meta name="github-repo" content="aaron-nielsen.github.io/SportsAnalyticsBook/" />
+
+<meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
+
+<meta name="date" content="2022-07-21" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="1.2 Descriptive Statistics | Sports Analytics Notes">
+
+<title>1.2 Descriptive Statistics | Sports Analytics</title>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+/* show arrow before summary tag as in bootstrap
+TODO: remove if boostrap in updated in html_document (rmarkdown#1485) */
+details > summary {
+  display: list-item;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#about">About</a></li>
+<li class="has-sub"><a href="1-exploratory-data-analysis.html#exploratory-data-analysis"><span class="toc-section-number">1</span> Exploratory Data Analysis</a>
+<ul>
+<li class="has-sub"><a href="1.1-getting-started-with-r.html#getting-started-with-r"><span class="toc-section-number">1.1</span> Getting Started With R</a>
+<ul>
+<li><a href="1.1-getting-started-with-r.html#installing-r"><span class="toc-section-number">1.1.1</span> Installing R</a></li>
+<li><a href="1.1-getting-started-with-r.html#some-r-basics"><span class="toc-section-number">1.1.2</span> Some R Basics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.2-descriptive-statistics.html#descriptive-statistics"><span class="toc-section-number">1.2</span> Descriptive Statistics</a>
+<ul>
+<li><a href="1.2-descriptive-statistics.html#definitions"><span class="toc-section-number">1.2.1</span> Definitions</a></li>
+<li><a href="1.2-descriptive-statistics.html#descriptive-statistics-1"><span class="toc-section-number">1.2.2</span> Descriptive Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.3-visualizations.html#visualizations"><span class="toc-section-number">1.3</span> Visualizations</a>
+<ul>
+<li><a href="1.3-visualizations.html#histograms"><span class="toc-section-number">1.3.1</span> Histograms</a></li>
+<li><a href="1.3-visualizations.html#bar-plots"><span class="toc-section-number">1.3.2</span> Bar Plots</a></li>
+<li><a href="1.3-visualizations.html#scatter-plots"><span class="toc-section-number">1.3.3</span> Scatter Plots</a></li>
+<li><a href="1.3-visualizations.html#kable-tables"><span class="toc-section-number">1.3.4</span> Kable Tables</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.4-baseball.html#baseball"><span class="toc-section-number">1.4</span> Baseball</a>
+<ul>
+<li><a href="1.4-baseball.html#basic-hitting-statistics"><span class="toc-section-number">1.4.1</span> Basic Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#basic-pitching-statistics"><span class="toc-section-number">1.4.2</span> Basic Pitching Statistics</a></li>
+<li><a href="1.4-baseball.html#advanced-baseball-hitting-statistics"><span class="toc-section-number">1.4.3</span> Advanced Baseball Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#advanced-baseball-pitching-statistics"><span class="toc-section-number">1.4.4</span> Advanced Baseball Pitching Statistics</a></li>
+<li><a href="1.4-baseball.html#wins-above-replacement"><span class="toc-section-number">1.4.5</span> Wins Above Replacement</a></li>
+<li><a href="1.4-baseball.html#calculating-advanced-hitting-statistics"><span class="toc-section-number">1.4.6</span> Calculating Advanced Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#evaluating-advanced-pitching-statistics"><span class="toc-section-number">1.4.7</span> Evaluating Advanced Pitching Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.5-football.html#football"><span class="toc-section-number">1.5</span> Football</a>
+<ul>
+<li><a href="1.5-football.html#basic-football-statistics"><span class="toc-section-number">1.5.1</span> Basic Football Statistics</a></li>
+<li><a href="1.5-football.html#advanced-football-statistics"><span class="toc-section-number">1.5.2</span> Advanced Football Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.6-basketball.html#basketball"><span class="toc-section-number">1.6</span> Basketball</a>
+<ul>
+<li><a href="1.6-basketball.html#basic-basketball-statistics"><span class="toc-section-number">1.6.1</span> Basic Basketball Statistics</a></li>
+<li><a href="1.6-basketball.html#advanced-basketball-statistics"><span class="toc-section-number">1.6.2</span> Advanced Basketball Statistics</a></li>
+<li><a href="1.6-basketball.html#four-factors"><span class="toc-section-number">1.6.3</span> Four Factors</a></li>
+<li><a href="1.6-basketball.html#shot-charts"><span class="toc-section-number">1.6.4</span> Shot Charts</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.7-hockey.html#hockey"><span class="toc-section-number">1.7</span> Hockey</a>
+<ul>
+<li><a href="1.7-hockey.html#basic-hockey-statistics"><span class="toc-section-number">1.7.1</span> Basic Hockey Statistics</a></li>
+<li><a href="1.7-hockey.html#advanced-hockey-statistics"><span class="toc-section-number">1.7.2</span> Advanced Hockey Statistics</a></li>
+<li><a href="1.7-hockey.html#actual-vs.-expected-goals"><span class="toc-section-number">1.7.3</span> Actual vs. Expected Goals</a></li>
+<li><a href="1.7-hockey.html#goalie-statistics"><span class="toc-section-number">1.7.4</span> Goalie Statistics</a></li>
+<li><a href="1.7-hockey.html#correlation-plots"><span class="toc-section-number">1.7.5</span> Correlation Plots</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.8-volleyball.html#volleyball"><span class="toc-section-number">1.8</span> Volleyball</a>
+<ul>
+<li><a href="1.8-volleyball.html#basic-volleyball-statistics"><span class="toc-section-number">1.8.1</span> Basic Volleyball Statistics</a></li>
+<li><a href="1.8-volleyball.html#scatter-plot"><span class="toc-section-number">1.8.2</span> Scatter Plot</a></li>
+<li><a href="1.8-volleyball.html#box-plot"><span class="toc-section-number">1.8.3</span> Box Plot</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.9-soccer.html#soccer"><span class="toc-section-number">1.9</span> Soccer</a>
+<ul>
+<li><a href="1.9-soccer.html#basic-soccer-statistics"><span class="toc-section-number">1.9.1</span> Basic Soccer Statistics</a></li>
+<li><a href="1.9-soccer.html#advanced-soccer-statistics"><span class="toc-section-number">1.9.2</span> Advanced Soccer Statistics</a></li>
+<li><a href="1.9-soccer.html#bar-plot"><span class="toc-section-number">1.9.3</span> Bar Plot</a></li>
+<li><a href="1.9-soccer.html#scatter-plot-1"><span class="toc-section-number">1.9.4</span> Scatter Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="2-probability.html#probability"><span class="toc-section-number">2</span> Probability</a>
+<ul>
+<li><a href="chapter-preview.html#chapter-preview">Chapter Preview</a></li>
+<li><a href="2.1-definitions-1.html#definitions-1"><span class="toc-section-number">2.1</span> Definitions</a></li>
+<li><a href="2.2-set-theory.html#set-theory"><span class="toc-section-number">2.2</span> Set Theory</a></li>
+<li class="has-sub"><a href="2.3-axioms-properties-and-laws.html#axioms-properties-and-laws"><span class="toc-section-number">2.3</span> Axioms, Properties, and Laws</a>
+<ul>
+<li><a href="2.3-axioms-properties-and-laws.html#axioms-of-probability"><span class="toc-section-number">2.3.1</span> Axioms of Probability</a></li>
+<li><a href="2.3-axioms-properties-and-laws.html#properties-of-probability"><span class="toc-section-number">2.3.2</span> Properties of Probability</a></li>
+<li><a href="2.3-axioms-properties-and-laws.html#laws-of-probability"><span class="toc-section-number">2.3.3</span> Laws of Probability</a></li>
+</ul></li>
+<li><a href="2.4-combinatorics.html#combinatorics"><span class="toc-section-number">2.4</span> Combinatorics</a></li>
+<li class="has-sub"><a href="2.5-odds-and-gambling.html#odds-and-gambling"><span class="toc-section-number">2.5</span> Odds and Gambling</a>
+<ul>
+<li><a href="2.5-odds-and-gambling.html#sports-betting-in-usa"><span class="toc-section-number">2.5.1</span> Sports Betting in USA</a></li>
+<li><a href="2.5-odds-and-gambling.html#gambling-addiction"><span class="toc-section-number">2.5.2</span> Gambling Addiction</a></li>
+<li><a href="2.5-odds-and-gambling.html#odds-definition"><span class="toc-section-number">2.5.3</span> Odds Definition</a></li>
+<li><a href="2.5-odds-and-gambling.html#gambling-odds"><span class="toc-section-number">2.5.4</span> Gambling Odds</a></li>
+</ul></li>
+<li><a href="2.6-random-variables.html#random-variables"><span class="toc-section-number">2.6</span> Random Variables</a></li>
+<li class="has-sub"><a href="2.7-common-random-variables.html#common-random-variables"><span class="toc-section-number">2.7</span> Common Random Variables</a>
+<ul>
+<li><a href="2.7-common-random-variables.html#binomial-rvs"><span class="toc-section-number">2.7.1</span> Binomial RVs</a></li>
+<li><a href="2.7-common-random-variables.html#geometric-rvs"><span class="toc-section-number">2.7.2</span> Geometric RVs</a></li>
+<li><a href="2.7-common-random-variables.html#poisson-rvs"><span class="toc-section-number">2.7.3</span> Poisson RVs</a></li>
+<li><a href="2.7-common-random-variables.html#negative-binomial-rvs"><span class="toc-section-number">2.7.4</span> Negative Binomial RVs</a></li>
+<li><a href="2.7-common-random-variables.html#normal-rvs"><span class="toc-section-number">2.7.5</span> Normal RVs</a></li>
+</ul></li>
+<li class="has-sub"><a href="2.8-extra-stuff.html#extra-stuff"><span class="toc-section-number">2.8</span> Extra Stuff</a>
+<ul>
+<li><a href="2.8-extra-stuff.html#sets-and-conditional-probability"><span class="toc-section-number">2.8.1</span> Sets and Conditional Probability</a></li>
+<li><a href="2.8-extra-stuff.html#binomials-and-multinomials"><span class="toc-section-number">2.8.2</span> Binomials and Multinomials</a></li>
+<li><a href="2.8-extra-stuff.html#expectation---baseball"><span class="toc-section-number">2.8.3</span> Expectation - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#basketball-scenario"><span class="toc-section-number">2.8.4</span> Basketball Scenario</a></li>
+<li><a href="2.8-extra-stuff.html#multiple-probability-distributions---basketball"><span class="toc-section-number">2.8.5</span> Multiple Probability Distributions - Basketball</a></li>
+<li><a href="2.8-extra-stuff.html#law-of-total-probability---baseball"><span class="toc-section-number">2.8.6</span> Law of Total Probability - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#multinomial-distribution---baseball"><span class="toc-section-number">2.8.7</span> Multinomial Distribution - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#bayes---injured-baseball-player"><span class="toc-section-number">2.8.8</span> Bayes - injured baseball player</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="3-monte-carlo-simulation.html#monte-carlo-simulation"><span class="toc-section-number">3</span> Monte Carlo Simulation</a>
+<ul>
+<li><a href="3.1-basics.html#basics"><span class="toc-section-number">3.1</span> Basics</a></li>
+<li><a href="3.2-estimating-probabilities.html#estimating-probabilities"><span class="toc-section-number">3.2</span> Estimating Probabilities</a></li>
+<li class="has-sub"><a href="3.3-simulating-streaks.html#simulating-streaks"><span class="toc-section-number">3.3</span> Simulating Streaks</a>
+<ul>
+<li><a href="3.3-simulating-streaks.html#winning-streak-simulation"><span class="toc-section-number">3.3.1</span> Winning Streak Simulation</a></li>
+<li><a href="3.3-simulating-streaks.html#hitting-streak-simulation"><span class="toc-section-number">3.3.2</span> Hitting Streak Simulation</a></li>
+</ul></li>
+<li class="has-sub"><a href="3.4-gambling-simulations.html#gambling-simulations"><span class="toc-section-number">3.4</span> Gambling Simulations</a>
+<ul>
+<li><a href="3.4-gambling-simulations.html#martingale-system"><span class="toc-section-number">3.4.1</span> Martingale System</a></li>
+</ul></li>
+<li class="has-sub"><a href="3.5-extra-stuff-1.html#extra-stuff-1"><span class="toc-section-number">3.5</span> Extra stuff</a>
+<ul>
+<li><a href="3.5-extra-stuff-1.html#shaq-ft-simulation"><span class="toc-section-number">3.5.1</span> Shaq FT simulation</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="4-statistical-inference.html#statistical-inference"><span class="toc-section-number">4</span> Statistical Inference</a>
+<ul>
+<li><a href="4.1-one-sample-and-two-sample-t-tests-and-confidence-intervals.html#one-sample-and-two-sample-t-tests-and-confidence-intervals"><span class="toc-section-number">4.1</span> One Sample and Two Sample t-tests and confidence intervals</a></li>
+</ul></li>
+<li class="has-sub"><a href="5-correlation.html#correlation"><span class="toc-section-number">5</span> Correlation</a>
+<ul>
+<li class="has-sub"><a href="5.1-pearsons-correlation-coefficient.html#pearsons-correlation-coefficient"><span class="toc-section-number">5.1</span> Pearson’s Correlation Coefficient</a>
+<ul>
+<li><a href="5.1-pearsons-correlation-coefficient.html#properties-of-the-linear-correlation-coefficient"><span class="toc-section-number">5.1.1</span> Properties of the Linear Correlation Coefficient</a></li>
+</ul></li>
+<li><a href="5.2-rank-correlation.html#rank-correlation"><span class="toc-section-number">5.2</span> Rank Correlation</a></li>
+<li><a href="5.3-autocorrelation.html#autocorrelation"><span class="toc-section-number">5.3</span> Autocorrelation</a></li>
+<li><a href="5.4-association-of-categorical-variables.html#association-of-categorical-variables"><span class="toc-section-number">5.4</span> Association of Categorical Variables</a></li>
+</ul></li>
+<li class="has-sub"><a href="6-linear-regression.html#linear-regression"><span class="toc-section-number">6</span> Linear Regression</a>
+<ul>
+<li><a href="6.1-simple-linear-regression.html#simple-linear-regression"><span class="toc-section-number">6.1</span> Simple Linear Regression</a></li>
+<li><a href="6.2-multiple-linear-regression.html#multiple-linear-regression"><span class="toc-section-number">6.2</span> Multiple Linear Regression</a></li>
+<li><a href="6.3-confounding-variables.html#confounding-variables"><span class="toc-section-number">6.3</span> Confounding Variables</a></li>
+</ul></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="descriptive-statistics" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Descriptive Statistics</h2>
+<div id="definitions" class="section level3" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Definitions</h3>
+<div class="definition">
+<p><span id="def:unlabeled-div-1" class="definition"><strong>Definition 1.1  </strong></span>A <strong><em>population</em></strong> is a well-defined complete collection of objects.</p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-2" class="definition"><strong>Definition 1.2  </strong></span>A <strong><em>sample</em></strong> is a subset of the population.</p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-3" class="example"><strong>Example 1.1  </strong></span>Suppose we are interested in studying Peyton’s Manning’s season passing yards totals. How could you define the population and what is one possible sample?</p>
+</div>
+<p><br />
+<br />
+<br />
+<br />
+<br />
+</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-4" class="definition"><strong>Definition 1.3  </strong></span><strong><em>Quantitative data</em></strong> is numeric data or numbers. It can be broken into two further categories: discrete and continuous data.</p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-5" class="definition"><strong>Definition 1.4  </strong></span><strong><em>Discrete data</em></strong> is quantitative data with a finite or countably infinite number of values.</p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-6" class="definition"><strong>Definition 1.5  </strong></span><strong><em>Continuous data</em></strong> is quantitative data with an uncountably infinite number of values or data taken from an interval.</p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-7" class="example"><strong>Example 1.2  </strong></span>What are possible discrete and continuous data associated with Peyton Manning?</p>
+</div>
+<p><br />
+<br />
+<br />
+<br />
+<br />
+</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-8" class="definition"><strong>Definition 1.6  </strong></span><strong><em>Qualitative data</em></strong> refers to names, categories, or descriptions. It can also be broken down into
+two further categories, nominal data and ordinal data.</p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-9" class="definition"><strong>Definition 1.7  </strong></span><strong><em>Nominal data</em></strong> is qualitative data with no natural ordering.</p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-10" class="definition"><strong>Definition 1.8  </strong></span><strong><em>Ordinal data</em></strong> is qualitative data with a natural ordering.</p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-11" class="example"><strong>Example 1.3  </strong></span>What are possible nominal and ordinal data associated with Peyton Manning?</p>
+</div>
+<p><br />
+<br />
+<br />
+<br />
+<br />
+</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="descriptive-statistics-1" class="section level3" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Descriptive Statistics</h3>
+<p>While we will learn about some descriptive statistics that are unique to specific sports, there are some descriptive statistics that are frequently used in many applications.</p>
+<div id="quantitative-data" class="section level4" number="1.2.2.1">
+<h4><span class="header-section-number">1.2.2.1</span> Quantitative Data</h4>
+<p>There are different descriptive statistics depending on the type of data you are analyzing. We will begin by looking at descriptive statistics for quantitative data.</p>
+<p>To begin, let <span class="math inline">\(x_1, x_2, \ldots, x_n\)</span> represent a numerical dataset with a sample of size <span class="math inline">\(n\)</span>, where <span class="math inline">\(x_i\)</span> is the <span class="math inline">\(i^\text{th}\)</span> value in the dataset.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-12" class="definition"><strong>Definition 1.9  </strong></span>The <strong><em>sum</em></strong> of the data values is given by: <span class="math inline">\(\sum_{i=1}^n x_i = x_1 + x_2 + \ldots + x_n\)</span></p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-13" class="definition"><strong>Definition 1.10  </strong></span>The <strong><em>sample mean</em></strong> (or sample average), <span class="math inline">\(\bar{x}\)</span>, of the numerical dataset is given by <span class="math inline">\(\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i\)</span></p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-14" class="definition"><strong>Definition 1.11  </strong></span>The <strong><em>population mean</em></strong> (or population average), <span class="math inline">\(\mu\)</span>, is the mean value for the entire population.</p>
+</div>
+<p>The mean can be thought of as a measure of center or more generally, a measure of location.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-15" class="example"><strong>Example 1.4  </strong></span>Recall that Peyton Manning’s season passing yards total while with the Broncos were: 4659, 5477, 4727, 2249. Calculate the sample mean of these values.</p>
+</div>
+<p><br />
+<br />
+<br />
+<br />
+<br />
+</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="1.2-descriptive-statistics.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the sample of Peyton Manning&#39;s passing yards season totals with Colts</span></span>
+<span id="cb16-2"><a href="1.2-descriptive-statistics.html#cb16-2" aria-hidden="true" tabindex="-1"></a>peyton.broncos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4659</span>, <span class="dv">5477</span>, <span class="dv">4727</span>, <span class="dv">2249</span>)</span>
+<span id="cb16-3"><a href="1.2-descriptive-statistics.html#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(peyton.broncos)</span></code></pre></div>
+<pre><code>## [1] 4278</code></pre>
+<p>In sports statistics, we often have to choose between using a descriptive statistic that summarizes a quantity versus a descriptive statistic that summarizes a rate. For instance, in basketball, we can compare two players based on how many points they score in a game (total quantity) or we can compare two players based on how many points per minute played (rate statistic). Many applications in sports analytics focus more on rate statistics rather than quantity statistics. Why?</p>
+<p>We can measure the spread or variability of a dataset using <em>variance</em> and <em>standard devatiation</em>.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-16" class="definition"><strong>Definition 1.12  </strong></span>The <strong><em>sample variance</em></strong>, <span class="math inline">\(s^2\)</span>, of the numerical dataset is a measure of spread and is given by <span class="math inline">\(s^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2\)</span></p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-17" class="definition"><strong>Definition 1.13  </strong></span>The <strong><em>sample standard deviation</em></strong>, <span class="math inline">\(s\)</span>, of the numerical dataset is a measure of spread and is given by <span class="math inline">\(s = \sqrt{s^2} = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2}\)</span></p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-18" class="definition"><strong>Definition 1.14  </strong></span>The <strong><em>population variance</em></strong>, <span class="math inline">\(\sigma^2\)</span>, is the variance for an entire population and is given by <span class="math inline">\(\sigma^2 = \frac{1}{N} \sum_{i=1}^N (x_i - \mu)^2\)</span>, where <span class="math inline">\(N\)</span> is the population size.</p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-19" class="definition"><strong>Definition 1.15  </strong></span>The <strong><em>population standard deviation</em></strong>, <span class="math inline">\(\sigma\)</span>, is the standard deviation for an entire population and is given by <span class="math inline">\(\sigma = \sqrt{\frac{1}{N} \sum_{i=1}^N (x_i - \mu)^2}\)</span></p>
+</div>
+<p>We often prefer to work with standard deviations as a measure of spread as opposed to variance because standard deviations are given in our original units.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="1.2-descriptive-statistics.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the variance and standard deviation of Peyton Manning&#39;s passing yards</span></span>
+<span id="cb18-2"><a href="1.2-descriptive-statistics.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># season totals with Broncos</span></span>
+<span id="cb18-3"><a href="1.2-descriptive-statistics.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(peyton.broncos) <span class="co"># units: yards^2</span></span></code></pre></div>
+<pre><code>## [1] 1967068</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="1.2-descriptive-statistics.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(peyton.broncos) <span class="co"># units: yards</span></span></code></pre></div>
+<pre><code>## [1] 1402.522</code></pre>
+<div class="definition">
+<p><span id="def:unlabeled-div-20" class="definition"><strong>Definition 1.16  </strong></span>The <strong>sample median</strong>, <span class="math inline">\(\tilde{x}\)</span>, of a numerical dataset is the middle value when the data are ordered from smallest to largest. In other words, let <span class="math inline">\(x_1, x_2, \ldots, x_n\)</span> be the (unordered) dataset and let <span class="math inline">\(x_{(1)},x_{(2)}, \ldots, x_{(n)}\)</span> be the same dataset but ordered from smallest to largest. If <span class="math inline">\(n\)</span> is odd, then <span class="math inline">\(\tilde{x} = x_{(n+1)/2}\)</span> and if <span class="math inline">\(n\)</span> is even, then <span class="math inline">\(\tilde{x} = \frac{1}{2} \cdot \left[x_{\left(\frac{n}{2}\right)} + x_{\left(\frac{n+1}{2}\right)}\right]\)</span>.</p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-21" class="example"><strong>Example 1.5  </strong></span>Calculate the sample median of Peyton Manning’s season passing yards total while with the Colts (3739, 4135, 4413, 4131, 4200, 4267, 4557, 3747, 4397, 4040, 4002, 4500, 4700).</p>
+</div>
+<p><br />
+<br />
+<br />
+<br />
+<br />
+</p>
+<p>Like sample mean, sample median is a measure of center. It gives you an idea of where the ``middle” of your dataset is.</p>
+<p>We can calculate sample mean and sample median in R as follows:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="1.2-descriptive-statistics.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the median of Peyton Manning&#39;s passing yards season totals with </span></span>
+<span id="cb22-2"><a href="1.2-descriptive-statistics.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Broncos and Colts</span></span>
+<span id="cb22-3"><a href="1.2-descriptive-statistics.html#cb22-3" aria-hidden="true" tabindex="-1"></a>peyton.colts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3739</span>, <span class="dv">4135</span>, <span class="dv">4413</span>, <span class="dv">4131</span>, <span class="dv">4200</span>, <span class="dv">4267</span>, <span class="dv">4557</span>, <span class="dv">3747</span>, <span class="dv">4397</span>, <span class="dv">4040</span>, </span>
+<span id="cb22-4"><a href="1.2-descriptive-statistics.html#cb22-4" aria-hidden="true" tabindex="-1"></a>                  <span class="dv">4002</span>, <span class="dv">4500</span>, <span class="dv">4700</span>)</span>
+<span id="cb22-5"><a href="1.2-descriptive-statistics.html#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(peyton.broncos)</span></code></pre></div>
+<pre><code>## [1] 4693</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="1.2-descriptive-statistics.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(peyton.colts)</span></code></pre></div>
+<pre><code>## [1] 4200</code></pre>
+<div style="page-break-after: always;"></div>
+<div class="definition">
+<p><span id="def:unlabeled-div-22" class="definition"><strong>Definition 1.17  </strong></span>A <strong><em>percentile</em></strong> is a measure of relative standing. The <span class="math inline">\(p^\text{th}\)</span> percentile is the number where at least
+p% of the data values are less than or equal to this number.</p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-23" class="definition"><strong>Definition 1.18  </strong></span>A <strong><em>quantile</em></strong> is a measure of relative standing and are the cut points for breaking a distribution of values into equal sized bins.</p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-24" class="definition"><strong>Definition 1.19  </strong></span>A <strong><em>quartile</em></strong> is a measure of relative standing and are the cut points for breaking a distribution of values into four equal parts.</p>
+</div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="1.2-descriptive-statistics.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the 10th and 90th percentile of Peyton Manning&#39;s passing yards season</span></span>
+<span id="cb26-2"><a href="1.2-descriptive-statistics.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># totals with Colts</span></span>
+<span id="cb26-3"><a href="1.2-descriptive-statistics.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(peyton.colts,<span class="fl">0.10</span>)</span></code></pre></div>
+<pre><code>##  10% 
+## 3798</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="1.2-descriptive-statistics.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(peyton.colts,<span class="fl">0.90</span>)</span></code></pre></div>
+<pre><code>##    90% 
+## 4545.6</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="1.2-descriptive-statistics.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(peyton.colts,<span class="fu">c</span>(<span class="fl">0.1</span>,<span class="fl">0.9</span>))</span></code></pre></div>
+<pre><code>##    10%    90% 
+## 3798.0 4545.6</code></pre>
+<p><strong>Special percentiles:</strong><br />
+1. 25th percentile = 1st quartile = <span class="math inline">\(Q_1\)</span><br />
+2. 50th percentile = 2nd quartile = <span class="math inline">\(Q_2\)</span> = <span class="math inline">\(\tilde{x}\)</span><br />
+3. 75th percentile = 3rd quartile = <span class="math inline">\(Q_3\)</span><br />
+</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-25" class="definition"><strong>Definition 1.20  </strong></span><strong><em>Range</em></strong> is a measure of spread, measures the full width of a dataset, and is given by: <span class="math inline">\(Range = Max - Min\)</span>.</p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-26" class="definition"><strong>Definition 1.21  </strong></span><strong><em>Interquartile range</em></strong> is a measure of spread, measures the width of the middle 50% of a dataset, and is given by: <span class="math inline">\(IQR = Q_3 - Q_1\)</span>.</p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-27" class="definition"><strong>Definition 1.22  </strong></span>A <strong><em>five number summary</em></strong> describes the center, spread, and edges of a dataset and is given by: <span class="math inline">\((Min,Q_1,Q_2,Q_3,max)\)</span>.</p>
+</div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="1.2-descriptive-statistics.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(peyton.colts)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    3739    4040    4200    4218    4413    4700</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="1.2-descriptive-statistics.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(peyton.colts,<span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span>,<span class="dv">1</span>))</span></code></pre></div>
+<pre><code>##   0%  25%  50%  75% 100% 
+## 3739 4040 4200 4413 4700</code></pre>
+</div>
+<div id="qualitative-data" class="section level4" number="1.2.2.2">
+<h4><span class="header-section-number">1.2.2.2</span> Qualitative Data</h4>
+<p>In sports statistics, we also encounter qualitative (categorical) data which is names or labels which has its own descriptive statistics.</p>
+<p>To begin, let <span class="math inline">\(x_1, x_2, \ldots, x_n\)</span> represent a categorical dataset with a sample of size <span class="math inline">\(n\)</span>, where <span class="math inline">\(x_i\)</span> is the <span class="math inline">\(i^\text{th}\)</span> value in the dataset.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-28" class="definition"><strong>Definition 1.23  </strong></span>The <strong><em>proportion</em></strong> of sampled data that fall into a category is given by: <span class="math inline">\(p = \frac{\#\text{ in category}}{\#\text{ total}}\)</span></p>
+</div>
+<p>’’Proportion” and “Probability” are often used interchangeably. Both have a minimum value of 0 and a maximum value of 1.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-29" class="definition"><strong>Definition 1.24  </strong></span>The <strong><em>percentage</em></strong> of sampled data that fall into a category is given by: <span class="math inline">\(P\% = 100 \cdot p = 100 \cdot \frac{\#\text{ in category}}{\#\text{ total}}\)</span></p>
+</div>
+<p>Percentages in this context can have a minimum value of 0% and a maximum value of 100%.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-30" class="example"><strong>Example 1.6  </strong></span>In 2014, Peyton Manning started as quarterback for the Denver Broncos. The result of the Broncos’ 16-game season was:<br />
+Win, Win, Loss, Win, Win, Win, Win, Loss, Win, Loss, Win, Win, Win, Win, Loss, Win</p>
+<p>Calculate the proportion and percentage of Broncos’ winning games in 2014.</p>
+</div>
+<p><br />
+<br />
+<br />
+<br />
+<br />
+</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="1.2-descriptive-statistics.html#cb36-1" aria-hidden="true" tabindex="-1"></a>broncos2014 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Loss&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Loss&quot;</span>, <span class="st">&quot;Win&quot;</span>,</span>
+<span id="cb36-2"><a href="1.2-descriptive-statistics.html#cb36-2" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;Loss&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Win&quot;</span>, <span class="st">&quot;Loss&quot;</span>, <span class="st">&quot;Win&quot;</span>)</span>
+<span id="cb36-3"><a href="1.2-descriptive-statistics.html#cb36-3" aria-hidden="true" tabindex="-1"></a>broncos.prop <span class="ot">&lt;-</span> <span class="fu">sum</span>(broncos2014 <span class="sc">==</span> <span class="st">&quot;Win&quot;</span>)<span class="sc">/</span><span class="fu">length</span>(broncos2014); broncos.prop</span></code></pre></div>
+<pre><code>## [1] 0.75</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="1.2-descriptive-statistics.html#cb38-1" aria-hidden="true" tabindex="-1"></a>broncos.perc <span class="ot">&lt;-</span> <span class="dv">100</span><span class="sc">*</span>broncos.prop; broncos.perc</span></code></pre></div>
+<pre><code>## [1] 75</code></pre>
+<p>We can also build a frequency table that summarizes the categories and their occurrences using <strong>table()</strong> in R. Note that <strong>table()</strong> works for quantitative and qualitative data.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="1.2-descriptive-statistics.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(broncos2014)</span></code></pre></div>
+<pre><code>## broncos2014
+## Loss  Win 
+##    4   12</code></pre>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<p style="text-align: center;">
+<a href="1.1-getting-started-with-r.html"><button class="btn btn-default">Previous</button></a>
+<a href="1.3-visualizations.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>

@@ -1,26 +1,3 @@
-```{r, echo=F, message=F,warning=F}
-library(tidyverse)
-library(kableExtra)
-knitr::opts_chunk$set(tidy=FALSE)
-
-# kable table global setup
-kt <- function(data) {
-  knitr::kable(data, digits=3, align=c('l',rep('c',20))) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
-}
-```
-
-# Exploratory Data Analysis
-
-```{r, echo=F, message=F}
-library(tidyverse)
-library(kableExtra)
-
-# kable table global setup
-kt <- function(data) {
-   knitr::kable(data, digits=3, align=c('l','c','c','c','c','c','c','c','c')) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
-}
-```
-
 ## Getting Started With R
  
 ### Installing R

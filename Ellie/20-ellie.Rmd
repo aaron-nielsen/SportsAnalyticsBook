@@ -13,6 +13,9 @@ library(ggExtra)
 library(ggrepel)
 library(ggridges)
 library(readr)
+library(readxl)
+library(openxlsx)
+
 ```
 
 ## To Be Added
@@ -348,19 +351,42 @@ Therefore, the probability of the CSU Women's Volleyball Team winning the second
 ### Autocorrelation (from Analytic Methods in Sports pg. 134)
 
 ```{r}
+# Combining Data, Do Not Include in Book
+
+setwd("/Users/elliemartinez/Course\ Development/sports_data/")
+file.list <- list.files(pattern='*xlsx')
+df.list <- lapply(file.list, read_excel)
+all_teams <- bind_rows(df.list, .id = "id")
+write.csv(all_teams, "/Users/elliemartinez/Course\ Development/nfl_win_pct.csv")
 
 ```
 
+```{r}
+# Problem from pg. 134 of Analytic Methods (not complete yet as of 7/21)
 
+nfl_win_pct <- read_csv("data/nfl_win_pct.csv")
 
+all_teams$win_pct <- df$W/(df$W + df$L)
+
+autocorr <- function(x) {
+  return (acf(x, 1, plot = FALSE)$acf[2])
+}
+
+autocorrs <- aggregate(df$win_pct, list(df$id), FUN = autocorr)
+mean_autocorrs <- mean(autocorrs$x)
+
+```
 
 ### Rank Correlation (from Analytic Methods in Sports pg. 129)
 
+```{r}
 
-
-
+```
 
 ### Random Forests
 
+```{r}
+
+```
 
 ------------------------------------------------------------------------

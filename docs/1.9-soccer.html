@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="1.9 Soccer | Sports Analytics" />
+<meta property="og:type" content="book" />
+<meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+<meta property="og:description" content="1.9 Soccer | Sports Analytics Notes" />
+<meta name="github-repo" content="aaron-nielsen.github.io/SportsAnalyticsBook/" />
+
+<meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
+
+<meta name="date" content="2022-07-21" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="1.9 Soccer | Sports Analytics Notes">
+
+<title>1.9 Soccer | Sports Analytics</title>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+/* show arrow before summary tag as in bootstrap
+TODO: remove if boostrap in updated in html_document (rmarkdown#1485) */
+details > summary {
+  display: list-item;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#about">About</a></li>
+<li class="has-sub"><a href="1-exploratory-data-analysis.html#exploratory-data-analysis"><span class="toc-section-number">1</span> Exploratory Data Analysis</a>
+<ul>
+<li class="has-sub"><a href="1.1-getting-started-with-r.html#getting-started-with-r"><span class="toc-section-number">1.1</span> Getting Started With R</a>
+<ul>
+<li><a href="1.1-getting-started-with-r.html#installing-r"><span class="toc-section-number">1.1.1</span> Installing R</a></li>
+<li><a href="1.1-getting-started-with-r.html#some-r-basics"><span class="toc-section-number">1.1.2</span> Some R Basics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.2-descriptive-statistics.html#descriptive-statistics"><span class="toc-section-number">1.2</span> Descriptive Statistics</a>
+<ul>
+<li><a href="1.2-descriptive-statistics.html#definitions"><span class="toc-section-number">1.2.1</span> Definitions</a></li>
+<li><a href="1.2-descriptive-statistics.html#descriptive-statistics-1"><span class="toc-section-number">1.2.2</span> Descriptive Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.3-visualizations.html#visualizations"><span class="toc-section-number">1.3</span> Visualizations</a>
+<ul>
+<li><a href="1.3-visualizations.html#histograms"><span class="toc-section-number">1.3.1</span> Histograms</a></li>
+<li><a href="1.3-visualizations.html#bar-plots"><span class="toc-section-number">1.3.2</span> Bar Plots</a></li>
+<li><a href="1.3-visualizations.html#scatter-plots"><span class="toc-section-number">1.3.3</span> Scatter Plots</a></li>
+<li><a href="1.3-visualizations.html#kable-tables"><span class="toc-section-number">1.3.4</span> Kable Tables</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.4-baseball.html#baseball"><span class="toc-section-number">1.4</span> Baseball</a>
+<ul>
+<li><a href="1.4-baseball.html#basic-hitting-statistics"><span class="toc-section-number">1.4.1</span> Basic Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#basic-pitching-statistics"><span class="toc-section-number">1.4.2</span> Basic Pitching Statistics</a></li>
+<li><a href="1.4-baseball.html#advanced-baseball-hitting-statistics"><span class="toc-section-number">1.4.3</span> Advanced Baseball Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#advanced-baseball-pitching-statistics"><span class="toc-section-number">1.4.4</span> Advanced Baseball Pitching Statistics</a></li>
+<li><a href="1.4-baseball.html#wins-above-replacement"><span class="toc-section-number">1.4.5</span> Wins Above Replacement</a></li>
+<li><a href="1.4-baseball.html#calculating-advanced-hitting-statistics"><span class="toc-section-number">1.4.6</span> Calculating Advanced Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#evaluating-advanced-pitching-statistics"><span class="toc-section-number">1.4.7</span> Evaluating Advanced Pitching Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.5-football.html#football"><span class="toc-section-number">1.5</span> Football</a>
+<ul>
+<li><a href="1.5-football.html#basic-football-statistics"><span class="toc-section-number">1.5.1</span> Basic Football Statistics</a></li>
+<li><a href="1.5-football.html#advanced-football-statistics"><span class="toc-section-number">1.5.2</span> Advanced Football Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.6-basketball.html#basketball"><span class="toc-section-number">1.6</span> Basketball</a>
+<ul>
+<li><a href="1.6-basketball.html#basic-basketball-statistics"><span class="toc-section-number">1.6.1</span> Basic Basketball Statistics</a></li>
+<li><a href="1.6-basketball.html#advanced-basketball-statistics"><span class="toc-section-number">1.6.2</span> Advanced Basketball Statistics</a></li>
+<li><a href="1.6-basketball.html#four-factors"><span class="toc-section-number">1.6.3</span> Four Factors</a></li>
+<li><a href="1.6-basketball.html#shot-charts"><span class="toc-section-number">1.6.4</span> Shot Charts</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.7-hockey.html#hockey"><span class="toc-section-number">1.7</span> Hockey</a>
+<ul>
+<li><a href="1.7-hockey.html#basic-hockey-statistics"><span class="toc-section-number">1.7.1</span> Basic Hockey Statistics</a></li>
+<li><a href="1.7-hockey.html#advanced-hockey-statistics"><span class="toc-section-number">1.7.2</span> Advanced Hockey Statistics</a></li>
+<li><a href="1.7-hockey.html#actual-vs.-expected-goals"><span class="toc-section-number">1.7.3</span> Actual vs. Expected Goals</a></li>
+<li><a href="1.7-hockey.html#goalie-statistics"><span class="toc-section-number">1.7.4</span> Goalie Statistics</a></li>
+<li><a href="1.7-hockey.html#correlation-plots"><span class="toc-section-number">1.7.5</span> Correlation Plots</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.8-volleyball.html#volleyball"><span class="toc-section-number">1.8</span> Volleyball</a>
+<ul>
+<li><a href="1.8-volleyball.html#basic-volleyball-statistics"><span class="toc-section-number">1.8.1</span> Basic Volleyball Statistics</a></li>
+<li><a href="1.8-volleyball.html#scatter-plot"><span class="toc-section-number">1.8.2</span> Scatter Plot</a></li>
+<li><a href="1.8-volleyball.html#box-plot"><span class="toc-section-number">1.8.3</span> Box Plot</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.9-soccer.html#soccer"><span class="toc-section-number">1.9</span> Soccer</a>
+<ul>
+<li><a href="1.9-soccer.html#basic-soccer-statistics"><span class="toc-section-number">1.9.1</span> Basic Soccer Statistics</a></li>
+<li><a href="1.9-soccer.html#advanced-soccer-statistics"><span class="toc-section-number">1.9.2</span> Advanced Soccer Statistics</a></li>
+<li><a href="1.9-soccer.html#bar-plot"><span class="toc-section-number">1.9.3</span> Bar Plot</a></li>
+<li><a href="1.9-soccer.html#scatter-plot-1"><span class="toc-section-number">1.9.4</span> Scatter Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="2-probability.html#probability"><span class="toc-section-number">2</span> Probability</a>
+<ul>
+<li><a href="chapter-preview.html#chapter-preview">Chapter Preview</a></li>
+<li><a href="2.1-definitions-1.html#definitions-1"><span class="toc-section-number">2.1</span> Definitions</a></li>
+<li><a href="2.2-set-theory.html#set-theory"><span class="toc-section-number">2.2</span> Set Theory</a></li>
+<li class="has-sub"><a href="2.3-axioms-properties-and-laws.html#axioms-properties-and-laws"><span class="toc-section-number">2.3</span> Axioms, Properties, and Laws</a>
+<ul>
+<li><a href="2.3-axioms-properties-and-laws.html#axioms-of-probability"><span class="toc-section-number">2.3.1</span> Axioms of Probability</a></li>
+<li><a href="2.3-axioms-properties-and-laws.html#properties-of-probability"><span class="toc-section-number">2.3.2</span> Properties of Probability</a></li>
+<li><a href="2.3-axioms-properties-and-laws.html#laws-of-probability"><span class="toc-section-number">2.3.3</span> Laws of Probability</a></li>
+</ul></li>
+<li><a href="2.4-combinatorics.html#combinatorics"><span class="toc-section-number">2.4</span> Combinatorics</a></li>
+<li class="has-sub"><a href="2.5-odds-and-gambling.html#odds-and-gambling"><span class="toc-section-number">2.5</span> Odds and Gambling</a>
+<ul>
+<li><a href="2.5-odds-and-gambling.html#sports-betting-in-usa"><span class="toc-section-number">2.5.1</span> Sports Betting in USA</a></li>
+<li><a href="2.5-odds-and-gambling.html#gambling-addiction"><span class="toc-section-number">2.5.2</span> Gambling Addiction</a></li>
+<li><a href="2.5-odds-and-gambling.html#odds-definition"><span class="toc-section-number">2.5.3</span> Odds Definition</a></li>
+<li><a href="2.5-odds-and-gambling.html#gambling-odds"><span class="toc-section-number">2.5.4</span> Gambling Odds</a></li>
+</ul></li>
+<li><a href="2.6-random-variables.html#random-variables"><span class="toc-section-number">2.6</span> Random Variables</a></li>
+<li class="has-sub"><a href="2.7-common-random-variables.html#common-random-variables"><span class="toc-section-number">2.7</span> Common Random Variables</a>
+<ul>
+<li><a href="2.7-common-random-variables.html#binomial-rvs"><span class="toc-section-number">2.7.1</span> Binomial RVs</a></li>
+<li><a href="2.7-common-random-variables.html#geometric-rvs"><span class="toc-section-number">2.7.2</span> Geometric RVs</a></li>
+<li><a href="2.7-common-random-variables.html#poisson-rvs"><span class="toc-section-number">2.7.3</span> Poisson RVs</a></li>
+<li><a href="2.7-common-random-variables.html#negative-binomial-rvs"><span class="toc-section-number">2.7.4</span> Negative Binomial RVs</a></li>
+<li><a href="2.7-common-random-variables.html#normal-rvs"><span class="toc-section-number">2.7.5</span> Normal RVs</a></li>
+</ul></li>
+<li class="has-sub"><a href="2.8-extra-stuff.html#extra-stuff"><span class="toc-section-number">2.8</span> Extra Stuff</a>
+<ul>
+<li><a href="2.8-extra-stuff.html#sets-and-conditional-probability"><span class="toc-section-number">2.8.1</span> Sets and Conditional Probability</a></li>
+<li><a href="2.8-extra-stuff.html#binomials-and-multinomials"><span class="toc-section-number">2.8.2</span> Binomials and Multinomials</a></li>
+<li><a href="2.8-extra-stuff.html#expectation---baseball"><span class="toc-section-number">2.8.3</span> Expectation - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#basketball-scenario"><span class="toc-section-number">2.8.4</span> Basketball Scenario</a></li>
+<li><a href="2.8-extra-stuff.html#multiple-probability-distributions---basketball"><span class="toc-section-number">2.8.5</span> Multiple Probability Distributions - Basketball</a></li>
+<li><a href="2.8-extra-stuff.html#law-of-total-probability---baseball"><span class="toc-section-number">2.8.6</span> Law of Total Probability - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#multinomial-distribution---baseball"><span class="toc-section-number">2.8.7</span> Multinomial Distribution - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#bayes---injured-baseball-player"><span class="toc-section-number">2.8.8</span> Bayes - injured baseball player</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="3-monte-carlo-simulation.html#monte-carlo-simulation"><span class="toc-section-number">3</span> Monte Carlo Simulation</a>
+<ul>
+<li><a href="3.1-basics.html#basics"><span class="toc-section-number">3.1</span> Basics</a></li>
+<li><a href="3.2-estimating-probabilities.html#estimating-probabilities"><span class="toc-section-number">3.2</span> Estimating Probabilities</a></li>
+<li class="has-sub"><a href="3.3-simulating-streaks.html#simulating-streaks"><span class="toc-section-number">3.3</span> Simulating Streaks</a>
+<ul>
+<li><a href="3.3-simulating-streaks.html#winning-streak-simulation"><span class="toc-section-number">3.3.1</span> Winning Streak Simulation</a></li>
+<li><a href="3.3-simulating-streaks.html#hitting-streak-simulation"><span class="toc-section-number">3.3.2</span> Hitting Streak Simulation</a></li>
+</ul></li>
+<li class="has-sub"><a href="3.4-gambling-simulations.html#gambling-simulations"><span class="toc-section-number">3.4</span> Gambling Simulations</a>
+<ul>
+<li><a href="3.4-gambling-simulations.html#martingale-system"><span class="toc-section-number">3.4.1</span> Martingale System</a></li>
+</ul></li>
+<li class="has-sub"><a href="3.5-extra-stuff-1.html#extra-stuff-1"><span class="toc-section-number">3.5</span> Extra stuff</a>
+<ul>
+<li><a href="3.5-extra-stuff-1.html#shaq-ft-simulation"><span class="toc-section-number">3.5.1</span> Shaq FT simulation</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="4-statistical-inference.html#statistical-inference"><span class="toc-section-number">4</span> Statistical Inference</a>
+<ul>
+<li><a href="4.1-one-sample-and-two-sample-t-tests-and-confidence-intervals.html#one-sample-and-two-sample-t-tests-and-confidence-intervals"><span class="toc-section-number">4.1</span> One Sample and Two Sample t-tests and confidence intervals</a></li>
+</ul></li>
+<li class="has-sub"><a href="5-correlation.html#correlation"><span class="toc-section-number">5</span> Correlation</a>
+<ul>
+<li class="has-sub"><a href="5.1-pearsons-correlation-coefficient.html#pearsons-correlation-coefficient"><span class="toc-section-number">5.1</span> Pearson’s Correlation Coefficient</a>
+<ul>
+<li><a href="5.1-pearsons-correlation-coefficient.html#properties-of-the-linear-correlation-coefficient"><span class="toc-section-number">5.1.1</span> Properties of the Linear Correlation Coefficient</a></li>
+</ul></li>
+<li><a href="5.2-rank-correlation.html#rank-correlation"><span class="toc-section-number">5.2</span> Rank Correlation</a></li>
+<li><a href="5.3-autocorrelation.html#autocorrelation"><span class="toc-section-number">5.3</span> Autocorrelation</a></li>
+<li><a href="5.4-association-of-categorical-variables.html#association-of-categorical-variables"><span class="toc-section-number">5.4</span> Association of Categorical Variables</a></li>
+</ul></li>
+<li class="has-sub"><a href="6-linear-regression.html#linear-regression"><span class="toc-section-number">6</span> Linear Regression</a>
+<ul>
+<li><a href="6.1-simple-linear-regression.html#simple-linear-regression"><span class="toc-section-number">6.1</span> Simple Linear Regression</a></li>
+<li><a href="6.2-multiple-linear-regression.html#multiple-linear-regression"><span class="toc-section-number">6.2</span> Multiple Linear Regression</a></li>
+<li><a href="6.3-confounding-variables.html#confounding-variables"><span class="toc-section-number">6.3</span> Confounding Variables</a></li>
+</ul></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="soccer" class="section level2" number="1.9">
+<h2><span class="header-section-number">1.9</span> Soccer</h2>
+<p>Rules of Soccer YouTube video: <a href="https://www.youtube.com/watch?v=dFLaabgXhpc" class="uri">https://www.youtube.com/watch?v=dFLaabgXhpc</a></p>
+<div id="basic-soccer-statistics" class="section level3" number="1.9.1">
+<h3><span class="header-section-number">1.9.1</span> Basic Soccer Statistics</h3>
+<ul>
+<li><p><strong>Shots (SH)</strong> represent all shots taken by a team throughout the game. This is simply an attempt by a player to shoot the ball toward the net, even if they miss or the shot is saved (Rookie Road).</p></li>
+<li><p><strong>Shots on Goal (SOG)</strong> represent all shots that would have gone into the goal if not saved by a defender or goalkeeper (Rookie Road).</p></li>
+<li><p><strong>Assist (A)</strong> occur when a player passes the ball to someone, and the next shot results in a goal.</p></li>
+<li><p><strong>Possession</strong> refers to the percentage of time a team had control of the ball during a game.</p></li>
+</ul>
+</div>
+<div id="advanced-soccer-statistics" class="section level3" number="1.9.2">
+<h3><span class="header-section-number">1.9.2</span> Advanced Soccer Statistics</h3>
+<ul>
+<li><strong>Expected Goals (xG)</strong> “indicates how many goals a team could have expected to score based on the quantity and quality of chances that they created in a match” (Tippett 2019, 4).</li>
+</ul>
+<p>These definitions come from www.rookieroad.com and “The Expected Goals Philosophy” by James Tippett.</p>
+<p>To learn more about expected goals, check out <a href="https://www.youtube.com/watch?v=w7zPZsLGK18&amp;list=PL9Az6mi38hv__afKnHR1AKjpcDIw_0qqT" class="uri">this YouTube video</a>.</p>
+</div>
+<div id="bar-plot" class="section level3" number="1.9.3">
+<h3><span class="header-section-number">1.9.3</span> Bar Plot</h3>
+<p>Now that we have an understanding of some basic shooting statistics, let us go through some EDA examples. For this first example, we will need to install the “worldfootballR” package.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="1.9-soccer.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(worldfootballR)</span></code></pre></div>
+<p>Next we will look at some data specific to LaLiga, which is a soccer league in the men’s top professional soccer division.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="1.9-soccer.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get &quot;Squad Standard Stats&quot; Data</span></span>
+<span id="cb107-2"><a href="1.9-soccer.html#cb107-2" aria-hidden="true" tabindex="-1"></a>big5_2021_stats <span class="ot">&lt;-</span> <span class="fu">fb_big5_advanced_season_stats</span>(<span class="at">season_end_year =</span> <span class="dv">2021</span>, <span class="at">stat_type =</span> <span class="st">&quot;standard&quot;</span>, <span class="at">team_or_player =</span> <span class="st">&quot;team&quot;</span>)</span>
+<span id="cb107-3"><a href="1.9-soccer.html#cb107-3" aria-hidden="true" tabindex="-1"></a>liga_2021_stats <span class="ot">&lt;-</span> big5_2021_stats[<span class="fu">which</span>((big5_2021_stats<span class="sc">$</span>Comp <span class="sc">==</span> <span class="st">&quot;La Liga&quot;</span>)),]</span>
+<span id="cb107-4"><a href="1.9-soccer.html#cb107-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-5"><a href="1.9-soccer.html#cb107-5" aria-hidden="true" tabindex="-1"></a><span class="co"># look at the first ten entries and a selection of columns</span></span>
+<span id="cb107-6"><a href="1.9-soccer.html#cb107-6" aria-hidden="true" tabindex="-1"></a>liga_2021_stats <span class="sc">%&gt;%</span> <span class="fu">select</span>(Squad,Team_or_Opponent,Poss,Gls,Ast,xG_Expected,xA_Expected) <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kt</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="1.9-soccer.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create visual for each team&#39;s goals per game</span></span>
+<span id="cb108-2"><a href="1.9-soccer.html#cb108-2" aria-hidden="true" tabindex="-1"></a>team_goals_viz <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> liga_2021_stats[<span class="fu">which</span>(liga_2021_stats<span class="sc">$</span>Team_or_Opponent <span class="sc">==</span> <span class="st">&quot;team&quot;</span>),], </span>
+<span id="cb108-3"><a href="1.9-soccer.html#cb108-3" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">aes</span>(<span class="at">x =</span> Squad, <span class="at">y =</span> Gls_Per)) <span class="sc">+</span></span>
+<span id="cb108-4"><a href="1.9-soccer.html#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span>
+<span id="cb108-5"><a href="1.9-soccer.html#cb108-5" aria-hidden="true" tabindex="-1"></a>team_goals_viz</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p>This plot is a good starting point, but still looks pretty messy. Let’s add a title, change the axis titles, and rotate the axis labels so they are not overlapping over one another.</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="1.9-soccer.html#cb109-1" aria-hidden="true" tabindex="-1"></a>team_goals_viz <span class="ot">&lt;-</span> team_goals_viz <span class="sc">+</span></span>
+<span id="cb109-2"><a href="1.9-soccer.html#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Team&quot;</span>) <span class="sc">+</span></span>
+<span id="cb109-3"><a href="1.9-soccer.html#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Goals Per Game&quot;</span>) <span class="sc">+</span></span>
+<span id="cb109-4"><a href="1.9-soccer.html#cb109-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb109-5"><a href="1.9-soccer.html#cb109-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Goals Per Game by Team&quot;</span>)</span>
+<span id="cb109-6"><a href="1.9-soccer.html#cb109-6" aria-hidden="true" tabindex="-1"></a>team_goals_viz</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>This is already looking a lot better. Now, we will add the goals scored per game <em>against</em> each team. Why is this of interest? Well, at first glance, Barcelona seems like a pretty impressive team, as they score more goals per game than any other team in the league. However, what if they also have more goals scored against them than any other team in the league? This could be important context, so we will include it in the graph below.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="1.9-soccer.html#cb110-1" aria-hidden="true" tabindex="-1"></a>all_goals_viz <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> liga_2021_stats, <span class="fu">aes</span>(<span class="at">x =</span> Squad, <span class="at">y =</span> Gls_Per)) <span class="sc">+</span></span>
+<span id="cb110-2"><a href="1.9-soccer.html#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="fu">aes</span>(<span class="at">fill =</span> Team_or_Opponent), <span class="at">position =</span> <span class="st">&quot;stack&quot;</span>) <span class="sc">+</span></span>
+<span id="cb110-3"><a href="1.9-soccer.html#cb110-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Team&quot;</span>) <span class="sc">+</span></span>
+<span id="cb110-4"><a href="1.9-soccer.html#cb110-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Goals Per 90 Minutes&quot;</span>) <span class="sc">+</span></span>
+<span id="cb110-5"><a href="1.9-soccer.html#cb110-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb110-6"><a href="1.9-soccer.html#cb110-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Goals Per Game by Team&quot;</span>)</span>
+<span id="cb110-7"><a href="1.9-soccer.html#cb110-7" aria-hidden="true" tabindex="-1"></a>all_goals_viz</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p>This is looking pretty good, but let’s clean it up just a bit by changing the legend title and labels.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="1.9-soccer.html#cb111-1" aria-hidden="true" tabindex="-1"></a>all_goals_viz <span class="sc">+</span></span>
+<span id="cb111-2"><a href="1.9-soccer.html#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Team or Opponent&quot;</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Opponent&quot;</span>,<span class="st">&quot;Team&quot;</span>))</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p>What does this graph show us? Well, we are able to see the average number of goals scored for and against each team per game. It looks like Barcelona is scoring a lot more goals than they are letting be scored against them, while other teams like Valladolid tend to have a higher proportion of goals scored for the opposing team.</p>
+</div>
+<div id="scatter-plot-1" class="section level3" number="1.9.4">
+<h3><span class="header-section-number">1.9.4</span> Scatter Plot</h3>
+<p>In addition to simply knowing the average actual number of goals scored for and against each team per game, we may be interested in how this compares to the expected number of goals scored per game, as well.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="1.9-soccer.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExtra)</span>
+<span id="cb112-2"><a href="1.9-soccer.html#cb112-2" aria-hidden="true" tabindex="-1"></a>act_exp_viz <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> liga_2021_stats, <span class="fu">aes</span>(<span class="at">x =</span> xG_Per, <span class="at">y =</span> Gls_Per, <span class="at">label =</span> Squad)) <span class="sc">+</span></span>
+<span id="cb112-3"><a href="1.9-soccer.html#cb112-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb112-4"><a href="1.9-soccer.html#cb112-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="fl">0.75</span>,<span class="fl">2.25</span>)) <span class="sc">+</span></span>
+<span id="cb112-5"><a href="1.9-soccer.html#cb112-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="fl">0.75</span>,<span class="fl">2.25</span>)) <span class="sc">+</span></span>
+<span id="cb112-6"><a href="1.9-soccer.html#cb112-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Expected vs. Actual Goals Per Game&quot;</span>) <span class="sc">+</span></span>
+<span id="cb112-7"><a href="1.9-soccer.html#cb112-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Expected Goals Per Game&quot;</span>) <span class="sc">+</span></span>
+<span id="cb112-8"><a href="1.9-soccer.html#cb112-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Actual Goals Per Game&quot;</span>) <span class="sc">+</span></span>
+<span id="cb112-9"><a href="1.9-soccer.html#cb112-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb112-10"><a href="1.9-soccer.html#cb112-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb112-11"><a href="1.9-soccer.html#cb112-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggMarginal</span>(act_exp_viz, <span class="at">type =</span> <span class="st">&quot;density&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p>As you can see, we fit a line to the data. At first glance, it seems to have a positive slope slightly greater than 1. What does this mean in the scenario of actual and expected goals per game?</p>
+
+</div>
+</div>
+<!-- </div> -->
+<p style="text-align: center;">
+<a href="1.8-volleyball.html"><button class="btn btn-default">Previous</button></a>
+<a href="2-probability.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>

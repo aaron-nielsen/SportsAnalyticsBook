@@ -1,29 +1,16 @@
-```{r, echo=F, message=F,warning=F}
-library(tidyverse)
-library(kableExtra)
-knitr::opts_chunk$set(tidy=FALSE)
-
-# kable table global setup
-kt <- function(data) {
-  knitr::kable(data, digits=3, align=c('l',rep('c',20))) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
-}
-```
-
 # Monte Carlo Simulation 
 
 ## Basics
 
 Monte Carlo Simulation is a collection of computer-driven, computational algorithms that use repeated random sampling to calculate estimates. The basic steps for such a simulation are as follows:
 
-- Initialize vectors and variables 
+1) Set seed for replicability
 
-- Run a simulation and calculate the estimate of interest
+2) Initialize all variables/vectors
 
-- Save the estimate
+3) Loop through "n" simulations and save simulated values
 
-- Run the simulation "n" times
-
-- Analyze the estimates from the "n" simulations \
+4) Analyze the simulated values from the "n" simulations
 
 One function that will be particularly useful for simulation is `set.seed()`.
 
@@ -189,8 +176,8 @@ FTA <- 0:8
 nFTA <- c(5,2,8,0,7,2,4,2,2)
 pFTA <- nFTA/32
 df <- t(data.frame(FTA,nFTA,pFTA))
-row.names(df) = c("Free Throw Attempts Per Game, FTA","Number of Occurrences, nFTA","Probability, p(FTA)")
-df %>% kt()
+row.names(df) = c("Free Throw Attempt, FTA","Frequency, nFTA","Probability, p(FTA)")
+df %>% t() %>% kt()
 ```
 
 ```{r}
@@ -249,8 +236,6 @@ mean(team_A_goals > team_B_goals)
 
 Why does this work? First, operations to vectors are executed elementwise, meaning that `R` compares `team_A_goals[1]` to `team_B_goals[1]`, then `team_A_goals[2]` to `team_B_goals[2]`, and so on. Second, logical operators are stored as zeroes (when the condition is false) and ones (when the condition is true). The mean of a vector of zeroes and ones is the proportion of ones, which is the frequency of the logical statement being true. In our simulation, it was 0.5415. The true value is 0.5427, meaning that the simulation was quite accurate.
 
-These tips will help you be more efficient when performing simulation tasks in `R`.
-
 ```{r hockey poisson simulation 3, include=FALSE}
 # computation for finding the theoretical value of P(X>Y) to within at least 7 decimal points. There's probably an easier way to do this.
 
@@ -261,6 +246,20 @@ for (j in 1:50) {
 }
 sum(v)
 ```
+
+\newpage
+
+:::{.example}
+In baseball, hitting for the cycle requires a hitter to get a single, double, triple, and home run in the same guy. This is a rare occurrence in professional baseball having happened only 339 times at present count. 
+
+On August 10, 2009, Colorado Rockie Troy Tulowitzki hit for the cycle against the Cubs at Coors Field in Denver going 5-for-5 with two singles, one double, one triple, and one home run. Here's a video recap: https://www.youtube.com/watch?v=sTU6ice3ga0
+
+Simulate 100,000 games (5 at-bats per game) for Tulowitzki based on his career numbers and use them to estimate the probability that Tulowitzki hits for the cycle.
+
+Tulowitzki's career totals are: 4804 at-bats, 878 singles, 264 doubles, 24 triples, and 225 home runs.
+:::
+
+
 
 \newpage
 
@@ -426,14 +425,75 @@ longest.streak %>%
   ggtitle("Longest Hitting Streak for 10,000 Simulated DiMaggio 1941 Seasons") +
   xlab("Max Hitting Streak in a Simulation Season")
 
+
+# statistics for 10,000 simulations
 mean.streak <- mean(longest.streak); mean.streak
 prob56 <- mean(longest.streak>=56); prob56
 ```
-We would prefer to not use nested for loops, as they are slow. Can you find a faster simulation method?
 
 Running the simulation above with `set.seed(2022)` and `n.sims=10000`, we get $P(Streak \geq 66) = 3 \cdot 10^{-4}$. There were three simulated hitting streaks of at least 56 games.
 
 If we run the simulation again with `set.seed(2022)` but increase `n.sims=100000`, we get $P(Streak \geq 66) = \frac{10}{100000} = 10^{-4}$. In other words, we estimate the probability that DiMaggio gets a hitting streak of at least 56 games in 100000 simulated seasons is about 1-in-10000.
+
+```{r,echo=F}
+# DiMaggio Simulation
+set.seed(2022)
+n.sims <- 100000
+n.games <- 139
+prob.hit <- 0.310
+
+longest.streak <- rep(0, n.sims)
+sim.games <- rep(0,n.games)
+
+for( i in 1: n.sims){
+  sim.pa <- sample(x=pa$PA,prob = pa$Prob,size=n.games,replace=T)
+  for( j in 1:n.games){
+    sim.games[j] <- rbinom(n = 1,size = sim.pa[j],prob = prob.hit)
+  }
+  sim.hits <- ifelse(sim.games > 0,1,0)
+  streaks <- rle(sim.hits)
+  longest.streak[i] <- max(streaks$lengths[streaks$values==1])
+}
+```
+
+```{r}
+# statistics for 100,000 simulations
+mean.streak <- mean(longest.streak); mean.streak
+prob56 <- mean(longest.streak>=56); prob56
+```
+
+We would prefer to not use nested for loops, as they are slow. Can you find a faster simulation method?
+
+Let's try simulating by permuting DiMaggio's games. In other words, let's randomly order DiMaggio's 1941 games and analyze the hitting streaks.
+
+```{r}
+# Create indicator variable for a hit
+hit.game <- ifelse(dimaggio$H > 0,1,0)
+
+set.seed(2022)
+n.sims <- 100000
+longest.streak <- rep(0, n.sims)
+
+for( i in 1: n.sims){
+  sim.hits <- sample(x=hit.game,replace=F)
+  streaks <- rle(sim.hits)
+  longest.streak[i] <- max(streaks$lengths[streaks$values==1])
+}
+
+longest.streak %>% 
+  as.data.frame() %>% 
+  ggplot(aes(x=longest.streak)) + 
+  geom_histogram(binwidth=2) +
+  ggtitle("Longest Hitting Streak for 10,000 Simulated DiMaggio 1941 Seasons") +
+  xlab("Max Hitting Streak in a Simulation Season")
+
+
+# statistics for 100,000 simulations
+mean.streak <- mean(longest.streak); mean.streak
+prob56 <- mean(longest.streak>=56); prob56
+```
+
+Using this simulation method with reordering, there is an estimated probability of $7 \cdot 10^{-5}$ or about 1-in-14000 chance of DiMaggio hitting a 56-game hit streak.
 
 Other authors have used different simulation and mathematical methods for estimating the rarity of Dimaggio's 56 game hitting streak.
 
@@ -441,16 +501,92 @@ Billie et al (2010) used an at-bat rather than plate appearance simulation and e
 
 Rothman et al (2010) estimated the likelihood as 1-in-10000.
 
+\newpage
+
+:::{.example}
+Let's consider a more general simulation for hitting streaks. Suppose a hitter with a 0.300 batting average plays 140 games and has an equal likelihood of 3, 4, or 5 at-bats in a game. Simulate 10,000 seasons for this hitter, calculate the average max hitting streak, and the overall max hitting streak. After this, repeat the process for a hitter with a 0.400 batting average.
+:::
+
+```{r}
+# 0.300 Hitter Hitting Streak Simulation
+set.seed(2022)
+n.sims <- 10000
+n.games <- 140
+prob.hit <- 0.300
+
+longest.streak <- rep(0, n.sims)
+sim.games <- rep(0,n.games)
+
+for( i in 1: n.sims){
+  sim.pa <- sample(x=3:5,size=n.games,replace=T)
+  for( j in 1:n.games){
+    sim.games[j] <- rbinom(n = 1,size = sim.pa[j],prob = prob.hit)
+  }
+  sim.hits <- ifelse(sim.games > 0,1,0)
+  streaks <- rle(sim.hits)
+  longest.streak[i] <- max(streaks$lengths[streaks$values==1])
+}
+
+longest.streak %>% 
+  as.data.frame() %>% 
+  ggplot(aes(x=longest.streak)) + 
+  geom_histogram(binwidth=2) +
+  ggtitle("Longest Hitting Streak for 10,000 Simulated Seasons (0.300 AVG hitter)") +
+  xlab("Max Hitting Streak in a Simulation Season")
+
+
+# statistics for 10,000 simulations (0.300 batting average)
+mean.streak <- mean(longest.streak); mean.streak
+max.streak <- max(longest.streak); max.streak
+```
+
+```{r, echo=F}
+# 0.300 Hitter Hitting Streak Simulation
+set.seed(2022)
+n.sims <- 10000
+n.games <- 140
+prob.hit <- 0.400
+
+longest.streak <- rep(0, n.sims)
+sim.games <- rep(0,n.games)
+
+for( i in 1: n.sims){
+  sim.pa <- sample(x=3:5,size=n.games,replace=T)
+  for( j in 1:n.games){
+    sim.games[j] <- rbinom(n = 1,size = sim.pa[j],prob = prob.hit)
+  }
+  sim.hits <- ifelse(sim.games > 0,1,0)
+  streaks <- rle(sim.hits)
+  longest.streak[i] <- max(streaks$lengths[streaks$values==1])
+}
+
+longest.streak %>% 
+  as.data.frame() %>% 
+  ggplot(aes(x=longest.streak)) + 
+  geom_histogram(binwidth=2) +
+  ggtitle("Longest Hitting Streak for 10,000 Simulated Seasons (0.300 AVG hitter)") +
+  xlab("Max Hitting Streak in a Simulation Season")
+```
+
+```{r}
+# statistics for 10,000 simulations (0.400 batting average)
+mean.streak <- mean(longest.streak); mean.streak
+max.streak <- max(longest.streak); max.streak
+```
+
+
+\newpage
+
 ## Gambling Simulations
 
-Simulation can be used to evaluate betting systems in (sports) gambling. 
+Simulation can be very helpful and useful in evaluating betting systems in (sports) gambling. 
 
 ### Martingale System
 
 One such famous betting system is called a martingale system. Under this system, the bettor makes an initial wager. If they lose, they make the same wager. If they lose again, they follow a *double or nothing* procedure. This means that the bettor will continue betting the amount they have lost until they eventually win and get back even. What is wrong with this system?
 
 :::{.example}
-Suppose you are betting on *even money* sports matches where there is no house advantage, so all bets are 1:1. You begin by wagering \$1 and you lose the initial bet (call it *Bet Zero*). You decide to employee the martingale system. Calculate the expected number of bets that you would have to make to break even. Also, create a histogram for the the biggest deficits in the simulations.
+Suppose you are betting on sports matches on the spread where there is no house advantage, so all bets are 1:1 and each team is equally likely to win. You begin by wagering \$1 and you lose the initial bet (call it *Bet Zero*). You decide to employee the martingale system. Calculate the expected number of bets that you would have to make to break even. Also, create a histogram for the the biggest deficits in the simulations.
 :::
 
 ```{r}
@@ -484,6 +620,8 @@ sim.bets %>% as.data.frame() %>%
 
 On average, two bets were needed to be placed after *Bet Zero* to break even.
 
+\newpage
+
 In two simulations (out of 10,000 total simulations), 12 bets were needed to be made to break even after the initial failed bet, *Bet Zero*. The first bet after *Bet Zero* was for \$1. The second failed bet was from \$2. The twelfth bet was for $\$2^{11} = \$2048$. If your total bankroll was \$1000, you wouldn't have been even able to make the twelfth bet to break even. The weakness of the martingale system is that you are only guaranteed (with probability 1) to break even if you have an infinite bankroll.
 
 The distribution in this example should look familiar. It is the geometric distribution. Let's plot the probability mass function for a Geometric(0.5) random variable and calculate the probability that 12 or more bets are required to break even.
@@ -501,12 +639,229 @@ pgeom(q=11,prob=0.5,lower.tail=F)
 
 There is a 0.02\% chance that we will need to make 12 or more wagers. In other words, if your bankroll is \$1000, there is a 0.02\% you lose the full bankroll before you can break even.
 
-This is an ideal case where you can get 1:1 odds which no sportsbook would ever consider.
+\newpage
+
+### Gambler's Ruin
+
+The previous example is an ideal case where there is no house advantage. Sportsbooks will always have a house advantage, so it is more practical to consider an example where there is house advantage. For example, a point spread bet at -110 for two evenly matched teams will offer the sportsbook a house advantage.
 
 :::{.example}
-Repeat the above example but for -110 moneyline bets for two evenly matched opponents. Calculate the probability that you lose \$1000.
+Suppose you have a bankroll of \$1000 and place \$20 bets on point spread bets at -110. You will stop if you ever have less than \$20. Assume that both teams are equally likely to beat the spread. How long will your bankroll last? Calculate your expected bankroll after 10 bets, 100 bets, and 1000 bets.
 :::
 
+We'll use the following code and run simulations with total.bets = 10, 100, 1000, 10000.
+
+```{r, eval=F}
+set.seed(2022)
+n.sims <- 10000
+bankroll.end <- rep(0,n.sims)
+
+# betting info
+bankroll.start <- 1000
+wager <- 20
+ml <- -110
+total.bets <- 10
+implied.prob <- (-ml)/(-ml+100)
+dec.odds <- 1/implied.prob
+profit <- wager * (dec.odds - 1)
+
+for(i in 1:n.sims){
+  bets <- 0
+  bankroll <- bankroll.start
+  while(bankroll >= 20 && bets < total.bets){
+    bets <- bets + 1
+    if( rbernoulli(n=1,0.5) ){
+      bankroll <- bankroll + profit
+    } else
+      bankroll <- bankroll - 20
+  }
+  bankroll.end[i] <- bankroll
+}
+
+mean.ending.bankroll <- mean(bankroll.end)
+max.ending.bankroll <- max(bankroll.end)
+data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
+
+bankroll.end %>% as.data.frame() %>% 
+  ggplot(aes(x=bankroll.end)) + 
+  geom_histogram(binwidth=100) +
+  ggtitle("Simulated Bankroll (starting at $1000) after 10 bets") + 
+  xlab("Bankroll after 10 bets")
+```
+
+\newpage
+
+***Simulation 1: Bankroll after 10 bets***
+
+```{r, echo=F}
+set.seed(2022)
+n.sims <- 10000
+bankroll.end <- rep(0,n.sims)
+
+# betting info
+bankroll.start <- 1000
+wager <- 20
+ml <- -110
+total.bets <- 10
+implied.prob <- (-ml)/(-ml+100)
+dec.odds <- 1/implied.prob
+profit <- wager * (dec.odds - 1)
+
+for(i in 1:n.sims){
+  bets <- 0
+  bankroll <- bankroll.start
+  while(bankroll >= 20 && bets < total.bets){
+    bets <- bets + 1
+    if( rbernoulli(n=1,0.5) ){
+      bankroll <- bankroll + profit
+    } else
+      bankroll <- bankroll - 20
+  }
+  bankroll.end[i] <- bankroll
+}
+
+mean.ending.bankroll <- mean(bankroll.end)
+max.ending.bankroll <- max(bankroll.end)
+data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
+
+bankroll.end %>% as.data.frame() %>% 
+  ggplot(aes(x=bankroll.end)) + 
+  geom_histogram(binwidth=100) +
+  ggtitle("Simulated Bankroll (starting at $1000) after 10 bets") + 
+  xlab("Bankroll after 10 bets")
+```
+
+\newpage
+
+***Simulation 2: Bankroll after 100 bets***
+
+```{r, echo=F}
+set.seed(2022)
+n.sims <- 10000
+bankroll.end <- rep(0,n.sims)
+
+# betting info
+bankroll.start <- 1000
+wager <- 20
+ml <- -110
+total.bets <- 100
+implied.prob <- (-ml)/(-ml+100)
+dec.odds <- 1/implied.prob
+profit <- wager * (dec.odds - 1)
+
+for(i in 1:n.sims){
+  bets <- 0
+  bankroll <- bankroll.start
+  while(bankroll >= 20 && bets < total.bets){
+    bets <- bets + 1
+    if( rbernoulli(n=1,0.5) ){
+      bankroll <- bankroll + profit
+    } else
+      bankroll <- bankroll - 20
+  }
+  bankroll.end[i] <- bankroll
+}
+
+mean.ending.bankroll <- mean(bankroll.end)
+max.ending.bankroll <- max(bankroll.end)
+data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
+
+bankroll.end %>% as.data.frame() %>% 
+  ggplot(aes(x=bankroll.end)) + 
+  geom_histogram(binwidth=100) +
+  ggtitle("Simulated Bankroll (starting at $1000) after 100 bets") + 
+  xlab("Bankroll after 100 bets")
+```
+
+\newpage
+***Simulation 3: Bankroll after 1000 bets***
+
+```{r, echo=F}
+set.seed(2022)
+n.sims <- 10000
+bankroll.end <- rep(0,n.sims)
+
+# betting info
+bankroll.start <- 1000
+wager <- 20
+ml <- -110
+total.bets <- 1000
+implied.prob <- (-ml)/(-ml+100)
+dec.odds <- 1/implied.prob
+profit <- wager * (dec.odds - 1)
+
+for(i in 1:n.sims){
+  bets <- 0
+  bankroll <- bankroll.start
+  while(bankroll >= 20 && bets < total.bets){
+    bets <- bets + 1
+    if( rbernoulli(n=1,0.5) ){
+      bankroll <- bankroll + profit
+    } else
+      bankroll <- bankroll - 20
+  }
+  bankroll.end[i] <- bankroll
+}
+
+mean.ending.bankroll <- mean(bankroll.end)
+max.ending.bankroll <- max(bankroll.end)
+data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
+
+bankroll.end %>% as.data.frame() %>% 
+  ggplot(aes(x=bankroll.end)) + 
+  geom_histogram(binwidth=100) +
+  ggtitle("Simulated Bankroll (starting at $1000) after 1000 bets") + 
+  xlab("Bankroll after 1000 bets")
+```
+
+All bettors eventually go broke under this scenario due to the house advantage. This is called the concept of **Gambler's Ruin**. A gambler playing a game with negative expected value will eventually go broke, regardless of their betting system. See Wikipedia for further details: https://en.wikipedia.org/wiki/Gambler's_ruin
+
+### Simulating a Winning System
+
+:::{.example}
+Suppose your betting system allows you pick winners on the spread 55\% of the time. If you are betting at -110, then your probability exceeds the implied probability of 52.4\% and this system is not guaranteed to be an eventual loser. Repeat the simulation above with the new probability of winning a wager and 1,000 total bets.
+:::
+
+```{r}
+set.seed(2022)
+n.sims <- 10000
+bankroll.end <- rep(0,n.sims)
+
+# betting info
+bankroll.start <- 1000
+wager <- 20
+ml <- -110
+total.bets <- 1000
+implied.prob <- (-ml)/(-ml+100)
+dec.odds <- 1/implied.prob
+profit <- wager * (dec.odds - 1)
+
+for(i in 1:n.sims){
+  bets <- 0
+  bankroll <- bankroll.start
+  while(bankroll >= 20 && bets < total.bets){
+    bets <- bets + 1
+    if( rbernoulli(n=1,0.55) ){
+      bankroll <- bankroll + profit
+    } else
+      bankroll <- bankroll - 20
+  }
+  bankroll.end[i] <- bankroll
+}
+
+mean.ending.bankroll <- mean(bankroll.end)
+max.ending.bankroll <- max(bankroll.end)
+data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
+
+bankroll.end %>% as.data.frame() %>% 
+  ggplot(aes(x=bankroll.end)) + 
+  geom_histogram(binwidth=100) +
+  ggtitle("Simulated Bankroll (starting at $1000) after 1000 bets") + 
+  xlab("Bankroll after 1000 bets")
+```
+
+
+\newpage
 
 
 
@@ -598,7 +953,7 @@ FT %>% as.data.frame() %>%
   ggtitle("Simulated Season FT Attempt Totals by Shaq with Lakers")
 ```
 
-This simulation is biased low on the variance but is better than the earlier simulation.
+This simulation is biased low on the variance but is better than the earlier simulation. 
 
 One reason that you may want to do complicated simulations like the example above is to make predictions for a player's future seasons.
 

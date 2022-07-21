@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="1.8 Volleyball | Sports Analytics" />
+<meta property="og:type" content="book" />
+<meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+<meta property="og:description" content="1.8 Volleyball | Sports Analytics Notes" />
+<meta name="github-repo" content="aaron-nielsen.github.io/SportsAnalyticsBook/" />
+
+<meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
+
+<meta name="date" content="2022-07-21" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="1.8 Volleyball | Sports Analytics Notes">
+
+<title>1.8 Volleyball | Sports Analytics</title>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+/* show arrow before summary tag as in bootstrap
+TODO: remove if boostrap in updated in html_document (rmarkdown#1485) */
+details > summary {
+  display: list-item;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#about">About</a></li>
+<li class="has-sub"><a href="1-exploratory-data-analysis.html#exploratory-data-analysis"><span class="toc-section-number">1</span> Exploratory Data Analysis</a>
+<ul>
+<li class="has-sub"><a href="1.1-getting-started-with-r.html#getting-started-with-r"><span class="toc-section-number">1.1</span> Getting Started With R</a>
+<ul>
+<li><a href="1.1-getting-started-with-r.html#installing-r"><span class="toc-section-number">1.1.1</span> Installing R</a></li>
+<li><a href="1.1-getting-started-with-r.html#some-r-basics"><span class="toc-section-number">1.1.2</span> Some R Basics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.2-descriptive-statistics.html#descriptive-statistics"><span class="toc-section-number">1.2</span> Descriptive Statistics</a>
+<ul>
+<li><a href="1.2-descriptive-statistics.html#definitions"><span class="toc-section-number">1.2.1</span> Definitions</a></li>
+<li><a href="1.2-descriptive-statistics.html#descriptive-statistics-1"><span class="toc-section-number">1.2.2</span> Descriptive Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.3-visualizations.html#visualizations"><span class="toc-section-number">1.3</span> Visualizations</a>
+<ul>
+<li><a href="1.3-visualizations.html#histograms"><span class="toc-section-number">1.3.1</span> Histograms</a></li>
+<li><a href="1.3-visualizations.html#bar-plots"><span class="toc-section-number">1.3.2</span> Bar Plots</a></li>
+<li><a href="1.3-visualizations.html#scatter-plots"><span class="toc-section-number">1.3.3</span> Scatter Plots</a></li>
+<li><a href="1.3-visualizations.html#kable-tables"><span class="toc-section-number">1.3.4</span> Kable Tables</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.4-baseball.html#baseball"><span class="toc-section-number">1.4</span> Baseball</a>
+<ul>
+<li><a href="1.4-baseball.html#basic-hitting-statistics"><span class="toc-section-number">1.4.1</span> Basic Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#basic-pitching-statistics"><span class="toc-section-number">1.4.2</span> Basic Pitching Statistics</a></li>
+<li><a href="1.4-baseball.html#advanced-baseball-hitting-statistics"><span class="toc-section-number">1.4.3</span> Advanced Baseball Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#advanced-baseball-pitching-statistics"><span class="toc-section-number">1.4.4</span> Advanced Baseball Pitching Statistics</a></li>
+<li><a href="1.4-baseball.html#wins-above-replacement"><span class="toc-section-number">1.4.5</span> Wins Above Replacement</a></li>
+<li><a href="1.4-baseball.html#calculating-advanced-hitting-statistics"><span class="toc-section-number">1.4.6</span> Calculating Advanced Hitting Statistics</a></li>
+<li><a href="1.4-baseball.html#evaluating-advanced-pitching-statistics"><span class="toc-section-number">1.4.7</span> Evaluating Advanced Pitching Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.5-football.html#football"><span class="toc-section-number">1.5</span> Football</a>
+<ul>
+<li><a href="1.5-football.html#basic-football-statistics"><span class="toc-section-number">1.5.1</span> Basic Football Statistics</a></li>
+<li><a href="1.5-football.html#advanced-football-statistics"><span class="toc-section-number">1.5.2</span> Advanced Football Statistics</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.6-basketball.html#basketball"><span class="toc-section-number">1.6</span> Basketball</a>
+<ul>
+<li><a href="1.6-basketball.html#basic-basketball-statistics"><span class="toc-section-number">1.6.1</span> Basic Basketball Statistics</a></li>
+<li><a href="1.6-basketball.html#advanced-basketball-statistics"><span class="toc-section-number">1.6.2</span> Advanced Basketball Statistics</a></li>
+<li><a href="1.6-basketball.html#four-factors"><span class="toc-section-number">1.6.3</span> Four Factors</a></li>
+<li><a href="1.6-basketball.html#shot-charts"><span class="toc-section-number">1.6.4</span> Shot Charts</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.7-hockey.html#hockey"><span class="toc-section-number">1.7</span> Hockey</a>
+<ul>
+<li><a href="1.7-hockey.html#basic-hockey-statistics"><span class="toc-section-number">1.7.1</span> Basic Hockey Statistics</a></li>
+<li><a href="1.7-hockey.html#advanced-hockey-statistics"><span class="toc-section-number">1.7.2</span> Advanced Hockey Statistics</a></li>
+<li><a href="1.7-hockey.html#actual-vs.-expected-goals"><span class="toc-section-number">1.7.3</span> Actual vs. Expected Goals</a></li>
+<li><a href="1.7-hockey.html#goalie-statistics"><span class="toc-section-number">1.7.4</span> Goalie Statistics</a></li>
+<li><a href="1.7-hockey.html#correlation-plots"><span class="toc-section-number">1.7.5</span> Correlation Plots</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.8-volleyball.html#volleyball"><span class="toc-section-number">1.8</span> Volleyball</a>
+<ul>
+<li><a href="1.8-volleyball.html#basic-volleyball-statistics"><span class="toc-section-number">1.8.1</span> Basic Volleyball Statistics</a></li>
+<li><a href="1.8-volleyball.html#scatter-plot"><span class="toc-section-number">1.8.2</span> Scatter Plot</a></li>
+<li><a href="1.8-volleyball.html#box-plot"><span class="toc-section-number">1.8.3</span> Box Plot</a></li>
+</ul></li>
+<li class="has-sub"><a href="1.9-soccer.html#soccer"><span class="toc-section-number">1.9</span> Soccer</a>
+<ul>
+<li><a href="1.9-soccer.html#basic-soccer-statistics"><span class="toc-section-number">1.9.1</span> Basic Soccer Statistics</a></li>
+<li><a href="1.9-soccer.html#advanced-soccer-statistics"><span class="toc-section-number">1.9.2</span> Advanced Soccer Statistics</a></li>
+<li><a href="1.9-soccer.html#bar-plot"><span class="toc-section-number">1.9.3</span> Bar Plot</a></li>
+<li><a href="1.9-soccer.html#scatter-plot-1"><span class="toc-section-number">1.9.4</span> Scatter Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="2-probability.html#probability"><span class="toc-section-number">2</span> Probability</a>
+<ul>
+<li><a href="chapter-preview.html#chapter-preview">Chapter Preview</a></li>
+<li><a href="2.1-definitions-1.html#definitions-1"><span class="toc-section-number">2.1</span> Definitions</a></li>
+<li><a href="2.2-set-theory.html#set-theory"><span class="toc-section-number">2.2</span> Set Theory</a></li>
+<li class="has-sub"><a href="2.3-axioms-properties-and-laws.html#axioms-properties-and-laws"><span class="toc-section-number">2.3</span> Axioms, Properties, and Laws</a>
+<ul>
+<li><a href="2.3-axioms-properties-and-laws.html#axioms-of-probability"><span class="toc-section-number">2.3.1</span> Axioms of Probability</a></li>
+<li><a href="2.3-axioms-properties-and-laws.html#properties-of-probability"><span class="toc-section-number">2.3.2</span> Properties of Probability</a></li>
+<li><a href="2.3-axioms-properties-and-laws.html#laws-of-probability"><span class="toc-section-number">2.3.3</span> Laws of Probability</a></li>
+</ul></li>
+<li><a href="2.4-combinatorics.html#combinatorics"><span class="toc-section-number">2.4</span> Combinatorics</a></li>
+<li class="has-sub"><a href="2.5-odds-and-gambling.html#odds-and-gambling"><span class="toc-section-number">2.5</span> Odds and Gambling</a>
+<ul>
+<li><a href="2.5-odds-and-gambling.html#sports-betting-in-usa"><span class="toc-section-number">2.5.1</span> Sports Betting in USA</a></li>
+<li><a href="2.5-odds-and-gambling.html#gambling-addiction"><span class="toc-section-number">2.5.2</span> Gambling Addiction</a></li>
+<li><a href="2.5-odds-and-gambling.html#odds-definition"><span class="toc-section-number">2.5.3</span> Odds Definition</a></li>
+<li><a href="2.5-odds-and-gambling.html#gambling-odds"><span class="toc-section-number">2.5.4</span> Gambling Odds</a></li>
+</ul></li>
+<li><a href="2.6-random-variables.html#random-variables"><span class="toc-section-number">2.6</span> Random Variables</a></li>
+<li class="has-sub"><a href="2.7-common-random-variables.html#common-random-variables"><span class="toc-section-number">2.7</span> Common Random Variables</a>
+<ul>
+<li><a href="2.7-common-random-variables.html#binomial-rvs"><span class="toc-section-number">2.7.1</span> Binomial RVs</a></li>
+<li><a href="2.7-common-random-variables.html#geometric-rvs"><span class="toc-section-number">2.7.2</span> Geometric RVs</a></li>
+<li><a href="2.7-common-random-variables.html#poisson-rvs"><span class="toc-section-number">2.7.3</span> Poisson RVs</a></li>
+<li><a href="2.7-common-random-variables.html#negative-binomial-rvs"><span class="toc-section-number">2.7.4</span> Negative Binomial RVs</a></li>
+<li><a href="2.7-common-random-variables.html#normal-rvs"><span class="toc-section-number">2.7.5</span> Normal RVs</a></li>
+</ul></li>
+<li class="has-sub"><a href="2.8-extra-stuff.html#extra-stuff"><span class="toc-section-number">2.8</span> Extra Stuff</a>
+<ul>
+<li><a href="2.8-extra-stuff.html#sets-and-conditional-probability"><span class="toc-section-number">2.8.1</span> Sets and Conditional Probability</a></li>
+<li><a href="2.8-extra-stuff.html#binomials-and-multinomials"><span class="toc-section-number">2.8.2</span> Binomials and Multinomials</a></li>
+<li><a href="2.8-extra-stuff.html#expectation---baseball"><span class="toc-section-number">2.8.3</span> Expectation - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#basketball-scenario"><span class="toc-section-number">2.8.4</span> Basketball Scenario</a></li>
+<li><a href="2.8-extra-stuff.html#multiple-probability-distributions---basketball"><span class="toc-section-number">2.8.5</span> Multiple Probability Distributions - Basketball</a></li>
+<li><a href="2.8-extra-stuff.html#law-of-total-probability---baseball"><span class="toc-section-number">2.8.6</span> Law of Total Probability - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#multinomial-distribution---baseball"><span class="toc-section-number">2.8.7</span> Multinomial Distribution - Baseball</a></li>
+<li><a href="2.8-extra-stuff.html#bayes---injured-baseball-player"><span class="toc-section-number">2.8.8</span> Bayes - injured baseball player</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="3-monte-carlo-simulation.html#monte-carlo-simulation"><span class="toc-section-number">3</span> Monte Carlo Simulation</a>
+<ul>
+<li><a href="3.1-basics.html#basics"><span class="toc-section-number">3.1</span> Basics</a></li>
+<li><a href="3.2-estimating-probabilities.html#estimating-probabilities"><span class="toc-section-number">3.2</span> Estimating Probabilities</a></li>
+<li class="has-sub"><a href="3.3-simulating-streaks.html#simulating-streaks"><span class="toc-section-number">3.3</span> Simulating Streaks</a>
+<ul>
+<li><a href="3.3-simulating-streaks.html#winning-streak-simulation"><span class="toc-section-number">3.3.1</span> Winning Streak Simulation</a></li>
+<li><a href="3.3-simulating-streaks.html#hitting-streak-simulation"><span class="toc-section-number">3.3.2</span> Hitting Streak Simulation</a></li>
+</ul></li>
+<li class="has-sub"><a href="3.4-gambling-simulations.html#gambling-simulations"><span class="toc-section-number">3.4</span> Gambling Simulations</a>
+<ul>
+<li><a href="3.4-gambling-simulations.html#martingale-system"><span class="toc-section-number">3.4.1</span> Martingale System</a></li>
+</ul></li>
+<li class="has-sub"><a href="3.5-extra-stuff-1.html#extra-stuff-1"><span class="toc-section-number">3.5</span> Extra stuff</a>
+<ul>
+<li><a href="3.5-extra-stuff-1.html#shaq-ft-simulation"><span class="toc-section-number">3.5.1</span> Shaq FT simulation</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="4-statistical-inference.html#statistical-inference"><span class="toc-section-number">4</span> Statistical Inference</a>
+<ul>
+<li><a href="4.1-one-sample-and-two-sample-t-tests-and-confidence-intervals.html#one-sample-and-two-sample-t-tests-and-confidence-intervals"><span class="toc-section-number">4.1</span> One Sample and Two Sample t-tests and confidence intervals</a></li>
+</ul></li>
+<li class="has-sub"><a href="5-correlation.html#correlation"><span class="toc-section-number">5</span> Correlation</a>
+<ul>
+<li class="has-sub"><a href="5.1-pearsons-correlation-coefficient.html#pearsons-correlation-coefficient"><span class="toc-section-number">5.1</span> Pearson’s Correlation Coefficient</a>
+<ul>
+<li><a href="5.1-pearsons-correlation-coefficient.html#properties-of-the-linear-correlation-coefficient"><span class="toc-section-number">5.1.1</span> Properties of the Linear Correlation Coefficient</a></li>
+</ul></li>
+<li><a href="5.2-rank-correlation.html#rank-correlation"><span class="toc-section-number">5.2</span> Rank Correlation</a></li>
+<li><a href="5.3-autocorrelation.html#autocorrelation"><span class="toc-section-number">5.3</span> Autocorrelation</a></li>
+<li><a href="5.4-association-of-categorical-variables.html#association-of-categorical-variables"><span class="toc-section-number">5.4</span> Association of Categorical Variables</a></li>
+</ul></li>
+<li class="has-sub"><a href="6-linear-regression.html#linear-regression"><span class="toc-section-number">6</span> Linear Regression</a>
+<ul>
+<li><a href="6.1-simple-linear-regression.html#simple-linear-regression"><span class="toc-section-number">6.1</span> Simple Linear Regression</a></li>
+<li><a href="6.2-multiple-linear-regression.html#multiple-linear-regression"><span class="toc-section-number">6.2</span> Multiple Linear Regression</a></li>
+<li><a href="6.3-confounding-variables.html#confounding-variables"><span class="toc-section-number">6.3</span> Confounding Variables</a></li>
+</ul></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="volleyball" class="section level2" number="1.8">
+<h2><span class="header-section-number">1.8</span> Volleyball</h2>
+<p>Volleyball rules Youtube video: <a href="https://www.youtube.com/watch?v=9g7nYQv-kPM" class="uri">https://www.youtube.com/watch?v=9g7nYQv-kPM</a></p>
+<div id="basic-volleyball-statistics" class="section level3" number="1.8.1">
+<h3><span class="header-section-number">1.8.1</span> Basic Volleyball Statistics</h3>
+<ul>
+<li>A <strong>Service Ace (SA)</strong> occurs when a player’s serve touches the ground on the other team’s side without being touched by a player on that side.</li>
+<li>A <strong>Kill (K)</strong> occurs when a player gets the ball over the net without it being returned by the opponent.</li>
+<li>An <strong>Assist (AST)</strong> is a pass made directly before a player makes a kill.</li>
+<li><strong>Hitting Percentage (PCT)</strong> is the number of attempted kills (minus errors) divided by the total number of kill attempts. This helps determine how well a player or team is succeeding at their kill attempts.</li>
+</ul>
+<p><em>Reference:</em><br />
+www.rookieroad.com</p>
+<p>For Volleyball EDA, we will be using CSU Women’s Volleyball data from the last five seasons.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="1.8-volleyball.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load CSU Women&#39;s Volleyball Data</span></span>
+<span id="cb99-2"><a href="1.8-volleyball.html#cb99-2" aria-hidden="true" tabindex="-1"></a>csu_vb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/csu_volleyball.csv&quot;</span>)</span>
+<span id="cb99-3"><a href="1.8-volleyball.html#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(csu_vb)[<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="st">&quot;W_L&quot;</span></span>
+<span id="cb99-4"><a href="1.8-volleyball.html#cb99-4" aria-hidden="true" tabindex="-1"></a>csu_vb <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>) <span class="sc">%&gt;%</span> <span class="fu">kt</span>()</span></code></pre></div>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:center;">
+Opponent
+</th>
+<th style="text-align:center;">
+W_L
+</th>
+<th style="text-align:center;">
+SP
+</th>
+<th style="text-align:center;">
+K
+</th>
+<th style="text-align:center;">
+E
+</th>
+<th style="text-align:center;">
+TA
+</th>
+<th style="text-align:center;">
+PCT
+</th>
+<th style="text-align:center;">
+AST
+</th>
+<th style="text-align:left;">
+SA
+</th>
+<th style="text-align:center;">
+SE
+</th>
+<th style="text-align:center;">
+RE
+</th>
+<th style="text-align:center;">
+DIG
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+8/25/17
+</td>
+<td style="text-align:center;">
+Duke
+</td>
+<td style="text-align:center;">
+L
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+66
+</td>
+<td style="text-align:center;">
+28
+</td>
+<td style="text-align:center;">
+179
+</td>
+<td style="text-align:center;">
+0.212
+</td>
+<td style="text-align:center;">
+64
+</td>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+84
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8/26/17
+</td>
+<td style="text-align:center;">
+Central Florida
+</td>
+<td style="text-align:center;">
+W
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+56
+</td>
+<td style="text-align:center;">
+18
+</td>
+<td style="text-align:center;">
+126
+</td>
+<td style="text-align:center;">
+0.302
+</td>
+<td style="text-align:center;">
+52
+</td>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+49
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8/29/17
+</td>
+<td style="text-align:center;">
+Northern Colorado
+</td>
+<td style="text-align:center;">
+W
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+39
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+77
+</td>
+<td style="text-align:center;">
+0.403
+</td>
+<td style="text-align:center;">
+38
+</td>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9/1/17
+</td>
+<td style="text-align:center;">
+vs TCU
+</td>
+<td style="text-align:center;">
+W
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+62
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+149
+</td>
+<td style="text-align:center;">
+0.282
+</td>
+<td style="text-align:center;">
+59
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+65
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9/1/17
+</td>
+<td style="text-align:center;">
+vs UNC Asheville
+</td>
+<td style="text-align:center;">
+W
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+41
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+80
+</td>
+<td style="text-align:center;">
+0.425
+</td>
+<td style="text-align:center;">
+39
+</td>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9/2/17
+</td>
+<td style="text-align:center;">
+at Florida State
+</td>
+<td style="text-align:center;">
+W
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+48
+</td>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+95
+</td>
+<td style="text-align:center;">
+0.379
+</td>
+<td style="text-align:center;">
+45
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9/8/17
+</td>
+<td style="text-align:center;">
+Ball State
+</td>
+<td style="text-align:center;">
+W
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+59
+</td>
+<td style="text-align:center;">
+24
+</td>
+<td style="text-align:center;">
+145
+</td>
+<td style="text-align:center;">
+0.241
+</td>
+<td style="text-align:center;">
+56
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9/8/17
+</td>
+<td style="text-align:center;">
+Michigan
+</td>
+<td style="text-align:center;">
+W
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+48
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+101
+</td>
+<td style="text-align:center;">
+0.396
+</td>
+<td style="text-align:center;">
+46
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9/10/17
+</td>
+<td style="text-align:center;">
+Idaho State
+</td>
+<td style="text-align:center;">
+W
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+46
+</td>
+<td style="text-align:center;">
+11
+</td>
+<td style="text-align:center;">
+92
+</td>
+<td style="text-align:center;">
+0.380
+</td>
+<td style="text-align:center;">
+46
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+48
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9/15/17
+</td>
+<td style="text-align:center;">
+UAlbany
+</td>
+<td style="text-align:center;">
+W
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+41
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+73
+</td>
+<td style="text-align:center;">
+0.466
+</td>
+<td style="text-align:center;">
+36
+</td>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+30
+</td>
+</tr>
+</tbody>
+</table>
+<p>Let’s look at a scatter plot of hitting percentage and the number of digs. While no conclusions can be drawn from such a plot, it can give us some insight into relationships worthy of further analysis. Before creating the plot using the code below, think about what you might expect the outcome to be.</p>
+</div>
+<div id="scatter-plot" class="section level3" number="1.8.2">
+<h3><span class="header-section-number">1.8.2</span> Scatter Plot</h3>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="1.8-volleyball.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Digs, Hitting Percentage, Win/Lose</span></span>
+<span id="cb100-2"><a href="1.8-volleyball.html#cb100-2" aria-hidden="true" tabindex="-1"></a>dig_pct_viz <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> csu_vb, <span class="fu">aes</span>(<span class="at">x =</span> DIG, <span class="at">y =</span> PCT, <span class="at">color =</span> W_L)) <span class="sc">+</span></span>
+<span id="cb100-3"><a href="1.8-volleyball.html#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb100-4"><a href="1.8-volleyball.html#cb100-4" aria-hidden="true" tabindex="-1"></a>dig_pct_viz</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p>Let’s change the axis titles, legend title, and add a main title.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="1.8-volleyball.html#cb101-1" aria-hidden="true" tabindex="-1"></a>dig_pct_viz <span class="sc">+</span></span>
+<span id="cb101-2"><a href="1.8-volleyball.html#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Wins and Losses by Number of Digs and Hitting Percentage&quot;</span>,</span>
+<span id="cb101-3"><a href="1.8-volleyball.html#cb101-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Number of Digs (DIG)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Hitting Percentage (PCT)&quot;</span>,</span>
+<span id="cb101-4"><a href="1.8-volleyball.html#cb101-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Win or Loss&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p>What can we learn from this visual? Well, we can see that there is a weak linear relationship between the number of digs and hitting percentage. To an extent, hitting percentage decreases as the number of digs increases. Why is this the case? Maybe if a team has a really high hitting percentage, this means that the opposing team does not have as many opportunities to attack the other team offensively, reducing the number of opportunities for digs. It also seems that while wins and losses are somewhat evenly spread across the number of digs, there is a more clear cutoff for hitting percentage. It seems that the majority of wins are associated with a hitting percentage of at least 0.2, while the majority of losses are associated with a hitting percentage of less than 0.3.</p>
+</div>
+<div id="box-plot" class="section level3" number="1.8.3">
+<h3><span class="header-section-number">1.8.3</span> Box Plot</h3>
+<p>Now let’s take a closer look at the distribution of hitting percentage and digs for wins and losses. To do this, we will create box plots for each statistic.</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="1.8-volleyball.html#cb102-1" aria-hidden="true" tabindex="-1"></a>pct_viz <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> csu_vb, <span class="fu">aes</span>(<span class="at">x =</span> PCT, <span class="at">y =</span> W_L)) <span class="sc">+</span></span>
+<span id="cb102-2"><a href="1.8-volleyball.html#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb102-3"><a href="1.8-volleyball.html#cb102-3" aria-hidden="true" tabindex="-1"></a>pct_viz</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="1.8-volleyball.html#cb103-1" aria-hidden="true" tabindex="-1"></a>dig_viz <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> csu_vb, <span class="fu">aes</span>(<span class="at">x =</span> DIG, <span class="at">y =</span> W_L)) <span class="sc">+</span></span>
+<span id="cb103-2"><a href="1.8-volleyball.html#cb103-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb103-3"><a href="1.8-volleyball.html#cb103-3" aria-hidden="true" tabindex="-1"></a>dig_viz</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-35-2.png" width="672" /></p>
+<p>Let’s modify these plots to make them more complete and visually appealing.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="1.8-volleyball.html#cb104-1" aria-hidden="true" tabindex="-1"></a>pct_viz <span class="sc">+</span></span>
+<span id="cb104-2"><a href="1.8-volleyball.html#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Hitting Percentage for Wins and Losses&quot;</span>,</span>
+<span id="cb104-3"><a href="1.8-volleyball.html#cb104-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Hitting Percentage (PCT)&quot;</span>,</span>
+<span id="cb104-4"><a href="1.8-volleyball.html#cb104-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Win or Loss&quot;</span>) <span class="sc">+</span></span>
+<span id="cb104-5"><a href="1.8-volleyball.html#cb104-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;slateblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="1.8-volleyball.html#cb105-1" aria-hidden="true" tabindex="-1"></a>dig_viz <span class="sc">+</span></span>
+<span id="cb105-2"><a href="1.8-volleyball.html#cb105-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Number of Digs for Wins and Losses&quot;</span>,</span>
+<span id="cb105-3"><a href="1.8-volleyball.html#cb105-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Number of Digs (DIG)&quot;</span>,</span>
+<span id="cb105-4"><a href="1.8-volleyball.html#cb105-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Win or Loss&quot;</span>) <span class="sc">+</span></span>
+<span id="cb105-5"><a href="1.8-volleyball.html#cb105-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;slateblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-36-2.png" width="672" /></p>
+<p>Box plots allow us to isolate each statistic (number of kills and hitting percentage) so we can more clearly determine the center and spread of each between wins and losses.</p>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<p style="text-align: center;">
+<a href="1.7-hockey.html"><button class="btn btn-default">Previous</button></a>
+<a href="1.9-soccer.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>
