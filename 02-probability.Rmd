@@ -1,14 +1,15 @@
-# Probability
-
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F,warning=F}
 library(tidyverse)
 library(kableExtra)
+knitr::opts_chunk$set(tidy=FALSE)
 
 # kable table global setup
 kt <- function(data) {
-   knitr::kable(data, digits=3, align=c('l',rep('c',20))) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+  knitr::kable(data, digits=3, align=c('l',rep('c',20))) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
 }
 ```
+
+# Probability
 
 ## Chapter Preview {-}
 Probability is the study of randomness. In this chapter, we will define probability, learn rules of probability, and apply these rules to sports data.

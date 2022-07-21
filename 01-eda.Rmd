@@ -1,3 +1,14 @@
+```{r, echo=F, message=F,warning=F}
+library(tidyverse)
+library(kableExtra)
+knitr::opts_chunk$set(tidy=FALSE)
+
+# kable table global setup
+kt <- function(data) {
+  knitr::kable(data, digits=3, align=c('l',rep('c',20))) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+}
+```
+
 # Exploratory Data Analysis
 
 ```{r, echo=F, message=F}
@@ -1105,7 +1116,7 @@ nhl_2022_data <- read_csv("https://moneypuck.com/moneypuck/playerData/seasonSumm
 nhl_2022_data %>% slice_head(n=10) %>% select(3,6,8,9,10) %>% kt()
 ```
 
-We can create nice looking tables using the ``kableExtra'' package. Let's look at the first eight rows and a samll selection of columns of the data frame and format the table output using a kable table.
+We can create nice looking tables using the ``kableExtra'' package. Let's look at the first eight rows and a small selection of columns of the data frame and format the table output using a kable table.
 
 ```{r, message=F}
 library("kableExtra")

@@ -1,19 +1,15 @@
----
-output:
-  html_document: default
-  pdf_document: default
----
-# Monte Carlo Simulation 
-
 ```{r, echo=F, message=F,warning=F}
 library(tidyverse)
 library(kableExtra)
+knitr::opts_chunk$set(tidy=FALSE)
 
 # kable table global setup
 kt <- function(data) {
-  knitr::kable(data, digits=3, align=c('l','c','c','c','c','c','c','c','c')) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+  knitr::kable(data, digits=3, align=c('l',rep('c',20))) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
 }
 ```
+
+# Monte Carlo Simulation 
 
 ## Basics
 
@@ -96,9 +92,12 @@ FT %>%
   as.data.frame() %>% 
   ggplot(aes(x=FT)) + 
   geom_bar() +
-  ggtitle("Number of free throws made out of 10") + scale_x_continuous(breaks = seq(0, 10, by = 2))
+  ggtitle("Number of free throws made out of 10") + 
+  scale_x_continuous(breaks = seq(0, 10, by = 2))
 
 prob10 <- sum(FT == 10)/n.sims; prob10
+prob10 <- mean(FT == 10); prob10
+
 ```
 
 The estimated probability that Shaq goes 10-for-10 in free throw attempts based on his career average is 0.0023.
@@ -122,7 +121,7 @@ for(i in 1:n.sims){
   FT[i] <- sum(temp)
 }
 
-prob10 <- sum(FT == 10)/n.sims; prob10
+prob10 <- mean(FT == 10); prob10
 ```
 
 As we increase the number of simulations, the estimate will become more accurate.
@@ -144,7 +143,7 @@ for(i in 1:n.sims){
   FT[i] <- sum(temp)
 }
 
-prob10 <- sum(FT == 10)/n.sims; prob10
+prob10 <- mean(FT==10); prob10
 ```
 
 One way to simulate data is to make assumptions about the distributions of the underlying data. The random variables given in the last chapter as possible candidates.
@@ -191,7 +190,7 @@ nFTA <- c(5,2,8,0,7,2,4,2,2)
 pFTA <- nFTA/32
 df <- t(data.frame(FTA,nFTA,pFTA))
 row.names(df) = c("Free Throw Attempts Per Game, FTA","Number of Occurrences, nFTA","Probability, p(FTA)")
-kable(digitsByRows(df,c(0,0,3)),row.names=F) %>% kable_styling(full_width = F)
+df %>% kt()
 ```
 
 ```{r}
@@ -210,7 +209,7 @@ FTA.sim <- sample(x = FTA,size = n.sims,replace = T,prob = pFTA)
 
 # Simulate 10,000 games and record number of FT made
 for(i in 1:n.sims){
-  FT[i] <- rbinom(n=1,size = FTA.sim[i],prob = 0.818)
+  FT[i] <- rbinom(n=1,size = FTA.sim[i],prob = FTprob)
 }
 
 # Look at the header of the simulated data
@@ -220,8 +219,8 @@ head(FT)
 FT0.ind = FT == 0
 head(FT0.ind)
 
-# Estimate probability of 0 FT made
-sum(FT0.ind)/n.sims
+# This does the same thing
+mean(FT0.ind)
 ```
 
 \newpage
@@ -229,18 +228,17 @@ sum(FT0.ind)/n.sims
 :::{.example}
 The number of regulation goals scored in a game by Hockey Team A, $X$, is a Poisson(4) random variable, and the same for Hockey Team B, $Y$, is a Poisson(3.2) random variable.
 
-A statistician is interested in the probability that Team A defeats Team B in regulation. This is $P(X > Y)$, which is difficult to calculate manually. However, using simulation, we can straightforwardly obtain an accurate estimation of this quantity.
+A statistician is interested in the probability that Team A defeats Team B in regulation. This is $P(X>Y)$ which is difficult to calculate manually. However, using simulation, we can straightforwardly obtain an accurate estimation of this quantity.
 :::
 
 There are many built-in functions in `R` that allow users to generate realizations from common probability distributions (`rnorm`, `rbinom`, `rexp`, etc.) Let's use the `rpois` function to simulate the appropriate variables, remembering to set a seed so that our results are easily replicable.
 
 ```{r hockey poisson simulation 1}
 set.seed(2022)
+n.sims <- 10000
 
-nReps <- 1e4
-
-team_A_goals <- rpois(n = nReps, lambda = 4)
-team_B_goals <- rpois(n = nReps, lambda = 3.2)
+team_A_goals <- rpois(n = n.sims, lambda = 4)
+team_B_goals <- rpois(n = n.sims, lambda = 3.2)
 ```
 
 Now, to find $P(X > Y)$, we can use the following line of code:
@@ -264,22 +262,31 @@ for (j in 1:50) {
 sum(v)
 ```
 
-## Streak Simulation - Basketball
+\newpage
 
-Suppose an NBA team is in the middle of a rebuild and has a 25% probability of winning each of its games in the following 82-game season.
+## Simulating Streaks
 
-Q: What is the probability that the team will go on at least one winning streak of four or more games over the course of the 82-game season?
+Streaks are often of interest to casual sports fans. Some especially famous streaks include Joe DiMaggio's 56-game hitting streak in 1941, Wayne Gretzky's 51 consecutive games with a point in 1983-1984, and the Chicago Cubs 108 year World Series drought.
 
-A: We can simulate a season for the team, find the longest winning streak in that season, and store it in a vector. After repeating that process 10,000 times, we can then find the proportion of the values in that vector that are greater than or equal to 4.
+Simulation can be helpful in quantifying the likelihood of different kinds of streaks like winning streaks or hitting streaks.
+
+### Winning Streak Simulation
+
+:::{.example}
+Suppose an NBA team is in the middle of a rebuild and has a 25% probability of winning each of its games in the following 82-game season. What is the probability that the team will go on at least one winning streak of four or more games over the course of the 82-game season? Use simulation to answer this question.
+:::
+
+We can simulate a season for the team, find the longest winning streak in that season, and store it in a vector. After repeating that process 10,000 times, we can then find the proportion of the values in that vector that are greater than or equal to 4.
 
 ```{r basketball streaks simulation}
 set.seed(2022)
+n.sims <- 10000
+n.games <- 82
+win.prob <- 0.25
+longest_streak <- rep(NA, n.sims)
 
-nReps <- 10000
-longest_streak <- rep(NA, nReps)
-
-for (i in 1:nReps) {
-  game_results <- rbinom(size = 1, n = 82, prob = .25) # 1=win, 0=loss
+for (i in 1:n.sims) {
+  game_results <- rbinom(size = 1, n = n.games, prob = win.prob) # 1=win, 0=loss
   streaks <- rle(game_results)
   longest_streak[i] <- max(streaks$lengths[streaks$values==1])
 }
@@ -292,101 +299,141 @@ mean(longest_streak >= 4)
 
 The team had a 4+ game winning streak in about 20% of the simulations. 
 
-## Hitting Streak Simulation
+\newpage
+
+### Hitting Streak Simulation
+
+In 1941, New York Yankee Joe DiMaggio had a 56-game hitting streak which is an all-time record in MLB. How unlikely was such an outcome?
+
+Background videos on DiMaggio's 56 game hitting streak:
+
+https://www.youtube.com/watch?v=Y5K49dtOKmo
+
+https://www.youtube.com/embed/BErlc16YS8A
 
 :::{.example}
-In 1941, Joe DiMaggio had a 56-game hitting streak which is an all-time record in MLB. How unlikely was such an outcome? Let's build a simulation to estimate the probability of a hitting streak of at least 56 games using DiMaggio's statistics.
-
-DiMaggio had 193 hits in 622 plate appearances over 139 games. We will simulate DiMaggio's season of 139 games many times to estimate the probability of a 56-game hitting streak. Assume that in each game DiMaggio has a 50\% chance of 4 plate appearance and a 50\% chance of 5 plate appearances. For a plate appearance, DiMaggio had a probability of $193/622 = 0.310$ of getting a hit.
+Let's build a simulation to estimate the probability of a hitting streak of at least 56 games using DiMaggio's statistics. DiMaggio's 1941 game log is contained in `dimaggio41.csv`.
 :::
 
+```{r, message=F}
+dimaggio <- read_csv("data/dimaggio41.csv", col_names = TRUE)
+
+names(dimaggio)
+
+nrow(dimaggio)
+
+dimaggio %>% select(1:13) %>% slice(1:10,139:140) %>% kt()
+```
+
+DiMaggio played in 139 games, had 622 plate appearances, 541 at-bats, and 193 hits.
+
 ```{r}
+
+# remove last row (totals)
+dimaggio <- dimaggio %>% slice(1:139)
+
+# Create indicator variable for a hit
+hit.game <- ifelse(dimaggio$H > 0,1,0)
+
+# Use rle to calculate the streak lengths
+streaks <- rle(hit.game)
+table(streaks)
+```
+
+As seen above, DiMaggio had a 56-game hitting streak. An impossible feat to match?
+
+(a) Create a histograms for DiMaggio's per game plate appearances and at bats. (Hint: for discrete values, `geom_bar()` is often a good option.)
+
+```{r,message=F}
+library(gridExtra)
+
+p1 <- dimaggio %>% 
+  ggplot(aes(x=PA)) + 
+  geom_bar() + 
+  scale_x_continuous(breaks=0:10) + 
+  ggtitle("DiMaggio Plate Appearances Per Game, 1941") +
+  xlab("Plate Appearances")
+p2 <- dimaggio %>% 
+  ggplot(aes(x=AB)) + 
+  geom_bar() + 
+  scale_x_continuous(breaks=0:10) + 
+  ggtitle("DiMaggio At-Bats Per Game, 1941") +
+  xlab("At-Bats")
+
+grid.arrange(p1, p2, ncol = 1)
+```
+
+(b) Create a frequency and percentage frequency table for plate appearances and at-bats.
+
+```{r,message=F}
+library(janitor)
+table.pa = tabyl(dimaggio,PA) %>% 
+  adorn_totals("row") %>%
+  adorn_pct_formatting(digits = 1)
+names(table.pa) = c("Plate Appearances", "Frequency", "Percent")
+table.pa %>% kt()
+
+table.ab = tabyl(dimaggio,AB) %>% 
+  adorn_totals("row") %>%
+  adorn_pct_formatting(digits = 1)
+names(table.ab) = c("At-Bats", "Frequency", "Percent")
+table.ab %>% kt()
+```
+
+
+(c) DiMaggio had 193 hits in 622 plate appearances over 139 games. We will simulate DiMaggio's season of 139 games 100,000 times to estimate the probability of a 56-game hitting streak.
+
+There are many ways to do this. Let's use the *empirical probability mass function* of his per game plate appearances to simulate the number of plate appearances that he gets in his 139 games.
+
+```{r}
+pa <- tabyl(dimaggio,PA) %>% select(1,2)
+pa <- pa %>% 
+  as.data.frame() %>%
+  mutate(Prob=n/139)
+
+# One simulated season of per game plate appearances
+sim.pa <- sample(x=pa$PA,prob = pa$Prob,size=139,replace=T)
+sim.pa
+```
+
+```{r}
+# DiMaggio Simulation
 set.seed(2022)
 n.sims <- 10000
 n.games <- 139
+prob.hit <- 0.310
 
 longest.streak <- rep(0, n.sims)
 sim.games <- rep(0,n.games)
 
 for( i in 1: n.sims){
-  for( j in 1:139){
-    sim.ab <- sample(x=c(4,5),size=1,replace=T)
-    sim.games[j] <- rbinom(n = 1,size = sim.ab,prob = 0.310)
+  sim.pa <- sample(x=pa$PA,prob = pa$Prob,size=n.games,replace=T)
+  for( j in 1:n.games){
+    sim.games[j] <- rbinom(n = 1,size = sim.pa[j],prob = prob.hit)
   }
   sim.hits <- ifelse(sim.games > 0,1,0)
   streaks <- rle(sim.hits)
   longest.streak[i] <- max(streaks$lengths[streaks$values==1])
 }
 
+# table of longest streaks during simulated seasons
 table(longest.streak)
+
 longest.streak %>% 
   as.data.frame() %>% 
   ggplot(aes(x=longest.streak)) + 
   geom_histogram(binwidth=2) +
-  labs(title = "Longest Hitting Streak for 10,000 Simulated DiMaggio 1941 Seasons") +
+  ggtitle("Longest Hitting Streak for 10,000 Simulated DiMaggio 1941 Seasons") +
   xlab("Max Hitting Streak in a Simulation Season")
-mean(longest.streak)
-mean(longest.streak>55)
+
+mean.streak <- mean(longest.streak); mean.streak
+prob56 <- mean(longest.streak>=56); prob56
 ```
-This code is slow because we have nested for loops. When at all possible, you would like to avoid using nested for loops.
+We would prefer to not use nested for loops, as they are slow. Can you find a faster simulation method?
 
-Running the simulation above with `set.seed(2022)` and `n.sims=10000`, we get $P(Streak \geq 66) = 0$. No hitting streak of 56 games or more in this simulation.
+Running the simulation above with `set.seed(2022)` and `n.sims=10000`, we get $P(Streak \geq 66) = 3 \cdot 10^{-4}$. There were three simulated hitting streaks of at least 56 games.
 
-If we run the simulation again with `set.seed(2022)` but increase `n.sims=100000`, we get $P(Streak \geq 66) = \frac{9}{100000} = 9 \cdot 10^{-5}$. In other words, we estimate the probability that DiMaggio gets a hitting streak of at least 56 games in 100000 simulated seasons is about 1-in-10000.
-
-This simulation is slow, so let's try coding it up in a few different ways to show you some options when simulating.
-
-```{r}
-# Alternate DiMaggio hitting streak simulation 
-set.seed(2022)
-n.sims <- 100000
-n.games <- 139
-
-longest.streak <- rep(0, n.sims)
-
-# simulate at bats for n.sims * n.games = 139*100000
-sim.games <- sample(c(4,5),size=n.sims*n.games,replace=T)
-sim.games <- as.matrix(sim.games,nrow=n.sims,ncol=n.games)
-
-# count number of 4 and 5 at bat games
-n4 <- sum(sim.games == 4)
-n5 <- sum(sim.games == 5)
-
-# simulate number of hits in 4 at bat games
-hits4 <- rbinom(n=n4,size=4,prob=0.310)
-hits5 <- rbinom(n=n5,size=5,prob=0.310)
-
-# hit games: 1 = got at least one hit, 0 = not hit
-hits4i <- ifelse(hits4 > 0,1,0)
-hits5i <- ifelse(hits5 > 0,1,0)
-
-sim.hit.games <- matrix(0,ncol=n.games,nrow=n.sims)
-sim.hit.games[which(sim.games == 4)] = hits4i
-sim.hit.games[which(sim.games == 5)] = hits5i
-
-for( i in 1:n.sims){
-  streaks <- rle(sim.hit.games[i,])
-  longest.streak[i] <- max(streaks$lengths[streaks$values==1])
-}
-
-table(longest.streak)
-longest.streak %>% 
-  as.data.frame() %>% 
-  ggplot(aes(x=longest.streak)) + 
-  geom_histogram(binwidth=2) +
-  labs(title = "Longest Hitting Streak for 10,000 Simulated DiMaggio 1941 Seasons") +
-  xlab("Max Hitting Streak in a Simulation Season")
-mean(longest.streak)
-mean(longest.streak>55)
-```
-
-The code for this alternate simulation is a bit less intuitive but it is much faster.
-
-Running the alternate simulation above with `set.seed(2022)` and `n.sims=100000`, we get $P(Streak \geq 66) = 0.00012$. 
-
-Running the simulation above with `set.seed(2022)` and `n.sims=1000000`, we get $P(Streak \geq 66) = 0.000132$. 
-
-All of these simulations suggest that using DiMaggio's 1941 statistics of having a hitting streak of at least 56 games was about 1-in-8000.
+If we run the simulation again with `set.seed(2022)` but increase `n.sims=100000`, we get $P(Streak \geq 66) = \frac{10}{100000} = 10^{-4}$. In other words, we estimate the probability that DiMaggio gets a hitting streak of at least 56 games in 100000 simulated seasons is about 1-in-10000.
 
 Other authors have used different simulation and mathematical methods for estimating the rarity of Dimaggio's 56 game hitting streak.
 
@@ -394,7 +441,78 @@ Billie et al (2010) used an at-bat rather than plate appearance simulation and e
 
 Rothman et al (2010) estimated the likelihood as 1-in-10000.
 
-## Shaq FT simulation
+## Gambling Simulations
+
+Simulation can be used to evaluate betting systems in (sports) gambling. 
+
+### Martingale System
+
+One such famous betting system is called a martingale system. Under this system, the bettor makes an initial wager. If they lose, they make the same wager. If they lose again, they follow a *double or nothing* procedure. This means that the bettor will continue betting the amount they have lost until they eventually win and get back even. What is wrong with this system?
+
+:::{.example}
+Suppose you are betting on *even money* sports matches where there is no house advantage, so all bets are 1:1. You begin by wagering \$1 and you lose the initial bet (call it *Bet Zero*). You decide to employee the martingale system. Calculate the expected number of bets that you would have to make to break even. Also, create a histogram for the the biggest deficits in the simulations.
+:::
+
+```{r}
+set.seed(2022)
+n.sims <- 10000
+sim.bets <- rep(NA,n.sims)
+max.deficit <- rep(NA,n.sims)
+
+for( i in 1:n.sims ){
+  bets <- 1
+  
+  while( 1 ){
+    if( rbernoulli(n=1,0.5) ){
+      bets <- bets + 1
+    } else {
+      break;
+    }
+  }
+  sim.bets[i] <- bets
+}
+
+mean(sim.bets)
+max(sim.bets)
+
+sim.bets %>% as.data.frame() %>% 
+  ggplot(aes(x=sim.bets)) + 
+  geom_histogram(breaks=0:15) +
+  ggtitle("Simulated Number of Money Bets to Break Even") + 
+  xlab("Number of Bets")
+```
+
+On average, two bets were needed to be placed after *Bet Zero* to break even.
+
+In two simulations (out of 10,000 total simulations), 12 bets were needed to be made to break even after the initial failed bet, *Bet Zero*. The first bet after *Bet Zero* was for \$1. The second failed bet was from \$2. The twelfth bet was for $\$2^{11} = \$2048$. If your total bankroll was \$1000, you wouldn't have been even able to make the twelfth bet to break even. The weakness of the martingale system is that you are only guaranteed (with probability 1) to break even if you have an infinite bankroll.
+
+The distribution in this example should look familiar. It is the geometric distribution. Let's plot the probability mass function for a Geometric(0.5) random variable and calculate the probability that 12 or more bets are required to break even.
+
+```{r}
+ggplot(transform(data.frame(x=c(0:15)), y=dgeom(x, prob = 0.5)), aes(x, y)) + 
+  geom_bar(stat="identity") +
+  ggtitle("Probability mass function of Geometric(0.5) random variable") +
+  labs(x="Value", y="Frequency", )
+
+# recall that R counts the number of failures before a success, 
+# so we will be looking for at least 11 failures
+pgeom(q=11,prob=0.5,lower.tail=F)
+```
+
+There is a 0.02\% chance that we will need to make 12 or more wagers. In other words, if your bankroll is \$1000, there is a 0.02\% you lose the full bankroll before you can break even.
+
+This is an ideal case where you can get 1:1 odds which no sportsbook would ever consider.
+
+:::{.example}
+Repeat the above example but for -110 moneyline bets for two evenly matched opponents. Calculate the probability that you lose \$1000.
+:::
+
+
+
+
+## Extra stuff
+
+### Shaq FT simulation
 
 :::{.example}
 In 1997-1998 with the Los Angeles Lakers, Shaq attempted an average of 11.35 free throws per game with a standard deviation of 4.04. While with the Lakers, Shaq played in an average of 63.6 games per year with a standard deviation of 10.6. Create a simulation to model the season total number of free throw attempts that Shaq would have while with the Lakers. 
