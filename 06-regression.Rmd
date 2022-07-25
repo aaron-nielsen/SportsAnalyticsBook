@@ -13,7 +13,52 @@ kt <- function(data) {
 
 ## Simple Linear Regression
 
+(AM, page 162, OPS vs runs scored)
+
+### Pythagorean Records
+
+(Mathletics, chapter 1, page 13)
+(Mathletics, chapter 41, page 385)
+
+### Regression to the Mean
+
+(Rushing Yards, Batting Average, Rank in Goals)
+
+## Variable Transformations
+
+### Draft Pick Values
+
+(Mathletics, chapter 26, page 222)
+
 ## Multiple Linear Regression
+
+### Four Factors and Winning
+
+(Mathletics, chapter 28, page 250)
+
+### Linear Weights in Baseball
+
+(Mathletics, chapter 3, page 18)
+
+### Pass Air Yards Regression
+
+(Mathletics, chapter 27, page 230)
+
+### EPL Passing and Scoring
+
+(AM, page 183, 213)
+
+### Hockey PPG vs TOI
+
+(AM, page 181, 187, quadratic, exponential models)
+
+## Issues with Multiyear Data
+
+(AM, page 191, correlated errors)
+
+## Interaction
+
+(AM, page 222, strikeout rate vs. movement and velocity)
 
 ## Confounding Variables
 
@@ -65,3 +110,18 @@ When controlling for an NBA team's wins in the previous season, the sign for the
 <!-- Homework problem idea: Use these models and the predict() function in R to simulate win totals for an NBA season. Include random noise in the model by picking a residual variance sigms and adding rnorm(0, sigma) to each observation. Then check to see if the totsl number of wins is close to (82/2)*30 = 1230 and see how the variance and histogram of the simulated win totals compare to actual NBA season results. Can also test the sensitivity of the simulation to different values of residual variance. -->
 
 *Data: https://en.wikipedia.org/wiki/2021_NBA_draft, https://www.nba.com/standings?GroupBy=conf&Season=2020-21&Section=overall*
+
+## Logistic Regression
+
+### Sack and Interception Probability Models
+
+(Mathletics, chapter 27, page 230)
+(Mathletics, chapter 1, page 13)
+
+### Soccer Goal Logistic Model
+
+(Mathletics, chapter 39, page 354)
+
+### Field Goal Success
+
+(AM, page 266)

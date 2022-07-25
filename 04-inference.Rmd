@@ -1,3 +1,50 @@
 # Statistical Inference
 
+## Defining a Population in Sports Data
+
+## Margin of Error Calcuations
+
+### MOE for Probabilities
+
+(Shooting percentages, batting averages, save percentage)
+
+### MOE for Averages
+
+(PPG, Digs per game, Passer Rating--using bootstrap)
+
+### MOE estimation using simulation
+
+(Durant scoring, AM, page 98)
+
 ## One Sample and Two Sample t-tests and confidence intervals
+
+### Hockey Faceoffs
+
+(Mathletics, chapter 40 page 383)
+
+### Hockey Penalty Scoring
+
+(Mathletics, chapter 40, page 13)
+
+### NFL Overtime Winners
+
+(Scorecasting, page 192)
+(Mathletics, chapter 25, page 211)
+
+### Icing the Kicker
+
+(Scorecasting, page 211)
+
+### Example: Football One vs. Two Point Conversion
+
+(Mathletics, chapter 23, page 194) -- discussion of "the chart"
+
+### Two Sample Tests
+
+(NBA Players, AM, page 103)
+
+(Comparing NL and AL, page 106)
+
+## Permutation Tests
+
+## Bootstrap

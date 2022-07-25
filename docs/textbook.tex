@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-07-21}
+\date{2022-07-25}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -1351,7 +1351,9 @@ Let's look at the correlations between these variables, paying close attention t
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{pitchers2021 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Player) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggpairs}\NormalTok{(}\AttributeTok{title=}\StringTok{"Correlation plot of pitching statistics, MLB 2020{-}2021"}\NormalTok{)}
+\NormalTok{pitchers2021 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Player) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggpairs}\NormalTok{(}\AttributeTok{title=}\StringTok{"Correlation plot of pitching statistics, MLB 2020{-}2021"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1642,23 +1644,44 @@ This tibble contains all the data needed to calculate the \emph{Four Factors}. T
 
 The Four Factors each have offensive and defensive versions; for this example, we'll focus on the offensive perspective.
 
-The first is \textbf{Effective Field Goal Percentage}, commonly abbreviated eFG\%. The formula is as follows:
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{\emph{Scoring}}: \textbf{Effective Field Goal Percentage} (eFG\%)
+\end{enumerate}
 
 \(eFG\% = \frac{FG\ +\ 0.5(3P)}{FGA}\)
 
-Secondly, \textbf{Turnover Percentage} (TOV\%) is calculated as:
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{\emph{Crashing}}: \textbf{Turnover Percentage} (TOV\%)
+\end{enumerate}
 
 \(TOV\% = \frac{TOV}{FGA\ +\ 0.44(FTA)\ +\ TOV}\)
 
-Next, \textbf{Rebounding Percentage} (ORB\%) is computed as:
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \textbf{\emph{Protecting}}: \textbf{Rebounding Percentage} (ORB\%)
+\end{enumerate}
 
 \(ORB\% = \frac{ORB}{ORB\ +\ Opponent\ DRB}\)
 
-Finally, the \textbf{Free Throw Factor} is found using:
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  \textbf{\emph{Attacking}}: \textbf{Free Throw Factor} (FT Factor)
+\end{enumerate}
 
 \(FT\ factor = \frac{FT}{FGA}\)
-
-Note: You do not have to know these formulas for the test. They are just used for this example.
 
 Let's calculate the values of eFG\%, TOV\%, ORB\%, and Free Throw Factor for both CSU and Wyoming and add them as new columns in the tibble using the \texttt{add\_column} function.
 
@@ -4064,6 +4087,13 @@ The Probability that Player X outperforms Player Y is 0.7488.
 
 \newpage
 
+\hypertarget{case-study-nfl-state-values-and-decision-making}{%
+\section{Case Study: NFL state values and decision making}\label{case-study-nfl-state-values-and-decision-making}}
+
+(Mathletics, chapter 19-20, page 170)
+
+\newpage
+
 \hypertarget{extra-stuff}{%
 \section{Extra Stuff}\label{extra-stuff}}
 
@@ -4390,7 +4420,7 @@ In more complicated simulations, there may not be an easy formula to use to calc
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-66-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-67-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4718,7 +4748,7 @@ Let's build a simulation to estimate the probability of a hitting streak of at l
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c|c|c|c|c|c|c|l|c|c|c}
+\begin{tabular}{l|c|c|c|c|c|c|c|c|c|c|c|c}
 \hline
 Rk & Gtm & Date & Opp & Rslt & PA & AB & R & H & 2B & 3B & HR & RBI\\
 \hline
@@ -4809,7 +4839,7 @@ As seen above, DiMaggio had a 56-game hitting streak. An impossible feat to matc
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-74-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-75-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -4965,7 +4995,7 @@ There are many ways to do this. Let's use the \emph{empirical probability mass f
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-77-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-78-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5041,7 +5071,7 @@ Let's try simulating by permuting DiMaggio's games. In other words, let's random
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-80-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-81-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5108,7 +5138,7 @@ Let's consider a more general simulation for hitting streaks. Suppose a hitter w
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-81-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-82-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5131,7 +5161,7 @@ Let's consider a more general simulation for hitting streaks. Suppose a hitter w
 ## [1] 42
 \end{verbatim}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-82-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-83-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5218,7 +5248,7 @@ Suppose you are betting on sports matches on the spread where there is no house 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-84-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-85-1.pdf}
 
 On average, two bets were needed to be placed after \emph{Bet Zero} to break even.
 
@@ -5237,7 +5267,7 @@ The distribution in this example should look familiar. It is the geometric distr
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-85-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-86-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5308,56 +5338,26 @@ We'll use the following code and run simulations with total.bets = 10, 100, 1000
 
 \newpage
 
-\textbf{\emph{Simulation 1: Bankroll after 10 bets}}
-
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c}
+\begin{tabular}{l|c|c}
 \hline
-mean.ending.bankroll & max.ending.bankroll\\
+Number of Bets & Mean Ending Bankroll & Max Ending Payroll\\
 \hline
-991.707 & 1181.818\\
+10 & 991.707 & 1181.818\\
+\hline
+100 & 909.599 & 1672.727\\
+\hline
+1000 & 274.529 & 2572.727\\
 \hline
 \end{tabular}
 \end{table}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-87-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-91-1.pdf}
 
-\newpage
+All bettors eventually go broke under this scenario due to the house advantage. This is called the concept of \textbf{Gambler's Ruin}. A gambler playing a game with negative expected value will eventually go broke, regardless of their betting system.
 
-\textbf{\emph{Simulation 2: Bankroll after 100 bets}}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{l|c}
-\hline
-mean.ending.bankroll & max.ending.bankroll\\
-\hline
-909.599 & 1672.727\\
-\hline
-\end{tabular}
-\end{table}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-88-1.pdf}
-
-\newpage
-
-\textbf{\emph{Simulation 3: Bankroll after 1000 bets}}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{l|c}
-\hline
-mean.ending.bankroll & max.ending.bankroll\\
-\hline
-274.529 & 2572.727\\
-\hline
-\end{tabular}
-\end{table}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-89-1.pdf}
-
-All bettors eventually go broke under this scenario due to the house advantage. This is called the concept of \textbf{Gambler's Ruin}. A gambler playing a game with negative expected value will eventually go broke, regardless of their betting system. See Wikipedia for further details: \url{https://en.wikipedia.org/wiki/Gambler's_ruin}
+See Wikipedia for further details: \url{https://en.wikipedia.org/wiki/Gambler's_ruin}
 
 \hypertarget{simulating-a-winning-system}{%
 \subsection{Simulating a Winning System}\label{simulating-a-winning-system}}
@@ -5421,7 +5421,14 @@ mean.ending.bankroll & max.ending.bankroll\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-90-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-92-1.pdf}
+
+\newpage
+
+\hypertarget{case-study-evaluating-hitters}{%
+\section{Case Study: Evaluating Hitters}\label{case-study-evaluating-hitters}}
+
+(Mathletics chapter 4, page 31)
 
 \newpage
 
@@ -5492,7 +5499,7 @@ For the number of free throw attempts per game, we could model this as a Poisson
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-91-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-93-1.pdf}
 
 Notice that the mean of our simulation is somewhat close to Shaq's true season average number of free throw attempts but the variance of the simulation is far too low.
 
@@ -5553,7 +5560,7 @@ Using resampling, simulate the number of free throws Shaq would attempt while wi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-92-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-94-1.pdf}
 
 This simulation is biased low on the variance but is better than the earlier simulation.
 
@@ -5562,14 +5569,79 @@ One reason that you may want to do complicated simulations like the example abov
 \hypertarget{statistical-inference}{%
 \chapter{Statistical Inference}\label{statistical-inference}}
 
+\hypertarget{defining-a-population-in-sports-data}{%
+\section{Defining a Population in Sports Data}\label{defining-a-population-in-sports-data}}
+
+\hypertarget{margin-of-error-calcuations}{%
+\section{Margin of Error Calcuations}\label{margin-of-error-calcuations}}
+
+\hypertarget{moe-for-probabilities}{%
+\subsection{MOE for Probabilities}\label{moe-for-probabilities}}
+
+(Shooting percentages, batting averages, save percentage)
+
+\hypertarget{moe-for-averages}{%
+\subsection{MOE for Averages}\label{moe-for-averages}}
+
+(PPG, Digs per game, Passer Rating--using bootstrap)
+
+\hypertarget{moe-estimation-using-simulation}{%
+\subsection{MOE estimation using simulation}\label{moe-estimation-using-simulation}}
+
+(Durant scoring, AM, page 98)
+
 \hypertarget{one-sample-and-two-sample-t-tests-and-confidence-intervals}{%
 \section{One Sample and Two Sample t-tests and confidence intervals}\label{one-sample-and-two-sample-t-tests-and-confidence-intervals}}
+
+\hypertarget{hockey-faceoffs}{%
+\subsection{Hockey Faceoffs}\label{hockey-faceoffs}}
+
+(Mathletics, chapter 40 page 383)
+
+\hypertarget{hockey-penalty-scoring}{%
+\subsection{Hockey Penalty Scoring}\label{hockey-penalty-scoring}}
+
+(Mathletics, chapter 40, page 13)
+
+\hypertarget{nfl-overtime-winners}{%
+\subsection{NFL Overtime Winners}\label{nfl-overtime-winners}}
+
+(Scorecasting, page 192)
+(Mathletics, chapter 25, page 211)
+
+\hypertarget{icing-the-kicker}{%
+\subsection{Icing the Kicker}\label{icing-the-kicker}}
+
+(Scorecasting, page 211)
+
+\hypertarget{example-football-one-vs.-two-point-conversion}{%
+\subsection{Example: Football One vs.~Two Point Conversion}\label{example-football-one-vs.-two-point-conversion}}
+
+(Mathletics, chapter 23, page 194) -- discussion of ``the chart''
+
+\hypertarget{two-sample-tests}{%
+\subsection{Two Sample Tests}\label{two-sample-tests}}
+
+(NBA Players, AM, page 103)
+
+(Comparing NL and AL, page 106)
+
+\hypertarget{permutation-tests}{%
+\section{Permutation Tests}\label{permutation-tests}}
+
+\hypertarget{bootstrap}{%
+\section{Bootstrap}\label{bootstrap}}
 
 \hypertarget{correlation}{%
 \chapter{Correlation}\label{correlation}}
 
 \hypertarget{pearsons-correlation-coefficient}{%
 \section{Pearson's Correlation Coefficient}\label{pearsons-correlation-coefficient}}
+
+\hypertarget{partial-correlation-and-confounding-variables}{%
+\subsection{Partial Correlation and Confounding Variables}\label{partial-correlation-and-confounding-variables}}
+
+(AM, page 131, pitchers with more innings)
 
 \hypertarget{properties-of-the-linear-correlation-coefficient}{%
 \subsection{Properties of the Linear Correlation Coefficient}\label{properties-of-the-linear-correlation-coefficient}}
@@ -5611,11 +5683,33 @@ In a similar way to the example above, the correlation between a basketball play
 \hypertarget{rank-correlation}{%
 \section{Rank Correlation}\label{rank-correlation}}
 
+(Example using team data)
+
 \hypertarget{autocorrelation}{%
 \section{Autocorrelation}\label{autocorrelation}}
 
+(AM, page 134, NFL team records, pre- and post- salary cap)
+
+\hypertarget{hot-hand}{%
+\subsection{Hot Hand}\label{hot-hand}}
+
+(Scorecasting, page 215)
+
+\hypertarget{streakiness-in-sports}{%
+\subsection{Streakiness in Sports}\label{streakiness-in-sports}}
+
+(Mathletics, chapter 11, page 105)
+
 \hypertarget{association-of-categorical-variables}{%
 \section{Association of Categorical Variables}\label{association-of-categorical-variables}}
+
+(AM, page 143, Yule's Q)
+
+(AM, page 139, winning at halftime vs winning game)
+
+(AM, page 144, Brady TD passes vs sacks)
+
+(AM, page 145, Nadal clay courts)
 
 \hypertarget{linear-regression}{%
 \chapter{Linear Regression}\label{linear-regression}}
@@ -5623,8 +5717,64 @@ In a similar way to the example above, the correlation between a basketball play
 \hypertarget{simple-linear-regression}{%
 \section{Simple Linear Regression}\label{simple-linear-regression}}
 
+(AM, page 162, OPS vs runs scored)
+
+\hypertarget{pythagorean-records}{%
+\subsection{Pythagorean Records}\label{pythagorean-records}}
+
+(Mathletics, chapter 1, page 13)
+(Mathletics, chapter 41, page 385)
+
+\hypertarget{regression-to-the-mean}{%
+\subsection{Regression to the Mean}\label{regression-to-the-mean}}
+
+(Rushing Yards, Batting Average, Rank in Goals)
+
+\hypertarget{variable-transformations}{%
+\section{Variable Transformations}\label{variable-transformations}}
+
+\hypertarget{draft-pick-values}{%
+\subsection{Draft Pick Values}\label{draft-pick-values}}
+
+(Mathletics, chapter 26, page 222)
+
 \hypertarget{multiple-linear-regression}{%
 \section{Multiple Linear Regression}\label{multiple-linear-regression}}
+
+\hypertarget{four-factors-and-winning}{%
+\subsection{Four Factors and Winning}\label{four-factors-and-winning}}
+
+(Mathletics, chapter 28, page 250)
+
+\hypertarget{linear-weights-in-baseball}{%
+\subsection{Linear Weights in Baseball}\label{linear-weights-in-baseball}}
+
+(Mathletics, chapter 3, page 18)
+
+\hypertarget{pass-air-yards-regression}{%
+\subsection{Pass Air Yards Regression}\label{pass-air-yards-regression}}
+
+(Mathletics, chapter 27, page 230)
+
+\hypertarget{epl-passing-and-scoring}{%
+\subsection{EPL Passing and Scoring}\label{epl-passing-and-scoring}}
+
+(AM, page 183, 213)
+
+\hypertarget{hockey-ppg-vs-toi}{%
+\subsection{Hockey PPG vs TOI}\label{hockey-ppg-vs-toi}}
+
+(AM, page 181, 187, quadratic, exponential models)
+
+\hypertarget{issues-with-multiyear-data}{%
+\section{Issues with Multiyear Data}\label{issues-with-multiyear-data}}
+
+(AM, page 191, correlated errors)
+
+\hypertarget{interaction}{%
+\section{Interaction}\label{interaction}}
+
+(AM, page 222, strikeout rate vs.~movement and velocity)
 
 \hypertarget{confounding-variables}{%
 \section{Confounding Variables}\label{confounding-variables}}
@@ -5677,6 +5827,25 @@ Recognizing that the SLR model may lead to erroneous lines of logic, the statist
 When controlling for an NBA team's wins in the previous season, the sign for the slope coefficient for draft position flips to a negative. This suggests that for teams with the same winning percentage in the previous season, a lower draft position is associated with more wins in the following season. The results of this model, which included an important confounding variable, aligned with the conventional wisdom that lower draft positions are helpful for a team's future success.
 
 \emph{Data: \url{https://en.wikipedia.org/wiki/2021_NBA_draft}, \url{https://www.nba.com/standings?GroupBy=conf\&Season=2020-21\&Section=overall}}
+
+\hypertarget{logistic-regression}{%
+\section{Logistic Regression}\label{logistic-regression}}
+
+\hypertarget{sack-and-interception-probability-models}{%
+\subsection{Sack and Interception Probability Models}\label{sack-and-interception-probability-models}}
+
+(Mathletics, chapter 27, page 230)
+(Mathletics, chapter 1, page 13)
+
+\hypertarget{soccer-goal-logistic-model}{%
+\subsection{Soccer Goal Logistic Model}\label{soccer-goal-logistic-model}}
+
+(Mathletics, chapter 39, page 354)
+
+\hypertarget{field-goal-success}{%
+\subsection{Field Goal Success}\label{field-goal-success}}
+
+(AM, page 266)
 
   \bibliography{book.bib,packages.bib}
 

@@ -969,6 +969,8 @@ first_success_df %>% ggplot(aes(x=Shots)) + geom_histogram(binwidth = 1)
 
 \newpage
 
+<!-- Add QQ plots -->
+
 ### Poisson RVs
 
 :::{.definition}
@@ -1237,6 +1239,12 @@ print(1-pr)
 
 The Probability that Player X outperforms Player Y is 0.7488. 
 
+
+\newpage
+
+## Case Study: NFL state values and decision making
+
+(Mathletics, chapter 19-20, page 170)
 
 \newpage
 

@@ -700,6 +700,8 @@ https://library.fangraphs.com/fangraphs-library-glossary/ \
 
 ### Calculating Advanced Hitting Statistics
 
+<!-- Add WAR calculations, Mathletics, chapter 9, page 92)-->
+
 :::{.example}
 Using the Colorado Rockies 2021 individual hitting statistics, calculate the AVG, OBA, SLG, OPS, ISO, wOBA.
 :::
@@ -765,7 +767,9 @@ pitchers2021 %>% slice_head(n=5) %>% kt()
 Let's look at the correlations between these variables, paying close attention to what variables are most correlated with ERA20, a pitcher's ERA in 2020.
 
 ```{r}
-pitchers2021 %>% select(-Player) %>% ggpairs(title="Correlation plot of pitching statistics, MLB 2020-2021")
+pitchers2021 %>%
+  select(-Player) %>%
+  ggpairs(title="Correlation plot of pitching statistics, MLB 2020-2021")
 ```
 
 This is a small dataset that only contains twenty pitchers (samples), but you will notice that ERA20 is more highly correlated with FIP21 and xFIP21 than ERA21. In other words, FIP and xFIP are likely better predictors of ERA success in the future rather than ERA success in the past. 
@@ -919,25 +923,25 @@ This tibble contains all the data needed to calculate the *Four Factors*. The Fo
 
 The Four Factors each have offensive and defensive versions; for this example, we'll focus on the offensive perspective.
 
-The first is **Effective Field Goal Percentage**, commonly abbreviated eFG%. The formula is as follows:
+1. ***Scoring***: **Effective Field Goal Percentage** (eFG%)
 
 $eFG\% = \frac{FG\ +\ 0.5(3P)}{FGA}$
 
-Secondly, **Turnover Percentage** (TOV%) is calculated as:
+2. ***Crashing***: **Turnover Percentage** (TOV%)
 
 $TOV\% = \frac{TOV}{FGA\ +\ 0.44(FTA)\ +\ TOV}$
 
-Next, **Rebounding Percentage** (ORB%) is computed as:
+3. ***Protecting***: **Rebounding Percentage** (ORB%)
 
 $ORB\% = \frac{ORB}{ORB\ +\ Opponent\ DRB}$
 
-Finally, the **Free Throw Factor** is found using:
+4. ***Attacking***: **Free Throw Factor** (FT Factor)
 
 $FT\ factor = \frac{FT}{FGA}$
 
-Note: You do not have to know these formulas for the test. They are just used for this example.
-
 Let's calculate the values of eFG%, TOV%, ORB%, and Free Throw Factor for both CSU and Wyoming and add them as new columns in the tibble using the `add_column` function.
+
+<!-- add from Mathletics, chapter 28, page 248 -->
 
 ```{r four factors 2}
 attach(basketball_data)
@@ -1306,6 +1310,8 @@ Rules of Soccer YouTube video: https://www.youtube.com/watch?v=dFLaabgXhpc
 ### Advanced Soccer Statistics
 
 -   **Expected Goals (xG)** "indicates how many goals a team could have expected to score based on the quantity and quality of chances that they created in a match" (Tippett 2019, 4).
+
+<!-- Offensive and Defensive Efficiency, Mathletics, chapter 39, page 358 -->
 
 These definitions come from www.rookieroad.com and "The Expected Goals Philosophy" by James Tippett.
 

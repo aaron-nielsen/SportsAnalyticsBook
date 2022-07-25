@@ -13,6 +13,10 @@ kt <- function(data) {
 
 ## Pearson's Correlation Coefficient
 
+### Partial Correlation and Confounding Variables
+
+(AM, page 131, pitchers with more innings)
+
 ### Properties of the Linear Correlation Coefficient
 
 Pearson's correlation coefficient is unaffected by changes in location (adding a constant) or scale (multiplying by a constant) of data. To illustrate this concept, let's consider the correlation between the number of points scored by the winning team of the Super Bowl and 1) the number of the Super Bowl {1, 2, 3, ... , 56} and 2) the year of the Super Bowl {1967, 1968, 1969, ... , 2022}.
@@ -56,6 +60,28 @@ In a similar way to the example above, the correlation between a basketball play
 
 ## Rank Correlation
 
+<!-- Used for nonlinear relationships -->
+
+(Example using team data)
+
 ## Autocorrelation
 
+(AM, page 134, NFL team records, pre- and post- salary cap)
+
+### Hot Hand
+
+(Scorecasting, page 215)
+
+### Streakiness in Sports
+
+(Mathletics, chapter 11, page 105)
+
 ## Association of Categorical Variables
+
+(AM, page 143, Yule's Q)
+
+(AM, page 139, winning at halftime vs winning game)
+
+(AM, page 144, Brady TD passes vs sacks)
+
+(AM, page 145, Nadal clay courts)

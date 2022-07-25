@@ -1,3 +1,18 @@
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+library(formatR)
+library(tidyverse)
+library(kableExtra)
+
+# Set so that long lines in R will be wrapped:
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=FALSE)
+knitr::opts_chunk$set(cache=TRUE)
+
+# kable table global setup
+kt <- function(data) {
+  knitr::kable(data, digits=3, align=c("c")) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+}
+```
+
 # Monte Carlo Simulation 
 
 ## Basics
@@ -691,12 +706,10 @@ bankroll.end %>% as.data.frame() %>%
 
 \newpage
 
-***Simulation 1: Bankroll after 10 bets***
-
 ```{r, echo=F}
 set.seed(2022)
 n.sims <- 10000
-bankroll.end <- rep(0,n.sims)
+bankroll.end1 <- rep(0,n.sims)
 
 # betting info
 bankroll.start <- 1000
@@ -717,28 +730,25 @@ for(i in 1:n.sims){
     } else
       bankroll <- bankroll - 20
   }
-  bankroll.end[i] <- bankroll
+  bankroll.end1[i] <- bankroll
 }
 
-mean.ending.bankroll <- mean(bankroll.end)
-max.ending.bankroll <- max(bankroll.end)
-data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
+mean1 <- mean(bankroll.end1)
+max1 <- max(bankroll.end1)
+# data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
 
-bankroll.end %>% as.data.frame() %>% 
-  ggplot(aes(x=bankroll.end)) + 
+p1 <- bankroll.end1 %>% as.data.frame() %>% 
+  ggplot(aes(x=bankroll.end1)) + 
   geom_histogram(binwidth=100) +
-  ggtitle("Simulated Bankroll (starting at $1000) after 10 bets") + 
-  xlab("Bankroll after 10 bets")
+  scale_x_continuous(limits = c(-100,2000)) +
+  ggtitle("Simulated Bankrollss after 10 bets") + 
+  xlab("Simulated Bankrolls")
 ```
-
-\newpage
-
-***Simulation 2: Bankroll after 100 bets***
 
 ```{r, echo=F}
 set.seed(2022)
 n.sims <- 10000
-bankroll.end <- rep(0,n.sims)
+bankroll.end2 <- rep(0,n.sims)
 
 # betting info
 bankroll.start <- 1000
@@ -759,27 +769,25 @@ for(i in 1:n.sims){
     } else
       bankroll <- bankroll - 20
   }
-  bankroll.end[i] <- bankroll
+  bankroll.end2[i] <- bankroll
 }
 
-mean.ending.bankroll <- mean(bankroll.end)
-max.ending.bankroll <- max(bankroll.end)
-data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
+mean2 <- mean(bankroll.end2)
+max2 <- max(bankroll.end2)
+# data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
 
-bankroll.end %>% as.data.frame() %>% 
-  ggplot(aes(x=bankroll.end)) + 
+p2 <- bankroll.end2 %>% as.data.frame() %>% 
+  ggplot(aes(x=bankroll.end2)) + 
   geom_histogram(binwidth=100) +
-  ggtitle("Simulated Bankroll (starting at $1000) after 100 bets") + 
-  xlab("Bankroll after 100 bets")
+  scale_x_continuous(limits = c(-100,2000)) +
+  ggtitle("Simulated Bankrolls after 100 bets") + 
+  xlab("Simulated Bankrolls")
 ```
-
-\newpage
-***Simulation 3: Bankroll after 1000 bets***
 
 ```{r, echo=F}
 set.seed(2022)
 n.sims <- 10000
-bankroll.end <- rep(0,n.sims)
+bankroll.end3 <- rep(0,n.sims)
 
 # betting info
 bankroll.start <- 1000
@@ -800,21 +808,37 @@ for(i in 1:n.sims){
     } else
       bankroll <- bankroll - 20
   }
-  bankroll.end[i] <- bankroll
+  bankroll.end3[i] <- bankroll
 }
 
-mean.ending.bankroll <- mean(bankroll.end)
-max.ending.bankroll <- max(bankroll.end)
-data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
+mean3 <- mean(bankroll.end3)
+max3 <- max(bankroll.end3)
+# data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
 
-bankroll.end %>% as.data.frame() %>% 
-  ggplot(aes(x=bankroll.end)) + 
+p3 <- bankroll.end3 %>% as.data.frame() %>% 
+  ggplot(aes(x=bankroll.end3)) + 
   geom_histogram(binwidth=100) +
-  ggtitle("Simulated Bankroll (starting at $1000) after 1000 bets") + 
-  xlab("Bankroll after 1000 bets")
+  scale_x_continuous(limits = c(-100,2000)) +
+  ggtitle("Simulated Bankrolls after 1000 bets") + 
+  xlab("Simulated Bankrolls")
 ```
 
-All bettors eventually go broke under this scenario due to the house advantage. This is called the concept of **Gambler's Ruin**. A gambler playing a game with negative expected value will eventually go broke, regardless of their betting system. See Wikipedia for further details: https://en.wikipedia.org/wiki/Gambler's_ruin
+```{r, echo = F, warning = F}
+library(gridExtra)
+
+Mean.End <- c(mean1,mean2,mean3)
+Max.End <- c(max1,max2,max3)
+n <- c(10,100,1000)
+sim.df <- data.frame(`N bets` = n, `Mean Ending Bankroll` = Mean.End, `Max Ending Bankroll` = Max.End)
+names(sim.df) <- c("Number of Bets", "Mean Ending Bankroll", "Max Ending Payroll")
+sim.df %>% kt()
+
+grid.arrange(p1, p2, p3, ncol = 1)
+```
+
+All bettors eventually go broke under this scenario due to the house advantage. This is called the concept of **Gambler's Ruin**. A gambler playing a game with negative expected value will eventually go broke, regardless of their betting system.
+
+See Wikipedia for further details: https://en.wikipedia.org/wiki/Gambler's_ruin
 
 ### Simulating a Winning System
 
@@ -860,6 +884,12 @@ bankroll.end %>% as.data.frame() %>%
   xlab("Bankroll after 1000 bets")
 ```
 
+
+\newpage
+
+## Case Study: Evaluating Hitters
+
+(Mathletics chapter 4, page 31)
 
 \newpage
 
