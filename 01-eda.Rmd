@@ -1,3 +1,18 @@
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+library(formatR)
+library(tidyverse)
+library(kableExtra)
+
+# Set so that long lines in R will be wrapped:
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=FALSE)
+knitr::opts_chunk$set(cache=TRUE)
+
+# kable table global setup
+kt <- function(data) {
+  knitr::kable(data, digits=3, align=c("c")) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+}
+```
+
 # Introduction
 
 ## Getting Started With R
@@ -596,7 +611,9 @@ NFL21 %>% kt()
 
 Baseball rules YouTube video: https://www.youtube.com/watch?v=skOsApsF0jQ&t=63s
 
-### Basic Hitting Statistics
+### Hitting Statistics
+
+#### Basic Hitting Statistics
 
 - **Plate Appearances** (PA): number of completed batting appearances
 
@@ -638,7 +655,21 @@ Baseball rules YouTube video: https://www.youtube.com/watch?v=skOsApsF0jQ&t=63s
 
 \newpage
 
-### Basic Pitching Statistics
+#### Advanced Baseball Hitting Statistics
+
+- **Isolated Power** (ISO): Slugging percentage minus Batting average
+
+- **On-base Plus Slugging Plus** (OPS+): OPS normalized for park effects with 100 being league average
+
+- **Weighted On-Base Average** (wOBA): Hitting rate statistic that attempts to credit the hitter for the value of each outcome. The following formula can be updated each year based on the scoring environment. The following formula was updated for the 2021 season.
+
+\[wOBA = \frac{0.69 \cdot (BB - IBB) + 0.719 \cdot HBP + 0.87 \cdot 1B + 1.217 \cdot 2B + 1.529 \cdot 3B + 1.94 \cdot HR}{AB + BB - IBB + SF + HBP}\]
+
+- **Expected Weighted On-Base Average** (xwOBA): Hitting rate statistic that attempts to credit the hitter for the value of each *expected* outcome based on Statcast data. 
+
+### Pitching Statistics
+
+#### Basic Pitching Statistics
 
 - **Innings Pitched** (IP): Number of outs recorded while pitching divided by three
 
@@ -659,20 +690,7 @@ Baseball rules YouTube video: https://www.youtube.com/watch?v=skOsApsF0jQ&t=63s
 - **Walks and Hits Per Inning Pitched** (WHIP): Walks plus hits allowed divided by innings pitched
 
 
-### Advanced Baseball Hitting Statistics
-
-- **Isolated Power** (ISO): Slugging percentage minus Batting average
-
-- **On-base Plus Slugging Plus** (OPS+): OPS normalized for park effects with 100 being league average
-
-- **Weighted On-Base Average** (wOBA): Hitting rate statistic that attempts to credit the hitter for the value of each outcome. The following formula can be updated each year based on the scoring environment. The following formula was updated for the 2021 season.
-
-\[wOBA = \frac{0.69 \cdot (BB - IBB) + 0.719 \cdot HBP + 0.87 \cdot 1B + 1.217 \cdot 2B + 1.529 \cdot 3B + 1.94 \cdot HR}{AB + BB - IBB + SF + HBP}\]
-
-- **Expected Weighted On-Base Average** (xwOBA): Hitting rate statistic that attempts to credit the hitter for the value of each *expected* outcome based on Statcast data. 
-
-
-### Advanced Baseball Pitching Statistics
+#### Advanced Pitching Statistics
 
 - **Fielding Independent Pitching** (FIP): Statistic that estimates a pitcher's run prevention independent of the performance of the defense
 
@@ -698,7 +716,7 @@ https://library.fangraphs.com/fangraphs-library-glossary/ \
 
 \newpage
 
-### Calculating Advanced Hitting Statistics
+### Calculating Hitting Statistics
 
 <!-- Add WAR calculations, Mathletics, chapter 9, page 92)-->
 
@@ -748,7 +766,7 @@ rox21_100 %>% select(oWAR,AVG,OBA,SLG,OPS,wOBA) %>% ggpairs()
 
 \newpage
 
-### Evaluating Advanced Pitching Statistics
+### Evaluating Pitching Statistics
 
 Earned run average (ERA) has been traditionally used to evaluate a pitcher, however, it has some flaws. First of all, it is highly dependent on the fielders playing behind the pitcher. If a pitcher's shortstop has poor range, he won't convert as many groundballs into outs as a shortstop with good range. ERA is also a noisy measurement in that can be affected easily by random luck.
 
@@ -944,13 +962,13 @@ Let's calculate the values of eFG%, TOV%, ORB%, and Free Throw Factor for both C
 <!-- add from Mathletics, chapter 28, page 248 -->
 
 ```{r four factors 2}
-attach(basketball_data)
-eFG <- round((FG + .5 * THREEP)/FGA, 3) * 100
-TOVPCT <- round(TOV / (FGA + .44 * FTA + TOV), 3) * 100
-ORBPCT <- round(c(ORB[1]/(ORB[1]+DRB[2]), ORB[2]/(ORB[2]+DRB[1])), 3) * 100
-FTFACTOR <- round(FT/FGA, 3) * 100
+basketball_data <- basketball_data %>% 
+  mutate(eFG = 100*(FG + .5 * THREEP)/FGA) %>%
+  mutate(TOVPCT = 100*(FG + .5 * THREEP)/FGA) %>%
+  mutate(ORBPCT = 100*c(ORB[1]/(ORB[1]+DRB[2]), ORB[2]/(ORB[2]+DRB[1]))) %>%
+  mutate(FTFACTOR = 100*FT/FGA)
 
-basketball_data %>% add_column(eFG, TOVPCT, ORBPCT, FTFACTOR) %>% kt()
+basketball_data %>% select(team,eFG, TOVPCT, ORBPCT, FTFACTOR) %>% kt()
 ```
 
 While this method does produce Four Factors data, it could be difficult to scale for calculating the same statistics for a sample of several games. In the next section, we will introduce an `R` package that aids in the calculation of Four Factors.
@@ -1208,8 +1226,10 @@ A: CORSI percentage, r = .702.
 In the article ["An advanced stat primer: Understanding basic hockey metrics"](https://theathletic.com/121980/2017/10/09/an-advanced-stat-primer-understanding-basic-hockey-metrics/), Charlie O'Connor states, "Generally speaking, Corsi is more predictive of future goal differential than Fenwick... however, Fenwick forms the basis for the most widely-used Expected Goals models." Let's use the same predictors in a correlation plot with Expected Goals percentage. Does Fenwick have the strongest correlation with xGoal percentage?
 
 ```{r hockey ggplot 6}
-xGoal_stats <- nhl_data_all %>% select(shotsOnGoalFor, corsiPercentage, fenwickPercentage, xGoalsPercentage)
-ggpairs(xGoal_stats, title="Correlation plot of expected goals and relevant predictors, NHL 2021-22")
+xGoal_stats <- nhl_data_all %>% 
+  select(shotsOnGoalFor, corsiPercentage, fenwickPercentage, xGoalsPercentage)
+ggpairs(xGoal_stats,
+        title="Correlation plot of expected goals and relevant predictors, NHL 2021-22")
 ```
 
 \newpage
@@ -1342,7 +1362,8 @@ liga_2021_stats <- read_csv("data/liga_2021_stats.csv")
 
 ```{r}
 # Create visual for each team's goals per game
-team_goals_viz <- ggplot(data = liga_2021_stats[which(liga_2021_stats$Team_or_Opponent == "team"),], 
+team_goals_viz <- 
+  ggplot(data = liga_2021_stats[which(liga_2021_stats$Team_or_Opponent == "team"),], 
                          aes(x = Squad, y = Gls_Per)) +
   geom_bar(stat = "identity")
 team_goals_viz
@@ -1402,5 +1423,25 @@ ggMarginal(act_exp_viz, type = "density")
 
 As you can see, we fit a line to the data. At first glance, it seems to have a positive slope slightly greater than 1. What does this mean in the scenario of actual and expected goals per game?
 
+:::{.example}
+Use the `worldfootballR` package to collect team shooting data from the Women's 1st Tier League (Women's Super League) in England for 2020-2021. Plot goals vs. shots, shots on target, and expected goals. Comment on the relationships.
+:::
 
+```{r}
+wsl_2021_shooting <- get_season_team_stats(
+  country = "ENG", gender = "F", season_end_year = "2021", tier = "1st", stat_type = "shooting")
+wsl_2021_shooting <-wsl_2021_shooting %>% 
+  select(Squad,Gls_Standard,Sh_Standard,SoT_Standard,xG_Expected) %>% 
+  rename(Goals=Gls_Standard,Shots=Sh_Standard,
+         `Shots on Target`=SoT_Standard,`Expected Goals` = xG_Expected)
+wsl_2021_shooting %>% kt()
+```
+
+```{r,message=F}
+wsl_2021_shooting <- wsl_2021_shooting %>%
+  slice_head(n=12)
+wsl_2021_shooting %>% 
+  select(Goals,Shots,`Shots on Target`,`Expected Goals`) %>% 
+  ggpairs()
+```
 

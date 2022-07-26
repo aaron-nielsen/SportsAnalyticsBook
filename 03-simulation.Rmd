@@ -265,7 +265,7 @@ sum(v)
 \newpage
 
 :::{.example}
-In baseball, hitting for the cycle requires a hitter to get a single, double, triple, and home run in the same guy. This is a rare occurrence in professional baseball having happened only 339 times at present count. 
+In baseball, hitting for the cycle requires a hitter to get a single, double, triple, and home run in the same game. This is a rare occurrence in professional baseball having happened only 339 times at present count. 
 
 On August 10, 2009, Colorado Rockie Troy Tulowitzki hit for the cycle against the Cubs at Coors Field in Denver going 5-for-5 with two singles, one double, one triple, and one home run. Here's a video recap: https://www.youtube.com/watch?v=sTU6ice3ga0
 
@@ -499,7 +499,7 @@ longest.streak %>%
   as.data.frame() %>% 
   ggplot(aes(x=longest.streak)) + 
   geom_histogram(binwidth=2) +
-  ggtitle("Longest Hitting Streak for 10,000 Simulated DiMaggio 1941 Seasons") +
+  ggtitle("Longest Hitting Streak for 100,000 Simulated DiMaggio 1941 Seasons") +
   xlab("Max Hitting Streak in a Simulation Season")
 
 
@@ -890,100 +890,3 @@ bankroll.end %>% as.data.frame() %>%
 ## Case Study: Evaluating Hitters
 
 (Mathletics chapter 4, page 31)
-
-\newpage
-
-
-
-## Extra stuff
-
-### Shaq FT simulation
-
-:::{.example}
-In 1997-1998 with the Los Angeles Lakers, Shaq attempted an average of 11.35 free throws per game with a standard deviation of 4.04. While with the Lakers, Shaq played in an average of 63.6 games per year with a standard deviation of 10.6. Create a simulation to model the season total number of free throw attempts that Shaq would have while with the Lakers. 
-
-Note: his actual season totals of free throws attempted while with the Lakers were: 479, 681, 498, 824, 972, 712, 725, 676
-:::
-
-Let's model the number of games that Shaq played in as a Binomial random variable. There are 82 regular sesaon games, so let $n=82$. Shaq played in an average of 63.6 games, so let $p=\frac{64.25}{82}=0.784$. Shaq played in about 78% of the games during his career with the Lakers.
-
-For the number of free throw attempts per game, we could model this as a Poisson random variable or a Negative Binomial random variable. As noted in the previous chapter, the variance of Shaq's FT attempts is a fair bit greater than the mean which means that it is overdispersed. Negative Binomial may be a more appropriate model than a Poisson. From last chapter, we found $\hat{r}=25.85$ and $\hat{p}=0.305$.
-
-```{r}
-set.seed(2020)
-n.sims <- 10000
-FT <- rep(0,n.sims)
-
-# simulate the number of games played in a season, round to a whole number
-games.sim <- rbinom(n = n.sims,size = 82,prob = 0.784)
-
-# number of games can't exceed 82 games (regular season total)
-games.sim[games.sim>82] = 82
-
-for(i in 1:n.sims){
-  # simulate the season total FT attempts in each simulation
-  temp <- rnbinom(n = games.sim[i],size = 25.85,prob = 1-0.305)
-  FT[i] <- sum(temp)
-}
-
-# Simulated mean and SD of season totals of free throw attempts
-c(mean(FT),sd(FT))
-
-# Actual mean and SD of season totals of free throw attempts
-FT.actual <- c(479, 681, 498, 824, 972, 712, 725, 676)
-FT.actual.mean <- mean(FT.actual)
-FT.actual.var <- var(FT.actual) * 7/8 # population variance
-FT.actual.sd <- sqrt(FT.actual.var)
-c(FT.actual.mean,FT.actual.sd)
-
-FT %>% as.data.frame() %>% 
-  ggplot(aes(x=FT)) + 
-  geom_histogram(bins=30,color = "yellow", fill = "purple") +
-  ggtitle("Simulated Season FT Attempt Totals by Shaq with Lakers")
-```
-
-Notice that the mean of our simulation is somewhat close to Shaq's true season average number of free throw attempts but the variance of the simulation is far too low. 
-
-We can also simulate data using resampling. In this case, rather than simulating random variables according to a distribution, we can use our actual data as a sampling distribution.
-
-:::{.example}
-Using resampling, simulate the number of free throws Shaq would attempt while with the Lakers. Compare the mean and variance of the simulation to Shaq's actual statistics.
-:::
-
-```{r, message=F}
-set.seed(2020)
-n.sims <- 10000
-FT <- rep(0,n.sims)
-shaq.games <- c(51,60,49,79,74,67,67,67)
-shaq.FTA <- read_csv("data/shaqFT.csv", col_names = FALSE)
-shaq.FTA <- shaq.FTA$X1
-
-# sample (with replacement) from Shaq's FTA game totals
-games.sim <- sample(x = shaq.games,size = n.sims,replace = T)
-
-for(i in 1:n.sims){
-  # sample (with replacement) from Shaq's FTA game totals
-  temp <- sample(x = shaq.FTA,size = games.sim[i],replace = T)
-  FT[i] <- sum(temp)
-}
-
-# Simulated mean and SD of season totals of free throw attempts
-c(mean(FT),sd(FT))
-
-# Actual mean and SD of season totals of free throw attempts
-FT.actual <- c(479, 681, 498, 824, 972, 712, 725, 676)
-FT.actual.mean <- mean(FT.actual)
-FT.actual.var <- var(FT.actual) * 7/8 # population variance
-FT.actual.sd <- sqrt(FT.actual.var)
-c(FT.actual.mean,FT.actual.sd)
-
-FT %>% as.data.frame() %>% 
-  ggplot(aes(x=FT)) + 
-  geom_histogram(bins=30,color = "yellow", fill = "purple") +
-  ggtitle("Simulated Season FT Attempt Totals by Shaq with Lakers")
-```
-
-This simulation is biased low on the variance but is better than the earlier simulation. 
-
-One reason that you may want to do complicated simulations like the example above is to make predictions for a player's future seasons.
-
