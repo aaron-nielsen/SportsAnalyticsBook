@@ -1,0 +1,105 @@
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+library(formatR)
+library(tidyverse)
+library(kableExtra)
+
+# Set so that long lines in R will be wrapped:
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=FALSE)
+knitr::opts_chunk$set(cache=TRUE)
+
+# kable table global setup
+kt <- function(data) {
+  knitr::kable(data, digits=3, align=c("c")) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+}
+```
+
+# Getting Started With R
+
+## Installing R
+
+For this class, you will be using R Studio to complete statistical analyses on your computer. 
+
+To begin using R Studio, you will need to install "R" first and then install "R Studio" on your computer.
+
+***Step 1: Download R*** \
+(a) Visit [https://www.r-project.org/](https://www.r-project.org/) \
+(b) Click **CRAN** under **Download**
+(c) Select any of the mirrors \
+(d) Click the appropriate link for your type of system (Mac, Windows, Linux) \
+(e) Download R on this next page. \
+(For Windows, this will say **install R for the first time**. For Mac, this will be under **Latest release** and will be something like **R-4.1.0.pkg** -- the numbers may differ depending on the most recent version) \
+(f) Install R on your computer \
+
+***Step 2: Download R Studio*** \
+(a) Visit [https://www.rstudio.com/products/rstudio/download/#download](https://www.rstudio.com/products/rstudio/download/#download) \
+(b) Click to download \
+(c) Install R Studio on your computer \
+
+\newpage
+
+***Step 3: Verify R Studio is working*** \
+(a)  Open R Studio \
+(b) Let's enter a small dataset and calculate the average to make sure everything is working correctly. \
+(c) In the console, type in the following dataset of Sammy Sosa's season home run totals from 1998--2002: \
+
+```{r}
+sosa.HR <- c(66,63,50,64,49)
+```
+
+(d) In the console, calculate the average season home run total for Sammy Sosa between 1998--2002: \
+
+```{r}
+mean(sosa.HR)
+```
+
+\noindent (e) Did you find Slammin' Sammy's average home run total from 1998--2002 was 58.4? If so, you should be set up correctly!
+
+\newpage
+
+## Some R Basics
+
+For the following examples, let's consider Peyton Manning's career with the Denver Broncos. In his four seasons with the Broncos, Manning's passing yard totals were: 4659, 5477, 4727, 2249. Let's enter this data into R. To enter a vector of data, use the **c()** function.
+
+```{r}
+peyton <- c(4659, 5477, 4727, 2249)
+```
+
+To look at the data you just put in the variable *peyton*, type *peyton* into the console and press enter.
+
+```{r}
+peyton
+```
+
+Some basic function for calculating summary statistics include **summary**, **mean()**, **median()**, **var()**, and **sd()**.
+
+```{r}
+summary(peyton)
+mean(peyton)
+sd(peyton)
+```
+
+R allows you to install additional packages (collections of functions) that aren't offered in the base version of R. To install a package, use **install.packages(<name_of_package>)** and to load a package, use **library(<name_of_package>)**.
+
+One package that we will use frequently is **tidyverse**. This package includes several other packages and functions such as **ggplot** (plotting function), **dplyr** (data manipulation package), and **stringr** (string manipulation package).
+
+```{r,message=F,include=F}
+r = getOption("repos")
+r["CRAN"] = "http://cran.us.r-project.org"
+options(repos = r)
+```
+
+```{r,message=F,eval=F}
+install.packages("tidyverse")
+library("tidyverse")
+```
+
+You will also need to know how to load datasets from files. For this class, we will typically provide data files is .csv format.
+
+Here is how to load a file:
+```{r load, message=F}
+# load readr package and load example dataset
+NFL_2021_Team_Passing <- read_csv("data/NFL_2021_Team_Passing.csv")
+
+# we can look at the header (first few entries) using "head()"
+head(NFL_2021_Team_Passing)
+```

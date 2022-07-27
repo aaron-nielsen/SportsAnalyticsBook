@@ -37,9 +37,9 @@ kt <- function(data) {
 
 This book serves as the course textbook for the following courses at Colorado State University:
 
-* STAT 351 (Sports Statistics and Analytics 1)
+* STAT 381 (Sports Statistics and Analytics I)
 
-* STAT 451 (Sports Statistics and Analytics 2
+* STAT 382 (Sports Statistics and Analytics II)
 
 \
 

@@ -167,23 +167,6 @@ One way to calculate probabilities is to use the following rule: $P(A) = E[I(A)]
 During the 2021 WNBA season, Kahleah Copper of the Chicago Sky had a free throw percentage of 81.8%. She played a total of 32 games and the probability mass function for number of free throw attempts per game are given in the table below. Estimate the probability that Copper did not make a free throw in a game. [Note: Copper did not make a free throw in 6 out of the 32 games for a probability of 0.1875.]
 :::
 
-```{r, include=F}
-# Helpful function for formatting number of digits for each kable table row
-# Source: https://stackoverflow.com/questions/30949768/r-vary-by-row-the-rounding-of-digits-produced-by-knitrkable
-digitsByRows <- function(df, digits) {
-  tmp0 <- data.frame(t(df))
-  tmp1 <- mapply(
-    function(df0, digits0) {
-      formatC(df0, format="f", digits=digits0)
-    },
-    df0=tmp0, digits0=digits
-  )
-  tmp1 <- data.frame(t(tmp1))
-  names(tmp1) <- names(df)
-  return(tmp1)
-}
-```
-
 ```{r,message=F,echo=F}
 library(kableExtra)
 games <- 32
@@ -221,7 +204,7 @@ head(FT)
 FT0.ind = FT == 0
 head(FT0.ind)
 
-# This does the same thing
+# Calculate the probability via mean of the indicator function
 mean(FT0.ind)
 ```
 
@@ -273,6 +256,28 @@ Simulate 100,000 games (5 at-bats per game) for Tulowitzki based on his career n
 
 Tulowitzki's career totals are: 4804 at-bats, 878 singles, 264 doubles, 24 triples, and 225 home runs.
 :::
+
+```{r}
+set.seed(2022)
+n.sims <- 100000
+n.ab <- 5
+cycle.ind <- rep(0,n.sims)
+
+# Possible outcomes: 0 = out/walk, 1 = single, 2 = double, 3 = triple, 4 = HR
+x <- 0:4
+px <- c(3413,878,264,24,225)/4804
+tulo <- data.frame(x,px)
+
+for( i in 1:n.sims){
+  game <- sample(x = tulo$x, prob = tulo$px, size = n.ab, replace = T)
+  cycle <- (1 %in% game) & (2 %in% game) & (3 %in% game) & (4 %in% game)
+  if( cycle ){
+    cycle.ind[i] <- 1
+  }
+}
+
+mean(cycle.ind)
+```
 
 
 
@@ -404,6 +409,7 @@ pa <- tabyl(dimaggio,PA) %>% select(1,2)
 pa <- pa %>% 
   as.data.frame() %>%
   mutate(Prob=n/139)
+pa %>% kt()
 
 # One simulated season of per game plate appearances
 sim.pa <- sample(x=pa$PA,prob = pa$Prob,size=139,replace=T)

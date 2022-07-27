@@ -15,9 +15,6 @@ kt <- function(data) {
 
 # Probability
 
-## Chapter Preview {-}
-Probability is the study of randomness. In this chapter, we will define probability, learn rules of probability, and apply these rules to sports data.
-
 ## Definitions
 
 :::{.definition}
@@ -1069,9 +1066,14 @@ dpois(x=2, lambda=1.5)
 We can also plot the PMF of Y to check visually.
 
 ```{r}
-ggplot(transform(data.frame(x=c(0:8)), y=dpois(x, lambda = 1.5)), aes(x, y)) + 
+x <- 0:8
+y <- dpois(x, lambda = 1.5)
+poisson.pmf <- data.frame(x,y)
+ggplot(transform(poisson.pmf), aes(x, y)) + 
   geom_bar(stat="identity") + 
-  labs(x="Value", y="Frequency", title="Probability mass function of Poisson(1.5) random variable")
+  ggtitle("Probability mass function of Poisson(1.5) random variable") +
+  xlab("Value") +
+  ylab("Probability")
 ```
 
 Let's check whether using a Poisson distribution was appropriate by comparing it to the actual 2021 Colorado Rapids match results.
@@ -1080,15 +1082,18 @@ Let's check whether using a Poisson distribution was appropriate by comparing it
 # Data: https://www.espn.com/soccer/team/results/_/id/184/season/2021
 
 library("kableExtra")
-rapids21 <- c(0,1,1,3,3,1,3,2,1,1,2,1,2,0,1,0,3,2,2,1,1,1,2,1,0,3,0,3,1,1,2,0,1,5)
+rapids21 <- 
+  c(0,1,1,3,3,1,3,2,1,1,2,1,2,0,1,0,3,2,2,1,1,1,2,1,0,3,0,3,1,1,2,0,1,5)
 
 goals <- c(0:4, "5 or more")
 actual_frequency <- c(6, 14, 7, 6, 0, 1)
 actual_proportion <- actual_frequency / sum(actual_frequency)
-expected_proportion <- c(dpois(0:4, lambda=1.5), ppois(4, lambda=1.5, lower.tail=FALSE))
+expected_proportion <- c(dpois(0:4, lambda=1.5), 
+                         ppois(4, lambda=1.5, lower.tail=FALSE))
 expected_frequency <- round(expected_proportion * 34, 1)
 
-rapids.data <- data.frame(goals, actual_frequency, actual_proportion, expected_frequency, expected_proportion)
+rapids.data <- data.frame(goals, actual_frequency, actual_proportion, 
+                          expected_frequency, expected_proportion)
 
 rapids.data %>%
 kbl() %>%
@@ -1115,7 +1120,8 @@ kable_styling()
 rapids21 %>% 
   as.data.frame %>% 
   ggplot(aes(sample = rapids21)) +
-  stat_qq(distribution = qpois,dparams = 1.5,position=position_jitter(width = 0.1,height = 0.1)) +
+  stat_qq(distribution = qpois,
+          dparams = 1.5,position=position_jitter(width = 0.2,height = 0.2)) +
   stat_qq_line(distribution = qpois, dparams = 1.5) +
   ggtitle("QQ-plot for Rapids 2021 Goals vs. Poisson Distribution") +
   xlab("Theoretical Quantiles") +
@@ -1143,9 +1149,14 @@ shaq9798 %>% ggplot(aes(x=FTA))  +
 ```
 (b) Plot the PMF of a Poisson(11.35) random variable.
 ```{r}
-ggplot(transform(data.frame(x=c(0:25)), y=dpois(x, lambda = 11.35)), aes(x, y)) + 
+x <- 0:25
+y <- dpois(x, lambda = 11.35)
+poisson.pmf <- data.frame(x,y)
+ggplot(poisson.pmf, aes(x, y)) + 
   geom_bar(stat="identity") + 
-  labs(x="Value", y="Frequency", title="Probability mass function of Poisson(11.35) random variable")
+  ggtitle("Probability mass function of Poisson(11.35) random variable") +
+  xlab("Value") +
+  ylab("Probability")
 ```
 
 (c) What similarities and what differences do you notice?\
@@ -1164,7 +1175,7 @@ var(shaq9798$FTA)
 
 ```{r}
 shaqFTA <- shaq9798$FTA
-shaq20 <- sum(shaqFTA >= 20)/nrow(shaqFTA); shaq20
+shaq20 <- sum(shaqFTA >= 20)/length(shaqFTA); shaq20
 poisson20 <- ppois(20, lambda=11.35, lower.tail=FALSE); poisson20
 ```
 
@@ -1222,7 +1233,10 @@ c(rhat,phat)
 (b) Plot the Negative Binomial distribution. Note that R uses an alternative parameterization for $p$. Use $prob = 1-p$.
 
 ```{r}
-ggplot(transform(data.frame(x=c(0:25)), y=dnbinom(x,size=rhat,prob=1-phat)), aes(x, y)) + 
+x <- 0:25
+y <- dnbinom(x,size=rhat,prob=1-phat)
+geom.pmf <- data.frame(x,y)
+ggplot(geom.pmf, aes(x, y)) + 
   geom_bar(stat="identity") + 
   labs(x="Value", y="Frequency", title="Probability mass function of NB(r=25.852,p=0.305) random variable")
 ```
@@ -1327,22 +1341,23 @@ e <- pnorm(q=70,mean=50,sd=10) - pnorm(q=30,mean=50,sd=10); e
 :::{.example}
 Player X has a projected mean WAR of 3 with standard deviation of 2 and player Y has a projected mean WAR of 1.5 with a standard deviation of 3. Assume projected WAR is normally distributed. What is the probability that Player X outperforms Player Y?
 
-Link to WAR explaination: https://www.mlb.com/glossary/advanced-stats/wins-above-replacement
+Link to WAR explanation: https://www.mlb.com/glossary/advanced-stats/wins-above-replacement
 :::
 
-We want Pr(X>Y) or Pr(X-Y>0).  
-Let Z = X-Y.  
-E[Z]=1.5
-Var(Z)=5
-Pr(Z>0)=1-Pr(Z $\leq$ 0)
+We want $P(X>Y)$ or $P(X-Y>0)$ \
+
+Let $Z = X-Y$ \
+
+Then: $E[Z]=1.5$, $Var(Z)=5$
+
+So, $P(X>Y) = P(X-Y>0) = P(Z>0) = 1-P(Z $\leq$ 0)$
 
 ```{r}
-#Calculate probability Z<=0
-pr <- pnorm(0,1.5,sqrt(5))
-print(1-pr)
+# Calculate probability Z<=0
+p <- pnorm(0,1.5,sqrt(5),lower.tail = F); p
 ```
 
-The Probability that Player X outperforms Player Y is 0.7488. 
+The probability that Player X outperforms Player Y is 0.7488. 
 
 
 \newpage

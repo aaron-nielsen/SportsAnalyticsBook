@@ -13,101 +13,7 @@ kt <- function(data) {
 }
 ```
 
-# Introduction
-
-## Getting Started With R
- 
-### Installing R
-
-For this class, you will be using R Studio to complete statistical analyses on your computer. 
-
-To begin using R Studio, you will need to install "R" first and then install "R Studio" on your computer.
-
-***Step 1: Download R*** \
-(a) Visit [https://www.r-project.org/](https://www.r-project.org/) \
-(b) Click **CRAN** under **Download**
-(c) Select any of the mirrors \
-(d) Click the appropriate link for your type of system (Mac, Windows, Linux) \
-(e) Download R on this next page. \
-(For Windows, this will say **install R for the first time**. For Mac, this will be under **Latest release** and will be something like **R-4.1.0.pkg** -- the numbers may differ depending on the most recent version) \
-(f) Install R on your computer \
-       
-***Step 2: Download R Studio*** \
-(a) Visit [https://www.rstudio.com/products/rstudio/download/#download](https://www.rstudio.com/products/rstudio/download/#download) \
-(b) Click to download \
-(c) Install R Studio on your computer \
-
-\newpage
-
-***Step 3: Verify R Studio is working*** \
-(a)  Open R Studio \
-(b) Let's enter a small dataset and calculate the average to make sure everything is working correctly. \
-(c) In the console, type in the following dataset of Sammy Sosa's season home run totals from 1998--2002: \
-
-```{r}
-sosa.HR <- c(66,63,50,64,49)
-```
-
-(d) In the console, calculate the average season home run total for Sammy Sosa between 1998--2002: \
-
-```{r}
-mean(sosa.HR)
-```
-
-\noindent (e) Did you find Slammin' Sammy's average home run total from 1998--2002 was 58.4? If so, you should be set up correctly!
-
-\newpage
-
-### Some R Basics
-
-For the following examples, let's consider Peyton Manning's career with the Denver Broncos. In his four seasons with the Broncos, Manning's passing yard totals were: 4659, 5477, 4727, 2249. Let's enter this data into R. To enter a vector of data, use the **c()** function.
-
-```{r}
-peyton <- c(4659, 5477, 4727, 2249)
-```
-
-To look at the data you just put in the variable *peyton*, type *peyton* into the console and press enter.
-
-```{r}
-peyton
-```
-
-Some basic function for calculating summary statistics include **summary**, **mean()**, **median()**, **var()**, and **sd()**.
-
-```{r}
-summary(peyton)
-mean(peyton)
-sd(peyton)
-```
-
-R allows you to install additional packages (collections of functions) that aren't offered in the base version of R. To install a package, use **install.packages(<name_of_package>)** and to load a package, use **library(<name_of_package>)**.
-
-One package that we will use frequently is **tidyverse**. This package includes several other packages and functions such as **ggplot** (plotting function), **dplyr** (data manipulation package), and **stringr** (string manipulation package).
-
-```{r,message=F,include=F}
-r = getOption("repos")
-r["CRAN"] = "http://cran.us.r-project.org"
-options(repos = r)
-```
-
-```{r,message=F,eval=F}
-install.packages("tidyverse")
-library("tidyverse")
-```
-
-You will also need to know how to load datasets from files. For this class, we will typically provide data files is .csv format.
-
-Here is how to load a file:
-```{r load, message=F}
-# load readr package and load example dataset
-library(readr)
-NFL_2021_Team_Passing <- read_csv("data/NFL_2021_Team_Passing.csv")
-
-# we can look at the header (first few entries) using "head()"
-head(NFL_2021_Team_Passing)
-```
-
-\newpage
+# Exploratory Data Analysis
 
 ## Descriptive Statistics
 
@@ -873,14 +779,14 @@ QB_21 %>% select(Name,RTG,PR) %>% slice_head(n=5) %>% kt()
 
 (b) What counting statistics are most correlated with passer rating and with QBR?
 
-```{r}
+```{r,message=F}
 # Grab the counting statistics and create a correlation plot with PR and QBR
 QB_21 %>% select(PR,QBR,CMP,ATT,YDS,TD,INT,SACK,SYL) %>% ggpairs()
 ```
 
 (c) What rate statistics are most correlated with passer efficiency and with QBR? Use CMP% (completion percentage, completions per attempt), AVG (average yards per attempt), YDS/G (yards per game), and create new variables for interceptions per attempt, touchdowns per attempt, and sacks per attempt.
 
-```{r}
+```{r,message=F}
 # Grab the counting statistics and create a correlation plot with PR and QBR
 QB_21 <- QB_21 %>% 
   mutate(INTp = INT/ATT) %>%
@@ -1009,25 +915,29 @@ jokic_data$yy <- jokic_data$original_y/10 - 41.75 #transformation
 `BasketballAnalyzeR` supports three types of density visualizations within `shotchart`, one being `density-polygons`. Since `shotchart` is a `ggplot` object, a chart title can be added using `ggtitle`.
 
 ```{r basketballanalyzer 3}
-shotchart(data = jokic_data, x="xx", y="yy", type="density-polygons") + ggtitle("Nikola Jokic Shot Data, 2017-18")
+shotchart(data = jokic_data, x="xx", y="yy", type="density-polygons") + 
+  ggtitle("Nikola Jokic Shot Data, 2017-18")
 ```
 
 It seems most shots attempts from Jokic were in the paint; this is hardly surprising, since he plays the center position. Here's the same chart with `density-hexbin`:
 
 ```{r basketballanalyzer 4}
-shotchart(data = jokic_data, x="xx", y="yy", type="density-hexbin") + ggtitle("Nikola Jokic Shot Data, 2017-18")
+shotchart(data = jokic_data, x="xx", y="yy", type="density-hexbin") + 
+  ggtitle("Nikola Jokic Shot Data, 2017-18")
 ```
 
 The same chart with `density-raster`:
 
 ```{r basketballanalyzer 5}
-shotchart(data = jokic_data, x="xx", y="yy", type="density-raster") + ggtitle("Nikola Jokic Shot Data, 2017-18")
+shotchart(data = jokic_data, x="xx", y="yy", type="density-raster") + 
+  ggtitle("Nikola Jokic Shot Data, 2017-18")
 ```
 
 Within the `shotchart` function, setting `scatter=TRUE` overlays the shots on the chart. Point size and transparency can also be customized.
 
 ```{r basketballanalyzer 6}
-shotchart(data = jokic_data, x="xx", y="yy", type="density-raster", scatter=TRUE) + ggtitle("Nikola Jokic Shot Data, 2017-18")
+shotchart(data = jokic_data, x="xx", y="yy", type="density-raster", scatter=TRUE) + 
+  ggtitle("Nikola Jokic Shot Data, 2017-18")
 ```
 
 Let's now compare shot charts of Nikola Jokic, Steph Curry, and Lebron James. This group of players includes one member of each team for which we calculated Four Factors.
@@ -1041,9 +951,12 @@ james_data <- subset(PbP, player == "LeBron James")
 james_data$xx <- james_data$original_x/10 #transformation
 james_data$yy <- james_data$original_y/10 - 41.75 #transformation
 
-shotchart(data = jokic_data, x="xx", y="yy", type="density-raster") + ggtitle("Nikola Jokic Shot Data, 2017-18")
-shotchart(data = curry_data, x="xx", y="yy", type="density-raster") + ggtitle("Steph Curry Shot Data, 2017-18")
-shotchart(data = james_data, x="xx", y="yy", type="density-raster") + ggtitle("Lebron James Shot Data, 2017-18")
+shotchart(data = jokic_data, x="xx", y="yy", type="density-raster") + 
+  ggtitle("Nikola Jokic Shot Data, 2017-18")
+shotchart(data = curry_data, x="xx", y="yy", type="density-raster") + 
+  ggtitle("Steph Curry Shot Data, 2017-18")
+shotchart(data = james_data, x="xx", y="yy", type="density-raster") + 
+  ggtitle("Lebron James Shot Data, 2017-18")
 ```
 
 Q: Of the three players (Jokic, Curry, James), which took the highest percentage of their three-point shots from the right side of the court (when facing the basket)?
@@ -1053,7 +966,9 @@ A: Nikola Jokic shot almost all of his attempts from the right side. Steph Curry
 Now, let's focus on Steph Curry's shooting. The following chart splits the court into zones based on angle and distance from the basket. The color in each zone represents the average length of the play leading up to that shot among shots taken in that zone.
 
 ```{r basketballanalyzer 8}
-shotchart(data = curry_data, x="xx", y="yy", z="playlength", type="sectors", num.sect = 7, scatter=TRUE, pt.alpha=.3) + ggtitle("Steph Curry Shot Data, 2017-18")
+shotchart(data = curry_data, x="xx", y="yy", z="playlength", 
+          type="sectors", num.sect = 7, scatter=TRUE, pt.alpha=.3) + 
+  ggtitle("Steph Curry Shot Data, 2017-18")
 ```
 
 Q: In general, did Steph Curry tend to shoot closer to the basket during plays of a longer duration or a shorter duration?
@@ -1114,7 +1029,9 @@ For this example, we'll use a set of NHL data from moneypuck.com. First, let's l
 ```{r hockey_ggplot1, message=F, warning=F}
 nhl_2022_data <- read_csv("https://moneypuck.com/moneypuck/playerData/seasonSummary/2021/regular/teams.csv")
 
-nhl_2022_data %>% slice_head(n=10) %>% select(3,6,8,9,10) %>% kt()
+nhl_2022_data %>% 
+  slice_head(n=10) %>% 
+  select(3,6,8,9,10) %>% kt()
 ```
 
 We can create nice looking tables using the ``kableExtra'' package. Let's look at the first eight rows and a small selection of columns of the data frame and format the table output using a kable table.
@@ -1140,7 +1057,11 @@ The dataset includes an Expected Goals statistic for each team in the `xGoalsFor
 (Remember to always have a good title and axis labels!)
 
 ```{r}
-ggplot(data=nhl_data_all, aes(x=xGoalsFor, y=goalsFor)) + labs(x="Expected Goals Scored", y="Actual Goals Scored", title="NHL Teams: Expected vs. Actual Goals, 2021-22") + geom_point()
+ggplot(data=nhl_data_all, aes(x=xGoalsFor, y=goalsFor)) + 
+  geom_point() + 
+  ggtitle("NHL Teams: Expected vs. Actual Goals, 2021-22") +
+  xlab("Expected Goals Scored") +
+  ylab("Actual Goals Scored") 
 ```
 
 As expected, there is a general positive correlation between expected and actual goals ($r \approx 0.8$). However, there is some variability - for example, the Kings only scored 7 more actual goals than the Ducks, despite having 56.6 more expected goals.
@@ -1148,7 +1069,12 @@ As expected, there is a general positive correlation between expected and actual
 Let's add a line to the graph using the `geom_abline` function corresponding to the line $y=x$, the line on which data points would fall if expected goals were equal to actual goals. We can also customize the line's color and type.
 
 ```{r}
-ggplot(data=nhl_data_all, aes(x=xGoalsFor, y=goalsFor)) + labs(x="Expected Goals Scored", y="Actual Goals Scored",title="NHL Teams: Expected vs. Actual Goals, 2021-22") + geom_point() + geom_abline(intercept=0, slope=1, color="red", linetype="dashed")
+ggplot(data=nhl_data_all, aes(x=xGoalsFor, y=goalsFor)) + 
+  geom_point() + 
+  geom_abline(intercept=0, slope=1, color="red", linetype="dashed") + 
+  ggtitle("NHL Teams: Expected vs. Actual Goals, 2021-22") +
+  xlab("Expected Goals Scored") +
+  ylab("Actual Goals Scored") 
 ```
 
 *Note: A slope of 0 and an intercept of 1 are actually the default parameters for the function.*
@@ -1173,7 +1099,11 @@ For this next example, let's use goalie data from the 2021-2022 season from [Nat
 
 ```{r,message=F}
 goalie_data <- read.csv("data/GoalieTotals_NaturalStatTrick.csv")
-goalie_data %>% select(2,3,4,5,6,7,8,12) %>% arrange(-TOI) %>% slice_head(n=10) %>% kt()
+goalie_data %>% 
+  select(2,3,4,5,6,7,8,12) %>% 
+  arrange(-TOI) %>% 
+  slice_head(n=10) %>% 
+  kt()
 ```
 
 The dataset includes 119 goalies, but many of them didn't play very much. We can subset the data to include only goaltenders that faced at least 500 shots.
@@ -1192,7 +1122,7 @@ filtered_goalie_data %>% filter(TOI == max(TOI)) %>% select(Player, Team, TOI) %
 The following plot compares save percentage to the number of shots on goal faced for the qualified goalies. The dashed horizontal line is placed at the average shots on goal faced among qualified players, and the dashed vertical line is placed at the average save percentage among qualified players.
 
 ```{r, echo=FALSE}
-ggplot(data=filtered_goalie_data, aes(x=SV., y=Shots.Against)) + labs(x="Save Percentage", y="Shots On Goal Faced",title="NHL Goalies: Save Percentage vs. Volume of Shots, 2021-22") + geom_point() + geom_hline(yintercept=mean(filtered_goalie_data$Shots.Against), color="red", linetype="dashed") + geom_vline(xintercept=mean(filtered_goalie_data$SV.), color="red", linetype="dashed")
+ggplot(data=filtered_goalie_data, aes(x=SV., y=Shots.Against)) + labs(x="Save Percentage", y="Shots On Goal Faced",title="NHL Goalies: Save Percentage vs. Volume of Shots, 2021-22") + geom_point() + geom_hline(yintercept=mean(filtered_goalie_data$Shots.Against), color="red", linetype="dashed") + geom_vline(xintercept=mean(filtered_goalie_data$SV.),color="red", linetype="dashed")
 ```
 
 Q: Which quadrant of the graph represents goalies that faced a higher than average number of shots, but had a below-average save percentage?
@@ -1214,14 +1144,18 @@ Suppose a statistician has recently learned about some advanced hockey statistic
 The following plot uses the same 2021-2022 data from Moneypuck.com; it gives the pairwise scatterplots and correlation values for each of the variables, as well as smoothed plots of each individual variable along the diagonals.
 :::
 
-```{r}
-goal_stats <- nhl_data_all %>% select(shotsOnGoalFor, corsiPercentage, fenwickPercentage, goalsFor)
-ggpairs(goal_stats, title="Correlation plot of goals and relevant predictors, NHL 2021-22")
+```{r, message=F}
+goal_stats <- nhl_data_all %>% 
+  select(shotsOnGoalFor, corsiPercentage, fenwickPercentage, goalsFor)
+ggpairs(goal_stats, 
+        title="Correlation plot of goals and relevant predictors, NHL 2021-22")
 ```
 
-Q: Which of the variables has the strongest correlation with goals scored?
-
-A: CORSI percentage, r = .702.
+Which of the variables has the strongest correlation with goals scored? \
+\
+\
+\
+\
 
 In the article ["An advanced stat primer: Understanding basic hockey metrics"](https://theathletic.com/121980/2017/10/09/an-advanced-stat-primer-understanding-basic-hockey-metrics/), Charlie O'Connor states, "Generally speaking, Corsi is more predictive of future goal differential than Fenwick... however, Fenwick forms the basis for the most widely-used Expected Goals models." Let's use the same predictors in a correlation plot with Expected Goals percentage. Does Fenwick have the strongest correlation with xGoal percentage?
 
@@ -1335,7 +1269,8 @@ Rules of Soccer YouTube video: https://www.youtube.com/watch?v=dFLaabgXhpc
 
 These definitions come from www.rookieroad.com and "The Expected Goals Philosophy" by James Tippett.
 
-To learn more about expected goals, check out [this YouTube video](https://www.youtube.com/watch?v=w7zPZsLGK18&list=PL9Az6mi38hv__afKnHR1AKjpcDIw_0qqT){.uri}.
+To learn more about expected goals, check out this YouTube video: 
+https://www.youtube.com/watch?v=w7zPZsLGK18&list=PL9Az6mi38hv__afKnHR1AKjpcDIw_0qqT
 
 ### Bar Plot
 
@@ -1349,11 +1284,14 @@ Next we will look at some data specific to LaLiga, which is a soccer league in t
 
 ```{r,eval=F,message=F}
 # Get "Squad Standard Stats" Data
-big5_2021_stats <- fb_big5_advanced_season_stats(season_end_year = 2021, stat_type = "standard", team_or_player = "team")
+big5_2021_stats <- fb_big5_advanced_season_stats(
+  season_end_year = 2021, stat_type = "standard", team_or_player = "team")
 liga_2021_stats <- big5_2021_stats[which((big5_2021_stats$Comp == "La Liga")),]
 
 # look at the first ten entries and a selection of columns
-liga_2021_stats %>% select(Squad,Team_or_Opponent,Poss,Gls,Ast,xG_Expected,xA_Expected) %>% slice_head(n=10) %>% kt()
+liga_2021_stats %>% 
+  select(Squad,Team_or_Opponent,Poss,Gls,Ast,xG_Expected,xA_Expected) %>% 
+  slice_head(n=10) %>% kt()
 ```
 
 ```{r, echo=F,message=F}
@@ -1408,7 +1346,8 @@ In addition to simply knowing the average actual number of goals scored for and 
 
 ```{r, warning=F, message=F}
 library(ggExtra)
-act_exp_viz <- ggplot(data = liga_2021_stats, aes(x = xG_Per, y = Gls_Per, label = Squad)) +
+act_exp_viz <- ggplot(data = liga_2021_stats, 
+                      aes(x = xG_Per, y = Gls_Per, label = Squad)) +
   geom_point() +
   scale_x_continuous(limits = c(0.75,2.25)) +
   scale_y_continuous(limits = c(0.75,2.25)) +
@@ -1429,7 +1368,8 @@ Use the `worldfootballR` package to collect team shooting data from the Women's 
 
 ```{r}
 wsl_2021_shooting <- get_season_team_stats(
-  country = "ENG", gender = "F", season_end_year = "2021", tier = "1st", stat_type = "shooting")
+  country = "ENG", gender = "F", season_end_year = "2021", 
+  tier = "1st", stat_type = "shooting")
 wsl_2021_shooting <-wsl_2021_shooting %>% 
   select(Squad,Gls_Standard,Sh_Standard,SoT_Standard,xG_Expected) %>% 
   rename(Goals=Gls_Standard,Shots=Sh_Standard,
