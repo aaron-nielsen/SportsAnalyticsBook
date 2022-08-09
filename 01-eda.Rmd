@@ -7,9 +7,12 @@ library(kableExtra)
 knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=FALSE)
 knitr::opts_chunk$set(cache=TRUE)
 
+# add space to format for printing
+add.space <- 0
+
 # kable table global setup
 kt <- function(data) {
-  knitr::kable(data, digits=3, align=c("c")) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+  knitr::kable(data, digits=3, align="c") %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
 }
 ```
 
@@ -31,8 +34,6 @@ A ***sample*** is a subset of the population.
 Suppose we are interested in studying Peyton's Manning's season passing yards totals. How could you define the population and what is one possible sample?
 ::: 
 
-\
-\
 \
 \
 \
@@ -83,6 +84,8 @@ What are possible nominal and ordinal data associated with Peyton Manning?
 \
 \
 \
+
+`r if(add.space){"<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"}`
 
 \vfill
 
@@ -187,6 +190,10 @@ median(peyton.broncos)
 median(peyton.colts)
 ```
 
+`r if(add.space){"<br><br><br><br>"}`
+
+
+\vfill
 \newpage
 
 :::{.definition}
@@ -269,8 +276,9 @@ Calculate the proportion and percentage of Broncos' winning games in 2014.
 \
 
 ```{r prop}
-broncos2014 <- c("Win", "Win", "Loss", "Win", "Win", "Win", "Win", "Loss", "Win",
-                 "Loss", "Win", "Win", "Win", "Win", "Loss", "Win")
+broncos2014 <- 
+  c("Win", "Win", "Loss", "Win", "Win", "Win", "Win", "Loss",
+    "Win", "Loss", "Win", "Win", "Win", "Win", "Loss", "Win")
 broncos.prop <- sum(broncos2014 == "Win")/length(broncos2014); broncos.prop
 broncos.perc <- 100*broncos.prop; broncos.perc
 ```
@@ -294,8 +302,6 @@ In this class, we will use analogous plotting functions in **ggplot2** that are 
 If you have already installed the **tidyverse** package, it should have also installed the **ggplot2** package.
 
 ```{r setup1}
-# install.packages("tidyverse")
-
 # Load the tidyverse package (which includes ggplot2)
 library(tidyverse)
 ```
@@ -318,10 +324,14 @@ Histograms are one of the most common and basic ways to visualize a dataset's di
 Create a histogram of the NFL Team Passing Yards in 2021.
 
 ```{r hist, message=F}
-NFL_2021_Team_Passing %>% ggplot(aes(x=Yds)) + geom_histogram()
+NFL_2021_Team_Passing %>% 
+  ggplot(aes(x=Yds)) + 
+  geom_histogram()
 ```
 
 Notice how **%>%** is used to **pipe** the dataset into ggplot. This is using the pipe function from the **dplyr** package.
+
+`r if(add.space){"<br><br><br>"}`
 
 
 \vfill
@@ -334,8 +344,13 @@ All good visualizations have good labels. Let's improve the axis labels and give
 ```{r hist2}
 NFL_2021_Team_Passing %>% ggplot(aes(x=Yds)) + 
   geom_histogram(binwidth = 200) +
-  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021")
+  labs(x="Team Passing Yards",
+       y="Team Passing Touchdowns",
+       title="NFL Team Passing Yards, 2021")
 ```
+
+
+`r if(add.space){"<br><br><br><br><br><br><br>"}`
 
 
 \vfill
@@ -346,9 +361,14 @@ We also have numerous options to change the appearance of plots when using **ggp
 ```{r hist3}
 NFL_2021_Team_Passing %>% ggplot(aes(x=Yds)) + 
   geom_histogram(color = "white", fill = "blue", binwidth = 200) +
-  labs(x="Team Passing Yards", y="Team Passing Touchdowns", title="NFL Team Passing Yards, 2021")
+  labs(x="Team Passing Yards",
+       y="Team Passing Touchdowns",
+       title="NFL Team Passing Yards, 2021")
 ```
 :::
+
+
+`r if(add.space){"<br><br><br><br><br><br><br><br>"}`
 
 
 \vfill
@@ -362,9 +382,12 @@ We can also create bar plots using ggplot using the **geom_bar** function.
 Create a bar plot with teams on the horizontal axis and passing touchdowns on the vertical axis.
 
 ```{r bar}
-NFL_2021_Team_Passing %>% ggplot(aes(x=Tm,y=Yds)) +
+NFL_2021_Team_Passing %>% 
+  ggplot(aes(x=Tm,y=Yds)) +
   geom_bar(stat="identity")
 ```
+
+`r if(add.space){"<br><br><br><br><br><br>"}`
 
 
 \vfill
@@ -373,13 +396,15 @@ NFL_2021_Team_Passing %>% ggplot(aes(x=Tm,y=Yds)) +
 The team labels are a complete mess. Let's fix this and make some adjustments to the axis labels and figure title.
 
 ```{r bar2}
-NFL_2021_Team_Passing %>% ggplot(aes(x=Tm,y=Yds)) +
+NFL_2021_Team_Passing %>% 
+  ggplot(aes(x=Tm,y=Yds)) +
   geom_bar(stat="identity") + 
   labs(x="Team", y="Team Passing Yards", 
        title="NFL Team Passing Yards, 2021") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
+`r if(add.space){"<br><br><br><br><br><br><br>"}`
 
 \vfill
 \newpage
@@ -396,6 +421,7 @@ NFL_2021_Team_Passing %>%
 
 :::
 
+`r if(add.space){"<br><br><br><br>"}`
 
 \vfill
 \newpage
@@ -403,13 +429,17 @@ NFL_2021_Team_Passing %>%
 We can also order the teams from most team passing touchdowns to least using the `forcats` package.
 
 ```{r}
-NFL_2021_Team_Passing %>% mutate(Tm = fct_reorder(Tm,Yds)) %>%
+NFL_2021_Team_Passing %>% 
+  mutate(Tm = fct_reorder(Tm,Yds)) %>%
   ggplot(aes(x=Tm,y=Yds)) +
   geom_bar(stat="identity") +
-  labs(x="Team Passing Yards",y="Team Passing Yards",title="NFL Team Passing Yards, 2021") +
+  labs(x="Team Passing Yards",
+       y="Team Passing Yards",
+       title="NFL Team Passing Yards, 2021") +
   coord_flip()
 ```
 
+`r if(add.space){"<br><br><br>"}`
 
 \vfill
 \newpage
@@ -425,7 +455,9 @@ Create a scatterplot of Team Passing Yards and Team Passing Touchdowns from the 
 NFL_2021_Team_Passing %>%
   ggplot(aes(x=Yds,y=TD,label=Tm)) + 
   geom_point() +
-  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021")
+  labs(x="Team Passing Yards",
+       y="Team Passing Touchdowns",
+       title="NFL Team Passing Yards, 2021")
 ```
 
 
@@ -438,7 +470,9 @@ We may want to include team labels on this plot, however, it can get messy very 
 NFL_2021_Team_Passing %>%
   ggplot(aes(x=Yds,y=TD,label=Tm)) + 
   geom_point() +
-  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021") +
+  labs(x="Team Passing Yards",
+       y="Team Passing Touchdowns",
+       title="NFL Team Passing Yards, 2021") +
   geom_text()
 ```
 
@@ -454,19 +488,24 @@ library(ggrepel)
 NFL_2021_Team_Passing %>%
   ggplot(aes(x=Yds,y=TD,label=Tm)) + 
   geom_point() +
-  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021") +
+  labs(x="Team Passing Yards",
+       y="Team Passing Touchdowns",
+       title="NFL Team Passing Yards, 2021") +
   geom_text_repel()
 ```
 
 ```{r scatter4}
-NFL_2021_Team_Passing$Abbr <- c("TB","LAC","DAL","KC","LAR","LV","CIN","GB","BUF","AZ","MN","SF",
-                                "BAL","NE","PIT","ATL","MIA","DET","DEN","NYJ","WAS","JAC","SEA",
-                                "TEN","PHI","IND","CLE","HOU","CAR","CHI","NYG","NO")
+NFL_2021_Team_Passing$Abbr <- 
+  c("TB","LAC","DAL","KC","LAR","LV","CIN","GB","BUF","AZ","MN","SF",
+    "BAL","NE","PIT","ATL","MIA","DET","DEN","NYJ","WAS","JAC","SEA",
+    "TEN","PHI","IND","CLE","HOU","CAR","CHI","NYG","NO")
+
 NFL_2021_Team_Passing %>%
   ggplot(aes(x=Yds,y=TD,label=Abbr)) + 
   geom_point() +
   scale_x_continuous(limits=c(2750,5250)) +
-  labs(x="Team Passing Yards",y="Team Passing Touchdowns",title="NFL Team Passing Yards, 2021") +
+  labs(x="Team Passing Yards",y="Team Passing Touchdowns",
+       title="NFL Team Passing Yards, 2021") +
   geom_text_repel(box.padding = 0.3) 
 ```
 :::
@@ -503,7 +542,9 @@ If you are going to use kable tables frequently in a document, you can write a s
 ```{r}
 # kable table global setup
 kt <- function(data) {
-   knitr::kable(data, digits=3, align=c('l','c','c','c','c','c','c','c','c')) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+   knitr::kable(data, digits=3, align="c") %>% 
+    kable_styling(bootstrap_options='striped', latex_options='HOLD_position', 
+                  full_width = F, position = "center")
 }
 ```
 

@@ -27,9 +27,14 @@ library(kableExtra)
 knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=FALSE)
 knitr::opts_chunk$set(cache=TRUE)
 
+# add space to format for printing
+add.space <- 1
+
 # kable table global setup
 kt <- function(data) {
-  knitr::kable(data, digits=3, align=c("c")) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+  knitr::kable(data, digits=3, align="c") %>% 
+    kable_styling(bootstrap_options='striped', latex_options='HOLD_position', 
+                  full_width = F, position = "center")
 }
 ```
 

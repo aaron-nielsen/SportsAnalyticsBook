@@ -1,4 +1,4 @@
---- 
+---
 output:
   pdf_document: default
   html_document: default
@@ -15,6 +15,7 @@ library(ggridges)
 library(readr)
 library(readxl)
 library(openxlsx)
+library(randomForest)
 
 ```
 
@@ -362,28 +363,83 @@ write.csv(all_teams, "/Users/elliemartinez/Course\ Development/nfl_win_pct.csv")
 ```
 
 ```{r}
-# Problem from pg. 134 of Analytic Methods (not complete yet as of 7/21)
+# Problem from pg. 134 of Analytic Methods
 
 nfl_win_pct <- read_csv("data/nfl_win_pct.csv")
 
+## Add win percentage column
 all_teams$win_pct <- df$W/(df$W + df$L)
 
+## Create function to calculate autocorrelation
 autocorr <- function(x) {
   return (acf(x, 1, plot = FALSE)$acf[2])
 }
 
+## Calculate autocorrelation for each team
 autocorrs <- aggregate(df$win_pct, list(df$id), FUN = autocorr)
+
+## Calculate mean autocorrelation across teams
 mean_autocorrs <- mean(autocorrs$x)
+
+## Set sample size
+num_years <- 52
+num_teams <- 25
+samp_size <- num_years*num_teams-2*num_teams
+
+## Calculate t-score
+t_score <- mean_autocorrs*(sqrt((samp_size-2)/1-mean_autocorrs^2))
+
+## Calculate p-value
+p_val <- pt(q = -t_score, df = samp_size-2, lower.tail=TRUE)
 
 ```
 
+The p-value is 1.57e-33. Therefore the observed autocorrelation is statistically significant at an alpha value of 0.05.
+
 ### Rank Correlation (from Analytic Methods in Sports pg. 129)
+
+Sources used for the below description: www.statisticshowto.com and "Analytic Methods in Sports" by Thomas Severini
+
+Spearman's Rank Correlation measures the strength of a monotonic relationship. A monotonic relationship is one in which if one variable increases (or decreases), the other variable also increases (or decreases). How can this be applied to sports? Well, let's use football as an example. NFL teams can be ranked based on offense and defense. Do teams who rank high offensively also rank high defensively? Or do teams who rank high offensively rank low defensively? Or is it random? Rank correlation can help us answer these questions.
+
+For the following example, we will be using dataset 5.7 from <http://www.taseverini.com/Datasets.html>. In Dataset 5.7 from Thomas Severini, NFL teams are ranked by its most productive running back (in terms of rushing yards), 2011 regular season scoring, and quarterback. For this example, we will explore the relationship between having a top running back and offensive performance of an NFL team.
+
+```{r include=FALSE}
+offense_ranks <- read_excel("data/dataset_5.7_severini.xlsx")
+corr <- cor.test(x=offense_ranks$`Pts-Rank`, y=offense_ranks$`Rush-Rank`, method = 'spearman')
+corr
+
+```
+
+We produce a rho value of -0.472. This indicates that there is almost no monotone relationship between league ranking of a team's points scored and league ranking of the yards gained by a team's top rusher. In the next example, we will explore the relationship between having a top quarterback and offensive performance of an NFL team.
+
+```{r include=FALSE}
+corr <- cor.test(x=offense_ranks$`Pts-Rank`, y=offense_ranks$`PR-Rank`, method = 'spearman')
+corr
+
+```
+
+We produce a rho value of 0.819, with a p-value of 1.018e-08. This indicates that having a highly-ranked quarterback is related to having a successful offense, more than having a highly-ranked running back is related to having a successful offense.
+
+### Random Forests (not complete as of 8/1/22)
+
+```{r}
+wr <- read_excel("data/dataset_8.6_severini.xlsx")
+wr15 <- read_excel("data/dataset_8.7_severini.xlsx")
+wr$PRO <- as.factor(wr$PRO)
+wr.rf <- randomForest(PRO~W+T+R+H+V+P5, data = wr)
+pred15.rf <- predict(wr.rf, newdata = wr15, type = "prob")
+head(pred15.rf)
+
+```
+
+### Hot Hand and the Wald-Wolfowitz Test (not complete as of 8/1/22)
 
 ```{r}
 
 ```
 
-### Random Forests
+### Linear Regression (not complete as of 8/1/22)
 
 ```{r}
 

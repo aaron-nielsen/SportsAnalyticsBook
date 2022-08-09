@@ -350,6 +350,24 @@
 ##     group_rows
 \end{verbatim}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(reshape2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'reshape2'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:tidyr':
+## 
+##     smiths
+\end{verbatim}
+
 \hypertarget{wnba-scraping}{%
 \subsection{wnba scraping}\label{wnba-scraping}}
 
@@ -578,38 +596,10 @@ PED's
 \end{tabular}
 \end{center}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{col1 =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'Runs Scored'}\NormalTok{,}\StringTok{'Probability'}\NormalTok{)}
-\NormalTok{col2 =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'0'}\NormalTok{,}\FloatTok{0.55}\NormalTok{)}
-\NormalTok{col3 =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'1'}\NormalTok{,}\FloatTok{0.25}\NormalTok{)}
-\NormalTok{col4=}\KeywordTok{c}\NormalTok{(}\StringTok{'2'}\NormalTok{,}\FloatTok{0.15}\NormalTok{)}
-\NormalTok{col5=}\KeywordTok{c}\NormalTok{(}\StringTok{'3'}\NormalTok{,}\FloatTok{0.05}\NormalTok{)}
-\NormalTok{runs <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(col1,col2,col3,col4,col5)}
-\KeywordTok{colnames}\NormalTok{(runs) <-}\StringTok{ }\OtherTok{NULL}
-\NormalTok{runs}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##                                  
-## 1 Runs Scored    0    1    2    3
-## 2 Probability 0.55 0.25 0.15 0.05
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{kbl}\NormalTok{(runs)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{tabular}[t]{l|l|l|l|l}
-\hline
-Runs Scored & 0 & 1 & 2 & 3\\
-\hline
-Probability & 0.55 & 0.25 & 0.15 & 0.05\\
-\hline
-\end{tabular}
+Q: Using the probability table provided, calculate the variance for runs
+scored in an inning A: \(E(X)=1*0.25+2*0.15+3*0.05=0.7\)\\
+\(E(X^2)=1*0.25+4*0.15+9*0.05=1.3\)\\
+\(Var(X)=E(X^2)-E(X)=1.3-0.7=0.6\)
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -683,7 +673,7 @@ of Winning Game
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{22-isaac_files/figure-latex/unnamed-chunk-7-1.pdf}
+\includegraphics{22-isaac_files/figure-latex/unnamed-chunk-6-1.pdf}
 
 \hypertarget{wnba-scores-eda}{%
 \subsubsection{WNBA Scores (EDA)}\label{wnba-scores-eda}}
@@ -805,7 +795,7 @@ attempts are successful? A:
 \CommentTok{# filter by only plays on 4th down}
 \NormalTok{down4 =}\StringTok{ }\KeywordTok{filter}\NormalTok{(nfl2, nfl2[}\StringTok{'down'}\NormalTok{]}\OperatorTok{==}\DecValTok{4}\NormalTok{)}
 
-\CommentTok{#see what play types are run on first down and remove the noise}
+\CommentTok{#see what play types are run on fourth down and remove the noise}
 \KeywordTok{group_by}\NormalTok{(down4,PlayType) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Count=}\KeywordTok{n}\NormalTok{())}\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Percentage=}\NormalTok{Count}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Count))}
@@ -878,6 +868,169 @@ attempts are successful? A:
 11\% of 4th downs are gone for and 40\% of those are successful,
 regardless of how many yards to go there are
 
+\hypertarget{probability-of-outcome-based-on-field-position-graph}{%
+\paragraph{Probability of Outcome based on Field Position
+Graph}\label{probability-of-outcome-based-on-field-position-graph}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl=}\KeywordTok{read.csv}\NormalTok{(}\StringTok{'~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/data/nfl_pbp.csv'}\NormalTok{)}
+\NormalTok{nfl2 <-}\StringTok{ }\KeywordTok{select}\NormalTok{(nfl, }\KeywordTok{c}\NormalTok{(}\StringTok{'yrdline100'}\NormalTok{,}\StringTok{'ydstogo'}\NormalTok{,}\StringTok{'No_Score_Prob'}\NormalTok{,}\StringTok{'Field_Goal_Prob'}\NormalTok{,}\StringTok{'Touchdown_Prob'}\NormalTok{))}
+\NormalTok{nfl2 }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{na.omit}\NormalTok{() ->}\StringTok{ }\NormalTok{nfl2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl2 }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(yrdline100) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{summarize}\NormalTok{(}\KeywordTok{mean}\NormalTok{(Touchdown_Prob, }\DataTypeTok{na.rm=}\NormalTok{T)) ->}\StringTok{ }\NormalTok{td_prob}
+\NormalTok{nfl2 }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(yrdline100) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{summarize}\NormalTok{(}\KeywordTok{mean}\NormalTok{(Field_Goal_Prob, }\DataTypeTok{na.rm=}\NormalTok{T)) ->}\StringTok{ }\NormalTok{fg_prob}
+\NormalTok{nfl2 }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(yrdline100) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{summarize}\NormalTok{(}\KeywordTok{mean}\NormalTok{(No_Score_Prob, }\DataTypeTok{na.rm=}\NormalTok{T)) ->}\StringTok{ }\NormalTok{no_prob}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'yrdline100'}\NormalTok{,}\StringTok{'probability'}\NormalTok{, }\StringTok{'Outcome'}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(td_prob) <-}\StringTok{ }\NormalTok{x}
+\NormalTok{ind <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{1}\NormalTok{, }\DataTypeTok{nrow=}\KeywordTok{nrow}\NormalTok{(td_prob))}
+\NormalTok{ind=}\StringTok{ 'TD'}
+\NormalTok{td_prob <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(td_prob,ind)}
+\NormalTok{ind2 <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{ncol=}\DecValTok{1}\NormalTok{, }\DataTypeTok{nrow=}\KeywordTok{nrow}\NormalTok{(fg_prob))}
+\NormalTok{ind2=}\StringTok{'FG'}
+\NormalTok{fg_prob <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(fg_prob, ind2)}
+\KeywordTok{colnames}\NormalTok{(td_prob) <-}\StringTok{ }\NormalTok{x}
+\KeywordTok{colnames}\NormalTok{(fg_prob) <-}\StringTok{ }\NormalTok{x}
+\NormalTok{prob_df <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(td_prob, fg_prob)}
+\KeywordTok{colnames}\NormalTok{(prob_df) <-}\StringTok{ }\NormalTok{x}
+\KeywordTok{ggplot}\NormalTok{(prob_df, }\KeywordTok{aes}\NormalTok{(yrdline100,probability, }\DataTypeTok{col=}\NormalTok{Outcome)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size=}\FloatTok{0.5}\NormalTok{)}\OperatorTok{+}\KeywordTok{geom_smooth}\NormalTok{()}\OperatorTok{+}\KeywordTok{xlab}\NormalTok{(}\StringTok{'Distance to Endzone'}\NormalTok{)}\OperatorTok{+}\KeywordTok{ylab}\NormalTok{(}\StringTok{'Probability'}\NormalTok{)}\OperatorTok{+}\KeywordTok{ggtitle}\NormalTok{(}\StringTok{'Probability of Outcome based on Field Position'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{22-isaac_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#+facet_wrap('ydstogo')}
+\end{Highlighting}
+\end{Shaded}
+
+Q: Why does the probability of scoring a field goal get lower as a team
+is within 10 yards of the endzone?
+
+A: When a team is close to the endzone, they probability of scoring a
+touchdown goes way up so teams are less likely to attempt field goals
+since the expected value of attempting a touchdown is higher than the
+expected value of attempting a field goal.
+
+\hypertarget{in-progress-should-they-go-for-it-based-on-historical-data}{%
+\paragraph{IN PROGRESS Should they go for it? (Based on historical
+data)}\label{in-progress-should-they-go-for-it-based-on-historical-data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{yrd =}\StringTok{ }\DecValTok{45}
+\NormalTok{togo =}\StringTok{ }\DecValTok{3}
+
+
+\NormalTok{nfl=}\KeywordTok{read.csv}\NormalTok{(}\StringTok{'~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/data/nfl_pbp.csv'}\NormalTok{)}
+\NormalTok{nfl2 <-}\StringTok{ }\KeywordTok{select}\NormalTok{(nfl, }\KeywordTok{c}\NormalTok{(}\StringTok{'down'}\NormalTok{,}\StringTok{'yrdline100'}\NormalTok{,}\StringTok{'ydstogo'}\NormalTok{,}\StringTok{'Yards.Gained'}\NormalTok{,}\StringTok{'Touchdown'}\NormalTok{,}\StringTok{'PlayType'}\NormalTok{,}\StringTok{'FieldGoalResult'}\NormalTok{,}\StringTok{'FieldGoalDistance'}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl2 <-}\StringTok{ }\NormalTok{nfl2 }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{FirstDown =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{    ydstogo }\OperatorTok{<}\StringTok{ }\NormalTok{Yards.Gained }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+\NormalTok{    ydstogo }\OperatorTok{>}\StringTok{ }\NormalTok{Yards.Gained }\OperatorTok{~}\StringTok{ }\DecValTok{0}
+\NormalTok{    ))}
+\CommentTok{# filter by only plays on 4th down}
+\NormalTok{down4 =}\StringTok{ }\KeywordTok{filter}\NormalTok{(nfl2, nfl2[}\StringTok{'down'}\NormalTok{]}\OperatorTok{==}\DecValTok{4}\NormalTok{)}
+\NormalTok{down4 <-}\StringTok{ }\NormalTok{down4 }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(PlayType}\OperatorTok{!=}\StringTok{ 'Punt'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(PlayType}\OperatorTok{!=}\StringTok{ 'No Play'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(PlayType}\OperatorTok{!=}\StringTok{ 'QB Kneel'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(PlayType}\OperatorTok{!=}\StringTok{ 'Timeout'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{GoForIt =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{    PlayType }\OperatorTok{==}\StringTok{ 'Pass'} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+\NormalTok{    PlayType }\OperatorTok{==}\StringTok{ 'Run'} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+\NormalTok{    PlayType }\OperatorTok{==}\StringTok{ 'Sack'} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+\NormalTok{    PlayType }\OperatorTok{==}\StringTok{ 'Field Goal'} \OperatorTok{~}\StringTok{ }\DecValTok{0} 
+\NormalTok{  ))}
+
+\NormalTok{down4 <-}\StringTok{ }\NormalTok{down4 }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Success =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{    FieldGoalResult }\OperatorTok{==}\StringTok{ 'Good'} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+\NormalTok{    FirstDown }\OperatorTok{==}\StringTok{ }\DecValTok{1} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\DecValTok{0}
+\NormalTok{  ))}
+\NormalTok{down5 <-}\StringTok{ }\NormalTok{down4 }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(yrdline100) }\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{group_by}\NormalTok{(Success) }\OperatorTok{%>%}
+\StringTok{          }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Count =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}
+\StringTok{          }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Percentage=}\NormalTok{Count}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Count))}
+
+\KeywordTok{head}\NormalTok{(down5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 3
+##   Success Count Percentage
+##     <dbl> <int>      <dbl>
+## 1       0  3341      0.301
+## 2       1  7751      0.699
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{'}
+\StringTok{down5<- down4 %>%}
+\StringTok{  group_by(yrdline100) %>%}
+\StringTok{    group_by(ydstogo) %>%}
+\StringTok{      group_by(GoForIt) %>%}
+\StringTok{        group_by(Success) %>%}
+\StringTok{          summarize(Count = n()) %>%}
+\StringTok{          mutate(Percentage=Count/sum(Count))}
+\StringTok{'}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "\ndown5<- down4 %>%\n  group_by(yrdline100) %>%\n    group_by(ydstogo) %>%\n      group_by(GoForIt) %>%\n        group_by(Success) %>%\n          summarize(Count = n()) %>%\n          mutate(Percentage=Count/sum(Count))\n"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# create list of plays (list)}
+\CommentTok{# for i in 0-100:}
+\CommentTok{#   count = 0}
+\CommentTok{#   if yrdline100 = i:}
+\CommentTok{#       count = count+1}
+\CommentTok{#       list[i][count] = c(ydstogo, success, goforit)}
+
+\CommentTok{# group by yards to go}
+
+\CommentTok{# create list of probabilities (list2)}
+\CommentTok{#create final list (list_f)}
+\CommentTok{# for i in 0-100:}
+\CommentTok{#   create sublist (sublist)}
+\CommentTok{#   lst = list2[i]}
+\CommentTok{#   for i in length(lst):}
+\CommentTok{#       add lst[i][]}
+
+
+\CommentTok{## want to find every play with same situation and group by playtype and find success rate for going for it or kicking field goal}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{football-sample-space-probability}{%
 \paragraph{Football Sample Space
 (Probability)}\label{football-sample-space-probability}}
@@ -889,6 +1042,282 @@ of the possible outcomes. If a team wins the game, the event for that
 game would be \(E=\{W \}\) or if we want the event of the 2021 CSU
 football season, it would be
 \(E=\{ L, L, W, L, W, W, L, L, L, L, L, L \}\).
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\hypertarget{gambling}{%
+\subsection{Gambling}\label{gambling}}
+
+\hypertarget{sports-betting-bankroll-management}{%
+\subsubsection{Sports Betting Bankroll
+Management}\label{sports-betting-bankroll-management}}
+
+To prevent problematic gambling many people use bankrolls, or money set
+aside with the sole purpose of gambling. It is often suggested that
+people partaking in sports betting set aside an amount they are
+comfortable gambling with and betting 1-5\% of that per play, especially
+considering minimum bets for online sportsbooks are often less than \$1.
+One of the big risks in gambling is chasing losses so a popular strategy
+is called flat betting, where you bet the same amount on every game to
+help minimize losses. In addition, parlays can have incredibly
+attractive payoffs but high reward comes with high risk so it can be
+quite difficult to find long term profit.
+
+\hypertarget{hold-percentagebreaking-even}{%
+\subsubsection{Hold Percentage/Breaking
+Even}\label{hold-percentagebreaking-even}}
+
+In a perfect world, if a baseball game has probability 0.5 of either
+team winning, the odds would be +100 (or -100), 50\% of bettors would be
+on one side, 50\% on the other, and at the end of the game half of the
+bettors would double their money and half of them would lose their
+money. Unfortunately, this would mean that the casinos make no money so
+to combat this they introduce whats called a hold percentage.
+Essentially sportsbooks will give you slightly worse odds on bets in
+order to make money. In this example, when both sides have probability
+0.5, the offered lines may both be -110 that way when one team wins,
+half the bettors win slightly less than double the money (bet 110
+dollars to win 100) and the sportsbook collects the rest. As a result,
+winning percentages have to be higher than expected to show a profit.
+For -110 odds (the Vegas equivalent of probability = 0.5), a bettor must
+win at a rate of 52.23\% of the time in order to show a profit.
+Similarly you can convert any American odds into implied probability to
+get a breakeven percentage, since if you have a win rate higher than the
+implied probability, the expected value of your bet is positive.
+
+Q: The given odds for the Avs to win the 2022 Stanley Cup are +500 and
+you've concluded that the bet has a 15\% chance of happening. Is it
+worth making this bet?
+
+A: The implied probability on a +500 bet is 16.66\%, therefore if the
+bet has a 15\% chance of happening, it is not a good bet as the expected
+value is negative but lets look at a simulation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# lets say we start with $1 and we want to bet $1}
+\NormalTok{dollars =}\StringTok{ }\DecValTok{1}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\CommentTok{# we want to simulate the bet 100,000 times}
+\NormalTok{n.sims <-}\StringTok{ }\DecValTok{100000}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{n.sims)\{}
+\CommentTok{# Simulate whether the Avs win based on our probability of 15%}
+\NormalTok{  win <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\FloatTok{0.15}\NormalTok{))}
+  \CommentTok{# change our dollar amount based off the odds}
+  \ControlFlowTok{if}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)\{}
+\NormalTok{    dollars =}\StringTok{ }\NormalTok{dollars }\OperatorTok{+}\StringTok{ }\DecValTok{5}
+\NormalTok{  \}}
+  \ControlFlowTok{if}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)\{}
+\NormalTok{    dollars =}\StringTok{ }\NormalTok{dollars }\OperatorTok{-}\StringTok{ }\DecValTok{1}
+\NormalTok{  \}}
+\NormalTok{\}}
+\KeywordTok{print}\NormalTok{(dollars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -9573
+\end{verbatim}
+
+After 100,000 bets, we would be down 9,573 dollars just off of 1 dollar
+bets.
+
+\hypertarget{gamblers-fallacy}{%
+\subsubsection{Gamblers Fallacy}\label{gamblers-fallacy}}
+
+The Gambler's Fallacy is the common misbelief that if independent events
+fail to happen, theyre more likely to happen in the future. For example,
+say we are playing Roulette and betting on whether the ball lands on
+black or red. Theres roughly a 50\% chance of either outcome, yet if we
+somehow get 10 reds in a row, the natural inclination is to assume a
+black is ``due'' and must come soon. However, both outcomes still have
+just a 50\% chance of happening regardless of the history. This can be
+seen in the sports world as well, especially when talking about
+something like the `hot hand' in basketball or hitting streaks in
+baseball, although sports does differ from conventional gambling as
+recent performance in sports can be useful for predictive purposes.
+
+\hypertarget{kelly-criterion}{%
+\subsubsection{Kelly Criterion}\label{kelly-criterion}}
+
+While flat betting is a common and effective bet sizing strategy, a more
+advanced technique is called the Kelly Criterion. The Kelly Criterion
+adjusts each bet size to the specific bet based on bankroll size, given
+odds, and the predicted probability that the bettor gives the outcome.
+The formula for calculating the bet size is \(f=p-\frac{1-p}{b}\) where
+\(f\) is the fraction of your current bankroll you should wager, \(p\)
+is the probability the bettor gives themselves of winning the bet, and
+\(b\) is the proportion of the bet you win back (+200 odds pays 2 to 1
+therefore the proportion is 2.0). This is certainly more complicated
+than flat betting (especially in large volumes), but it has been proven
+to provide theoretically optimal bet sizes.
+
+\hypertarget{sandbox-can-be-ignored}{%
+\paragraph{SANDBOX (Can be ignored)}\label{sandbox-can-be-ignored}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl=}\KeywordTok{read.csv}\NormalTok{(}\StringTok{'~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/data/nfl_pbp.csv'}\NormalTok{)}
+\NormalTok{nfl2 <-}\StringTok{ }\KeywordTok{select}\NormalTok{(nfl, }\KeywordTok{c}\NormalTok{(}\StringTok{'down'}\NormalTok{,}\StringTok{'yrdline100'}\NormalTok{,}\StringTok{'ydstogo'}\NormalTok{,}\StringTok{'Touchdown'}\NormalTok{,}\StringTok{'PlayType'}\NormalTok{,}\StringTok{'FieldGoalResult'}\NormalTok{,}\StringTok{'FieldGoalDistance'}\NormalTok{))}
+\KeywordTok{head}\NormalTok{(nfl2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   down yrdline100 ydstogo Touchdown PlayType FieldGoalResult FieldGoalDistance
+## 1   NA         30       0         0  Kickoff            <NA>                NA
+## 2    1         58      10         0     Pass            <NA>                NA
+## 3    2         53       5         0      Run            <NA>                NA
+## 4    3         56       8         0     Pass            <NA>                NA
+## 5    4         56       8         0     Punt            <NA>                NA
+## 6    1         98      10         0      Run            <NA>                NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{## for each (grouping of 10 yards?) we get all the 4th down playtypes of fieldgoal and normal plays and see probability of success for each option, for each group}
+\CommentTok{# filter by only plays on 4th down}
+\NormalTok{down4 =}\StringTok{ }\KeywordTok{filter}\NormalTok{(nfl2, nfl2[}\StringTok{'down'}\NormalTok{]}\OperatorTok{==}\DecValTok{4}\NormalTok{)}
+
+\CommentTok{#see what play types are run on first down and remove the noise}
+\KeywordTok{group_by}\NormalTok{(down4,PlayType) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Count=}\KeywordTok{n}\NormalTok{())}\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Percentage=}\NormalTok{Count}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Count))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 8 x 3
+##   PlayType   Count Percentage
+##   <fct>      <int>      <dbl>
+## 1 Field Goal  7265  0.226    
+## 2 No Play     1433  0.0446   
+## 3 Pass        2239  0.0698   
+## 4 Punt       19551  0.609    
+## 5 QB Kneel      22  0.000685 
+## 6 Run         1424  0.0444   
+## 7 Sack         164  0.00511  
+## 8 Timeout        1  0.0000312
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{down3 =}\StringTok{ }\KeywordTok{filter}\NormalTok{(down4, down4[}\StringTok{'PlayType'}\NormalTok{]}\OperatorTok{!=}\StringTok{'No Play'} \OperatorTok{||}\StringTok{ }\NormalTok{down4[}\StringTok{'PlayType'}\NormalTok{]}\OperatorTok{!=}\StringTok{ 'QB Kneel'} \OperatorTok{||}\StringTok{ }\NormalTok{down4[}\StringTok{'PlayType'}\NormalTok{]}\OperatorTok{!=}\StringTok{ 'Timeout'} \OperatorTok{||}\StringTok{ }\NormalTok{down4[}\StringTok{'PlayType'}\NormalTok{]}\OperatorTok{!=}\StringTok{ 'Punt'}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(down3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   down yrdline100 ydstogo Touchdown   PlayType FieldGoalResult
+## 1    4         56       8         0       Punt            <NA>
+## 2    4         96       8         0       Punt            <NA>
+## 3    4         41      21         0       Punt            <NA>
+## 4    4         19       7         0 Field Goal         No Good
+## 5    4         79      16         0       Punt            <NA>
+## 6    4         44      22         0       Punt            <NA>
+##   FieldGoalDistance
+## 1                NA
+## 2                NA
+## 3                NA
+## 4                37
+## 5                NA
+## 6                NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{## create 10 grouping dataframes (99-90,89-80,79-70,69-60,59-50,49-40,39-30,29-20,19-10,9-0)}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"playtype"}\NormalTok{, }\StringTok{"outcome"}\NormalTok{)}
+\NormalTok{df99_}\DecValTok{90}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
+\KeywordTok{colnames}\NormalTok{(df99_}\DecValTok{90}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
+\NormalTok{df89_}\DecValTok{80}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
+\KeywordTok{colnames}\NormalTok{(df89_}\DecValTok{80}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
+\NormalTok{df79_}\DecValTok{70}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
+\KeywordTok{colnames}\NormalTok{(df79_}\DecValTok{70}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
+\NormalTok{df69_}\DecValTok{60}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
+\KeywordTok{colnames}\NormalTok{(df69_}\DecValTok{60}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
+\NormalTok{df59_}\DecValTok{50}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
+\KeywordTok{colnames}\NormalTok{(df59_}\DecValTok{50}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
+\NormalTok{df49_}\DecValTok{40}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
+\KeywordTok{colnames}\NormalTok{(df49_}\DecValTok{40}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
+\NormalTok{df39_}\DecValTok{30}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
+\KeywordTok{colnames}\NormalTok{(df39_}\DecValTok{30}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
+\NormalTok{df29_}\DecValTok{20}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
+\KeywordTok{colnames}\NormalTok{(df29_}\DecValTok{20}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
+\NormalTok{df19_}\DecValTok{10}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
+\KeywordTok{colnames}\NormalTok{(df19_}\DecValTok{10}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
+\NormalTok{df09_}\DecValTok{00}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
+\KeywordTok{colnames}\NormalTok{(df09_}\DecValTok{00}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
+
+
+
+\CommentTok{## create final dataframe with 3 columns: distance to goal, field goal probability, td probability}
+\CommentTok{#df_prob <- data.frame(matrix(ncol = 3, nrow = 0))}
+\CommentTok{#y = c('distance_to_goal','fg_prob','td_prob')}
+\CommentTok{#colnames(df_prob) <- x}
+\CommentTok{#down3 %>%}
+\CommentTok{#  group_split(yrdline100)}
+
+\NormalTok{down3 }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{distance =} \KeywordTok{case_when}\NormalTok{(down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{100} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{89} \OperatorTok{~}\StringTok{ }\DecValTok{90}\NormalTok{,}
+\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{90} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{79} \OperatorTok{~}\StringTok{ }\DecValTok{80}\NormalTok{,}
+\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{80} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{69} \OperatorTok{~}\StringTok{ }\DecValTok{70}\NormalTok{,}
+\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{70} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{59} \OperatorTok{~}\StringTok{ }\DecValTok{60}\NormalTok{,}
+\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{60} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{49} \OperatorTok{~}\StringTok{ }\DecValTok{50}\NormalTok{,}
+\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{50} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{39} \OperatorTok{~}\StringTok{ }\DecValTok{40}\NormalTok{,}
+\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{40} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{29} \OperatorTok{~}\StringTok{ }\DecValTok{30}\NormalTok{,}
+\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{30} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{19} \OperatorTok{~}\StringTok{ }\DecValTok{20}\NormalTok{,}
+\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{20} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{9} \OperatorTok{~}\StringTok{ }\DecValTok{10}\NormalTok{,}
+\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{10} \OperatorTok{~}\StringTok{ }\DecValTok{0}
+\NormalTok{    )) ->}\StringTok{ }\NormalTok{down3}
+\NormalTok{down3 }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_split}\NormalTok{(distance) ->}\StringTok{ }\NormalTok{yrd_df}
+
+\NormalTok{df99_}\DecValTok{90}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{10}\NormalTok{]]}
+\NormalTok{df89_}\DecValTok{80}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{9}\NormalTok{]]}
+\NormalTok{df79_}\DecValTok{70}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{8}\NormalTok{]]}
+\NormalTok{df69_}\DecValTok{60}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{7}\NormalTok{]]}
+\NormalTok{df59_}\DecValTok{50}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{6}\NormalTok{]]}
+\NormalTok{df49_}\DecValTok{40}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{5}\NormalTok{]]}
+\NormalTok{df39_}\DecValTok{30}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{4}\NormalTok{]]}
+\NormalTok{df29_}\DecValTok{20}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{3}\NormalTok{]]}
+\NormalTok{df19_}\DecValTok{10}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{2}\NormalTok{]]}
+\NormalTok{df09_}\DecValTok{00}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{1}\NormalTok{]]}
+\NormalTok{df09_}\DecValTok{00} \OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(df09_}\DecValTok{00}\NormalTok{[}\StringTok{'PlayType'}\NormalTok{]}\OperatorTok{==}\StringTok{'Field Goal'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(FieldGoalResult) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Count=}\KeywordTok{n}\NormalTok{())}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Percentage=}\NormalTok{Count}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Count))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 3
+##   FieldGoalResult Count Percentage
+##   <fct>           <int>      <dbl>
+## 1 Blocked            19    0.0116 
+## 2 Good             1593    0.974  
+## 3 No Good            21    0.0128 
+## 4 <NA>                2    0.00122
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df09_}\DecValTok{00} \OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(df09_}\DecValTok{00}\NormalTok{[}\StringTok{'PlayType'}\NormalTok{]}\OperatorTok{!=}\StringTok{'Field Goal'} \OperatorTok{&&}\StringTok{ }\NormalTok{df09_}\DecValTok{00}\NormalTok{[}\StringTok{'PlayType'}\NormalTok{]}\OperatorTok{!=}\StringTok{'Punt'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Touchdown) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Count=}\KeywordTok{n}\NormalTok{())}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Percentage=}\NormalTok{Count}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Count))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 3
+##   Touchdown Count Percentage
+##       <int> <int>      <dbl>
+## 1         0  2128     0.910 
+## 2         1   210     0.0898
+\end{verbatim}
 
 
 \end{document}
