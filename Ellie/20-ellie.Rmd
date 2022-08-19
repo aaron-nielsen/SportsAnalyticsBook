@@ -421,27 +421,22 @@ corr
 
 We produce a rho value of 0.819, with a p-value of 1.018e-08. This indicates that having a highly-ranked quarterback is related to having a successful offense, more than having a highly-ranked running back is related to having a successful offense.
 
-### Random Forests (not complete as of 8/1/22)
+### Random Forests
 
 ```{r}
+## Read data
 wr <- read_excel("data/dataset_8.6_severini.xlsx")
 wr15 <- read_excel("data/dataset_8.7_severini.xlsx")
 wr$PRO <- as.factor(wr$PRO)
+
+## Initialize random forest with 'wr' dataset
 wr.rf <- randomForest(PRO~W+T+R+H+V+P5, data = wr)
+
+## Predict values with 'wr15' dataset
 pred15.rf <- predict(wr.rf, newdata = wr15, type = "prob")
+
+## View first few details
 head(pred15.rf)
-
-```
-
-### Hot Hand and the Wald-Wolfowitz Test (not complete as of 8/1/22)
-
-```{r}
-
-```
-
-### Linear Regression (not complete as of 8/1/22)
-
-```{r}
 
 ```
 

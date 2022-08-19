@@ -286,85 +286,45 @@ colnames(prob_df) <- x
 ggplot(prob_df, aes(yrdline100,probability, col=Outcome)) + 
   geom_point(size=0.5)+geom_smooth()+xlab('Distance to Endzone')+ylab('Probability')+ggtitle('Probability of Outcome based on Field Position')
 
-#+facet_wrap('ydstogo')
 ```
 Q: Why does the probability of scoring a field goal get lower as a team is within 10 yards of the endzone?
 
 A: When a team is close to the endzone, they probability of scoring a touchdown goes way up so teams are less likely to attempt field goals since the expected value of attempting a touchdown is higher than the expected value of attempting a field goal.
 
 
-#### IN PROGRESS Should they go for it? (Based on historical data)
+#### Offensive EPA vs Defensive EPA
+On any given football play, a team has an expected point value (from the current drive) before the play and an expected point value after the play. The difference between these expected values, is the change in expected points that resulted from the play. We can look at each teams defensive EPA and offensive EPA for the 2021 season. 
 ```{r}
-yrd = 45
-togo = 3
+# read in pbp data
+pbp=read.csv('~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/data/nfl_pbp_2021.gz')
+pbp <- select(pbp, c('posteam','epa','yards_gained','defteam'))
 
+# get offensive epa and epa per play
+off_df <- pbp %>%
+  group_by(posteam) %>%
+  summarise(off_epa = sum(epa),
+            off_plays = n(),
+            off_epp = off_epa/off_plays,
+            .groups='drop')
 
-nfl=read.csv('~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/data/nfl_pbp.csv')
-nfl2 <- select(nfl, c('down','yrdline100','ydstogo','Yards.Gained','Touchdown','PlayType','FieldGoalResult','FieldGoalDistance'))
+# get defensive epa and epa per play
+def_df <- pbp %>%
+  group_by(defteam) %>%
+  summarise(def_epa = sum(epa),
+            def_plays = n(),
+            def_epp = def_epa/def_plays,
+            .groups='drop')
+# merge dataframes
+names(off_df)[names(off_df) == 'posteam'] <- 'team'
+names(def_df)[names(def_df) == 'defteam'] <- 'team'
+epa_df <- merge(off_df,def_df,by='team')
+epa_df <- na.omit(epa_df)
+
+# plot
+ggplot(epa_df,aes(x=off_epp,y=def_epp, label=team))+geom_point()+geom_hline(yintercept=0)+geom_vline(xintercept=0)+geom_label(aes(label = team))+xlab('Offensive EPA per Play')+ylab('Defensive EPA per Play')
 ```
 
-```{r}
-nfl2 <- nfl2 %>%
-  mutate(FirstDown = case_when(
-    ydstogo < Yards.Gained ~ 1,
-    ydstogo > Yards.Gained ~ 0
-    ))
-# filter by only plays on 4th down
-down4 = filter(nfl2, nfl2['down']==4)
-down4 <- down4 %>% 
-  filter(PlayType!= 'Punt') %>%
-  filter(PlayType!= 'No Play') %>%
-  filter(PlayType!= 'QB Kneel') %>%
-  filter(PlayType!= 'Timeout') %>%
-  mutate(GoForIt = case_when(
-    PlayType == 'Pass' ~ 1,
-    PlayType == 'Run' ~ 1,
-    PlayType == 'Sack' ~ 1,
-    PlayType == 'Field Goal' ~ 0 
-  ))
 
-down4 <- down4 %>%
-  mutate(Success = case_when(
-    FieldGoalResult == 'Good' ~ 1,
-    FirstDown == 1 ~ 1,
-    TRUE ~ 0
-  ))
-down5 <- down4 %>%
-  group_by(yrdline100) %>%
-        group_by(Success) %>%
-          summarize(Count = n()) %>%
-          mutate(Percentage=Count/sum(Count))
-
-head(down5)
-'
-down5<- down4 %>%
-  group_by(yrdline100) %>%
-    group_by(ydstogo) %>%
-      group_by(GoForIt) %>%
-        group_by(Success) %>%
-          summarize(Count = n()) %>%
-          mutate(Percentage=Count/sum(Count))
-'
-# create list of plays (list)
-# for i in 0-100:
-#   count = 0
-#   if yrdline100 = i:
-#       count = count+1
-#       list[i][count] = c(ydstogo, success, goforit)
-
-# group by yards to go
-
-# create list of probabilities (list2)
-#create final list (list_f)
-# for i in 0-100:
-#   create sublist (sublist)
-#   lst = list2[i]
-#   for i in length(lst):
-#       add lst[i][]
-
-
-## want to find every play with same situation and group by playtype and find success rate for going for it or kicking field goal
-```
 
 
 #### Football Sample Space (Probability)
@@ -413,92 +373,44 @@ The Gambler's Fallacy is the common misbelief that if independent events fail to
 While flat betting is a common and effective bet sizing strategy, a more advanced technique is called the Kelly Criterion. The Kelly Criterion adjusts each bet size to the specific bet based on bankroll size, given odds, and the predicted probability that the bettor gives the outcome. The formula for calculating the bet size is $f=p-\frac{1-p}{b}$ where $f$ is the fraction of your current bankroll you should wager, $p$ is the probability the bettor gives themselves of winning the bet, and $b$ is the proportion of the bet you win back (+200 odds pays 2 to 1 therefore the proportion is 2.0). This is certainly more complicated than flat betting (especially in large volumes), but it has been proven to provide theoretically optimal bet sizes.
 
 
+## UNFINISHED IDEAS (for both classes)
 
-#### SANDBOX (Can be ignored)
-```{r}
+### Football
 
-nfl=read.csv('~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/data/nfl_pbp.csv')
-nfl2 <- select(nfl, c('down','yrdline100','ydstogo','Touchdown','PlayType','FieldGoalResult','FieldGoalDistance'))
-head(nfl2)
+#### Average Expected Points by Field Position
 
-
-## for each (grouping of 10 yards?) we get all the 4th down playtypes of fieldgoal and normal plays and see probability of success for each option, for each group
-# filter by only plays on 4th down
-down4 = filter(nfl2, nfl2['down']==4)
-
-#see what play types are run on first down and remove the noise
-group_by(down4,PlayType) %>%
-  summarize(Count=n())%>%
-  mutate(Percentage=Count/sum(Count))
-down3 = filter(down4, down4['PlayType']!='No Play' || down4['PlayType']!= 'QB Kneel' || down4['PlayType']!= 'Timeout' || down4['PlayType']!= 'Punt')
-head(down3)
-## create 10 grouping dataframes (99-90,89-80,79-70,69-60,59-50,49-40,39-30,29-20,19-10,9-0)
-x <- c("playtype", "outcome")
-df99_90 <- data.frame(matrix(ncol = 2, nrow = 0))
-colnames(df99_90) <- x
-df89_80 <- data.frame(matrix(ncol = 2, nrow = 0))
-colnames(df89_80) <- x
-df79_70 <- data.frame(matrix(ncol = 2, nrow = 0))
-colnames(df79_70) <- x
-df69_60 <- data.frame(matrix(ncol = 2, nrow = 0))
-colnames(df69_60) <- x
-df59_50 <- data.frame(matrix(ncol = 2, nrow = 0))
-colnames(df59_50) <- x
-df49_40 <- data.frame(matrix(ncol = 2, nrow = 0))
-colnames(df49_40) <- x
-df39_30 <- data.frame(matrix(ncol = 2, nrow = 0))
-colnames(df39_30) <- x
-df29_20 <- data.frame(matrix(ncol = 2, nrow = 0))
-colnames(df29_20) <- x
-df19_10 <- data.frame(matrix(ncol = 2, nrow = 0))
-colnames(df19_10) <- x
-df09_00 <- data.frame(matrix(ncol = 2, nrow = 0))
-colnames(df09_00) <- x
+#### Should you go for it on 4th down?
 
 
+### Tennis
 
-## create final dataframe with 3 columns: distance to goal, field goal probability, td probability
-#df_prob <- data.frame(matrix(ncol = 3, nrow = 0))
-#y = c('distance_to_goal','fg_prob','td_prob')
-#colnames(df_prob) <- x
-#down3 %>%
-#  group_split(yrdline100)
+#### Difference of means Nadal on clay vs other surfaces
 
-down3 %>%
-  mutate(distance = case_when(down3['yrdline100']<100 & down3['yrdline100'] >89 ~ 90,
-                           down3['yrdline100']<90 & down3['yrdline100'] >79 ~ 80,
-                           down3['yrdline100']<80 & down3['yrdline100'] >69 ~ 70,
-                           down3['yrdline100']<70 & down3['yrdline100'] >59 ~ 60,
-                           down3['yrdline100']<60 & down3['yrdline100'] >49 ~ 50,
-                           down3['yrdline100']<50 & down3['yrdline100'] >39 ~ 40,
-                           down3['yrdline100']<40 & down3['yrdline100'] >29 ~ 30,
-                           down3['yrdline100']<30 & down3['yrdline100'] >19 ~ 20,
-                           down3['yrdline100']<20 & down3['yrdline100'] >9 ~ 10,
-                           down3['yrdline100']<10 ~ 0
-    )) -> down3
-down3 %>%
-  group_split(distance) -> yrd_df
+#### Linear Regression contrast nadal on clay vs other surfaces
 
-df99_90 <- yrd_df[[10]]
-df89_80 <- yrd_df[[9]]
-df79_70 <- yrd_df[[8]]
-df69_60 <- yrd_df[[7]]
-df59_50 <- yrd_df[[6]]
-df49_40 <- yrd_df[[5]]
-df39_30 <- yrd_df[[4]]
-df29_20 <- yrd_df[[3]]
-df19_10 <- yrd_df[[2]]
-df09_00 <- yrd_df[[1]]
-df09_00 %>%
-  filter(df09_00['PlayType']=='Field Goal') %>%
-  group_by(FieldGoalResult) %>%
-    summarize(Count=n())%>%
-    mutate(Percentage=Count/sum(Count))
-df09_00 %>%
-  filter(df09_00['PlayType']!='Field Goal' && df09_00['PlayType']!='Punt') %>%
-  group_by(Touchdown) %>%
-    summarize(Count=n())%>%
-    mutate(Percentage=Count/sum(Count))
 
-```
+### Basketball
+
+#### Difference in means clutch basketball moments (high leverage situation vs low leverage situation)
+
+
+#Baseball
+
+#### Random Forest pitch classification
+
+#### Scrape daily lineups from baseballpress.com and get summary statistics from baseballr or other package
+
+#### How relevant is 1st inning pitching performance to the rest of the games performance?
+
+#### Comparing difference of means of lefty pitchers vs righties
+
+
+### Hockey
+
+#### Difference in means scoring between 2nd and 3rd period
+
+
+### Misc
+
+#### Assignemnt idea where the main purpose is creating interesting visualizations from a dataset since conveying statistical information to others is often as important as understanding it yourself
 

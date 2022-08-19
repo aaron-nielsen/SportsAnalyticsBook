@@ -913,123 +913,58 @@ Graph}\label{probability-of-outcome-based-on-field-position-graph}}
 ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 \end{verbatim}
 
-\includegraphics{22-isaac_files/figure-latex/unnamed-chunk-11-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{#+facet_wrap('ydstogo')}
-\end{Highlighting}
-\end{Shaded}
-
-Q: Why does the probability of scoring a field goal get lower as a team
-is within 10 yards of the endzone?
+\includegraphics{22-isaac_files/figure-latex/unnamed-chunk-11-1.pdf} Q:
+Why does the probability of scoring a field goal get lower as a team is
+within 10 yards of the endzone?
 
 A: When a team is close to the endzone, they probability of scoring a
 touchdown goes way up so teams are less likely to attempt field goals
 since the expected value of attempting a touchdown is higher than the
 expected value of attempting a field goal.
 
-\hypertarget{in-progress-should-they-go-for-it-based-on-historical-data}{%
-\paragraph{IN PROGRESS Should they go for it? (Based on historical
-data)}\label{in-progress-should-they-go-for-it-based-on-historical-data}}
+\hypertarget{offensive-epa-vs-defensive-epa}{%
+\paragraph{Offensive EPA vs Defensive
+EPA}\label{offensive-epa-vs-defensive-epa}}
+
+On any given football play, a team has an expected point value (from the
+current drive) before the play and an expected point value after the
+play. The difference between these expected values, is the change in
+expected points that resulted from the play. We can look at each teams
+defensive EPA and offensive EPA for the 2021 season.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{yrd =}\StringTok{ }\DecValTok{45}
-\NormalTok{togo =}\StringTok{ }\DecValTok{3}
+\CommentTok{# read in pbp data}
+\NormalTok{pbp=}\KeywordTok{read.csv}\NormalTok{(}\StringTok{'~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/data/nfl_pbp_2021.gz'}\NormalTok{)}
+\NormalTok{pbp <-}\StringTok{ }\KeywordTok{select}\NormalTok{(pbp, }\KeywordTok{c}\NormalTok{(}\StringTok{'posteam'}\NormalTok{,}\StringTok{'epa'}\NormalTok{,}\StringTok{'yards_gained'}\NormalTok{,}\StringTok{'defteam'}\NormalTok{))}
 
+\CommentTok{# get offensive epa and epa per play}
+\NormalTok{off_df <-}\StringTok{ }\NormalTok{pbp }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(posteam) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{off_epa =} \KeywordTok{sum}\NormalTok{(epa),}
+            \DataTypeTok{off_plays =} \KeywordTok{n}\NormalTok{(),}
+            \DataTypeTok{off_epp =}\NormalTok{ off_epa}\OperatorTok{/}\NormalTok{off_plays,}
+            \DataTypeTok{.groups=}\StringTok{'drop'}\NormalTok{)}
 
-\NormalTok{nfl=}\KeywordTok{read.csv}\NormalTok{(}\StringTok{'~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/data/nfl_pbp.csv'}\NormalTok{)}
-\NormalTok{nfl2 <-}\StringTok{ }\KeywordTok{select}\NormalTok{(nfl, }\KeywordTok{c}\NormalTok{(}\StringTok{'down'}\NormalTok{,}\StringTok{'yrdline100'}\NormalTok{,}\StringTok{'ydstogo'}\NormalTok{,}\StringTok{'Yards.Gained'}\NormalTok{,}\StringTok{'Touchdown'}\NormalTok{,}\StringTok{'PlayType'}\NormalTok{,}\StringTok{'FieldGoalResult'}\NormalTok{,}\StringTok{'FieldGoalDistance'}\NormalTok{))}
+\CommentTok{# get defensive epa and epa per play}
+\NormalTok{def_df <-}\StringTok{ }\NormalTok{pbp }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(defteam) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{def_epa =} \KeywordTok{sum}\NormalTok{(epa),}
+            \DataTypeTok{def_plays =} \KeywordTok{n}\NormalTok{(),}
+            \DataTypeTok{def_epp =}\NormalTok{ def_epa}\OperatorTok{/}\NormalTok{def_plays,}
+            \DataTypeTok{.groups=}\StringTok{'drop'}\NormalTok{)}
+\CommentTok{# merge dataframes}
+\KeywordTok{names}\NormalTok{(off_df)[}\KeywordTok{names}\NormalTok{(off_df) }\OperatorTok{==}\StringTok{ 'posteam'}\NormalTok{] <-}\StringTok{ 'team'}
+\KeywordTok{names}\NormalTok{(def_df)[}\KeywordTok{names}\NormalTok{(def_df) }\OperatorTok{==}\StringTok{ 'defteam'}\NormalTok{] <-}\StringTok{ 'team'}
+\NormalTok{epa_df <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(off_df,def_df,}\DataTypeTok{by=}\StringTok{'team'}\NormalTok{)}
+\NormalTok{epa_df <-}\StringTok{ }\KeywordTok{na.omit}\NormalTok{(epa_df)}
+
+\CommentTok{# plot}
+\KeywordTok{ggplot}\NormalTok{(epa_df,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{off_epp,}\DataTypeTok{y=}\NormalTok{def_epp, }\DataTypeTok{label=}\NormalTok{team))}\OperatorTok{+}\KeywordTok{geom_point}\NormalTok{()}\OperatorTok{+}\KeywordTok{geom_hline}\NormalTok{(}\DataTypeTok{yintercept=}\DecValTok{0}\NormalTok{)}\OperatorTok{+}\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{xintercept=}\DecValTok{0}\NormalTok{)}\OperatorTok{+}\KeywordTok{geom_label}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label =}\NormalTok{ team))}\OperatorTok{+}\KeywordTok{xlab}\NormalTok{(}\StringTok{'Offensive EPA per Play'}\NormalTok{)}\OperatorTok{+}\KeywordTok{ylab}\NormalTok{(}\StringTok{'Defensive EPA per Play'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{nfl2 <-}\StringTok{ }\NormalTok{nfl2 }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{FirstDown =} \KeywordTok{case_when}\NormalTok{(}
-\NormalTok{    ydstogo }\OperatorTok{<}\StringTok{ }\NormalTok{Yards.Gained }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
-\NormalTok{    ydstogo }\OperatorTok{>}\StringTok{ }\NormalTok{Yards.Gained }\OperatorTok{~}\StringTok{ }\DecValTok{0}
-\NormalTok{    ))}
-\CommentTok{# filter by only plays on 4th down}
-\NormalTok{down4 =}\StringTok{ }\KeywordTok{filter}\NormalTok{(nfl2, nfl2[}\StringTok{'down'}\NormalTok{]}\OperatorTok{==}\DecValTok{4}\NormalTok{)}
-\NormalTok{down4 <-}\StringTok{ }\NormalTok{down4 }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(PlayType}\OperatorTok{!=}\StringTok{ 'Punt'}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(PlayType}\OperatorTok{!=}\StringTok{ 'No Play'}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(PlayType}\OperatorTok{!=}\StringTok{ 'QB Kneel'}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(PlayType}\OperatorTok{!=}\StringTok{ 'Timeout'}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{GoForIt =} \KeywordTok{case_when}\NormalTok{(}
-\NormalTok{    PlayType }\OperatorTok{==}\StringTok{ 'Pass'} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
-\NormalTok{    PlayType }\OperatorTok{==}\StringTok{ 'Run'} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
-\NormalTok{    PlayType }\OperatorTok{==}\StringTok{ 'Sack'} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
-\NormalTok{    PlayType }\OperatorTok{==}\StringTok{ 'Field Goal'} \OperatorTok{~}\StringTok{ }\DecValTok{0} 
-\NormalTok{  ))}
-
-\NormalTok{down4 <-}\StringTok{ }\NormalTok{down4 }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Success =} \KeywordTok{case_when}\NormalTok{(}
-\NormalTok{    FieldGoalResult }\OperatorTok{==}\StringTok{ 'Good'} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
-\NormalTok{    FirstDown }\OperatorTok{==}\StringTok{ }\DecValTok{1} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
-    \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\DecValTok{0}
-\NormalTok{  ))}
-\NormalTok{down5 <-}\StringTok{ }\NormalTok{down4 }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(yrdline100) }\OperatorTok{%>%}
-\StringTok{        }\KeywordTok{group_by}\NormalTok{(Success) }\OperatorTok{%>%}
-\StringTok{          }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Count =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}
-\StringTok{          }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Percentage=}\NormalTok{Count}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Count))}
-
-\KeywordTok{head}\NormalTok{(down5)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 2 x 3
-##   Success Count Percentage
-##     <dbl> <int>      <dbl>
-## 1       0  3341      0.301
-## 2       1  7751      0.699
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\StringTok{'}
-\StringTok{down5<- down4 %>%}
-\StringTok{  group_by(yrdline100) %>%}
-\StringTok{    group_by(ydstogo) %>%}
-\StringTok{      group_by(GoForIt) %>%}
-\StringTok{        group_by(Success) %>%}
-\StringTok{          summarize(Count = n()) %>%}
-\StringTok{          mutate(Percentage=Count/sum(Count))}
-\StringTok{'}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "\ndown5<- down4 %>%\n  group_by(yrdline100) %>%\n    group_by(ydstogo) %>%\n      group_by(GoForIt) %>%\n        group_by(Success) %>%\n          summarize(Count = n()) %>%\n          mutate(Percentage=Count/sum(Count))\n"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# create list of plays (list)}
-\CommentTok{# for i in 0-100:}
-\CommentTok{#   count = 0}
-\CommentTok{#   if yrdline100 = i:}
-\CommentTok{#       count = count+1}
-\CommentTok{#       list[i][count] = c(ydstogo, success, goforit)}
-
-\CommentTok{# group by yards to go}
-
-\CommentTok{# create list of probabilities (list2)}
-\CommentTok{#create final list (list_f)}
-\CommentTok{# for i in 0-100:}
-\CommentTok{#   create sublist (sublist)}
-\CommentTok{#   lst = list2[i]}
-\CommentTok{#   for i in length(lst):}
-\CommentTok{#       add lst[i][]}
-
-
-\CommentTok{## want to find every play with same situation and group by playtype and find success rate for going for it or kicking field goal}
-\end{Highlighting}
-\end{Shaded}
+\includegraphics{22-isaac_files/figure-latex/unnamed-chunk-12-1.pdf}
 
 \hypertarget{football-sample-space-probability}{%
 \paragraph{Football Sample Space
@@ -1152,172 +1087,75 @@ therefore the proportion is 2.0). This is certainly more complicated
 than flat betting (especially in large volumes), but it has been proven
 to provide theoretically optimal bet sizes.
 
-\hypertarget{sandbox-can-be-ignored}{%
-\paragraph{SANDBOX (Can be ignored)}\label{sandbox-can-be-ignored}}
+\hypertarget{unfinished-ideas-for-both-classes}{%
+\subsection{UNFINISHED IDEAS (for both
+classes)}\label{unfinished-ideas-for-both-classes}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{nfl=}\KeywordTok{read.csv}\NormalTok{(}\StringTok{'~/Google Drive/My Drive/Sports Analytics/SportsAnalyticsBook/data/nfl_pbp.csv'}\NormalTok{)}
-\NormalTok{nfl2 <-}\StringTok{ }\KeywordTok{select}\NormalTok{(nfl, }\KeywordTok{c}\NormalTok{(}\StringTok{'down'}\NormalTok{,}\StringTok{'yrdline100'}\NormalTok{,}\StringTok{'ydstogo'}\NormalTok{,}\StringTok{'Touchdown'}\NormalTok{,}\StringTok{'PlayType'}\NormalTok{,}\StringTok{'FieldGoalResult'}\NormalTok{,}\StringTok{'FieldGoalDistance'}\NormalTok{))}
-\KeywordTok{head}\NormalTok{(nfl2)}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{football}{%
+\subsubsection{Football}\label{football}}
 
-\begin{verbatim}
-##   down yrdline100 ydstogo Touchdown PlayType FieldGoalResult FieldGoalDistance
-## 1   NA         30       0         0  Kickoff            <NA>                NA
-## 2    1         58      10         0     Pass            <NA>                NA
-## 3    2         53       5         0      Run            <NA>                NA
-## 4    3         56       8         0     Pass            <NA>                NA
-## 5    4         56       8         0     Punt            <NA>                NA
-## 6    1         98      10         0      Run            <NA>                NA
-\end{verbatim}
+\hypertarget{average-expected-points-by-field-position}{%
+\paragraph{Average Expected Points by Field
+Position}\label{average-expected-points-by-field-position}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{## for each (grouping of 10 yards?) we get all the 4th down playtypes of fieldgoal and normal plays and see probability of success for each option, for each group}
-\CommentTok{# filter by only plays on 4th down}
-\NormalTok{down4 =}\StringTok{ }\KeywordTok{filter}\NormalTok{(nfl2, nfl2[}\StringTok{'down'}\NormalTok{]}\OperatorTok{==}\DecValTok{4}\NormalTok{)}
+\hypertarget{should-you-go-for-it-on-4th-down}{%
+\paragraph{Should you go for it on 4th
+down?}\label{should-you-go-for-it-on-4th-down}}
 
-\CommentTok{#see what play types are run on first down and remove the noise}
-\KeywordTok{group_by}\NormalTok{(down4,PlayType) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Count=}\KeywordTok{n}\NormalTok{())}\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Percentage=}\NormalTok{Count}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Count))}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{tennis-1}{%
+\subsubsection{Tennis}\label{tennis-1}}
 
-\begin{verbatim}
-## # A tibble: 8 x 3
-##   PlayType   Count Percentage
-##   <fct>      <int>      <dbl>
-## 1 Field Goal  7265  0.226    
-## 2 No Play     1433  0.0446   
-## 3 Pass        2239  0.0698   
-## 4 Punt       19551  0.609    
-## 5 QB Kneel      22  0.000685 
-## 6 Run         1424  0.0444   
-## 7 Sack         164  0.00511  
-## 8 Timeout        1  0.0000312
-\end{verbatim}
+\hypertarget{difference-of-means-nadal-on-clay-vs-other-surfaces}{%
+\paragraph{Difference of means Nadal on clay vs other
+surfaces}\label{difference-of-means-nadal-on-clay-vs-other-surfaces}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{down3 =}\StringTok{ }\KeywordTok{filter}\NormalTok{(down4, down4[}\StringTok{'PlayType'}\NormalTok{]}\OperatorTok{!=}\StringTok{'No Play'} \OperatorTok{||}\StringTok{ }\NormalTok{down4[}\StringTok{'PlayType'}\NormalTok{]}\OperatorTok{!=}\StringTok{ 'QB Kneel'} \OperatorTok{||}\StringTok{ }\NormalTok{down4[}\StringTok{'PlayType'}\NormalTok{]}\OperatorTok{!=}\StringTok{ 'Timeout'} \OperatorTok{||}\StringTok{ }\NormalTok{down4[}\StringTok{'PlayType'}\NormalTok{]}\OperatorTok{!=}\StringTok{ 'Punt'}\NormalTok{)}
-\KeywordTok{head}\NormalTok{(down3)}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{linear-regression-contrast-nadal-on-clay-vs-other-surfaces}{%
+\paragraph{Linear Regression contrast nadal on clay vs other
+surfaces}\label{linear-regression-contrast-nadal-on-clay-vs-other-surfaces}}
 
-\begin{verbatim}
-##   down yrdline100 ydstogo Touchdown   PlayType FieldGoalResult
-## 1    4         56       8         0       Punt            <NA>
-## 2    4         96       8         0       Punt            <NA>
-## 3    4         41      21         0       Punt            <NA>
-## 4    4         19       7         0 Field Goal         No Good
-## 5    4         79      16         0       Punt            <NA>
-## 6    4         44      22         0       Punt            <NA>
-##   FieldGoalDistance
-## 1                NA
-## 2                NA
-## 3                NA
-## 4                37
-## 5                NA
-## 6                NA
-\end{verbatim}
+\hypertarget{basketball}{%
+\subsubsection{Basketball}\label{basketball}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{## create 10 grouping dataframes (99-90,89-80,79-70,69-60,59-50,49-40,39-30,29-20,19-10,9-0)}
-\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"playtype"}\NormalTok{, }\StringTok{"outcome"}\NormalTok{)}
-\NormalTok{df99_}\DecValTok{90}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
-\KeywordTok{colnames}\NormalTok{(df99_}\DecValTok{90}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
-\NormalTok{df89_}\DecValTok{80}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
-\KeywordTok{colnames}\NormalTok{(df89_}\DecValTok{80}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
-\NormalTok{df79_}\DecValTok{70}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
-\KeywordTok{colnames}\NormalTok{(df79_}\DecValTok{70}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
-\NormalTok{df69_}\DecValTok{60}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
-\KeywordTok{colnames}\NormalTok{(df69_}\DecValTok{60}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
-\NormalTok{df59_}\DecValTok{50}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
-\KeywordTok{colnames}\NormalTok{(df59_}\DecValTok{50}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
-\NormalTok{df49_}\DecValTok{40}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
-\KeywordTok{colnames}\NormalTok{(df49_}\DecValTok{40}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
-\NormalTok{df39_}\DecValTok{30}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
-\KeywordTok{colnames}\NormalTok{(df39_}\DecValTok{30}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
-\NormalTok{df29_}\DecValTok{20}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
-\KeywordTok{colnames}\NormalTok{(df29_}\DecValTok{20}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
-\NormalTok{df19_}\DecValTok{10}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
-\KeywordTok{colnames}\NormalTok{(df19_}\DecValTok{10}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
-\NormalTok{df09_}\DecValTok{00}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{0}\NormalTok{))}
-\KeywordTok{colnames}\NormalTok{(df09_}\DecValTok{00}\NormalTok{) <-}\StringTok{ }\NormalTok{x}
+\hypertarget{difference-in-means-clutch-basketball-moments-high-leverage-situation-vs-low-leverage-situation}{%
+\paragraph{Difference in means clutch basketball moments (high leverage
+situation vs low leverage
+situation)}\label{difference-in-means-clutch-basketball-moments-high-leverage-situation-vs-low-leverage-situation}}
 
+\#Baseball
 
+\hypertarget{random-forest-pitch-classification}{%
+\paragraph{Random Forest pitch
+classification}\label{random-forest-pitch-classification}}
 
-\CommentTok{## create final dataframe with 3 columns: distance to goal, field goal probability, td probability}
-\CommentTok{#df_prob <- data.frame(matrix(ncol = 3, nrow = 0))}
-\CommentTok{#y = c('distance_to_goal','fg_prob','td_prob')}
-\CommentTok{#colnames(df_prob) <- x}
-\CommentTok{#down3 %>%}
-\CommentTok{#  group_split(yrdline100)}
+\hypertarget{scrape-daily-lineups-from-baseballpress.com-and-get-summary-statistics-from-baseballr-or-other-package}{%
+\paragraph{Scrape daily lineups from baseballpress.com and get summary
+statistics from baseballr or other
+package}\label{scrape-daily-lineups-from-baseballpress.com-and-get-summary-statistics-from-baseballr-or-other-package}}
 
-\NormalTok{down3 }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{distance =} \KeywordTok{case_when}\NormalTok{(down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{100} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{89} \OperatorTok{~}\StringTok{ }\DecValTok{90}\NormalTok{,}
-\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{90} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{79} \OperatorTok{~}\StringTok{ }\DecValTok{80}\NormalTok{,}
-\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{80} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{69} \OperatorTok{~}\StringTok{ }\DecValTok{70}\NormalTok{,}
-\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{70} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{59} \OperatorTok{~}\StringTok{ }\DecValTok{60}\NormalTok{,}
-\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{60} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{49} \OperatorTok{~}\StringTok{ }\DecValTok{50}\NormalTok{,}
-\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{50} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{39} \OperatorTok{~}\StringTok{ }\DecValTok{40}\NormalTok{,}
-\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{40} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{29} \OperatorTok{~}\StringTok{ }\DecValTok{30}\NormalTok{,}
-\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{30} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{19} \OperatorTok{~}\StringTok{ }\DecValTok{20}\NormalTok{,}
-\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{20} \OperatorTok{&}\StringTok{ }\NormalTok{down3[}\StringTok{'yrdline100'}\NormalTok{] }\OperatorTok{>}\DecValTok{9} \OperatorTok{~}\StringTok{ }\DecValTok{10}\NormalTok{,}
-\NormalTok{                           down3[}\StringTok{'yrdline100'}\NormalTok{]}\OperatorTok{<}\DecValTok{10} \OperatorTok{~}\StringTok{ }\DecValTok{0}
-\NormalTok{    )) ->}\StringTok{ }\NormalTok{down3}
-\NormalTok{down3 }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{group_split}\NormalTok{(distance) ->}\StringTok{ }\NormalTok{yrd_df}
+\hypertarget{how-relevant-is-1st-inning-pitching-performance-to-the-rest-of-the-games-performance}{%
+\paragraph{How relevant is 1st inning pitching performance to the rest
+of the games
+performance?}\label{how-relevant-is-1st-inning-pitching-performance-to-the-rest-of-the-games-performance}}
 
-\NormalTok{df99_}\DecValTok{90}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{10}\NormalTok{]]}
-\NormalTok{df89_}\DecValTok{80}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{9}\NormalTok{]]}
-\NormalTok{df79_}\DecValTok{70}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{8}\NormalTok{]]}
-\NormalTok{df69_}\DecValTok{60}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{7}\NormalTok{]]}
-\NormalTok{df59_}\DecValTok{50}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{6}\NormalTok{]]}
-\NormalTok{df49_}\DecValTok{40}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{5}\NormalTok{]]}
-\NormalTok{df39_}\DecValTok{30}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{4}\NormalTok{]]}
-\NormalTok{df29_}\DecValTok{20}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{3}\NormalTok{]]}
-\NormalTok{df19_}\DecValTok{10}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{2}\NormalTok{]]}
-\NormalTok{df09_}\DecValTok{00}\NormalTok{ <-}\StringTok{ }\NormalTok{yrd_df[[}\DecValTok{1}\NormalTok{]]}
-\NormalTok{df09_}\DecValTok{00} \OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(df09_}\DecValTok{00}\NormalTok{[}\StringTok{'PlayType'}\NormalTok{]}\OperatorTok{==}\StringTok{'Field Goal'}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(FieldGoalResult) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Count=}\KeywordTok{n}\NormalTok{())}\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Percentage=}\NormalTok{Count}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Count))}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{comparing-difference-of-means-of-lefty-pitchers-vs-righties}{%
+\paragraph{Comparing difference of means of lefty pitchers vs
+righties}\label{comparing-difference-of-means-of-lefty-pitchers-vs-righties}}
 
-\begin{verbatim}
-## # A tibble: 4 x 3
-##   FieldGoalResult Count Percentage
-##   <fct>           <int>      <dbl>
-## 1 Blocked            19    0.0116 
-## 2 Good             1593    0.974  
-## 3 No Good            21    0.0128 
-## 4 <NA>                2    0.00122
-\end{verbatim}
+\hypertarget{hockey}{%
+\subsubsection{Hockey}\label{hockey}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{df09_}\DecValTok{00} \OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(df09_}\DecValTok{00}\NormalTok{[}\StringTok{'PlayType'}\NormalTok{]}\OperatorTok{!=}\StringTok{'Field Goal'} \OperatorTok{&&}\StringTok{ }\NormalTok{df09_}\DecValTok{00}\NormalTok{[}\StringTok{'PlayType'}\NormalTok{]}\OperatorTok{!=}\StringTok{'Punt'}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(Touchdown) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{Count=}\KeywordTok{n}\NormalTok{())}\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Percentage=}\NormalTok{Count}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Count))}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{difference-in-means-scoring-between-2nd-and-3rd-period}{%
+\paragraph{Difference in means scoring between 2nd and 3rd
+period}\label{difference-in-means-scoring-between-2nd-and-3rd-period}}
 
-\begin{verbatim}
-## # A tibble: 2 x 3
-##   Touchdown Count Percentage
-##       <int> <int>      <dbl>
-## 1         0  2128     0.910 
-## 2         1   210     0.0898
-\end{verbatim}
+\hypertarget{misc}{%
+\subsubsection{Misc}\label{misc}}
+
+\hypertarget{assignemnt-idea-where-the-main-purpose-is-creating-interesting-visualizations-from-a-dataset-since-conveying-statistical-information-to-others-is-often-as-important-as-understanding-it-yourself}{%
+\paragraph{Assignemnt idea where the main purpose is creating
+interesting visualizations from a dataset since conveying statistical
+information to others is often as important as understanding it
+yourself}\label{assignemnt-idea-where-the-main-purpose-is-creating-interesting-visualizations-from-a-dataset-since-conveying-statistical-information-to-others-is-often-as-important-as-understanding-it-yourself}}
 
 
 \end{document}

@@ -7,6 +7,11 @@ output:
 
 ```{r, include=FALSE}
 library("tidyverse")
+library("kableExtra")
+
+kt <- function(data) {
+   knitr::kable(data, digits=3, align=c('l','c','c','c','c','c','c','c','c')) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+}
 ```
 
 
@@ -252,9 +257,9 @@ library("tidyverse")
 
 <!-- This is a much simpler and neater way to calculate Four Factors. -->
 
-<!-- In the 2017-18 season, the Warriors and Cavaliers met in the NBA Finals, while the Nuggets just missed the playoffs. It would be expected that the two Finals teams would have higher values for the Four Factors. While this is mostly true, for which of the Four Factors did the Nuggets have the highest value? -->
+In the 2017-18 season, the Warriors and Cavaliers met in the NBA Finals, while the Nuggets just missed the playoffs. It would be expected that the two Finals teams would have higher values for the Four Factors. While this is mostly true, for which of the offensive Four Factors did the Nuggets have a better value than the Cavaliers and Warriors?
 
-<!-- A: Factor 3 (rebounding percentage), both offensive and defensive. -->
+A: Factor 3 (rebounding percentage), since 25.66 > 21.05 and 20.06. The only Factor in which the Nuggets were the best on the defensive side was also rebounding percentage.
 
 <!-- ## Basketball - BasketballAnalyzeR Shot Charts -->
 
@@ -455,33 +460,33 @@ library("tidyverse")
 
 <!-- If we are interested in the probability of the team winning two of the next five games, drawing two, and losing one, we cannot use the binomial theorem. That involves three outcomes, and would be represented as a multinomial. <!--- assuming regularity conditions such as independence. --> -->
 
-<!-- ## Multinomial Distribution - Baseball -->
+## Multinomial Distribution - Baseball
 
-<!-- The following PMF displays the number of possible bases for a hit in baseball against the frequency of that type of hit for Hank Aaron, who is third all-time in Major League baseball hits with 3,771. -->
+The following PMF displays the number of possible bases for a hit in baseball against the frequency of that type of hit for Hank Aaron, who is third all-time in Major League baseball hits with 3,771.
 
-<!-- ```{r multinomial, include=F} -->
-<!-- Number_bases <- c(1:4) -->
-<!-- Hit_Frequency <- c(2294, 624, 98, 755) -->
-<!-- Hit_Proportion <- round(Hit_Frequency / sum(Hit_Frequency), 5) -->
+```{r multinomial, include=F}
+Number_bases <- c(1:4)
+Hit_Frequency <- c(2294, 624, 98, 755)
+Hit_Proportion <- round(Hit_Frequency / sum(Hit_Frequency), 5)
 
-<!-- Hank_Aaron_PMF <- data.frame(Number_bases, Hit_Proportion); Hank_Aaron_PMF -->
-<!-- ``` -->
+Hank_Aaron_PMF <- data.frame(Number_bases, Hit_Proportion); Hank_Aaron_PMF
+```
 
-<!-- | Number of Bases, $x$  | 1 | 2 | 3 | 4 | -->
-<!-- |:---------------------:|:-:|:-:|:-:|:-:| -->
-<!-- | Probability, $P(X=x)$ | 0.61 | 0.16 | 0.03 | 0.20 | -->
+| Number of Bases, $x$  | 1 | 2 | 3 | 4 |
+|:---------------------:|:-:|:-:|:-:|:-:|
+| Probability, $P(X=x)$ | 0.61 | 0.16 | 0.03 | 0.20 |
 
-<!-- Q: What is the probability that a randomly selected subset of 5 hits from Hank Aaron includes three singles, one double, and one home run? -->
+Q: What is the probability that a randomly selected subset of 5 hits from Hank Aaron includes three singles, one double, and one home run?
 
-<!-- <!-- note: assumes sampling with replacement. Without replacement would be a multivariate hypergeometric and would slightly increase the probability.  --> -->
+<!-- note: assumes sampling with replacement. Without replacement would be a multivariate hypergeometric and would slightly increase the probability.  -->
 
-<!-- A: From the Multinomial PMF, this is $P(X_1 = 3, X_2 = 1, X_3 = 0, X_4 = 1) = \frac{5!}{3!\ \cdot 1!\ \cdot 0!\ \cdot 1!}\ (.61)^3\cdot\ (.16)^1\cdot\ (.03)^0\cdot\ (.20)^1 \approx .145$ -->
+A: From the Multinomial PMF, this is $P(X_1 = 3, X_2 = 1, X_3 = 0, X_4 = 1) = \frac{5!}{3!\ \cdot 1!\ \cdot 0!\ \cdot 1!}\ (.61)^3\cdot\ (.16)^1\cdot\ (.03)^0\cdot\ (.20)^1 \approx .145$
 
-<!-- The probability can also be found in `R` using the `dmultinom` function. -->
+The probability can also be found in `R` using the `dmultinom` function.
 
-<!-- ```{r multinomial 2} -->
-<!-- dmultinom(x = c(3, 1, 0, 1), prob = c(.61, .16, .03, .20)) -->
-<!-- ``` -->
+```{r multinomial 2}
+dmultinom(x = c(3, 1, 0, 1), prob = c(.61, .16, .03, .20))
+```
 
 <!-- ## Geometric (First Success) RVs -->
 
@@ -586,9 +591,9 @@ library("tidyverse")
 
 
 
-<!-- ## Multiple Probability Distributions - Basketball -->
+## Multiple Probability Distributions - Basketball
 
-<!-- Suppose the number of points scored by a basketball player follows a Poisson(12) random variable, the number of rebounds by a Poisson(7) distribution, and assists by a Discrete Uniform(2, 11), independently of each other. -->
+Suppose the number of points scored by a basketball player follows a Poisson(12) random variable, the number of rebounds by a Poisson(7) distribution, and the number of assists by a random variable that is equally likely to take on any of the integers from 2 to 11, inclusive. Let points, rebounds, and assists be independent of each other.
 
 <!-- Q: What is the probability that this player records a points, rebounds, assists triple-double in a game? -->
 
@@ -729,30 +734,30 @@ library("tidyverse")
 
 <!-- Pearson's correlation coefficient is unaffected by changes in location (adding a constant) or scale (multiplying by a constant) of data. To illustrate this concept, let's consider the correlation between the number of points scored by the winning team of the Super Bowl and 1) the number of the Super Bowl {1, 2, 3, ... , 56} and 2) the year of the Super Bowl {1967, 1968, 1969, ... , 2022}. -->
 
-<!-- ```{r correlation properties, include=FALSE} -->
-<!-- Super_Bowl_Number <- c(1:56) -->
-<!-- Super_Bowl_Year <- c(1967:2022) -->
-<!-- Winning_Team_Points <- c(35,33,16,23,16,24,14,24,16,21,32,27,25,31,27,26,27,38,38,46,39,42,20,55,20,37,52,30,49,27,35,31,34,23,34,20,48,32,24,21,29,17,27,31,31,21,34,43,28,24,34,41,13,31,31,23) -->
+```{r correlation properties, include=FALSE}
+Super_Bowl_Number <- c(1:56)
+Super_Bowl_Year <- c(1967:2022)
+Winning_Team_Points <- c(35,33,16,23,16,24,14,24,16,21,32,27,25,31,27,26,27,38,38,46,39,42,20,55,20,37,52,30,49,27,35,31,34,23,34,20,48,32,24,21,29,17,27,31,31,21,34,43,28,24,34,41,13,31,31,23)
 
-<!-- Super_Bowl_Data <- data.frame(Super_Bowl_Number, Super_Bowl_Year, Winning_Team_Points) -->
-<!-- ``` -->
+Super_Bowl_Data <- data.frame(Super_Bowl_Number, Super_Bowl_Year, Winning_Team_Points)
+```
 
-<!-- ```{r correlation properties 2, echo=FALSE} -->
-<!-- ggplot(Super_Bowl_Data, aes(x=Super_Bowl_Number, y=Winning_Team_Points)) +  -->
-<!--     geom_point() + -->
-<!--     geom_line(color="red") + -->
-<!--     ggtitle("Super Bowl Number and Points Scored by Winning Team") -->
+```{r correlation properties 2, echo=FALSE}
+ggplot(Super_Bowl_Data, aes(x=Super_Bowl_Number, y=Winning_Team_Points)) +
+    geom_point() +
+    geom_line(color="red") +
+    ggtitle("Super Bowl Number and Points Scored by Winning Team")
 
-<!-- ggplot(Super_Bowl_Data, aes(x=Super_Bowl_Year, y=Winning_Team_Points)) +  -->
-<!--     geom_point() + -->
-<!--     geom_line(color="red") + -->
-<!--     ggtitle("Super Bowl Number and Points Scored by Winning Team") -->
-<!-- ``` -->
+ggplot(Super_Bowl_Data, aes(x=Super_Bowl_Year, y=Winning_Team_Points)) +
+    geom_point() +
+    geom_line(color="red") +
+    ggtitle("Super Bowl Year and Points Scored by Winning Team")
+```
 
-<!-- ```{r correlation properties 3} -->
-<!-- cor(Super_Bowl_Number, Winning_Team_Points) -->
-<!-- cor(Super_Bowl_Year, Winning_Team_Points) -->
-<!-- ``` -->
+```{r correlation properties 3}
+cor(Super_Bowl_Number, Winning_Team_Points)
+cor(Super_Bowl_Year, Winning_Team_Points)
+```
 
 <!-- The only difference between the two plots is that the x-axis is shifted. Since the change is essentially a linear (location) transformation, the correlations are identical. -->
 
@@ -816,4 +821,186 @@ library("tidyverse")
 <!-- *Data: https://en.wikipedia.org/wiki/2021_NBA_draft, https://www.nba.com/standings?GroupBy=conf&Season=2020-21&Section=overall* -->
 
 
+## Betting Strategy Expectations
 
+A sports bettor wishes to wager on as many as 4 upcoming games; the bets are all uncorrelated. The bettor is considering between a traditional strategy of betting \$1 on each game and a martingale strategy where \$1 is bet on the first game amd the bet is doubled for the next game if the previous bet is not won, stopping once one bet is won. If any bet is won, the bettor is returned twice their wager; if the bet is lost, the bettor forfeits their wager. Suppose the house advantage is 4% and the bettor has no special skill (i.e., is no better than flipping a coin) at picking the games. 
+
+Q: Calculate the probability the bettor wins their first wager.
+
+A: $\frac{1 - 0.04}{2} = 0.48$
+
+Find the expected value of the traditional betting strategy.\
+*Hint: Find the expected value of one bet and then use the homogeneity property of expectation ($E[cX] = cE[X]$) to find the expected value of four bets.*
+
+$E[Traditional\ bet] = (1)(.48) + (-1)(.52) = -0.04$\
+$-0.04 * 4 = -0.16$
+
+Find the expected value of the martingale betting strategy.\
+*Hint: Consider two possible cases: one where a bet is won, and one where all four bets are lost.*
+
+$E[Martingale] = E[Martingale\ |\ a\ bet\ is\ won] + E[Martingale\ |\ all\ four\ bets\ lost] = (1)(1 - .52^4) + (-15)(.52^4) = -0.17$
+
+Q: Compare the expected values of each strategy. By observation, which strategy has the higher variance? What does this say about the martingale strategy and the tradeoff between probability and expectation in gambling?
+
+A: The expected values are essentially equal, but the variance of the martingale strategy is much higher. While the probability of making a profit is higher using the martingale, the overall expectation is lower since there is about a 7% "risk of ruin" (i.e., losing all four bets).
+
+Q: Which probability distribution has its right tail represented in the "risk of ruin" term in the martingale expectation?
+
+A: Geometric(p = .48).
+
+Extra Credit/Advanced: Generalize the martingale strategy expectation for $n$ possible uncorrelated bets, initial wager amount $w$, and constant probability of success $p$.\
+*Hint: Consider the fact that $\sum_{i=0}^{n-1} 2^i = 2^n - 1$ for $n \geq 1$.*
+
+$E[Martingale] = (w)(1 - (1-p)^n) + (-w)(2^n - 1)(1-p)^n$
+
+
+## Negative Binomial Example
+
+<!-- I might have p and 1-p backwards from the notation in the book -->
+
+In 2022, the Colorado Mammoth won the National Lacrosse League championship. Over the course of the season, defenseman Tim Edwards took 363 faceoffs and won 187. Assume $\frac{187}{363} = .516$ is Edwards' true faceoff win percentage.
+
+Q: Identify the appropriate distribution and parameters. What is the probability that Edwards' 5th faceoff win will come on his 9th attempt?
+
+A: $X \sim NegBin(5,\ .516)$. For the 5th success to occur on the 9th trial (that is, for $X$ to equal 4), the first 8 attempts must contain 4 wins and 4 losses; they can be in any order. The expression for this probability is:
+
+$\binom{8}{4} (.516)^4(1-.516)^4$
+
+Then, the 9th faceoff attempt must be a success. The probability of success for that trial can be multiplied to the previous expression because of independence.
+
+$\binom{8}{4} (.516)^4(1-.516)^4 \cdot (.516) = \binom{8}{4} (.516)^5(1-.516)^4 = .141$
+
+As always, we will check our answer using the corresponding probability function in `R`.
+
+```{r negbin}
+dnbinom(4, 5, .516)
+```
+
+(Optional/Save for homework) Q: Provide an expression for the probability that it will take more than 15 faceoffs to observe Edwards' 7th faceoff win.
+
+A: If it takes more than 15 trials to observe the seventh success, there were at least 9 failures on the way. Thus, we are interested in $P(X \geq 9)$. For all $k \geq 9$, there must be 6 successes and $k$ failures in the first $k + 6$ trials and then a success on the final trial. Since the sample space of a Negative Binomial experiment is uncountably infinite, this expression is an infinite sum.
+
+$\sum_{k=9}^{\infty} \binom{k + 7 - 1}{k}(.516)^7(1-.516)^k$
+
+```{r negbin 2}
+pnbinom(8.5, 7, .516, lower.tail=FALSE)
+```
+
+If we want to avoid an infinite sum, the following expression is equivalent:
+
+$1 - \sum_{k=0}^{8} \binom{k + 7 - 1}{k}(.516)^7(1-.516)^k$
+
+```{r negbin 3}
+1 - pnbinom(8, 7, .516, lower.tail=TRUE)
+```
+
+*Data: [coloradomammoth.com/team/stats/all-player-stats](https://coloradomammoth.com/team/stats/all-player-stats/)*
+
+## Categorical Association - US Women's National Hockey Team
+
+The US Women's National Hockey Team has reached the gold medal game in each of the past four Winter Olympic Games and won the gold in 2018. In the past three Olympiads, the team has played 19 games. Data on whether the team scored or allowed the first goal, split by wins and losses, is in the table below. Note that ties do not occur in Olympic hockey games.
+
+```{r yules q, echo=FALSE}
+uswnht <- data.frame(c(12, 2), c(2, 3))
+colnames(uswnht) <- c("Won", "Lost")
+rownames(uswnht) <- c("Scored First", "Did Not Score First")
+uswnht %>% kt()
+```
+
+Q: What is the probability that the team won a game, conditional on the event they were the first team to score?
+
+A: $\frac{12}{12+2} = .857$
+
+Calculate the cross-product ratio for the above data.
+
+$\frac{12 \cdot 3}{2 \cdot 2} = 9$
+
+Q: If the cross-product ratio was lower (say, 3), would the knowledge of which team scored first be a more predictive estimate of the winning team?
+
+A: No, knowing which team scored first would be less informative toward predicting the winning team since there would be more data points "in disagreement" rather than "in agreement".
+
+Transform the cross-product ratio to Yule's Q.
+
+$Q = \frac{9 - 1}{9 + 1} = 0.8$
+
+Check:
+
+$\frac{12 \cdot 3 - 2 \cdot 2}{12 \cdot 3 + 2 \cdot 2} = 0.8\  \checkmark$
+
+
+## Categorical Association Homework Question
+
+The Chicago Sky were the champions of the 2021 WNBA season. In this question, we'll investigate some of their regular season game-by-game stats.
+
+Data: https://www.basketball-reference.com/wnba/teams/CHI/2021/gamelog/
+
+1. Upload the dataset from Canvas. Note that in the column names, "Opp" stands for "Opponent". Create a column in the dataset with a 1 if the Sky won the game and a 0 otherwise.
+
+```{r categorical association 1}
+sky_data <- read.csv("C:/Users/Fam/Downloads/2021_Chicago_Sky_Data.csv")
+
+sky_data <- sky_data %>%
+  mutate(win = if_else(SkyPts > OppPts, 1, 0))
+```
+
+2. Basketball coaches often talk about "winning the rebound battle" as a key of winning a game. Create another column of an indicator variable for whether the Sky had more rebounds than their opponent.
+
+```{r categorical association 2}
+sky_data <- sky_data %>%
+  mutate(rebBattle = if_else(SkyREB > OppREB, 1, 0))
+```
+
+3. Find the correlation between the two columns you just created. What does this mean about the relationship between winning the rebound battle and winning the game?
+
+```{r categorical association 3}
+cor(sky_data$win, sky_data$rebBattle)
+```
+
+Since $r > 0$, the data indicate that winning the rebound battle is associated with a greater probability of winning the game.
+
+4. Use the `xtabs` function to create a 2x2 table of the frequencies of winning the rebound battle and winning the game. Save it as an object and print the table. Note: Ensure that the 1,1 cell of the table corresponds to *either* winning both the rebound battle and winning the game *or* losing both. If this is not the case, the answers to the following two questions will be different.
+
+```{r categorical association 4}
+sky_table <- xtabs(~win+rebBattle, data=sky_data)
+sky_table
+```
+
+5. Find the cross-product ratio of the table. Does the ratio support your conclusion from part 3?
+
+```{r categorical association 5}
+ratio <- (sky_table[1,1] * sky_table[2,2]) / (sky_table[1,2] * sky_table[2,1])
+ratio
+```
+Since $\alpha > 1$, the cross-product ratio indicates that winning the rebound battle is associated with a greater probability of winning the game, agreeing with the interpretation of the correlation.
+
+6. Find Yule's Q for the table.
+
+```{r categorical association 6}
+q <- (ratio - 1) / (ratio + 1)
+q
+```
+
+## Runs Test Homework Question
+
+1. Using the same Chicago Sky dataset and the column you created, calculate the number of "runs" in the team's win/loss results.
+
+```{r sky streaks}
+sky_streaks <- rle(sky_data$win)
+length(sky_streaks$lengths)
+```
+
+2. What is the expected number of runs for a team that finishes 16-16? What is the standard deviation?
+
+$\mu = \frac{2 \cdot 16 \cdot 16}{32} + 1 = 17$
+
+$\sigma = \sqrt{\frac{(17-1)(17-2)}{32-1}} = 2.78$
+
+3. Find the z-score for the 2021 Sky results. Would the null hypothesis that wins and losses are randomly distributed throughout the season be rejected at the $\alpha = 0.05$ significance level? What does this say about the "streakiness" of the Sky?
+
+$Z = \frac{13 - 17}{2.78} = -1.44$
+
+At $\alpha = 0.05$, we would fail to reject the hypothesis that the wins and losses are randomly dispersed. We cannot conclude that the Sky were a "streaky" team in the 2021 regular season.
+
+4. Is the expected number of runs higher for a team that finishes near the top or bottom of the WNBA standings, or for a team that finishes near .500 like the Sky? Explain.
+
+One would expect that a team with a number of wins close to its number of losses would have more runs.
