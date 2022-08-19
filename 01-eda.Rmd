@@ -880,7 +880,9 @@ Tibbles are a type of data frame supported by the `tidyverse` package. The follo
 
 ```{r four factors}
 
-basketball_data <- tibble(team = c("CSU","WYO"), FG = c(14,15), FGA = c(48,60), THREEP = c(5,4), FT = c(10,4), FTA = c(14,4), ORB = c(2,14), DRB = c(31,30), TOV = c(5,12))
+basketball_data <- tibble(team = c("CSU","WYO"), FG = c(14,15), FGA = c(48,60), 
+                          THREEP = c(5,4), FT = c(10,4), FTA = c(14,4), 
+                          ORB = c(2,14), DRB = c(31,30), TOV = c(5,12))
 basketball_data %>% kt()
 ```
 
@@ -1068,7 +1070,8 @@ For this example, we'll use a set of NHL data from moneypuck.com. First, let's l
 :::
 
 ```{r hockey_ggplot1, message=F, warning=F}
-nhl_2022_data <- read_csv("https://moneypuck.com/moneypuck/playerData/seasonSummary/2021/regular/teams.csv")
+url <- "https://moneypuck.com/moneypuck/playerData/seasonSummary/2021/regular/teams.csv"
+nhl_2022_data <- read_csv(url)
 
 nhl_2022_data %>% 
   slice_head(n=10) %>% 
@@ -1120,15 +1123,25 @@ ggplot(data=nhl_data_all, aes(x=xGoalsFor, y=goalsFor)) +
 
 *Note: A slope of 0 and an intercept of 1 are actually the default parameters for the function.*
 
-Q: What does it mean for a team's data point to fall below this line? Above it?
+What does it mean for a team's data point to fall below this line? Above it?
 
-A: If the data point is below the line, it means the expected goals were greater than the actual goals; if the data point is above the line, it means the actual goals were greater than the expected goals. 
+\
+\
+\
+\
 
-Q: Do you think that a team's expected goals would be more likely to be closer to its actual goals for a ten-game stretch, an entire season, or five consecutive seasons? Why?
+<!-- A: If the data point is below the line, it means the expected goals were greater than the actual goals; if the data point is above the line, it means the actual goals were greater than the expected goals.  -->
+
+Do you think that a team's expected goals would be more likely to be closer to its actual goals for a ten-game stretch, an entire season, or five consecutive seasons? Why?
+
+\
+\
+\
+\
 
 <!-- Question could be reworded/clarified to mean "closer" in a relative (ratio) sense, rather than an absolute sense. -->
 
-A: We would expect that as sample size increases, the result would become closer to expectation. So, actual goals would be most likely closer to expected goals over a span of five seasons.
+<!-- A: We would expect that as sample size increases, the result would become closer to expectation. So, actual goals would be most likely closer to expected goals over a span of five seasons. -->
 
 <!--- This is basically conceptualizing the LLN, but that would rely on this calculation of expected goals being an unbiased estimator of actual goals. -->
 
@@ -1166,13 +1179,21 @@ The following plot compares save percentage to the number of shots on goal faced
 ggplot(data=filtered_goalie_data, aes(x=SV., y=Shots.Against)) + labs(x="Save Percentage", y="Shots On Goal Faced",title="NHL Goalies: Save Percentage vs. Volume of Shots, 2021-22") + geom_point() + geom_hline(yintercept=mean(filtered_goalie_data$Shots.Against), color="red", linetype="dashed") + geom_vline(xintercept=mean(filtered_goalie_data$SV.),color="red", linetype="dashed")
 ```
 
-Q: Which quadrant of the graph represents goalies that faced a higher than average number of shots, but had a below-average save percentage?
+Which quadrant of the graph represents goalies that faced a higher than average number of shots, but had a below-average save percentage?
 
-A: The second (upper left) quadrant.
+\
+\
+\
 
-Q: Which quadrant represents goalies that had a high save percentage and faced a high volume of shots?
+<!-- A: The second (upper left) quadrant. -->
 
-A: The first (upper right) quadrant.
+Which quadrant represents goalies that had a high save percentage and faced a high volume of shots?
+
+\
+\
+\
+
+<!-- A: The first (upper right) quadrant. -->
 
 ### Correlation Plots
 
@@ -1219,6 +1240,7 @@ Volleyball rules Youtube video: https://www.youtube.com/watch?v=9g7nYQv-kPM
 -   A **Kill (K)** occurs when a player gets the ball over the net without it being returned by the opponent.
 -   An **Assist (AST)** is a pass made directly before a player makes a kill.
 -   **Hitting Percentage (PCT)** is the number of attempted kills (minus errors) divided by the total number of kill attempts. This helps determine how well a player or team is succeeding at their kill attempts.
+- A **Dig** is a pass of a hard-driven ball from the other team. 
 
 *Reference:* \
 www.rookieroad.com
