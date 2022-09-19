@@ -32,7 +32,7 @@ An ***event*** is any collection (subset) of outcomes contained in the sample sp
 :::
 
 :::{.example}
-Give an example of a discrete random variable in a sports context.
+Give some examples of discrete random variables in sports.
 :::
 \
 \
@@ -42,7 +42,7 @@ Give an example of a discrete random variable in a sports context.
 
 :::{.example}
 
-Give an example of a continuous random variable in a sports context.
+Give some examples of continuous random variables in sports.
 :::
 \ 
 \
@@ -73,6 +73,7 @@ Draw a Venn diagram illustrating $A^c$ and describe the event.
 \
 \
 \
+\vfill
 
 :::{.definition}
 The ***union*** of two events $A$ and $B$, denoted by $A \cup B$ and read "$A$ or $B$", is the event consisting of all outcomes that are either in $A$ or $B$ or in both.
@@ -87,6 +88,9 @@ Draw a Venn diagram illustrating $A \cup D$ and describe the event.
 \
 \
 \
+\vfill
+
+\newpage
 
 :::{.definition}
 The ***intersection*** of two events $A$ and $B$, denoted by $A \cap B$ and read "$A$ and $B$", is the event consisting of all outcomes that are in both $A$ and $B$.
@@ -101,6 +105,7 @@ Draw a Venn diagram illustrating $A \cap D$ and describe the event.
 \
 \
 \
+\vfill
 
 :::{.definition}
 The ***difference*** of two events $A$ and $B$, denoted by $A \mathbin{/} B$ and read "difference of $A$ and $B$", is
@@ -116,6 +121,7 @@ Draw a Venn diagram illustrating $D \mathbin{/} A$ and describe the event.
 \
 \
 \
+\vfill
 
 
 
@@ -132,6 +138,7 @@ Are the events $A$ and $B$ disjoint? How about $A$ and $D$?
 \
 \
 \
+\vfill
 
 \newpage
 
@@ -146,7 +153,7 @@ There are some basic assumptions of "axioms" which are the foundation of the the
 1. $P(A) \geq 0$, for any event $A$ \
 2. $P(\Omega) = 1$ \
 3. If $A_1, A_2, A_3, \ldots$ is a collection of disjoint events, then: \
-$P(\cup_{i=1}^{\infty} A_i) = P(A_1 \cup A_2 \cup \ldots ) = \sum_{i=1}^{\infty} P(A_i)$
+$P(\cup_{i=1}^{\infty} A_i) = P(A_1 \cup A_2 \cup \ldots ) = \sum_{i=1}^{\infty} P(A_i)$ \
 
 Note that all probabilities are between 0 and 1, that is, for any event $A$, $0 \leq P(A) \leq 1$.
 
@@ -156,15 +163,15 @@ We can convert to percentages by multiplying probabilities by 100, however, this
 
 - $P(\emptyset) = 0$ \
 
-- $P(A^c) = 1 - P(A)$ 
+- $P(A^c) = 1 - P(A)$ \
 
-- $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+- $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ \
 
-- $P(A \cup B \cup C) = \\ P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)$
+- $P(A \cup B \cup C) = \\ P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)$ \
 
-- $P([A \cup B]^c) = P(A^c \cap B^c)$
+- $P([A \cup B]^c) = P(A^c \cap B^c)$ \
 
-- $P([A \cap B]^c) = P(A^c \cup B^c)$
+- $P([A \cap B]^c) = P(A^c \cup B^c)$ \
 
 \newpage
 
@@ -261,6 +268,8 @@ In 1998, Sammy Sosa hit 66 home runs in 722 plate appearances, the third highest
 \
 \vfill
 
+\newpage
+
 
 :::{.theorem name="Multiplication Rule"}
 For any two events $A$ and $B$, $P(A \cap B) = P(B|A) \cdot P(A)$.
@@ -275,7 +284,6 @@ Calculate the probability that a randomly selected plate appearance from Sosa's 
 \
 \vfill
 
-\newpage
 
 
 
@@ -298,6 +306,7 @@ What is one possible way to partition Sosa's plate appearances in 1998?
 \
 \
 \
+\vfill
 
 
 
@@ -318,6 +327,9 @@ Given that Sosa hit a home run in 1998, what is the probability that he hit it i
 \
 \
 \
+\vfill
+
+\newpage
 
 
 :::{.example}
@@ -328,16 +340,19 @@ Over the course of a season, a hockey player scored a goal 30% of the time durin
 \
 \
 \
+\vfill
 
 (b) What is the probability the player scored a goal in any game if there were twice as many home games as away games? \
 \
 \
 \
+\vfill
 
 (c) What is the probability the player scored a goal in any game if the ratio of home games to away games is 2:3? \
 \
 \
 \
+\vfill
 
 
 \newpage
@@ -359,6 +374,7 @@ A baseball/softball batting lineup has nine ordered players. Suppose the manager
 \
 \
 \
+\vfill
 
 :::{.definition}
 An ordered subset is called a ***permutation***. The number of permutations of size $k$ that can be formed from the $n$ elements in a set is given by: $P_{n,k} = \frac{n!}{(n-k)!}$
@@ -371,6 +387,7 @@ In MLB, each team has a 26-person roster, of which about 13 are hitters. Assumin
 \
 \
 \
+\vfill
 
 :::{.definition}
 An unordered subset is called a ***combination***. The number of combinations of size $k$ that can be formed from the $n$ elements in a set is given by: $C_{n,k} = {n \choose k} = \frac{n!}{k! \cdot (n-k)!}$
@@ -380,6 +397,10 @@ An unordered subset is called a ***combination***. The number of combinations of
 Suppose a manager has 13 hitters to choose from to fill out a starting lineup of 9 players. Ignoring positions, how many different ways can the manager pick a 9-person lineup from 13 possible hitters?
 :::
 
+\vfill
+
+\newpage
+
 :::{.theorem name="Product Rule for Ordered Pairs"}
 If the first element of an ordered pair can be selected in $n_1$ ways and for each of the these $n_1$ ways the second element of the pair can be selected in $n_2$ ways, then the number of pairs is $n_1 \cdot n_2$.
 :::
@@ -388,6 +409,7 @@ If the first element of an ordered pair can be selected in $n_1$ ways and for ea
 \
 \
 \
+\vfill
 
 :::{.theorem name="Generalized Product Rule"}
 Suppose a set consists of $k$ elements (k-tuples) and that there are $n_1$ possible choices for the first element, $n_2$ possible choices for the second element, ... , and $n_k$ possible choices for the $k^\text{th}$ element, then there are $n_1 \cdot n_2 \cdot \ldots \cdot n_k$ possible k-tuples.
@@ -400,9 +422,13 @@ A baseball manager selects nine hitters and one pitcher for a starting lineup. S
 \
 \
 \
+\vfill
 
 :::{.example}
-In softball, rules sometimes allow for a "designated player". This player hits for any position player or pitcher but isn't required to play defense. There is some flexibility to allow the designated player to temporarily play a position during the game however. For more on the designated player rule in softball, visit: https://cdn2.sportngin.com/attachments/document/c780-2407390/DPFlexRuleExplained.pdf
+In softball, rules sometimes allow for a "designated player". This player hits for any position player or pitcher but isn't required to play defense. There is some flexibility to allow the designated player to temporarily play a position during the game however.\
+
+For more on the designated player rule in softball, visit: \
+https://cdn2.sportngin.com/attachments/document/c780-2407390/DPFlexRuleExplained.pdf
 
 In 2022, the CSU softball team had 24 players. Three of these players were only pitchers and two of these players were both pitchers and fielders. How many different lineups of 10 (8 non-pitching position players, 1 pitcher, 1 designated player) are possible for CSU?
 :::
@@ -411,6 +437,7 @@ In 2022, the CSU softball team had 24 players. Three of these players were only 
 \
 \
 \
+\vfill
 
 \newpage
 
@@ -460,6 +487,8 @@ odds_df %>% kt()
 
 In the following table, the odds of an outcome along with the probability of the outcome, *p*, and the probability of the outcome's complement, *q=1-p* are given.
 
+\newpage
+
 :::{.example}
 For the following examples, convert between probability and odds.
 :::
@@ -469,18 +498,21 @@ For the following examples, convert between probability and odds.
 \
 \
 \
+\vfill
 
 (b) Suppose that the odds that the Rockies win the World Series in 2025 is 100:1. What is the probability in favor? \
 
 \
 \
 \
+\vfill
 
 (c) Suppose there is a 1\% chance that CSU wins a national championship in any sport in the next decade. What are the probability and the odds against CSU winning a national championship in the next decade?\
 
 \
 \
 \
+\vfill
 
 :::{.example}
 Suppose that there are three finalists in an Olympic competition. It is estimated that Athlete A has a 50\% chance of winning, Athlete B has a 40\% chance of winning, and Player C has a 10\% chance of winning. Calculate the odds against each of the athletes winning the competition.
@@ -491,10 +523,13 @@ Suppose that there are three finalists in an Olympic competition. It is estimate
 \
 \
 \
+\vfill
+
+\newpage
 
 ### Gambling Odds
 
-Here's a helpful resource on calculating gambling odds:
+Here's a helpful resource on calculating gambling odds: \
 https://www.actionnetwork.com/education/decimal-odds
 
 Gambling odds are a bit different that odds in a probability context. Gambling odds tell the amount that the bookmaker will pay out for a winning bet. For example, if a bookmaker is offering "10:1" that the Rockies win the next World Series, the bookmaker will pay out 10x the original wager plus the original wager if the Rockies win the World Series and the bookmaker will keep the original bet if the Rockies fail to win the World Series.
@@ -520,22 +555,24 @@ For the following scenarios, assume a wager of \$100. Calculate the payout for a
 (a) Fractional odds of 4/1 \
 \
 \
-\
+\vfill
 
 (b) Moneyline +400 \
 \
 \
-\
+\vfill
 
 (c) Moneyline -300 \
 \
 \
-\
+\vfill
 
 (d) Decimal Odds of 1.5 \
 \
 \
-\
+\vfill
+
+\newpage
 
 **Note:** A *moneyline wager* refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds.
 
@@ -561,21 +598,27 @@ Calculate the implied probabilities for the following examples.
 \
 \
 \
+\vfill
 
 (b) Moneyline -125 \
 \
 \
 \
+\vfill
 
 (c) Moneyline +125 \
 \
 \
 \
+\vfill
 
 (d) Decimal Odds of 1.5 \
 \
 \
 \
+\vfill
+
+\newpage
 
 :::{.example}
 Suppose that for an upcoming NFL game, a moneyline wager on the Broncos is -105 and a moneyline wager on the Raiders is -120.
@@ -585,16 +628,19 @@ Suppose that for an upcoming NFL game, a moneyline wager on the Broncos is -105 
 \
 \
 \
+\vfill
 
 (b) What is the sum of the implied probabilities? \
 \
 \
 \
+\vfill
 
 (c) Does the result from (b) violate the axioms of probability? If so, why? \
 \
 \
 \
+\vfill
 
 
 **Note:** The goal of bookmaking is to make money, so there will be almost certainly be a house advantage. This means that the sum of the implied probabilities will be greater than 1.
@@ -605,6 +651,7 @@ The ***house advantage*** (or ***hold percentage***) is the percentage of money 
 \[House \, Advantage = 100 \cdot \sum_{i=1}^n \tilde{p}_i - 100\]
 :::
 
+\newpage
 
 :::{.example}
 Suppose that a bookmaker is offering a moneyline wager on the Broncos at -105 and a moneyline wager on the Raiders at -120. Calculate the bookmakers expected winnings based on the following amounts of total bets.
@@ -614,31 +661,37 @@ Suppose that a bookmaker is offering a moneyline wager on the Broncos at -105 an
 \
 \
 \
+\vfill
 
 (b) \$250 wagered on the Broncos, \$750 wagered on the Raiders \
 \
 \
 \
+\vfill
 
 (c) \$750 wagered on the Broncos, \$250 wagered on the Raiders \
 \
 \
 \
+\vfill
 
 (d) \$0 wagered on the Broncos, \$1000 wagered on the Raiders \
 \
 \
 \
+\vfill
 
 (e) \$1000 wagered on the Broncos, \$0 wagered on the Raiders \
 \
 \
 \
+\vfill
 
 (f) What is the house advantage? \
 \
 \
 \
+\vfill
 
 \newpage
 
@@ -656,20 +709,25 @@ Suppose a sportsbook offers Broncos +14 against the Raiders at -110 (they also o
 \
 \
 \
+\vfill
 
 (b) You bet \$20 on the Raiders and the final score is Broncos 21 Raiders 20. What is your payout? \
 \
 \
 \
+\vfill
 
 (c) You bet \$10 on the Broncos and \$10 on the Raiders and the final score is Broncos 21 Raiders 20. What is your payout? \
 \
 \
 \
+\vfill
 
 :::{.example}
 A ***parlay bet*** is a combination of multiple bets where the winnings from a winning bet are placed on other bets. All bets must be win for the parlay bet to pay out.
 :::
+
+\newpage
 
 :::{.example}
 Suppose that CSU is a three point favorite (-3) against CU in a women's basketball game and the over/under on total number of points is 97. Assume that the price of bets is -110.
@@ -679,21 +737,25 @@ Suppose that CSU is a three point favorite (-3) against CU in a women's basketba
 \
 \
 \
+\vfill
 
 (b) Suppose you place a parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 60 CU 40. What is your payout? \
 \
 \
 \
+\vfill
 
 (c) Suppose you place two bets, CSU -3 and Over 97, and the outcome of the game is CSU 44 CU 40. What is your payout? \
 \
 \
 \
+\vfill
 
 (d) Suppose you place a parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 44 CU 40. What is your payout? \
 \
 \
 \
+\vfill
 
 
 
@@ -710,29 +772,31 @@ https://www.wikihow.com/Calculate-Odds
 
 :::{.definition}
 Let $\Omega$ be the sample space of an experiment. A ***random variable*** is a rule that associates a number with each outcome in $\Omega$. In other words, a random variable is a function whose domain is $\Omega$ and whose range is the set of real numbers.
-:::
+::: \
 
 Random variables are be broken down into subcategories:\
 1. ***Discrete random variables*** - random variables which have a sample space that is finite or countably infinite.\
-2. ***Continuous random variables*** - random variables which have a sample space that is uncountably infinite (such as an interval of real numbers)
+2. ***Continuous random variables*** - random variables which have a sample space that is uncountably infinite (such as an interval of real numbers) \
 
-***Discrete*** and ***Continuous*** random variables use similar yet slightly different mathematical tools. Discrete random variables involve working with "sums" and continuous random variables involve working with "integrals".
+***Discrete*** and ***Continuous*** random variables use similar yet slightly different mathematical tools. Discrete random variables involve working with "sums" and continuous random variables involve working with "integrals". \
 
 :::{.example}
-$$ $$
+Give an example of a discrete random variable in hockey.
 :::
 
 \
 \
 \
+\vfill
 
 :::{.example}
-$$ $$
+Give an example of a continuous random variable in hockey.
 :::
 
 \
 \
 \
+\vfill
 
 :::{.definition}
 A ***probability distribution*** is a function that gives probabilities of different possible outcomes for a given experiment.
@@ -741,6 +805,8 @@ A ***probability distribution*** is a function that gives probabilities of diffe
 The probability distribution for a discrete random variable, $p(x)$, is called a ***probability mass function (pmf)***.
 
 The probability distribution for a continuous random variable, $f(x)$, is called a ***probability density function (pdf)***.
+
+\newpage
 
 :::{.example}
 Suppose the Colorado Rockies are playing a four game series against the Chicago Cubs and that the Rockies have a 65\% chance of winning an individual game. Further, assume that the games are independent. The following PMF describes the outcomes (number of Rockies wins) and their probabilities.
@@ -755,11 +821,10 @@ row.names(df) = c("Rockies wins, X","Probability, p(X)")
 df %>% kt()
 ```
 
+
 What is the probability that the Rockies win zero games? What is the probability that the Rockies win at least two games? Why might the independence assumption be false?
 :::
 
-\
-\
 \
 \
 \
@@ -767,7 +832,7 @@ What is the probability that the Rockies win zero games? What is the probability
 We may be interested in describing the center or average value of our random variable. We can do this with the following definitions.
 
 :::{.definition}
-The ***expected value*** (or ***population mean*** or ***average***) of a random variable $X$ is given by: \
+The ***expected value*** (or ***population mean*** or ***average***) of a random variable $X$ is given by: 
 
 (i) $E[X] = \mu = \sum_{x \in \Omega} x \cdot p(x)$ (for discrete random variables)
 
@@ -783,6 +848,9 @@ Sometimes, it makes sense to calculate the expected value of a function of a ran
 
 (ii) $E[h(X)] = \int_{x \in \Omega} h(x) \cdot f(x) dx$ (for continuous random variables) 
 
+
+\newpage
+
 :::{.example}
 For the Rockies/Cubs four game series example, calculate $E[X]$ and $E[X^2]$.
 :::
@@ -792,6 +860,7 @@ For the Rockies/Cubs four game series example, calculate $E[X]$ and $E[X^2]$.
 \
 \
 \
+\vfill
 
 
 The spread or variability associated with a random variable can be calculated using expected values as well.
@@ -806,7 +875,7 @@ The ***population variance*** of a random variable $X$ is given by: \
 :::
 
 
-There is also a shortcut formula for calculating variance: \
+There is also a shortcut formula for calculating variance: 
 
 :::{.theorem}
 
@@ -828,8 +897,9 @@ For the Rockies/Cubs four game series example, calculate $Var(X)$.
 \
 \
 \
-\
-\
+\vfill
+\vfill
+\vfill
 
 \newpage
 
@@ -874,6 +944,8 @@ fig4 <- ggplot(sim2.df, aes(sample = x)) +
   xlab("Theoretical Quantiles") +
   ylab("Empirical Quantiles")
 ```
+
+\newpage
 
 ```{r, echo=F}
 fig1
@@ -952,6 +1024,8 @@ rockies_wins_df <- data.frame(Wins=rockies_wins)
 rockies_wins_df %>% ggplot(aes(Wins)) + geom_histogram(binwidth = 1,color = "black", fill = "purple")
 ```
 
+\newpage
+
 #### Binomial Coefficient Symmetry
 
 Playoff series for a certain sports league are played as a best-of-seven series, with one team hosting four games and the opposing team hosing three. An executive for the league wishes to know the number of ways the home and away games can be assigned. (One such combination is A-A-B-B-A-B-A, the format used by the NBA and NHL for their best-of-seven series.) What is the total number of combinations?\
@@ -1009,6 +1083,8 @@ Suppose the number of shots needed by a hockey team in order to score their firs
 
 **Caution:** Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful.
 
+\newpage
+
 Let's simulate the number of shot attempts required to score the first goal (Geometric($p=1/10$)) from the previous example.
 
 ```{r}
@@ -1063,6 +1139,8 @@ dpois(x=0, lambda=1.5)
 dpois(x=2, lambda=1.5)
 ```
 
+\newpage
+
 We can also plot the PMF of Y to check visually.
 
 ```{r}
@@ -1075,6 +1153,8 @@ ggplot(transform(poisson.pmf), aes(x, y)) +
   xlab("Value") +
   ylab("Probability")
 ```
+
+\newpage
 
 Let's check whether using a Poisson distribution was appropriate by comparing it to the actual 2021 Colorado Rapids match results.
 
@@ -1096,14 +1176,14 @@ rapids.data <- data.frame(goals, actual_frequency, actual_proportion,
                           expected_frequency, expected_proportion)
 
 rapids.data %>%
-kbl() %>%
-kable_styling()
+kt()
 ```
 
 (b) What differences do you notice between the actual results and the expected values based on the Poisson random variable? \
 \
 \
 \
+\vfill
 
 <!-- There were fewer games in which the Rapids scored 4 or more goals than the model would indicate, yet the Rapids were shut out less often than the model would indicate. -->
 
@@ -1111,8 +1191,11 @@ kable_styling()
 \
 \
 \
+\vfill
 
 <!-- 34 is a relatively small sample size; random variables may not coincide with their expected values for finite sample sizes. -->
+
+\newpage
 
 (d) Use a QQ plot to compare the probability distribution of the 2021 Rapids goals to a Poisson distribution. \
 
@@ -1135,6 +1218,9 @@ rapids21 %>%
 
 <!-- Poisson random variables can take on the natural numbers (including zero), which aligns with the number of goals that can be scored in a match. One disadvantage is that it is possible for a Poisson to take on values that are not realistic for the situation, such as double-digit integers or higher. Only one game in MLS history has had a team score more than seven goals in a game. However, when $\lambda$ is small (such as 1.5), these extreme values are relatively unlikely. -->
 
+
+\newpage
+
 :::{.example}
 In 1997-1998 with the Los Angeles Lakers, Shaquille O'Neal attempted an average of 11.35 free throws per game with a standard deviation of 4.04. Is it appropriate to model Shaq's per game free throw attempts as a Poisson(11.35) random variable? 
 :::
@@ -1147,6 +1233,9 @@ shaq9798 %>% ggplot(aes(x=FTA))  +
   ggtitle("Per Game FT Attempt Totals by Shaq in 1997-1998") +
   xlim(0,25)
 ```
+
+\newpage
+
 (b) Plot the PMF of a Poisson(11.35) random variable.
 ```{r}
 x <- 0:25
@@ -1163,6 +1252,9 @@ ggplot(poisson.pmf, aes(x, y)) +
 \
 \
 \
+\vfill
+
+\newpage
 
 (d) Calculate the variance of the two distributions and compare them.
 
@@ -1171,6 +1263,7 @@ var(shaq9798$FTA)
 # Var(Poisson(11.35)) = 11.35
 ```
 
+
 (e) Calculate the probability that Shaq had 20 or more free throws and compare it to $P(Poisson(11.35) \geq 20)$
 
 ```{r}
@@ -1178,6 +1271,8 @@ shaqFTA <- shaq9798$FTA
 shaq20 <- sum(shaqFTA >= 20)/length(shaqFTA); shaq20
 poisson20 <- ppois(20, lambda=11.35, lower.tail=FALSE); poisson20
 ```
+
+\newpage
 
 (f) Create a QQ-plot of Shaq's per game free throw attempts and a Poisson distribution.
 
@@ -1230,6 +1325,7 @@ phat <- (shaq.var-shaq.mean)/shaq.var
 c(rhat,phat)
 ```
 
+
 (b) Plot the Negative Binomial distribution. Note that R uses an alternative parameterization for $p$. Use $prob = 1-p$.
 
 ```{r}
@@ -1255,9 +1351,11 @@ c(NB.mean,NB.var)
 (d) Calculate the probability that Shaq had 20 or more free throws and compare it to $P(NB(r=25.852,p=0.305) \geq 20)$
 
 ```{r}
-shaq20 <- sum(shaqFTA >= 20)/nrow(shaqFTA); shaq20
+shaq20 <- sum(shaqFTA >= 20)/length(shaqFTA); shaq20
 nb20 <- pnbinom(20,size=rhat,prob=1-phat,lower.tail=FALSE); nb20
 ```
+
+\newpage
 
 (e) Create a QQ-plot of Shaq's per game free throw attempts and a Negative Binomial distribution.
 
@@ -1270,6 +1368,7 @@ shaq9798 %>%
   xlab("Theoretical Quantiles") +
   ylab("Empirical Quantiles")
 ```
+
 
 (f) Is the Negative Binomial distribution appropriate to model Shaq's FTA per game? How does it compare to using the Poisson distribution? Explain. \
 \
@@ -1305,27 +1404,34 @@ See [https://blogs.fangraphs.com/scouting-explained-the-20-80-scouting-scale/](h
 \
 \
 \
+\vfill
 
 (b) Mike Trout has been graded to have raw power of 55. Raw power estimates a player's ability to hit baseballs hard (i.e., hard hit rate). Approximately what percentage of baseball players have equal or less raw power than Arenado? \
 \
 \
 \
+\vfill
 
 (c) Suppose a Rockies prospect is said to be in the top 10\% of all baseball players in terms of their speed. What approximate speed grade would correspond to the player? \
 \
 \
 \
+\vfill
+
+\newpage
 
 (d) Suppose a Rockies prospect is said to be in the bottom 20\% of all baseball players in terms of their hit ability. What approximate hit grade would correspond to the player? \
 \
 \
 \
+\vfill
 
 
 (e) Between what two grades do approximately 95\% of all players lie for a given tool? \
 \
 \
 \
+\vfill
 
 Let's check our answers:
 ```{r}
@@ -1359,9 +1465,3 @@ p <- pnorm(0,1.5,sqrt(5),lower.tail = F); p
 
 The probability that Player X outperforms Player Y is 0.7488. 
 
-
-\newpage
-
-## Case Study: NFL state values and decision making
-
-(Mathletics, chapter 19-20, page 170)

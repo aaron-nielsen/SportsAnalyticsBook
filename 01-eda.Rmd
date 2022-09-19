@@ -155,8 +155,8 @@ The ***population standard deviation***, $\sigma$, is the standard deviation for
 We often prefer to work with standard deviations as a measure of spread as opposed to variance because standard deviations are given in our original units.
 
 ```{r var}
-# Calculate the variance and standard deviation of Peyton Manning's passing yards
-# season totals with Broncos
+# Calculate the variance and standard deviation of Peyton Manning's passing 
+# yards season totals with Broncos
 var(peyton.broncos) # units: yards^2
 sd(peyton.broncos) # units: yards
 ```
@@ -211,8 +211,8 @@ A ***quartile*** is a measure of relative standing and are the cut points for br
 
 
 ```{r perc}
-# Calculate the 10th and 90th percentile of Peyton Manning's passing yards season
-# totals with Colts
+# Calculate the 10th and 90th percentile of Peyton Manning's passing yards 
+# season totals with Colts
 quantile(peyton.colts,0.10)
 quantile(peyton.colts,0.90)
 quantile(peyton.colts,c(0.1,0.9))

@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2022-08-09" />
+<meta name="date" content="2022-09-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -237,7 +237,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.7.4" data-path="probability.html"><a href="probability.html#negative-binomial-rvs"><i class="fa fa-check"></i><b>3.7.4</b> Negative Binomial RVs</a></li>
 <li class="chapter" data-level="3.7.5" data-path="probability.html"><a href="probability.html#normal-rvs"><i class="fa fa-check"></i><b>3.7.5</b> Normal RVs</a></li>
 </ul></li>
-<li class="chapter" data-level="3.8" data-path="probability.html"><a href="probability.html#case-study-nfl-state-values-and-decision-making"><i class="fa fa-check"></i><b>3.8</b> Case Study: NFL state values and decision making</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html"><i class="fa fa-check"></i><b>4</b> Monte Carlo Simulation</a>
 <ul>
@@ -356,7 +355,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span id="def:unlabeled-div-43" class="definition"><strong>Definition 3.3  </strong></span>An <strong><em>event</em></strong> is any collection (subset) of outcomes contained in the sample space, <span class="math inline">\(\Omega\)</span>.</p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-44" class="example"><strong>Example 3.1  </strong></span>Give an example of a discrete random variable in a sports context.</p>
+<p><span id="exm:unlabeled-div-44" class="example"><strong>Example 3.1  </strong></span>Give some examples of discrete random variables in sports.</p>
 </div>
 <p><br />
 <br />
@@ -365,7 +364,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <br />
 </p>
 <div class="example">
-<p><span id="exm:unlabeled-div-45" class="example"><strong>Example 3.2  </strong></span>Give an example of a continuous random variable in a sports context.</p>
+<p><span id="exm:unlabeled-div-45" class="example"><strong>Example 3.2  </strong></span>Give some examples of continuous random variables in sports.</p>
 </div>
 <p> <br />
 <br />
@@ -403,6 +402,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <br />
 <br />
 </p>
+<div style="page-break-after: always;"></div>
 <div class="definition">
 <p><span id="def:unlabeled-div-50" class="definition"><strong>Definition 3.6  </strong></span>The <strong><em>intersection</em></strong> of two events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, denoted by <span class="math inline">\(A \cap B\)</span> and read “<span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>”, is the event consisting of all outcomes that are in both <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>.</p>
 </div>
@@ -453,7 +453,8 @@ the event consisting of all outcomes that are in <span class="math inline">\(A\)
 <li><span class="math inline">\(P(\Omega) = 1\)</span><br />
 </li>
 <li>If <span class="math inline">\(A_1, A_2, A_3, \ldots\)</span> is a collection of disjoint events, then:<br />
-<span class="math inline">\(P(\cup_{i=1}^{\infty} A_i) = P(A_1 \cup A_2 \cup \ldots ) = \sum_{i=1}^{\infty} P(A_i)\)</span></li>
+<span class="math inline">\(P(\cup_{i=1}^{\infty} A_i) = P(A_1 \cup A_2 \cup \ldots ) = \sum_{i=1}^{\infty} P(A_i)\)</span><br />
+</li>
 </ol>
 <p>Note that all probabilities are between 0 and 1, that is, for any event <span class="math inline">\(A\)</span>, <span class="math inline">\(0 \leq P(A) \leq 1\)</span>.</p>
 <p>We can convert to percentages by multiplying probabilities by 100, however, this is a set that is only done after all calculations have been completed.</p>
@@ -463,11 +464,16 @@ the event consisting of all outcomes that are in <span class="math inline">\(A\)
 <ul>
 <li><p><span class="math inline">\(P(\emptyset) = 0\)</span><br />
 </p></li>
-<li><p><span class="math inline">\(P(A^c) = 1 - P(A)\)</span></p></li>
-<li><p><span class="math inline">\(P(A \cup B) = P(A) + P(B) - P(A \cap B)\)</span></p></li>
-<li><p><span class="math inline">\(P(A \cup B \cup C) = \\ P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)\)</span></p></li>
-<li><p><span class="math inline">\(P([A \cup B]^c) = P(A^c \cap B^c)\)</span></p></li>
-<li><p><span class="math inline">\(P([A \cap B]^c) = P(A^c \cup B^c)\)</span></p></li>
+<li><p><span class="math inline">\(P(A^c) = 1 - P(A)\)</span><br />
+</p></li>
+<li><p><span class="math inline">\(P(A \cup B) = P(A) + P(B) - P(A \cap B)\)</span><br />
+</p></li>
+<li><p><span class="math inline">\(P(A \cup B \cup C) = \\ P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)\)</span><br />
+</p></li>
+<li><p><span class="math inline">\(P([A \cup B]^c) = P(A^c \cap B^c)\)</span><br />
+</p></li>
+<li><p><span class="math inline">\(P([A \cap B]^c) = P(A^c \cup B^c)\)</span><br />
+</p></li>
 </ul>
 <div style="page-break-after: always;"></div>
 <div class="example">
@@ -552,6 +558,7 @@ the event consisting of all outcomes that are in <span class="math inline">\(A\)
 <br />
 </p></li>
 </ol>
+<div style="page-break-after: always;"></div>
 <div class="theorem">
 <p><span id="thm:unlabeled-div-59" class="theorem"><strong>Theorem 3.1  (Multiplication Rule) </strong></span>For any two events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, <span class="math inline">\(P(A \cap B) = P(B|A) \cdot P(A)\)</span>.</p>
 </div>
@@ -562,7 +569,6 @@ the event consisting of all outcomes that are in <span class="math inline">\(A\)
 <br />
 <br />
 </p>
-<div style="page-break-after: always;"></div>
 <div class="definition">
 <p><span id="def:unlabeled-div-61" class="definition"><strong>Definition 3.10  </strong></span>Events <span class="math inline">\(A_1, A_2, \ldots, A_n\)</span> are said to form a <strong><em>partition</em></strong> of a sample space <span class="math inline">\(\Omega\)</span> if both:<br />
 (i) <span class="math inline">\(A_i \cap A_j = \emptyset\)</span> (<span class="math inline">\(i \neq j\)</span>)<br />
@@ -595,6 +601,7 @@ the event consisting of all outcomes that are in <span class="math inline">\(A\)
 <br />
 <br />
 </p>
+<div style="page-break-after: always;"></div>
 <div class="example">
 <p><span id="exm:unlabeled-div-67" class="example"><strong>Example 3.13  </strong></span>Over the course of a season, a hockey player scored a goal 30% of the time during a home game, and 18%. Assume all games are either home or away. Use this information to answer the following questions.</p>
 </div>
@@ -648,6 +655,7 @@ the event consisting of all outcomes that are in <span class="math inline">\(A\)
 <div class="example">
 <p><span id="exm:unlabeled-div-73" class="example"><strong>Example 3.16  </strong></span>Suppose a manager has 13 hitters to choose from to fill out a starting lineup of 9 players. Ignoring positions, how many different ways can the manager pick a 9-person lineup from 13 possible hitters?</p>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="theorem">
 <p><span id="thm:unlabeled-div-74" class="theorem"><strong>Theorem 3.5  (Product Rule for Ordered Pairs) </strong></span>If the first element of an ordered pair can be selected in <span class="math inline">\(n_1\)</span> ways and for each of the these <span class="math inline">\(n_1\)</span> ways the second element of the pair can be selected in <span class="math inline">\(n_2\)</span> ways, then the number of pairs is <span class="math inline">\(n_1 \cdot n_2\)</span>.</p>
 </div>
@@ -667,7 +675,10 @@ the event consisting of all outcomes that are in <span class="math inline">\(A\)
 <br />
 </p>
 <div class="example">
-<p><span id="exm:unlabeled-div-77" class="example"><strong>Example 3.18  </strong></span>In softball, rules sometimes allow for a “designated player”. This player hits for any position player or pitcher but isn’t required to play defense. There is some flexibility to allow the designated player to temporarily play a position during the game however. For more on the designated player rule in softball, visit: <a href="https://cdn2.sportngin.com/attachments/document/c780-2407390/DPFlexRuleExplained.pdf" class="uri">https://cdn2.sportngin.com/attachments/document/c780-2407390/DPFlexRuleExplained.pdf</a></p>
+<p><span id="exm:unlabeled-div-77" class="example"><strong>Example 3.18  </strong></span>In softball, rules sometimes allow for a “designated player”. This player hits for any position player or pitcher but isn’t required to play defense. There is some flexibility to allow the designated player to temporarily play a position during the game however.<br />
+</p>
+<p>For more on the designated player rule in softball, visit:<br />
+<a href="https://cdn2.sportngin.com/attachments/document/c780-2407390/DPFlexRuleExplained.pdf" class="uri">https://cdn2.sportngin.com/attachments/document/c780-2407390/DPFlexRuleExplained.pdf</a></p>
 <p>In 2022, the CSU softball team had 24 players. Three of these players were only pitchers and two of these players were both pitchers and fielders. How many different lineups of 10 (8 non-pitching position players, 1 pitcher, 1 designated player) are possible for CSU?</p>
 </div>
 <p><br />
@@ -886,6 +897,7 @@ q
 </tbody>
 </table>
 <p>In the following table, the odds of an outcome along with the probability of the outcome, <em>p</em>, and the probability of the outcome’s complement, <em>q=1-p</em> are given.</p>
+<div style="page-break-after: always;"></div>
 <div class="example">
 <p><span id="exm:unlabeled-div-79" class="example"><strong>Example 3.19  </strong></span>For the following examples, convert between probability and odds.</p>
 </div>
@@ -922,10 +934,11 @@ q
 <br />
 <br />
 </p>
+<div style="page-break-after: always;"></div>
 </div>
 <div id="gambling-odds" class="section level3 hasAnchor" number="3.5.4">
 <h3><span class="header-section-number">3.5.4</span> Gambling Odds<a href="probability.html#gambling-odds" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Here’s a helpful resource on calculating gambling odds:
+<p>Here’s a helpful resource on calculating gambling odds:<br />
 <a href="https://www.actionnetwork.com/education/decimal-odds" class="uri">https://www.actionnetwork.com/education/decimal-odds</a></p>
 <p>Gambling odds are a bit different that odds in a probability context. Gambling odds tell the amount that the bookmaker will pay out for a winning bet. For example, if a bookmaker is offering “10:1” that the Rockies win the next World Series, the bookmaker will pay out 10x the original wager plus the original wager if the Rockies win the World Series and the bookmaker will keep the original bet if the Rockies fail to win the World Series.</p>
 <div class="definition">
@@ -945,24 +958,21 @@ q
 <li><p>Fractional odds of 4/1<br />
 <br />
 <br />
-<br />
 </p></li>
 <li><p>Moneyline +400<br />
-<br />
 <br />
 <br />
 </p></li>
 <li><p>Moneyline -300<br />
 <br />
 <br />
-<br />
 </p></li>
 <li><p>Decimal Odds of 1.5<br />
 <br />
 <br />
-<br />
 </p></li>
 </ol>
+<div style="page-break-after: always;"></div>
 <p><strong>Note:</strong> A <em>moneyline wager</em> refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds.</p>
 <div class="definition">
 <p><span id="def:unlabeled-div-85" class="definition"><strong>Definition 3.18  </strong></span>The <strong><em>implied probability</em></strong>, <span class="math inline">\(\tilde{p}\)</span>, of a wager is the probability that corresponds to the odds of the wager.</p>
@@ -998,6 +1008,7 @@ q
 <br />
 </p></li>
 </ol>
+<div style="page-break-after: always;"></div>
 <div class="example">
 <p><span id="exm:unlabeled-div-87" class="example"><strong>Example 3.23  </strong></span>Suppose that for an upcoming NFL game, a moneyline wager on the Broncos is -105 and a moneyline wager on the Raiders is -120.</p>
 </div>
@@ -1023,6 +1034,7 @@ q
 <p><span id="def:unlabeled-div-88" class="definition"><strong>Definition 3.19  </strong></span>The <strong><em>house advantage</em></strong> (or <strong><em>hold percentage</em></strong>) is the percentage of money that sportsbooks keep for every dollar earned.</p>
 <p><span class="math display">\[House \, Advantage = 100 \cdot \sum_{i=1}^n \tilde{p}_i - 100\]</span></p>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="example">
 <p><span id="exm:unlabeled-div-89" class="example"><strong>Example 3.24  </strong></span>Suppose that a bookmaker is offering a moneyline wager on the Broncos at -105 and a moneyline wager on the Raiders at -120. Calculate the bookmakers expected winnings based on the following amounts of total bets.</p>
 </div>
@@ -1086,6 +1098,7 @@ q
 <div class="example">
 <p><span id="exm:unlabeled-div-92" class="example"><strong>Example 3.27  </strong></span>A <strong><em>parlay bet</em></strong> is a combination of multiple bets where the winnings from a winning bet are placed on other bets. All bets must be win for the parlay bet to pay out.</p>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="example">
 <p><span id="exm:unlabeled-div-93" class="example"><strong>Example 3.28  </strong></span>Suppose that CSU is a three point favorite (-3) against CU in a women’s basketball game and the over/under on total number of points is 97. Assume that the price of bets is -110.</p>
 </div>
@@ -1118,34 +1131,38 @@ q
 </div>
 <div id="random-variables" class="section level2 hasAnchor" number="3.6">
 <h2><span class="header-section-number">3.6</span> Random Variables<a href="probability.html#random-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="definition">
-<p><span id="def:unlabeled-div-94" class="definition"><strong>Definition 3.20  </strong></span>Let <span class="math inline">\(\Omega\)</span> be the sample space of an experiment. A <strong><em>random variable</em></strong> is a rule that associates a number with each outcome in <span class="math inline">\(\Omega\)</span>. In other words, a random variable is a function whose domain is <span class="math inline">\(\Omega\)</span> and whose range is the set of real numbers.</p>
-</div>
+<p>:::{.definition}
+Let <span class="math inline">\(\Omega\)</span> be the sample space of an experiment. A <strong><em>random variable</em></strong> is a rule that associates a number with each outcome in <span class="math inline">\(\Omega\)</span>. In other words, a random variable is a function whose domain is <span class="math inline">\(\Omega\)</span> and whose range is the set of real numbers.
+:::<br />
+</p>
 <p>Random variables are be broken down into subcategories:<br />
 1. <strong><em>Discrete random variables</em></strong> - random variables which have a sample space that is finite or countably infinite.<br />
-2. <strong><em>Continuous random variables</em></strong> - random variables which have a sample space that is uncountably infinite (such as an interval of real numbers)</p>
-<p><strong><em>Discrete</em></strong> and <strong><em>Continuous</em></strong> random variables use similar yet slightly different mathematical tools. Discrete random variables involve working with “sums” and continuous random variables involve working with “integrals”.</p>
+2. <strong><em>Continuous random variables</em></strong> - random variables which have a sample space that is uncountably infinite (such as an interval of real numbers)<br />
+</p>
+<p><strong><em>Discrete</em></strong> and <strong><em>Continuous</em></strong> random variables use similar yet slightly different mathematical tools. Discrete random variables involve working with “sums” and continuous random variables involve working with “integrals”.<br />
+</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-95" class="example"><strong>Example 3.29  </strong></span><span class="math display">\[ \]</span></p>
+<p><span id="exm:unlabeled-div-94" class="example"><strong>Example 3.29  </strong></span>Give an example of a discrete random variable in hockey.</p>
 </div>
 <p><br />
 <br />
 <br />
 </p>
 <div class="example">
-<p><span id="exm:unlabeled-div-96" class="example"><strong>Example 3.30  </strong></span><span class="math display">\[ \]</span></p>
+<p><span id="exm:unlabeled-div-95" class="example"><strong>Example 3.30  </strong></span>Give an example of a continuous random variable in hockey.</p>
 </div>
 <p><br />
 <br />
 <br />
 </p>
 <div class="definition">
-<p><span id="def:unlabeled-div-97" class="definition"><strong>Definition 3.21  </strong></span>A <strong><em>probability distribution</em></strong> is a function that gives probabilities of different possible outcomes for a given experiment.</p>
+<p><span id="def:unlabeled-div-96" class="definition"><strong>Definition 3.20  </strong></span>A <strong><em>probability distribution</em></strong> is a function that gives probabilities of different possible outcomes for a given experiment.</p>
 </div>
 <p>The probability distribution for a discrete random variable, <span class="math inline">\(p(x)\)</span>, is called a <strong><em>probability mass function (pmf)</em></strong>.</p>
 <p>The probability distribution for a continuous random variable, <span class="math inline">\(f(x)\)</span>, is called a <strong><em>probability density function (pdf)</em></strong>.</p>
+<div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-98" class="example"><strong>Example 3.31  </strong></span>Suppose the Colorado Rockies are playing a four game series against the Chicago Cubs and that the Rockies have a 65% chance of winning an individual game. Further, assume that the games are independent. The following PMF describes the outcomes (number of Rockies wins) and their probabilities.</p>
+<p><span id="exm:unlabeled-div-97" class="example"><strong>Example 3.31  </strong></span>Suppose the Colorado Rockies are playing a four game series against the Chicago Cubs and that the Rockies have a 65% chance of winning an individual game. Further, assume that the games are independent. The following PMF describes the outcomes (number of Rockies wins) and their probabilities.</p>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <tbody>
 <tr>
@@ -1195,13 +1212,10 @@ Probability, p(X)
 <p><br />
 <br />
 <br />
-<br />
-<br />
 </p>
 <p>We may be interested in describing the center or average value of our random variable. We can do this with the following definitions.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-99" class="definition"><strong>Definition 3.22  </strong></span>The <strong><em>expected value</em></strong> (or <strong><em>population mean</em></strong> or <strong><em>average</em></strong>) of a random variable <span class="math inline">\(X\)</span> is given by:<br />
-</p>
+<p><span id="def:unlabeled-div-98" class="definition"><strong>Definition 3.21  </strong></span>The <strong><em>expected value</em></strong> (or <strong><em>population mean</em></strong> or <strong><em>average</em></strong>) of a random variable <span class="math inline">\(X\)</span> is given by:</p>
 <ol style="list-style-type: lower-roman">
 <li><p><span class="math inline">\(E[X] = \mu = \sum_{x \in \Omega} x \cdot p(x)\)</span> (for discrete random variables)</p></li>
 <li><p><span class="math inline">\(E[X] = \mu = \int_{x \in \Omega} x \cdot f(x) dx\)</span> (for continuous random variables)</p></li>
@@ -1213,8 +1227,9 @@ Probability, p(X)
 <li><p><span class="math inline">\(E[h(X)] = \sum_{x \in \Omega} h(x) \cdot p(x)\)</span> (for discrete random variables)</p></li>
 <li><p><span class="math inline">\(E[h(X)] = \int_{x \in \Omega} h(x) \cdot f(x) dx\)</span> (for continuous random variables)</p></li>
 </ol>
+<div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-100" class="example"><strong>Example 3.32  </strong></span>For the Rockies/Cubs four game series example, calculate <span class="math inline">\(E[X]\)</span> and <span class="math inline">\(E[X^2]\)</span>.</p>
+<p><span id="exm:unlabeled-div-99" class="example"><strong>Example 3.32  </strong></span>For the Rockies/Cubs four game series example, calculate <span class="math inline">\(E[X]\)</span> and <span class="math inline">\(E[X^2]\)</span>.</p>
 </div>
 <p><br />
 <br />
@@ -1224,38 +1239,35 @@ Probability, p(X)
 </p>
 <p>The spread or variability associated with a random variable can be calculated using expected values as well.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-101" class="definition"><strong>Definition 3.23  </strong></span>The <strong><em>population variance</em></strong> of a random variable <span class="math inline">\(X\)</span> is given by:<br />
+<p><span id="def:unlabeled-div-100" class="definition"><strong>Definition 3.22  </strong></span>The <strong><em>population variance</em></strong> of a random variable <span class="math inline">\(X\)</span> is given by:<br />
 </p>
 <ol style="list-style-type: lower-roman">
 <li><p><span class="math inline">\(Var(X) = \sum_{x \in \Omega} (x-\mu)^2 \cdot p(x)\)</span> (for discrete random variables)</p></li>
 <li><p><span class="math inline">\(Var(X) = \int_{x \in \Omega} (x-\mu)^2 \cdot f(x) dx\)</span> (for continuous random variables)</p></li>
 </ol>
 </div>
-<p>There is also a shortcut formula for calculating variance:<br />
-</p>
+<p>There is also a shortcut formula for calculating variance:</p>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-102" class="theorem"><strong>Theorem 3.7  </strong></span><span class="math inline">\(Var(X) = E[X^2] - (E[X])^2\)</span></p>
+<p><span id="thm:unlabeled-div-101" class="theorem"><strong>Theorem 3.7  </strong></span><span class="math inline">\(Var(X) = E[X^2] - (E[X])^2\)</span></p>
 </div>
 <div class="definition">
-<p><span id="def:unlabeled-div-103" class="definition"><strong>Definition 3.24  </strong></span>The <strong><em>population standard deviation</em></strong> of a random variable <span class="math inline">\(X\)</span> is given by:<br />
+<p><span id="def:unlabeled-div-102" class="definition"><strong>Definition 3.23  </strong></span>The <strong><em>population standard deviation</em></strong> of a random variable <span class="math inline">\(X\)</span> is given by:<br />
 </p>
 <p><span class="math inline">\(SD(X) = \sigma = \sqrt{Var(X)} = \sqrt{E[X^2]-(E[X])^2}\)</span></p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-104" class="example"><strong>Example 3.33  </strong></span>For the Rockies/Cubs four game series example, calculate <span class="math inline">\(Var(X)\)</span>.</p>
+<p><span id="exm:unlabeled-div-103" class="example"><strong>Example 3.33  </strong></span>For the Rockies/Cubs four game series example, calculate <span class="math inline">\(Var(X)\)</span>.</p>
 </div>
 <p><br />
-<br />
-<br />
 <br />
 <br />
 </p>
 <div style="page-break-after: always;"></div>
 <div class="definition">
-<p><span id="def:unlabeled-div-105" class="definition"><strong>Definition 3.25  </strong></span>A <strong><em>quantile-quantile plot</em></strong> (QQ plot) can be used to compare an empirical probability distribution against a theoretical distribution.</p>
+<p><span id="def:unlabeled-div-104" class="definition"><strong>Definition 3.24  </strong></span>A <strong><em>quantile-quantile plot</em></strong> (QQ plot) can be used to compare an empirical probability distribution against a theoretical distribution.</p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-106" class="example"><strong>Example 3.34  </strong></span>Let’s generate two simulated datasets. The first dataset will follow a normal distribution with mean 10 and variance 4 and the second dataset will follow a Poisson distribution with rate 5. We’ll use QQ-plots to match each simulation with the correct distribution.</p>
+<p><span id="exm:unlabeled-div-105" class="example"><strong>Example 3.34  </strong></span>Let’s generate two simulated datasets. The first dataset will follow a normal distribution with mean 10 and variance 4 and the second dataset will follow a Poisson distribution with rate 5. We’ll use QQ-plots to match each simulation with the correct distribution.</p>
 </div>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="probability.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
 <span id="cb115-2"><a href="probability.html#cb115-2" aria-hidden="true" tabindex="-1"></a>sim1.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>,<span class="at">mean =</span> <span class="dv">10</span>,<span class="at">sd =</span> <span class="dv">2</span>))</span>
@@ -1288,6 +1300,7 @@ Probability, p(X)
 <span id="cb115-29"><a href="probability.html#cb115-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 2 vs. Poisson&quot;</span>) <span class="sc">+</span></span>
 <span id="cb115-30"><a href="probability.html#cb115-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
 <span id="cb115-31"><a href="probability.html#cb115-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span></code></pre></div>
+<div style="page-break-after: always;"></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-51-1.png" width="672" /><img src="textbook_files/figure-html/unnamed-chunk-51-2.png" width="672" /><img src="textbook_files/figure-html/unnamed-chunk-51-3.png" width="672" /><img src="textbook_files/figure-html/unnamed-chunk-51-4.png" width="672" /></p>
 <p>What do you conclude from the four QQ plots?</p>
 <div style="page-break-after: always;"></div>
@@ -1302,12 +1315,12 @@ Probability, p(X)
 <div id="binomial-rvs" class="section level3 hasAnchor" number="3.7.1">
 <h3><span class="header-section-number">3.7.1</span> Binomial RVs<a href="probability.html#binomial-rvs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="definition">
-<p><span id="def:unlabeled-div-107" class="definition"><strong>Definition 3.26  </strong></span>A <strong><em>binomial(n,p) random variable</em></strong> is a discrete random variable that counts the numbers of “successes” over a fixed number of trials, <span class="math inline">\(n\)</span>, with each trial having an equal probability of success, <span class="math inline">\(p\)</span>.</p>
+<p><span id="def:unlabeled-div-106" class="definition"><strong>Definition 3.25  </strong></span>A <strong><em>binomial(n,p) random variable</em></strong> is a discrete random variable that counts the numbers of “successes” over a fixed number of trials, <span class="math inline">\(n\)</span>, with each trial having an equal probability of success, <span class="math inline">\(p\)</span>.</p>
 <p><span class="math inline">\(P(X=k) = \binom{n}{k} p^k(1-p)^{n-k} = \frac{n!}{k!\ \cdot\ (n-k)!} p^k(1-p)^{n-k}\)</span>, where <span class="math inline">\(0 \leq k \leq n, 0 \leq p \leq 1\)</span></p>
 <p>If <span class="math inline">\(X \sim Binomial(n,p)\)</span>, then <span class="math inline">\(E[X]=np\)</span> and <span class="math inline">\(Var(X)=np(1-p)\)</span></p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-108" class="example"><strong>Example 3.35  </strong></span>The Cubs and Rockies are playing a 4-game series. The Rockies have a 0.65 probability of winning each game, and the Cubs have a 0.35 probability. Assume each game is independent. Solve for the following quantities.</p>
+<p><span id="exm:unlabeled-div-107" class="example"><strong>Example 3.35  </strong></span>The Cubs and Rockies are playing a 4-game series. The Rockies have a 0.65 probability of winning each game, and the Cubs have a 0.35 probability. Assume each game is independent. Solve for the following quantities.</p>
 </div>
 <ol style="list-style-type: lower-alpha">
 <li><p>The Cubs wins exactly 1 game.<br />
@@ -1342,7 +1355,7 @@ Probability, p(X)
 </p></li>
 </ol>
 <div class="example">
-<p><span id="exm:unlabeled-div-109" class="example"><strong>Example 3.36  </strong></span>Complete 10,000 simulations of the four game series between the Rockies and Cubs. For the number of Rockies wins, calculate the sample mean and sample variance and compare these to the population values. Also, plot a histogram of the sample data.</p>
+<p><span id="exm:unlabeled-div-108" class="example"><strong>Example 3.36  </strong></span>Complete 10,000 simulations of the four game series between the Rockies and Cubs. For the number of Rockies wins, calculate the sample mean and sample variance and compare these to the population values. Also, plot a histogram of the sample data.</p>
 </div>
 <div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="probability.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
 <span id="cb116-2"><a href="probability.html#cb116-2" aria-hidden="true" tabindex="-1"></a>rockies_wins <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">10000</span>,<span class="at">size=</span><span class="dv">4</span>,<span class="at">prob=</span><span class="fl">0.65</span>)</span>
@@ -1353,6 +1366,7 @@ Probability, p(X)
 <div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="probability.html#cb120-1" aria-hidden="true" tabindex="-1"></a>rockies_wins_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Wins=</span>rockies_wins)</span>
 <span id="cb120-2"><a href="probability.html#cb120-2" aria-hidden="true" tabindex="-1"></a>rockies_wins_df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(Wins)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>,<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;purple&quot;</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
 <div id="binomial-coefficient-symmetry" class="section level4 hasAnchor" number="3.7.1.1">
 <h4><span class="header-section-number">3.7.1.1</span> Binomial Coefficient Symmetry<a href="probability.html#binomial-coefficient-symmetry" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Playoff series for a certain sports league are played as a best-of-seven series, with one team hosting four games and the opposing team hosing three. An executive for the league wishes to know the number of ways the home and away games can be assigned. (One such combination is A-A-B-B-A-B-A, the format used by the NBA and NHL for their best-of-seven series.) What is the total number of combinations?<br />
@@ -1374,12 +1388,12 @@ Probability, p(X)
 <div id="geometric-rvs" class="section level3 hasAnchor" number="3.7.2">
 <h3><span class="header-section-number">3.7.2</span> Geometric RVs<a href="probability.html#geometric-rvs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="definition">
-<p><span id="def:unlabeled-div-110" class="definition"><strong>Definition 3.27  </strong></span>A <strong><em>Geometric(p) random variable</em></strong> is a discrete random variable that counts the numbers of trials until a “success” occurs, where the probability of success, <span class="math inline">\(p\)</span>, is constant across all trials.</p>
+<p><span id="def:unlabeled-div-109" class="definition"><strong>Definition 3.26  </strong></span>A <strong><em>Geometric(p) random variable</em></strong> is a discrete random variable that counts the numbers of trials until a “success” occurs, where the probability of success, <span class="math inline">\(p\)</span>, is constant across all trials.</p>
 <p><span class="math inline">\(P(X=k) = p(1-p)^{k-1}\)</span>, where <span class="math inline">\(k \geq 1, 0 \leq p \leq 1\)</span></p>
 <p>If <span class="math inline">\(X \sim Geometric(p)\)</span>, then <span class="math inline">\(E[X]=\frac{1}{p}\)</span> and <span class="math inline">\(Var(X)=\frac{p}{1-p}\)</span></p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-111" class="example"><strong>Example 3.37  </strong></span>Suppose the number of shots needed by a hockey team in order to score their first goal, X, is modeled by a Geometric(<span class="math inline">\(\frac{1}{10}\)</span>) random variable. Use this information to answer the following questions.</p>
+<p><span id="exm:unlabeled-div-110" class="example"><strong>Example 3.37  </strong></span>Suppose the number of shots needed by a hockey team in order to score their first goal, X, is modeled by a Geometric(<span class="math inline">\(\frac{1}{10}\)</span>) random variable. Use this information to answer the following questions.</p>
 </div>
 <ol style="list-style-type: lower-alpha">
 <li><p>What is the probability that it takes exactly 3 shots to score the first goal?<br />
@@ -1399,6 +1413,7 @@ Probability, p(X)
 </p></li>
 </ol>
 <p><strong>Caution:</strong> Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful.</p>
+<div style="page-break-after: always;"></div>
 <p>Let’s simulate the number of shot attempts required to score the first goal (Geometric(<span class="math inline">\(p=1/10\)</span>)) from the previous example.</p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="probability.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
 <span id="cb123-2"><a href="probability.html#cb123-2" aria-hidden="true" tabindex="-1"></a>geometric <span class="ot">&lt;-</span> <span class="fu">rgeom</span>(<span class="dv">10000</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">10</span>)</span>
@@ -1420,12 +1435,12 @@ Probability, p(X)
 <div id="poisson-rvs" class="section level3 hasAnchor" number="3.7.3">
 <h3><span class="header-section-number">3.7.3</span> Poisson RVs<a href="probability.html#poisson-rvs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="definition">
-<p><span id="def:unlabeled-div-112" class="definition"><strong>Definition 3.28  </strong></span>A <strong><em>Poisson(<span class="math inline">\(\lambda\)</span>) random variable</em></strong> is a discrete random variable that counts the numbers of “successes” for a given rate parameter, <span class="math inline">\(\lambda\)</span>, for a given interval.</p>
+<p><span id="def:unlabeled-div-111" class="definition"><strong>Definition 3.27  </strong></span>A <strong><em>Poisson(<span class="math inline">\(\lambda\)</span>) random variable</em></strong> is a discrete random variable that counts the numbers of “successes” for a given rate parameter, <span class="math inline">\(\lambda\)</span>, for a given interval.</p>
 <p><span class="math inline">\(P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}\)</span>, where <span class="math inline">\(k \geq 0,\)</span></p>
 <p>If <span class="math inline">\(X \sim Poisson(\lambda)\)</span>, then <span class="math inline">\(E[X]=\lambda\)</span> and <span class="math inline">\(Var(X)=\lambda\)</span></p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-113" class="example"><strong>Example 3.38  </strong></span>During the 2021 Major League Soccer season, the Colorado Rapids scored 51 goals in 34 games on their way to a first-place finish in the Western Conference regular season standings.</p>
+<p><span id="exm:unlabeled-div-112" class="example"><strong>Example 3.38  </strong></span>During the 2021 Major League Soccer season, the Colorado Rapids scored 51 goals in 34 games on their way to a first-place finish in the Western Conference regular season standings.</p>
 <p>The team scored <span class="math inline">\(\frac{51}{34} = 1.5\)</span> goals per game. Let’s model the distribution of Rapids goals using a Poisson(1.5) random variable that we’ll call Y.</p>
 </div>
 <ol style="list-style-type: lower-alpha">
@@ -1440,6 +1455,7 @@ Probability, p(X)
 <pre><code>## [1] 0.2231302</code></pre>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="probability.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="at">x=</span><span class="dv">2</span>, <span class="at">lambda=</span><span class="fl">1.5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.2510214</code></pre>
+<div style="page-break-after: always;"></div>
 <p>We can also plot the PMF of Y to check visually.</p>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="probability.html#cb134-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">8</span></span>
 <span id="cb134-2"><a href="probability.html#cb134-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">1.5</span>)</span>
@@ -1450,6 +1466,7 @@ Probability, p(X)
 <span id="cb134-7"><a href="probability.html#cb134-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Value&quot;</span>) <span class="sc">+</span></span>
 <span id="cb134-8"><a href="probability.html#cb134-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Probability&quot;</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
 <p>Let’s check whether using a Poisson distribution was appropriate by comparing it to the actual 2021 Colorado Rapids match results.</p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="probability.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data: https://www.espn.com/soccer/team/results/_/id/184/season/2021</span></span>
 <span id="cb135-2"><a href="probability.html#cb135-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1468,129 +1485,128 @@ Probability, p(X)
 <span id="cb135-15"><a href="probability.html#cb135-15" aria-hidden="true" tabindex="-1"></a>                          expected_frequency, expected_proportion)</span>
 <span id="cb135-16"><a href="probability.html#cb135-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb135-17"><a href="probability.html#cb135-17" aria-hidden="true" tabindex="-1"></a>rapids.data <span class="sc">%&gt;%</span></span>
-<span id="cb135-18"><a href="probability.html#cb135-18" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb135-19"><a href="probability.html#cb135-19" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_styling</span>()</span></code></pre></div>
-<table class="table" style="margin-left: auto; margin-right: auto;">
+<span id="cb135-18"><a href="probability.html#cb135-18" aria-hidden="true" tabindex="-1"></a><span class="fu">kt</span>()</span></code></pre></div>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="text-align:left;">
+<th style="text-align:center;">
 goals
 </th>
-<th style="text-align:right;">
+<th style="text-align:center;">
 actual_frequency
 </th>
-<th style="text-align:right;">
+<th style="text-align:center;">
 actual_proportion
 </th>
-<th style="text-align:right;">
+<th style="text-align:center;">
 expected_frequency
 </th>
-<th style="text-align:right;">
+<th style="text-align:center;">
 expected_proportion
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 0
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 6
 </td>
-<td style="text-align:right;">
-0.1764706
+<td style="text-align:center;">
+0.176
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 7.6
 </td>
-<td style="text-align:right;">
-0.2231302
+<td style="text-align:center;">
+0.223
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 1
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 14
 </td>
-<td style="text-align:right;">
-0.4117647
+<td style="text-align:center;">
+0.412
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 11.4
 </td>
-<td style="text-align:right;">
-0.3346952
+<td style="text-align:center;">
+0.335
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 2
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 7
 </td>
-<td style="text-align:right;">
-0.2058824
+<td style="text-align:center;">
+0.206
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 8.5
 </td>
-<td style="text-align:right;">
-0.2510214
+<td style="text-align:center;">
+0.251
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 3
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 6
 </td>
-<td style="text-align:right;">
-0.1764706
+<td style="text-align:center;">
+0.176
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 4.3
 </td>
-<td style="text-align:right;">
-0.1255107
+<td style="text-align:center;">
+0.126
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 4
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 0
 </td>
-<td style="text-align:right;">
-0.0000000
+<td style="text-align:center;">
+0.000
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 1.6
 </td>
-<td style="text-align:right;">
-0.0470665
+<td style="text-align:center;">
+0.047
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 5 or more
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 1
 </td>
-<td style="text-align:right;">
-0.0294118
+<td style="text-align:center;">
+0.029
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 0.6
 </td>
-<td style="text-align:right;">
-0.0185759
+<td style="text-align:center;">
+0.019
 </td>
 </tr>
 </tbody>
@@ -1611,6 +1627,7 @@ expected_proportion
 </li>
 </ol>
 <!-- 34 is a relatively small sample size; random variables may not coincide with their expected values for finite sample sizes. -->
+<div style="page-break-after: always;"></div>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Use a QQ plot to compare the probability distribution of the 2021 Rapids goals to a Poisson distribution.<br />
 </li>
@@ -1633,8 +1650,9 @@ expected_proportion
 </li>
 </ol>
 <!-- Poisson random variables can take on the natural numbers (including zero), which aligns with the number of goals that can be scored in a match. One disadvantage is that it is possible for a Poisson to take on values that are not realistic for the situation, such as double-digit integers or higher. Only one game in MLS history has had a team score more than seven goals in a game. However, when $\lambda$ is small (such as 1.5), these extreme values are relatively unlikely. -->
+<div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-114" class="example"><strong>Example 3.39  </strong></span>In 1997-1998 with the Los Angeles Lakers, Shaquille O’Neal attempted an average of 11.35 free throws per game with a standard deviation of 4.04. Is it appropriate to model Shaq’s per game free throw attempts as a Poisson(11.35) random variable?</p>
+<p><span id="exm:unlabeled-div-113" class="example"><strong>Example 3.39  </strong></span>In 1997-1998 with the Los Angeles Lakers, Shaquille O’Neal attempted an average of 11.35 free throws per game with a standard deviation of 4.04. Is it appropriate to model Shaq’s per game free throw attempts as a Poisson(11.35) random variable?</p>
 </div>
 <ol style="list-style-type: lower-alpha">
 <li>Plot the data.</li>
@@ -1644,8 +1662,11 @@ expected_proportion
 <span id="cb137-3"><a href="probability.html#cb137-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;purple&quot;</span>) <span class="sc">+</span></span>
 <span id="cb137-4"><a href="probability.html#cb137-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Per Game FT Attempt Totals by Shaq in 1997-1998&quot;</span>) <span class="sc">+</span></span>
 <span id="cb137-5"><a href="probability.html#cb137-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">25</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-61-1.png" width="672" />
-(b) Plot the PMF of a Poisson(11.35) random variable.</p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Plot the PMF of a Poisson(11.35) random variable.</li>
+</ol>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="probability.html#cb138-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">25</span></span>
 <span id="cb138-2"><a href="probability.html#cb138-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">11.35</span>)</span>
 <span id="cb138-3"><a href="probability.html#cb138-3" aria-hidden="true" tabindex="-1"></a>poisson.pmf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x,y)</span>
@@ -1656,12 +1677,15 @@ expected_proportion
 <span id="cb138-8"><a href="probability.html#cb138-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Probability&quot;</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: lower-alpha">
-<li><p>What similarities and what differences do you notice?<br />
+<li>What similarities and what differences do you notice?<br />
 <br />
 <br />
 <br />
-</p></li>
-<li><p>Calculate the variance of the two distributions and compare them.</p></li>
+</li>
+</ol>
+<div style="page-break-after: always;"></div>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Calculate the variance of the two distributions and compare them.</li>
 </ol>
 <div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="probability.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(shaq9798<span class="sc">$</span>FTA)</span></code></pre></div>
 <pre><code>## [1] 16.33305</code></pre>
@@ -1674,6 +1698,7 @@ expected_proportion
 <pre><code>## [1] 0.06666667</code></pre>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="probability.html#cb144-1" aria-hidden="true" tabindex="-1"></a>poisson20 <span class="ot">&lt;-</span> <span class="fu">ppois</span>(<span class="dv">20</span>, <span class="at">lambda=</span><span class="fl">11.35</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>); poisson20</span></code></pre></div>
 <pre><code>## [1] 0.006536079</code></pre>
+<div style="page-break-after: always;"></div>
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Create a QQ-plot of Shaq’s per game free throw attempts and a Poisson distribution.</li>
 </ol>
@@ -1697,7 +1722,7 @@ expected_proportion
 <div id="negative-binomial-rvs" class="section level3 hasAnchor" number="3.7.4">
 <h3><span class="header-section-number">3.7.4</span> Negative Binomial RVs<a href="probability.html#negative-binomial-rvs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="definition">
-<p><span id="def:unlabeled-div-115" class="definition"><strong>Definition 3.29  </strong></span>A <strong><em>Negative Binomial(<span class="math inline">\(r\)</span>,<span class="math inline">\(p\)</span>) random variable</em></strong> is a discrete random variable that counts the numbers of “successes” for given parameters, <span class="math inline">\(r\)</span> and <span class="math inline">\(p\)</span>.</p>
+<p><span id="def:unlabeled-div-114" class="definition"><strong>Definition 3.28  </strong></span>A <strong><em>Negative Binomial(<span class="math inline">\(r\)</span>,<span class="math inline">\(p\)</span>) random variable</em></strong> is a discrete random variable that counts the numbers of “successes” for given parameters, <span class="math inline">\(r\)</span> and <span class="math inline">\(p\)</span>.</p>
 <p><span class="math inline">\(P(X=k) = {k+r-1 \choose k}(1-p)^rp^k\)</span>, where <span class="math inline">\(k \geq 0,\)</span></p>
 <p>If <span class="math inline">\(X \sim NB(r,p)\)</span>, then <span class="math inline">\(E[X]=\frac{rp}{1-p}\)</span> and <span class="math inline">\(Var(X)=\frac{rp}{(1-p)^2}\)</span></p>
 </div>
@@ -1706,7 +1731,7 @@ expected_proportion
 <p>These estimators are given by:</p>
 <p><span class="math inline">\(\hat{p} = \frac{s^2-\bar{x}}{s^2}\)</span> and <span class="math inline">\(\hat{r} = \frac{\bar{x}^2}{s^2-\bar{x}}\)</span></p>
 <div class="example">
-<p><span id="exm:unlabeled-div-116" class="example"><strong>Example 3.40  </strong></span>Using Shaq’s 1997-1998 data, model his per game free throw attempts as a Negative Binomial random variable.</p>
+<p><span id="exm:unlabeled-div-115" class="example"><strong>Example 3.40  </strong></span>Using Shaq’s 1997-1998 data, model his per game free throw attempts as a Negative Binomial random variable.</p>
 </div>
 <ol style="list-style-type: lower-alpha">
 <li>Find an appropriate choice of parameters, <span class="math inline">\(r\)</span> and <span class="math inline">\(p\)</span>.</li>
@@ -1741,10 +1766,11 @@ expected_proportion
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Calculate the probability that Shaq had 20 or more free throws and compare it to <span class="math inline">\(P(NB(r=25.852,p=0.305) \geq 20)\)</span></li>
 </ol>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="probability.html#cb154-1" aria-hidden="true" tabindex="-1"></a>shaq20 <span class="ot">&lt;-</span> <span class="fu">sum</span>(shaqFTA <span class="sc">&gt;=</span> <span class="dv">20</span>)<span class="sc">/</span><span class="fu">nrow</span>(shaqFTA); shaq20</span></code></pre></div>
-<pre><code>## numeric(0)</code></pre>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="probability.html#cb154-1" aria-hidden="true" tabindex="-1"></a>shaq20 <span class="ot">&lt;-</span> <span class="fu">sum</span>(shaqFTA <span class="sc">&gt;=</span> <span class="dv">20</span>)<span class="sc">/</span><span class="fu">length</span>(shaqFTA); shaq20</span></code></pre></div>
+<pre><code>## [1] 0.06666667</code></pre>
 <div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="probability.html#cb156-1" aria-hidden="true" tabindex="-1"></a>nb20 <span class="ot">&lt;-</span> <span class="fu">pnbinom</span>(<span class="dv">20</span>,<span class="at">size=</span>rhat,<span class="at">prob=</span><span class="dv">1</span><span class="sc">-</span>phat,<span class="at">lower.tail=</span><span class="cn">FALSE</span>); nb20</span></code></pre></div>
 <pre><code>## [1] 0.0208711</code></pre>
+<div style="page-break-after: always;"></div>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Create a QQ-plot of Shaq’s per game free throw attempts and a Negative Binomial distribution.</li>
 </ol>
@@ -1768,18 +1794,18 @@ expected_proportion
 <div id="normal-rvs" class="section level3 hasAnchor" number="3.7.5">
 <h3><span class="header-section-number">3.7.5</span> Normal RVs<a href="probability.html#normal-rvs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="definition">
-<p><span id="def:unlabeled-div-117" class="definition"><strong>Definition 3.30  </strong></span>A <strong><em>Normal(<span class="math inline">\(\mu\)</span>,<span class="math inline">\(\sigma^2\)</span>) random variable</em></strong> is a continuous random variable that is bell-shaped with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>.</p>
+<p><span id="def:unlabeled-div-116" class="definition"><strong>Definition 3.29  </strong></span>A <strong><em>Normal(<span class="math inline">\(\mu\)</span>,<span class="math inline">\(\sigma^2\)</span>) random variable</em></strong> is a continuous random variable that is bell-shaped with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>.</p>
 <p>To calculate probabilities under the normal curve, you need either to integrate, use a table, or a computer.</p>
 <p>Note that a normal random variable can be standardized by using: <span class="math inline">\(z = \frac{x-\mu}{\sigma}\)</span></p>
 </div>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-118" class="theorem"><strong>Theorem 3.8  </strong></span>For a normal(<span class="math inline">\(\mu\)</span>,<span class="math inline">\(\sigma^2\)</span>) random variable, we have the following approximations:<br />
+<p><span id="thm:unlabeled-div-117" class="theorem"><strong>Theorem 3.8  </strong></span>For a normal(<span class="math inline">\(\mu\)</span>,<span class="math inline">\(\sigma^2\)</span>) random variable, we have the following approximations:<br />
 - About 68% of the data falls within one standard deviation of the mean (i.e., <span class="math inline">\(\mu \pm \sigma\)</span>)<br />
 - About 95% of the data falls within two standard deviations of the mean (i.e., <span class="math inline">\(\mu \pm 2\sigma\)</span>)<br />
 - About 99.7% of the data falls within three standard deviations of the mean (i.e., <span class="math inline">\(\mu \pm 3\sigma\)</span>)</p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-119" class="example"><strong>Example 3.41  </strong></span>The skills (or tools) of a baseball player are often rated on a scale of 20-80, where 50 is an average grade, 20 is the lowest grade, and 80 is the highest grade. The distribution of tool grades is approximately normally distributed (<span class="math inline">\(\mu=50, \sigma =10\)</span>).</p>
+<p><span id="exm:unlabeled-div-118" class="example"><strong>Example 3.41  </strong></span>The skills (or tools) of a baseball player are often rated on a scale of 20-80, where 50 is an average grade, 20 is the lowest grade, and 80 is the highest grade. The distribution of tool grades is approximately normally distributed (<span class="math inline">\(\mu=50, \sigma =10\)</span>).</p>
 <p>See <a href="https://blogs.fangraphs.com/scouting-explained-the-20-80-scouting-scale/">https://blogs.fangraphs.com/scouting-explained-the-20-80-scouting-scale/</a> for more details. Calculate the following probabilities.</p>
 </div>
 <ol style="list-style-type: lower-alpha">
@@ -1798,6 +1824,9 @@ expected_proportion
 <br />
 <br />
 </p></li>
+</ol>
+<div style="page-break-after: always;"></div>
+<ol start="4" style="list-style-type: lower-alpha">
 <li><p>Suppose a Rockies prospect is said to be in the bottom 20% of all baseball players in terms of their hit ability. What approximate hit grade would correspond to the player?<br />
 <br />
 <br />
@@ -1822,7 +1851,7 @@ expected_proportion
 <pre><code>## [1] 0.9544997</code></pre>
 <div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-120" class="example"><strong>Example 3.42  </strong></span>Player X has a projected mean WAR of 3 with standard deviation of 2 and player Y has a projected mean WAR of 1.5 with a standard deviation of 3. Assume projected WAR is normally distributed. What is the probability that Player X outperforms Player Y?</p>
+<p><span id="exm:unlabeled-div-119" class="example"><strong>Example 3.42  </strong></span>Player X has a projected mean WAR of 3 with standard deviation of 2 and player Y has a projected mean WAR of 1.5 with a standard deviation of 3. Assume projected WAR is normally distributed. What is the probability that Player X outperforms Player Y?</p>
 <p>Link to WAR explanation: <a href="https://www.mlb.com/glossary/advanced-stats/wins-above-replacement" class="uri">https://www.mlb.com/glossary/advanced-stats/wins-above-replacement</a></p>
 </div>
 <p>We want <span class="math inline">\(P(X&gt;Y)\)</span> or <span class="math inline">\(P(X-Y&gt;0)\)</span><br />
@@ -1835,13 +1864,8 @@ expected_proportion
 <span id="cb169-2"><a href="probability.html#cb169-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="dv">0</span>,<span class="fl">1.5</span>,<span class="fu">sqrt</span>(<span class="dv">5</span>),<span class="at">lower.tail =</span> F); p</span></code></pre></div>
 <pre><code>## [1] 0.7488325</code></pre>
 <p>The probability that Player X outperforms Player Y is 0.7488.</p>
-<div style="page-break-after: always;"></div>
-</div>
-</div>
-<div id="case-study-nfl-state-values-and-decision-making" class="section level2 hasAnchor" number="3.8">
-<h2><span class="header-section-number">3.8</span> Case Study: NFL state values and decision making<a href="probability.html#case-study-nfl-state-values-and-decision-making" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>(Mathletics, chapter 19-20, page 170)</p>
 
+</div>
 </div>
 </div>
             </section>

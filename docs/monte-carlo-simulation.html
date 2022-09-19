@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2022-08-09" />
+<meta name="date" content="2022-09-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -237,7 +237,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.7.4" data-path="probability.html"><a href="probability.html#negative-binomial-rvs"><i class="fa fa-check"></i><b>3.7.4</b> Negative Binomial RVs</a></li>
 <li class="chapter" data-level="3.7.5" data-path="probability.html"><a href="probability.html#normal-rvs"><i class="fa fa-check"></i><b>3.7.5</b> Normal RVs</a></li>
 </ul></li>
-<li class="chapter" data-level="3.8" data-path="probability.html"><a href="probability.html#case-study-nfl-state-values-and-decision-making"><i class="fa fa-check"></i><b>3.8</b> Case Study: NFL state values and decision making</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html"><i class="fa fa-check"></i><b>4</b> Monte Carlo Simulation</a>
 <ul>
@@ -357,7 +356,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>set.seed()</code> allows us to replicate any simulation by giving the initial seed for the simulation. The actual number that is “seeded” is not particularly important though if you want to replicate the same simulations, you will want to re-use this number.</p>
 <div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-121" class="example"><strong>Example 4.1  </strong></span>Simulate 10 overtime coin tosses with and without using <code>set.seed()</code> and compare the results</p>
+<p><span id="exm:unlabeled-div-120" class="example"><strong>Example 4.1  </strong></span>Simulate 10 overtime coin tosses with and without using <code>set.seed()</code> and compare the results</p>
 </div>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="monte-carlo-simulation.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample 1</span></span>
 <span id="cb171-2"><a href="monte-carlo-simulation.html#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;H&quot;</span>,<span class="st">&quot;T&quot;</span>),<span class="at">size=</span><span class="dv">10</span>,<span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>),<span class="at">replace=</span>T)</span></code></pre></div>
@@ -376,7 +375,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Simulation can be very helpful when you want to estimate quantities that are not easily solved using analytical methods like formulas.</p>
 <div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-122" class="example"><strong>Example 4.2  </strong></span>Shaquille O’Neal has a career free throw percentage of 52.7%. Suppose that Shaq takes 10 free throw shots. What is the probability that he makes all 10 shots?</p>
+<p><span id="exm:unlabeled-div-121" class="example"><strong>Example 4.2  </strong></span>Shaquille O’Neal has a career free throw percentage of 52.7%. Suppose that Shaq takes 10 free throw shots. What is the probability that he makes all 10 shots?</p>
 </div>
 <p>In this case, we can calculate the exact probability of interest using binomial random variable.</p>
 <div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="monte-carlo-simulation.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x=</span><span class="dv">10</span>,<span class="at">size=</span><span class="dv">10</span>,<span class="at">prob=</span><span class="fl">0.527</span>)</span></code></pre></div>
@@ -454,12 +453,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.2</span> Estimating Probabilities<a href="monte-carlo-simulation.html#estimating-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can use simulation to estimate probabilities of different events occurring. One way to do this is for each simulation to record a “1” if the event of interest occurs and a “0” if the event of interest does not occur.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-123" class="definition"><strong>Definition 4.1  </strong></span>The <strong><em>indicator function</em></strong>, <span class="math inline">\(I(A)\)</span>, is defined such that <span class="math inline">\(I(A)\)</span> is equal to 1 if <span class="math inline">\(A\)</span> occurs and is equal to 0 if <span class="math inline">\(A\)</span> does not occur.</p>
+<p><span id="def:unlabeled-div-122" class="definition"><strong>Definition 4.1  </strong></span>The <strong><em>indicator function</em></strong>, <span class="math inline">\(I(A)\)</span>, is defined such that <span class="math inline">\(I(A)\)</span> is equal to 1 if <span class="math inline">\(A\)</span> occurs and is equal to 0 if <span class="math inline">\(A\)</span> does not occur.</p>
 </div>
 <p>For instance, suppose we roll a die and a “6” is on top. Then we have the following: <span class="math inline">\(I(6)=1, I(5)=0, I(even)=1, I(odd)=0\)</span>.</p>
 <p>One way to calculate probabilities is to use the following rule: <span class="math inline">\(P(A) = E[I(A)]\)</span>. The probability that <span class="math inline">\(A\)</span> occurs is equal to the expected value of the indicator function of <span class="math inline">\(A\)</span>.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-124" class="example"><strong>Example 4.3  </strong></span>During the 2021 WNBA season, Kahleah Copper of the Chicago Sky had a free throw percentage of 81.8%. She played a total of 32 games and the probability mass function for number of free throw attempts per game are given in the table below. Estimate the probability that Copper did not make a free throw in a game. [Note: Copper did not make a free throw in 6 out of the 32 games for a probability of 0.1875.]</p>
+<p><span id="exm:unlabeled-div-123" class="example"><strong>Example 4.3  </strong></span>During the 2021 WNBA season, Kahleah Copper of the Chicago Sky had a free throw percentage of 81.8%. She played a total of 32 games and the probability mass function for number of free throw attempts per game are given in the table below. Estimate the probability that Copper did not make a free throw in a game. [Note: Copper did not make a free throw in 6 out of the 32 games for a probability of 0.1875.]</p>
 </div>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -607,7 +606,7 @@ Probability, p(FTA)
 <pre><code>## [1] 0.1711</code></pre>
 <div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-125" class="example"><strong>Example 4.4  </strong></span>The number of regulation goals scored in a game by Hockey Team A, <span class="math inline">\(X\)</span>, is a Poisson(4) random variable, and the same for Hockey Team B, <span class="math inline">\(Y\)</span>, is a Poisson(3.2) random variable.</p>
+<p><span id="exm:unlabeled-div-124" class="example"><strong>Example 4.4  </strong></span>The number of regulation goals scored in a game by Hockey Team A, <span class="math inline">\(X\)</span>, is a Poisson(4) random variable, and the same for Hockey Team B, <span class="math inline">\(Y\)</span>, is a Poisson(3.2) random variable.</p>
 <p>A statistician is interested in the probability that Team A defeats Team B in regulation. This is <span class="math inline">\(P(X&gt;Y)\)</span> which is difficult to calculate manually. However, using simulation, we can straightforwardly obtain an accurate estimation of this quantity.</p>
 </div>
 <p>There are many built-in functions in <code>R</code> that allow users to generate realizations from common probability distributions (<code>rnorm</code>, <code>rbinom</code>, <code>rexp</code>, etc.) Let’s use the <code>rpois</code> function to simulate the appropriate variables, remembering to set a seed so that our results are easily replicable.</p>
@@ -622,7 +621,7 @@ Probability, p(FTA)
 <p>Why does this work? First, operations to vectors are executed elementwise, meaning that <code>R</code> compares <code>team_A_goals[1]</code> to <code>team_B_goals[1]</code>, then <code>team_A_goals[2]</code> to <code>team_B_goals[2]</code>, and so on. Second, logical operators are stored as zeroes (when the condition is false) and ones (when the condition is true). The mean of a vector of zeroes and ones is the proportion of ones, which is the frequency of the logical statement being true. In our simulation, it was 0.5415. The true value is 0.5427, meaning that the simulation was quite accurate.</p>
 <div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-126" class="example"><strong>Example 4.5  </strong></span>In baseball, hitting for the cycle requires a hitter to get a single, double, triple, and home run in the same game. This is a rare occurrence in professional baseball having happened only 339 times at present count.</p>
+<p><span id="exm:unlabeled-div-125" class="example"><strong>Example 4.5  </strong></span>In baseball, hitting for the cycle requires a hitter to get a single, double, triple, and home run in the same game. This is a rare occurrence in professional baseball having happened only 339 times at present count.</p>
 <p>On August 10, 2009, Colorado Rockie Troy Tulowitzki hit for the cycle against the Cubs at Coors Field in Denver going 5-for-5 with two singles, one double, one triple, and one home run. Here’s a video recap: <a href="https://www.youtube.com/watch?v=sTU6ice3ga0" class="uri">https://www.youtube.com/watch?v=sTU6ice3ga0</a></p>
 <p>Simulate 100,000 games (5 at-bats per game) for Tulowitzki based on his career numbers and use them to estimate the probability that Tulowitzki hits for the cycle.</p>
 <p>Tulowitzki’s career totals are: 4804 at-bats, 878 singles, 264 doubles, 24 triples, and 225 home runs.</p>
@@ -656,7 +655,7 @@ Probability, p(FTA)
 <div id="winning-streak-simulation" class="section level3 hasAnchor" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> Winning Streak Simulation<a href="monte-carlo-simulation.html#winning-streak-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="example">
-<p><span id="exm:unlabeled-div-127" class="example"><strong>Example 4.6  </strong></span>Suppose an NBA team is in the middle of a rebuild and has a 25% probability of winning each of its games in the following 82-game season. What is the probability that the team will go on at least one winning streak of four or more games over the course of the 82-game season? Use simulation to answer this question.</p>
+<p><span id="exm:unlabeled-div-126" class="example"><strong>Example 4.6  </strong></span>Suppose an NBA team is in the middle of a rebuild and has a 25% probability of winning each of its games in the following 82-game season. What is the probability that the team will go on at least one winning streak of four or more games over the course of the 82-game season? Use simulation to answer this question.</p>
 </div>
 <p>We can simulate a season for the team, find the longest winning streak in that season, and store it in a vector. After repeating that process 10,000 times, we can then find the proportion of the values in that vector that are greater than or equal to 4.</p>
 <div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="monte-carlo-simulation.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
@@ -688,7 +687,7 @@ Probability, p(FTA)
 <p><a href="https://www.youtube.com/watch?v=Y5K49dtOKmo" class="uri">https://www.youtube.com/watch?v=Y5K49dtOKmo</a></p>
 <p><a href="https://www.youtube.com/embed/BErlc16YS8A" class="uri">https://www.youtube.com/embed/BErlc16YS8A</a></p>
 <div class="example">
-<p><span id="exm:unlabeled-div-128" class="example"><strong>Example 4.7  </strong></span>Let’s build a simulation to estimate the probability of a hitting streak of at least 56 games using DiMaggio’s statistics. DiMaggio’s 1941 game log is contained in <code>dimaggio41.csv</code>.</p>
+<p><span id="exm:unlabeled-div-127" class="example"><strong>Example 4.7  </strong></span>Let’s build a simulation to estimate the probability of a hitting streak of at least 56 games using DiMaggio’s statistics. DiMaggio’s 1941 game log is contained in <code>dimaggio41.csv</code>.</p>
 </div>
 <div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="monte-carlo-simulation.html#cb205-1" aria-hidden="true" tabindex="-1"></a>dimaggio <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/dimaggio41.csv&quot;</span>, <span class="at">col_names =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb205-2"><a href="monte-carlo-simulation.html#cb205-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1684,7 +1683,7 @@ Prob
 <p>Rothman et al (2010) estimated the likelihood as 1-in-10000.</p>
 <div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-129" class="example"><strong>Example 4.8  </strong></span>Let’s consider a more general simulation for hitting streaks. Suppose a hitter with a 0.300 batting average plays 140 games and has an equal likelihood of 3, 4, or 5 at-bats in a game. Simulate 10,000 seasons for this hitter, calculate the average max hitting streak, and the overall max hitting streak. After this, repeat the process for a hitter with a 0.400 batting average.</p>
+<p><span id="exm:unlabeled-div-128" class="example"><strong>Example 4.8  </strong></span>Let’s consider a more general simulation for hitting streaks. Suppose a hitter with a 0.300 batting average plays 140 games and has an equal likelihood of 3, 4, or 5 at-bats in a game. Simulate 10,000 seasons for this hitter, calculate the average max hitting streak, and the overall max hitting streak. After this, repeat the process for a hitter with a 0.400 batting average.</p>
 </div>
 <div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="monte-carlo-simulation.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0.300 Hitter Hitting Streak Simulation</span></span>
 <span id="cb234-2"><a href="monte-carlo-simulation.html#cb234-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
@@ -1733,7 +1732,7 @@ Prob
 <h3><span class="header-section-number">4.4.1</span> Martingale System<a href="monte-carlo-simulation.html#martingale-system" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One such famous betting system is called a martingale system. Under this system, the bettor makes an initial wager. If they lose, they make the same wager. If they lose again, they follow a <em>double or nothing</em> procedure. This means that the bettor will continue betting the amount they have lost until they eventually win and get back even. What is wrong with this system?</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-130" class="example"><strong>Example 4.9  </strong></span>Suppose you are betting on sports matches on the spread where there is no house advantage, so all bets are 1:1 and each team is equally likely to win. You begin by wagering $1 and you lose the initial bet (call it <em>Bet Zero</em>). You decide to employee the martingale system. Calculate the expected number of bets that you would have to make to break even. Also, create a histogram for the the biggest deficits in the simulations.</p>
+<p><span id="exm:unlabeled-div-129" class="example"><strong>Example 4.9  </strong></span>Suppose you are betting on sports matches on the spread where there is no house advantage, so all bets are 1:1 and each team is equally likely to win. You begin by wagering $1 and you lose the initial bet (call it <em>Bet Zero</em>). You decide to employee the martingale system. Calculate the expected number of bets that you would have to make to break even. Also, create a histogram for the the biggest deficits in the simulations.</p>
 </div>
 <div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="monte-carlo-simulation.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
 <span id="cb243-2"><a href="monte-carlo-simulation.html#cb243-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
@@ -1783,7 +1782,7 @@ Prob
 <h3><span class="header-section-number">4.4.2</span> Gambler’s Ruin<a href="monte-carlo-simulation.html#gamblers-ruin" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The previous example is an ideal case where there is no house advantage. Sportsbooks will always have a house advantage, so it is more practical to consider an example where there is house advantage. For example, a point spread bet at -110 for two evenly matched teams will offer the sportsbook a house advantage.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-131" class="example"><strong>Example 4.10  </strong></span>Suppose you have a bankroll of $1000 and place $20 bets on point spread bets at -110. You will stop if you ever have less than $20. Assume that both teams are equally likely to beat the spread. How long will your bankroll last? Calculate your expected bankroll after 10 bets, 100 bets, and 1000 bets.</p>
+<p><span id="exm:unlabeled-div-130" class="example"><strong>Example 4.10  </strong></span>Suppose you have a bankroll of $1000 and place $20 bets on point spread bets at -110. You will stop if you ever have less than $20. Assume that both teams are equally likely to beat the spread. How long will your bankroll last? Calculate your expected bankroll after 10 bets, 100 bets, and 1000 bets.</p>
 </div>
 <p>We’ll use the following code and run simulations with total.bets = 10, 100, 1000, 10000.</p>
 <div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="monte-carlo-simulation.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
@@ -1879,7 +1878,7 @@ Max Ending Payroll
 <div id="simulating-a-winning-system" class="section level3 hasAnchor" number="4.4.3">
 <h3><span class="header-section-number">4.4.3</span> Simulating a Winning System<a href="monte-carlo-simulation.html#simulating-a-winning-system" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="example">
-<p><span id="exm:unlabeled-div-132" class="example"><strong>Example 4.11  </strong></span>Suppose your betting system allows you pick winners on the spread 55% of the time. If you are betting at -110, then your probability exceeds the implied probability of 52.4% and this system is not guaranteed to be an eventual loser. Repeat the simulation above with the new probability of winning a wager and 1,000 total bets.</p>
+<p><span id="exm:unlabeled-div-131" class="example"><strong>Example 4.11  </strong></span>Suppose your betting system allows you pick winners on the spread 55% of the time. If you are betting at -110, then your probability exceeds the implied probability of 52.4% and this system is not guaranteed to be an eventual loser. Repeat the simulation above with the new probability of winning a wager and 1,000 total bets.</p>
 </div>
 <div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="monte-carlo-simulation.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
 <span id="cb252-2"><a href="monte-carlo-simulation.html#cb252-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>

@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-08-09}
+\date{2022-09-18}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -347,6 +347,10 @@ Here is how to load a file:
 
 \newpage
 
+\hfill\break
+\hfill\break
+\hfill\break
+
 \hypertarget{which-sports}{%
 \section{Which Sports?}\label{which-sports}}
 
@@ -537,8 +541,8 @@ We often prefer to work with standard deviations as a measure of spread as oppos
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Calculate the variance and standard deviation of Peyton Manning\textquotesingle{}s passing yards}
-\CommentTok{\# season totals with Broncos}
+\CommentTok{\# Calculate the variance and standard deviation of Peyton Manning\textquotesingle{}s passing }
+\CommentTok{\# yards season totals with Broncos}
 \FunctionTok{var}\NormalTok{(peyton.broncos) }\CommentTok{\# units: yards\^{}2}
 \end{Highlighting}
 \end{Shaded}
@@ -618,8 +622,8 @@ A \textbf{\emph{quartile}} is a measure of relative standing and are the cut poi
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Calculate the 10th and 90th percentile of Peyton Manning\textquotesingle{}s passing yards season}
-\CommentTok{\# totals with Colts}
+\CommentTok{\# Calculate the 10th and 90th percentile of Peyton Manning\textquotesingle{}s passing yards }
+\CommentTok{\# season totals with Colts}
 \FunctionTok{quantile}\NormalTok{(peyton.colts,}\FloatTok{0.10}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -1694,14 +1698,16 @@ Tibbles are a type of data frame supported by the \texttt{tidyverse} package. Th
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{basketball\_data }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{team =} \FunctionTok{c}\NormalTok{(}\StringTok{"CSU"}\NormalTok{,}\StringTok{"WYO"}\NormalTok{), }\AttributeTok{FG =} \FunctionTok{c}\NormalTok{(}\DecValTok{14}\NormalTok{,}\DecValTok{15}\NormalTok{), }\AttributeTok{FGA =} \FunctionTok{c}\NormalTok{(}\DecValTok{48}\NormalTok{,}\DecValTok{60}\NormalTok{), }\AttributeTok{THREEP =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{4}\NormalTok{), }\AttributeTok{FT =} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{,}\DecValTok{4}\NormalTok{), }\AttributeTok{FTA =} \FunctionTok{c}\NormalTok{(}\DecValTok{14}\NormalTok{,}\DecValTok{4}\NormalTok{), }\AttributeTok{ORB =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{14}\NormalTok{), }\AttributeTok{DRB =} \FunctionTok{c}\NormalTok{(}\DecValTok{31}\NormalTok{,}\DecValTok{30}\NormalTok{), }\AttributeTok{TOV =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{12}\NormalTok{))}
+\NormalTok{basketball\_data }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{team =} \FunctionTok{c}\NormalTok{(}\StringTok{"CSU"}\NormalTok{,}\StringTok{"WYO"}\NormalTok{), }\AttributeTok{FG =} \FunctionTok{c}\NormalTok{(}\DecValTok{14}\NormalTok{,}\DecValTok{15}\NormalTok{), }\AttributeTok{FGA =} \FunctionTok{c}\NormalTok{(}\DecValTok{48}\NormalTok{,}\DecValTok{60}\NormalTok{), }
+                          \AttributeTok{THREEP =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{4}\NormalTok{), }\AttributeTok{FT =} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{,}\DecValTok{4}\NormalTok{), }\AttributeTok{FTA =} \FunctionTok{c}\NormalTok{(}\DecValTok{14}\NormalTok{,}\DecValTok{4}\NormalTok{), }
+                          \AttributeTok{ORB =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{14}\NormalTok{), }\AttributeTok{DRB =} \FunctionTok{c}\NormalTok{(}\DecValTok{31}\NormalTok{,}\DecValTok{30}\NormalTok{), }\AttributeTok{TOV =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{12}\NormalTok{))}
 \NormalTok{basketball\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c|c|c|c|c|c|c}
+\begin{tabular}{c|c|c|c|c|c|c|c|c}
 \hline
 team & FG & FGA & THREEP & FT & FTA & ORB & DRB & TOV\\
 \hline
@@ -2000,7 +2006,8 @@ For this example, we'll use a set of NHL data from moneypuck.com. First, let's l
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{nhl\_2022\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"https://moneypuck.com/moneypuck/playerData/seasonSummary/2021/regular/teams.csv"}\NormalTok{)}
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{"https://moneypuck.com/moneypuck/playerData/seasonSummary/2021/regular/teams.csv"}
+\NormalTok{nhl\_2022\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(url)}
 
 \NormalTok{nhl\_2022\_data }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n=}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
@@ -2010,7 +2017,7 @@ For this example, we'll use a set of NHL data from moneypuck.com. First, let's l
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c|c|c}
+\begin{tabular}{c|c|c|c|c}
 \hline
 name & situation & xGoalsPercentage & corsiPercentage & fenwickPercentage\\
 \hline
@@ -2123,13 +2130,19 @@ Let's add a line to the graph using the \texttt{geom\_abline} function correspon
 
 \emph{Note: A slope of 0 and an intercept of 1 are actually the default parameters for the function.}
 
-Q: What does it mean for a team's data point to fall below this line? Above it?
+What does it mean for a team's data point to fall below this line? Above it?
 
-A: If the data point is below the line, it means the expected goals were greater than the actual goals; if the data point is above the line, it means the actual goals were greater than the expected goals.
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
 
-Q: Do you think that a team's expected goals would be more likely to be closer to its actual goals for a ten-game stretch, an entire season, or five consecutive seasons? Why?
+Do you think that a team's expected goals would be more likely to be closer to its actual goals for a ten-game stretch, an entire season, or five consecutive seasons? Why?
 
-A: We would expect that as sample size increases, the result would become closer to expectation. So, actual goals would be most likely closer to expected goals over a span of five seasons.
+\hfill\break
+\hfill\break
+\hfill\break
+\hfill\break
 
 \hypertarget{goalie-statistics}{%
 \subsection{Goalie Statistics}\label{goalie-statistics}}
@@ -2224,13 +2237,17 @@ The following plot compares save percentage to the number of shots on goal faced
 
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-30-1.pdf}
 
-Q: Which quadrant of the graph represents goalies that faced a higher than average number of shots, but had a below-average save percentage?
+Which quadrant of the graph represents goalies that faced a higher than average number of shots, but had a below-average save percentage?
 
-A: The second (upper left) quadrant.
+\hfill\break
+\hfill\break
+\hfill\break
 
-Q: Which quadrant represents goalies that had a high save percentage and faced a high volume of shots?
+Which quadrant represents goalies that had a high save percentage and faced a high volume of shots?
 
-A: The first (upper right) quadrant.
+\hfill\break
+\hfill\break
+\hfill\break
 
 \hypertarget{correlation-plots}{%
 \subsection{Correlation Plots}\label{correlation-plots}}
@@ -2293,6 +2310,8 @@ Volleyball rules Youtube video: \url{https://www.youtube.com/watch?v=9g7nYQv-kPM
   An \textbf{Assist (AST)} is a pass made directly before a player makes a kill.
 \item
   \textbf{Hitting Percentage (PCT)} is the number of attempted kills (minus errors) divided by the total number of kill attempts. This helps determine how well a player or team is succeeding at their kill attempts.
+\item
+  A \textbf{Dig} is a pass of a hard-driven ball from the other team.
 \end{itemize}
 
 \emph{Reference:}\\
@@ -2672,7 +2691,7 @@ An \textbf{\emph{event}} is any collection (subset) of outcomes contained in the
 \end{definition}
 
 \begin{example}
-Give an example of a discrete random variable in a sports context.
+Give some examples of discrete random variables in sports.
 \end{example}
 
 \hfill\break
@@ -2682,7 +2701,7 @@ Give an example of a discrete random variable in a sports context.
 \hfill\break
 
 \begin{example}
-Give an example of a continuous random variable in a sports context.
+Give some examples of continuous random variables in sports.
 \end{example}
 
 ~\\
@@ -2714,6 +2733,7 @@ Draw a Venn diagram illustrating \(A^c\) and describe the event.
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 \begin{definition}
 The \textbf{\emph{union}} of two events \(A\) and \(B\), denoted by \(A \cup B\) and read ``\(A\) or \(B\)'', is the event consisting of all outcomes that are either in \(A\) or \(B\) or in both.
@@ -2728,6 +2748,9 @@ Draw a Venn diagram illustrating \(A \cup D\) and describe the event.
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
+
+\newpage
 
 \begin{definition}
 The \textbf{\emph{intersection}} of two events \(A\) and \(B\), denoted by \(A \cap B\) and read ``\(A\) and \(B\)'', is the event consisting of all outcomes that are in both \(A\) and \(B\).
@@ -2742,6 +2765,7 @@ Draw a Venn diagram illustrating \(A \cap D\) and describe the event.
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 \begin{definition}
 The \textbf{\emph{difference}} of two events \(A\) and \(B\), denoted by \(A \mathbin{/} B\) and read ``difference of \(A\) and \(B\)'', is
@@ -2757,6 +2781,7 @@ Draw a Venn diagram illustrating \(D \mathbin{/} A\) and describe the event.
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 \begin{definition}
 Two events \(A\) and \(B\) are said to be \textbf{\emph{disjoint}} (or \textbf{\emph{mutually exclusive}}) if \(A \cap B = \emptyset\)
@@ -2771,6 +2796,7 @@ Are the events \(A\) and \(B\) disjoint? How about \(A\) and \(D\)?
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 \newpage
 
@@ -2791,7 +2817,7 @@ There are some basic assumptions of ``axioms'' which are the foundation of the t
   \(P(\Omega) = 1\)\\
 \item
   If \(A_1, A_2, A_3, \ldots\) is a collection of disjoint events, then:\\
-  \(P(\cup_{i=1}^{\infty} A_i) = P(A_1 \cup A_2 \cup \ldots ) = \sum_{i=1}^{\infty} P(A_i)\)
+  \(P(\cup_{i=1}^{\infty} A_i) = P(A_1 \cup A_2 \cup \ldots ) = \sum_{i=1}^{\infty} P(A_i)\)\\
 \end{enumerate}
 
 Note that all probabilities are between 0 and 1, that is, for any event \(A\), \(0 \leq P(A) \leq 1\).
@@ -2805,15 +2831,15 @@ We can convert to percentages by multiplying probabilities by 100, however, this
 \item
   \(P(\emptyset) = 0\)\\
 \item
-  \(P(A^c) = 1 - P(A)\)
+  \(P(A^c) = 1 - P(A)\)\\
 \item
-  \(P(A \cup B) = P(A) + P(B) - P(A \cap B)\)
+  \(P(A \cup B) = P(A) + P(B) - P(A \cap B)\)\\
 \item
-  \(P(A \cup B \cup C) = \\ P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)\)
+  \(P(A \cup B \cup C) = \\ P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)\)\\
 \item
-  \(P([A \cup B]^c) = P(A^c \cap B^c)\)
+  \(P([A \cup B]^c) = P(A^c \cap B^c)\)\\
 \item
-  \(P([A \cap B]^c) = P(A^c \cup B^c)\)
+  \(P([A \cap B]^c) = P(A^c \cup B^c)\)\\
 \end{itemize}
 
 \newpage
@@ -2923,6 +2949,8 @@ In 1998, Sammy Sosa hit 66 home runs in 722 plate appearances, the third highest
   \vfill
 \end{enumerate}
 
+\newpage
+
 \begin{theorem}[Multiplication Rule]
 For any two events \(A\) and \(B\), \(P(A \cap B) = P(B|A) \cdot P(A)\).
 \end{theorem}
@@ -2935,8 +2963,6 @@ Calculate the probability that a randomly selected plate appearance from Sosa's 
 \hfill\break
 \hfill\break
 \vfill
-
-\newpage
 
 \begin{definition}
 Events \(A_1, A_2, \ldots, A_n\) are said to form a \textbf{\emph{partition}} of a sample space \(\Omega\) if both:\\
@@ -2957,6 +2983,7 @@ What is one possible way to partition Sosa's plate appearances in 1998?
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 \begin{theorem}[Bayes Theorem: simple version]
 Suppose events \(B\) and \(C\) form a partition of \(\Omega\), then:
@@ -2975,6 +3002,9 @@ Given that Sosa hit a home run in 1998, what is the probability that he hit it i
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
+
+\newpage
 
 \begin{example}
 Over the course of a season, a hockey player scored a goal 30\% of the time during a home game, and 18\%. Assume all games are either home or away. Use this information to answer the following questions.
@@ -2987,16 +3017,19 @@ Over the course of a season, a hockey player scored a goal 30\% of the time duri
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   What is the probability the player scored a goal in any game if there were twice as many home games as away games?\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   What is the probability the player scored a goal in any game if the ratio of home games to away games is 2:3?\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \end{enumerate}
 
 \newpage
@@ -3019,6 +3052,7 @@ A baseball/softball batting lineup has nine ordered players. Suppose the manager
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 \begin{definition}
 An ordered subset is called a \textbf{\emph{permutation}}. The number of permutations of size \(k\) that can be formed from the \(n\) elements in a set is given by: \(P_{n,k} = \frac{n!}{(n-k)!}\)
@@ -3031,6 +3065,7 @@ In MLB, each team has a 26-person roster, of which about 13 are hitters. Assumin
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 \begin{definition}
 An unordered subset is called a \textbf{\emph{combination}}. The number of combinations of size \(k\) that can be formed from the \(n\) elements in a set is given by: \(C_{n,k} = {n \choose k} = \frac{n!}{k! \cdot (n-k)!}\)
@@ -3040,6 +3075,10 @@ An unordered subset is called a \textbf{\emph{combination}}. The number of combi
 Suppose a manager has 13 hitters to choose from to fill out a starting lineup of 9 players. Ignoring positions, how many different ways can the manager pick a 9-person lineup from 13 possible hitters?
 \end{example}
 
+\vfill
+
+\newpage
+
 \begin{theorem}[Product Rule for Ordered Pairs]
 If the first element of an ordered pair can be selected in \(n_1\) ways and for each of the these \(n_1\) ways the second element of the pair can be selected in \(n_2\) ways, then the number of pairs is \(n_1 \cdot n_2\).
 \end{theorem}
@@ -3048,6 +3087,7 @@ If the first element of an ordered pair can be selected in \(n_1\) ways and for 
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 \begin{theorem}[Generalized Product Rule]
 Suppose a set consists of \(k\) elements (k-tuples) and that there are \(n_1\) possible choices for the first element, \(n_2\) possible choices for the second element, \ldots{} , and \(n_k\) possible choices for the \(k^\text{th}\) element, then there are \(n_1 \cdot n_2 \cdot \ldots \cdot n_k\) possible k-tuples.
@@ -3060,9 +3100,13 @@ A baseball manager selects nine hitters and one pitcher for a starting lineup. S
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 \begin{example}
-In softball, rules sometimes allow for a ``designated player''. This player hits for any position player or pitcher but isn't required to play defense. There is some flexibility to allow the designated player to temporarily play a position during the game however. For more on the designated player rule in softball, visit: \url{https://cdn2.sportngin.com/attachments/document/c780-2407390/DPFlexRuleExplained.pdf}
+In softball, rules sometimes allow for a ``designated player''. This player hits for any position player or pitcher but isn't required to play defense. There is some flexibility to allow the designated player to temporarily play a position during the game however.\\
+
+For more on the designated player rule in softball, visit:\\
+\url{https://cdn2.sportngin.com/attachments/document/c780-2407390/DPFlexRuleExplained.pdf}
 
 In 2022, the CSU softball team had 24 players. Three of these players were only pitchers and two of these players were both pitchers and fielders. How many different lineups of 10 (8 non-pitching position players, 1 pitcher, 1 designated player) are possible for CSU?
 \end{example}
@@ -3071,6 +3115,7 @@ In 2022, the CSU softball team had 24 players. Three of these players were only 
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 \newpage
 
@@ -3133,6 +3178,8 @@ Odds & p & q & Odds & p & q\\
 
 In the following table, the odds of an outcome along with the probability of the outcome, \emph{p}, and the probability of the outcome's complement, \emph{q=1-p} are given.
 
+\newpage
+
 \begin{example}
 For the following examples, convert between probability and odds.
 \end{example}
@@ -3147,6 +3194,7 @@ For the following examples, convert between probability and odds.
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -3159,6 +3207,7 @@ For the following examples, convert between probability and odds.
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -3171,6 +3220,7 @@ For the following examples, convert between probability and odds.
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 \begin{example}
 Suppose that there are three finalists in an Olympic competition. It is estimated that Athlete A has a 50\% chance of winning, Athlete B has a 40\% chance of winning, and Player C has a 10\% chance of winning. Calculate the odds against each of the athletes winning the competition.
@@ -3181,11 +3231,14 @@ Suppose that there are three finalists in an Olympic competition. It is estimate
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
+
+\newpage
 
 \hypertarget{gambling-odds}{%
 \subsection{Gambling Odds}\label{gambling-odds}}
 
-Here's a helpful resource on calculating gambling odds:
+Here's a helpful resource on calculating gambling odds:\\
 \url{https://www.actionnetwork.com/education/decimal-odds}
 
 Gambling odds are a bit different that odds in a probability context. Gambling odds tell the amount that the bookmaker will pay out for a winning bet. For example, if a bookmaker is offering ``10:1'' that the Rockies win the next World Series, the bookmaker will pay out 10x the original wager plus the original wager if the Rockies win the World Series and the bookmaker will keep the original bet if the Rockies fail to win the World Series.
@@ -3214,23 +3267,25 @@ For the following scenarios, assume a wager of \$100. Calculate the payout for a
   Fractional odds of 4/1\\
   \strut \\
   \strut \\
-  \strut \\
+  \vfill
 \item
   Moneyline +400\\
   \strut \\
   \strut \\
-  \strut \\
+  \vfill
 \item
   Moneyline -300\\
   \strut \\
   \strut \\
-  \strut \\
+  \vfill
 \item
   Decimal Odds of 1.5\\
   \strut \\
   \strut \\
-  \strut \\
+  \vfill
 \end{enumerate}
+
+\newpage
 
 \textbf{Note:} A \emph{moneyline wager} refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds.
 
@@ -3259,22 +3314,28 @@ Calculate the implied probabilities for the following examples.
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   Moneyline -125\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   Moneyline +125\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   Decimal Odds of 1.5\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \end{enumerate}
+
+\newpage
 
 \begin{example}
 Suppose that for an upcoming NFL game, a moneyline wager on the Broncos is -105 and a moneyline wager on the Raiders is -120.
@@ -3287,16 +3348,19 @@ Suppose that for an upcoming NFL game, a moneyline wager on the Broncos is -105 
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   What is the sum of the implied probabilities?\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   Does the result from (b) violate the axioms of probability? If so, why?\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \end{enumerate}
 
 \textbf{Note:} The goal of bookmaking is to make money, so there will be almost certainly be a house advantage. This means that the sum of the implied probabilities will be greater than 1.
@@ -3306,6 +3370,8 @@ The \textbf{\emph{house advantage}} (or \textbf{\emph{hold percentage}}) is the 
 
 \[House \, Advantage = 100 \cdot \sum_{i=1}^n \tilde{p}_i - 100\]
 \end{definition}
+
+\newpage
 
 \begin{example}
 Suppose that a bookmaker is offering a moneyline wager on the Broncos at -105 and a moneyline wager on the Raiders at -120. Calculate the bookmakers expected winnings based on the following amounts of total bets.
@@ -3318,31 +3384,37 @@ Suppose that a bookmaker is offering a moneyline wager on the Broncos at -105 an
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   \$250 wagered on the Broncos, \$750 wagered on the Raiders\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   \$750 wagered on the Broncos, \$250 wagered on the Raiders\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   \$0 wagered on the Broncos, \$1000 wagered on the Raiders\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   \$1000 wagered on the Broncos, \$0 wagered on the Raiders\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   What is the house advantage?\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \end{enumerate}
 
 \newpage
@@ -3364,21 +3436,26 @@ Suppose a sportsbook offers Broncos +14 against the Raiders at -110 (they also o
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   You bet \$20 on the Raiders and the final score is Broncos 21 Raiders 20. What is your payout?\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   You bet \$10 on the Broncos and \$10 on the Raiders and the final score is Broncos 21 Raiders 20. What is your payout?\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \end{enumerate}
 
 \begin{example}
 A \textbf{\emph{parlay bet}} is a combination of multiple bets where the winnings from a winning bet are placed on other bets. All bets must be win for the parlay bet to pay out.
 \end{example}
+
+\newpage
 
 \begin{example}
 Suppose that CSU is a three point favorite (-3) against CU in a women's basketball game and the over/under on total number of points is 97. Assume that the price of bets is -110.
@@ -3391,21 +3468,25 @@ Suppose that CSU is a three point favorite (-3) against CU in a women's basketba
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   Suppose you place a parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 60 CU 40. What is your payout?\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   Suppose you place two bets, CSU -3 and Over 97, and the outcome of the game is CSU 44 CU 40. What is your payout?\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   Suppose you place a parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 44 CU 40. What is your payout?\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \end{enumerate}
 
 \emph{Reference:}\\
@@ -3416,31 +3497,33 @@ Suppose that CSU is a three point favorite (-3) against CU in a women's basketba
 \hypertarget{random-variables}{%
 \section{Random Variables}\label{random-variables}}
 
-\begin{definition}
+:::\{.definition\}
 Let \(\Omega\) be the sample space of an experiment. A \textbf{\emph{random variable}} is a rule that associates a number with each outcome in \(\Omega\). In other words, a random variable is a function whose domain is \(\Omega\) and whose range is the set of real numbers.
-\end{definition}
+:::\\
 
 Random variables are be broken down into subcategories:\\
 1. \textbf{\emph{Discrete random variables}} - random variables which have a sample space that is finite or countably infinite.\\
-2. \textbf{\emph{Continuous random variables}} - random variables which have a sample space that is uncountably infinite (such as an interval of real numbers)
+2. \textbf{\emph{Continuous random variables}} - random variables which have a sample space that is uncountably infinite (such as an interval of real numbers)\\
 
-\textbf{\emph{Discrete}} and \textbf{\emph{Continuous}} random variables use similar yet slightly different mathematical tools. Discrete random variables involve working with ``sums'' and continuous random variables involve working with ``integrals''.
+\textbf{\emph{Discrete}} and \textbf{\emph{Continuous}} random variables use similar yet slightly different mathematical tools. Discrete random variables involve working with ``sums'' and continuous random variables involve working with ``integrals''.\\
 
 \begin{example}
-\[ \]
+Give an example of a discrete random variable in hockey.
 \end{example}
 
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 \begin{example}
-\[ \]
+Give an example of a continuous random variable in hockey.
 \end{example}
 
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 \begin{definition}
 A \textbf{\emph{probability distribution}} is a function that gives probabilities of different possible outcomes for a given experiment.
@@ -3449,6 +3532,8 @@ A \textbf{\emph{probability distribution}} is a function that gives probabilitie
 The probability distribution for a discrete random variable, \(p(x)\), is called a \textbf{\emph{probability mass function (pmf)}}.
 
 The probability distribution for a continuous random variable, \(f(x)\), is called a \textbf{\emph{probability density function (pdf)}}.
+
+\newpage
 
 \begin{example}
 Suppose the Colorado Rockies are playing a four game series against the Chicago Cubs and that the Rockies have a 65\% chance of winning an individual game. Further, assume that the games are independent. The following PMF describes the outcomes (number of Rockies wins) and their probabilities.
@@ -3470,14 +3555,12 @@ What is the probability that the Rockies win zero games? What is the probability
 \hfill\break
 \hfill\break
 \hfill\break
-\hfill\break
-\hfill\break
 
 We may be interested in describing the center or average value of our random variable. We can do this with the following definitions.
 
 \begin{definition}
 
-The \textbf{\emph{expected value}} (or \textbf{\emph{population mean}} or \textbf{\emph{average}}) of a random variable \(X\) is given by:\\
+The \textbf{\emph{expected value}} (or \textbf{\emph{population mean}} or \textbf{\emph{average}}) of a random variable \(X\) is given by:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -3501,6 +3584,8 @@ Sometimes, it makes sense to calculate the expected value of a function of a ran
   \(E[h(X)] = \int_{x \in \Omega} h(x) \cdot f(x) dx\) (for continuous random variables)
 \end{enumerate}
 
+\newpage
+
 \begin{example}
 For the Rockies/Cubs four game series example, calculate \(E[X]\) and \(E[X^2]\).
 \end{example}
@@ -3510,6 +3595,7 @@ For the Rockies/Cubs four game series example, calculate \(E[X]\) and \(E[X^2]\)
 \hfill\break
 \hfill\break
 \hfill\break
+\vfill
 
 The spread or variability associated with a random variable can be calculated using expected values as well.
 
@@ -3527,7 +3613,7 @@ The \textbf{\emph{population variance}} of a random variable \(X\) is given by:\
 
 \end{definition}
 
-There is also a shortcut formula for calculating variance:\\
+There is also a shortcut formula for calculating variance:
 
 \begin{theorem}
 \(Var(X) = E[X^2] - (E[X])^2\)
@@ -3546,8 +3632,9 @@ For the Rockies/Cubs four game series example, calculate \(Var(X)\).
 \hfill\break
 \hfill\break
 \hfill\break
-\hfill\break
-\hfill\break
+\vfill
+\vfill
+\vfill
 
 \newpage
 
@@ -3594,6 +3681,8 @@ Let's generate two simulated datasets. The first dataset will follow a normal di
   \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\newpage
 
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-51-1.pdf} \includegraphics{textbook_files/figure-latex/unnamed-chunk-51-2.pdf} \includegraphics{textbook_files/figure-latex/unnamed-chunk-51-3.pdf} \includegraphics{textbook_files/figure-latex/unnamed-chunk-51-4.pdf}
 
@@ -3694,6 +3783,8 @@ Complete 10,000 simulations of the four game series between the Rockies and Cubs
 
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-52-1.pdf}
 
+\newpage
+
 \hypertarget{binomial-coefficient-symmetry}{%
 \subsubsection{Binomial Coefficient Symmetry}\label{binomial-coefficient-symmetry}}
 
@@ -3761,6 +3852,8 @@ Suppose the number of shots needed by a hockey team in order to score their firs
 \end{enumerate}
 
 \textbf{Caution:} Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful.
+
+\newpage
 
 Let's simulate the number of shot attempts required to score the first goal (Geometric(\(p=1/10\))) from the previous example.
 
@@ -3863,6 +3956,8 @@ We can calculate these probabilities in R using the \texttt{dpois} command.
 ## [1] 0.2510214
 \end{verbatim}
 
+\newpage
+
 We can also plot the PMF of Y to check visually.
 
 \begin{Shaded}
@@ -3879,6 +3974,8 @@ We can also plot the PMF of Y to check visually.
 \end{Shaded}
 
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-58-1.pdf}
+
+\newpage
 
 Let's check whether using a Poisson distribution was appropriate by comparing it to the actual 2021 Colorado Rapids match results.
 
@@ -3901,28 +3998,27 @@ Let's check whether using a Poisson distribution was appropriate by comparing it
 \NormalTok{                          expected\_frequency, expected\_proportion)}
 
 \NormalTok{rapids.data }\SpecialCharTok{\%\textgreater{}\%}
-\FunctionTok{kbl}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-\FunctionTok{kable\_styling}\NormalTok{()}
+\FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}
+\begin{table}[H]
 \centering
-\begin{tabular}[t]{l|r|r|r|r}
+\begin{tabular}{c|c|c|c|c}
 \hline
 goals & actual\_frequency & actual\_proportion & expected\_frequency & expected\_proportion\\
 \hline
-0 & 6 & 0.1764706 & 7.6 & 0.2231302\\
+0 & 6 & 0.176 & 7.6 & 0.223\\
 \hline
-1 & 14 & 0.4117647 & 11.4 & 0.3346952\\
+1 & 14 & 0.412 & 11.4 & 0.335\\
 \hline
-2 & 7 & 0.2058824 & 8.5 & 0.2510214\\
+2 & 7 & 0.206 & 8.5 & 0.251\\
 \hline
-3 & 6 & 0.1764706 & 4.3 & 0.1255107\\
+3 & 6 & 0.176 & 4.3 & 0.126\\
 \hline
-4 & 0 & 0.0000000 & 1.6 & 0.0470665\\
+4 & 0 & 0.000 & 1.6 & 0.047\\
 \hline
-5 or more & 1 & 0.0294118 & 0.6 & 0.0185759\\
+5 or more & 1 & 0.029 & 0.6 & 0.019\\
 \hline
 \end{tabular}
 \end{table}
@@ -3936,6 +4032,7 @@ goals & actual\_frequency & actual\_proportion & expected\_frequency & expected\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \end{enumerate}
 
 \begin{enumerate}
@@ -3947,7 +4044,10 @@ goals & actual\_frequency & actual\_proportion & expected\_frequency & expected\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \end{enumerate}
+
+\newpage
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -3984,6 +4084,8 @@ goals & actual\_frequency & actual\_proportion & expected\_frequency & expected\
   \strut \\
 \end{enumerate}
 
+\newpage
+
 \begin{example}
 In 1997-1998 with the Los Angeles Lakers, Shaquille O'Neal attempted an average of 11.35 free throws per game with a standard deviation of 4.04. Is it appropriate to model Shaq's per game free throw attempts as a Poisson(11.35) random variable?
 \end{example}
@@ -4006,7 +4108,16 @@ In 1997-1998 with the Los Angeles Lakers, Shaquille O'Neal attempted an average 
 \end{Shaded}
 
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-61-1.pdf}
-(b) Plot the PMF of a Poisson(11.35) random variable.
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Plot the PMF of a Poisson(11.35) random variable.
+\end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4026,11 +4137,21 @@ In 1997-1998 with the Los Angeles Lakers, Shaquille O'Neal attempted an average 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
 \setcounter{enumi}{2}
+\tightlist
 \item
   What similarities and what differences do you notice?\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
+\end{enumerate}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
 \item
   Calculate the variance of the two distributions and compare them.
 \end{enumerate}
@@ -4079,6 +4200,8 @@ In 1997-1998 with the Los Angeles Lakers, Shaquille O'Neal attempted an average 
 \begin{verbatim}
 ## [1] 0.006536079
 \end{verbatim}
+
+\newpage
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -4222,12 +4345,12 @@ Using Shaq's 1997-1998 data, model his per game free throw attempts as a Negativ
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{shaq20 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(shaqFTA }\SpecialCharTok{\textgreater{}=} \DecValTok{20}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{nrow}\NormalTok{(shaqFTA); shaq20}
+\NormalTok{shaq20 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(shaqFTA }\SpecialCharTok{\textgreater{}=} \DecValTok{20}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(shaqFTA); shaq20}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## numeric(0)
+## [1] 0.06666667
 \end{verbatim}
 
 \begin{Shaded}
@@ -4239,6 +4362,8 @@ Using Shaq's 1997-1998 data, model his per game free throw attempts as a Negativ
 \begin{verbatim}
 ## [1] 0.0208711
 \end{verbatim}
+
+\newpage
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -4306,26 +4431,38 @@ See \url{https://blogs.fangraphs.com/scouting-explained-the-20-80-scouting-scale
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   Mike Trout has been graded to have raw power of 55. Raw power estimates a player's ability to hit baseballs hard (i.e., hard hit rate). Approximately what percentage of baseball players have equal or less raw power than Arenado?\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   Suppose a Rockies prospect is said to be in the top 10\% of all baseball players in terms of their speed. What approximate speed grade would correspond to the player?\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
+\end{enumerate}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
 \item
   Suppose a Rockies prospect is said to be in the bottom 20\% of all baseball players in terms of their hit ability. What approximate hit grade would correspond to the player?\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \item
   Between what two grades do approximately 95\% of all players lie for a given tool?\\
   \strut \\
   \strut \\
   \strut \\
+  \vfill
 \end{enumerate}
 
 Let's check our answers:
@@ -4408,13 +4545,6 @@ So, \$P(X\textgreater Y) = P(X-Y\textgreater0) = P(Z\textgreater0) = 1-P(Z \(\le
 \end{verbatim}
 
 The probability that Player X outperforms Player Y is 0.7488.
-
-\newpage
-
-\hypertarget{case-study-nfl-state-values-and-decision-making}{%
-\section{Case Study: NFL state values and decision making}\label{case-study-nfl-state-values-and-decision-making}}
-
-(Mathletics, chapter 19-20, page 170)
 
 \hypertarget{monte-carlo-simulation}{%
 \chapter{Monte Carlo Simulation}\label{monte-carlo-simulation}}
