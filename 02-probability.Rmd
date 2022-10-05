@@ -405,11 +405,6 @@ Suppose a manager has 13 hitters to choose from to fill out a starting lineup of
 If the first element of an ordered pair can be selected in $n_1$ ways and for each of the these $n_1$ ways the second element of the pair can be selected in $n_2$ ways, then the number of pairs is $n_1 \cdot n_2$.
 :::
 
-\
-\
-\
-\
-\vfill
 
 :::{.theorem name="Generalized Product Rule"}
 Suppose a set consists of $k$ elements (k-tuples) and that there are $n_1$ possible choices for the first element, $n_2$ possible choices for the second element, ... , and $n_k$ possible choices for the $k^\text{th}$ element, then there are $n_1 \cdot n_2 \cdot \ldots \cdot n_k$ possible k-tuples.
@@ -915,37 +910,36 @@ Let's generate two simulated datasets. The first dataset will follow a normal di
 set.seed(2022)
 sim1.df <- data.frame(x=rnorm(n = 1000,mean = 10,sd = 2))
 sim2.df <- data.frame(x=rpois(n = 1000,lambda = 5))
+jitter_width <- 0.2
 
 fig1 <- ggplot(sim1.df, aes(sample = x)) +
-  stat_qq(position=position_jitter(width = 0.2,height = 0.2)) +
+  stat_qq(position=position_jitter(width = jitter_width,height = jitter_width)) +
   stat_qq_line() +
   ggtitle("Sim 1 vs. Normal") +
   xlab("Theoretical Quantiles") +
   ylab("Empirical Quantiles")
 
 fig2 <- ggplot(sim2.df, aes(sample = x)) +
-  stat_qq(position=position_jitter(width = 0.2,height = 0.2)) +
+  stat_qq(position=position_jitter(width = jitter_width,height = jitter_width)) +
   stat_qq_line() +
   ggtitle("Sim 2 vs. Normal") +
   xlab("Theoretical Quantiles") +
   ylab("Empirical Quantiles")
 
 fig3 <- ggplot(sim1.df, aes(sample = x)) +
-  stat_qq(distribution = qpois, dparams = 5,position=position_jitter(width = 0.2,height = 0.2)) +
+  stat_qq(distribution = qpois, dparams = 5,position=position_jitter(width = jitter_width,height = jitter_width)) +
   stat_qq_line(distribution = qpois, dparams = 5) +
   ggtitle("Sim 1 vs. Poisson") +
   xlab("Theoretical Quantiles") +
   ylab("Empirical Quantiles")
 
 fig4 <- ggplot(sim2.df, aes(sample = x)) +
-  stat_qq(distribution = qpois, dparams = 5,position=position_jitter(width = 0.2,height = 0.2)) +
+  stat_qq(distribution = qpois, dparams = 5,position=position_jitter(width = jitter_width,height = jitter_width)) +
   stat_qq_line(distribution = qpois, dparams = 5) +
   ggtitle("Sim 2 vs. Poisson") +
   xlab("Theoretical Quantiles") +
   ylab("Empirical Quantiles")
 ```
-
-\newpage
 
 ```{r, echo=F}
 fig1
@@ -981,7 +975,7 @@ If $X \sim Binomial(n,p)$, then $E[X]=np$ and $Var(X)=np(1-p)$
 The Cubs and Rockies are playing a 4-game series. The Rockies have a 0.65 probability of winning each game, and the Cubs have a 0.35 probability. Assume each game is independent. Solve for the following quantities.
 :::
 
-(a) The Cubs wins exactly 1 game. \
+(a) The Cubs win exactly 1 game. \
 \
 \
 \
@@ -1088,7 +1082,7 @@ Suppose the number of shots needed by a hockey team in order to score their firs
 Let's simulate the number of shot attempts required to score the first goal (Geometric($p=1/10$)) from the previous example.
 
 ```{r}
-set.seed(2022)
+set.seed(2020)
 geometric <- rgeom(10000, 1/10)
 head(geometric, 20)
 ```
@@ -1100,7 +1094,7 @@ first_success <- geometric + 1
 head(first_success, 20)
 mean(first_success)
 ```
-The mean of this sample of variables is 10.827, which is close to the expected mean of $\frac{1}{p} = 10$.
+The mean of this sample of variables is 10.07, which is close to the expected mean of $\frac{1}{p} = 10$.
 
 Let's plot the sample distribution of shots required to score a goal from the simulation as well.
 
@@ -1298,7 +1292,7 @@ shaq9798 %>%
 :::{.definition}
 A ***Negative Binomial($r$,$p$) random variable*** is a discrete random variable that counts the numbers of "successes" for given parameters, $r$ and $p$.
 
-$P(X=k) =  {k+r-1 \choose k}(1-p)^rp^k$, where $k \geq 0,$
+$P(X=k) =  {k+r-1 \choose k}(1-p)^rp^k$, where $k = 0, 1, 2, ...$
 
 If $X \sim NB(r,p)$, then $E[X]=\frac{rp}{1-p}$ and $Var(X)=\frac{rp}{(1-p)^2}$
 :::
@@ -1364,7 +1358,7 @@ shaq9798 %>%
   ggplot(aes(sample = FTA)) +
   stat_qq(distribution = qnbinom,dparams = list(size=25.852,mu=11.35),position=position_jitter(width=0.2,height=0.2)) +
   stat_qq_line(distribution = qnbinom, dparams = list(size=25.852,mu=11.35)) +
-  ggtitle("QQ-plot for Shaq's Free Throw Attempts vs. Neaative Binomial Distribution") +
+  ggtitle("QQ-plot for Shaq's Free Throw Attempts vs. Negative Binomial Distribution") +
   xlab("Theoretical Quantiles") +
   ylab("Empirical Quantiles")
 ```
@@ -1406,7 +1400,7 @@ See [https://blogs.fangraphs.com/scouting-explained-the-20-80-scouting-scale/](h
 \
 \vfill
 
-(b) Mike Trout has been graded to have raw power of 55. Raw power estimates a player's ability to hit baseballs hard (i.e., hard hit rate). Approximately what percentage of baseball players have equal or less raw power than Arenado? \
+(b) Mike Trout has been graded to have raw power of 55. Raw power estimates a player's ability to hit baseballs hard (i.e., hard hit rate). Approximately what percentage of baseball players have equal or less raw power than Trout? \
 \
 \
 \

@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2022-09-18" />
+<meta name="date" content="2022-10-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -253,7 +253,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gamblers-ruin"><i class="fa fa-check"></i><b>4.4.2</b> Gambler’s Ruin</a></li>
 <li class="chapter" data-level="4.4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-a-winning-system"><i class="fa fa-check"></i><b>4.4.3</b> Simulating a Winning System</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#case-study-evaluating-hitters"><i class="fa fa-check"></i><b>4.5</b> Case Study: Evaluating Hitters</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>5</b> Statistical Inference</a>
 <ul>
@@ -659,11 +658,6 @@ the event consisting of all outcomes that are in <span class="math inline">\(A\)
 <div class="theorem">
 <p><span id="thm:unlabeled-div-74" class="theorem"><strong>Theorem 3.5  (Product Rule for Ordered Pairs) </strong></span>If the first element of an ordered pair can be selected in <span class="math inline">\(n_1\)</span> ways and for each of the these <span class="math inline">\(n_1\)</span> ways the second element of the pair can be selected in <span class="math inline">\(n_2\)</span> ways, then the number of pairs is <span class="math inline">\(n_1 \cdot n_2\)</span>.</p>
 </div>
-<p><br />
-<br />
-<br />
-<br />
-</p>
 <div class="theorem">
 <p><span id="thm:unlabeled-div-75" class="theorem"><strong>Theorem 3.6  (Generalized Product Rule) </strong></span>Suppose a set consists of <span class="math inline">\(k\)</span> elements (k-tuples) and that there are <span class="math inline">\(n_1\)</span> possible choices for the first element, <span class="math inline">\(n_2\)</span> possible choices for the second element, … , and <span class="math inline">\(n_k\)</span> possible choices for the <span class="math inline">\(k^\text{th}\)</span> element, then there are <span class="math inline">\(n_1 \cdot n_2 \cdot \ldots \cdot n_k\)</span> possible k-tuples.</p>
 </div>
@@ -1272,35 +1266,35 @@ Probability, p(X)
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="probability.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
 <span id="cb115-2"><a href="probability.html#cb115-2" aria-hidden="true" tabindex="-1"></a>sim1.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>,<span class="at">mean =</span> <span class="dv">10</span>,<span class="at">sd =</span> <span class="dv">2</span>))</span>
 <span id="cb115-3"><a href="probability.html#cb115-3" aria-hidden="true" tabindex="-1"></a>sim2.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">1000</span>,<span class="at">lambda =</span> <span class="dv">5</span>))</span>
-<span id="cb115-4"><a href="probability.html#cb115-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-5"><a href="probability.html#cb115-5" aria-hidden="true" tabindex="-1"></a>fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim1.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
-<span id="cb115-6"><a href="probability.html#cb115-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>,<span class="at">height =</span> <span class="fl">0.2</span>)) <span class="sc">+</span></span>
-<span id="cb115-7"><a href="probability.html#cb115-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
-<span id="cb115-8"><a href="probability.html#cb115-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 1 vs. Normal&quot;</span>) <span class="sc">+</span></span>
-<span id="cb115-9"><a href="probability.html#cb115-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
-<span id="cb115-10"><a href="probability.html#cb115-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span>
-<span id="cb115-11"><a href="probability.html#cb115-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-12"><a href="probability.html#cb115-12" aria-hidden="true" tabindex="-1"></a>fig2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim2.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
-<span id="cb115-13"><a href="probability.html#cb115-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>,<span class="at">height =</span> <span class="fl">0.2</span>)) <span class="sc">+</span></span>
-<span id="cb115-14"><a href="probability.html#cb115-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
-<span id="cb115-15"><a href="probability.html#cb115-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 2 vs. Normal&quot;</span>) <span class="sc">+</span></span>
-<span id="cb115-16"><a href="probability.html#cb115-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
-<span id="cb115-17"><a href="probability.html#cb115-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span>
-<span id="cb115-18"><a href="probability.html#cb115-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-19"><a href="probability.html#cb115-19" aria-hidden="true" tabindex="-1"></a>fig3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim1.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
-<span id="cb115-20"><a href="probability.html#cb115-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>,<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>,<span class="at">height =</span> <span class="fl">0.2</span>)) <span class="sc">+</span></span>
-<span id="cb115-21"><a href="probability.html#cb115-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb115-22"><a href="probability.html#cb115-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 1 vs. Poisson&quot;</span>) <span class="sc">+</span></span>
-<span id="cb115-23"><a href="probability.html#cb115-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
-<span id="cb115-24"><a href="probability.html#cb115-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span>
-<span id="cb115-25"><a href="probability.html#cb115-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-26"><a href="probability.html#cb115-26" aria-hidden="true" tabindex="-1"></a>fig4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim2.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
-<span id="cb115-27"><a href="probability.html#cb115-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>,<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>,<span class="at">height =</span> <span class="fl">0.2</span>)) <span class="sc">+</span></span>
-<span id="cb115-28"><a href="probability.html#cb115-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb115-29"><a href="probability.html#cb115-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 2 vs. Poisson&quot;</span>) <span class="sc">+</span></span>
-<span id="cb115-30"><a href="probability.html#cb115-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
-<span id="cb115-31"><a href="probability.html#cb115-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span></code></pre></div>
-<div style="page-break-after: always;"></div>
+<span id="cb115-4"><a href="probability.html#cb115-4" aria-hidden="true" tabindex="-1"></a>jitter_width <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
+<span id="cb115-5"><a href="probability.html#cb115-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-6"><a href="probability.html#cb115-6" aria-hidden="true" tabindex="-1"></a>fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim1.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
+<span id="cb115-7"><a href="probability.html#cb115-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> jitter_width,<span class="at">height =</span> jitter_width)) <span class="sc">+</span></span>
+<span id="cb115-8"><a href="probability.html#cb115-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
+<span id="cb115-9"><a href="probability.html#cb115-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 1 vs. Normal&quot;</span>) <span class="sc">+</span></span>
+<span id="cb115-10"><a href="probability.html#cb115-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
+<span id="cb115-11"><a href="probability.html#cb115-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span>
+<span id="cb115-12"><a href="probability.html#cb115-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-13"><a href="probability.html#cb115-13" aria-hidden="true" tabindex="-1"></a>fig2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim2.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
+<span id="cb115-14"><a href="probability.html#cb115-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> jitter_width,<span class="at">height =</span> jitter_width)) <span class="sc">+</span></span>
+<span id="cb115-15"><a href="probability.html#cb115-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
+<span id="cb115-16"><a href="probability.html#cb115-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 2 vs. Normal&quot;</span>) <span class="sc">+</span></span>
+<span id="cb115-17"><a href="probability.html#cb115-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
+<span id="cb115-18"><a href="probability.html#cb115-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span>
+<span id="cb115-19"><a href="probability.html#cb115-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-20"><a href="probability.html#cb115-20" aria-hidden="true" tabindex="-1"></a>fig3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim1.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
+<span id="cb115-21"><a href="probability.html#cb115-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>,<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> jitter_width,<span class="at">height =</span> jitter_width)) <span class="sc">+</span></span>
+<span id="cb115-22"><a href="probability.html#cb115-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb115-23"><a href="probability.html#cb115-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 1 vs. Poisson&quot;</span>) <span class="sc">+</span></span>
+<span id="cb115-24"><a href="probability.html#cb115-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
+<span id="cb115-25"><a href="probability.html#cb115-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span>
+<span id="cb115-26"><a href="probability.html#cb115-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-27"><a href="probability.html#cb115-27" aria-hidden="true" tabindex="-1"></a>fig4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim2.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
+<span id="cb115-28"><a href="probability.html#cb115-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>,<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> jitter_width,<span class="at">height =</span> jitter_width)) <span class="sc">+</span></span>
+<span id="cb115-29"><a href="probability.html#cb115-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb115-30"><a href="probability.html#cb115-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 2 vs. Poisson&quot;</span>) <span class="sc">+</span></span>
+<span id="cb115-31"><a href="probability.html#cb115-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
+<span id="cb115-32"><a href="probability.html#cb115-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-51-1.png" width="672" /><img src="textbook_files/figure-html/unnamed-chunk-51-2.png" width="672" /><img src="textbook_files/figure-html/unnamed-chunk-51-3.png" width="672" /><img src="textbook_files/figure-html/unnamed-chunk-51-4.png" width="672" /></p>
 <p>What do you conclude from the four QQ plots?</p>
 <div style="page-break-after: always;"></div>
@@ -1323,7 +1317,7 @@ Probability, p(X)
 <p><span id="exm:unlabeled-div-107" class="example"><strong>Example 3.35  </strong></span>The Cubs and Rockies are playing a 4-game series. The Rockies have a 0.65 probability of winning each game, and the Cubs have a 0.35 probability. Assume each game is independent. Solve for the following quantities.</p>
 </div>
 <ol style="list-style-type: lower-alpha">
-<li><p>The Cubs wins exactly 1 game.<br />
+<li><p>The Cubs win exactly 1 game.<br />
 <br />
 <br />
 <br />
@@ -1415,17 +1409,17 @@ Probability, p(X)
 <p><strong>Caution:</strong> Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful.</p>
 <div style="page-break-after: always;"></div>
 <p>Let’s simulate the number of shot attempts required to score the first goal (Geometric(<span class="math inline">\(p=1/10\)</span>)) from the previous example.</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="probability.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="probability.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
 <span id="cb123-2"><a href="probability.html#cb123-2" aria-hidden="true" tabindex="-1"></a>geometric <span class="ot">&lt;-</span> <span class="fu">rgeom</span>(<span class="dv">10000</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">10</span>)</span>
 <span id="cb123-3"><a href="probability.html#cb123-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(geometric, <span class="dv">20</span>)</span></code></pre></div>
-<pre><code>##  [1]  6 21 26 57 26  1  9  2  8  2  5 13 30 13  9 11  7  8  7 26</code></pre>
+<pre><code>##  [1]  2  2  7 55  6 11  2 11  2  5  0 50 17  2  7  0  7 19 17  1</code></pre>
 <p>Some of the values were 0, which could not happen if R was considering the number of the trial on which the first success occurred. You can add 1 to the values given by <code>R</code> to arrive at the first success distribution.</p>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="probability.html#cb125-1" aria-hidden="true" tabindex="-1"></a>first_success <span class="ot">&lt;-</span> geometric <span class="sc">+</span> <span class="dv">1</span></span>
 <span id="cb125-2"><a href="probability.html#cb125-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(first_success, <span class="dv">20</span>)</span></code></pre></div>
-<pre><code>##  [1]  7 22 27 58 27  2 10  3  9  3  6 14 31 14 10 12  8  9  8 27</code></pre>
+<pre><code>##  [1]  3  3  8 56  7 12  3 12  3  6  1 51 18  3  8  1  8 20 18  2</code></pre>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="probability.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(first_success)</span></code></pre></div>
-<pre><code>## [1] 10.0588</code></pre>
-<p>The mean of this sample of variables is 10.827, which is close to the expected mean of <span class="math inline">\(\frac{1}{p} = 10\)</span>.</p>
+<pre><code>## [1] 10.0669</code></pre>
+<p>The mean of this sample of variables is 10.07, which is close to the expected mean of <span class="math inline">\(\frac{1}{p} = 10\)</span>.</p>
 <p>Let’s plot the sample distribution of shots required to score a goal from the simulation as well.</p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="probability.html#cb129-1" aria-hidden="true" tabindex="-1"></a>first_success_df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Shots =</span> first_success)</span>
 <span id="cb129-2"><a href="probability.html#cb129-2" aria-hidden="true" tabindex="-1"></a>first_success_df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Shots)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>)</span></code></pre></div>
@@ -1723,7 +1717,7 @@ expected_proportion
 <h3><span class="header-section-number">3.7.4</span> Negative Binomial RVs<a href="probability.html#negative-binomial-rvs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="definition">
 <p><span id="def:unlabeled-div-114" class="definition"><strong>Definition 3.28  </strong></span>A <strong><em>Negative Binomial(<span class="math inline">\(r\)</span>,<span class="math inline">\(p\)</span>) random variable</em></strong> is a discrete random variable that counts the numbers of “successes” for given parameters, <span class="math inline">\(r\)</span> and <span class="math inline">\(p\)</span>.</p>
-<p><span class="math inline">\(P(X=k) = {k+r-1 \choose k}(1-p)^rp^k\)</span>, where <span class="math inline">\(k \geq 0,\)</span></p>
+<p><span class="math inline">\(P(X=k) = {k+r-1 \choose k}(1-p)^rp^k\)</span>, where <span class="math inline">\(k = 0, 1, 2, ...\)</span></p>
 <p>If <span class="math inline">\(X \sim NB(r,p)\)</span>, then <span class="math inline">\(E[X]=\frac{rp}{1-p}\)</span> and <span class="math inline">\(Var(X)=\frac{rp}{(1-p)^2}\)</span></p>
 </div>
 <p>The Negative Binomial distribution is often used to model count data that is “overdispersed”. A property of the Poisson distribution is that the mean and variance are equal. If you are analyzing count data such that the variance is much greater than the mean (i.e., overdispersed), then the Negative Binomial distribution may be an appropriate substitute.</p>
@@ -1778,7 +1772,7 @@ expected_proportion
 <span id="cb158-2"><a href="probability.html#cb158-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> FTA)) <span class="sc">+</span></span>
 <span id="cb158-3"><a href="probability.html#cb158-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qnbinom,<span class="at">dparams =</span> <span class="fu">list</span>(<span class="at">size=</span><span class="fl">25.852</span>,<span class="at">mu=</span><span class="fl">11.35</span>),<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width=</span><span class="fl">0.2</span>,<span class="at">height=</span><span class="fl">0.2</span>)) <span class="sc">+</span></span>
 <span id="cb158-4"><a href="probability.html#cb158-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qnbinom, <span class="at">dparams =</span> <span class="fu">list</span>(<span class="at">size=</span><span class="fl">25.852</span>,<span class="at">mu=</span><span class="fl">11.35</span>)) <span class="sc">+</span></span>
-<span id="cb158-5"><a href="probability.html#cb158-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;QQ-plot for Shaq&#39;s Free Throw Attempts vs. Neaative Binomial Distribution&quot;</span>) <span class="sc">+</span></span>
+<span id="cb158-5"><a href="probability.html#cb158-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;QQ-plot for Shaq&#39;s Free Throw Attempts vs. Negative Binomial Distribution&quot;</span>) <span class="sc">+</span></span>
 <span id="cb158-6"><a href="probability.html#cb158-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
 <span id="cb158-7"><a href="probability.html#cb158-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
@@ -1814,7 +1808,7 @@ expected_proportion
 <br />
 <br />
 </p></li>
-<li><p>Mike Trout has been graded to have raw power of 55. Raw power estimates a player’s ability to hit baseballs hard (i.e., hard hit rate). Approximately what percentage of baseball players have equal or less raw power than Arenado?<br />
+<li><p>Mike Trout has been graded to have raw power of 55. Raw power estimates a player’s ability to hit baseballs hard (i.e., hard hit rate). Approximately what percentage of baseball players have equal or less raw power than Trout?<br />
 <br />
 <br />
 <br />

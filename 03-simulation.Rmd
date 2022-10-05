@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 library(formatR)
 library(tidyverse)
@@ -31,6 +36,7 @@ One function that will be particularly useful for simulation is `set.seed()`.
 
 `set.seed()` allows us to replicate any simulation by giving the initial seed for the simulation. The actual number that is "seeded" is not particularly important though if you want to replicate the same simulations, you will want to re-use this number.
 
+\vfill
 \newpage
 
 :::{.example}
@@ -53,9 +59,10 @@ set.seed(2020)
 sample(c("H","T"),size=10,prob=c(0.5,0.5),replace=T)
 ```
 
-Simulation can be very helpful when you want to estimate quantities that are not easily solved using analytical methods like formulas.
-
+\vfill
 \newpage
+
+Simulation can be very helpful when you want to estimate quantities that are not easily solved using analytical methods like formulas.
 
 :::{.example}
 Shaquille O'Neal has a career free throw percentage of 52.7%. Suppose that Shaq takes 10 free throw shots. What is the probability that he makes all 10 shots?
@@ -90,19 +97,27 @@ for(i in 1:n.sims){
   FT[i] <- sum(temp)
 }
 
-FT %>% 
-  as.data.frame() %>% 
-  ggplot(aes(x=FT)) + 
-  geom_bar() +
-  ggtitle("Number of free throws made out of 10") + 
-  scale_x_continuous(breaks = seq(0, 10, by = 2))
-
 prob10 <- sum(FT == 10)/n.sims; prob10
 prob10 <- mean(FT == 10); prob10
 
 ```
 
 The estimated probability that Shaq goes 10-for-10 in free throw attempts based on his career average is 0.0023.
+
+\vfill
+\newpage
+
+```{r}
+FT %>% 
+  as.data.frame() %>% 
+  ggplot(aes(x=FT)) + 
+  geom_bar() +
+  ggtitle("Number of free throws made out of 10") + 
+  scale_x_continuous(breaks = seq(0, 10, by = 2))
+```
+
+\vfill
+\newpage
 
 If we run the simulation again with a different seed, we will get another estimate (0.0019).
 
@@ -148,7 +163,7 @@ for(i in 1:n.sims){
 prob10 <- mean(FT==10); prob10
 ```
 
-One way to simulate data is to make assumptions about the distributions of the underlying data. The random variables given in the last chapter as possible candidates.
+One way to simulate data is to make assumptions about the distributions of the underlying data. The random variables given in the last chapter are possible candidates.
 
 
 ## Estimating Probabilities
@@ -177,6 +192,9 @@ df <- t(data.frame(FTA,nFTA,pFTA))
 row.names(df) = c("Free Throw Attempt, FTA","Frequency, nFTA","Probability, p(FTA)")
 df %>% t() %>% kt()
 ```
+
+\vfill
+\newpage
 
 ```{r}
 set.seed(2020)
@@ -344,6 +362,9 @@ nrow(dimaggio)
 dimaggio %>% select(1:13) %>% slice(1:10,139:140) %>% kt()
 ```
 
+\vfill
+\newpage
+
 DiMaggio played in 139 games, had 622 plate appearances, 541 at-bats, and 193 hits.
 
 ```{r}
@@ -361,7 +382,10 @@ table(streaks)
 
 As seen above, DiMaggio had a 56-game hitting streak. An impossible feat to match?
 
-(a) Create a histograms for DiMaggio's per game plate appearances and at bats. (Hint: for discrete values, `geom_bar()` is often a good option.)
+\vfill
+\newpage
+
+(a) Create a histogram for DiMaggio's per game plate appearances and at bats. (Hint: for discrete values, `geom_bar()` is often a good option.)
 
 ```{r,message=F}
 library(gridExtra)
@@ -382,6 +406,9 @@ p2 <- dimaggio %>%
 grid.arrange(p1, p2, ncol = 1)
 ```
 
+\vfill
+\newpage
+
 (b) Create a frequency and percentage frequency table for plate appearances and at-bats.
 
 ```{r,message=F}
@@ -399,6 +426,8 @@ names(table.ab) = c("At-Bats", "Frequency", "Percent")
 table.ab %>% kt()
 ```
 
+\vfill
+\newpage
 
 (c) DiMaggio had 193 hits in 622 plate appearances over 139 games. We will simulate DiMaggio's season of 139 games 100,000 times to estimate the probability of a 56-game hitting streak.
 
@@ -561,8 +590,11 @@ mean.streak <- mean(longest.streak); mean.streak
 max.streak <- max(longest.streak); max.streak
 ```
 
+\vfill
+\newpage
+
 ```{r, echo=F}
-# 0.300 Hitter Hitting Streak Simulation
+# 0.400 Hitter Hitting Streak Simulation
 set.seed(2022)
 n.sims <- 10000
 n.games <- 140
@@ -846,6 +878,9 @@ All bettors eventually go broke under this scenario due to the house advantage. 
 
 See Wikipedia for further details: https://en.wikipedia.org/wiki/Gambler's_ruin
 
+\vfill
+\newpage
+
 ### Simulating a Winning System
 
 :::{.example}
@@ -890,9 +925,3 @@ bankroll.end %>% as.data.frame() %>%
   xlab("Bankroll after 1000 bets")
 ```
 
-
-\newpage
-
-## Case Study: Evaluating Hitters
-
-(Mathletics chapter 4, page 31)

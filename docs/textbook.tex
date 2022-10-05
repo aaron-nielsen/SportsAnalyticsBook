@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-09-18}
+\date{2022-10-05}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -3083,12 +3083,6 @@ Suppose a manager has 13 hitters to choose from to fill out a starting lineup of
 If the first element of an ordered pair can be selected in \(n_1\) ways and for each of the these \(n_1\) ways the second element of the pair can be selected in \(n_2\) ways, then the number of pairs is \(n_1 \cdot n_2\).
 \end{theorem}
 
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\vfill
-
 \begin{theorem}[Generalized Product Rule]
 Suppose a set consists of \(k\) elements (k-tuples) and that there are \(n_1\) possible choices for the first element, \(n_2\) possible choices for the second element, \ldots{} , and \(n_k\) possible choices for the \(k^\text{th}\) element, then there are \(n_1 \cdot n_2 \cdot \ldots \cdot n_k\) possible k-tuples.
 \end{theorem}
@@ -3651,38 +3645,37 @@ Let's generate two simulated datasets. The first dataset will follow a normal di
 \FunctionTok{set.seed}\NormalTok{(}\DecValTok{2022}\NormalTok{)}
 \NormalTok{sim1.df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =} \DecValTok{1000}\NormalTok{,}\AttributeTok{mean =} \DecValTok{10}\NormalTok{,}\AttributeTok{sd =} \DecValTok{2}\NormalTok{))}
 \NormalTok{sim2.df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\FunctionTok{rpois}\NormalTok{(}\AttributeTok{n =} \DecValTok{1000}\NormalTok{,}\AttributeTok{lambda =} \DecValTok{5}\NormalTok{))}
+\NormalTok{jitter\_width }\OtherTok{\textless{}{-}} \FloatTok{0.2}
 
 \NormalTok{fig1 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(sim1.df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ x)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.2}\NormalTok{,}\AttributeTok{height =} \FloatTok{0.2}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =}\NormalTok{ jitter\_width,}\AttributeTok{height =}\NormalTok{ jitter\_width)) }\SpecialCharTok{+}
   \FunctionTok{stat\_qq\_line}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Sim 1 vs. Normal"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
 
 \NormalTok{fig2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(sim2.df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ x)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.2}\NormalTok{,}\AttributeTok{height =} \FloatTok{0.2}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =}\NormalTok{ jitter\_width,}\AttributeTok{height =}\NormalTok{ jitter\_width)) }\SpecialCharTok{+}
   \FunctionTok{stat\_qq\_line}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Sim 2 vs. Normal"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
 
 \NormalTok{fig3 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(sim1.df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ x)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \DecValTok{5}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.2}\NormalTok{,}\AttributeTok{height =} \FloatTok{0.2}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \DecValTok{5}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =}\NormalTok{ jitter\_width,}\AttributeTok{height =}\NormalTok{ jitter\_width)) }\SpecialCharTok{+}
   \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Sim 1 vs. Poisson"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
 
 \NormalTok{fig4 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(sim2.df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ x)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \DecValTok{5}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.2}\NormalTok{,}\AttributeTok{height =} \FloatTok{0.2}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \DecValTok{5}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =}\NormalTok{ jitter\_width,}\AttributeTok{height =}\NormalTok{ jitter\_width)) }\SpecialCharTok{+}
   \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Sim 2 vs. Poisson"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\newpage
 
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-51-1.pdf} \includegraphics{textbook_files/figure-latex/unnamed-chunk-51-2.pdf} \includegraphics{textbook_files/figure-latex/unnamed-chunk-51-3.pdf} \includegraphics{textbook_files/figure-latex/unnamed-chunk-51-4.pdf}
 
@@ -3717,7 +3710,7 @@ The Cubs and Rockies are playing a 4-game series. The Rockies have a 0.65 probab
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
 \item
-  The Cubs wins exactly 1 game.\\
+  The Cubs win exactly 1 game.\\
   \strut \\
   \strut \\
   \strut \\
@@ -3859,14 +3852,14 @@ Let's simulate the number of shot attempts required to score the first goal (Geo
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2022}\NormalTok{)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2020}\NormalTok{)}
 \NormalTok{geometric }\OtherTok{\textless{}{-}} \FunctionTok{rgeom}\NormalTok{(}\DecValTok{10000}\NormalTok{, }\DecValTok{1}\SpecialCharTok{/}\DecValTok{10}\NormalTok{)}
 \FunctionTok{head}\NormalTok{(geometric, }\DecValTok{20}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  6 21 26 57 26  1  9  2  8  2  5 13 30 13  9 11  7  8  7 26
+##  [1]  2  2  7 55  6 11  2 11  2  5  0 50 17  2  7  0  7 19 17  1
 \end{verbatim}
 
 Some of the values were 0, which could not happen if R was considering the number of the trial on which the first success occurred. You can add 1 to the values given by \texttt{R} to arrive at the first success distribution.
@@ -3879,7 +3872,7 @@ Some of the values were 0, which could not happen if R was considering the numbe
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  7 22 27 58 27  2 10  3  9  3  6 14 31 14 10 12  8  9  8 27
+##  [1]  3  3  8 56  7 12  3 12  3  6  1 51 18  3  8  1  8 20 18  2
 \end{verbatim}
 
 \begin{Shaded}
@@ -3889,10 +3882,10 @@ Some of the values were 0, which could not happen if R was considering the numbe
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 10.0588
+## [1] 10.0669
 \end{verbatim}
 
-The mean of this sample of variables is 10.827, which is close to the expected mean of \(\frac{1}{p} = 10\).
+The mean of this sample of variables is 10.07, which is close to the expected mean of \(\frac{1}{p} = 10\).
 
 Let's plot the sample distribution of shots required to score a goal from the simulation as well.
 
@@ -4244,7 +4237,7 @@ In 1997-1998 with the Los Angeles Lakers, Shaquille O'Neal attempted an average 
 \begin{definition}
 A \textbf{\emph{Negative Binomial(\(r\),\(p\)) random variable}} is a discrete random variable that counts the numbers of ``successes'' for given parameters, \(r\) and \(p\).
 
-\(P(X=k) = {k+r-1 \choose k}(1-p)^rp^k\), where \(k \geq 0,\)
+\(P(X=k) = {k+r-1 \choose k}(1-p)^rp^k\), where \(k = 0, 1, 2, ...\)
 
 If \(X \sim NB(r,p)\), then \(E[X]=\frac{rp}{1-p}\) and \(Var(X)=\frac{rp}{(1-p)^2}\)
 \end{definition}
@@ -4379,7 +4372,7 @@ Using Shaq's 1997-1998 data, model his per game free throw attempts as a Negativ
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ FTA)) }\SpecialCharTok{+}
   \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qnbinom,}\AttributeTok{dparams =} \FunctionTok{list}\NormalTok{(}\AttributeTok{size=}\FloatTok{25.852}\NormalTok{,}\AttributeTok{mu=}\FloatTok{11.35}\NormalTok{),}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width=}\FloatTok{0.2}\NormalTok{,}\AttributeTok{height=}\FloatTok{0.2}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qnbinom, }\AttributeTok{dparams =} \FunctionTok{list}\NormalTok{(}\AttributeTok{size=}\FloatTok{25.852}\NormalTok{,}\AttributeTok{mu=}\FloatTok{11.35}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"QQ{-}plot for Shaq\textquotesingle{}s Free Throw Attempts vs. Neaative Binomial Distribution"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"QQ{-}plot for Shaq\textquotesingle{}s Free Throw Attempts vs. Negative Binomial Distribution"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
 \end{Highlighting}
@@ -4433,7 +4426,7 @@ See \url{https://blogs.fangraphs.com/scouting-explained-the-20-80-scouting-scale
   \strut \\
   \vfill
 \item
-  Mike Trout has been graded to have raw power of 55. Raw power estimates a player's ability to hit baseballs hard (i.e., hard hit rate). Approximately what percentage of baseball players have equal or less raw power than Arenado?\\
+  Mike Trout has been graded to have raw power of 55. Raw power estimates a player's ability to hit baseballs hard (i.e., hard hit rate). Approximately what percentage of baseball players have equal or less raw power than Trout?\\
   \strut \\
   \strut \\
   \strut \\
@@ -4570,6 +4563,7 @@ One function that will be particularly useful for simulation is \texttt{set.seed
 
 \texttt{set.seed()} allows us to replicate any simulation by giving the initial seed for the simulation. The actual number that is ``seeded'' is not particularly important though if you want to replicate the same simulations, you will want to re-use this number.
 
+\vfill
 \newpage
 
 \begin{example}
@@ -4584,7 +4578,7 @@ Simulate 10 overtime coin tosses with and without using \texttt{set.seed()} and 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] "T" "H" "T" "T" "T" "H" "H" "H" "T" "T"
+##  [1] "H" "T" "H" "H" "H" "T" "T" "T" "H" "T"
 \end{verbatim}
 
 \begin{Shaded}
@@ -4595,7 +4589,7 @@ Simulate 10 overtime coin tosses with and without using \texttt{set.seed()} and 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] "T" "H" "T" "T" "H" "H" "H" "H" "T" "T"
+##  [1] "T" "T" "T" "H" "H" "T" "T" "T" "H" "H"
 \end{verbatim}
 
 \begin{Shaded}
@@ -4622,9 +4616,10 @@ Simulate 10 overtime coin tosses with and without using \texttt{set.seed()} and 
 ##  [1] "H" "T" "H" "T" "T" "T" "T" "T" "T" "H"
 \end{verbatim}
 
-Simulation can be very helpful when you want to estimate quantities that are not easily solved using analytical methods like formulas.
-
+\vfill
 \newpage
+
+Simulation can be very helpful when you want to estimate quantities that are not easily solved using analytical methods like formulas.
 
 \begin{example}
 Shaquille O'Neal has a career free throw percentage of 52.7\%. Suppose that Shaq takes 10 free throw shots. What is the probability that he makes all 10 shots?
@@ -4662,19 +4657,6 @@ In more complicated simulations, there may not be an easy formula to use to calc
 \NormalTok{  FT[i] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(temp)}
 \NormalTok{\}}
 
-\NormalTok{FT }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{FT)) }\SpecialCharTok{+} 
-  \FunctionTok{geom\_bar}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Number of free throws made out of 10"}\NormalTok{) }\SpecialCharTok{+} 
-  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{, }\AttributeTok{by =} \DecValTok{2}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-77-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{prob10 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(FT }\SpecialCharTok{==} \DecValTok{10}\NormalTok{)}\SpecialCharTok{/}\NormalTok{n.sims; prob10}
 \end{Highlighting}
 \end{Shaded}
@@ -4694,6 +4676,25 @@ In more complicated simulations, there may not be an easy formula to use to calc
 \end{verbatim}
 
 The estimated probability that Shaq goes 10-for-10 in free throw attempts based on his career average is 0.0023.
+
+\vfill
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{FT }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{FT)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_bar}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Number of free throws made out of 10"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{, }\AttributeTok{by =} \DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-78-1.pdf}
+
+\vfill
+\newpage
 
 If we run the simulation again with a different seed, we will get another estimate (0.0019).
 
@@ -4751,7 +4752,7 @@ As we increase the number of simulations, the estimate will become more accurate
 ## [1] 0.00174
 \end{verbatim}
 
-One way to simulate data is to make assumptions about the distributions of the underlying data. The random variables given in the last chapter as possible candidates.
+One way to simulate data is to make assumptions about the distributions of the underlying data. The random variables given in the last chapter are possible candidates.
 
 \hypertarget{estimating-probabilities}{%
 \section{Estimating Probabilities}\label{estimating-probabilities}}
@@ -4796,6 +4797,9 @@ Free Throw Attempt, FTA & Frequency, nFTA & Probability, p(FTA)\\
 \hline
 \end{tabular}
 \end{table}
+
+\vfill
+\newpage
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5058,6 +5062,9 @@ NA & NA & NA & NA & 90-47 & 622 & 541 & 122 & 193 & 43 & 11 & 30 & 125\\
 \end{tabular}
 \end{table}
 
+\vfill
+\newpage
+
 DiMaggio played in 139 games, had 622 plate appearances, 541 at-bats, and 193 hits.
 
 \begin{Shaded}
@@ -5090,11 +5097,14 @@ DiMaggio played in 139 games, had 622 plate appearances, 541 at-bats, and 193 hi
 
 As seen above, DiMaggio had a 56-game hitting streak. An impossible feat to match?
 
+\vfill
+\newpage
+
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
 \tightlist
 \item
-  Create a histograms for DiMaggio's per game plate appearances and at bats. (Hint: for discrete values, \texttt{geom\_bar()} is often a good option.)
+  Create a histogram for DiMaggio's per game plate appearances and at bats. (Hint: for discrete values, \texttt{geom\_bar()} is often a good option.)
 \end{enumerate}
 
 \begin{Shaded}
@@ -5118,7 +5128,10 @@ As seen above, DiMaggio had a 56-game hitting streak. An impossible feat to matc
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-85-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-86-1.pdf}
+
+\vfill
+\newpage
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -5196,6 +5209,9 @@ Total & 139 & 100.0\%\\
 \hline
 \end{tabular}
 \end{table}
+
+\vfill
+\newpage
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -5302,7 +5318,7 @@ PA & n & Prob\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-88-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-89-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5378,7 +5394,7 @@ Let's try simulating by permuting DiMaggio's games. In other words, let's random
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-91-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-92-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5445,7 +5461,7 @@ Let's consider a more general simulation for hitting streaks. Suppose a hitter w
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-92-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-93-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5468,7 +5484,10 @@ Let's consider a more general simulation for hitting streaks. Suppose a hitter w
 ## [1] 42
 \end{verbatim}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-93-1.pdf}
+\vfill
+\newpage
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-94-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5555,7 +5574,7 @@ Suppose you are betting on sports matches on the spread where there is no house 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-95-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-96-1.pdf}
 
 On average, two bets were needed to be placed after \emph{Bet Zero} to break even.
 
@@ -5574,7 +5593,7 @@ The distribution in this example should look familiar. It is the geometric distr
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-96-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-97-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5660,11 +5679,14 @@ Number of Bets & Mean Ending Bankroll & Max Ending Payroll\\
 \end{tabular}
 \end{table}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-101-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-102-1.pdf}
 
 All bettors eventually go broke under this scenario due to the house advantage. This is called the concept of \textbf{Gambler's Ruin}. A gambler playing a game with negative expected value will eventually go broke, regardless of their betting system.
 
 See Wikipedia for further details: \url{https://en.wikipedia.org/wiki/Gambler's_ruin}
+
+\vfill
+\newpage
 
 \hypertarget{simulating-a-winning-system}{%
 \subsection{Simulating a Winning System}\label{simulating-a-winning-system}}
@@ -5728,14 +5750,7 @@ mean.ending.bankroll & max.ending.bankroll\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-102-1.pdf}
-
-\newpage
-
-\hypertarget{case-study-evaluating-hitters}{%
-\section{Case Study: Evaluating Hitters}\label{case-study-evaluating-hitters}}
-
-(Mathletics chapter 4, page 31)
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-103-1.pdf}
 
 \hypertarget{statistical-inference}{%
 \chapter{Statistical Inference}\label{statistical-inference}}
