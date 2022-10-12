@@ -1,3 +1,9 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 library(formatR)
 library(tidyverse)
@@ -7,12 +13,9 @@ library(kableExtra)
 knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=FALSE)
 knitr::opts_chunk$set(cache=TRUE)
 
-# add space to format for printing
-add.space <- 0
-
 # kable table global setup
 kt <- function(data) {
-  knitr::kable(data, digits=3, align="c") %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+  knitr::kable(data, digits=3,linesep='',booktabs=TRUE) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
 }
 ```
 
@@ -34,9 +37,7 @@ A ***sample*** is a subset of the population.
 Suppose we are interested in studying Peyton's Manning's season passing yards totals. How could you define the population and what is one possible sample?
 ::: 
 
-\
-\
-\
+\vfill
 
 
 
@@ -56,11 +57,7 @@ Suppose we are interested in studying Peyton's Manning's season passing yards to
 What are possible discrete and continuous data associated with Peyton Manning?
 :::
 
-\
-\
-\
-\
-\
+\vfill
 
 ::: {.definition}
 ***Qualitative data*** refers to names, categories, or descriptions. It can also be broken down into
@@ -79,15 +76,8 @@ two further categories, nominal data and ordinal data.
 What are possible nominal and ordinal data associated with Peyton Manning?
 :::
 
-\
-\
-\
-\
-\
-
-`r if(add.space){"<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"}`
-
 \vfill
+
 
 \newpage
 
@@ -401,7 +391,7 @@ NFL_2021_Team_Passing %>%
   geom_bar(stat="identity") + 
   labs(x="Team", y="Team Passing Yards", 
        title="NFL Team Passing Yards, 2021") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))
 ```
 
 `r if(add.space){"<br><br><br><br><br><br><br>"}`
@@ -494,6 +484,8 @@ NFL_2021_Team_Passing %>%
   geom_text_repel()
 ```
 
+\newpage
+
 ```{r scatter4}
 NFL_2021_Team_Passing$Abbr <- 
   c("TB","LAC","DAL","KC","LAR","LV","CIN","GB","BUF","AZ","MN","SF",
@@ -532,19 +524,20 @@ library(kableExtra)
 
 # Output using Kable and Kable-Styling and some additional options
 NFL21 %>% kable() %>% kable_styling(latex_options="hold_position")
+
+# More options
+NFL21 %>% kable(booktabs=TRUE) %>% kable_styling(latex_options="hold_position")
 ```
 
 \vfill
 \newpage
 
-If you are going to use kable tables frequently in a document, you can write a short function to set your default options. After I ran the function below, the function `kt` will produce a kable table with my options set.
+If you are going to use kable tables frequently in a document, you can write a short function to set your default options. After I ran the function below, the function *kt* will produce a kable table with my options set.
 
-```{r}
+```{r,eval=FALSE}
 # kable table global setup
 kt <- function(data) {
-   knitr::kable(data, digits=3, align="c") %>% 
-    kable_styling(bootstrap_options='striped', latex_options='HOLD_position', 
-                  full_width = F, position = "center")
+  knitr::kable(data, digits=3,linesep='',booktabs=TRUE) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
 }
 ```
 
@@ -705,7 +698,7 @@ library("GGally")
 
 # Standard hitting statistics
 rox21_100 %>% select(oWAR,H,`2B`,`3B`,HR,R,RBI) %>% ggpairs() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 # Rate statistics
 rox21_100 %>% select(oWAR,AVG,OBA,SLG,OPS,wOBA) %>% ggpairs()
@@ -1256,6 +1249,8 @@ csu_vb %>% slice_head(n=10) %>% select(1:13) %>% kt()
 
 Let's look at a scatter plot of hitting percentage and the number of digs. While no conclusions can be drawn from such a plot, it can give us some insight into relationships worthy of further analysis. Before creating the plot using the code below, think about what you might expect the outcome to be.
 
+\newpage
+
 ### Scatter Plot
 
 ```{r}
@@ -1264,6 +1259,7 @@ dig_pct_viz <- ggplot(data = csu_vb, aes(x = DIG, y = PCT, color = W_L)) +
   geom_point()
 dig_pct_viz
 ```
+\newpage
 
 Let's change the axis titles, legend title, and add a main title.
 
@@ -1276,11 +1272,13 @@ dig_pct_viz +
 
 What can we learn from this visual? Well, we can see that there is a weak linear relationship between the number of digs and hitting percentage. To an extent, hitting percentage decreases as the number of digs increases. Why is this the case? Maybe if a team has a really high hitting percentage, this means that the opposing team does not have as many opportunities to attack the other team offensively, reducing the number of opportunities for digs. It also seems that while wins and losses are somewhat evenly spread across the number of digs, there is a more clear cutoff for hitting percentage. It seems that the majority of wins are associated with a hitting percentage of at least 0.2, while the majority of losses are associated with a hitting percentage of less than 0.3.
 
+\newpage
+
 ### Box Plot
 
 Now let's take a closer look at the distribution of hitting percentage and digs for wins and losses. To do this, we will create box plots for each statistic.
 
-```{r}
+```{r,fig.height=3}
 pct_viz <- ggplot(data = csu_vb, aes(x = PCT, y = W_L)) +
   geom_boxplot()
 pct_viz
@@ -1289,10 +1287,11 @@ dig_viz <- ggplot(data = csu_vb, aes(x = DIG, y = W_L)) +
   geom_boxplot()
 dig_viz
 ```
+\newpage
 
 Let's modify these plots to make them more complete and visually appealing.
 
-```{r}
+```{r,fig.height=3}
 pct_viz +
   labs(title = "Hitting Percentage for Wins and Losses",
        x = "Hitting Percentage (PCT)",
@@ -1332,8 +1331,10 @@ Rules of Soccer YouTube video: https://www.youtube.com/watch?v=dFLaabgXhpc
 
 These definitions come from www.rookieroad.com and "The Expected Goals Philosophy" by James Tippett.
 
-To learn more about expected goals, check out this YouTube video: 
-https://www.youtube.com/watch?v=w7zPZsLGK18&list=PL9Az6mi38hv__afKnHR1AKjpcDIw_0qqT
+To learn more about expected goals, check out this YouTube video: \
+https://www.youtube.com/watch?v=w7zPZsLGK18
+
+\newpage
 
 ### Bar Plot
 
@@ -1343,7 +1344,7 @@ Now that we have an understanding of some basic shooting statistics, let us go t
 library(worldfootballR)
 ```
 
-Next we will look at some data specific to LaLiga, which is a soccer league in the men's top professional soccer division.
+Next we will look at some data specific to La Liga, which is a soccer league in the men's top professional soccer division.
 
 ```{r,eval=F,message=F}
 # Get "Squad Standard Stats" Data
@@ -1361,14 +1362,17 @@ liga_2021_stats %>%
 liga_2021_stats <- read_csv("data/liga_2021_stats.csv")
 ```
 
-```{r}
+```{r,fig.height=3}
 # Create visual for each team's goals per game
 team_goals_viz <- 
   ggplot(data = liga_2021_stats[which(liga_2021_stats$Team_or_Opponent == "team"),], 
                          aes(x = Squad, y = Gls_Per)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   geom_bar(stat = "identity")
 team_goals_viz
 ```
+
+\newpage
 
 This plot is a good starting point, but still looks pretty messy. Let's add a title, change the axis titles, and rotate the axis labels so they are not overlapping over one another.
 
@@ -1380,6 +1384,8 @@ team_goals_viz <- team_goals_viz +
   ggtitle("Goals Per Game by Team")
 team_goals_viz
 ```
+
+\newpage
 
 This is already looking a lot better. Now, we will add the goals scored per game *against* each team. Why is this of interest? Well, at first glance, Barcelona seems like a pretty impressive team, as they score more goals per game than any other team in the league. However, what if they also have more goals scored against them than any other team in the league? This could be important context, so we will include it in the graph below.
 
@@ -1393,15 +1399,18 @@ all_goals_viz <- ggplot(data = liga_2021_stats, aes(x = Squad, y = Gls_Per)) +
 all_goals_viz
 ```
 
+\newpage
+
 This is looking pretty good, but let's clean it up just a bit by changing the legend title and labels.
 
 ```{r}
 all_goals_viz +
   scale_fill_discrete(name = "Team or Opponent", labels = c("Opponent","Team"))
-
 ```
 
 What does this graph show us? Well, we are able to see the average number of goals scored for and against each team per game. It looks like Barcelona is scoring a lot more goals than they are letting be scored against them, while other teams like Valladolid tend to have a higher proportion of goals scored for the opposing team.
+
+\newpage
 
 ### Scatter Plot
 
@@ -1420,10 +1429,11 @@ act_exp_viz <- ggplot(data = liga_2021_stats,
   geom_smooth(method = "lm", se = FALSE) +
   theme(aspect.ratio = 2/2)
 ggMarginal(act_exp_viz, type = "density")
-
 ```
 
 As you can see, we fit a line to the data. At first glance, it seems to have a positive slope slightly greater than 1. What does this mean in the scenario of actual and expected goals per game?
+
+\newpage
 
 :::{.example}
 Use the `worldfootballR` package to collect team shooting data from the Women's 1st Tier League (Women's Super League) in England for 2020-2021. Plot goals vs. shots, shots on target, and expected goals. Comment on the relationships.
@@ -1439,6 +1449,8 @@ wsl_2021_shooting <-wsl_2021_shooting %>%
          `Shots on Target`=SoT_Standard,`Expected Goals` = xG_Expected)
 wsl_2021_shooting %>% kt()
 ```
+
+\newpage
 
 ```{r,message=F}
 wsl_2021_shooting <- wsl_2021_shooting %>%

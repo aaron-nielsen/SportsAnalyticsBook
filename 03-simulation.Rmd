@@ -14,7 +14,7 @@ knitr::opts_chunk$set(cache=TRUE)
 
 # kable table global setup
 kt <- function(data) {
-  knitr::kable(data, digits=3, align=c("c")) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+  knitr::kable(data, digits=3,linesep='',booktabs=TRUE) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
 }
 ```
 
@@ -138,7 +138,7 @@ for(i in 1:n.sims){
   FT[i] <- sum(temp)
 }
 
-prob10 <- mean(FT == 10); prob10
+(prob10 <- mean(FT == 10))
 ```
 
 As we increase the number of simulations, the estimate will become more accurate.
@@ -160,7 +160,7 @@ for(i in 1:n.sims){
   FT[i] <- sum(temp)
 }
 
-prob10 <- mean(FT==10); prob10
+(prob10 <- mean(FT==10))
 ```
 
 One way to simulate data is to make assumptions about the distributions of the underlying data. The random variables given in the last chapter are possible candidates.
@@ -179,22 +179,23 @@ For instance, suppose we roll a die and a "6" is on top. Then we have the follow
 One way to calculate probabilities is to use the following rule: $P(A) = E[I(A)]$. The probability that $A$ occurs is equal to the expected value of the indicator function of $A$.
 
 :::{.example}
-During the 2021 WNBA season, Kahleah Copper of the Chicago Sky had a free throw percentage of 81.8%. She played a total of 32 games and the probability mass function for number of free throw attempts per game are given in the table below. Estimate the probability that Copper did not make a free throw in a game. [Note: Copper did not make a free throw in 6 out of the 32 games for a probability of 0.1875.]
+During the 2021 WNBA season, Kahleah Copper of the Chicago Sky had a free throw percentage of 81.8%. She played a total of 32 games and the probability mass function for number of free throw attempts per game are given in the table below.
+
+Estimate the probability that Copper did not make a free throw in a game. 
+
+*Note: Copper did not make a free throw in 6 out of the 32 games for a probability of 0.1875.*
 :::
 
 ```{r,message=F,echo=F}
-library(kableExtra)
 games <- 32
 FTA <- 0:8
 nFTA <- c(5,2,8,0,7,2,4,2,2)
 pFTA <- nFTA/32
 df <- t(data.frame(FTA,nFTA,pFTA))
-row.names(df) = c("Free Throw Attempt, FTA","Frequency, nFTA","Probability, p(FTA)")
+row.names(df) = c("FTA","nFTA","p(FTA)")
 df %>% t() %>% kt()
 ```
 
-\vfill
-\newpage
 
 ```{r}
 set.seed(2020)
@@ -206,7 +207,11 @@ nFTA <- c(5,2,8,0,7,2,4,2,2)
 pFTA <- nFTA/32
 FT <- rep(0, n.sims)
 FT0.ind <- rep(0,n.sims)
+```
 
+\newpage
+
+```{r}
 # Simulate the number of FTA per game
 FTA.sim <- sample(x = FTA,size = n.sims,replace = T,prob = pFTA)
 
@@ -377,7 +382,7 @@ hit.game <- ifelse(dimaggio$H > 0,1,0)
 
 # Use rle to calculate the streak lengths
 streaks <- rle(hit.game)
-table(streaks)
+table(streaks) %>% kt()
 ```
 
 As seen above, DiMaggio had a 56-game hitting streak. An impossible feat to match?
@@ -445,7 +450,7 @@ sim.pa <- sample(x=pa$PA,prob = pa$Prob,size=139,replace=T)
 sim.pa
 ```
 
-```{r}
+```{r,cache=TRUE}
 # DiMaggio Simulation
 set.seed(2022)
 n.sims <- 10000
@@ -477,15 +482,15 @@ longest.streak %>%
 
 
 # statistics for 10,000 simulations
-mean.streak <- mean(longest.streak); mean.streak
-prob56 <- mean(longest.streak>=56); prob56
+(mean(longest.streak))
+(mean(longest.streak>=56))
 ```
 
 Running the simulation above with `set.seed(2022)` and `n.sims=10000`, we get $P(Streak \geq 66) = 3 \cdot 10^{-4}$. There were three simulated hitting streaks of at least 56 games.
 
 If we run the simulation again with `set.seed(2022)` but increase `n.sims=100000`, we get $P(Streak \geq 66) = \frac{10}{100000} = 10^{-4}$. In other words, we estimate the probability that DiMaggio gets a hitting streak of at least 56 games in 100000 simulated seasons is about 1-in-10000.
 
-```{r,echo=F}
+```{r,echo=F,cache=TRUE}
 # DiMaggio Simulation
 set.seed(2022)
 n.sims <- 100000
@@ -508,15 +513,15 @@ for( i in 1: n.sims){
 
 ```{r}
 # statistics for 100,000 simulations
-mean.streak <- mean(longest.streak); mean.streak
-prob56 <- mean(longest.streak>=56); prob56
+(mean(longest.streak))
+(mean(longest.streak>=56))
 ```
 
 We would prefer to not use nested for loops, as they are slow. Can you find a faster simulation method?
 
 Let's try simulating by permuting DiMaggio's games. In other words, let's randomly order DiMaggio's 1941 games and analyze the hitting streaks.
 
-```{r}
+```{r,cache=TRUE}
 # Create indicator variable for a hit
 hit.game <- ifelse(dimaggio$H > 0,1,0)
 
@@ -539,8 +544,8 @@ longest.streak %>%
 
 
 # statistics for 100,000 simulations
-mean.streak <- mean(longest.streak); mean.streak
-prob56 <- mean(longest.streak>=56); prob56
+(mean(longest.streak))
+(mean(longest.streak>=56))
 ```
 
 Using this simulation method with reordering, there is an estimated probability of $7 \cdot 10^{-5}$ or about 1-in-14000 chance of DiMaggio hitting a 56-game hit streak.
@@ -557,7 +562,7 @@ Rothman et al (2010) estimated the likelihood as 1-in-10000.
 Let's consider a more general simulation for hitting streaks. Suppose a hitter with a 0.300 batting average plays 140 games and has an equal likelihood of 3, 4, or 5 at-bats in a game. Simulate 10,000 seasons for this hitter, calculate the average max hitting streak, and the overall max hitting streak. After this, repeat the process for a hitter with a 0.400 batting average.
 :::
 
-```{r}
+```{r,cache=TRUE}
 # 0.300 Hitter Hitting Streak Simulation
 set.seed(2022)
 n.sims <- 10000
@@ -586,14 +591,14 @@ longest.streak %>%
 
 
 # statistics for 10,000 simulations (0.300 batting average)
-mean.streak <- mean(longest.streak); mean.streak
-max.streak <- max(longest.streak); max.streak
+(mean(longest.streak))
+(max(longest.streak))
 ```
 
 \vfill
 \newpage
 
-```{r, echo=F}
+```{r, echo=F,cache=TRUE}
 # 0.400 Hitter Hitting Streak Simulation
 set.seed(2022)
 n.sims <- 10000
@@ -623,8 +628,8 @@ longest.streak %>%
 
 ```{r}
 # statistics for 10,000 simulations (0.400 batting average)
-mean.streak <- mean(longest.streak); mean.streak
-max.streak <- max(longest.streak); max.streak
+(mean(longest.streak))
+(max(longest.streak))
 ```
 
 
@@ -642,7 +647,7 @@ One such famous betting system is called a martingale system. Under this system,
 Suppose you are betting on sports matches on the spread where there is no house advantage, so all bets are 1:1 and each team is equally likely to win. You begin by wagering \$1 and you lose the initial bet (call it *Bet Zero*). You decide to employee the martingale system. Calculate the expected number of bets that you would have to make to break even. Also, create a histogram for the the biggest deficits in the simulations.
 :::
 
-```{r}
+```{r,cache=TRUE}
 set.seed(2022)
 n.sims <- 10000
 sim.bets <- rep(NA,n.sims)
@@ -704,7 +709,7 @@ Suppose you have a bankroll of \$1000 and place \$20 bets on point spread bets a
 
 We'll use the following code and run simulations with total.bets = 10, 100, 1000, 10000.
 
-```{r, eval=F}
+```{r, eval=F,cache=TRUE}
 set.seed(2022)
 n.sims <- 10000
 bankroll.end <- rep(0,n.sims)
@@ -744,7 +749,7 @@ bankroll.end %>% as.data.frame() %>%
 
 \newpage
 
-```{r, echo=F}
+```{r, echo=F,cache=TRUE}
 set.seed(2022)
 n.sims <- 10000
 bankroll.end1 <- rep(0,n.sims)
@@ -783,7 +788,7 @@ p1 <- bankroll.end1 %>% as.data.frame() %>%
   xlab("Simulated Bankrolls")
 ```
 
-```{r, echo=F}
+```{r, echo=F,cache=TRUE}
 set.seed(2022)
 n.sims <- 10000
 bankroll.end2 <- rep(0,n.sims)
@@ -822,7 +827,7 @@ p2 <- bankroll.end2 %>% as.data.frame() %>%
   xlab("Simulated Bankrolls")
 ```
 
-```{r, echo=F}
+```{r, echo=F,cache=TRUE}
 set.seed(2022)
 n.sims <- 10000
 bankroll.end3 <- rep(0,n.sims)
@@ -887,7 +892,7 @@ See Wikipedia for further details: https://en.wikipedia.org/wiki/Gambler's_ruin
 Suppose your betting system allows you pick winners on the spread 55\% of the time. If you are betting at -110, then your probability exceeds the implied probability of 52.4\% and this system is not guaranteed to be an eventual loser. Repeat the simulation above with the new probability of winning a wager and 1,000 total bets.
 :::
 
-```{r}
+```{r,cache=TRUE}
 set.seed(2022)
 n.sims <- 10000
 bankroll.end <- rep(0,n.sims)

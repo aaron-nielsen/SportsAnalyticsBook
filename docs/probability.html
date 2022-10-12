@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2022-10-05" />
+<meta name="date" content="2022-10-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1478,128 +1478,127 @@ Probability, p(X)
 <span id="cb135-14"><a href="probability.html#cb135-14" aria-hidden="true" tabindex="-1"></a>rapids.data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(goals, actual_frequency, actual_proportion, </span>
 <span id="cb135-15"><a href="probability.html#cb135-15" aria-hidden="true" tabindex="-1"></a>                          expected_frequency, expected_proportion)</span>
 <span id="cb135-16"><a href="probability.html#cb135-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb135-17"><a href="probability.html#cb135-17" aria-hidden="true" tabindex="-1"></a>rapids.data <span class="sc">%&gt;%</span></span>
-<span id="cb135-18"><a href="probability.html#cb135-18" aria-hidden="true" tabindex="-1"></a><span class="fu">kt</span>()</span></code></pre></div>
+<span id="cb135-17"><a href="probability.html#cb135-17" aria-hidden="true" tabindex="-1"></a>rapids.data <span class="sc">%&gt;%</span> <span class="fu">kt</span>()</span></code></pre></div>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="text-align:center;">
+<th style="text-align:left;">
 goals
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 actual_frequency
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 actual_proportion
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 expected_frequency
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 expected_proportion
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 6
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.176
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 7.6
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.223
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 14
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.412
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 11.4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.335
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 7
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.206
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 8.5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.251
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 3
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 6
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.176
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4.3
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.126
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.000
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1.6
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.047
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 5 or more
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.029
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.6
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.019
 </td>
 </tr>
@@ -1630,7 +1629,7 @@ expected_proportion
 <span id="cb136-2"><a href="probability.html#cb136-2" aria-hidden="true" tabindex="-1"></a>  as.data.frame <span class="sc">%&gt;%</span> </span>
 <span id="cb136-3"><a href="probability.html#cb136-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> rapids21)) <span class="sc">+</span></span>
 <span id="cb136-4"><a href="probability.html#cb136-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qpois,</span>
-<span id="cb136-5"><a href="probability.html#cb136-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">dparams =</span> <span class="fl">1.5</span>,<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>,<span class="at">height =</span> <span class="fl">0.2</span>)) <span class="sc">+</span></span>
+<span id="cb136-5"><a href="probability.html#cb136-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">dparams =</span> <span class="fl">1.5</span>,<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>,<span class="at">height =</span> <span class="fl">0.1</span>)) <span class="sc">+</span></span>
 <span id="cb136-6"><a href="probability.html#cb136-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
 <span id="cb136-7"><a href="probability.html#cb136-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;QQ-plot for Rapids 2021 Goals vs. Poisson Distribution&quot;</span>) <span class="sc">+</span></span>
 <span id="cb136-8"><a href="probability.html#cb136-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>

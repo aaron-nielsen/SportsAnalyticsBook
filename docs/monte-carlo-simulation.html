@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2022-10-05" />
+<meta name="date" content="2022-10-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -423,7 +423,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb186-14"><a href="monte-carlo-simulation.html#cb186-14" aria-hidden="true" tabindex="-1"></a>  FT[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(temp)</span>
 <span id="cb186-15"><a href="monte-carlo-simulation.html#cb186-15" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb186-16"><a href="monte-carlo-simulation.html#cb186-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb186-17"><a href="monte-carlo-simulation.html#cb186-17" aria-hidden="true" tabindex="-1"></a>prob10 <span class="ot">&lt;-</span> <span class="fu">mean</span>(FT <span class="sc">==</span> <span class="dv">10</span>); prob10</span></code></pre></div>
+<span id="cb186-17"><a href="monte-carlo-simulation.html#cb186-17" aria-hidden="true" tabindex="-1"></a>(prob10 <span class="ot">&lt;-</span> <span class="fu">mean</span>(FT <span class="sc">==</span> <span class="dv">10</span>))</span></code></pre></div>
 <pre><code>## [1] 0.0019</code></pre>
 <p>As we increase the number of simulations, the estimate will become more accurate.</p>
 <div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="monte-carlo-simulation.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
@@ -442,7 +442,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb188-14"><a href="monte-carlo-simulation.html#cb188-14" aria-hidden="true" tabindex="-1"></a>  FT[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(temp)</span>
 <span id="cb188-15"><a href="monte-carlo-simulation.html#cb188-15" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb188-16"><a href="monte-carlo-simulation.html#cb188-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb188-17"><a href="monte-carlo-simulation.html#cb188-17" aria-hidden="true" tabindex="-1"></a>prob10 <span class="ot">&lt;-</span> <span class="fu">mean</span>(FT<span class="sc">==</span><span class="dv">10</span>); prob10</span></code></pre></div>
+<span id="cb188-17"><a href="monte-carlo-simulation.html#cb188-17" aria-hidden="true" tabindex="-1"></a>(prob10 <span class="ot">&lt;-</span> <span class="fu">mean</span>(FT<span class="sc">==</span><span class="dv">10</span>))</span></code></pre></div>
 <pre><code>## [1] 0.00174</code></pre>
 <p>One way to simulate data is to make assumptions about the distributions of the underlying data. The random variables given in the last chapter are possible candidates.</p>
 </div>
@@ -455,119 +455,121 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For instance, suppose we roll a die and a “6” is on top. Then we have the following: <span class="math inline">\(I(6)=1, I(5)=0, I(even)=1, I(odd)=0\)</span>.</p>
 <p>One way to calculate probabilities is to use the following rule: <span class="math inline">\(P(A) = E[I(A)]\)</span>. The probability that <span class="math inline">\(A\)</span> occurs is equal to the expected value of the indicator function of <span class="math inline">\(A\)</span>.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-123" class="example"><strong>Example 4.3  </strong></span>During the 2021 WNBA season, Kahleah Copper of the Chicago Sky had a free throw percentage of 81.8%. She played a total of 32 games and the probability mass function for number of free throw attempts per game are given in the table below. Estimate the probability that Copper did not make a free throw in a game. [Note: Copper did not make a free throw in 6 out of the 32 games for a probability of 0.1875.]</p>
+<p><span id="exm:unlabeled-div-123" class="example"><strong>Example 4.3  </strong></span>During the 2021 WNBA season, Kahleah Copper of the Chicago Sky had a free throw percentage of 81.8%. She played a total of 32 games and the probability mass function for number of free throw attempts per game are given in the table below.</p>
+<p>Estimate the probability that Copper did not make a free throw in a game.</p>
+<p><em>Note: Copper did not make a free throw in 6 out of the 32 games for a probability of 0.1875.</em></p>
 </div>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="text-align:center;">
-Free Throw Attempt, FTA
+<th style="text-align:right;">
+FTA
 </th>
-<th style="text-align:center;">
-Frequency, nFTA
+<th style="text-align:right;">
+nFTA
 </th>
-<th style="text-align:center;">
-Probability, p(FTA)
+<th style="text-align:right;">
+p(FTA)
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.156
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.062
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 8
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.250
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 3
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.000
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 7
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.219
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.062
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 6
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.125
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 7
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.062
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 8
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.062
 </td>
 </tr>
@@ -581,25 +583,25 @@ Probability, p(FTA)
 <span id="cb190-6"><a href="monte-carlo-simulation.html#cb190-6" aria-hidden="true" tabindex="-1"></a>nFTA <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">7</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span>
 <span id="cb190-7"><a href="monte-carlo-simulation.html#cb190-7" aria-hidden="true" tabindex="-1"></a>pFTA <span class="ot">&lt;-</span> nFTA<span class="sc">/</span><span class="dv">32</span></span>
 <span id="cb190-8"><a href="monte-carlo-simulation.html#cb190-8" aria-hidden="true" tabindex="-1"></a>FT <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n.sims)</span>
-<span id="cb190-9"><a href="monte-carlo-simulation.html#cb190-9" aria-hidden="true" tabindex="-1"></a>FT0.ind <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,n.sims)</span>
-<span id="cb190-10"><a href="monte-carlo-simulation.html#cb190-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-11"><a href="monte-carlo-simulation.html#cb190-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate the number of FTA per game</span></span>
-<span id="cb190-12"><a href="monte-carlo-simulation.html#cb190-12" aria-hidden="true" tabindex="-1"></a>FTA.sim <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> FTA,<span class="at">size =</span> n.sims,<span class="at">replace =</span> T,<span class="at">prob =</span> pFTA)</span>
-<span id="cb190-13"><a href="monte-carlo-simulation.html#cb190-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-14"><a href="monte-carlo-simulation.html#cb190-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate 10,000 games and record number of FT made</span></span>
-<span id="cb190-15"><a href="monte-carlo-simulation.html#cb190-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims){</span>
-<span id="cb190-16"><a href="monte-carlo-simulation.html#cb190-16" aria-hidden="true" tabindex="-1"></a>  FT[i] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">1</span>,<span class="at">size =</span> FTA.sim[i],<span class="at">prob =</span> FTprob)</span>
-<span id="cb190-17"><a href="monte-carlo-simulation.html#cb190-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb190-18"><a href="monte-carlo-simulation.html#cb190-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-19"><a href="monte-carlo-simulation.html#cb190-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the header of the simulated data</span></span>
-<span id="cb190-20"><a href="monte-carlo-simulation.html#cb190-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(FT)</span></code></pre></div>
+<span id="cb190-9"><a href="monte-carlo-simulation.html#cb190-9" aria-hidden="true" tabindex="-1"></a>FT0.ind <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,n.sims)</span></code></pre></div>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="monte-carlo-simulation.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate the number of FTA per game</span></span>
+<span id="cb191-2"><a href="monte-carlo-simulation.html#cb191-2" aria-hidden="true" tabindex="-1"></a>FTA.sim <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> FTA,<span class="at">size =</span> n.sims,<span class="at">replace =</span> T,<span class="at">prob =</span> pFTA)</span>
+<span id="cb191-3"><a href="monte-carlo-simulation.html#cb191-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb191-4"><a href="monte-carlo-simulation.html#cb191-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate 10,000 games and record number of FT made</span></span>
+<span id="cb191-5"><a href="monte-carlo-simulation.html#cb191-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims){</span>
+<span id="cb191-6"><a href="monte-carlo-simulation.html#cb191-6" aria-hidden="true" tabindex="-1"></a>  FT[i] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">1</span>,<span class="at">size =</span> FTA.sim[i],<span class="at">prob =</span> FTprob)</span>
+<span id="cb191-7"><a href="monte-carlo-simulation.html#cb191-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb191-8"><a href="monte-carlo-simulation.html#cb191-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb191-9"><a href="monte-carlo-simulation.html#cb191-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the header of the simulated data</span></span>
+<span id="cb191-10"><a href="monte-carlo-simulation.html#cb191-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(FT)</span></code></pre></div>
 <pre><code>## [1] 6 3 0 0 1 1</code></pre>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="monte-carlo-simulation.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create indicator function for 0 FT made</span></span>
-<span id="cb192-2"><a href="monte-carlo-simulation.html#cb192-2" aria-hidden="true" tabindex="-1"></a>FT0.ind <span class="ot">=</span> FT <span class="sc">==</span> <span class="dv">0</span></span>
-<span id="cb192-3"><a href="monte-carlo-simulation.html#cb192-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(FT0.ind)</span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="monte-carlo-simulation.html#cb193-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create indicator function for 0 FT made</span></span>
+<span id="cb193-2"><a href="monte-carlo-simulation.html#cb193-2" aria-hidden="true" tabindex="-1"></a>FT0.ind <span class="ot">=</span> FT <span class="sc">==</span> <span class="dv">0</span></span>
+<span id="cb193-3"><a href="monte-carlo-simulation.html#cb193-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(FT0.ind)</span></code></pre></div>
 <pre><code>## [1] FALSE FALSE  TRUE  TRUE FALSE FALSE</code></pre>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="monte-carlo-simulation.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the probability via mean of the indicator function</span></span>
-<span id="cb194-2"><a href="monte-carlo-simulation.html#cb194-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(FT0.ind)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="monte-carlo-simulation.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the probability via mean of the indicator function</span></span>
+<span id="cb195-2"><a href="monte-carlo-simulation.html#cb195-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(FT0.ind)</span></code></pre></div>
 <pre><code>## [1] 0.1711</code></pre>
 <div style="page-break-after: always;"></div>
 <div class="example">
@@ -607,13 +609,13 @@ Probability, p(FTA)
 <p>A statistician is interested in the probability that Team A defeats Team B in regulation. This is <span class="math inline">\(P(X&gt;Y)\)</span> which is difficult to calculate manually. However, using simulation, we can straightforwardly obtain an accurate estimation of this quantity.</p>
 </div>
 <p>There are many built-in functions in <code>R</code> that allow users to generate realizations from common probability distributions (<code>rnorm</code>, <code>rbinom</code>, <code>rexp</code>, etc.) Let’s use the <code>rpois</code> function to simulate the appropriate variables, remembering to set a seed so that our results are easily replicable.</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="monte-carlo-simulation.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
-<span id="cb196-2"><a href="monte-carlo-simulation.html#cb196-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb196-3"><a href="monte-carlo-simulation.html#cb196-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb196-4"><a href="monte-carlo-simulation.html#cb196-4" aria-hidden="true" tabindex="-1"></a>team_A_goals <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> n.sims, <span class="at">lambda =</span> <span class="dv">4</span>)</span>
-<span id="cb196-5"><a href="monte-carlo-simulation.html#cb196-5" aria-hidden="true" tabindex="-1"></a>team_B_goals <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> n.sims, <span class="at">lambda =</span> <span class="fl">3.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="monte-carlo-simulation.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb197-2"><a href="monte-carlo-simulation.html#cb197-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb197-3"><a href="monte-carlo-simulation.html#cb197-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-4"><a href="monte-carlo-simulation.html#cb197-4" aria-hidden="true" tabindex="-1"></a>team_A_goals <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> n.sims, <span class="at">lambda =</span> <span class="dv">4</span>)</span>
+<span id="cb197-5"><a href="monte-carlo-simulation.html#cb197-5" aria-hidden="true" tabindex="-1"></a>team_B_goals <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> n.sims, <span class="at">lambda =</span> <span class="fl">3.2</span>)</span></code></pre></div>
 <p>Now, to find <span class="math inline">\(P(X &gt; Y)\)</span>, we can use the following line of code:</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="monte-carlo-simulation.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(team_A_goals <span class="sc">&gt;</span> team_B_goals)</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="monte-carlo-simulation.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(team_A_goals <span class="sc">&gt;</span> team_B_goals)</span></code></pre></div>
 <pre><code>## [1] 0.5415</code></pre>
 <p>Why does this work? First, operations to vectors are executed elementwise, meaning that <code>R</code> compares <code>team_A_goals[1]</code> to <code>team_B_goals[1]</code>, then <code>team_A_goals[2]</code> to <code>team_B_goals[2]</code>, and so on. Second, logical operators are stored as zeroes (when the condition is false) and ones (when the condition is true). The mean of a vector of zeroes and ones is the proportion of ones, which is the frequency of the logical statement being true. In our simulation, it was 0.5415. The true value is 0.5427, meaning that the simulation was quite accurate.</p>
 <div style="page-break-after: always;"></div>
@@ -623,25 +625,25 @@ Probability, p(FTA)
 <p>Simulate 100,000 games (5 at-bats per game) for Tulowitzki based on his career numbers and use them to estimate the probability that Tulowitzki hits for the cycle.</p>
 <p>Tulowitzki’s career totals are: 4804 at-bats, 878 singles, 264 doubles, 24 triples, and 225 home runs.</p>
 </div>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="monte-carlo-simulation.html#cb199-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
-<span id="cb199-2"><a href="monte-carlo-simulation.html#cb199-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
-<span id="cb199-3"><a href="monte-carlo-simulation.html#cb199-3" aria-hidden="true" tabindex="-1"></a>n.ab <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb199-4"><a href="monte-carlo-simulation.html#cb199-4" aria-hidden="true" tabindex="-1"></a>cycle.ind <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,n.sims)</span>
-<span id="cb199-5"><a href="monte-carlo-simulation.html#cb199-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-6"><a href="monte-carlo-simulation.html#cb199-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Possible outcomes: 0 = out/walk, 1 = single, 2 = double, 3 = triple, 4 = HR</span></span>
-<span id="cb199-7"><a href="monte-carlo-simulation.html#cb199-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span></span>
-<span id="cb199-8"><a href="monte-carlo-simulation.html#cb199-8" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3413</span>,<span class="dv">878</span>,<span class="dv">264</span>,<span class="dv">24</span>,<span class="dv">225</span>)<span class="sc">/</span><span class="dv">4804</span></span>
-<span id="cb199-9"><a href="monte-carlo-simulation.html#cb199-9" aria-hidden="true" tabindex="-1"></a>tulo <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x,px)</span>
-<span id="cb199-10"><a href="monte-carlo-simulation.html#cb199-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-11"><a href="monte-carlo-simulation.html#cb199-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims){</span>
-<span id="cb199-12"><a href="monte-carlo-simulation.html#cb199-12" aria-hidden="true" tabindex="-1"></a>  game <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> tulo<span class="sc">$</span>x, <span class="at">prob =</span> tulo<span class="sc">$</span>px, <span class="at">size =</span> n.ab, <span class="at">replace =</span> T)</span>
-<span id="cb199-13"><a href="monte-carlo-simulation.html#cb199-13" aria-hidden="true" tabindex="-1"></a>  cycle <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">%in%</span> game) <span class="sc">&amp;</span> (<span class="dv">2</span> <span class="sc">%in%</span> game) <span class="sc">&amp;</span> (<span class="dv">3</span> <span class="sc">%in%</span> game) <span class="sc">&amp;</span> (<span class="dv">4</span> <span class="sc">%in%</span> game)</span>
-<span id="cb199-14"><a href="monte-carlo-simulation.html#cb199-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>( cycle ){</span>
-<span id="cb199-15"><a href="monte-carlo-simulation.html#cb199-15" aria-hidden="true" tabindex="-1"></a>    cycle.ind[i] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb199-16"><a href="monte-carlo-simulation.html#cb199-16" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb199-17"><a href="monte-carlo-simulation.html#cb199-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb199-18"><a href="monte-carlo-simulation.html#cb199-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-19"><a href="monte-carlo-simulation.html#cb199-19" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cycle.ind)</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="monte-carlo-simulation.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb200-2"><a href="monte-carlo-simulation.html#cb200-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb200-3"><a href="monte-carlo-simulation.html#cb200-3" aria-hidden="true" tabindex="-1"></a>n.ab <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb200-4"><a href="monte-carlo-simulation.html#cb200-4" aria-hidden="true" tabindex="-1"></a>cycle.ind <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,n.sims)</span>
+<span id="cb200-5"><a href="monte-carlo-simulation.html#cb200-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb200-6"><a href="monte-carlo-simulation.html#cb200-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Possible outcomes: 0 = out/walk, 1 = single, 2 = double, 3 = triple, 4 = HR</span></span>
+<span id="cb200-7"><a href="monte-carlo-simulation.html#cb200-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb200-8"><a href="monte-carlo-simulation.html#cb200-8" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3413</span>,<span class="dv">878</span>,<span class="dv">264</span>,<span class="dv">24</span>,<span class="dv">225</span>)<span class="sc">/</span><span class="dv">4804</span></span>
+<span id="cb200-9"><a href="monte-carlo-simulation.html#cb200-9" aria-hidden="true" tabindex="-1"></a>tulo <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x,px)</span>
+<span id="cb200-10"><a href="monte-carlo-simulation.html#cb200-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb200-11"><a href="monte-carlo-simulation.html#cb200-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims){</span>
+<span id="cb200-12"><a href="monte-carlo-simulation.html#cb200-12" aria-hidden="true" tabindex="-1"></a>  game <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> tulo<span class="sc">$</span>x, <span class="at">prob =</span> tulo<span class="sc">$</span>px, <span class="at">size =</span> n.ab, <span class="at">replace =</span> T)</span>
+<span id="cb200-13"><a href="monte-carlo-simulation.html#cb200-13" aria-hidden="true" tabindex="-1"></a>  cycle <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">%in%</span> game) <span class="sc">&amp;</span> (<span class="dv">2</span> <span class="sc">%in%</span> game) <span class="sc">&amp;</span> (<span class="dv">3</span> <span class="sc">%in%</span> game) <span class="sc">&amp;</span> (<span class="dv">4</span> <span class="sc">%in%</span> game)</span>
+<span id="cb200-14"><a href="monte-carlo-simulation.html#cb200-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>( cycle ){</span>
+<span id="cb200-15"><a href="monte-carlo-simulation.html#cb200-15" aria-hidden="true" tabindex="-1"></a>    cycle.ind[i] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb200-16"><a href="monte-carlo-simulation.html#cb200-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb200-17"><a href="monte-carlo-simulation.html#cb200-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb200-18"><a href="monte-carlo-simulation.html#cb200-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb200-19"><a href="monte-carlo-simulation.html#cb200-19" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cycle.ind)</span></code></pre></div>
 <pre><code>## [1] 0.00024</code></pre>
 <div style="page-break-after: always;"></div>
 </div>
@@ -655,23 +657,23 @@ Probability, p(FTA)
 <p><span id="exm:unlabeled-div-126" class="example"><strong>Example 4.6  </strong></span>Suppose an NBA team is in the middle of a rebuild and has a 25% probability of winning each of its games in the following 82-game season. What is the probability that the team will go on at least one winning streak of four or more games over the course of the 82-game season? Use simulation to answer this question.</p>
 </div>
 <p>We can simulate a season for the team, find the longest winning streak in that season, and store it in a vector. After repeating that process 10,000 times, we can then find the proportion of the values in that vector that are greater than or equal to 4.</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="monte-carlo-simulation.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
-<span id="cb201-2"><a href="monte-carlo-simulation.html#cb201-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb201-3"><a href="monte-carlo-simulation.html#cb201-3" aria-hidden="true" tabindex="-1"></a>n.games <span class="ot">&lt;-</span> <span class="dv">82</span></span>
-<span id="cb201-4"><a href="monte-carlo-simulation.html#cb201-4" aria-hidden="true" tabindex="-1"></a>win.prob <span class="ot">&lt;-</span> <span class="fl">0.25</span></span>
-<span id="cb201-5"><a href="monte-carlo-simulation.html#cb201-5" aria-hidden="true" tabindex="-1"></a>longest_streak <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, n.sims)</span>
-<span id="cb201-6"><a href="monte-carlo-simulation.html#cb201-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb201-7"><a href="monte-carlo-simulation.html#cb201-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims) {</span>
-<span id="cb201-8"><a href="monte-carlo-simulation.html#cb201-8" aria-hidden="true" tabindex="-1"></a>  game_results <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">n =</span> n.games, <span class="at">prob =</span> win.prob) <span class="co"># 1=win, 0=loss</span></span>
-<span id="cb201-9"><a href="monte-carlo-simulation.html#cb201-9" aria-hidden="true" tabindex="-1"></a>  streaks <span class="ot">&lt;-</span> <span class="fu">rle</span>(game_results)</span>
-<span id="cb201-10"><a href="monte-carlo-simulation.html#cb201-10" aria-hidden="true" tabindex="-1"></a>  longest_streak[i] <span class="ot">&lt;-</span> <span class="fu">max</span>(streaks<span class="sc">$</span>lengths[streaks<span class="sc">$</span>values<span class="sc">==</span><span class="dv">1</span>])</span>
-<span id="cb201-11"><a href="monte-carlo-simulation.html#cb201-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb201-12"><a href="monte-carlo-simulation.html#cb201-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb201-13"><a href="monte-carlo-simulation.html#cb201-13" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(longest_streak)</span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="monte-carlo-simulation.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb202-2"><a href="monte-carlo-simulation.html#cb202-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb202-3"><a href="monte-carlo-simulation.html#cb202-3" aria-hidden="true" tabindex="-1"></a>n.games <span class="ot">&lt;-</span> <span class="dv">82</span></span>
+<span id="cb202-4"><a href="monte-carlo-simulation.html#cb202-4" aria-hidden="true" tabindex="-1"></a>win.prob <span class="ot">&lt;-</span> <span class="fl">0.25</span></span>
+<span id="cb202-5"><a href="monte-carlo-simulation.html#cb202-5" aria-hidden="true" tabindex="-1"></a>longest_streak <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, n.sims)</span>
+<span id="cb202-6"><a href="monte-carlo-simulation.html#cb202-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb202-7"><a href="monte-carlo-simulation.html#cb202-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims) {</span>
+<span id="cb202-8"><a href="monte-carlo-simulation.html#cb202-8" aria-hidden="true" tabindex="-1"></a>  game_results <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">n =</span> n.games, <span class="at">prob =</span> win.prob) <span class="co"># 1=win, 0=loss</span></span>
+<span id="cb202-9"><a href="monte-carlo-simulation.html#cb202-9" aria-hidden="true" tabindex="-1"></a>  streaks <span class="ot">&lt;-</span> <span class="fu">rle</span>(game_results)</span>
+<span id="cb202-10"><a href="monte-carlo-simulation.html#cb202-10" aria-hidden="true" tabindex="-1"></a>  longest_streak[i] <span class="ot">&lt;-</span> <span class="fu">max</span>(streaks<span class="sc">$</span>lengths[streaks<span class="sc">$</span>values<span class="sc">==</span><span class="dv">1</span>])</span>
+<span id="cb202-11"><a href="monte-carlo-simulation.html#cb202-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb202-12"><a href="monte-carlo-simulation.html#cb202-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb202-13"><a href="monte-carlo-simulation.html#cb202-13" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(longest_streak)</span></code></pre></div>
 <pre><code>## longest_streak
 ##    1    2    3    4    5    6    7    8    9 
 ##  116 3626 4233 1480  410  105   21    7    2</code></pre>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="monte-carlo-simulation.html#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(longest_streak <span class="sc">&gt;=</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="monte-carlo-simulation.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(longest_streak <span class="sc">&gt;=</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## [1] 0.2025</code></pre>
 <!-- https://stackoverflow.com/questions/28731582/maximum-consecutive-repeats-in-a-vector-in-r -->
 <p>The team had a 4+ game winning streak in about 20% of the simulations.</p>
@@ -686,576 +688,680 @@ Probability, p(FTA)
 <div class="example">
 <p><span id="exm:unlabeled-div-127" class="example"><strong>Example 4.7  </strong></span>Let’s build a simulation to estimate the probability of a hitting streak of at least 56 games using DiMaggio’s statistics. DiMaggio’s 1941 game log is contained in <code>dimaggio41.csv</code>.</p>
 </div>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="monte-carlo-simulation.html#cb205-1" aria-hidden="true" tabindex="-1"></a>dimaggio <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/dimaggio41.csv&quot;</span>, <span class="at">col_names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb205-2"><a href="monte-carlo-simulation.html#cb205-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb205-3"><a href="monte-carlo-simulation.html#cb205-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dimaggio)</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="monte-carlo-simulation.html#cb206-1" aria-hidden="true" tabindex="-1"></a>dimaggio <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/dimaggio41.csv&quot;</span>, <span class="at">col_names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb206-2"><a href="monte-carlo-simulation.html#cb206-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb206-3"><a href="monte-carlo-simulation.html#cb206-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dimaggio)</span></code></pre></div>
 <pre><code>##  [1] &quot;Rk&quot;   &quot;Gtm&quot;  &quot;Date&quot; &quot;Opp&quot;  &quot;Rslt&quot; &quot;PA&quot;   &quot;AB&quot;   &quot;R&quot;    &quot;H&quot;    &quot;2B&quot;  
 ## [11] &quot;3B&quot;   &quot;HR&quot;   &quot;RBI&quot;  &quot;BB&quot;   &quot;IBB&quot;  &quot;SO&quot;   &quot;HBP&quot;  &quot;SH&quot;   &quot;SF&quot;   &quot;ROE&quot; 
 ## [21] &quot;GDP&quot;  &quot;SB&quot;   &quot;CS&quot;   &quot;BA&quot;   &quot;OBP&quot;  &quot;SLG&quot;  &quot;OPS&quot;  &quot;BOP&quot;  &quot;aLI&quot;  &quot;WPA&quot; 
 ## [31] &quot;acLI&quot; &quot;cWPA&quot; &quot;RE24&quot; &quot;Pos&quot;</code></pre>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="monte-carlo-simulation.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dimaggio)</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="monte-carlo-simulation.html#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dimaggio)</span></code></pre></div>
 <pre><code>## [1] 140</code></pre>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="monte-carlo-simulation.html#cb209-1" aria-hidden="true" tabindex="-1"></a>dimaggio <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="dv">139</span><span class="sc">:</span><span class="dv">140</span>) <span class="sc">%&gt;%</span> <span class="fu">kt</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="monte-carlo-simulation.html#cb210-1" aria-hidden="true" tabindex="-1"></a>dimaggio <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="dv">139</span><span class="sc">:</span><span class="dv">140</span>) <span class="sc">%&gt;%</span> <span class="fu">kt</span>()</span></code></pre></div>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="text-align:center;">
+<th style="text-align:right;">
 Rk
 </th>
-<th style="text-align:center;">
+<th style="text-align:left;">
 Gtm
 </th>
-<th style="text-align:center;">
+<th style="text-align:left;">
 Date
 </th>
-<th style="text-align:center;">
+<th style="text-align:left;">
 Opp
 </th>
-<th style="text-align:center;">
+<th style="text-align:left;">
 Rslt
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 PA
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 AB
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 R
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 H
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 2B
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 3B
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 HR
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 RBI
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 Apr 14
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 WSH
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 W3-0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 Apr 15
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 PHA
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 L1-3
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 3
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 3
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 Apr 16
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 PHA
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 L7-10
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 Apr 17
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 PHA
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 W9-4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 Apr 18
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 WSH
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 L4-7
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 6
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 6
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 Apr 19
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 WSH
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 W5-2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 7
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 7
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 Apr 20
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 PHA
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 W19-5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 6
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 3
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 6
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 8
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 8
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 Apr 21
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 PHA
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 W14-4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 6
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 3
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 9
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 9
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 Apr 22
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 PHA
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 L5-6
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 3
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 10
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 10
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 Apr 23
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 BOS
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 W4-2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 139
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 156
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 Sep 28
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 WSH
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 L0-5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 NA
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 NA
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 NA
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 NA
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 90-47
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 622
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 541
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 122
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 193
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 43
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 11
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 30
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 125
 </td>
 </tr>
 </tbody>
 </table>
 <p>DiMaggio played in 139 games, had 622 plate appearances, 541 at-bats, and 193 hits.</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="monte-carlo-simulation.html#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove last row (totals)</span></span>
-<span id="cb210-2"><a href="monte-carlo-simulation.html#cb210-2" aria-hidden="true" tabindex="-1"></a>dimaggio <span class="ot">&lt;-</span> dimaggio <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">139</span>)</span>
-<span id="cb210-3"><a href="monte-carlo-simulation.html#cb210-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb210-4"><a href="monte-carlo-simulation.html#cb210-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create indicator variable for a hit</span></span>
-<span id="cb210-5"><a href="monte-carlo-simulation.html#cb210-5" aria-hidden="true" tabindex="-1"></a>hit.game <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(dimaggio<span class="sc">$</span>H <span class="sc">&gt;</span> <span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
-<span id="cb210-6"><a href="monte-carlo-simulation.html#cb210-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb210-7"><a href="monte-carlo-simulation.html#cb210-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use rle to calculate the streak lengths</span></span>
-<span id="cb210-8"><a href="monte-carlo-simulation.html#cb210-8" aria-hidden="true" tabindex="-1"></a>streaks <span class="ot">&lt;-</span> <span class="fu">rle</span>(hit.game)</span>
-<span id="cb210-9"><a href="monte-carlo-simulation.html#cb210-9" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(streaks)</span></code></pre></div>
-<pre><code>##        values
-## lengths 0 1
-##      1  5 2
-##      2  4 3
-##      3  4 2
-##      4  0 2
-##      5  0 1
-##      7  0 1
-##      8  0 1
-##      16 0 1
-##      56 0 1</code></pre>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="monte-carlo-simulation.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove last row (totals)</span></span>
+<span id="cb211-2"><a href="monte-carlo-simulation.html#cb211-2" aria-hidden="true" tabindex="-1"></a>dimaggio <span class="ot">&lt;-</span> dimaggio <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">139</span>)</span>
+<span id="cb211-3"><a href="monte-carlo-simulation.html#cb211-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb211-4"><a href="monte-carlo-simulation.html#cb211-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create indicator variable for a hit</span></span>
+<span id="cb211-5"><a href="monte-carlo-simulation.html#cb211-5" aria-hidden="true" tabindex="-1"></a>hit.game <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(dimaggio<span class="sc">$</span>H <span class="sc">&gt;</span> <span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb211-6"><a href="monte-carlo-simulation.html#cb211-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb211-7"><a href="monte-carlo-simulation.html#cb211-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use rle to calculate the streak lengths</span></span>
+<span id="cb211-8"><a href="monte-carlo-simulation.html#cb211-8" aria-hidden="true" tabindex="-1"></a>streaks <span class="ot">&lt;-</span> <span class="fu">rle</span>(hit.game)</span>
+<span id="cb211-9"><a href="monte-carlo-simulation.html#cb211-9" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(streaks) <span class="sc">%&gt;%</span> <span class="fu">kt</span>()</span></code></pre></div>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+0
+</th>
+<th style="text-align:right;">
+1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+56
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+</tbody>
+</table>
 <p>As seen above, DiMaggio had a 56-game hitting streak. An impossible feat to match?</p>
 <ol style="list-style-type: lower-alpha">
 <li>Create a histogram for DiMaggio’s per game plate appearances and at bats. (Hint: for discrete values, <code>geom_bar()</code> is often a good option.)</li>
@@ -1276,7 +1382,7 @@ NA
 <span id="cb212-14"><a href="monte-carlo-simulation.html#cb212-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;At-Bats&quot;</span>)</span>
 <span id="cb212-15"><a href="monte-carlo-simulation.html#cb212-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb212-16"><a href="monte-carlo-simulation.html#cb212-16" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p1, p2, <span class="at">ncol =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Create a frequency and percentage frequency table for plate appearances and at-bats.</li>
 </ol>
@@ -1289,103 +1395,103 @@ NA
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="text-align:center;">
+<th style="text-align:left;">
 Plate Appearances
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 Frequency
 </th>
-<th style="text-align:center;">
+<th style="text-align:left;">
 Percent
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 1.4%
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 3
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 2.9%
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 70
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 50.4%
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 56
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 40.3%
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 6
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 3.6%
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 7
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 0.7%
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 9
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 0.7%
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 Total
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 139
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 100.0%
 </td>
 </tr>
@@ -1399,92 +1505,92 @@ Total
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="text-align:center;">
+<th style="text-align:left;">
 At-Bats
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 Frequency
 </th>
-<th style="text-align:center;">
+<th style="text-align:left;">
 Percent
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 7
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 5.0%
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 3
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 37
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 26.6%
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 63
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 45.3%
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 30
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 21.6%
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 6
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 0.7%
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 8
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 0.7%
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:left;">
 Total
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 139
 </td>
-<td style="text-align:center;">
+<td style="text-align:left;">
 100.0%
 </td>
 </tr>
@@ -1502,92 +1608,92 @@ Total
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="text-align:center;">
+<th style="text-align:right;">
 PA
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 n
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 Prob
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.014
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 3
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.029
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 70
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.504
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 56
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.403
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 6
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.036
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 7
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.007
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 9
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 0.007
 </td>
 </tr>
@@ -1634,18 +1740,18 @@ Prob
 <span id="cb220-4"><a href="monte-carlo-simulation.html#cb220-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb220-5"><a href="monte-carlo-simulation.html#cb220-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Longest Hitting Streak for 10,000 Simulated DiMaggio 1941 Seasons&quot;</span>) <span class="sc">+</span></span>
 <span id="cb220-6"><a href="monte-carlo-simulation.html#cb220-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Max Hitting Streak in a Simulation Season&quot;</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="monte-carlo-simulation.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="co"># statistics for 10,000 simulations</span></span>
-<span id="cb221-2"><a href="monte-carlo-simulation.html#cb221-2" aria-hidden="true" tabindex="-1"></a>mean.streak <span class="ot">&lt;-</span> <span class="fu">mean</span>(longest.streak); mean.streak</span></code></pre></div>
+<span id="cb221-2"><a href="monte-carlo-simulation.html#cb221-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">mean</span>(longest.streak))</span></code></pre></div>
 <pre><code>## [1] 17.2849</code></pre>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="monte-carlo-simulation.html#cb223-1" aria-hidden="true" tabindex="-1"></a>prob56 <span class="ot">&lt;-</span> <span class="fu">mean</span>(longest.streak<span class="sc">&gt;=</span><span class="dv">56</span>); prob56</span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="monte-carlo-simulation.html#cb223-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">mean</span>(longest.streak<span class="sc">&gt;=</span><span class="dv">56</span>))</span></code></pre></div>
 <pre><code>## [1] 3e-04</code></pre>
 <p>Running the simulation above with <code>set.seed(2022)</code> and <code>n.sims=10000</code>, we get <span class="math inline">\(P(Streak \geq 66) = 3 \cdot 10^{-4}\)</span>. There were three simulated hitting streaks of at least 56 games.</p>
 <p>If we run the simulation again with <code>set.seed(2022)</code> but increase <code>n.sims=100000</code>, we get <span class="math inline">\(P(Streak \geq 66) = \frac{10}{100000} = 10^{-4}\)</span>. In other words, we estimate the probability that DiMaggio gets a hitting streak of at least 56 games in 100000 simulated seasons is about 1-in-10000.</p>
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="monte-carlo-simulation.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="co"># statistics for 100,000 simulations</span></span>
-<span id="cb225-2"><a href="monte-carlo-simulation.html#cb225-2" aria-hidden="true" tabindex="-1"></a>mean.streak <span class="ot">&lt;-</span> <span class="fu">mean</span>(longest.streak); mean.streak</span></code></pre></div>
+<span id="cb225-2"><a href="monte-carlo-simulation.html#cb225-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">mean</span>(longest.streak))</span></code></pre></div>
 <pre><code>## [1] 17.1655</code></pre>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="monte-carlo-simulation.html#cb227-1" aria-hidden="true" tabindex="-1"></a>prob56 <span class="ot">&lt;-</span> <span class="fu">mean</span>(longest.streak<span class="sc">&gt;=</span><span class="dv">56</span>); prob56</span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="monte-carlo-simulation.html#cb227-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">mean</span>(longest.streak<span class="sc">&gt;=</span><span class="dv">56</span>))</span></code></pre></div>
 <pre><code>## [1] 1e-04</code></pre>
 <p>We would prefer to not use nested for loops, as they are slow. Can you find a faster simulation method?</p>
 <p>Let’s try simulating by permuting DiMaggio’s games. In other words, let’s randomly order DiMaggio’s 1941 games and analyze the hitting streaks.</p>
@@ -1668,11 +1774,11 @@ Prob
 <span id="cb229-17"><a href="monte-carlo-simulation.html#cb229-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb229-18"><a href="monte-carlo-simulation.html#cb229-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Longest Hitting Streak for 100,000 Simulated DiMaggio 1941 Seasons&quot;</span>) <span class="sc">+</span></span>
 <span id="cb229-19"><a href="monte-carlo-simulation.html#cb229-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Max Hitting Streak in a Simulation Season&quot;</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
 <div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="monte-carlo-simulation.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="co"># statistics for 100,000 simulations</span></span>
-<span id="cb230-2"><a href="monte-carlo-simulation.html#cb230-2" aria-hidden="true" tabindex="-1"></a>mean.streak <span class="ot">&lt;-</span> <span class="fu">mean</span>(longest.streak); mean.streak</span></code></pre></div>
+<span id="cb230-2"><a href="monte-carlo-simulation.html#cb230-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">mean</span>(longest.streak))</span></code></pre></div>
 <pre><code>## [1] 18.25769</code></pre>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="monte-carlo-simulation.html#cb232-1" aria-hidden="true" tabindex="-1"></a>prob56 <span class="ot">&lt;-</span> <span class="fu">mean</span>(longest.streak<span class="sc">&gt;=</span><span class="dv">56</span>); prob56</span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="monte-carlo-simulation.html#cb232-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">mean</span>(longest.streak<span class="sc">&gt;=</span><span class="dv">56</span>))</span></code></pre></div>
 <pre><code>## [1] 7e-05</code></pre>
 <p>Using this simulation method with reordering, there is an estimated probability of <span class="math inline">\(7 \cdot 10^{-5}\)</span> or about 1-in-14000 chance of DiMaggio hitting a 56-game hit streak.</p>
 <p>Other authors have used different simulation and mathematical methods for estimating the rarity of Dimaggio’s 56 game hitting streak.</p>
@@ -1707,17 +1813,17 @@ Prob
 <span id="cb234-23"><a href="monte-carlo-simulation.html#cb234-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb234-24"><a href="monte-carlo-simulation.html#cb234-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Longest Hitting Streak for 10,000 Simulated Seasons (0.300 AVG hitter)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb234-25"><a href="monte-carlo-simulation.html#cb234-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Max Hitting Streak in a Simulation Season&quot;</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="monte-carlo-simulation.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="co"># statistics for 10,000 simulations (0.300 batting average)</span></span>
-<span id="cb235-2"><a href="monte-carlo-simulation.html#cb235-2" aria-hidden="true" tabindex="-1"></a>mean.streak <span class="ot">&lt;-</span> <span class="fu">mean</span>(longest.streak); mean.streak</span></code></pre></div>
-<pre><code>## [1] 13.9355</code></pre>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="monte-carlo-simulation.html#cb237-1" aria-hidden="true" tabindex="-1"></a>max.streak <span class="ot">&lt;-</span> <span class="fu">max</span>(longest.streak); max.streak</span></code></pre></div>
-<pre><code>## [1] 42</code></pre>
 <p><img src="textbook_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="monte-carlo-simulation.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="co"># statistics for 10,000 simulations (0.300 batting average)</span></span>
+<span id="cb235-2"><a href="monte-carlo-simulation.html#cb235-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">mean</span>(longest.streak))</span></code></pre></div>
+<pre><code>## [1] 13.9355</code></pre>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="monte-carlo-simulation.html#cb237-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">max</span>(longest.streak))</span></code></pre></div>
+<pre><code>## [1] 42</code></pre>
+<p><img src="textbook_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
 <div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="monte-carlo-simulation.html#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="co"># statistics for 10,000 simulations (0.400 batting average)</span></span>
-<span id="cb239-2"><a href="monte-carlo-simulation.html#cb239-2" aria-hidden="true" tabindex="-1"></a>mean.streak <span class="ot">&lt;-</span> <span class="fu">mean</span>(longest.streak); mean.streak</span></code></pre></div>
+<span id="cb239-2"><a href="monte-carlo-simulation.html#cb239-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">mean</span>(longest.streak))</span></code></pre></div>
 <pre><code>## [1] 23.1349</code></pre>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="monte-carlo-simulation.html#cb241-1" aria-hidden="true" tabindex="-1"></a>max.streak <span class="ot">&lt;-</span> <span class="fu">max</span>(longest.streak); max.streak</span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="monte-carlo-simulation.html#cb241-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">max</span>(longest.streak))</span></code></pre></div>
 <pre><code>## [1] 85</code></pre>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1758,7 +1864,7 @@ Prob
 <span id="cb247-3"><a href="monte-carlo-simulation.html#cb247-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">breaks=</span><span class="dv">0</span><span class="sc">:</span><span class="dv">15</span>) <span class="sc">+</span></span>
 <span id="cb247-4"><a href="monte-carlo-simulation.html#cb247-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Simulated Number of Money Bets to Break Even&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb247-5"><a href="monte-carlo-simulation.html#cb247-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Number of Bets&quot;</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
 <p>On average, two bets were needed to be placed after <em>Bet Zero</em> to break even.</p>
 <div style="page-break-after: always;"></div>
 <p>In two simulations (out of 10,000 total simulations), 12 bets were needed to be made to break even after the initial failed bet, <em>Bet Zero</em>. The first bet after <em>Bet Zero</em> was for $1. The second failed bet was from $2. The twelfth bet was for <span class="math inline">\(\$2^{11} = \$2048\)</span>. If your total bankroll was $1000, you wouldn’t have been even able to make the twelfth bet to break even. The weakness of the martingale system is that you are only guaranteed (with probability 1) to break even if you have an infinite bankroll.</p>
@@ -1767,7 +1873,7 @@ Prob
 <span id="cb248-2"><a href="monte-carlo-simulation.html#cb248-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
 <span id="cb248-3"><a href="monte-carlo-simulation.html#cb248-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Probability mass function of Geometric(0.5) random variable&quot;</span>) <span class="sc">+</span></span>
 <span id="cb248-4"><a href="monte-carlo-simulation.html#cb248-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Value&quot;</span>, <span class="at">y=</span><span class="st">&quot;Frequency&quot;</span>, )</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
 <div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="monte-carlo-simulation.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="co"># recall that R counts the number of failures before a success, </span></span>
 <span id="cb249-2"><a href="monte-carlo-simulation.html#cb249-2" aria-hidden="true" tabindex="-1"></a><span class="co"># so we will be looking for at least 11 failures</span></span>
 <span id="cb249-3"><a href="monte-carlo-simulation.html#cb249-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pgeom</span>(<span class="at">q=</span><span class="dv">11</span>,<span class="at">prob=</span><span class="fl">0.5</span>,<span class="at">lower.tail=</span>F)</span></code></pre></div>
@@ -1821,54 +1927,54 @@ Prob
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="text-align:center;">
+<th style="text-align:right;">
 Number of Bets
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 Mean Ending Bankroll
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 Max Ending Payroll
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 10
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 991.707
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1181.818
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 100
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 909.599
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1672.727
 </td>
 </tr>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1000
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 274.529
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 2572.727
 </td>
 </tr>
 </tbody>
 </table>
-<p><img src="textbook_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
 <p>All bettors eventually go broke under this scenario due to the house advantage. This is called the concept of <strong>Gambler’s Ruin</strong>. A gambler playing a game with negative expected value will eventually go broke, regardless of their betting system.</p>
 <p>See Wikipedia for further details: <a href="https://en.wikipedia.org/wiki/Gambler&#39;s_ruin" class="uri">https://en.wikipedia.org/wiki/Gambler's_ruin</a></p>
 </div>
@@ -1909,20 +2015,20 @@ Max Ending Payroll
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="text-align:center;">
+<th style="text-align:right;">
 mean.ending.bankroll
 </th>
-<th style="text-align:center;">
+<th style="text-align:right;">
 max.ending.bankroll
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center;">
+<td style="text-align:right;">
 1996.283
 </td>
-<td style="text-align:center;">
+<td style="text-align:right;">
 4634.545
 </td>
 </tr>
@@ -1933,7 +2039,7 @@ max.ending.bankroll
 <span id="cb253-3"><a href="monte-carlo-simulation.html#cb253-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">100</span>) <span class="sc">+</span></span>
 <span id="cb253-4"><a href="monte-carlo-simulation.html#cb253-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Simulated Bankroll (starting at $1000) after 1000 bets&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb253-5"><a href="monte-carlo-simulation.html#cb253-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Bankroll after 1000 bets&quot;</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
 
 </div>
 </div>

@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-10-05}
+\date{2022-10-11}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -318,6 +318,8 @@ One package that we will use frequently is \textbf{tidyverse}. This package incl
 
 You will also need to know how to load datasets from files. For this class, we will typically provide data files is .csv format.
 
+\newpage
+
 Here is how to load a file:
 
 \begin{Shaded}
@@ -347,53 +349,33 @@ Here is how to load a file:
 
 \newpage
 
-\hfill\break
-\hfill\break
-\hfill\break
-
 \hypertarget{which-sports}{%
 \section{Which Sports?}\label{which-sports}}
 
 Which sports will we be analyzing in this class?
 
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
+\vfill
 
 \hypertarget{challenges}{%
 \section{Challenges}\label{challenges}}
 
 What kind of challenges could we encounter dealing with sports data?
 
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
+\vfill
 
 \hypertarget{cautionary-notes}{%
 \section{Cautionary Notes}\label{cautionary-notes}}
 
 What should we be careful of when analyzing sports data?
 
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
+\vfill
 
 \hypertarget{ethical-concerns}{%
 \section{Ethical Concerns}\label{ethical-concerns}}
 
 What kinds of ethical concerns should we consider when dealing with sports data?
 
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
+\vfill
 
 \hypertarget{exploratory-data-analysis}{%
 \chapter{Exploratory Data Analysis}\label{exploratory-data-analysis}}
@@ -416,9 +398,7 @@ A \textbf{\emph{sample}} is a subset of the population.
 Suppose we are interested in studying Peyton's Manning's season passing yards totals. How could you define the population and what is one possible sample?
 \end{example}
 
-\hfill\break
-\hfill\break
-\hfill\break
+\vfill
 
 \begin{definition}
 \textbf{\emph{Quantitative data}} is numeric data or numbers. It can be broken into two further categories: discrete and continuous data.
@@ -436,11 +416,7 @@ Suppose we are interested in studying Peyton's Manning's season passing yards to
 What are possible discrete and continuous data associated with Peyton Manning?
 \end{example}
 
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
+\vfill
 
 \begin{definition}
 \textbf{\emph{Qualitative data}} refers to names, categories, or descriptions. It can also be broken down into
@@ -458,12 +434,6 @@ two further categories, nominal data and ordinal data.
 \begin{example}
 What are possible nominal and ordinal data associated with Peyton Manning?
 \end{example}
-
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
 
 \vfill
 
@@ -904,7 +874,7 @@ The team labels are a complete mess. Let's fix this and make some adjustments to
   \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+} 
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Team"}\NormalTok{, }\AttributeTok{y=}\StringTok{"Team Passing Yards"}\NormalTok{, }
        \AttributeTok{title=}\StringTok{"NFL Team Passing Yards, 2021"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{, }\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{hjust=}\DecValTok{1}\NormalTok{))}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{hjust=}\DecValTok{1}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1017,6 +987,8 @@ Many sports leagues have around 30 teams, so a clean scatterplot with labels can
 
 \includegraphics{textbook_files/figure-latex/scatter3-1.pdf}
 
+\newpage
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{NFL\_2021\_Team\_Passing}\SpecialCharTok{$}\NormalTok{Abbr }\OtherTok{\textless{}{-}} 
@@ -1101,18 +1073,38 @@ Los Angeles Rams & 17 & 406 & 607 & 66.9 & 4642 & 41\\
 \end{tabular}
 \end{table}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# More options}
+\NormalTok{NFL21 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options=}\StringTok{"hold\_position"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{lrrrrrr}
+\toprule
+Tm & G & Cmp & Att & Cmp\% & Yds & TD\\
+\midrule
+Tampa Bay Buccaneers & 17 & 492 & 731 & 67.3 & 5229 & 43\\
+Los Angeles Chargers & 17 & 443 & 674 & 65.7 & 4800 & 38\\
+Dallas Cowboys & 17 & 444 & 647 & 68.6 & 4800 & 40\\
+Kansas City Chiefs & 17 & 448 & 675 & 66.4 & 4791 & 37\\
+Los Angeles Rams & 17 & 406 & 607 & 66.9 & 4642 & 41\\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \vfill
 \newpage
 
-If you are going to use kable tables frequently in a document, you can write a short function to set your default options. After I ran the function below, the function \texttt{kt} will produce a kable table with my options set.
+If you are going to use kable tables frequently in a document, you can write a short function to set your default options. After I ran the function below, the function \emph{kt} will produce a kable table with my options set.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# kable table global setup}
 \NormalTok{kt }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data) \{}
-\NormalTok{   knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(data, }\AttributeTok{digits=}\DecValTok{3}\NormalTok{, }\AttributeTok{align=}\StringTok{"c"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
-    \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{bootstrap\_options=}\StringTok{\textquotesingle{}striped\textquotesingle{}}\NormalTok{, }\AttributeTok{latex\_options=}\StringTok{\textquotesingle{}HOLD\_position\textquotesingle{}}\NormalTok{, }
-                  \AttributeTok{full\_width =}\NormalTok{ F, }\AttributeTok{position =} \StringTok{"center"}\NormalTok{)}
+\NormalTok{  knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(data, }\AttributeTok{digits=}\DecValTok{3}\NormalTok{,}\AttributeTok{linesep=}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{,}\AttributeTok{booktabs=}\ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{bootstrap\_options=}\StringTok{\textquotesingle{}striped\textquotesingle{}}\NormalTok{, }\AttributeTok{latex\_options=}\StringTok{\textquotesingle{}HOLD\_position\textquotesingle{}}\NormalTok{, }\AttributeTok{full\_width =}\NormalTok{ F, }\AttributeTok{position =} \StringTok{"center"}\NormalTok{)}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -1125,20 +1117,16 @@ If you are going to use kable tables frequently in a document, you can write a s
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c|c|c|c|c}
-\hline
+\begin{tabular}{lrrrrrr}
+\toprule
 Tm & G & Cmp & Att & Cmp\% & Yds & TD\\
-\hline
+\midrule
 Tampa Bay Buccaneers & 17 & 492 & 731 & 67.3 & 5229 & 43\\
-\hline
 Los Angeles Chargers & 17 & 443 & 674 & 65.7 & 4800 & 38\\
-\hline
 Dallas Cowboys & 17 & 444 & 647 & 68.6 & 4800 & 40\\
-\hline
 Kansas City Chiefs & 17 & 448 & 675 & 66.4 & 4791 & 37\\
-\hline
 Los Angeles Rams & 17 & 406 & 607 & 66.9 & 4642 & 41\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -1301,20 +1289,16 @@ Using the Colorado Rockies 2021 individual hitting statistics, calculate the AVG
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c|c|c|c|c|c|c|l|c|c|c|c|c}
-\hline
+\begin{tabular}{lrrrrrrrrrrrrrr}
+\toprule
 Name & PA & AB & R & H & 2B & 3B & HR & RBI & BB & IBB & SO & HBP & SF & oWAR\\
-\hline
+\midrule
 Elias Diaz & 371 & 338 & 52 & 83 & 18 & 1 & 18 & 44 & 30 & 1 & 60 & 2 & 1 & 1.1\\
-\hline
 C.J. Cron & 547 & 470 & 70 & 132 & 31 & 1 & 28 & 92 & 60 & 3 & 117 & 13 & 4 & 3.1\\
-\hline
 Brendan Rodgers & 415 & 387 & 49 & 110 & 21 & 3 & 15 & 51 & 19 & 0 & 84 & 7 & 2 & 1.9\\
-\hline
 Trevor Story & 595 & 526 & 88 & 132 & 34 & 5 & 24 & 75 & 53 & 2 & 139 & 11 & 5 & 3.4\\
-\hline
 Ryan McMahon* & 596 & 528 & 80 & 134 & 32 & 1 & 23 & 86 & 59 & 2 & 147 & 4 & 5 & 1.7\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -1334,20 +1318,16 @@ Ryan McMahon* & 596 & 528 & 80 & 134 & 32 & 1 & 23 & 86 & 59 & 2 & 147 & 4 & 5 &
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c|c|c|c|c|c}
-\hline
+\begin{tabular}{lrrrrrrr}
+\toprule
 Name & PA & AVG & OBA & SLG & OPS & wOBA & ISO\\
-\hline
+\midrule
 Elias Diaz & 371 & 0.246 & 0.310 & 0.464 & 0.774 & 0.330 & 0.219\\
-\hline
 C.J. Cron & 547 & 0.281 & 0.375 & 0.530 & 0.905 & 0.383 & 0.249\\
-\hline
 Brendan Rodgers & 415 & 0.284 & 0.328 & 0.470 & 0.798 & 0.341 & 0.186\\
-\hline
 Trevor Story & 595 & 0.251 & 0.329 & 0.471 & 0.801 & 0.341 & 0.221\\
-\hline
 Ryan McMahon* & 596 & 0.254 & 0.331 & 0.449 & 0.779 & 0.334 & 0.195\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -1368,7 +1348,7 @@ oWAR is Baseball Reference's offensive WAR statistic. Note that Baseball Referen
 
 \CommentTok{\# Standard hitting statistics}
 \NormalTok{rox21\_100 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(oWAR,H,}\StringTok{\textasciigrave{}}\AttributeTok{2B}\StringTok{\textasciigrave{}}\NormalTok{,}\StringTok{\textasciigrave{}}\AttributeTok{3B}\StringTok{\textasciigrave{}}\NormalTok{,HR,R,RBI) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggpairs}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1403,20 +1383,16 @@ Let's look at the twenty starting pitchers that had the most innings pitched in 
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c|c|c|c|c}
-\hline
+\begin{tabular}{lrrrrrr}
+\toprule
 Player & ERA20 & FIP20 & xFIP20 & ERA21 & FIP21 & xFIP21\\
-\hline
+\midrule
 Zack Wheeler & 2.92 & 3.22 & 3.76 & 2.78 & 2.59 & 2.84\\
-\hline
 Adam Wainwright & 3.15 & 4.11 & 4.23 & 3.05 & 3.66 & 3.87\\
-\hline
 Kyle Hendricks & 2.88 & 3.55 & 3.78 & 0.77 & 4.89 & 4.61\\
-\hline
 German Marquez & 3.75 & 3.28 & 3.83 & 4.40 & 3.86 & 3.64\\
-\hline
 Luis Castillo & 3.21 & 2.65 & 2.82 & 3.98 & 3.75 & 3.63\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -1513,30 +1489,21 @@ Individual NFL quarterback passing statistics for the 2021 season are provided i
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c|c|c|c|c|c|c|l|c}
-\hline
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
 Name & GP & CMP & ATT & CMP\% & YDS & AVG & TD & INT & QBR & RTG\\
-\hline
+\midrule
 Tom Brady & 17 & 485 & 719 & 67.5 & 5316 & 7.4 & 43 & 12 & 68.1 & 102.1\\
-\hline
 Justin Herbert & 17 & 443 & 672 & 65.9 & 5014 & 7.5 & 38 & 15 & 65.6 & 97.7\\
-\hline
 Patrick Mahomes & 17 & 436 & 658 & 66.3 & 4839 & 7.4 & 37 & 13 & 62.2 & 98.5\\
-\hline
 Josh Allen & 17 & 409 & 646 & 63.3 & 4407 & 6.8 & 36 & 15 & 60.7 & 92.2\\
-\hline
 Derek Carr & 17 & 428 & 626 & 68.4 & 4804 & 7.7 & 23 & 14 & 52.4 & 94.0\\
-\hline
 Ben Roethlisberger & 16 & 390 & 605 & 64.5 & 3740 & 6.2 & 22 & 10 & 35.6 & 86.8\\
-\hline
 Trevor Lawrence & 17 & 359 & 602 & 59.6 & 3641 & 6.0 & 12 & 17 & 33.5 & 71.9\\
-\hline
 Matthew Stafford & 17 & 404 & 601 & 67.2 & 4886 & 8.1 & 41 & 17 & 63.8 & 102.9\\
-\hline
 Dak Prescott & 16 & 410 & 596 & 68.8 & 4449 & 7.5 & 37 & 10 & 54.6 & 104.2\\
-\hline
 Kirk Cousins & 16 & 372 & 561 & 66.3 & 4221 & 7.5 & 33 & 7 & 52.3 & 103.1\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -1590,20 +1557,16 @@ Kirk Cousins & 16 & 372 & 561 & 66.3 & 4221 & 7.5 & 33 & 7 & 52.3 & 103.1\\
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c}
-\hline
+\begin{tabular}{lrr}
+\toprule
 Name & RTG & PR\\
-\hline
+\midrule
 Tom Brady & 102.1 & 102.083\\
-\hline
 Justin Herbert & 97.7 & 97.656\\
-\hline
 Patrick Mahomes & 98.5 & 98.455\\
-\hline
 Josh Allen & 92.2 & 92.170\\
-\hline
 Derek Carr & 94.0 & 93.963\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -2056,26 +2019,19 @@ We can create nice looking tables using the ``kableExtra'\,' package. Let's look
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c|c|c}
-\hline
+\begin{tabular}{llrrr}
+\toprule
 name & situation & games\_played & xGoalsPercentage & corsiPercentage\\
-\hline
+\midrule
 WPG & other & 82 & 0.49 & 0.50\\
-\hline
 WPG & all & 82 & 0.49 & 0.50\\
-\hline
 WPG & 5on5 & 82 & 0.49 & 0.49\\
-\hline
 WPG & 4on5 & 82 & 0.16 & 0.14\\
-\hline
 WPG & 5on4 & 82 & 0.86 & 0.86\\
-\hline
 CBJ & other & 82 & 0.52 & 0.49\\
-\hline
 CBJ & all & 82 & 0.45 & 0.48\\
-\hline
 CBJ & 5on5 & 82 & 0.45 & 0.48\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -2164,30 +2120,21 @@ For this next example, let's use goalie data from the 2021-2022 season from \hre
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c|c|c|c|c|c}
-\hline
+\begin{tabular}{llrrrrrr}
+\toprule
 Player & Team & GP & TOI & Shots.Against & Saves & Goals.Against & xG.Against\\
-\hline
+\midrule
 Juuse Saros & NSH & 67 & 3931.383 & 2107 & 1934 & 173 & 180.69\\
-\hline
 Connor Hellebuyck & WPG & 66 & 3903.500 & 2155 & 1962 & 193 & 199.26\\
-\hline
 Andrei Vasilevskiy & T.B & 63 & 3760.750 & 1869 & 1713 & 156 & 165.89\\
-\hline
 Thatcher Demko & VAN & 64 & 3699.550 & 1967 & 1799 & 168 & 173.26\\
-\hline
 Jacob Markstrom & CGY & 63 & 3695.833 & 1754 & 1617 & 137 & 152.26\\
-\hline
 Tristan Jarry & PIT & 58 & 3414.717 & 1711 & 1573 & 138 & 143.92\\
-\hline
 Elvis Merzlikins & CBJ & 59 & 3320.400 & 1922 & 1744 & 178 & 164.94\\
-\hline
 Marc-Andre Fleury & CHI, MIN & 56 & 3284.867 & 1732 & 1573 & 159 & 148.00\\
-\hline
 Darcy Kuemper & COL & 57 & 3258.117 & 1755 & 1617 & 138 & 154.23\\
-\hline
 John Gibson & ANA & 56 & 3235.583 & 1789 & 1617 & 172 & 163.53\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -2330,34 +2277,27 @@ For Volleyball EDA, we will be using CSU Women's Volleyball data from the last f
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c|c|c|c|c|c|c|l|c|c|c}
-\hline
+\begin{tabular}{lllrrrrrrrrrr}
+\toprule
 Date & Opponent & W\_L & SP & K & E & TA & PCT & AST & SA & SE & RE & DIG\\
-\hline
+\midrule
 8/25/17 & Duke & L & 5 & 66 & 28 & 179 & 0.212 & 64 & 5 & 13 & 6 & 84\\
-\hline
 8/26/17 & Central Florida & W & 4 & 56 & 18 & 126 & 0.302 & 52 & 7 & 10 & 7 & 49\\
-\hline
 8/29/17 & Northern Colorado & W & 3 & 39 & 8 & 77 & 0.403 & 38 & 5 & 12 & 4 & 29\\
-\hline
 9/1/17 & vs TCU & W & 5 & 62 & 20 & 149 & 0.282 & 59 & 6 & 10 & 7 & 65\\
-\hline
 9/1/17 & vs UNC Asheville & W & 3 & 41 & 7 & 80 & 0.425 & 39 & 8 & 8 & 5 & 28\\
-\hline
 9/2/17 & at Florida State & W & 3 & 48 & 12 & 95 & 0.379 & 45 & 6 & 4 & 1 & 42\\
-\hline
 9/8/17 & Ball State & W & 4 & 59 & 24 & 145 & 0.241 & 56 & 6 & 8 & 3 & 44\\
-\hline
 9/8/17 & Michigan & W & 3 & 48 & 8 & 101 & 0.396 & 46 & 3 & 6 & 4 & 37\\
-\hline
 9/10/17 & Idaho State & W & 3 & 46 & 11 & 92 & 0.380 & 46 & 4 & 3 & 4 & 48\\
-\hline
 9/15/17 & UAlbany & W & 3 & 41 & 7 & 73 & 0.466 & 36 & 5 & 5 & 1 & 30\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
 Let's look at a scatter plot of hitting percentage and the number of digs. While no conclusions can be drawn from such a plot, it can give us some insight into relationships worthy of further analysis. Before creating the plot using the code below, think about what you might expect the outcome to be.
+
+\newpage
 
 \hypertarget{scatter-plot}{%
 \subsection{Scatter Plot}\label{scatter-plot}}
@@ -2372,6 +2312,7 @@ Let's look at a scatter plot of hitting percentage and the number of digs. While
 \end{Shaded}
 
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-33-1.pdf}
+\newpage
 
 Let's change the axis titles, legend title, and add a main title.
 
@@ -2387,6 +2328,8 @@ Let's change the axis titles, legend title, and add a main title.
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-34-1.pdf}
 
 What can we learn from this visual? Well, we can see that there is a weak linear relationship between the number of digs and hitting percentage. To an extent, hitting percentage decreases as the number of digs increases. Why is this the case? Maybe if a team has a really high hitting percentage, this means that the opposing team does not have as many opportunities to attack the other team offensively, reducing the number of opportunities for digs. It also seems that while wins and losses are somewhat evenly spread across the number of digs, there is a more clear cutoff for hitting percentage. It seems that the majority of wins are associated with a hitting percentage of at least 0.2, while the majority of losses are associated with a hitting percentage of less than 0.3.
+
+\newpage
 
 \hypertarget{box-plot}{%
 \subsection{Box Plot}\label{box-plot}}
@@ -2412,6 +2355,7 @@ Now let's take a closer look at the distribution of hitting percentage and digs 
 \end{Shaded}
 
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-35-2.pdf}
+\newpage
 
 Let's modify these plots to make them more complete and visually appealing.
 
@@ -2473,8 +2417,10 @@ Rules of Soccer YouTube video: \url{https://www.youtube.com/watch?v=dFLaabgXhpc}
 
 These definitions come from www.rookieroad.com and ``The Expected Goals Philosophy'' by James Tippett.
 
-To learn more about expected goals, check out this YouTube video:
-\url{https://www.youtube.com/watch?v=w7zPZsLGK18\&list=PL9Az6mi38hv__afKnHR1AKjpcDIw_0qqT}
+To learn more about expected goals, check out this YouTube video:\\
+\url{https://www.youtube.com/watch?v=w7zPZsLGK18}
+
+\newpage
 
 \hypertarget{bar-plot}{%
 \subsection{Bar Plot}\label{bar-plot}}
@@ -2487,7 +2433,7 @@ Now that we have an understanding of some basic shooting statistics, let us go t
 \end{Highlighting}
 \end{Shaded}
 
-Next we will look at some data specific to LaLiga, which is a soccer league in the men's top professional soccer division.
+Next we will look at some data specific to La Liga, which is a soccer league in the men's top professional soccer division.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2509,12 +2455,15 @@ Next we will look at some data specific to LaLiga, which is a soccer league in t
 \NormalTok{team\_goals\_viz }\OtherTok{\textless{}{-}} 
   \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ liga\_2021\_stats[}\FunctionTok{which}\NormalTok{(liga\_2021\_stats}\SpecialCharTok{$}\NormalTok{Team\_or\_Opponent }\SpecialCharTok{==} \StringTok{"team"}\NormalTok{),], }
                          \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Squad, }\AttributeTok{y =}\NormalTok{ Gls\_Per)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{)}
 \NormalTok{team\_goals\_viz}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-40-1.pdf}
+
+\newpage
 
 This plot is a good starting point, but still looks pretty messy. Let's add a title, change the axis titles, and rotate the axis labels so they are not overlapping over one another.
 
@@ -2530,6 +2479,8 @@ This plot is a good starting point, but still looks pretty messy. Let's add a ti
 \end{Shaded}
 
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-41-1.pdf}
+
+\newpage
 
 This is already looking a lot better. Now, we will add the goals scored per game \emph{against} each team. Why is this of interest? Well, at first glance, Barcelona seems like a pretty impressive team, as they score more goals per game than any other team in the league. However, what if they also have more goals scored against them than any other team in the league? This could be important context, so we will include it in the graph below.
 
@@ -2547,6 +2498,8 @@ This is already looking a lot better. Now, we will add the goals scored per game
 
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-42-1.pdf}
 
+\newpage
+
 This is looking pretty good, but let's clean it up just a bit by changing the legend title and labels.
 
 \begin{Shaded}
@@ -2559,6 +2512,8 @@ This is looking pretty good, but let's clean it up just a bit by changing the le
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-43-1.pdf}
 
 What does this graph show us? Well, we are able to see the average number of goals scored for and against each team per game. It looks like Barcelona is scoring a lot more goals than they are letting be scored against them, while other teams like Valladolid tend to have a higher proportion of goals scored for the opposing team.
+
+\newpage
 
 \hypertarget{scatter-plot-1}{%
 \subsection{Scatter Plot}\label{scatter-plot-1}}
@@ -2586,6 +2541,8 @@ In addition to simply knowing the average actual number of goals scored for and 
 
 As you can see, we fit a line to the data. At first glance, it seems to have a positive slope slightly greater than 1. What does this mean in the scenario of actual and expected goals per game?
 
+\newpage
+
 \begin{example}
 Use the \texttt{worldfootballR} package to collect team shooting data from the Women's 1st Tier League (Women's Super League) in England for 2020-2021. Plot goals vs.~shots, shots on target, and expected goals. Comment on the relationships.
 \end{example}
@@ -2605,60 +2562,39 @@ Use the \texttt{worldfootballR} package to collect team shooting data from the W
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c|c|c}
-\hline
+\begin{tabular}{lrrrr}
+\toprule
 Squad & Goals & Shots & Shots on Target & Expected Goals\\
-\hline
-Arsenal & 62 & 366 & 152 & 52.7\\
-\hline
-Aston Villa LFC & 14 & 159 & 45 & 15.3\\
-\hline
-Birmingham City & 14 & 116 & 35 & 10.8\\
-\hline
-Brighton & 20 & 207 & 68 & 20.8\\
-\hline
+\midrule
+Arsenal & 62 & 366 & 152 & 53.5\\
+Aston Villa & 14 & 159 & 45 & 15.3\\
+Birmingham City & 14 & 116 & 35 & 10.6\\
+Brighton & 20 & 207 & 68 & 20.7\\
 Bristol City & 17 & 186 & 61 & 17.2\\
-\hline
-Chelsea & 67 & 425 & 150 & 57.4\\
-\hline
+Chelsea & 67 & 425 & 150 & 57.3\\
 Everton & 39 & 248 & 82 & 31.0\\
-\hline
-Manchester City & 62 & 420 & 143 & 55.5\\
-\hline
-Manchester Utd & 43 & 380 & 132 & 42.1\\
-\hline
-Reading & 24 & 281 & 93 & 28.5\\
-\hline
-Tottenham & 16 & 196 & 64 & 19.5\\
-\hline
-West Ham & 18 & 228 & 80 & 22.8\\
-\hline
-vs Arsenal & 14 & 169 & 51 & 15.3\\
-\hline
-vs Aston Villa LFC & 45 & 355 & 121 & 39.8\\
-\hline
-vs Birmingham City & 43 & 370 & 126 & 39.9\\
-\hline
-vs Brighton & 41 & 316 & 93 & 39.2\\
-\hline
-vs Bristol City & 68 & 426 & 165 & 51.7\\
-\hline
-vs Chelsea & 9 & 143 & 35 & 12.7\\
-\hline
-vs Everton & 29 & 243 & 86 & 30.4\\
-\hline
-vs Manchester City & 13 & 122 & 40 & 13.1\\
-\hline
-vs Manchester Utd & 17 & 202 & 67 & 20.2\\
-\hline
-vs Reading & 41 & 296 & 103 & 38.9\\
-\hline
+Manchester City & 62 & 420 & 143 & 55.0\\
+Manchester Utd & 43 & 380 & 132 & 41.8\\
+Reading & 24 & 281 & 93 & 28.7\\
+Tottenham & 16 & 196 & 64 & 19.7\\
+West Ham & 18 & 228 & 80 & 23.0\\
+vs Arsenal & 14 & 169 & 51 & 15.4\\
+vs Aston Villa & 45 & 355 & 121 & 39.4\\
+vs Birmingham City & 43 & 370 & 126 & 40.0\\
+vs Brighton & 41 & 316 & 93 & 39.0\\
+vs Bristol City & 68 & 426 & 165 & 51.5\\
+vs Chelsea & 9 & 143 & 35 & 13.0\\
+vs Everton & 29 & 243 & 86 & 30.6\\
+vs Manchester City & 13 & 122 & 40 & 12.9\\
+vs Manchester Utd & 17 & 202 & 67 & 20.0\\
+vs Reading & 41 & 296 & 103 & 39.0\\
 vs Tottenham & 39 & 276 & 102 & 35.2\\
-\hline
-vs West Ham & 37 & 294 & 116 & 37.1\\
-\hline
+vs West Ham & 37 & 294 & 116 & 37.9\\
+\bottomrule
 \end{tabular}
 \end{table}
+
+\newpage
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2714,7 +2650,7 @@ Give some examples of continuous random variables in sports.
 \hypertarget{set-theory}{%
 \section{Set Theory}\label{set-theory}}
 
-For the following examples, suppose that we are interested in the batting outcomes of a plate appearance in softball.
+For the following examples, suppose that we are interested in the batting outcomes of a plate appearance in baseball.
 
 Let \(A\) be the event that the batter gets walked, let \(B\) be the event that the batter gets a hit, let \(C\) be the event that the batter strikes out, and let \(D\) be the event that the batter makes it to first base at the end of their at bat.
 
@@ -2803,7 +2739,7 @@ Are the events \(A\) and \(B\) disjoint? How about \(A\) and \(D\)?
 \hypertarget{axioms-properties-and-laws}{%
 \section{Axioms, Properties, and Laws}\label{axioms-properties-and-laws}}
 
-There are some basic assumptions of ``axioms'' which are the foundation of the theory of probability. Andrey Kolmogorov first described these axioms in 1933.
+There are some basic assumptions or ``axioms'' which are the foundation of the theory of probability. Andrey Kolmogorov first described these axioms in 1933.
 
 \hypertarget{axioms-of-probability}{%
 \subsection{Axioms of Probability}\label{axioms-of-probability}}
@@ -2911,43 +2847,62 @@ In 1998, Sammy Sosa hit 66 home runs in 722 plate appearances, the third highest
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
+\tightlist
 \item
   \(P(HR)\)\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
+\end{enumerate}
+
+\vfill
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
 \item
   \(P(HR \cap June)\)\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
+\end{enumerate}
+
+\vfill
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
 \item
   \(P(June)\)\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
+\end{enumerate}
+
+\vfill
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
 \item
   \(P(HR|June)\)\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
+\end{enumerate}
+
+\vfill
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
 \item
   \(P(June|HR)\)\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
+\end{enumerate}
+
+\vfill
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
 \item
   \(P(HR|June^c)\)\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
 \end{enumerate}
+
+\vfill
 
 \newpage
 
@@ -2959,9 +2914,6 @@ For any two events \(A\) and \(B\), \(P(A \cap B) = P(B|A) \cdot P(A)\).
 Calculate the probability that a randomly selected plate appearance from Sosa's 1998 season is a home run in June.
 \end{example}
 
-\hfill\break
-\hfill\break
-\hfill\break
 \vfill
 
 \begin{definition}
@@ -2980,9 +2932,6 @@ Suppose events \(A_1, A_2, \ldots, A_n\) form a partition of \(\Omega\), then:
 What is one possible way to partition Sosa's plate appearances in 1998?
 \end{example}
 
-\hfill\break
-\hfill\break
-\hfill\break
 \vfill
 
 \begin{theorem}[Bayes Theorem: simple version]
@@ -2999,9 +2948,6 @@ Suppose events \(B_1, B_2, \ldots, B_n\) form a partition of \(\Omega\), then:
 Given that Sosa hit a home run in 1998, what is the probability that he hit it in June?
 \end{example}
 
-\hfill\break
-\hfill\break
-\hfill\break
 \vfill
 
 \newpage
@@ -3012,25 +2958,32 @@ Over the course of a season, a hockey player scored a goal 30\% of the time duri
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
+\tightlist
 \item
   What is the probability the player scored a goal in any game if there were an equal number of home and away games?\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
+\end{enumerate}
+
+\vfill
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
 \item
   What is the probability the player scored a goal in any game if there were twice as many home games as away games?\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
+\end{enumerate}
+
+\vfill
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
 \item
   What is the probability the player scored a goal in any game if the ratio of home games to away games is 2:3?\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
 \end{enumerate}
+
+\vfill
 
 \newpage
 
@@ -3049,9 +3002,6 @@ Note that \(0! \equiv 1\) and \(1! \equiv 1\).
 A baseball/softball batting lineup has nine ordered players. Suppose the manager has selected the nine players to bat. How many different batting orders are there possible?
 \end{example}
 
-\hfill\break
-\hfill\break
-\hfill\break
 \vfill
 
 \begin{definition}
@@ -3062,9 +3012,6 @@ An ordered subset is called a \textbf{\emph{permutation}}. The number of permuta
 In MLB, each team has a 26-person roster, of which about 13 are hitters. Assuming one of the batters is the designated hitter, how many different batting lineups of 9 players can a manager create?
 \end{example}
 
-\hfill\break
-\hfill\break
-\hfill\break
 \vfill
 
 \begin{definition}
@@ -3091,24 +3038,6 @@ Suppose a set consists of \(k\) elements (k-tuples) and that there are \(n_1\) p
 A baseball manager selects nine hitters and one pitcher for a starting lineup. Suppose they can choose from 13 hitters and 13 hitters. How many different possible lineups can the manager choose from?
 \end{example}
 
-\hfill\break
-\hfill\break
-\hfill\break
-\vfill
-
-\begin{example}
-In softball, rules sometimes allow for a ``designated player''. This player hits for any position player or pitcher but isn't required to play defense. There is some flexibility to allow the designated player to temporarily play a position during the game however.\\
-
-For more on the designated player rule in softball, visit:\\
-\url{https://cdn2.sportngin.com/attachments/document/c780-2407390/DPFlexRuleExplained.pdf}
-
-In 2022, the CSU softball team had 24 players. Three of these players were only pitchers and two of these players were both pitchers and fielders. How many different lineups of 10 (8 non-pitching position players, 1 pitcher, 1 designated player) are possible for CSU?
-\end{example}
-
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
 \vfill
 
 \newpage
@@ -3147,26 +3076,19 @@ The \textbf{\emph{odds}} (in favor) of an outcome \(A\) is the probability of \(
 
 \begin{table}[H]
 \centering
-\begin{tabular}{c|c|c|c|c|c}
-\hline
+\begin{tabular}{lrrlrr}
+\toprule
 Odds & p & q & Odds & p & q\\
-\hline
+\midrule
 0:1 & 0.000 & 1.000 & 1:0 & 1.000 & 0.000\\
-\hline
 1:1 & 0.500 & 0.500 & 1:1 & 0.500 & 0.500\\
-\hline
 2:1 & 0.667 & 0.333 & 1:2 & 0.333 & 0.667\\
-\hline
 3:1 & 0.750 & 0.250 & 1:3 & 0.250 & 0.750\\
-\hline
 4:1 & 0.800 & 0.200 & 1:4 & 0.200 & 0.800\\
-\hline
 5:1 & 0.833 & 0.167 & 1:5 & 0.167 & 0.833\\
-\hline
 10:1 & 0.909 & 0.091 & 1:10 & 0.091 & 0.909\\
-\hline
 100:1 & 0.990 & 0.010 & 1:100 & 0.010 & 0.990\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -3185,9 +3107,6 @@ For the following examples, convert between probability and odds.
   Suppose that the probability that the Cubs win the 2025 World Series is 0.03. What are the odds in favor?\\
 \end{enumerate}
 
-\hfill\break
-\hfill\break
-\hfill\break
 \vfill
 
 \begin{enumerate}
@@ -3198,9 +3117,6 @@ For the following examples, convert between probability and odds.
   Suppose that the odds that the Rockies win the World Series in 2025 is 100:1. What is the probability in favor?\\
 \end{enumerate}
 
-\hfill\break
-\hfill\break
-\hfill\break
 \vfill
 
 \begin{enumerate}
@@ -3211,20 +3127,12 @@ For the following examples, convert between probability and odds.
   Suppose there is a 1\% chance that CSU wins a national championship in any sport in the next decade. What are the probability and the odds against CSU winning a national championship in the next decade?\\
 \end{enumerate}
 
-\hfill\break
-\hfill\break
-\hfill\break
 \vfill
 
 \begin{example}
 Suppose that there are three finalists in an Olympic competition. It is estimated that Athlete A has a 50\% chance of winning, Athlete B has a 40\% chance of winning, and Player C has a 10\% chance of winning. Calculate the odds against each of the athletes winning the competition.
 \end{example}
 
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
 \vfill
 
 \newpage
@@ -3236,6 +3144,12 @@ Here's a helpful resource on calculating gambling odds:\\
 \url{https://www.actionnetwork.com/education/decimal-odds}
 
 Gambling odds are a bit different that odds in a probability context. Gambling odds tell the amount that the bookmaker will pay out for a winning bet. For example, if a bookmaker is offering ``10:1'' that the Rockies win the next World Series, the bookmaker will pay out 10x the original wager plus the original wager if the Rockies win the World Series and the bookmaker will keep the original bet if the Rockies fail to win the World Series.
+
+\begin{definition}
+The \textbf{\emph{implied probability}}, \(\tilde{p}\), of a wager is the probability that corresponds to the odds of the wager.
+
+\[\tilde{p} = \frac{Odds}{Odds+1}\]
+\end{definition}
 
 \begin{definition}
 \textbf{\emph{Fractional odds}} are common in horse racing and quote the net total that will be paid out to the bettor, should he or she win, relative to the stake. The numerator and denominator of fractional odds are always positive integers. For example, a \$100 wager on a ``5:1'' bet would result in a payout of \(5 \cdot \$100 + \$100 = \$600\) if the wager is correct and a payout of \$0 if the wager is incorrect.
@@ -3257,38 +3171,47 @@ For the following scenarios, assume a wager of \$100. Calculate the payout for a
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
+\tightlist
 \item
   Fractional odds of 4/1\\
-  \strut \\
-  \strut \\
-  \vfill
+\end{enumerate}
+
+\vfill
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
 \item
   Moneyline +400\\
-  \strut \\
-  \strut \\
-  \vfill
+\end{enumerate}
+
+\vfill
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
 \item
   Moneyline -300\\
-  \strut \\
-  \strut \\
-  \vfill
+\end{enumerate}
+
+\vfill
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
 \item
   Decimal Odds of 1.5\\
-  \strut \\
-  \strut \\
-  \vfill
 \end{enumerate}
+
+\vfill
 
 \newpage
 
-\textbf{Note:} A \emph{moneyline wager} refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds.
-
 \begin{definition}
-The \textbf{\emph{implied probability}}, \(\tilde{p}\), of a wager is the probability that corresponds to the odds of the wager.
-
-\[\tilde{p} = \frac{Odds}{Odds+1}\]
-
-If we are dealing with moneyline bets, we have the following:
+A \emph{moneyline wager} refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds.
 
 If ML is negative:
 \[\tilde{p} = \frac{-ML_{NEG}}{-ML_{NEG}+100}\]
@@ -3491,9 +3414,9 @@ Suppose that CSU is a three point favorite (-3) against CU in a women's basketba
 \hypertarget{random-variables}{%
 \section{Random Variables}\label{random-variables}}
 
-:::\{.definition\}
+\begin{definition}
 Let \(\Omega\) be the sample space of an experiment. A \textbf{\emph{random variable}} is a rule that associates a number with each outcome in \(\Omega\). In other words, a random variable is a function whose domain is \(\Omega\) and whose range is the set of real numbers.
-:::\\
+\end{definition}
 
 Random variables are be broken down into subcategories:\\
 1. \textbf{\emph{Discrete random variables}} - random variables which have a sample space that is finite or countably infinite.\\
@@ -3534,21 +3457,20 @@ Suppose the Colorado Rockies are playing a four game series against the Chicago 
 
 \begin{table}[H]
 \centering
-\begin{tabular}{l|c|c|c|c|c}
-\hline
+\begin{tabular}{lrrrrr}
+\toprule
 Rockies wins, X & 0.000 & 1.000 & 2.000 & 3.000 & 4.000\\
-\hline
 Probability, p(X) & 0.015 & 0.111 & 0.311 & 0.384 & 0.179\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
+
+\vfill
 
 What is the probability that the Rockies win zero games? What is the probability that the Rockies win at least two games? Why might the independence assumption be false?
 \end{example}
 
-\hfill\break
-\hfill\break
-\hfill\break
+\vfill
 
 We may be interested in describing the center or average value of our random variable. We can do this with the following definitions.
 
@@ -3578,18 +3500,13 @@ Sometimes, it makes sense to calculate the expected value of a function of a ran
   \(E[h(X)] = \int_{x \in \Omega} h(x) \cdot f(x) dx\) (for continuous random variables)
 \end{enumerate}
 
-\newpage
-
 \begin{example}
 For the Rockies/Cubs four game series example, calculate \(E[X]\) and \(E[X^2]\).
 \end{example}
 
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
 \vfill
+
+\newpage
 
 The spread or variability associated with a random variable can be calculated using expected values as well.
 
@@ -3623,9 +3540,8 @@ The \textbf{\emph{population standard deviation}} of a random variable \(X\) is 
 For the Rockies/Cubs four game series example, calculate \(Var(X)\).
 \end{example}
 
-\hfill\break
-\hfill\break
-\hfill\break
+\vfill
+\vfill
 \vfill
 \vfill
 \vfill
@@ -3677,7 +3593,16 @@ Let's generate two simulated datasets. The first dataset will follow a normal di
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-51-1.pdf} \includegraphics{textbook_files/figure-latex/unnamed-chunk-51-2.pdf} \includegraphics{textbook_files/figure-latex/unnamed-chunk-51-3.pdf} \includegraphics{textbook_files/figure-latex/unnamed-chunk-51-4.pdf}
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(gridExtra)}
+\FunctionTok{grid.arrange}\NormalTok{(fig1,fig2,fig3,fig4,}\AttributeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-51-1.pdf}
 
 What do you conclude from the four QQ plots?
 
@@ -3846,8 +3771,6 @@ Suppose the number of shots needed by a hockey team in order to score their firs
 
 \textbf{Caution:} Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful.
 
-\newpage
-
 Let's simulate the number of shot attempts required to score the first goal (Geometric(\(p=1/10\))) from the previous example.
 
 \begin{Shaded}
@@ -3877,7 +3800,7 @@ Some of the values were 0, which could not happen if R was considering the numbe
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{mean}\NormalTok{(first\_success)}
+\NormalTok{(mean\_success }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(first\_success))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3885,7 +3808,7 @@ Some of the values were 0, which could not happen if R was considering the numbe
 ## [1] 10.0669
 \end{verbatim}
 
-The mean of this sample of variables is 10.07, which is close to the expected mean of \(\frac{1}{p} = 10\).
+The mean of this sample of variables is 10.0669, which is close to the expected mean of \(\frac{1}{p} = 10\).
 
 Let's plot the sample distribution of shots required to score a goal from the simulation as well.
 
@@ -3980,7 +3903,7 @@ Let's check whether using a Poisson distribution was appropriate by comparing it
 \NormalTok{rapids21 }\OtherTok{\textless{}{-}} 
   \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{)}
 
-\NormalTok{goals }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\StringTok{"5 or more"}\NormalTok{)}
+\NormalTok{goals }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\StringTok{"5+"}\NormalTok{)}
 \NormalTok{actual\_frequency }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{6}\NormalTok{, }\DecValTok{14}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
 \NormalTok{actual\_proportion }\OtherTok{\textless{}{-}}\NormalTok{ actual\_frequency }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(actual\_frequency)}
 \NormalTok{expected\_proportion }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{dpois}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\AttributeTok{lambda=}\FloatTok{1.5}\NormalTok{), }
@@ -3989,30 +3912,25 @@ Let's check whether using a Poisson distribution was appropriate by comparing it
 
 \NormalTok{rapids.data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(goals, actual\_frequency, actual\_proportion, }
 \NormalTok{                          expected\_frequency, expected\_proportion)}
+\FunctionTok{names}\NormalTok{(rapids.data) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"Goals"}\NormalTok{,}\StringTok{"Actual Frequency"}\NormalTok{,}\StringTok{"Actual Proportion"}\NormalTok{,}\StringTok{"Expected Frequency"}\NormalTok{,}\StringTok{"Expected Proportion"}\NormalTok{)}
 
-\NormalTok{rapids.data }\SpecialCharTok{\%\textgreater{}\%}
-\FunctionTok{kt}\NormalTok{()}
+\NormalTok{rapids.data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\begin{tabular}{c|c|c|c|c}
-\hline
-goals & actual\_frequency & actual\_proportion & expected\_frequency & expected\_proportion\\
-\hline
+\begin{tabular}{lrrrr}
+\toprule
+Goals & Actual Frequency & Actual Proportion & Expected Frequency & Expected Proportion\\
+\midrule
 0 & 6 & 0.176 & 7.6 & 0.223\\
-\hline
 1 & 14 & 0.412 & 11.4 & 0.335\\
-\hline
 2 & 7 & 0.206 & 8.5 & 0.251\\
-\hline
 3 & 6 & 0.176 & 4.3 & 0.126\\
-\hline
 4 & 0 & 0.000 & 1.6 & 0.047\\
-\hline
-5 or more & 1 & 0.029 & 0.6 & 0.019\\
-\hline
+5+ & 1 & 0.029 & 0.6 & 0.019\\
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -4056,7 +3974,7 @@ goals & actual\_frequency & actual\_proportion & expected\_frequency & expected\
 \NormalTok{  as.data.frame }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ rapids21)) }\SpecialCharTok{+}
   \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois,}
-          \AttributeTok{dparams =} \FloatTok{1.5}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.2}\NormalTok{,}\AttributeTok{height =} \FloatTok{0.2}\NormalTok{)) }\SpecialCharTok{+}
+          \AttributeTok{dparams =} \FloatTok{1.5}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.1}\NormalTok{,}\AttributeTok{height =} \FloatTok{0.1}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \FloatTok{1.5}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"QQ{-}plot for Rapids 2021 Goals vs. Poisson Distribution"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
@@ -4520,11 +4438,7 @@ Link to WAR explanation: \url{https://www.mlb.com/glossary/advanced-stats/wins-a
 
 We want \(P(X>Y)\) or \(P(X-Y>0)\)\\
 
-Let \(Z = X-Y\)\\
-
-Then: \(E[Z]=1.5\), \(Var(Z)=5\)
-
-So, \$P(X\textgreater Y) = P(X-Y\textgreater0) = P(Z\textgreater0) = 1-P(Z \(\leq\) 0)\$
+\vfill
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4537,7 +4451,162 @@ So, \$P(X\textgreater Y) = P(X-Y\textgreater0) = P(Z\textgreater0) = 1-P(Z \(\le
 ## [1] 0.7488325
 \end{verbatim}
 
-The probability that Player X outperforms Player Y is 0.7488.
+\vfill
+
+\newpage
+
+\hypertarget{win-probability-models}{%
+\section{Win Probability Models}\label{win-probability-models}}
+
+The probability an NFL team will win can be modeled as a normal random variable using the Vegas line. This method is outlined by Wayne Winston in \emph{Mathletics} building on previous research by Hal Stern.
+
+\hypertarget{estimating-pregame-win-probability}{%
+\subsection{Estimating Pregame Win Probability}\label{estimating-pregame-win-probability}}
+
+Winston estimates that the final margin of victory is approximately a normal random variable with a mean of the Vegas line and a standard deviation between 13-14. Winston and Stern estimated the standard deviation to be \textbf{13.86} based on data from the 1981, 1983, and 1984 NFL seasons.
+
+This estimated standard deviation has since been updated to be \textbf{13.45} based on data from 1978 -- 2012 NFL seasons.
+
+Reference: \url{https://www.pro-football-reference.com/about/win_prob.htm}
+
+\begin{example}
+Sketch the distribution of the final margin of victory for an NFL team that is favored by 7 points. Shade the area for a win in regulation (for the favorite) and a tie in regulation.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(gridExtra)}
+
+
+\NormalTok{final\_margin\_full }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{21}\NormalTok{, }\DecValTok{42}\NormalTok{)), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x)) }\SpecialCharTok{+}
+        \FunctionTok{stat\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dnorm, }\AttributeTok{args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{mean =} \DecValTok{7}\NormalTok{, }\AttributeTok{sd =} \FloatTok{13.45}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Final Margin (for favorite)"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Full Distribution"}\NormalTok{)}
+
+\NormalTok{final\_margin\_zoom }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{10}\NormalTok{)), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x)) }\SpecialCharTok{+}
+        \FunctionTok{stat\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dnorm, }\AttributeTok{args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{mean =} \DecValTok{7}\NormalTok{, }\AttributeTok{sd =} \FloatTok{13.45}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Final Margin (for favorite)"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Zoomed Distribution"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks=}\FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+
+\FunctionTok{grid.arrange}\NormalTok{(final\_margin\_full, final\_margin\_zoom, }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-73-1.pdf}
+
+\newpage
+
+\begin{example}
+In Super Bowl 50, the Denver Broncos were 5.5 point underdogs (+5.5) against the Carolina Panthers. Estimate the pregame win probability for the Denver Broncos.\\
+
+\end{example}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-74-1.pdf}
+
+\vfill
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fav\_line }\OtherTok{\textless{}{-}} \FloatTok{5.5}
+\NormalTok{full\_sd }\OtherTok{\textless{}{-}} \FloatTok{13.45}
+
+\NormalTok{win\_prob }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{mean =}\NormalTok{ fav\_line, }\AttributeTok{sd =}\NormalTok{ full\_sd, }\AttributeTok{lower.tail =} \ConstantTok{FALSE}\NormalTok{)}
+
+\NormalTok{tie\_prob }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{mean =}\NormalTok{ fav\_line, }\AttributeTok{sd =}\NormalTok{ full\_sd, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{{-}}
+            \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{, }\AttributeTok{mean =}\NormalTok{ fav\_line, }\AttributeTok{sd =}\NormalTok{ full\_sd, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# win probability for favorite (panthers)}
+\NormalTok{win\_prob }\OtherTok{\textless{}{-}}\NormalTok{ win\_prob }\SpecialCharTok{+} \DecValTok{1}\SpecialCharTok{/}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ tie\_prob}
+
+\CommentTok{\# win probability for underdog (broncos)}
+\NormalTok{(broncos\_win\_prob }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ win\_prob)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3414021
+\end{verbatim}
+
+\newpage
+
+\hypertarget{estimating-in-game-win-probability}{%
+\subsection{Estimating In-Game Win Probability}\label{estimating-in-game-win-probability}}
+
+Winston proposed an updated method to calculate in-game win probabilities based on the time remaining in the game, current score margin, and Vegas line.
+
+In this proposed method, the pregame mean (Vegas line) and pregame variance (13.45) are scaled down linearly as a function of time remaining in the game.
+
+For instance, since there are four 15-minute quarters (total regulation game time is 60 minutes), then the in-game mean and standard deviation are calculated as follows.
+
+\(\mu_{updated} = Line \cdot \frac{\text{time remaining}}{60}\)
+
+\(\sigma_{updated} = \frac{13.45}{\sqrt{60/\text{time remaining}}}\)
+
+\textbf{Note:} This model assumes perfectly neutral possession, down, distance, and field-position conditions.
+
+Reference: \url{https://www.pro-football-reference.com/about/win_prob.htm}
+
+\begin{example}
+In Super Bowl 50, the Denver Broncos led the Carolina Panthers 10-0 after the first quarter. The Broncos were 5.5 point underdogs at the start of the game. Use Winston's method to estimate the probability of a Broncos win after one quarter.\\
+
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fav\_margin }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\DecValTok{10}
+\NormalTok{fav\_line }\OtherTok{\textless{}{-}} \FloatTok{5.5}
+\NormalTok{full\_sd }\OtherTok{\textless{}{-}} \FloatTok{13.45}
+\NormalTok{full\_min }\OtherTok{\textless{}{-}} \DecValTok{60}
+\NormalTok{new\_min }\OtherTok{\textless{}{-}} \DecValTok{45}
+
+\NormalTok{new\_mean }\OtherTok{\textless{}{-}}\NormalTok{ fav\_line }\SpecialCharTok{*}\NormalTok{ new\_min}\SpecialCharTok{/}\NormalTok{full\_min}
+\NormalTok{new\_sd }\OtherTok{\textless{}{-}}\NormalTok{ full\_sd }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(full\_min}\SpecialCharTok{/}\NormalTok{new\_min)}
+
+\NormalTok{win\_prob }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \FloatTok{0.5} \SpecialCharTok{{-}}\NormalTok{ fav\_margin, }\AttributeTok{mean =}\NormalTok{ new\_mean, }
+                  \AttributeTok{sd =}\NormalTok{ new\_sd, }\AttributeTok{lower.tail =} \ConstantTok{FALSE}\NormalTok{)}
+
+\NormalTok{tie\_prob }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \FloatTok{0.5} \SpecialCharTok{{-}}\NormalTok{ fav\_margin, }\AttributeTok{mean =}\NormalTok{ new\_mean, }
+                  \AttributeTok{sd =}\NormalTok{ new\_sd, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{{-}}
+            \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \SpecialCharTok{{-}}\FloatTok{0.5} \SpecialCharTok{{-}}\NormalTok{ fav\_margin, }\AttributeTok{mean =}\NormalTok{ new\_mean, }
+                  \AttributeTok{sd =}\NormalTok{ new\_sd, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# win probability for favorite (panthers)}
+\NormalTok{win\_prob }\OtherTok{\textless{}{-}}\NormalTok{ win\_prob }\SpecialCharTok{+} \DecValTok{1}\SpecialCharTok{/}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ tie\_prob}
+
+\CommentTok{\# win probability for underdog (broncos)}
+\NormalTok{(broncos\_win\_prob }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ win\_prob)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6928385
+\end{verbatim}
+
+\newpage
+
+The win probability models outlined above use only the Vegas line, the current score, and the time remaining in the game. More accurate estimation models will also consider possession, down, distance, and field-position conditions. Pro Football Reference offers an in-game win probability model with these additional factors.
+
+Reference: \url{https://www.pro-football-reference.com/boxscores/win_prob.cgi}
+
+\begin{example}
+The Broncos led the Panthers 10-0 at the end of the first quarter. The Panthers had 2nd and 11 at their own 46 at the beginning of the second quarter. Calculate the Broncos win probability.
+
+Reference: \url{https://www.pro-football-reference.com/boxscores/201602070den.htm}
+\end{example}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{images/wp1}
+\caption{Pro Football Reference Win Probability Calculator Inputs}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{images/wp2}
+\caption{Pro Football Reference Win Probability Calculator Output}
+\end{figure}
+
+\textbf{Class Reading:} Chapters 6--7 in the \emph{Hidden Game of Football} by Carroll, Palmer, Thorn
 
 \hypertarget{monte-carlo-simulation}{%
 \chapter{Monte Carlo Simulation}\label{monte-carlo-simulation}}
@@ -4691,7 +4760,7 @@ The estimated probability that Shaq goes 10-for-10 in free throw attempts based 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-78-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-80-1.pdf}
 
 \vfill
 \newpage
@@ -4716,7 +4785,7 @@ If we run the simulation again with a different seed, we will get another estima
 \NormalTok{  FT[i] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(temp)}
 \NormalTok{\}}
 
-\NormalTok{prob10 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(FT }\SpecialCharTok{==} \DecValTok{10}\NormalTok{); prob10}
+\NormalTok{(prob10 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(FT }\SpecialCharTok{==} \DecValTok{10}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4744,7 +4813,7 @@ As we increase the number of simulations, the estimate will become more accurate
 \NormalTok{  FT[i] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(temp)}
 \NormalTok{\}}
 
-\NormalTok{prob10 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(FT}\SpecialCharTok{==}\DecValTok{10}\NormalTok{); prob10}
+\NormalTok{(prob10 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(FT}\SpecialCharTok{==}\DecValTok{10}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4768,38 +4837,31 @@ For instance, suppose we roll a die and a ``6'' is on top. Then we have the foll
 One way to calculate probabilities is to use the following rule: \(P(A) = E[I(A)]\). The probability that \(A\) occurs is equal to the expected value of the indicator function of \(A\).
 
 \begin{example}
-During the 2021 WNBA season, Kahleah Copper of the Chicago Sky had a free throw percentage of 81.8\%. She played a total of 32 games and the probability mass function for number of free throw attempts per game are given in the table below. Estimate the probability that Copper did not make a free throw in a game. {[}Note: Copper did not make a free throw in 6 out of the 32 games for a probability of 0.1875.{]}
+During the 2021 WNBA season, Kahleah Copper of the Chicago Sky had a free throw percentage of 81.8\%. She played a total of 32 games and the probability mass function for number of free throw attempts per game are given in the table below.
+
+Estimate the probability that Copper did not make a free throw in a game.
+
+\emph{Note: Copper did not make a free throw in 6 out of the 32 games for a probability of 0.1875.}
 \end{example}
 
 \begin{table}[H]
 \centering
-\begin{tabular}{c|c|c}
-\hline
-Free Throw Attempt, FTA & Frequency, nFTA & Probability, p(FTA)\\
-\hline
+\begin{tabular}{rrr}
+\toprule
+FTA & nFTA & p(FTA)\\
+\midrule
 0 & 5 & 0.156\\
-\hline
 1 & 2 & 0.062\\
-\hline
 2 & 8 & 0.250\\
-\hline
 3 & 0 & 0.000\\
-\hline
 4 & 7 & 0.219\\
-\hline
 5 & 2 & 0.062\\
-\hline
 6 & 4 & 0.125\\
-\hline
 7 & 2 & 0.062\\
-\hline
 8 & 2 & 0.062\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
-
-\vfill
-\newpage
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4812,7 +4874,13 @@ Free Throw Attempt, FTA & Frequency, nFTA & Probability, p(FTA)\\
 \NormalTok{pFTA }\OtherTok{\textless{}{-}}\NormalTok{ nFTA}\SpecialCharTok{/}\DecValTok{32}
 \NormalTok{FT }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n.sims)}
 \NormalTok{FT0.ind }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,n.sims)}
+\end{Highlighting}
+\end{Shaded}
 
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# Simulate the number of FTA per game}
 \NormalTok{FTA.sim }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\AttributeTok{x =}\NormalTok{ FTA,}\AttributeTok{size =}\NormalTok{ n.sims,}\AttributeTok{replace =}\NormalTok{ T,}\AttributeTok{prob =}\NormalTok{ pFTA)}
 
@@ -5031,34 +5099,23 @@ Let's build a simulation to estimate the probability of a hitting streak of at l
 
 \begin{table}[H]
 \centering
-\begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c}
-\hline
+\begin{tabular}{rllllrrrrrrrr}
+\toprule
 Rk & Gtm & Date & Opp & Rslt & PA & AB & R & H & 2B & 3B & HR & RBI\\
-\hline
+\midrule
 1 & 1 & Apr 14 & WSH & W3-0 & 4 & 4 & 0 & 2 & 0 & 1 & 0 & 1\\
-\hline
 2 & 2 & Apr 15 & PHA & L1-3 & 4 & 4 & 1 & 2 & 1 & 0 & 0 & 0\\
-\hline
 3 & 3 & Apr 16 & PHA & L7-10 & 5 & 5 & 1 & 4 & 2 & 0 & 1 & 2\\
-\hline
 4 & 4 & Apr 17 & PHA & W9-4 & 5 & 4 & 2 & 2 & 0 & 0 & 0 & 0\\
-\hline
 5 & 5 & Apr 18 & WSH & L4-7 & 4 & 4 & 1 & 1 & 0 & 0 & 0 & 1\\
-\hline
 6 & 6 & Apr 19 & WSH & W5-2 & 5 & 5 & 1 & 1 & 0 & 0 & 1 & 2\\
-\hline
 7 & 7 & Apr 20 & PHA & W19-5 & 6 & 5 & 4 & 3 & 0 & 0 & 1 & 6\\
-\hline
 8 & 8 & Apr 21 & PHA & W14-4 & 6 & 5 & 3 & 4 & 1 & 0 & 1 & 2\\
-\hline
 9 & 9 & Apr 22 & PHA & L5-6 & 4 & 3 & 1 & 0 & 0 & 0 & 0 & 0\\
-\hline
 10 & 10 & Apr 23 & BOS & W4-2 & 5 & 4 & 0 & 0 & 0 & 0 & 0 & 1\\
-\hline
 139 & 156 & Sep 28 & WSH & L0-5 & 4 & 4 & 0 & 1 & 1 & 0 & 0 & 0\\
-\hline
 NA & NA & NA & NA & 90-47 & 622 & 541 & 122 & 193 & 43 & 11 & 30 & 125\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -5077,23 +5134,28 @@ DiMaggio played in 139 games, had 622 plate appearances, 541 at-bats, and 193 hi
 
 \CommentTok{\# Use rle to calculate the streak lengths}
 \NormalTok{streaks }\OtherTok{\textless{}{-}} \FunctionTok{rle}\NormalTok{(hit.game)}
-\FunctionTok{table}\NormalTok{(streaks)}
+\FunctionTok{table}\NormalTok{(streaks) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-##        values
-## lengths 0 1
-##      1  5 2
-##      2  4 3
-##      3  4 2
-##      4  0 2
-##      5  0 1
-##      7  0 1
-##      8  0 1
-##      16 0 1
-##      56 0 1
-\end{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+\toprule
+  & 0 & 1\\
+\midrule
+1 & 5 & 2\\
+2 & 4 & 3\\
+3 & 4 & 2\\
+4 & 0 & 2\\
+5 & 0 & 1\\
+7 & 0 & 1\\
+8 & 0 & 1\\
+16 & 0 & 1\\
+56 & 0 & 1\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 As seen above, DiMaggio had a 56-game hitting streak. An impossible feat to match?
 
@@ -5128,7 +5190,7 @@ As seen above, DiMaggio had a 56-game hitting streak. An impossible feat to matc
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-86-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-89-1.pdf}
 
 \vfill
 \newpage
@@ -5154,26 +5216,19 @@ As seen above, DiMaggio had a 56-game hitting streak. An impossible feat to matc
 
 \begin{table}[H]
 \centering
-\begin{tabular}{c|c|c}
-\hline
+\begin{tabular}{lrl}
+\toprule
 Plate Appearances & Frequency & Percent\\
-\hline
+\midrule
 2 & 2 & 1.4\%\\
-\hline
 3 & 4 & 2.9\%\\
-\hline
 4 & 70 & 50.4\%\\
-\hline
 5 & 56 & 40.3\%\\
-\hline
 6 & 5 & 3.6\%\\
-\hline
 7 & 1 & 0.7\%\\
-\hline
 9 & 1 & 0.7\%\\
-\hline
 Total & 139 & 100.0\%\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -5189,24 +5244,18 @@ Total & 139 & 100.0\%\\
 
 \begin{table}[H]
 \centering
-\begin{tabular}{c|c|c}
-\hline
+\begin{tabular}{lrl}
+\toprule
 At-Bats & Frequency & Percent\\
-\hline
+\midrule
 2 & 7 & 5.0\%\\
-\hline
 3 & 37 & 26.6\%\\
-\hline
 4 & 63 & 45.3\%\\
-\hline
 5 & 30 & 21.6\%\\
-\hline
 6 & 1 & 0.7\%\\
-\hline
 8 & 1 & 0.7\%\\
-\hline
 Total & 139 & 100.0\%\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -5235,24 +5284,18 @@ There are many ways to do this. Let's use the \emph{empirical probability mass f
 
 \begin{table}[H]
 \centering
-\begin{tabular}{c|c|c}
-\hline
+\begin{tabular}{rrr}
+\toprule
 PA & n & Prob\\
-\hline
+\midrule
 2 & 2 & 0.014\\
-\hline
 3 & 4 & 0.029\\
-\hline
 4 & 70 & 0.504\\
-\hline
 5 & 56 & 0.403\\
-\hline
 6 & 5 & 0.036\\
-\hline
 7 & 1 & 0.007\\
-\hline
 9 & 1 & 0.007\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -5318,12 +5361,12 @@ PA & n & Prob\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-89-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-92-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# statistics for 10,000 simulations}
-\NormalTok{mean.streak }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(longest.streak); mean.streak}
+\NormalTok{(}\FunctionTok{mean}\NormalTok{(longest.streak))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5333,7 +5376,7 @@ PA & n & Prob\\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{prob56 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(longest.streak}\SpecialCharTok{\textgreater{}=}\DecValTok{56}\NormalTok{); prob56}
+\NormalTok{(}\FunctionTok{mean}\NormalTok{(longest.streak}\SpecialCharTok{\textgreater{}=}\DecValTok{56}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5348,7 +5391,7 @@ If we run the simulation again with \texttt{set.seed(2022)} but increase \texttt
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# statistics for 100,000 simulations}
-\NormalTok{mean.streak }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(longest.streak); mean.streak}
+\NormalTok{(}\FunctionTok{mean}\NormalTok{(longest.streak))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5358,7 +5401,7 @@ If we run the simulation again with \texttt{set.seed(2022)} but increase \texttt
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{prob56 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(longest.streak}\SpecialCharTok{\textgreater{}=}\DecValTok{56}\NormalTok{); prob56}
+\NormalTok{(}\FunctionTok{mean}\NormalTok{(longest.streak}\SpecialCharTok{\textgreater{}=}\DecValTok{56}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5394,12 +5437,12 @@ Let's try simulating by permuting DiMaggio's games. In other words, let's random
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-92-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-95-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# statistics for 100,000 simulations}
-\NormalTok{mean.streak }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(longest.streak); mean.streak}
+\NormalTok{(}\FunctionTok{mean}\NormalTok{(longest.streak))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5409,7 +5452,7 @@ Let's try simulating by permuting DiMaggio's games. In other words, let's random
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{prob56 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(longest.streak}\SpecialCharTok{\textgreater{}=}\DecValTok{56}\NormalTok{); prob56}
+\NormalTok{(}\FunctionTok{mean}\NormalTok{(longest.streak}\SpecialCharTok{\textgreater{}=}\DecValTok{56}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5461,12 +5504,12 @@ Let's consider a more general simulation for hitting streaks. Suppose a hitter w
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-93-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-96-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# statistics for 10,000 simulations (0.300 batting average)}
-\NormalTok{mean.streak }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(longest.streak); mean.streak}
+\NormalTok{(}\FunctionTok{mean}\NormalTok{(longest.streak))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5476,7 +5519,7 @@ Let's consider a more general simulation for hitting streaks. Suppose a hitter w
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{max.streak }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(longest.streak); max.streak}
+\NormalTok{(}\FunctionTok{max}\NormalTok{(longest.streak))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5487,12 +5530,12 @@ Let's consider a more general simulation for hitting streaks. Suppose a hitter w
 \vfill
 \newpage
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-94-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-97-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# statistics for 10,000 simulations (0.400 batting average)}
-\NormalTok{mean.streak }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(longest.streak); mean.streak}
+\NormalTok{(}\FunctionTok{mean}\NormalTok{(longest.streak))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5502,7 +5545,7 @@ Let's consider a more general simulation for hitting streaks. Suppose a hitter w
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{max.streak }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(longest.streak); max.streak}
+\NormalTok{(}\FunctionTok{max}\NormalTok{(longest.streak))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5574,7 +5617,7 @@ Suppose you are betting on sports matches on the spread where there is no house 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-96-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-99-1.pdf}
 
 On average, two bets were needed to be placed after \emph{Bet Zero} to break even.
 
@@ -5593,7 +5636,7 @@ The distribution in this example should look familiar. It is the geometric distr
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-97-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-100-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5666,20 +5709,18 @@ We'll use the following code and run simulations with total.bets = 10, 100, 1000
 
 \begin{table}[H]
 \centering
-\begin{tabular}{c|c|c}
-\hline
+\begin{tabular}{rrr}
+\toprule
 Number of Bets & Mean Ending Bankroll & Max Ending Payroll\\
-\hline
+\midrule
 10 & 991.707 & 1181.818\\
-\hline
 100 & 909.599 & 1672.727\\
-\hline
 1000 & 274.529 & 2572.727\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-102-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-105-1.pdf}
 
 All bettors eventually go broke under this scenario due to the house advantage. This is called the concept of \textbf{Gambler's Ruin}. A gambler playing a game with negative expected value will eventually go broke, regardless of their betting system.
 
@@ -5731,12 +5772,12 @@ Suppose your betting system allows you pick winners on the spread 55\% of the ti
 
 \begin{table}[H]
 \centering
-\begin{tabular}{c|c}
-\hline
+\begin{tabular}{rr}
+\toprule
 mean.ending.bankroll & max.ending.bankroll\\
-\hline
+\midrule
 1996.283 & 4634.545\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -5750,7 +5791,7 @@ mean.ending.bankroll & max.ending.bankroll\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-103-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-106-1.pdf}
 
 \hypertarget{statistical-inference}{%
 \chapter{Statistical Inference}\label{statistical-inference}}

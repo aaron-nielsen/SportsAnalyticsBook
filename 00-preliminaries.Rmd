@@ -1,3 +1,9 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 library(formatR)
 library(tidyverse)
@@ -97,6 +103,8 @@ library("tidyverse")
 
 You will also need to know how to load datasets from files. For this class, we will typically provide data files is .csv format.
 
+\newpage
+
 Here is how to load a file:
 ```{r load, message=F}
 # load readr package and load example dataset
@@ -107,30 +115,20 @@ head(NFL_2021_Team_Passing)
 ```
 
 \newpage
-\
-\
-\
+
 
 ## Which Sports?
 
 Which sports will we be analyzing in this class?
 
-\
-\
-\
-\
-\
+\vfill
 
 
 ## Challenges
 
 What kind of challenges could we encounter dealing with sports data?
 
-\
-\
-\
-\
-\
+\vfill
 
 
 
@@ -138,18 +136,10 @@ What kind of challenges could we encounter dealing with sports data?
 
 What should we be careful of when analyzing sports data?
 
-\
-\
-\
-\
-\
+\vfill
 
 ## Ethical Concerns
 
 What kinds of ethical concerns should we consider when dealing with sports data?
 
-\
-\
-\
-\
-\
+\vfill

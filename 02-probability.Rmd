@@ -1,3 +1,9 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 library(formatR)
 library(tidyverse)
@@ -9,7 +15,7 @@ knitr::opts_chunk$set(cache=TRUE)
 
 # kable table global setup
 kt <- function(data) {
-  knitr::kable(data, digits=3, align=c("c")) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+  knitr::kable(data, digits=3,linesep='',booktabs=TRUE) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
 }
 ```
 
@@ -54,7 +60,7 @@ Give some examples of continuous random variables in sports.
 
 ## Set Theory 
 
-For the following examples, suppose that we are interested in the batting outcomes of a plate appearance in softball.
+For the following examples, suppose that we are interested in the batting outcomes of a plate appearance in baseball.
 
 Let $A$ be the event that the batter gets walked, let $B$ be the event that the batter gets a hit, let $C$ be the event that the batter strikes out, and let $D$ be the event that the batter makes it to first base at the end of their at bat.
 
@@ -147,7 +153,7 @@ Are the events $A$ and $B$ disjoint? How about $A$ and $D$?
 
 ## Axioms, Properties, and Laws
 
-There are some basic assumptions of "axioms" which are the foundation of the theory of probability. Andrey Kolmogorov first described these axioms in 1933.
+There are some basic assumptions or "axioms" which are the foundation of the theory of probability. Andrey Kolmogorov first described these axioms in 1933.
 
 ### Axioms of Probability
 1. $P(A) \geq 0$, for any event $A$ \
@@ -232,40 +238,28 @@ In 1998, Sammy Sosa hit 66 home runs in 722 plate appearances, the third highest
 :::
 
 (a) $P(HR)$ \
-\
-\
-\
+
 \vfill
 
 
 (b) $P(HR \cap June)$ \
-\
-\
-\
+
 \vfill
 
 (c) $P(June)$ \
-\
-\
-\
+
 \vfill
 
 (d) $P(HR|June)$ \
-\
-\
-\
+
 \vfill
 
 (e) $P(June|HR)$ \
-\
-\
-\
+
 \vfill
 
 (f) $P(HR|June^c)$ \
-\
-\
-\
+
 \vfill
 
 \newpage
@@ -279,9 +273,6 @@ For any two events $A$ and $B$, $P(A \cap B) = P(B|A) \cdot P(A)$.
 Calculate the probability that a randomly selected plate appearance from Sosa's 1998 season is a home run in June.
 :::
 
-\
-\
-\
 \vfill
 
 
@@ -303,9 +294,6 @@ $P(B) = P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + \ldots P(B|A_n)P(A_n)$
 What is one possible way to partition Sosa's plate appearances in 1998?
 :::
 
-\
-\
-\
 \vfill
 
 
@@ -324,9 +312,6 @@ $P(B_k|A) = \frac{P(B_k \cap A)}{P(A)} = \frac{P(A|B_k)P(B_k)}{P(A|B_1)P(B_1)+P(
 Given that Sosa hit a home run in 1998, what is the probability that he hit it in June?
 :::
 
-\
-\
-\
 \vfill
 
 \newpage
@@ -337,21 +322,15 @@ Over the course of a season, a hockey player scored a goal 30% of the time durin
 :::
 
 (a) What is the probability the player scored a goal in any game if there were an equal number of home and away games? \
-\
-\
-\
+
 \vfill
 
 (b) What is the probability the player scored a goal in any game if there were twice as many home games as away games? \
-\
-\
-\
+
 \vfill
 
 (c) What is the probability the player scored a goal in any game if the ratio of home games to away games is 2:3? \
-\
-\
-\
+
 \vfill
 
 
@@ -371,9 +350,6 @@ Note that $0! \equiv 1$ and $1! \equiv 1$.
 A baseball/softball batting lineup has nine ordered players. Suppose the manager has selected the nine players to bat. How many different batting orders are there possible?
 :::
 
-\
-\
-\
 \vfill
 
 :::{.definition}
@@ -384,9 +360,6 @@ An ordered subset is called a ***permutation***. The number of permutations of s
 In MLB, each team has a 26-person roster, of which about 13 are hitters. Assuming one of the batters is the designated hitter, how many different batting lineups of 9 players can a manager create?
 :::
 
-\
-\
-\
 \vfill
 
 :::{.definition}
@@ -414,24 +387,6 @@ Suppose a set consists of $k$ elements (k-tuples) and that there are $n_1$ possi
 A baseball manager selects nine hitters and one pitcher for a starting lineup. Suppose they can choose from 13 hitters and 13 hitters. How many different possible lineups can the manager choose from?
 :::
 
-\
-\
-\
-\vfill
-
-:::{.example}
-In softball, rules sometimes allow for a "designated player". This player hits for any position player or pitcher but isn't required to play defense. There is some flexibility to allow the designated player to temporarily play a position during the game however.\
-
-For more on the designated player rule in softball, visit: \
-https://cdn2.sportngin.com/attachments/document/c780-2407390/DPFlexRuleExplained.pdf
-
-In 2022, the CSU softball team had 24 players. Three of these players were only pitchers and two of these players were both pitchers and fielders. How many different lineups of 10 (8 non-pitching position players, 1 pitcher, 1 designated player) are possible for CSU?
-:::
-
-\
-\
-\
-\
 \vfill
 
 \newpage
@@ -490,34 +445,20 @@ For the following examples, convert between probability and odds.
 
 (a) Suppose that the probability that the Cubs win the 2025 World Series is 0.03. What are the odds in favor? \
 
-\
-\
-\
 \vfill
 
 (b) Suppose that the odds that the Rockies win the World Series in 2025 is 100:1. What is the probability in favor? \
 
-\
-\
-\
 \vfill
 
 (c) Suppose there is a 1\% chance that CSU wins a national championship in any sport in the next decade. What are the probability and the odds against CSU winning a national championship in the next decade?\
 
-\
-\
-\
 \vfill
 
 :::{.example}
 Suppose that there are three finalists in an Olympic competition. It is estimated that Athlete A has a 50\% chance of winning, Athlete B has a 40\% chance of winning, and Player C has a 10\% chance of winning. Calculate the odds against each of the athletes winning the competition.
 :::
 
-\
-\
-\
-\
-\
 \vfill
 
 \newpage
@@ -528,6 +469,12 @@ Here's a helpful resource on calculating gambling odds: \
 https://www.actionnetwork.com/education/decimal-odds
 
 Gambling odds are a bit different that odds in a probability context. Gambling odds tell the amount that the bookmaker will pay out for a winning bet. For example, if a bookmaker is offering "10:1" that the Rockies win the next World Series, the bookmaker will pay out 10x the original wager plus the original wager if the Rockies win the World Series and the bookmaker will keep the original bet if the Rockies fail to win the World Series.
+
+:::{.definition}
+The ***implied probability***, $\tilde{p}$, of a wager is the probability that corresponds to the odds of the wager.
+
+\[\tilde{p} = \frac{Odds}{Odds+1}\]
+:::
 
 :::{.definition}
 ***Fractional odds*** are common in horse racing and quote the net total that will be paid out to the bettor, should he or she win, relative to the stake. The numerator and denominator of fractional odds are always positive integers. For example, a \$100 wager on a "5:1" bet would result in a payout of $5 \cdot \$100 + \$100 = \$600$ if the wager is correct and a payout of \$0 if the wager is incorrect.
@@ -548,35 +495,26 @@ For the following scenarios, assume a wager of \$100. Calculate the payout for a
 :::
 
 (a) Fractional odds of 4/1 \
-\
-\
+
 \vfill
 
 (b) Moneyline +400 \
-\
-\
+
 \vfill
 
 (c) Moneyline -300 \
-\
-\
+
 \vfill
 
 (d) Decimal Odds of 1.5 \
-\
-\
+
 \vfill
 
 \newpage
 
-**Note:** A *moneyline wager* refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds.
 
 :::{.definition}
-The ***implied probability***, $\tilde{p}$, of a wager is the probability that corresponds to the odds of the wager.
-
-\[\tilde{p} = \frac{Odds}{Odds+1}\]
-
-If we are dealing with moneyline bets, we have the following:
+A *moneyline wager* refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds.
 
 If ML is negative:
 \[\tilde{p} = \frac{-ML_{NEG}}{-ML_{NEG}+100}\]
@@ -767,7 +705,7 @@ https://www.wikihow.com/Calculate-Odds
 
 :::{.definition}
 Let $\Omega$ be the sample space of an experiment. A ***random variable*** is a rule that associates a number with each outcome in $\Omega$. In other words, a random variable is a function whose domain is $\Omega$ and whose range is the set of real numbers.
-::: \
+::: 
 
 Random variables are be broken down into subcategories:\
 1. ***Discrete random variables*** - random variables which have a sample space that is finite or countably infinite.\
@@ -806,9 +744,7 @@ The probability distribution for a continuous random variable, $f(x)$, is called
 :::{.example}
 Suppose the Colorado Rockies are playing a four game series against the Chicago Cubs and that the Rockies have a 65\% chance of winning an individual game. Further, assume that the games are independent. The following PMF describes the outcomes (number of Rockies wins) and their probabilities.
 
-```{r, echo=F,message=F}
-library(tidyverse)
-library(kableExtra)
+```{r, echo=F}
 x <- 0:4
 px <- c(0.015, 0.111, 0.311, 0.384, 0.179)
 df <- t(data.frame(x,px))
@@ -816,13 +752,12 @@ row.names(df) = c("Rockies wins, X","Probability, p(X)")
 df %>% kt()
 ```
 
+\vfill
 
 What is the probability that the Rockies win zero games? What is the probability that the Rockies win at least two games? Why might the independence assumption be false?
 :::
 
-\
-\
-\
+\vfill
 
 We may be interested in describing the center or average value of our random variable. We can do this with the following definitions.
 
@@ -844,18 +779,13 @@ Sometimes, it makes sense to calculate the expected value of a function of a ran
 (ii) $E[h(X)] = \int_{x \in \Omega} h(x) \cdot f(x) dx$ (for continuous random variables) 
 
 
-\newpage
-
 :::{.example}
 For the Rockies/Cubs four game series example, calculate $E[X]$ and $E[X^2]$.
 :::
 
-\
-\
-\
-\
-\
 \vfill
+
+\newpage
 
 
 The spread or variability associated with a random variable can be calculated using expected values as well.
@@ -889,9 +819,8 @@ $SD(X) = \sigma = \sqrt{Var(X)} = \sqrt{E[X^2]-(E[X])^2}$
 For the Rockies/Cubs four game series example, calculate $Var(X)$.
 :::
 
-\
-\
-\
+\vfill
+\vfill
 \vfill
 \vfill
 \vfill
@@ -941,11 +870,11 @@ fig4 <- ggplot(sim2.df, aes(sample = x)) +
   ylab("Empirical Quantiles")
 ```
 
-```{r, echo=F}
-fig1
-fig2
-fig3
-fig4
+\newpage
+
+```{r}
+library(gridExtra)
+grid.arrange(fig1,fig2,fig3,fig4,ncol=2)
 ```
 
 What do you conclude from the four QQ plots?
@@ -1077,8 +1006,6 @@ Suppose the number of shots needed by a hockey team in order to score their firs
 
 **Caution:** Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful.
 
-\newpage
-
 Let's simulate the number of shot attempts required to score the first goal (Geometric($p=1/10$)) from the previous example.
 
 ```{r}
@@ -1092,9 +1019,9 @@ Some of the values were 0, which could not happen if R was considering the numbe
 ```{r}
 first_success <- geometric + 1
 head(first_success, 20)
-mean(first_success)
+(mean_success <- mean(first_success))
 ```
-The mean of this sample of variables is 10.07, which is close to the expected mean of $\frac{1}{p} = 10$.
+The mean of this sample of variables is `r mean_success`, which is close to the expected mean of $\frac{1}{p} = 10$.
 
 Let's plot the sample distribution of shots required to score a goal from the simulation as well.
 
@@ -1159,7 +1086,7 @@ library("kableExtra")
 rapids21 <- 
   c(0,1,1,3,3,1,3,2,1,1,2,1,2,0,1,0,3,2,2,1,1,1,2,1,0,3,0,3,1,1,2,0,1,5)
 
-goals <- c(0:4, "5 or more")
+goals <- c(0:4, "5+")
 actual_frequency <- c(6, 14, 7, 6, 0, 1)
 actual_proportion <- actual_frequency / sum(actual_frequency)
 expected_proportion <- c(dpois(0:4, lambda=1.5), 
@@ -1168,9 +1095,9 @@ expected_frequency <- round(expected_proportion * 34, 1)
 
 rapids.data <- data.frame(goals, actual_frequency, actual_proportion, 
                           expected_frequency, expected_proportion)
+names(rapids.data) = c("Goals","Actual Frequency","Actual Proportion","Expected Frequency","Expected Proportion")
 
-rapids.data %>%
-kt()
+rapids.data %>% kt()
 ```
 
 (b) What differences do you notice between the actual results and the expected values based on the Poisson random variable? \
@@ -1198,7 +1125,7 @@ rapids21 %>%
   as.data.frame %>% 
   ggplot(aes(sample = rapids21)) +
   stat_qq(distribution = qpois,
-          dparams = 1.5,position=position_jitter(width = 0.2,height = 0.2)) +
+          dparams = 1.5,position=position_jitter(width = 0.1,height = 0.1)) +
   stat_qq_line(distribution = qpois, dparams = 1.5) +
   ggtitle("QQ-plot for Rapids 2021 Goals vs. Poisson Distribution") +
   xlab("Theoretical Quantiles") +
@@ -1446,16 +1373,155 @@ Link to WAR explanation: https://www.mlb.com/glossary/advanced-stats/wins-above-
 
 We want $P(X>Y)$ or $P(X-Y>0)$ \
 
-Let $Z = X-Y$ \
-
-Then: $E[Z]=1.5$, $Var(Z)=5$
-
-So, $P(X>Y) = P(X-Y>0) = P(Z>0) = 1-P(Z $\leq$ 0)$
+\vfill
 
 ```{r}
 # Calculate probability Z<=0
 p <- pnorm(0,1.5,sqrt(5),lower.tail = F); p
 ```
 
-The probability that Player X outperforms Player Y is 0.7488. 
+\vfill
 
+\newpage
+
+## Win Probability Models
+
+The probability an NFL team will win can be modeled as a normal random variable using the Vegas line. This method is outlined by Wayne Winston in *Mathletics* building on previous research by Hal Stern.
+
+### Estimating Pregame Win Probability
+
+Winston estimates that the final margin of victory is approximately a normal random variable with a mean of the Vegas line and a standard deviation between 13-14. Winston and Stern estimated the standard deviation to be **13.86** based on data from the 1981, 1983, and 1984 NFL seasons.
+
+This estimated standard deviation has since been updated to be **13.45** based on data from 1978 -- 2012 NFL seasons.
+
+Reference: https://www.pro-football-reference.com/about/win_prob.htm
+
+:::{.example}
+Sketch the distribution of the final margin of victory for an NFL team that is favored by 7 points. Shade the area for a win in regulation (for the favorite) and a tie in regulation.
+:::
+
+```{r,fig.height=2}
+library(ggplot2)
+library(gridExtra)
+
+
+final_margin_full <- ggplot(data.frame(x = c(-21, 42)), aes(x = x)) +
+        stat_function(fun = dnorm, args = list(mean = 7, sd = 13.45)) + 
+  xlab("Final Margin (for favorite)") + ggtitle("Full Distribution")
+
+final_margin_zoom <- ggplot(data.frame(x = c(-3, 10)), aes(x = x)) +
+        stat_function(fun = dnorm, args = list(mean = 7, sd = 13.45)) + 
+  xlab("Final Margin (for favorite)") + ggtitle("Zoomed Distribution") + 
+  scale_x_continuous(breaks=seq(-2, 10, 1))
+
+grid.arrange(final_margin_full, final_margin_zoom, ncol=2)
+```
+
+\newpage
+
+:::{.example}
+In Super Bowl 50, the Denver Broncos were 5.5 point underdogs (+5.5) against the Carolina Panthers. Estimate the pregame win probability for the Denver Broncos. \
+:::
+
+```{r,fig.height=2, echo = F}
+
+x_min <- 5.5 - 42
+x_max <- 5.5 + 42
+
+x_min1 <- 5.5 - 6.5
+x_max1 <- 5.5 + 6.5
+
+final_margin_full <- ggplot(data.frame(x = c(x_min,x_max)), aes(x = x)) +
+        stat_function(fun = dnorm, args = list(mean = 5.5, sd = 13.45)) + 
+  xlab("Final Margin (for favorite)") + ggtitle("Full Distribution")
+
+final_margin_zoom <- ggplot(data.frame(x = c(x_min1, x_max1)), aes(x = x)) +
+        stat_function(fun = dnorm, args = list(mean = 5.5, sd = 13.45)) + 
+  xlab("Final Margin (for favorite)") + ggtitle("Zoomed Distribution") + 
+  scale_x_continuous(breaks=seq(x_min1, x_max1, 1))
+
+grid.arrange(final_margin_full, final_margin_zoom, ncol=2)
+```
+
+\vfill
+
+```{r pregame_wp}
+fav_line <- 5.5
+full_sd <- 13.45
+
+win_prob <- pnorm(q = 0.5, mean = fav_line, sd = full_sd, lower.tail = FALSE)
+
+tie_prob <- pnorm(q = 0.5, mean = fav_line, sd = full_sd, lower.tail = TRUE) -
+            pnorm(q = -0.5, mean = fav_line, sd = full_sd, lower.tail = TRUE)
+
+# win probability for favorite (panthers)
+win_prob <- win_prob + 1/2 * tie_prob
+
+# win probability for underdog (broncos)
+(broncos_win_prob <- 1 - win_prob)
+```
+
+\newpage
+
+### Estimating In-Game Win Probability
+
+Winston proposed an updated method to calculate in-game win probabilities based on the time remaining in the game, current score margin, and Vegas line.
+
+In this proposed method, the pregame mean (Vegas line) and pregame variance (13.45) are scaled down linearly as a function of time remaining in the game.
+
+For instance, since there are four 15-minute quarters (total regulation game time is 60 minutes), then the in-game mean and standard deviation are calculated as follows.
+
+$\mu_{updated} = Line \cdot \frac{\text{time remaining}}{60}$
+
+$\sigma_{updated} = \frac{13.45}{\sqrt{60/\text{time remaining}}}$
+
+**Note:** This model assumes perfectly neutral possession, down, distance, and field-position conditions.
+
+Reference: https://www.pro-football-reference.com/about/win_prob.htm
+
+:::{.example}
+In Super Bowl 50, the Denver Broncos led the Carolina Panthers 10-0 after the first quarter. The Broncos were 5.5 point underdogs at the start of the game. Use Winston's method to estimate the probability of a Broncos win after one quarter. \
+:::
+
+```{r in_game_wp}
+fav_margin <- -10
+fav_line <- 5.5
+full_sd <- 13.45
+full_min <- 60
+new_min <- 45
+
+new_mean <- fav_line * new_min/full_min
+new_sd <- full_sd / sqrt(full_min/new_min)
+
+win_prob <- pnorm(q = 0.5 - fav_margin, mean = new_mean, 
+                  sd = new_sd, lower.tail = FALSE)
+
+tie_prob <- pnorm(q = 0.5 - fav_margin, mean = new_mean, 
+                  sd = new_sd, lower.tail = TRUE) -
+            pnorm(q = -0.5 - fav_margin, mean = new_mean, 
+                  sd = new_sd, lower.tail = TRUE)
+
+# win probability for favorite (panthers)
+win_prob <- win_prob + 1/2 * tie_prob
+
+# win probability for underdog (broncos)
+(broncos_win_prob <- 1 - win_prob)
+```
+
+\newpage
+
+The win probability models outlined above use only the Vegas line, the current score, and the time remaining in the game. More accurate estimation models will also consider possession, down, distance, and field-position conditions. Pro Football Reference offers an in-game win probability model with these additional factors.
+
+Reference: https://www.pro-football-reference.com/boxscores/win_prob.cgi
+
+:::{.example}
+The Broncos led the Panthers 10-0 at the end of the first quarter. The Panthers had 2nd and 11 at their own 46 at the beginning of the second quarter. Calculate the Broncos win probability.
+
+Reference: https://www.pro-football-reference.com/boxscores/201602070den.htm
+:::
+
+![Pro Football Reference Win Probability Calculator Inputs](images/wp1){width=80%}
+
+![Pro Football Reference Win Probability Calculator Output](images/wp2){width=50%}
+
+**Class Reading:** Chapters 6--7 in the *Hidden Game of Football* by Carroll, Palmer, Thorn
