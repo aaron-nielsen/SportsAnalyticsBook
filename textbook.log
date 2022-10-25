@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  11 OCT 2022 22:26
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  24 OCT 2022 22:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1045,71 +1045,69 @@ Underfull \hbox (badness 10000) in paragraph at lines 177--178
 ] [6
 
 ]
-Chapter 1.
-
-Underfull \hbox (badness 10000) in paragraph at lines 203--211
+Underfull \hbox (badness 10000) in paragraph at lines 206--214
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 212--216
+Underfull \hbox (badness 10000) in paragraph at lines 215--219
 
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 219--223
+Underfull \hbox (badness 10000) in paragraph at lines 222--226
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 235--236
+Underfull \hbox (badness 10000) in paragraph at lines 238--239
 
  []
 
 [8] [9]
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 348--348
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 352--352
 []\TU/lmtt/m/n/10.95 ##      Rk Tm             G   Cmp   Att []Cmp%[]   Yds    
 TD []TD%[]   Int []Int%[]   Lng[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 348--348
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 352--352
 []\TU/lmtt/m/n/10.95 ##   <dbl> <chr>      <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl>
  <dbl> <dbl>  <dbl> <dbl>[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 348--348
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 352--352
 []\TU/lmtt/m/n/10.95 ## 1     1 Tampa Bay~    17   492   731   67.3  5229    43
    5.9    12    1.6    62[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 348--348
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 352--352
 []\TU/lmtt/m/n/10.95 ## 2     2 Los Angel~    17   443   674   65.7  4800    38
    5.6    15    2.2    72[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 348--348
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 352--352
 []\TU/lmtt/m/n/10.95 ## 3     3 Dallas Co~    17   444   647   68.6  4800    40
    6.2    11    1.7    73[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 348--348
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 352--352
 []\TU/lmtt/m/n/10.95 ## 4     4 Kansas Ci~    17   448   675   66.4  4791    37
    5.5    13    1.9    75[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 348--348
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 352--352
 []\TU/lmtt/m/n/10.95 ## 5     5 Los Angel~    17   406   607   66.9  4642    41
    6.8    18    3      79[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 348--348
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 352--352
 []\TU/lmtt/m/n/10.95 ## 6     6 Las Vegas~    17   429   628   68.3  4567    23
    3.7    14    2.2    61[] 
  []
@@ -1117,7 +1115,7 @@ Overfull \hbox (7.39113pt too wide) in paragraph at lines 348--348
 [10] [11] [12
 
 ]
-Chapter 2.
+Chapter 1.
 [13]
 Underfull \hbox (badness 10000) in paragraph at lines 472--477
 
@@ -1554,7 +1552,7 @@ File: textbook_files/figure-latex/unnamed-chunk-46-1.pdf Graphic file (type pdf
 )
 <use textbook_files/figure-latex/unnamed-chunk-46-1.pdf>
 [76]
-Chapter 3.
+Chapter 2.
 
 Underfull \hbox (badness 10000) in paragraph at lines 2633--2638
 
@@ -1849,447 +1847,444 @@ Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                 on input line 3018.
 
 [85] [86]
-Underfull \hbox (badness 10000) in paragraph at lines 3073--3074
-
- []
-
-[87]
-Underfull \hbox (badness 10000) in paragraph at lines 3107--3108
+Underfull \hbox (badness 10000) in paragraph at lines 3052--3055
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3117--3118
+Underfull \hbox (badness 10000) in paragraph at lines 3056--3057
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3127--3128
-
- []
-
-[88]
-Underfull \hbox (badness 10000) in paragraph at lines 3176--3177
+Underfull \hbox (badness 10000) in paragraph at lines 3062--3065
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3186--3187
+Underfull \hbox (badness 10000) in paragraph at lines 3062--3065
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3196--3197
+Underfull \hbox (badness 10000) in paragraph at lines 3062--3065
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3206--3207
-
- []
-
-[89]
-Underfull \hbox (badness 10000) in paragraph at lines 3230--3234
+Underfull \hbox (badness 10000) in paragraph at lines 3071--3074
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3236--3240
+Underfull \hbox (badness 10000) in paragraph at lines 3071--3074
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3242--3246
+Underfull \hbox (badness 10000) in paragraph at lines 3071--3074
+
+ []
+
+[87] [88]
+Underfull \hbox (badness 10000) in paragraph at lines 3146--3147
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3248--3252
+Underfull \hbox (badness 10000) in paragraph at lines 3165--3166
 
  []
 
-[90]
-Underfull \hbox (badness 10000) in paragraph at lines 3264--3268
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3270--3274
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3276--3280
-
- []
-
+[89] [90]
+File: textbook_files/figure-latex/unnamed-chunk-50-1.pdf Graphic file (type pdf
+)
+<use textbook_files/figure-latex/unnamed-chunk-50-1.pdf>
 [91]
-Underfull \hbox (badness 10000) in paragraph at lines 3300--3304
+Underfull \hbox (badness 10000) in paragraph at lines 3269--3274
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3306--3310
+Underfull \hbox (badness 10000) in paragraph at lines 3274--3279
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3312--3316
+Underfull \hbox (badness 10000) in paragraph at lines 3279--3284
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3318--3322
+Underfull \hbox (badness 10000) in paragraph at lines 3284--3289
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3324--3328
+Underfull \hbox (badness 10000) in paragraph at lines 3289--3294
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3330--3334
+Underfull \hbox (badness 10000) in paragraph at lines 3294--3298
 
  []
 
 [92]
-Underfull \hbox (badness 10000) in paragraph at lines 3352--3356
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3358--3362
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3364--3368
-
- []
-
+File: textbook_files/figure-latex/unnamed-chunk-51-1.pdf Graphic file (type pdf
+)
+<use textbook_files/figure-latex/unnamed-chunk-51-1.pdf>
 [93]
-Underfull \hbox (badness 10000) in paragraph at lines 3384--3388
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3390--3394
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3396--3400
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3402--3406
+Underfull \hbox (badness 10000) in paragraph at lines 3340--3344
 
  []
 
 [94]
-Underfull \hbox (badness 10000) in paragraph at lines 3421--3424
+Underfull \hbox (badness 10000) in paragraph at lines 3387--3392
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3425--3426
+Underfull \hbox (badness 10000) in paragraph at lines 3392--3397
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3431--3434
+Underfull \hbox (badness 10000) in paragraph at lines 3397--3401
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 3431--3434
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3431--3434
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3440--3443
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3440--3443
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3440--3443
-
- []
-
-[95] [96]
-Underfull \hbox (badness 10000) in paragraph at lines 3515--3516
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3534--3535
-
- []
-
-[97] [98]
-File: textbook_files/figure-latex/unnamed-chunk-51-1.pdf Graphic file (type pdf
+[95]
+File: textbook_files/figure-latex/unnamed-chunk-55-1.pdf Graphic file (type pdf
 )
-<use textbook_files/figure-latex/unnamed-chunk-51-1.pdf>
+<use textbook_files/figure-latex/unnamed-chunk-55-1.pdf>
+[96]
+Underfull \hbox (badness 10000) in paragraph at lines 3478--3482
+
+ []
+
+[97]
+File: textbook_files/figure-latex/unnamed-chunk-57-1.pdf Graphic file (type pdf
+)
+<use textbook_files/figure-latex/unnamed-chunk-57-1.pdf>
+[98]
+Underfull \hbox (badness 10000) in paragraph at lines 3573--3577
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3585--3589
+
+ []
+
 [99]
-Underfull \hbox (badness 10000) in paragraph at lines 3638--3643
+Underfull \hbox (badness 10000) in paragraph at lines 3599--3600
 
  []
 
+File: textbook_files/figure-latex/unnamed-chunk-59-1.pdf Graphic file (type pdf
+)
+<use textbook_files/figure-latex/unnamed-chunk-59-1.pdf>
 
-Underfull \hbox (badness 10000) in paragraph at lines 3643--3648
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3648--3653
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3653--3658
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3658--3663
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3663--3667
+Underfull \hbox (badness 10000) in paragraph at lines 3623--3627
 
  []
 
 [100]
-File: textbook_files/figure-latex/unnamed-chunk-52-1.pdf Graphic file (type pdf
+File: textbook_files/figure-latex/unnamed-chunk-60-1.pdf Graphic file (type pdf
 )
-<use textbook_files/figure-latex/unnamed-chunk-52-1.pdf>
+<use textbook_files/figure-latex/unnamed-chunk-60-1.pdf>
 [101]
-Underfull \hbox (badness 10000) in paragraph at lines 3709--3713
-
- []
-
-[102]
-Underfull \hbox (badness 10000) in paragraph at lines 3756--3761
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3761--3766
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3766--3770
-
- []
-
-[103]
-File: textbook_files/figure-latex/unnamed-chunk-56-1.pdf Graphic file (type pdf
+File: textbook_files/figure-latex/unnamed-chunk-61-1.pdf Graphic file (type pdf
 )
-<use textbook_files/figure-latex/unnamed-chunk-56-1.pdf>
+<use textbook_files/figure-latex/unnamed-chunk-61-1.pdf>
+
+Underfull \hbox (badness 10000) in paragraph at lines 3684--3688
+
+ []
+
+[102] [103]
+File: textbook_files/figure-latex/unnamed-chunk-64-1.pdf Graphic file (type pdf
+)
+<use textbook_files/figure-latex/unnamed-chunk-64-1.pdf>
+
+Underfull \hbox (badness 10000) in paragraph at lines 3775--3779
+
+ []
+
 [104]
-Underfull \hbox (badness 10000) in paragraph at lines 3847--3851
-
- []
-
-[105]
-File: textbook_files/figure-latex/unnamed-chunk-58-1.pdf Graphic file (type pdf
+File: textbook_files/figure-latex/unnamed-chunk-66-1.pdf Graphic file (type pdf
 )
-<use textbook_files/figure-latex/unnamed-chunk-58-1.pdf>
-[106]
-Underfull \hbox (badness 10000) in paragraph at lines 3942--3946
+<use textbook_files/figure-latex/unnamed-chunk-66-1.pdf>
 
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
+[105] [106]
+File: textbook_files/figure-latex/unnamed-chunk-69-1.pdf Graphic file (type pdf
+)
+<use textbook_files/figure-latex/unnamed-chunk-69-1.pdf>
 
-Underfull \hbox (badness 10000) in paragraph at lines 3954--3958
+Underfull \hbox (badness 10000) in paragraph at lines 3937--3941
 
  []
 
 [107]
-Underfull \hbox (badness 10000) in paragraph at lines 3968--3969
+Underfull \hbox (badness 10000) in paragraph at lines 3972--3976
 
  []
 
-File: textbook_files/figure-latex/unnamed-chunk-60-1.pdf Graphic file (type pdf
-)
-<use textbook_files/figure-latex/unnamed-chunk-60-1.pdf>
 
-Underfull \hbox (badness 10000) in paragraph at lines 3992--3996
+Underfull \hbox (badness 10000) in paragraph at lines 3978--3982
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3984--3988
 
  []
 
 [108]
-File: textbook_files/figure-latex/unnamed-chunk-61-1.pdf Graphic file (type pdf
-)
-<use textbook_files/figure-latex/unnamed-chunk-61-1.pdf>
+Underfull \hbox (badness 10000) in paragraph at lines 3997--4001
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4003--4007
+
+ []
+
 [109]
-File: textbook_files/figure-latex/unnamed-chunk-62-1.pdf Graphic file (type pdf
+Underfull \hbox (badness 10000) in paragraph at lines 4070--4071
+
+ []
+
+[110]
+File: textbook_files/figure-latex/unnamed-chunk-72-1.pdf Graphic file (type pdf
 )
-<use textbook_files/figure-latex/unnamed-chunk-62-1.pdf>
-
-Underfull \hbox (badness 10000) in paragraph at lines 4053--4057
-
- []
-
-[110] [111]
-File: textbook_files/figure-latex/unnamed-chunk-65-1.pdf Graphic file (type pdf
-)
-<use textbook_files/figure-latex/unnamed-chunk-65-1.pdf>
-
-Underfull \hbox (badness 10000) in paragraph at lines 4144--4148
+<use textbook_files/figure-latex/unnamed-chunk-72-1.pdf>
+[111]
+Underfull \hbox (badness 10000) in paragraph at lines 4131--4132
 
  []
 
-[112]
-File: textbook_files/figure-latex/unnamed-chunk-67-1.pdf Graphic file (type pdf
-)
-<use textbook_files/figure-latex/unnamed-chunk-67-1.pdf>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[113] [114]
-File: textbook_files/figure-latex/unnamed-chunk-70-1.pdf Graphic file (type pdf
-)
-<use textbook_files/figure-latex/unnamed-chunk-70-1.pdf>
-
-Underfull \hbox (badness 10000) in paragraph at lines 4306--4310
-
- []
-
-[115]
-Underfull \hbox (badness 10000) in paragraph at lines 4341--4345
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4347--4351
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4353--4357
-
- []
-
-[116]
-Underfull \hbox (badness 10000) in paragraph at lines 4366--4370
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4372--4376
-
- []
-
-[117]
-Underfull \hbox (badness 10000) in paragraph at lines 4439--4440
-
- []
-
-[118]
 File: textbook_files/figure-latex/unnamed-chunk-73-1.pdf Graphic file (type pdf
 )
 <use textbook_files/figure-latex/unnamed-chunk-73-1.pdf>
-[119]
-Underfull \hbox (badness 10000) in paragraph at lines 4500--4501
+[112]
+Underfull \hbox (badness 10000) in paragraph at lines 4181--4182
 
  []
 
-File: textbook_files/figure-latex/unnamed-chunk-74-1.pdf Graphic file (type pdf
-)
-<use textbook_files/figure-latex/unnamed-chunk-74-1.pdf>
-[120]
-Underfull \hbox (badness 10000) in paragraph at lines 4550--4551
-
- []
-
-[121]
+[113]
 File: images/wp1.png Graphic file (type bmp)
 <images/wp1.png>
 File: images/wp2.png Graphic file (type bmp)
 <images/wp2.png>
-[122]
-Chapter 4.
-[123
+[114]
+Chapter 3.
+[115
 
-] [124] [125]
-File: textbook_files/figure-latex/unnamed-chunk-80-1.pdf Graphic file (type pdf
+]
+Underfull \hbox (badness 10000) in paragraph at lines 4270--4271
+
+ []
+
+[116]
+Underfull \hbox (badness 10000) in paragraph at lines 4304--4305
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4314--4315
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4324--4325
+
+ []
+
+[117] [118]
+Underfull \hbox (badness 10000) in paragraph at lines 4378--4379
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4388--4389
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4398--4399
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4408--4409
+
+ []
+
+[119]
+Underfull \hbox (badness 10000) in paragraph at lines 4432--4436
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4438--4442
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4444--4448
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4450--4454
+
+ []
+
+[120]
+Underfull \hbox (badness 10000) in paragraph at lines 4466--4470
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4472--4476
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4478--4482
+
+ []
+
+[121]
+Underfull \hbox (badness 10000) in paragraph at lines 4502--4506
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4508--4512
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4514--4518
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4520--4524
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4526--4530
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4532--4536
+
+ []
+
+[122]
+Underfull \hbox (badness 10000) in paragraph at lines 4554--4558
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4560--4564
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4566--4570
+
+ []
+
+[123]
+Underfull \hbox (badness 10000) in paragraph at lines 4586--4590
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4592--4596
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4598--4602
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4604--4608
+
+ []
+
+[124]
+Chapter 4.
+[125
+
+] [126] [127]
+File: textbook_files/figure-latex/unnamed-chunk-81-1.pdf Graphic file (type pdf
 )
-<use textbook_files/figure-latex/unnamed-chunk-80-1.pdf>
-[126]
+<use textbook_files/figure-latex/unnamed-chunk-81-1.pdf>
+[128]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[127] [128] [129] [130] [131] [132] [133] [134]
-File: textbook_files/figure-latex/unnamed-chunk-89-1.pdf Graphic file (type pdf
+[129] [130] [131] [132] [133] [134] [135] [136]
+File: textbook_files/figure-latex/unnamed-chunk-90-1.pdf Graphic file (type pdf
 )
-<use textbook_files/figure-latex/unnamed-chunk-89-1.pdf>
-[135] [136]
-Overfull \hbox (1.64238pt too wide) in paragraph at lines 5315--5315
+<use textbook_files/figure-latex/unnamed-chunk-90-1.pdf>
+[137] [138]
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 5320--5320
 []\TU/lmtt/m/n/10.95 ##   [1] 4 4 4 9 4 4 4 5 2 5 5 5 4 5 4 4 4 4 4 4 5 5 4 5 9
  7 4 4 5 5 5 5 5 5 6 4 5[] 
  []
 
 
-Overfull \hbox (1.64238pt too wide) in paragraph at lines 5315--5315
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 5320--5320
 []\TU/lmtt/m/n/10.95 ##  [38] 4 5 4 5 5 4 4 5 4 5 7 2 5 4 5 4 4 4 4 4 5 4 4 4 5
  6 4 4 5 4 4 5 4 5 6 4 5[] 
  []
 
 
-Overfull \hbox (1.64238pt too wide) in paragraph at lines 5315--5315
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 5320--5320
 []\TU/lmtt/m/n/10.95 ##  [75] 4 4 4 4 5 4 5 4 5 4 5 3 5 5 3 5 4 2 4 5 4 4 4 4 5
  5 4 5 5 4 5 5 4 5 5 5 4[] 
  []
 
-[137]
-Overfull \hbox (1.64238pt too wide) in paragraph at lines 5351--5351
+[139]
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 5356--5356
 []\TU/lmtt/m/n/10.95 ##   6   7   8   9  10  11  12  13  14  15  16  17  18  19
   20  21  22  23  24  25[] 
  []
 
 
-Overfull \hbox (1.64238pt too wide) in paragraph at lines 5351--5351
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 5356--5356
 []\TU/lmtt/m/n/10.95 ##   3  11  38 127 306 510 756 811 908 920 807 790 685 595
  474 421 333 272 258 186[] 
  []
 
 
-Overfull \hbox (1.64238pt too wide) in paragraph at lines 5351--5351
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 5356--5356
 []\TU/lmtt/m/n/10.95 ##  26  27  28  29  30  31  32  33  34  35  36  37  38  39
   40  41  42  43  44  45[] 
  []
 
 
-Overfull \hbox (1.64238pt too wide) in paragraph at lines 5351--5351
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 5356--5356
 []\TU/lmtt/m/n/10.95 ## 142 139 100  81  68  45  51  28  22  16  13  23  14  11
    7   1   5   3   4   5[] 
  []
 
-File: textbook_files/figure-latex/unnamed-chunk-92-1.pdf Graphic file (type pdf
+File: textbook_files/figure-latex/unnamed-chunk-93-1.pdf Graphic file (type pdf
 )
-<use textbook_files/figure-latex/unnamed-chunk-92-1.pdf>
-[138]
-File: textbook_files/figure-latex/unnamed-chunk-95-1.pdf Graphic file (type pdf
-)
-<use textbook_files/figure-latex/unnamed-chunk-95-1.pdf>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[139] [140]
+<use textbook_files/figure-latex/unnamed-chunk-93-1.pdf>
+[140]
 File: textbook_files/figure-latex/unnamed-chunk-96-1.pdf Graphic file (type pdf
 )
 <use textbook_files/figure-latex/unnamed-chunk-96-1.pdf>
@@ -2300,33 +2295,40 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: textbook_files/figure-latex/unnamed-chunk-97-1.pdf Graphic file (type pdf
 )
 <use textbook_files/figure-latex/unnamed-chunk-97-1.pdf>
-[143]
-File: textbook_files/figure-latex/unnamed-chunk-99-1.pdf Graphic file (type pdf
-)
-<use textbook_files/figure-latex/unnamed-chunk-99-1.pdf>
-
-Underfull \vbox (badness 1062) has occurred while \output is active []
-
-[144] [145]
-File: textbook_files/figure-latex/unnamed-chunk-100-1.pdf Graphic file (type pd
-f)
-<use textbook_files/figure-latex/unnamed-chunk-100-1.pdf>
-[146] [147]
-File: textbook_files/figure-latex/unnamed-chunk-105-1.pdf Graphic file (type pd
-f)
-<use textbook_files/figure-latex/unnamed-chunk-105-1.pdf>
-[148]
-File: textbook_files/figure-latex/unnamed-chunk-106-1.pdf Graphic file (type pd
-f)
-<use textbook_files/figure-latex/unnamed-chunk-106-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[149] [150]
-Chapter 5.
-[151
+[143] [144]
+File: textbook_files/figure-latex/unnamed-chunk-98-1.pdf Graphic file (type pdf
+)
+<use textbook_files/figure-latex/unnamed-chunk-98-1.pdf>
+[145]
+File: textbook_files/figure-latex/unnamed-chunk-100-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-100-1.pdf>
 
-] [152]
+Underfull \vbox (badness 1062) has occurred while \output is active []
+
+[146] [147]
+File: textbook_files/figure-latex/unnamed-chunk-101-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-101-1.pdf>
+[148] [149]
+File: textbook_files/figure-latex/unnamed-chunk-106-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-106-1.pdf>
+[150]
+File: textbook_files/figure-latex/unnamed-chunk-107-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-107-1.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[151] [152]
+Chapter 5.
+[153
+
+] [154]
 Chapter 6.
 File: textbook_files/figure-latex/correlation properties 2-1.pdf Graphic file (
 type pdf)
@@ -2335,32 +2337,75 @@ File: textbook_files/figure-latex/correlation properties 2-2.pdf Graphic file (
 type pdf)
 <use textbook_files/figure-latex/correlation properties 2-2.pdf>
 
-Underfull \hbox (badness 10000) in paragraph at lines 5878--5879
+Underfull \hbox (badness 10000) in paragraph at lines 5883--5884
 [][]
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[153
+[155
 
 ]
 Underfull \vbox (badness 1253) has occurred while \output is active []
 
-[154] [155] [156]
+[156] [157] [158]
 Chapter 7.
-[157
+[159
 
-] [158]
+] [160] [161] [162
+
+]
+Chapter 8.
+[163] [164
+
+]
+Chapter 9.
+[165] [166
+
+]
+Chapter 10.
+[167] [168
+
+]
+Chapter 11.
+[169] [170
+
+]
+Chapter 12.
+[171] [172
+
+]
+Chapter 13.
+[173] [174
+
+]
+Chapter 14.
+[175] [176
+
+]
+Chapter 15.
+[177] [178
+
+]
+Chapter 16.
+[179] [180
+
+]
+Chapter 17.
+[181] [182
+
+]
+Chapter 18.
 No file textbook.bbl.
-[159] (./textbook.aux) ) 
+[183] (./textbook.aux) ) 
 Here is how much of TeX's memory you used:
- 22837 strings out of 476179
- 434950 string characters out of 5809544
- 904493 words of memory out of 5000000
- 43147 multiletter control sequences out of 15000+600000
+ 22859 strings out of 476179
+ 435160 string characters out of 5809544
+ 904755 words of memory out of 5000000
+ 43169 multiletter control sequences out of 15000+600000
  475878 words of font info for 90 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  86i,10n,121p,1131b,512s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on textbook.pdf (159 pages).
+Output written on textbook.pdf (183 pages).

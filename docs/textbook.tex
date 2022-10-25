@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-10-11}
+\date{2022-10-24}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -188,13 +188,16 @@ CSU students contributed to the creation of this book. Many thanks to the follow
 \end{itemize}
 
 \hypertarget{preliminaries}{%
-\chapter{Preliminaries}\label{preliminaries}}
+\chapter*{Preliminaries}\label{preliminaries}}
+\addcontentsline{toc}{chapter}{Preliminaries}
 
 \hypertarget{getting-started-with-r}{%
-\section{Getting Started With R}\label{getting-started-with-r}}
+\section*{Getting Started With R}\label{getting-started-with-r}}
+\addcontentsline{toc}{section}{Getting Started With R}
 
 \hypertarget{installing-r}{%
-\subsection{Installing R}\label{installing-r}}
+\subsection*{Installing R}\label{installing-r}}
+\addcontentsline{toc}{subsection}{Installing R}
 
 For this class, you will be using R Studio to complete statistical analyses on your computer.
 
@@ -250,7 +253,8 @@ To begin using R Studio, you will need to install ``R'' first and then install `
 \newpage
 
 \hypertarget{some-r-basics}{%
-\subsection{Some R Basics}\label{some-r-basics}}
+\subsection*{Some R Basics}\label{some-r-basics}}
+\addcontentsline{toc}{subsection}{Some R Basics}
 
 For the following examples, let's consider Peyton Manning's career with the Denver Broncos. In his four seasons with the Broncos, Manning's passing yard totals were: 4659, 5477, 4727, 2249. Let's enter this data into R. To enter a vector of data, use the \textbf{c()} function.
 
@@ -350,28 +354,24 @@ Here is how to load a file:
 \newpage
 
 \hypertarget{which-sports}{%
-\section{Which Sports?}\label{which-sports}}
+\section*{Which Sports?}\label{which-sports}}
+\addcontentsline{toc}{section}{Which Sports?}
 
 Which sports will we be analyzing in this class?
 
 \vfill
 
 \hypertarget{challenges}{%
-\section{Challenges}\label{challenges}}
+\section*{Challenges}\label{challenges}}
+\addcontentsline{toc}{section}{Challenges}
 
 What kind of challenges could we encounter dealing with sports data?
 
 \vfill
 
-\hypertarget{cautionary-notes}{%
-\section{Cautionary Notes}\label{cautionary-notes}}
-
-What should we be careful of when analyzing sports data?
-
-\vfill
-
 \hypertarget{ethical-concerns}{%
-\section{Ethical Concerns}\label{ethical-concerns}}
+\section*{Ethical Concerns}\label{ethical-concerns}}
+\addcontentsline{toc}{section}{Ethical Concerns}
 
 What kinds of ethical concerns should we consider when dealing with sports data?
 
@@ -3042,27 +3042,1224 @@ A baseball manager selects nine hitters and one pitcher for a starting lineup. S
 
 \newpage
 
-\hypertarget{odds-and-gambling}{%
-\section{Odds and Gambling}\label{odds-and-gambling}}
+\hypertarget{random-variables}{%
+\section{Random Variables}\label{random-variables}}
 
-\hypertarget{sports-betting-in-usa}{%
-\subsection{Sports Betting in USA}\label{sports-betting-in-usa}}
+\begin{definition}
+Let \(\Omega\) be the sample space of an experiment. A \textbf{\emph{random variable}} is a rule that associates a number with each outcome in \(\Omega\). In other words, a random variable is a function whose domain is \(\Omega\) and whose range is the set of real numbers.
+\end{definition}
+
+Random variables are be broken down into subcategories:\\
+1. \textbf{\emph{Discrete random variables}} - random variables which have a sample space that is finite or countably infinite.\\
+2. \textbf{\emph{Continuous random variables}} - random variables which have a sample space that is uncountably infinite (such as an interval of real numbers)\\
+
+\textbf{\emph{Discrete}} and \textbf{\emph{Continuous}} random variables use similar yet slightly different mathematical tools. Discrete random variables involve working with ``sums'' and continuous random variables involve working with ``integrals''.\\
+
+\begin{example}
+Give an example of a discrete random variable in hockey.
+\end{example}
+
+\hfill\break
+\hfill\break
+\hfill\break
+\vfill
+
+\begin{example}
+Give an example of a continuous random variable in hockey.
+\end{example}
+
+\hfill\break
+\hfill\break
+\hfill\break
+\vfill
+
+\begin{definition}
+A \textbf{\emph{probability distribution}} is a function that gives probabilities of different possible outcomes for a given experiment.
+\end{definition}
+
+The probability distribution for a discrete random variable, \(p(x)\), is called a \textbf{\emph{probability mass function (pmf)}}.
+
+The probability distribution for a continuous random variable, \(f(x)\), is called a \textbf{\emph{probability density function (pdf)}}.
+
+\newpage
+
+\begin{example}
+Suppose the Colorado Rockies are playing a four game series against the Chicago Cubs and that the Rockies have a 65\% chance of winning an individual game. Further, assume that the games are independent. The following PMF describes the outcomes (number of Rockies wins) and their probabilities.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrrr}
+\toprule
+Rockies wins, X & 0.000 & 1.000 & 2.000 & 3.000 & 4.000\\
+Probability, p(X) & 0.015 & 0.111 & 0.311 & 0.384 & 0.179\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vfill
+
+What is the probability that the Rockies win zero games? What is the probability that the Rockies win at least two games? Why might the independence assumption be false?
+\end{example}
+
+\vfill
+
+We may be interested in describing the center or average value of our random variable. We can do this with the following definitions.
+
+\begin{definition}
+
+The \textbf{\emph{expected value}} (or \textbf{\emph{population mean}} or \textbf{\emph{average}}) of a random variable \(X\) is given by:
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  \(E[X] = \mu = \sum_{x \in \Omega} x \cdot p(x)\) (for discrete random variables)
+\item
+  \(E[X] = \mu = \int_{x \in \Omega} x \cdot f(x) dx\) (for continuous random variables)
+\end{enumerate}
+
+\end{definition}
+
+For this class, evaluating integrals is not essential, so we will avoid using Calculus (integrals and derivatives) when possible.
+
+Sometimes, it makes sense to calculate the expected value of a function of a random variable. This can be easily done with a slight modification to the previous definition. Let \(h(X)\) be some function of a random variable \(X\). The expected value of \(h(X)\), \(E[h(X)]\), is given by:
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  \(E[h(X)] = \sum_{x \in \Omega} h(x) \cdot p(x)\) (for discrete random variables)
+\item
+  \(E[h(X)] = \int_{x \in \Omega} h(x) \cdot f(x) dx\) (for continuous random variables)
+\end{enumerate}
+
+\begin{example}
+For the Rockies/Cubs four game series example, calculate \(E[X]\) and \(E[X^2]\).
+\end{example}
+
+\vfill
+
+\newpage
+
+The spread or variability associated with a random variable can be calculated using expected values as well.
+
+\begin{definition}
+
+The \textbf{\emph{population variance}} of a random variable \(X\) is given by:\\
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  \(Var(X) = \sum_{x \in \Omega} (x-\mu)^2 \cdot p(x)\) (for discrete random variables)
+\item
+  \(Var(X) = \int_{x \in \Omega} (x-\mu)^2 \cdot f(x) dx\) (for continuous random variables)
+\end{enumerate}
+
+\end{definition}
+
+There is also a shortcut formula for calculating variance:
+
+\begin{theorem}
+\(Var(X) = E[X^2] - (E[X])^2\)
+\end{theorem}
+
+\begin{definition}
+The \textbf{\emph{population standard deviation}} of a random variable \(X\) is given by:\\
+
+\(SD(X) = \sigma = \sqrt{Var(X)} = \sqrt{E[X^2]-(E[X])^2}\)
+\end{definition}
+
+\begin{example}
+For the Rockies/Cubs four game series example, calculate \(Var(X)\).
+\end{example}
+
+\vfill
+\vfill
+\vfill
+\vfill
+\vfill
+
+\newpage
+
+\begin{definition}
+A \textbf{\emph{quantile-quantile plot}} (QQ plot) can be used to compare an empirical probability distribution against a theoretical distribution.
+\end{definition}
+
+\begin{example}
+Let's generate two simulated datasets. The first dataset will follow a normal distribution with mean 10 and variance 4 and the second dataset will follow a Poisson distribution with rate 5. We'll use QQ-plots to match each simulation with the correct distribution.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2022}\NormalTok{)}
+\NormalTok{sim1.df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =} \DecValTok{1000}\NormalTok{,}\AttributeTok{mean =} \DecValTok{10}\NormalTok{,}\AttributeTok{sd =} \DecValTok{2}\NormalTok{))}
+\NormalTok{sim2.df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\FunctionTok{rpois}\NormalTok{(}\AttributeTok{n =} \DecValTok{1000}\NormalTok{,}\AttributeTok{lambda =} \DecValTok{5}\NormalTok{))}
+\NormalTok{jitter\_width }\OtherTok{\textless{}{-}} \FloatTok{0.2}
+
+\NormalTok{fig1 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(sim1.df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ x)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =}\NormalTok{ jitter\_width,}\AttributeTok{height =}\NormalTok{ jitter\_width)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Sim 1 vs. Normal"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
+
+\NormalTok{fig2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(sim2.df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ x)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =}\NormalTok{ jitter\_width,}\AttributeTok{height =}\NormalTok{ jitter\_width)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Sim 2 vs. Normal"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
+
+\NormalTok{fig3 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(sim1.df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ x)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \DecValTok{5}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =}\NormalTok{ jitter\_width,}\AttributeTok{height =}\NormalTok{ jitter\_width)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Sim 1 vs. Poisson"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
+
+\NormalTok{fig4 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(sim2.df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ x)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \DecValTok{5}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =}\NormalTok{ jitter\_width,}\AttributeTok{height =}\NormalTok{ jitter\_width)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Sim 2 vs. Poisson"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(gridExtra)}
+\FunctionTok{grid.arrange}\NormalTok{(fig1,fig2,fig3,fig4,}\AttributeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-50-1.pdf}
+
+What do you conclude from the four QQ plots?
+
+\newpage
+
+\hypertarget{common-random-variables}{%
+\section{Common Random Variables}\label{common-random-variables}}
+
+There are several families of random variables that show up frequently in applications. Some of these random variables include:
+- Binomial
+- Geometric
+- Poisson
+- Normal
+
+\hypertarget{binomial-rvs}{%
+\subsection{Binomial RVs}\label{binomial-rvs}}
+
+\begin{definition}
+A \textbf{\emph{binomial(n,p) random variable}} is a discrete random variable that counts the numbers of ``successes'' over a fixed number of trials, \(n\), with each trial having an equal probability of success, \(p\).
+
+\(P(X=k) = \binom{n}{k} p^k(1-p)^{n-k} = \frac{n!}{k!\ \cdot\ (n-k)!} p^k(1-p)^{n-k}\), where \(0 \leq k \leq n, 0 \leq p \leq 1\)
+
+If \(X \sim Binomial(n,p)\), then \(E[X]=np\) and \(Var(X)=np(1-p)\)
+\end{definition}
+
+\begin{example}
+The Cubs and Rockies are playing a 4-game series. The Rockies have a 0.65 probability of winning each game, and the Cubs have a 0.35 probability. Assume each game is independent. Solve for the following quantities.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  The Cubs win exactly 1 game.\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  The Rockies win exactly 2 games.\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  The Cubs win at least 2 games.\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  The series ends in a sweep.\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  The expected number of wins for the Rockies.\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  The variance and standard deviations of wins for the Rockies.\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+\begin{example}
+Complete 10,000 simulations of the four game series between the Rockies and Cubs. For the number of Rockies wins, calculate the sample mean and sample variance and compare these to the population values. Also, plot a histogram of the sample data.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2022}\NormalTok{)}
+\NormalTok{rockies\_wins }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\AttributeTok{n=}\DecValTok{10000}\NormalTok{,}\AttributeTok{size=}\DecValTok{4}\NormalTok{,}\AttributeTok{prob=}\FloatTok{0.65}\NormalTok{)}
+\FunctionTok{mean}\NormalTok{(rockies\_wins)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.6036
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{var}\NormalTok{(rockies\_wins)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9121583
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rockies\_wins\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Wins=}\NormalTok{rockies\_wins)}
+\NormalTok{rockies\_wins\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(Wins)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{1}\NormalTok{,}\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"purple"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-51-1.pdf}
+
+\newpage
+
+\hypertarget{binomial-coefficient-symmetry}{%
+\subsubsection{Binomial Coefficient Symmetry}\label{binomial-coefficient-symmetry}}
+
+Playoff series for a certain sports league are played as a best-of-seven series, with one team hosting four games and the opposing team hosing three. An executive for the league wishes to know the number of ways the home and away games can be assigned. (One such combination is A-A-B-B-A-B-A, the format used by the NBA and NHL for their best-of-seven series.) What is the total number of combinations?\\
+\strut \\
+\strut \\
+\strut \\
+
+However, instead of thinking about the number of ways to assign the games to the team that gets four home games, what if we thought about the number of ways to assign games to the team that gets three home games?
+
+That would be \(\binom{7}{3}\). We can use the \texttt{choose} command in R to find this quantity.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{choose}\NormalTok{(}\DecValTok{7}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 35
+\end{verbatim}
+
+It turns out that this binomial coefficient is also equal to 35.
+
+Theorem: \(\binom{n}{k} = \binom{n}{n-k}\)
+
+\(\binom{n}{k} = \frac{n!}{k!\ \cdot\ (n-k)!}\)
+
+\(\binom{n}{n-k} = \frac{n!}{(n-k)!\ \cdot\ (n-(n-k))!} = \frac{n!}{(n-k)!\ \cdot\ k!} = \binom{n}{k}\)
+
+\newpage
+
+\hypertarget{geometric-rvs}{%
+\subsection{Geometric RVs}\label{geometric-rvs}}
+
+\begin{definition}
+A \textbf{\emph{Geometric(p) random variable}} is a discrete random variable that counts the numbers of trials until a ``success'' occurs, where the probability of success, \(p\), is constant across all trials.
+
+\(P(X=k) = p(1-p)^{k-1}\), where \(k \geq 1, 0 \leq p \leq 1\)
+
+If \(X \sim Geometric(p)\), then \(E[X]=\frac{1}{p}\) and \(Var(X)=\frac{p}{1-p}\)
+\end{definition}
+
+\begin{example}
+Suppose the number of shots needed by a hockey team in order to score their first goal, X, is modeled by a Geometric(\(\frac{1}{10}\)) random variable. Use this information to answer the following questions.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  What is the probability that it takes exactly 3 shots to score the first goal?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  What is the probability that it takes less than 3 shots to score the first goal?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\item
+  What is the probability that it takes more than 3 shots to score the first goal?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+\textbf{Caution:} Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful.
+
+Let's simulate the number of shot attempts required to score the first goal (Geometric(\(p=1/10\))) from the previous example.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2020}\NormalTok{)}
+\NormalTok{geometric }\OtherTok{\textless{}{-}} \FunctionTok{rgeom}\NormalTok{(}\DecValTok{10000}\NormalTok{, }\DecValTok{1}\SpecialCharTok{/}\DecValTok{10}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(geometric, }\DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  2  2  7 55  6 11  2 11  2  5  0 50 17  2  7  0  7 19 17  1
+\end{verbatim}
+
+Some of the values were 0, which could not happen if R was considering the number of the trial on which the first success occurred. You can add 1 to the values given by \texttt{R} to arrive at the first success distribution.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{first\_success }\OtherTok{\textless{}{-}}\NormalTok{ geometric }\SpecialCharTok{+} \DecValTok{1}
+\FunctionTok{head}\NormalTok{(first\_success, }\DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  3  3  8 56  7 12  3 12  3  6  1 51 18  3  8  1  8 20 18  2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(mean\_success }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(first\_success))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10.0669
+\end{verbatim}
+
+The mean of this sample of variables is 10.0669, which is close to the expected mean of \(\frac{1}{p} = 10\).
+
+Let's plot the sample distribution of shots required to score a goal from the simulation as well.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{first\_success\_df }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Shots =}\NormalTok{ first\_success)}
+\NormalTok{first\_success\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Shots)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-55-1.pdf}
+
+\newpage
+
+\hypertarget{poisson-rvs}{%
+\subsection{Poisson RVs}\label{poisson-rvs}}
+
+\begin{definition}
+A \textbf{\emph{Poisson(\(\lambda\)) random variable}} is a discrete random variable that counts the numbers of ``successes'' for a given rate parameter, \(\lambda\), for a given interval.
+
+\(P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}\), where \(k \geq 0,\)
+
+If \(X \sim Poisson(\lambda)\), then \(E[X]=\lambda\) and \(Var(X)=\lambda\)
+\end{definition}
+
+\begin{example}
+During the 2021 Major League Soccer season, the Colorado Rapids scored 51 goals in 34 games on their way to a first-place finish in the Western Conference regular season standings.
+
+The team scored \(\frac{51}{34} = 1.5\) goals per game. Let's model the distribution of Rapids goals using a Poisson(1.5) random variable that we'll call Y.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Which is more likely: Y taking on the value 0 or Y taking on the value 2?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+We can calculate these probabilities in R using the \texttt{dpois} command.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dpois}\NormalTok{(}\AttributeTok{x=}\DecValTok{0}\NormalTok{, }\AttributeTok{lambda=}\FloatTok{1.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2231302
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dpois}\NormalTok{(}\AttributeTok{x=}\DecValTok{2}\NormalTok{, }\AttributeTok{lambda=}\FloatTok{1.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2510214
+\end{verbatim}
+
+\newpage
+
+We can also plot the PMF of Y to check visually.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{:}\DecValTok{8}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{dpois}\NormalTok{(x, }\AttributeTok{lambda =} \FloatTok{1.5}\NormalTok{)}
+\NormalTok{poisson.pmf }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(x,y)}
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{transform}\NormalTok{(poisson.pmf), }\FunctionTok{aes}\NormalTok{(x, y)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Probability mass function of Poisson(1.5) random variable"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Value"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Probability"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-57-1.pdf}
+
+\newpage
+
+Let's check whether using a Poisson distribution was appropriate by comparing it to the actual 2021 Colorado Rapids match results.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Data: https://www.espn.com/soccer/team/results/\_/id/184/season/2021}
+
+\FunctionTok{library}\NormalTok{(}\StringTok{"kableExtra"}\NormalTok{)}
+\NormalTok{rapids21 }\OtherTok{\textless{}{-}} 
+  \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{)}
+
+\NormalTok{goals }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\StringTok{"5+"}\NormalTok{)}
+\NormalTok{actual\_frequency }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{6}\NormalTok{, }\DecValTok{14}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{actual\_proportion }\OtherTok{\textless{}{-}}\NormalTok{ actual\_frequency }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(actual\_frequency)}
+\NormalTok{expected\_proportion }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{dpois}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\AttributeTok{lambda=}\FloatTok{1.5}\NormalTok{), }
+                         \FunctionTok{ppois}\NormalTok{(}\DecValTok{4}\NormalTok{, }\AttributeTok{lambda=}\FloatTok{1.5}\NormalTok{, }\AttributeTok{lower.tail=}\ConstantTok{FALSE}\NormalTok{))}
+\NormalTok{expected\_frequency }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(expected\_proportion }\SpecialCharTok{*} \DecValTok{34}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{rapids.data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(goals, actual\_frequency, actual\_proportion, }
+\NormalTok{                          expected\_frequency, expected\_proportion)}
+\FunctionTok{names}\NormalTok{(rapids.data) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"Goals"}\NormalTok{,}\StringTok{"Actual Frequency"}\NormalTok{,}\StringTok{"Actual Proportion"}\NormalTok{,}\StringTok{"Expected Frequency"}\NormalTok{,}\StringTok{"Expected Proportion"}\NormalTok{)}
+
+\NormalTok{rapids.data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kt}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+Goals & Actual Frequency & Actual Proportion & Expected Frequency & Expected Proportion\\
+\midrule
+0 & 6 & 0.176 & 7.6 & 0.223\\
+1 & 14 & 0.412 & 11.4 & 0.335\\
+2 & 7 & 0.206 & 8.5 & 0.251\\
+3 & 6 & 0.176 & 4.3 & 0.126\\
+4 & 0 & 0.000 & 1.6 & 0.047\\
+5+ & 1 & 0.029 & 0.6 & 0.019\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  What differences do you notice between the actual results and the expected values based on the Poisson random variable?\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Even if the true population distribution of 2021 Rapids goals was truly a Poisson(1.5) random variable, why might the actual distribution of their goals differ from the probability mass function?\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\end{enumerate}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Use a QQ plot to compare the probability distribution of the 2021 Rapids goals to a Poisson distribution.\\
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rapids21 }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  as.data.frame }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ rapids21)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois,}
+          \AttributeTok{dparams =} \FloatTok{1.5}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.1}\NormalTok{,}\AttributeTok{height =} \FloatTok{0.1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \FloatTok{1.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"QQ{-}plot for Rapids 2021 Goals vs. Poisson Distribution"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-59-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  What are the advantages of using the Poisson distribution to model Major League soccer goals? What are the disadvantages?\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+\newpage
+
+\begin{example}
+In 1997-1998 with the Los Angeles Lakers, Shaquille O'Neal attempted an average of 11.35 free throws per game with a standard deviation of 4.04. Is it appropriate to model Shaq's per game free throw attempts as a Poisson(11.35) random variable?
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Plot the data.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{shaq9798 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/shaq9798.csv"}\NormalTok{)}
+\NormalTok{shaq9798 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{FTA))  }\SpecialCharTok{+} 
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{color =} \StringTok{"yellow"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"purple"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Per Game FT Attempt Totals by Shaq in 1997{-}1998"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlim}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{25}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-60-1.pdf}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Plot the PMF of a Poisson(11.35) random variable.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{:}\DecValTok{25}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{dpois}\NormalTok{(x, }\AttributeTok{lambda =} \FloatTok{11.35}\NormalTok{)}
+\NormalTok{poisson.pmf }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(x,y)}
+\FunctionTok{ggplot}\NormalTok{(poisson.pmf, }\FunctionTok{aes}\NormalTok{(x, y)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Probability mass function of Poisson(11.35) random variable"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Value"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Probability"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-61-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  What similarities and what differences do you notice?\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\end{enumerate}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Calculate the variance of the two distributions and compare them.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{var}\NormalTok{(shaq9798}\SpecialCharTok{$}\NormalTok{FTA)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 16.33305
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Var(Poisson(11.35)) = 11.35}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Calculate the probability that Shaq had 20 or more free throws and compare it to \(P(Poisson(11.35) \geq 20)\)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{shaqFTA }\OtherTok{\textless{}{-}}\NormalTok{ shaq9798}\SpecialCharTok{$}\NormalTok{FTA}
+\NormalTok{shaq20 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(shaqFTA }\SpecialCharTok{\textgreater{}=} \DecValTok{20}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(shaqFTA); shaq20}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.06666667
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{poisson20 }\OtherTok{\textless{}{-}} \FunctionTok{ppois}\NormalTok{(}\DecValTok{20}\NormalTok{, }\AttributeTok{lambda=}\FloatTok{11.35}\NormalTok{, }\AttributeTok{lower.tail=}\ConstantTok{FALSE}\NormalTok{); poisson20}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.006536079
+\end{verbatim}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Create a QQ-plot of Shaq's per game free throw attempts and a Poisson distribution.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{shaq9798 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ FTA)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois,}\AttributeTok{dparams =} \FloatTok{11.35}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width=}\FloatTok{0.2}\NormalTok{,}\AttributeTok{height=}\FloatTok{0.2}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \FloatTok{11.35}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"QQ{-}plot for Shaq\textquotesingle{}s Free Throw Attempts vs. Poisson Distribution"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-64-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Is the Poisson distribution appropriate to model Shaq's FTA per game? Explain.\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+\newpage
+
+\hypertarget{negative-binomial-rvs}{%
+\subsection{Negative Binomial RVs}\label{negative-binomial-rvs}}
+
+\begin{definition}
+A \textbf{\emph{Negative Binomial(\(r\),\(p\)) random variable}} is a discrete random variable that counts the numbers of ``successes'' for given parameters, \(r\) and \(p\).
+
+\(P(X=k) = {k+r-1 \choose k}(1-p)^rp^k\), where \(k = 0, 1, 2, ...\)
+
+If \(X \sim NB(r,p)\), then \(E[X]=\frac{rp}{1-p}\) and \(Var(X)=\frac{rp}{(1-p)^2}\)
+\end{definition}
+
+The Negative Binomial distribution is often used to model count data that is ``overdispersed''. A property of the Poisson distribution is that the mean and variance are equal. If you are analyzing count data such that the variance is much greater than the mean (i.e., overdispersed), then the Negative Binomial distribution may be an appropriate substitute.
+
+Given sample count data, we can estimate appropriate parameters for a Negative Binomial in many ways. One such way is to use the ``method of moments'' estimator.
+
+These estimators are given by:
+
+\(\hat{p} = \frac{s^2-\bar{x}}{s^2}\) and \(\hat{r} = \frac{\bar{x}^2}{s^2-\bar{x}}\)
+
+\begin{example}
+Using Shaq's 1997-1998 data, model his per game free throw attempts as a Negative Binomial random variable.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Find an appropriate choice of parameters, \(r\) and \(p\).
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{shaq.mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(shaqFTA)}
+\NormalTok{shaq.var }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(shaqFTA)}
+\NormalTok{rhat }\OtherTok{\textless{}{-}}\NormalTok{ shaq.mean}\SpecialCharTok{\^{}}\DecValTok{2}\SpecialCharTok{/}\NormalTok{(shaq.var}\SpecialCharTok{{-}}\NormalTok{shaq.mean)}
+\NormalTok{phat }\OtherTok{\textless{}{-}}\NormalTok{ (shaq.var}\SpecialCharTok{{-}}\NormalTok{shaq.mean)}\SpecialCharTok{/}\NormalTok{shaq.var}
+\FunctionTok{c}\NormalTok{(rhat,phat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 25.85213  0.30509
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Plot the Negative Binomial distribution. Note that R uses an alternative parameterization for \(p\). Use \(prob = 1-p\).
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{:}\DecValTok{25}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{dnbinom}\NormalTok{(x,}\AttributeTok{size=}\NormalTok{rhat,}\AttributeTok{prob=}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{phat)}
+\NormalTok{geom.pmf }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(x,y)}
+\FunctionTok{ggplot}\NormalTok{(geom.pmf, }\FunctionTok{aes}\NormalTok{(x, y)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Value"}\NormalTok{, }\AttributeTok{y=}\StringTok{"Frequency"}\NormalTok{, }\AttributeTok{title=}\StringTok{"Probability mass function of NB(r=25.852,p=0.305) random variable"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-66-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Calculate the mean and variance of the Negative Binomial and Shaq's dataset.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{shaq.mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(shaqFTA)}
+\NormalTok{shaq.var }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(shaqFTA)}
+\NormalTok{NB.mean }\OtherTok{\textless{}{-}}\NormalTok{ (rhat}\SpecialCharTok{*}\NormalTok{phat)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{phat)}
+\NormalTok{NB.var }\OtherTok{\textless{}{-}}\NormalTok{ (rhat}\SpecialCharTok{*}\NormalTok{phat)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{phat)}\SpecialCharTok{\^{}}\DecValTok{2}
+\FunctionTok{c}\NormalTok{(shaq.mean,shaq.var)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 11.35000 16.33305
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{c}\NormalTok{(NB.mean,NB.var)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 11.35000 16.33305
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Calculate the probability that Shaq had 20 or more free throws and compare it to \(P(NB(r=25.852,p=0.305) \geq 20)\)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{shaq20 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(shaqFTA }\SpecialCharTok{\textgreater{}=} \DecValTok{20}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(shaqFTA); shaq20}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.06666667
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nb20 }\OtherTok{\textless{}{-}} \FunctionTok{pnbinom}\NormalTok{(}\DecValTok{20}\NormalTok{,}\AttributeTok{size=}\NormalTok{rhat,}\AttributeTok{prob=}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{phat,}\AttributeTok{lower.tail=}\ConstantTok{FALSE}\NormalTok{); nb20}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.0208711
+\end{verbatim}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Create a QQ-plot of Shaq's per game free throw attempts and a Negative Binomial distribution.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{shaq9798 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ FTA)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qnbinom,}\AttributeTok{dparams =} \FunctionTok{list}\NormalTok{(}\AttributeTok{size=}\FloatTok{25.852}\NormalTok{,}\AttributeTok{mu=}\FloatTok{11.35}\NormalTok{),}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width=}\FloatTok{0.2}\NormalTok{,}\AttributeTok{height=}\FloatTok{0.2}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qnbinom, }\AttributeTok{dparams =} \FunctionTok{list}\NormalTok{(}\AttributeTok{size=}\FloatTok{25.852}\NormalTok{,}\AttributeTok{mu=}\FloatTok{11.35}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"QQ{-}plot for Shaq\textquotesingle{}s Free Throw Attempts vs. Negative Binomial Distribution"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-69-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Is the Negative Binomial distribution appropriate to model Shaq's FTA per game? How does it compare to using the Poisson distribution? Explain.\\
+  \strut \\
+  \strut \\
+  \strut \\
+\end{enumerate}
+
+\newpage
+
+\hypertarget{normal-rvs}{%
+\subsection{Normal RVs}\label{normal-rvs}}
+
+\begin{definition}
+A \textbf{\emph{Normal(\(\mu\),\(\sigma^2\)) random variable}} is a continuous random variable that is bell-shaped with mean \(\mu\) and variance \(\sigma^2\).
+
+To calculate probabilities under the normal curve, you need either to integrate, use a table, or a computer.
+
+Note that a normal random variable can be standardized by using: \(z = \frac{x-\mu}{\sigma}\)
+\end{definition}
+
+\begin{theorem}
+For a normal(\(\mu\),\(\sigma^2\)) random variable, we have the following approximations:\\
+- About 68\% of the data falls within one standard deviation of the mean (i.e., \(\mu \pm \sigma\))\\
+- About 95\% of the data falls within two standard deviations of the mean (i.e., \(\mu \pm 2\sigma\))\\
+- About 99.7\% of the data falls within three standard deviations of the mean (i.e., \(\mu \pm 3\sigma\))
+\end{theorem}
+
+\begin{example}
+The skills (or tools) of a baseball player are often rated on a scale of 20-80, where 50 is an average grade, 20 is the lowest grade, and 80 is the highest grade. The distribution of tool grades is approximately normally distributed (\(\mu=50, \sigma =10\)).
+
+See \url{https://blogs.fangraphs.com/scouting-explained-the-20-80-scouting-scale/} for more details. Calculate the following probabilities.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  Former Rockie Nolan Arenado has been graded to have game power of 70. Game power estimates a player's ability to hit home runs. Approximately what percentage of baseball players have equal or greater game power than Arenado?\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\item
+  Mike Trout has been graded to have raw power of 55. Raw power estimates a player's ability to hit baseballs hard (i.e., hard hit rate). Approximately what percentage of baseball players have equal or less raw power than Trout?\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\item
+  Suppose a Rockies prospect is said to be in the top 10\% of all baseball players in terms of their speed. What approximate speed grade would correspond to the player?\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\end{enumerate}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\item
+  Suppose a Rockies prospect is said to be in the bottom 20\% of all baseball players in terms of their hit ability. What approximate hit grade would correspond to the player?\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\item
+  Between what two grades do approximately 95\% of all players lie for a given tool?\\
+  \strut \\
+  \strut \\
+  \strut \\
+  \vfill
+\end{enumerate}
+
+Let's check our answers:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q=}\DecValTok{70}\NormalTok{,}\AttributeTok{mean=}\DecValTok{50}\NormalTok{,}\AttributeTok{sd=}\DecValTok{10}\NormalTok{); a}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.02275013
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q=}\DecValTok{55}\NormalTok{,}\AttributeTok{mean=}\DecValTok{50}\NormalTok{,}\AttributeTok{sd=}\DecValTok{10}\NormalTok{); b}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6914625
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}\AttributeTok{mean=}\DecValTok{50}\NormalTok{,}\AttributeTok{sd=}\DecValTok{10}\NormalTok{,}\AttributeTok{lower.tail =}\NormalTok{ F); c}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 62.81552
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.2}\NormalTok{,}\AttributeTok{mean=}\DecValTok{50}\NormalTok{,}\AttributeTok{sd=}\DecValTok{10}\NormalTok{,}\AttributeTok{lower.tail =}\NormalTok{ T); d}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 41.58379
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{e }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q=}\DecValTok{70}\NormalTok{,}\AttributeTok{mean=}\DecValTok{50}\NormalTok{,}\AttributeTok{sd=}\DecValTok{10}\NormalTok{) }\SpecialCharTok{{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q=}\DecValTok{30}\NormalTok{,}\AttributeTok{mean=}\DecValTok{50}\NormalTok{,}\AttributeTok{sd=}\DecValTok{10}\NormalTok{); e}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9544997
+\end{verbatim}
+
+\newpage
+
+\begin{example}
+Player X has a projected mean WAR of 3 with standard deviation of 2 and player Y has a projected mean WAR of 1.5 with a standard deviation of 3. Assume projected WAR is normally distributed. What is the probability that Player X outperforms Player Y?
+
+Link to WAR explanation: \url{https://www.mlb.com/glossary/advanced-stats/wins-above-replacement}
+\end{example}
+
+We want \(P(X>Y)\) or \(P(X-Y>0)\)\\
+
+\vfill
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate probability Z\textless{}=0}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{1.5}\NormalTok{,}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{5}\NormalTok{),}\AttributeTok{lower.tail =}\NormalTok{ F); p}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7488325
+\end{verbatim}
+
+\vfill
+
+\newpage
+
+\hypertarget{win-probability-models}{%
+\section{Win Probability Models}\label{win-probability-models}}
+
+The probability an NFL team will win can be modeled as a normal random variable using the Vegas line. This method is outlined by Wayne Winston in \emph{Mathletics} building on previous research by Hal Stern.
+
+\hypertarget{estimating-pregame-win-probability}{%
+\subsection{Estimating Pregame Win Probability}\label{estimating-pregame-win-probability}}
+
+Winston estimates that the final margin of victory is approximately a normal random variable with a mean of the Vegas line and a standard deviation between 13-14. Winston and Stern estimated the standard deviation to be \textbf{13.86} based on data from the 1981, 1983, and 1984 NFL seasons.
+
+This estimated standard deviation has since been updated to be \textbf{13.45} based on data from 1978 -- 2012 NFL seasons.
+
+Reference: \url{https://www.pro-football-reference.com/about/win_prob.htm}
+
+\begin{example}
+Sketch the distribution of the final margin of victory for an NFL team that is favored by 7 points. Shade the area for a win in regulation (for the favorite) and a tie in regulation.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(gridExtra)}
+
+
+\NormalTok{final\_margin\_full }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{21}\NormalTok{, }\DecValTok{42}\NormalTok{)), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x)) }\SpecialCharTok{+}
+        \FunctionTok{stat\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dnorm, }\AttributeTok{args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{mean =} \DecValTok{7}\NormalTok{, }\AttributeTok{sd =} \FloatTok{13.45}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Final Margin (for favorite)"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Full Distribution"}\NormalTok{)}
+
+\NormalTok{final\_margin\_zoom }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{10}\NormalTok{)), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x)) }\SpecialCharTok{+}
+        \FunctionTok{stat\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dnorm, }\AttributeTok{args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{mean =} \DecValTok{7}\NormalTok{, }\AttributeTok{sd =} \FloatTok{13.45}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Final Margin (for favorite)"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Zoomed Distribution"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks=}\FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+
+\FunctionTok{grid.arrange}\NormalTok{(final\_margin\_full, final\_margin\_zoom, }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-72-1.pdf}
+
+\newpage
+
+\begin{example}
+In Super Bowl 50, the Denver Broncos were 5.5 point underdogs (+5.5) against the Carolina Panthers. Estimate the pregame win probability for the Denver Broncos.\\
+
+\end{example}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-73-1.pdf}
+
+\vfill
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fav\_line }\OtherTok{\textless{}{-}} \FloatTok{5.5}
+\NormalTok{full\_sd }\OtherTok{\textless{}{-}} \FloatTok{13.45}
+
+\NormalTok{win\_prob }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{mean =}\NormalTok{ fav\_line, }\AttributeTok{sd =}\NormalTok{ full\_sd, }\AttributeTok{lower.tail =} \ConstantTok{FALSE}\NormalTok{)}
+
+\NormalTok{tie\_prob }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{mean =}\NormalTok{ fav\_line, }\AttributeTok{sd =}\NormalTok{ full\_sd, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{{-}}
+            \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{, }\AttributeTok{mean =}\NormalTok{ fav\_line, }\AttributeTok{sd =}\NormalTok{ full\_sd, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# win probability for favorite (panthers)}
+\NormalTok{win\_prob }\OtherTok{\textless{}{-}}\NormalTok{ win\_prob }\SpecialCharTok{+} \DecValTok{1}\SpecialCharTok{/}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ tie\_prob}
+
+\CommentTok{\# win probability for underdog (broncos)}
+\NormalTok{(broncos\_win\_prob }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ win\_prob)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3414021
+\end{verbatim}
+
+\newpage
+
+\hypertarget{estimating-in-game-win-probability}{%
+\subsection{Estimating In-Game Win Probability}\label{estimating-in-game-win-probability}}
+
+Winston proposed an updated method to calculate in-game win probabilities based on the time remaining in the game, current score margin, and Vegas line.
+
+In this proposed method, the pregame mean (Vegas line) and pregame variance (13.45) are scaled down linearly as a function of time remaining in the game.
+
+For instance, since there are four 15-minute quarters (total regulation game time is 60 minutes), then the in-game mean and standard deviation are calculated as follows.
+
+\(\mu_{updated} = Line \cdot \frac{\text{time remaining}}{60}\)
+
+\(\sigma_{updated} = \frac{13.45}{\sqrt{60/\text{time remaining}}}\)
+
+\textbf{Note:} This model assumes perfectly neutral possession, down, distance, and field-position conditions.
+
+Reference: \url{https://www.pro-football-reference.com/about/win_prob.htm}
+
+\begin{example}
+In Super Bowl 50, the Denver Broncos led the Carolina Panthers 10-0 after the first quarter. The Broncos were 5.5 point underdogs at the start of the game. Use Winston's method to estimate the probability of a Broncos win after one quarter.\\
+
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fav\_margin }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\DecValTok{10}
+\NormalTok{fav\_line }\OtherTok{\textless{}{-}} \FloatTok{5.5}
+\NormalTok{full\_sd }\OtherTok{\textless{}{-}} \FloatTok{13.45}
+\NormalTok{full\_min }\OtherTok{\textless{}{-}} \DecValTok{60}
+\NormalTok{new\_min }\OtherTok{\textless{}{-}} \DecValTok{45}
+
+\NormalTok{new\_mean }\OtherTok{\textless{}{-}}\NormalTok{ fav\_line }\SpecialCharTok{*}\NormalTok{ new\_min}\SpecialCharTok{/}\NormalTok{full\_min}
+\NormalTok{new\_sd }\OtherTok{\textless{}{-}}\NormalTok{ full\_sd }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(full\_min}\SpecialCharTok{/}\NormalTok{new\_min)}
+
+\NormalTok{win\_prob }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \FloatTok{0.5} \SpecialCharTok{{-}}\NormalTok{ fav\_margin, }\AttributeTok{mean =}\NormalTok{ new\_mean, }
+                  \AttributeTok{sd =}\NormalTok{ new\_sd, }\AttributeTok{lower.tail =} \ConstantTok{FALSE}\NormalTok{)}
+
+\NormalTok{tie\_prob }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \FloatTok{0.5} \SpecialCharTok{{-}}\NormalTok{ fav\_margin, }\AttributeTok{mean =}\NormalTok{ new\_mean, }
+                  \AttributeTok{sd =}\NormalTok{ new\_sd, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{{-}}
+            \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \SpecialCharTok{{-}}\FloatTok{0.5} \SpecialCharTok{{-}}\NormalTok{ fav\_margin, }\AttributeTok{mean =}\NormalTok{ new\_mean, }
+                  \AttributeTok{sd =}\NormalTok{ new\_sd, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# win probability for favorite (panthers)}
+\NormalTok{win\_prob }\OtherTok{\textless{}{-}}\NormalTok{ win\_prob }\SpecialCharTok{+} \DecValTok{1}\SpecialCharTok{/}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ tie\_prob}
+
+\CommentTok{\# win probability for underdog (broncos)}
+\NormalTok{(broncos\_win\_prob }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ win\_prob)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6928385
+\end{verbatim}
+
+\newpage
+
+The win probability models outlined above use only the Vegas line, the current score, and the time remaining in the game. More accurate estimation models will also consider possession, down, distance, and field-position conditions. Pro Football Reference offers an in-game win probability model with these additional factors.
+
+Reference: \url{https://www.pro-football-reference.com/boxscores/win_prob.cgi}
+
+\begin{example}
+The Broncos led the Panthers 10-0 at the end of the first quarter. The Panthers had 2nd and 11 at their own 46 at the beginning of the second quarter. Calculate the Broncos win probability.
+
+Reference: \url{https://www.pro-football-reference.com/boxscores/201602070den.htm}
+\end{example}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{images/wp1}
+\caption{Pro Football Reference Win Probability Calculator Inputs}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{images/wp2}
+\caption{Pro Football Reference Win Probability Calculator Output}
+\end{figure}
+
+\textbf{Class Reading:} Chapters 6--7 in the \emph{Hidden Game of Football} by Carroll, Palmer, Thorn
+
+\hypertarget{odds-and-bets}{%
+\chapter{Odds and Bets}\label{odds-and-bets}}
+
+\textbf{Sports Betting in USA}
 
 In 2018, the United States Supreme Court overturned a 1992 federal law that banned commercial sports betting in most states. For more about this ruling, see this New York Times article: \url{https://www.nytimes.com/2018/05/14/us/politics/supreme-court-sports-betting-new-jersey.html}
 
 In Colorado, you must be at least 21 years old to gamble including betting on sports games.
 
-\hypertarget{gambling-addiction}{%
-\subsection{Gambling Addiction}\label{gambling-addiction}}
+\textbf{Gambling Addiction}
 
 Gambling addiction, compulsive gambling, or gambling disorder is a serious impulse-control disorder. Here is a link to the Mayo Clinic's discussion of compulsive gambling: \url{https://www.mayoclinic.org/diseases-conditions/compulsive-gambling/symptoms-causes/syc-20355178}
 
 Gambling is \textbf{\emph{not}} encouraged and can lead to numerous problems. If you choose to gamble on sports, don't bet beyond your means and seek help if you worry that you may be suffering from gambling addiction.
 
-\hypertarget{odds-definition}{%
-\subsection{Odds Definition}\label{odds-definition}}
+\newpage
 
-In this chapter so far, we have quantified uncertainty using probabilities (numbers between 0 and 1) and percentages (numbers between 0 and 100). We can also quantify uncertainty using \textbf{odds}.
+\hypertarget{odds}{%
+\section{Odds}\label{odds}}
+
+In the previous chapter, we quantified uncertainty using probabilities (numbers between 0 and 1) and percentages (numbers between 0 and 100). We can also quantify uncertainty using \textbf{odds}.
 
 \begin{definition}
 The \textbf{\emph{odds}} (in favor) of an outcome \(A\) is the probability of \(A\) divided by the probability of \(A^C\).
@@ -3138,7 +4335,7 @@ Suppose that there are three finalists in an Olympic competition. It is estimate
 \newpage
 
 \hypertarget{gambling-odds}{%
-\subsection{Gambling Odds}\label{gambling-odds}}
+\section{Gambling Odds}\label{gambling-odds}}
 
 Here's a helpful resource on calculating gambling odds:\\
 \url{https://www.actionnetwork.com/education/decimal-odds}
@@ -3160,6 +4357,11 @@ The \textbf{\emph{implied probability}}, \(\tilde{p}\), of a wager is the probab
 
 \[Decimal \, Odds = [\tilde{p}]^{-1}\]
 \end{definition}
+
+\newpage
+
+\hypertarget{types-of-bets}{%
+\section{Types of Bets}\label{types-of-bets}}
 
 \begin{definition}
 A \textbf{\emph{moneyline bet}} are common bets in American sports. When the moneyline is positive, the figure tells what the winning payout would be on a \$100 bet. When the moneyline is negative, the figure tells what wager is required for a winning payout of \$100.
@@ -3211,7 +4413,7 @@ For the following scenarios, assume a wager of \$100. Calculate the payout for a
 \newpage
 
 \begin{definition}
-A \emph{moneyline wager} refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds.
+A \emph{moneyline bet} refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds.
 
 If ML is negative:
 \[\tilde{p} = \frac{-ML_{NEG}}{-ML_{NEG}+100}\]
@@ -3409,1204 +4611,7 @@ Suppose that CSU is a three point favorite (-3) against CU in a women's basketba
 \emph{Reference:}\\
 \url{https://www.wikihow.com/Calculate-Odds}
 
-\newpage
-
-\hypertarget{random-variables}{%
-\section{Random Variables}\label{random-variables}}
-
-\begin{definition}
-Let \(\Omega\) be the sample space of an experiment. A \textbf{\emph{random variable}} is a rule that associates a number with each outcome in \(\Omega\). In other words, a random variable is a function whose domain is \(\Omega\) and whose range is the set of real numbers.
-\end{definition}
-
-Random variables are be broken down into subcategories:\\
-1. \textbf{\emph{Discrete random variables}} - random variables which have a sample space that is finite or countably infinite.\\
-2. \textbf{\emph{Continuous random variables}} - random variables which have a sample space that is uncountably infinite (such as an interval of real numbers)\\
-
-\textbf{\emph{Discrete}} and \textbf{\emph{Continuous}} random variables use similar yet slightly different mathematical tools. Discrete random variables involve working with ``sums'' and continuous random variables involve working with ``integrals''.\\
-
-\begin{example}
-Give an example of a discrete random variable in hockey.
-\end{example}
-
-\hfill\break
-\hfill\break
-\hfill\break
-\vfill
-
-\begin{example}
-Give an example of a continuous random variable in hockey.
-\end{example}
-
-\hfill\break
-\hfill\break
-\hfill\break
-\vfill
-
-\begin{definition}
-A \textbf{\emph{probability distribution}} is a function that gives probabilities of different possible outcomes for a given experiment.
-\end{definition}
-
-The probability distribution for a discrete random variable, \(p(x)\), is called a \textbf{\emph{probability mass function (pmf)}}.
-
-The probability distribution for a continuous random variable, \(f(x)\), is called a \textbf{\emph{probability density function (pdf)}}.
-
-\newpage
-
-\begin{example}
-Suppose the Colorado Rockies are playing a four game series against the Chicago Cubs and that the Rockies have a 65\% chance of winning an individual game. Further, assume that the games are independent. The following PMF describes the outcomes (number of Rockies wins) and their probabilities.
-
-\begin{table}[H]
-\centering
-\begin{tabular}{lrrrrr}
-\toprule
-Rockies wins, X & 0.000 & 1.000 & 2.000 & 3.000 & 4.000\\
-Probability, p(X) & 0.015 & 0.111 & 0.311 & 0.384 & 0.179\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\vfill
-
-What is the probability that the Rockies win zero games? What is the probability that the Rockies win at least two games? Why might the independence assumption be false?
-\end{example}
-
-\vfill
-
-We may be interested in describing the center or average value of our random variable. We can do this with the following definitions.
-
-\begin{definition}
-
-The \textbf{\emph{expected value}} (or \textbf{\emph{population mean}} or \textbf{\emph{average}}) of a random variable \(X\) is given by:
-
-\begin{enumerate}
-\def\labelenumi{(\roman{enumi})}
-\item
-  \(E[X] = \mu = \sum_{x \in \Omega} x \cdot p(x)\) (for discrete random variables)
-\item
-  \(E[X] = \mu = \int_{x \in \Omega} x \cdot f(x) dx\) (for continuous random variables)
-\end{enumerate}
-
-\end{definition}
-
-For this class, evaluating integrals is not essential, so we will avoid using Calculus (integrals and derivatives) when possible.
-
-Sometimes, it makes sense to calculate the expected value of a function of a random variable. This can be easily done with a slight modification to the previous definition. Let \(h(X)\) be some function of a random variable \(X\). The expected value of \(h(X)\), \(E[h(X)]\), is given by:
-
-\begin{enumerate}
-\def\labelenumi{(\roman{enumi})}
-\item
-  \(E[h(X)] = \sum_{x \in \Omega} h(x) \cdot p(x)\) (for discrete random variables)
-\item
-  \(E[h(X)] = \int_{x \in \Omega} h(x) \cdot f(x) dx\) (for continuous random variables)
-\end{enumerate}
-
-\begin{example}
-For the Rockies/Cubs four game series example, calculate \(E[X]\) and \(E[X^2]\).
-\end{example}
-
-\vfill
-
-\newpage
-
-The spread or variability associated with a random variable can be calculated using expected values as well.
-
-\begin{definition}
-
-The \textbf{\emph{population variance}} of a random variable \(X\) is given by:\\
-
-\begin{enumerate}
-\def\labelenumi{(\roman{enumi})}
-\item
-  \(Var(X) = \sum_{x \in \Omega} (x-\mu)^2 \cdot p(x)\) (for discrete random variables)
-\item
-  \(Var(X) = \int_{x \in \Omega} (x-\mu)^2 \cdot f(x) dx\) (for continuous random variables)
-\end{enumerate}
-
-\end{definition}
-
-There is also a shortcut formula for calculating variance:
-
-\begin{theorem}
-\(Var(X) = E[X^2] - (E[X])^2\)
-\end{theorem}
-
-\begin{definition}
-The \textbf{\emph{population standard deviation}} of a random variable \(X\) is given by:\\
-
-\(SD(X) = \sigma = \sqrt{Var(X)} = \sqrt{E[X^2]-(E[X])^2}\)
-\end{definition}
-
-\begin{example}
-For the Rockies/Cubs four game series example, calculate \(Var(X)\).
-\end{example}
-
-\vfill
-\vfill
-\vfill
-\vfill
-\vfill
-
-\newpage
-
-\begin{definition}
-A \textbf{\emph{quantile-quantile plot}} (QQ plot) can be used to compare an empirical probability distribution against a theoretical distribution.
-\end{definition}
-
-\begin{example}
-Let's generate two simulated datasets. The first dataset will follow a normal distribution with mean 10 and variance 4 and the second dataset will follow a Poisson distribution with rate 5. We'll use QQ-plots to match each simulation with the correct distribution.
-\end{example}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2022}\NormalTok{)}
-\NormalTok{sim1.df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =} \DecValTok{1000}\NormalTok{,}\AttributeTok{mean =} \DecValTok{10}\NormalTok{,}\AttributeTok{sd =} \DecValTok{2}\NormalTok{))}
-\NormalTok{sim2.df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\FunctionTok{rpois}\NormalTok{(}\AttributeTok{n =} \DecValTok{1000}\NormalTok{,}\AttributeTok{lambda =} \DecValTok{5}\NormalTok{))}
-\NormalTok{jitter\_width }\OtherTok{\textless{}{-}} \FloatTok{0.2}
-
-\NormalTok{fig1 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(sim1.df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ x)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =}\NormalTok{ jitter\_width,}\AttributeTok{height =}\NormalTok{ jitter\_width)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Sim 1 vs. Normal"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
-
-\NormalTok{fig2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(sim2.df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ x)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =}\NormalTok{ jitter\_width,}\AttributeTok{height =}\NormalTok{ jitter\_width)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Sim 2 vs. Normal"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
-
-\NormalTok{fig3 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(sim1.df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ x)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \DecValTok{5}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =}\NormalTok{ jitter\_width,}\AttributeTok{height =}\NormalTok{ jitter\_width)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Sim 1 vs. Poisson"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
-
-\NormalTok{fig4 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(sim2.df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ x)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \DecValTok{5}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =}\NormalTok{ jitter\_width,}\AttributeTok{height =}\NormalTok{ jitter\_width)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Sim 2 vs. Poisson"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\newpage
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(gridExtra)}
-\FunctionTok{grid.arrange}\NormalTok{(fig1,fig2,fig3,fig4,}\AttributeTok{ncol=}\DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-51-1.pdf}
-
-What do you conclude from the four QQ plots?
-
-\newpage
-
-\hypertarget{common-random-variables}{%
-\section{Common Random Variables}\label{common-random-variables}}
-
-There are several families of random variables that show up frequently in applications. Some of these random variables include:
-- Binomial
-- Geometric
-- Poisson
-- Normal
-
-\hypertarget{binomial-rvs}{%
-\subsection{Binomial RVs}\label{binomial-rvs}}
-
-\begin{definition}
-A \textbf{\emph{binomial(n,p) random variable}} is a discrete random variable that counts the numbers of ``successes'' over a fixed number of trials, \(n\), with each trial having an equal probability of success, \(p\).
-
-\(P(X=k) = \binom{n}{k} p^k(1-p)^{n-k} = \frac{n!}{k!\ \cdot\ (n-k)!} p^k(1-p)^{n-k}\), where \(0 \leq k \leq n, 0 \leq p \leq 1\)
-
-If \(X \sim Binomial(n,p)\), then \(E[X]=np\) and \(Var(X)=np(1-p)\)
-\end{definition}
-
-\begin{example}
-The Cubs and Rockies are playing a 4-game series. The Rockies have a 0.65 probability of winning each game, and the Cubs have a 0.35 probability. Assume each game is independent. Solve for the following quantities.
-\end{example}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\item
-  The Cubs win exactly 1 game.\\
-  \strut \\
-  \strut \\
-  \strut \\
-\item
-  The Rockies win exactly 2 games.\\
-  \strut \\
-  \strut \\
-  \strut \\
-\item
-  The Cubs win at least 2 games.\\
-  \strut \\
-  \strut \\
-  \strut \\
-\item
-  The series ends in a sweep.\\
-  \strut \\
-  \strut \\
-  \strut \\
-\item
-  The expected number of wins for the Rockies.\\
-  \strut \\
-  \strut \\
-  \strut \\
-\item
-  The variance and standard deviations of wins for the Rockies.\\
-  \strut \\
-  \strut \\
-  \strut \\
-\end{enumerate}
-
-\begin{example}
-Complete 10,000 simulations of the four game series between the Rockies and Cubs. For the number of Rockies wins, calculate the sample mean and sample variance and compare these to the population values. Also, plot a histogram of the sample data.
-\end{example}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2022}\NormalTok{)}
-\NormalTok{rockies\_wins }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\AttributeTok{n=}\DecValTok{10000}\NormalTok{,}\AttributeTok{size=}\DecValTok{4}\NormalTok{,}\AttributeTok{prob=}\FloatTok{0.65}\NormalTok{)}
-\FunctionTok{mean}\NormalTok{(rockies\_wins)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 2.6036
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{var}\NormalTok{(rockies\_wins)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.9121583
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{rockies\_wins\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Wins=}\NormalTok{rockies\_wins)}
-\NormalTok{rockies\_wins\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(Wins)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{1}\NormalTok{,}\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"purple"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-52-1.pdf}
-
-\newpage
-
-\hypertarget{binomial-coefficient-symmetry}{%
-\subsubsection{Binomial Coefficient Symmetry}\label{binomial-coefficient-symmetry}}
-
-Playoff series for a certain sports league are played as a best-of-seven series, with one team hosting four games and the opposing team hosing three. An executive for the league wishes to know the number of ways the home and away games can be assigned. (One such combination is A-A-B-B-A-B-A, the format used by the NBA and NHL for their best-of-seven series.) What is the total number of combinations?\\
-\strut \\
-\strut \\
-\strut \\
-
-However, instead of thinking about the number of ways to assign the games to the team that gets four home games, what if we thought about the number of ways to assign games to the team that gets three home games?
-
-That would be \(\binom{7}{3}\). We can use the \texttt{choose} command in R to find this quantity.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{choose}\NormalTok{(}\DecValTok{7}\NormalTok{,}\DecValTok{3}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 35
-\end{verbatim}
-
-It turns out that this binomial coefficient is also equal to 35.
-
-Theorem: \(\binom{n}{k} = \binom{n}{n-k}\)
-
-\(\binom{n}{k} = \frac{n!}{k!\ \cdot\ (n-k)!}\)
-
-\(\binom{n}{n-k} = \frac{n!}{(n-k)!\ \cdot\ (n-(n-k))!} = \frac{n!}{(n-k)!\ \cdot\ k!} = \binom{n}{k}\)
-
-\newpage
-
-\hypertarget{geometric-rvs}{%
-\subsection{Geometric RVs}\label{geometric-rvs}}
-
-\begin{definition}
-A \textbf{\emph{Geometric(p) random variable}} is a discrete random variable that counts the numbers of trials until a ``success'' occurs, where the probability of success, \(p\), is constant across all trials.
-
-\(P(X=k) = p(1-p)^{k-1}\), where \(k \geq 1, 0 \leq p \leq 1\)
-
-If \(X \sim Geometric(p)\), then \(E[X]=\frac{1}{p}\) and \(Var(X)=\frac{p}{1-p}\)
-\end{definition}
-
-\begin{example}
-Suppose the number of shots needed by a hockey team in order to score their first goal, X, is modeled by a Geometric(\(\frac{1}{10}\)) random variable. Use this information to answer the following questions.
-\end{example}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\item
-  What is the probability that it takes exactly 3 shots to score the first goal?\\
-  \strut \\
-  \strut \\
-  \strut \\
-\item
-  What is the probability that it takes less than 3 shots to score the first goal?\\
-  \strut \\
-  \strut \\
-  \strut \\
-\item
-  What is the probability that it takes more than 3 shots to score the first goal?\\
-  \strut \\
-  \strut \\
-  \strut \\
-\end{enumerate}
-
-\textbf{Caution:} Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful.
-
-Let's simulate the number of shot attempts required to score the first goal (Geometric(\(p=1/10\))) from the previous example.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2020}\NormalTok{)}
-\NormalTok{geometric }\OtherTok{\textless{}{-}} \FunctionTok{rgeom}\NormalTok{(}\DecValTok{10000}\NormalTok{, }\DecValTok{1}\SpecialCharTok{/}\DecValTok{10}\NormalTok{)}
-\FunctionTok{head}\NormalTok{(geometric, }\DecValTok{20}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1]  2  2  7 55  6 11  2 11  2  5  0 50 17  2  7  0  7 19 17  1
-\end{verbatim}
-
-Some of the values were 0, which could not happen if R was considering the number of the trial on which the first success occurred. You can add 1 to the values given by \texttt{R} to arrive at the first success distribution.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{first\_success }\OtherTok{\textless{}{-}}\NormalTok{ geometric }\SpecialCharTok{+} \DecValTok{1}
-\FunctionTok{head}\NormalTok{(first\_success, }\DecValTok{20}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1]  3  3  8 56  7 12  3 12  3  6  1 51 18  3  8  1  8 20 18  2
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{(mean\_success }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(first\_success))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 10.0669
-\end{verbatim}
-
-The mean of this sample of variables is 10.0669, which is close to the expected mean of \(\frac{1}{p} = 10\).
-
-Let's plot the sample distribution of shots required to score a goal from the simulation as well.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{first\_success\_df }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Shots =}\NormalTok{ first\_success)}
-\NormalTok{first\_success\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Shots)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{1}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-56-1.pdf}
-
-\newpage
-
-\hypertarget{poisson-rvs}{%
-\subsection{Poisson RVs}\label{poisson-rvs}}
-
-\begin{definition}
-A \textbf{\emph{Poisson(\(\lambda\)) random variable}} is a discrete random variable that counts the numbers of ``successes'' for a given rate parameter, \(\lambda\), for a given interval.
-
-\(P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}\), where \(k \geq 0,\)
-
-If \(X \sim Poisson(\lambda)\), then \(E[X]=\lambda\) and \(Var(X)=\lambda\)
-\end{definition}
-
-\begin{example}
-During the 2021 Major League Soccer season, the Colorado Rapids scored 51 goals in 34 games on their way to a first-place finish in the Western Conference regular season standings.
-
-The team scored \(\frac{51}{34} = 1.5\) goals per game. Let's model the distribution of Rapids goals using a Poisson(1.5) random variable that we'll call Y.
-\end{example}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\tightlist
-\item
-  Which is more likely: Y taking on the value 0 or Y taking on the value 2?\\
-  \strut \\
-  \strut \\
-  \strut \\
-\end{enumerate}
-
-We can calculate these probabilities in R using the \texttt{dpois} command.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dpois}\NormalTok{(}\AttributeTok{x=}\DecValTok{0}\NormalTok{, }\AttributeTok{lambda=}\FloatTok{1.5}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.2231302
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dpois}\NormalTok{(}\AttributeTok{x=}\DecValTok{2}\NormalTok{, }\AttributeTok{lambda=}\FloatTok{1.5}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.2510214
-\end{verbatim}
-
-\newpage
-
-We can also plot the PMF of Y to check visually.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{:}\DecValTok{8}
-\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{dpois}\NormalTok{(x, }\AttributeTok{lambda =} \FloatTok{1.5}\NormalTok{)}
-\NormalTok{poisson.pmf }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(x,y)}
-\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{transform}\NormalTok{(poisson.pmf), }\FunctionTok{aes}\NormalTok{(x, y)) }\SpecialCharTok{+} 
-  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+} 
-  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Probability mass function of Poisson(1.5) random variable"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Value"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Probability"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-58-1.pdf}
-
-\newpage
-
-Let's check whether using a Poisson distribution was appropriate by comparing it to the actual 2021 Colorado Rapids match results.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Data: https://www.espn.com/soccer/team/results/\_/id/184/season/2021}
-
-\FunctionTok{library}\NormalTok{(}\StringTok{"kableExtra"}\NormalTok{)}
-\NormalTok{rapids21 }\OtherTok{\textless{}{-}} 
-  \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{)}
-
-\NormalTok{goals }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\StringTok{"5+"}\NormalTok{)}
-\NormalTok{actual\_frequency }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{6}\NormalTok{, }\DecValTok{14}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
-\NormalTok{actual\_proportion }\OtherTok{\textless{}{-}}\NormalTok{ actual\_frequency }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(actual\_frequency)}
-\NormalTok{expected\_proportion }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{dpois}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\AttributeTok{lambda=}\FloatTok{1.5}\NormalTok{), }
-                         \FunctionTok{ppois}\NormalTok{(}\DecValTok{4}\NormalTok{, }\AttributeTok{lambda=}\FloatTok{1.5}\NormalTok{, }\AttributeTok{lower.tail=}\ConstantTok{FALSE}\NormalTok{))}
-\NormalTok{expected\_frequency }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(expected\_proportion }\SpecialCharTok{*} \DecValTok{34}\NormalTok{, }\DecValTok{1}\NormalTok{)}
-
-\NormalTok{rapids.data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(goals, actual\_frequency, actual\_proportion, }
-\NormalTok{                          expected\_frequency, expected\_proportion)}
-\FunctionTok{names}\NormalTok{(rapids.data) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"Goals"}\NormalTok{,}\StringTok{"Actual Frequency"}\NormalTok{,}\StringTok{"Actual Proportion"}\NormalTok{,}\StringTok{"Expected Frequency"}\NormalTok{,}\StringTok{"Expected Proportion"}\NormalTok{)}
-
-\NormalTok{rapids.data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kt}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{lrrrr}
-\toprule
-Goals & Actual Frequency & Actual Proportion & Expected Frequency & Expected Proportion\\
-\midrule
-0 & 6 & 0.176 & 7.6 & 0.223\\
-1 & 14 & 0.412 & 11.4 & 0.335\\
-2 & 7 & 0.206 & 8.5 & 0.251\\
-3 & 6 & 0.176 & 4.3 & 0.126\\
-4 & 0 & 0.000 & 1.6 & 0.047\\
-5+ & 1 & 0.029 & 0.6 & 0.019\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  What differences do you notice between the actual results and the expected values based on the Poisson random variable?\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
-\end{enumerate}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Even if the true population distribution of 2021 Rapids goals was truly a Poisson(1.5) random variable, why might the actual distribution of their goals differ from the probability mass function?\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
-\end{enumerate}
-
-\newpage
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Use a QQ plot to compare the probability distribution of the 2021 Rapids goals to a Poisson distribution.\\
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{rapids21 }\SpecialCharTok{\%\textgreater{}\%} 
-\NormalTok{  as.data.frame }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ rapids21)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois,}
-          \AttributeTok{dparams =} \FloatTok{1.5}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.1}\NormalTok{,}\AttributeTok{height =} \FloatTok{0.1}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \FloatTok{1.5}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"QQ{-}plot for Rapids 2021 Goals vs. Poisson Distribution"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-60-1.pdf}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{4}
-\tightlist
-\item
-  What are the advantages of using the Poisson distribution to model Major League soccer goals? What are the disadvantages?\\
-  \strut \\
-  \strut \\
-  \strut \\
-\end{enumerate}
-
-\newpage
-
-\begin{example}
-In 1997-1998 with the Los Angeles Lakers, Shaquille O'Neal attempted an average of 11.35 free throws per game with a standard deviation of 4.04. Is it appropriate to model Shaq's per game free throw attempts as a Poisson(11.35) random variable?
-\end{example}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\tightlist
-\item
-  Plot the data.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{shaq9798 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/shaq9798.csv"}\NormalTok{)}
-\NormalTok{shaq9798 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{FTA))  }\SpecialCharTok{+} 
-  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{color =} \StringTok{"yellow"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"purple"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Per Game FT Attempt Totals by Shaq in 1997{-}1998"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlim}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{25}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-61-1.pdf}
-
-\newpage
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Plot the PMF of a Poisson(11.35) random variable.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{:}\DecValTok{25}
-\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{dpois}\NormalTok{(x, }\AttributeTok{lambda =} \FloatTok{11.35}\NormalTok{)}
-\NormalTok{poisson.pmf }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(x,y)}
-\FunctionTok{ggplot}\NormalTok{(poisson.pmf, }\FunctionTok{aes}\NormalTok{(x, y)) }\SpecialCharTok{+} 
-  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+} 
-  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Probability mass function of Poisson(11.35) random variable"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Value"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Probability"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-62-1.pdf}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  What similarities and what differences do you notice?\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
-\end{enumerate}
-
-\newpage
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Calculate the variance of the two distributions and compare them.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{var}\NormalTok{(shaq9798}\SpecialCharTok{$}\NormalTok{FTA)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 16.33305
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Var(Poisson(11.35)) = 11.35}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{4}
-\tightlist
-\item
-  Calculate the probability that Shaq had 20 or more free throws and compare it to \(P(Poisson(11.35) \geq 20)\)
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{shaqFTA }\OtherTok{\textless{}{-}}\NormalTok{ shaq9798}\SpecialCharTok{$}\NormalTok{FTA}
-\NormalTok{shaq20 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(shaqFTA }\SpecialCharTok{\textgreater{}=} \DecValTok{20}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(shaqFTA); shaq20}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.06666667
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{poisson20 }\OtherTok{\textless{}{-}} \FunctionTok{ppois}\NormalTok{(}\DecValTok{20}\NormalTok{, }\AttributeTok{lambda=}\FloatTok{11.35}\NormalTok{, }\AttributeTok{lower.tail=}\ConstantTok{FALSE}\NormalTok{); poisson20}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.006536079
-\end{verbatim}
-
-\newpage
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{5}
-\tightlist
-\item
-  Create a QQ-plot of Shaq's per game free throw attempts and a Poisson distribution.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{shaq9798 }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ FTA)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois,}\AttributeTok{dparams =} \FloatTok{11.35}\NormalTok{,}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width=}\FloatTok{0.2}\NormalTok{,}\AttributeTok{height=}\FloatTok{0.2}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qpois, }\AttributeTok{dparams =} \FloatTok{11.35}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"QQ{-}plot for Shaq\textquotesingle{}s Free Throw Attempts vs. Poisson Distribution"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-65-1.pdf}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{6}
-\tightlist
-\item
-  Is the Poisson distribution appropriate to model Shaq's FTA per game? Explain.\\
-  \strut \\
-  \strut \\
-  \strut \\
-\end{enumerate}
-
-\newpage
-
-\hypertarget{negative-binomial-rvs}{%
-\subsection{Negative Binomial RVs}\label{negative-binomial-rvs}}
-
-\begin{definition}
-A \textbf{\emph{Negative Binomial(\(r\),\(p\)) random variable}} is a discrete random variable that counts the numbers of ``successes'' for given parameters, \(r\) and \(p\).
-
-\(P(X=k) = {k+r-1 \choose k}(1-p)^rp^k\), where \(k = 0, 1, 2, ...\)
-
-If \(X \sim NB(r,p)\), then \(E[X]=\frac{rp}{1-p}\) and \(Var(X)=\frac{rp}{(1-p)^2}\)
-\end{definition}
-
-The Negative Binomial distribution is often used to model count data that is ``overdispersed''. A property of the Poisson distribution is that the mean and variance are equal. If you are analyzing count data such that the variance is much greater than the mean (i.e., overdispersed), then the Negative Binomial distribution may be an appropriate substitute.
-
-Given sample count data, we can estimate appropriate parameters for a Negative Binomial in many ways. One such way is to use the ``method of moments'' estimator.
-
-These estimators are given by:
-
-\(\hat{p} = \frac{s^2-\bar{x}}{s^2}\) and \(\hat{r} = \frac{\bar{x}^2}{s^2-\bar{x}}\)
-
-\begin{example}
-Using Shaq's 1997-1998 data, model his per game free throw attempts as a Negative Binomial random variable.
-\end{example}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\tightlist
-\item
-  Find an appropriate choice of parameters, \(r\) and \(p\).
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{shaq.mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(shaqFTA)}
-\NormalTok{shaq.var }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(shaqFTA)}
-\NormalTok{rhat }\OtherTok{\textless{}{-}}\NormalTok{ shaq.mean}\SpecialCharTok{\^{}}\DecValTok{2}\SpecialCharTok{/}\NormalTok{(shaq.var}\SpecialCharTok{{-}}\NormalTok{shaq.mean)}
-\NormalTok{phat }\OtherTok{\textless{}{-}}\NormalTok{ (shaq.var}\SpecialCharTok{{-}}\NormalTok{shaq.mean)}\SpecialCharTok{/}\NormalTok{shaq.var}
-\FunctionTok{c}\NormalTok{(rhat,phat)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 25.85213  0.30509
-\end{verbatim}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Plot the Negative Binomial distribution. Note that R uses an alternative parameterization for \(p\). Use \(prob = 1-p\).
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{:}\DecValTok{25}
-\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{dnbinom}\NormalTok{(x,}\AttributeTok{size=}\NormalTok{rhat,}\AttributeTok{prob=}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{phat)}
-\NormalTok{geom.pmf }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(x,y)}
-\FunctionTok{ggplot}\NormalTok{(geom.pmf, }\FunctionTok{aes}\NormalTok{(x, y)) }\SpecialCharTok{+} 
-  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+} 
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Value"}\NormalTok{, }\AttributeTok{y=}\StringTok{"Frequency"}\NormalTok{, }\AttributeTok{title=}\StringTok{"Probability mass function of NB(r=25.852,p=0.305) random variable"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-67-1.pdf}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Calculate the mean and variance of the Negative Binomial and Shaq's dataset.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{shaq.mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(shaqFTA)}
-\NormalTok{shaq.var }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(shaqFTA)}
-\NormalTok{NB.mean }\OtherTok{\textless{}{-}}\NormalTok{ (rhat}\SpecialCharTok{*}\NormalTok{phat)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{phat)}
-\NormalTok{NB.var }\OtherTok{\textless{}{-}}\NormalTok{ (rhat}\SpecialCharTok{*}\NormalTok{phat)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{phat)}\SpecialCharTok{\^{}}\DecValTok{2}
-\FunctionTok{c}\NormalTok{(shaq.mean,shaq.var)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 11.35000 16.33305
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{c}\NormalTok{(NB.mean,NB.var)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 11.35000 16.33305
-\end{verbatim}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Calculate the probability that Shaq had 20 or more free throws and compare it to \(P(NB(r=25.852,p=0.305) \geq 20)\)
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{shaq20 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(shaqFTA }\SpecialCharTok{\textgreater{}=} \DecValTok{20}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(shaqFTA); shaq20}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.06666667
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{nb20 }\OtherTok{\textless{}{-}} \FunctionTok{pnbinom}\NormalTok{(}\DecValTok{20}\NormalTok{,}\AttributeTok{size=}\NormalTok{rhat,}\AttributeTok{prob=}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{phat,}\AttributeTok{lower.tail=}\ConstantTok{FALSE}\NormalTok{); nb20}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.0208711
-\end{verbatim}
-
-\newpage
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{4}
-\tightlist
-\item
-  Create a QQ-plot of Shaq's per game free throw attempts and a Negative Binomial distribution.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{shaq9798 }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ FTA)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qnbinom,}\AttributeTok{dparams =} \FunctionTok{list}\NormalTok{(}\AttributeTok{size=}\FloatTok{25.852}\NormalTok{,}\AttributeTok{mu=}\FloatTok{11.35}\NormalTok{),}\AttributeTok{position=}\FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width=}\FloatTok{0.2}\NormalTok{,}\AttributeTok{height=}\FloatTok{0.2}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ qnbinom, }\AttributeTok{dparams =} \FunctionTok{list}\NormalTok{(}\AttributeTok{size=}\FloatTok{25.852}\NormalTok{,}\AttributeTok{mu=}\FloatTok{11.35}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"QQ{-}plot for Shaq\textquotesingle{}s Free Throw Attempts vs. Negative Binomial Distribution"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Theoretical Quantiles"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Empirical Quantiles"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-70-1.pdf}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{5}
-\tightlist
-\item
-  Is the Negative Binomial distribution appropriate to model Shaq's FTA per game? How does it compare to using the Poisson distribution? Explain.\\
-  \strut \\
-  \strut \\
-  \strut \\
-\end{enumerate}
-
-\newpage
-
-\hypertarget{normal-rvs}{%
-\subsection{Normal RVs}\label{normal-rvs}}
-
-\begin{definition}
-A \textbf{\emph{Normal(\(\mu\),\(\sigma^2\)) random variable}} is a continuous random variable that is bell-shaped with mean \(\mu\) and variance \(\sigma^2\).
-
-To calculate probabilities under the normal curve, you need either to integrate, use a table, or a computer.
-
-Note that a normal random variable can be standardized by using: \(z = \frac{x-\mu}{\sigma}\)
-\end{definition}
-
-\begin{theorem}
-For a normal(\(\mu\),\(\sigma^2\)) random variable, we have the following approximations:\\
-- About 68\% of the data falls within one standard deviation of the mean (i.e., \(\mu \pm \sigma\))\\
-- About 95\% of the data falls within two standard deviations of the mean (i.e., \(\mu \pm 2\sigma\))\\
-- About 99.7\% of the data falls within three standard deviations of the mean (i.e., \(\mu \pm 3\sigma\))
-\end{theorem}
-
-\begin{example}
-The skills (or tools) of a baseball player are often rated on a scale of 20-80, where 50 is an average grade, 20 is the lowest grade, and 80 is the highest grade. The distribution of tool grades is approximately normally distributed (\(\mu=50, \sigma =10\)).
-
-See \url{https://blogs.fangraphs.com/scouting-explained-the-20-80-scouting-scale/} for more details. Calculate the following probabilities.
-\end{example}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\item
-  Former Rockie Nolan Arenado has been graded to have game power of 70. Game power estimates a player's ability to hit home runs. Approximately what percentage of baseball players have equal or greater game power than Arenado?\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
-\item
-  Mike Trout has been graded to have raw power of 55. Raw power estimates a player's ability to hit baseballs hard (i.e., hard hit rate). Approximately what percentage of baseball players have equal or less raw power than Trout?\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
-\item
-  Suppose a Rockies prospect is said to be in the top 10\% of all baseball players in terms of their speed. What approximate speed grade would correspond to the player?\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
-\end{enumerate}
-
-\newpage
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{3}
-\item
-  Suppose a Rockies prospect is said to be in the bottom 20\% of all baseball players in terms of their hit ability. What approximate hit grade would correspond to the player?\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
-\item
-  Between what two grades do approximately 95\% of all players lie for a given tool?\\
-  \strut \\
-  \strut \\
-  \strut \\
-  \vfill
-\end{enumerate}
-
-Let's check our answers:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{a }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q=}\DecValTok{70}\NormalTok{,}\AttributeTok{mean=}\DecValTok{50}\NormalTok{,}\AttributeTok{sd=}\DecValTok{10}\NormalTok{); a}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.02275013
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{b }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q=}\DecValTok{55}\NormalTok{,}\AttributeTok{mean=}\DecValTok{50}\NormalTok{,}\AttributeTok{sd=}\DecValTok{10}\NormalTok{); b}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.6914625
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{c }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}\AttributeTok{mean=}\DecValTok{50}\NormalTok{,}\AttributeTok{sd=}\DecValTok{10}\NormalTok{,}\AttributeTok{lower.tail =}\NormalTok{ F); c}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 62.81552
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.2}\NormalTok{,}\AttributeTok{mean=}\DecValTok{50}\NormalTok{,}\AttributeTok{sd=}\DecValTok{10}\NormalTok{,}\AttributeTok{lower.tail =}\NormalTok{ T); d}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 41.58379
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{e }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q=}\DecValTok{70}\NormalTok{,}\AttributeTok{mean=}\DecValTok{50}\NormalTok{,}\AttributeTok{sd=}\DecValTok{10}\NormalTok{) }\SpecialCharTok{{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q=}\DecValTok{30}\NormalTok{,}\AttributeTok{mean=}\DecValTok{50}\NormalTok{,}\AttributeTok{sd=}\DecValTok{10}\NormalTok{); e}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.9544997
-\end{verbatim}
-
-\newpage
-
-\begin{example}
-Player X has a projected mean WAR of 3 with standard deviation of 2 and player Y has a projected mean WAR of 1.5 with a standard deviation of 3. Assume projected WAR is normally distributed. What is the probability that Player X outperforms Player Y?
-
-Link to WAR explanation: \url{https://www.mlb.com/glossary/advanced-stats/wins-above-replacement}
-\end{example}
-
-We want \(P(X>Y)\) or \(P(X-Y>0)\)\\
-
-\vfill
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Calculate probability Z\textless{}=0}
-\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{1.5}\NormalTok{,}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{5}\NormalTok{),}\AttributeTok{lower.tail =}\NormalTok{ F); p}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.7488325
-\end{verbatim}
-
-\vfill
-
-\newpage
-
-\hypertarget{win-probability-models}{%
-\section{Win Probability Models}\label{win-probability-models}}
-
-The probability an NFL team will win can be modeled as a normal random variable using the Vegas line. This method is outlined by Wayne Winston in \emph{Mathletics} building on previous research by Hal Stern.
-
-\hypertarget{estimating-pregame-win-probability}{%
-\subsection{Estimating Pregame Win Probability}\label{estimating-pregame-win-probability}}
-
-Winston estimates that the final margin of victory is approximately a normal random variable with a mean of the Vegas line and a standard deviation between 13-14. Winston and Stern estimated the standard deviation to be \textbf{13.86} based on data from the 1981, 1983, and 1984 NFL seasons.
-
-This estimated standard deviation has since been updated to be \textbf{13.45} based on data from 1978 -- 2012 NFL seasons.
-
-Reference: \url{https://www.pro-football-reference.com/about/win_prob.htm}
-
-\begin{example}
-Sketch the distribution of the final margin of victory for an NFL team that is favored by 7 points. Shade the area for a win in regulation (for the favorite) and a tie in regulation.
-\end{example}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(ggplot2)}
-\FunctionTok{library}\NormalTok{(gridExtra)}
-
-
-\NormalTok{final\_margin\_full }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{21}\NormalTok{, }\DecValTok{42}\NormalTok{)), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x)) }\SpecialCharTok{+}
-        \FunctionTok{stat\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dnorm, }\AttributeTok{args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{mean =} \DecValTok{7}\NormalTok{, }\AttributeTok{sd =} \FloatTok{13.45}\NormalTok{)) }\SpecialCharTok{+} 
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Final Margin (for favorite)"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Full Distribution"}\NormalTok{)}
-
-\NormalTok{final\_margin\_zoom }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{10}\NormalTok{)), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x)) }\SpecialCharTok{+}
-        \FunctionTok{stat\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dnorm, }\AttributeTok{args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{mean =} \DecValTok{7}\NormalTok{, }\AttributeTok{sd =} \FloatTok{13.45}\NormalTok{)) }\SpecialCharTok{+} 
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Final Margin (for favorite)"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Zoomed Distribution"}\NormalTok{) }\SpecialCharTok{+} 
-  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks=}\FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{1}\NormalTok{))}
-
-\FunctionTok{grid.arrange}\NormalTok{(final\_margin\_full, final\_margin\_zoom, }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-73-1.pdf}
-
-\newpage
-
-\begin{example}
-In Super Bowl 50, the Denver Broncos were 5.5 point underdogs (+5.5) against the Carolina Panthers. Estimate the pregame win probability for the Denver Broncos.\\
-
-\end{example}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-74-1.pdf}
-
-\vfill
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{fav\_line }\OtherTok{\textless{}{-}} \FloatTok{5.5}
-\NormalTok{full\_sd }\OtherTok{\textless{}{-}} \FloatTok{13.45}
-
-\NormalTok{win\_prob }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{mean =}\NormalTok{ fav\_line, }\AttributeTok{sd =}\NormalTok{ full\_sd, }\AttributeTok{lower.tail =} \ConstantTok{FALSE}\NormalTok{)}
-
-\NormalTok{tie\_prob }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{mean =}\NormalTok{ fav\_line, }\AttributeTok{sd =}\NormalTok{ full\_sd, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{{-}}
-            \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{, }\AttributeTok{mean =}\NormalTok{ fav\_line, }\AttributeTok{sd =}\NormalTok{ full\_sd, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{)}
-
-\CommentTok{\# win probability for favorite (panthers)}
-\NormalTok{win\_prob }\OtherTok{\textless{}{-}}\NormalTok{ win\_prob }\SpecialCharTok{+} \DecValTok{1}\SpecialCharTok{/}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ tie\_prob}
-
-\CommentTok{\# win probability for underdog (broncos)}
-\NormalTok{(broncos\_win\_prob }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ win\_prob)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.3414021
-\end{verbatim}
-
-\newpage
-
-\hypertarget{estimating-in-game-win-probability}{%
-\subsection{Estimating In-Game Win Probability}\label{estimating-in-game-win-probability}}
-
-Winston proposed an updated method to calculate in-game win probabilities based on the time remaining in the game, current score margin, and Vegas line.
-
-In this proposed method, the pregame mean (Vegas line) and pregame variance (13.45) are scaled down linearly as a function of time remaining in the game.
-
-For instance, since there are four 15-minute quarters (total regulation game time is 60 minutes), then the in-game mean and standard deviation are calculated as follows.
-
-\(\mu_{updated} = Line \cdot \frac{\text{time remaining}}{60}\)
-
-\(\sigma_{updated} = \frac{13.45}{\sqrt{60/\text{time remaining}}}\)
-
-\textbf{Note:} This model assumes perfectly neutral possession, down, distance, and field-position conditions.
-
-Reference: \url{https://www.pro-football-reference.com/about/win_prob.htm}
-
-\begin{example}
-In Super Bowl 50, the Denver Broncos led the Carolina Panthers 10-0 after the first quarter. The Broncos were 5.5 point underdogs at the start of the game. Use Winston's method to estimate the probability of a Broncos win after one quarter.\\
-
-\end{example}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{fav\_margin }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\DecValTok{10}
-\NormalTok{fav\_line }\OtherTok{\textless{}{-}} \FloatTok{5.5}
-\NormalTok{full\_sd }\OtherTok{\textless{}{-}} \FloatTok{13.45}
-\NormalTok{full\_min }\OtherTok{\textless{}{-}} \DecValTok{60}
-\NormalTok{new\_min }\OtherTok{\textless{}{-}} \DecValTok{45}
-
-\NormalTok{new\_mean }\OtherTok{\textless{}{-}}\NormalTok{ fav\_line }\SpecialCharTok{*}\NormalTok{ new\_min}\SpecialCharTok{/}\NormalTok{full\_min}
-\NormalTok{new\_sd }\OtherTok{\textless{}{-}}\NormalTok{ full\_sd }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(full\_min}\SpecialCharTok{/}\NormalTok{new\_min)}
-
-\NormalTok{win\_prob }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \FloatTok{0.5} \SpecialCharTok{{-}}\NormalTok{ fav\_margin, }\AttributeTok{mean =}\NormalTok{ new\_mean, }
-                  \AttributeTok{sd =}\NormalTok{ new\_sd, }\AttributeTok{lower.tail =} \ConstantTok{FALSE}\NormalTok{)}
-
-\NormalTok{tie\_prob }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \FloatTok{0.5} \SpecialCharTok{{-}}\NormalTok{ fav\_margin, }\AttributeTok{mean =}\NormalTok{ new\_mean, }
-                  \AttributeTok{sd =}\NormalTok{ new\_sd, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{{-}}
-            \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \SpecialCharTok{{-}}\FloatTok{0.5} \SpecialCharTok{{-}}\NormalTok{ fav\_margin, }\AttributeTok{mean =}\NormalTok{ new\_mean, }
-                  \AttributeTok{sd =}\NormalTok{ new\_sd, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{)}
-
-\CommentTok{\# win probability for favorite (panthers)}
-\NormalTok{win\_prob }\OtherTok{\textless{}{-}}\NormalTok{ win\_prob }\SpecialCharTok{+} \DecValTok{1}\SpecialCharTok{/}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ tie\_prob}
-
-\CommentTok{\# win probability for underdog (broncos)}
-\NormalTok{(broncos\_win\_prob }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ win\_prob)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.6928385
-\end{verbatim}
-
-\newpage
-
-The win probability models outlined above use only the Vegas line, the current score, and the time remaining in the game. More accurate estimation models will also consider possession, down, distance, and field-position conditions. Pro Football Reference offers an in-game win probability model with these additional factors.
-
-Reference: \url{https://www.pro-football-reference.com/boxscores/win_prob.cgi}
-
-\begin{example}
-The Broncos led the Panthers 10-0 at the end of the first quarter. The Panthers had 2nd and 11 at their own 46 at the beginning of the second quarter. Calculate the Broncos win probability.
-
-Reference: \url{https://www.pro-football-reference.com/boxscores/201602070den.htm}
-\end{example}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth,height=\textheight]{images/wp1}
-\caption{Pro Football Reference Win Probability Calculator Inputs}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.5\textwidth,height=\textheight]{images/wp2}
-\caption{Pro Football Reference Win Probability Calculator Output}
-\end{figure}
-
-\textbf{Class Reading:} Chapters 6--7 in the \emph{Hidden Game of Football} by Carroll, Palmer, Thorn
+\textbf{Class Reading:} Chapters 44 in the \emph{Mathletics} by Wayne Winston
 
 \hypertarget{monte-carlo-simulation}{%
 \chapter{Monte Carlo Simulation}\label{monte-carlo-simulation}}
@@ -4760,7 +4765,7 @@ The estimated probability that Shaq goes 10-for-10 in free throw attempts based 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-80-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-81-1.pdf}
 
 \vfill
 \newpage
@@ -5190,7 +5195,7 @@ As seen above, DiMaggio had a 56-game hitting streak. An impossible feat to matc
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-89-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-90-1.pdf}
 
 \vfill
 \newpage
@@ -5361,7 +5366,7 @@ PA & n & Prob\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-92-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-93-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5437,7 +5442,7 @@ Let's try simulating by permuting DiMaggio's games. In other words, let's random
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-95-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-96-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5504,7 +5509,7 @@ Let's consider a more general simulation for hitting streaks. Suppose a hitter w
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-96-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-97-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5530,7 +5535,7 @@ Let's consider a more general simulation for hitting streaks. Suppose a hitter w
 \vfill
 \newpage
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-97-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-98-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5617,7 +5622,7 @@ Suppose you are betting on sports matches on the spread where there is no house 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-99-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-100-1.pdf}
 
 On average, two bets were needed to be placed after \emph{Bet Zero} to break even.
 
@@ -5636,7 +5641,7 @@ The distribution in this example should look familiar. It is the geometric distr
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-100-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-101-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5720,7 +5725,7 @@ Number of Bets & Mean Ending Bankroll & Max Ending Payroll\\
 \end{tabular}
 \end{table}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-105-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-106-1.pdf}
 
 All bettors eventually go broke under this scenario due to the house advantage. This is called the concept of \textbf{Gambler's Ruin}. A gambler playing a game with negative expected value will eventually go broke, regardless of their betting system.
 
@@ -5791,7 +5796,7 @@ mean.ending.bankroll & max.ending.bankroll\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-106-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-107-1.pdf}
 
 \hypertarget{statistical-inference}{%
 \chapter{Statistical Inference}\label{statistical-inference}}
@@ -6073,6 +6078,41 @@ When controlling for an NBA team's wins in the previous season, the sign for the
 \subsection{Field Goal Success}\label{field-goal-success}}
 
 (AM, page 266)
+
+\newpage
+
+\hypertarget{data-scraping-and-acquisition}{%
+\chapter{Data Scraping and Acquisition}\label{data-scraping-and-acquisition}}
+
+\hypertarget{principal-component-analysis}{%
+\chapter{Principal Component Analysis}\label{principal-component-analysis}}
+
+\hypertarget{clustering}{%
+\chapter{Clustering}\label{clustering}}
+
+\hypertarget{classification}{%
+\chapter{Classification}\label{classification}}
+
+\hypertarget{nonparametric-methods}{%
+\chapter{Nonparametric Methods}\label{nonparametric-methods}}
+
+\hypertarget{sports-drafts}{%
+\chapter{Sports Drafts}\label{sports-drafts}}
+
+\hypertarget{baseball-1}{%
+\chapter{Baseball}\label{baseball-1}}
+
+\hypertarget{football-1}{%
+\chapter{Football}\label{football-1}}
+
+\hypertarget{basketball-1}{%
+\chapter{Basketball}\label{basketball-1}}
+
+\hypertarget{hockey-1}{%
+\chapter{Hockey}\label{hockey-1}}
+
+\hypertarget{soccer-1}{%
+\chapter{Soccer}\label{soccer-1}}
 
   \bibliography{book.bib,packages.bib}
 

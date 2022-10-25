@@ -19,11 +19,11 @@ kt <- function(data) {
 }
 ```
 
-# Preliminaries
+# Preliminaries {-}
 
-## Getting Started With R
+## Getting Started With R {-}
 
-### Installing R
+### Installing R {-}
 
 For this class, you will be using R Studio to complete statistical analyses on your computer. 
 
@@ -64,7 +64,7 @@ mean(sosa.HR)
 
 \newpage
 
-### Some R Basics
+### Some R Basics {-}
 
 For the following examples, let's consider Peyton Manning's career with the Denver Broncos. In his four seasons with the Broncos, Manning's passing yard totals were: 4659, 5477, 4727, 2249. Let's enter this data into R. To enter a vector of data, use the **c()** function.
 
@@ -117,28 +117,21 @@ head(NFL_2021_Team_Passing)
 \newpage
 
 
-## Which Sports?
+## Which Sports? {-}
 
 Which sports will we be analyzing in this class?
 
 \vfill
 
 
-## Challenges
+## Challenges {-}
 
 What kind of challenges could we encounter dealing with sports data?
 
 \vfill
 
 
-
-## Cautionary Notes
-
-What should we be careful of when analyzing sports data?
-
-\vfill
-
-## Ethical Concerns
+## Ethical Concerns {-}
 
 What kinds of ethical concerns should we consider when dealing with sports data?
 
