@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2022-10-24" />
+<meta name="date" content="2022-10-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -255,6 +255,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#martingale-system"><i class="fa fa-check"></i><b>4.4.1</b> Martingale System</a></li>
 <li class="chapter" data-level="4.4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gamblers-ruin"><i class="fa fa-check"></i><b>4.4.2</b> Gambler’s Ruin</a></li>
 <li class="chapter" data-level="4.4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-a-winning-system"><i class="fa fa-check"></i><b>4.4.3</b> Simulating a Winning System</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-censored-data"><i class="fa fa-check"></i><b>4.5</b> Simulating Censored Data</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#tony-gwynn-1994-batting-average-simulation"><i class="fa fa-check"></i><b>4.5.1</b> Tony Gwynn 1994 Batting Average Simulation</a></li>
+<li class="chapter" data-level="4.5.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#matt-williams-1994-home-run-simulation"><i class="fa fa-check"></i><b>4.5.2</b> Matt Williams 1994 Home Run Simulation</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>5</b> Statistical Inference</a>
@@ -2054,6 +2059,74 @@ max.ending.bankroll
 <span id="cb260-4"><a href="monte-carlo-simulation.html#cb260-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Simulated Bankroll (starting at $1000) after 1000 bets&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb260-5"><a href="monte-carlo-simulation.html#cb260-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Bankroll after 1000 bets&quot;</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div id="simulating-censored-data" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Simulating Censored Data<a href="monte-carlo-simulation.html#simulating-censored-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In 1994, major league baseball players went on strike and the season ended prematurely. Most teams played about 115 games out of the scheduled 162 game season. What might have happened in the remainder of the season?</p>
+<p>There are two individual statistics are particularly of interest.</p>
+<ol style="list-style-type: decimal">
+<li><p>Tony Gwynn of the San Diego Padres was batting 0.394 when the strike occurred. The last time that a player hit 0.400 in a season was 1941 for MLB (Ted Williams, 0.406) and 1948 for the Negro League (Artie Wilson, 0.435).</p></li>
+<li><p>Matt Williams of the San Francisco Giants had 43 home runs when the strike occurred. At the time, the single season home run record was 61 by Roger Maris of the New York Yankees in 1961.</p></li>
+</ol>
+<p>We will use simulation to estimate the probability that these players would match these records.</p>
+<div id="tony-gwynn-1994-batting-average-simulation" class="section level3 hasAnchor" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> Tony Gwynn 1994 Batting Average Simulation<a href="monte-carlo-simulation.html#tony-gwynn-1994-batting-average-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The San Diego Padres had played 117 games when the strike ended the season in 1994. Tony Gwynn had a batting average of 0.394, 475 plate appearances, 419 at-bats, and 165 hits over 110 games at that point. Assume that Gwynn would play in all remaining games for the season.</p>
+<p>Video: <a href="https://www.youtube.com/watch?v=irr-JblLOZM" class="uri">https://www.youtube.com/watch?v=irr-JblLOZM</a></p>
+<ol style="list-style-type: lower-alpha">
+<li>How many at-bats was Gwynn expected to have in the remainder of the season?</li>
+</ol>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="monte-carlo-simulation.html#cb261-1" aria-hidden="true" tabindex="-1"></a>n.season <span class="ot">=</span> <span class="dv">162</span></span>
+<span id="cb261-2"><a href="monte-carlo-simulation.html#cb261-2" aria-hidden="true" tabindex="-1"></a>n.partial <span class="ot">=</span> <span class="dv">117</span></span>
+<span id="cb261-3"><a href="monte-carlo-simulation.html#cb261-3" aria-hidden="true" tabindex="-1"></a>n.hits <span class="ot">=</span> <span class="dv">165</span></span>
+<span id="cb261-4"><a href="monte-carlo-simulation.html#cb261-4" aria-hidden="true" tabindex="-1"></a>(<span class="at">n.remain =</span> n.season <span class="sc">-</span> n.partial)</span></code></pre></div>
+<pre><code>## [1] 45</code></pre>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="monte-carlo-simulation.html#cb263-1" aria-hidden="true" tabindex="-1"></a>ab <span class="ot">=</span> <span class="dv">419</span></span>
+<span id="cb263-2"><a href="monte-carlo-simulation.html#cb263-2" aria-hidden="true" tabindex="-1"></a>ab.remain <span class="ot">=</span> ab<span class="sc">/</span>n.partial<span class="sc">*</span>n.remain</span>
+<span id="cb263-3"><a href="monte-carlo-simulation.html#cb263-3" aria-hidden="true" tabindex="-1"></a>ab.remain <span class="ot">=</span> <span class="fu">round</span>(ab.remain); ab.remain</span></code></pre></div>
+<pre><code>## [1] 161</code></pre>
+<p>Gwynn was expected to have about 161 more at-bats in the remainder of the 45 cancelled games.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Assuming that Gwynn’s hitting ability stayed constant for the remainder of the season, estimate the probability that his average would exceed 0.400.</li>
+</ol>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="monte-carlo-simulation.html#cb265-1" aria-hidden="true" tabindex="-1"></a>avg <span class="ot">=</span> <span class="fl">0.394</span></span>
+<span id="cb265-2"><a href="monte-carlo-simulation.html#cb265-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">=</span> <span class="dv">10000</span></span>
+<span id="cb265-3"><a href="monte-carlo-simulation.html#cb265-3" aria-hidden="true" tabindex="-1"></a>sim.hits <span class="ot">=</span> <span class="fu">rbinom</span>(<span class="at">n=</span>n.sims,<span class="at">size=</span>ab.remain,<span class="at">prob=</span>avg)</span>
+<span id="cb265-4"><a href="monte-carlo-simulation.html#cb265-4" aria-hidden="true" tabindex="-1"></a>sim.hits.total <span class="ot">=</span> n.hits <span class="sc">+</span> sim.hits</span>
+<span id="cb265-5"><a href="monte-carlo-simulation.html#cb265-5" aria-hidden="true" tabindex="-1"></a>sim.avg <span class="ot">=</span> sim.hits.total<span class="sc">/</span>(ab<span class="sc">+</span>ab.remain)</span>
+<span id="cb265-6"><a href="monte-carlo-simulation.html#cb265-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sim.avg <span class="sc">&gt;=</span> <span class="fl">0.400</span>)</span></code></pre></div>
+<pre><code>## [1] 0.3137</code></pre>
+<p>For more discussion on this issue, see: <a href="https://www.complex.com/sports/2016/07/tony-gwynn-would-have-hit-400-1994" class="uri">https://www.complex.com/sports/2016/07/tony-gwynn-would-have-hit-400-1994</a></p>
+</div>
+<div id="matt-williams-1994-home-run-simulation" class="section level3 hasAnchor" number="4.5.2">
+<h3><span class="header-section-number">4.5.2</span> Matt Williams 1994 Home Run Simulation<a href="monte-carlo-simulation.html#matt-williams-1994-home-run-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The San Francisco Giants had played 115 games when the strike ended the season in 1994. Matt Williams had hit 43 homeruns in 483 plate appearances in 112 games at that point. Assume that Williams would play in all remaining games for the season.</p>
+<p>Video: <a href="https://www.youtube.com/watch?v=wVkBu---RKw" class="uri">https://www.youtube.com/watch?v=wVkBu---RKw</a></p>
+<ol style="list-style-type: lower-alpha">
+<li>How many plate appearances was Williams expected to have in the remainder of the season?</li>
+</ol>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="monte-carlo-simulation.html#cb267-1" aria-hidden="true" tabindex="-1"></a>n.season <span class="ot">=</span> <span class="dv">162</span></span>
+<span id="cb267-2"><a href="monte-carlo-simulation.html#cb267-2" aria-hidden="true" tabindex="-1"></a>n.partial <span class="ot">=</span> <span class="dv">115</span></span>
+<span id="cb267-3"><a href="monte-carlo-simulation.html#cb267-3" aria-hidden="true" tabindex="-1"></a>n.hr <span class="ot">=</span> <span class="dv">43</span></span>
+<span id="cb267-4"><a href="monte-carlo-simulation.html#cb267-4" aria-hidden="true" tabindex="-1"></a>(<span class="at">n.remain =</span> n.season <span class="sc">-</span> n.partial)</span></code></pre></div>
+<pre><code>## [1] 47</code></pre>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="monte-carlo-simulation.html#cb269-1" aria-hidden="true" tabindex="-1"></a>ab <span class="ot">=</span> <span class="dv">483</span></span>
+<span id="cb269-2"><a href="monte-carlo-simulation.html#cb269-2" aria-hidden="true" tabindex="-1"></a>ab.remain <span class="ot">=</span> ab<span class="sc">/</span>n.partial<span class="sc">*</span>n.remain</span>
+<span id="cb269-3"><a href="monte-carlo-simulation.html#cb269-3" aria-hidden="true" tabindex="-1"></a>ab.remain <span class="ot">=</span> <span class="fu">round</span>(ab.remain); ab.remain</span></code></pre></div>
+<pre><code>## [1] 197</code></pre>
+<p>Williams was expected to have about 197 more plate appearances in the remainder of the 47 cancelled games. He would need to hit 18 home runs to match Maris and 19 or more to beat Maris.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Estimate the probability that Matt Williams would have beaten Maris’ single season home run record.</li>
+</ol>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="monte-carlo-simulation.html#cb271-1" aria-hidden="true" tabindex="-1"></a>hr.avg <span class="ot">=</span> n.hr<span class="sc">/</span>ab</span>
+<span id="cb271-2"><a href="monte-carlo-simulation.html#cb271-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">=</span> <span class="dv">10000</span></span>
+<span id="cb271-3"><a href="monte-carlo-simulation.html#cb271-3" aria-hidden="true" tabindex="-1"></a>sim.hr <span class="ot">=</span> <span class="fu">rbinom</span>(<span class="at">n=</span>n.sims,<span class="at">size=</span>ab.remain,<span class="at">prob=</span>hr.avg)</span>
+<span id="cb271-4"><a href="monte-carlo-simulation.html#cb271-4" aria-hidden="true" tabindex="-1"></a>sim.hr.total <span class="ot">=</span> n.hr <span class="sc">+</span> sim.hr</span>
+<span id="cb271-5"><a href="monte-carlo-simulation.html#cb271-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sim.hr.total <span class="sc">&gt;=</span> <span class="dv">62</span>)</span></code></pre></div>
+<pre><code>## [1] 0.3997</code></pre>
+<p>For more discussion on this issue, see: <a href="https://www.mlb.com/news/matt-williams-1994-home-run-chase" class="uri">https://www.mlb.com/news/matt-williams-1994-home-run-chase</a></p>
 
 </div>
 </div>

@@ -930,3 +930,81 @@ bankroll.end %>% as.data.frame() %>%
   xlab("Bankroll after 1000 bets")
 ```
 
+\newpage
+
+## Simulating Censored Data
+
+In 1994, major league baseball players went on strike and the season ended prematurely. Most teams played about 115 games out of the scheduled 162 game season. What might have happened in the remainder of the season?
+
+There are two individual statistics are particularly of interest.
+
+1) Tony Gwynn of the San Diego Padres was batting 0.394 when the strike occurred. The last time that a player hit 0.400 in a season was 1941 for MLB (Ted Williams, 0.406) and 1948 for the Negro League (Artie Wilson, 0.435). 
+
+2) Matt Williams of the San Francisco Giants had 43 home runs when the strike occurred. At the time, the single season home run record was 61 by Roger Maris of the New York Yankees in 1961.
+
+We will use simulation to estimate the probability that these players would match these records.
+
+### Tony Gwynn 1994 Batting Average Simulation
+
+The San Diego Padres had played 117 games when the strike ended the season in 1994. Tony Gwynn had a batting average of 0.394, 475 plate appearances, 419 at-bats, and 165 hits over 110 games at that point. Assume that Gwynn would play in all remaining games for the season.
+
+Video: https://www.youtube.com/watch?v=irr-JblLOZM
+
+(a) How many at-bats was Gwynn expected to have in the remainder of the season?
+
+```{r}
+n.season = 162
+n.partial = 117
+n.hits = 165
+(n.remain = n.season - n.partial)
+ab = 419
+ab.remain = ab/n.partial*n.remain
+ab.remain = round(ab.remain); ab.remain
+```
+
+Gwynn was expected to have about 161 more at-bats in the remainder of the 45 cancelled games.
+
+(b) Assuming that Gwynn's hitting ability stayed constant for the remainder of the season, estimate the probability that his average would exceed 0.400.
+
+```{r}
+avg = 0.394
+n.sims = 10000
+sim.hits = rbinom(n=n.sims,size=ab.remain,prob=avg)
+sim.hits.total = n.hits + sim.hits
+sim.avg = sim.hits.total/(ab+ab.remain)
+mean(sim.avg >= 0.400)
+```
+
+For more discussion on this issue, see: https://www.complex.com/sports/2016/07/tony-gwynn-would-have-hit-400-1994
+
+### Matt Williams 1994 Home Run Simulation
+
+The San Francisco Giants had played 115 games when the strike ended the season in 1994. Matt Williams had hit 43 homeruns in 483 plate appearances in 112 games at that point. Assume that Williams would play in all remaining games for the season.
+
+Video: https://www.youtube.com/watch?v=wVkBu---RKw
+
+(a) How many plate appearances was Williams expected to have in the remainder of the season?
+
+```{r}
+n.season = 162
+n.partial = 115
+n.hr = 43
+(n.remain = n.season - n.partial)
+ab = 483
+ab.remain = ab/n.partial*n.remain
+ab.remain = round(ab.remain); ab.remain
+```
+
+Williams was expected to have about 197 more plate appearances in the remainder of the 47 cancelled games. He would need to hit 18 home runs to match Maris and 19 or more to beat Maris.
+
+(b) Estimate the probability that Matt Williams would have beaten Maris' single season home run record.
+
+```{r}
+hr.avg = n.hr/ab
+n.sims = 10000
+sim.hr = rbinom(n=n.sims,size=ab.remain,prob=hr.avg)
+sim.hr.total = n.hr + sim.hr
+mean(sim.hr.total >= 62)
+```
+
+For more discussion on this issue, see: https://www.mlb.com/news/matt-williams-1994-home-run-chase

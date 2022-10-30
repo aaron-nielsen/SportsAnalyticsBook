@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-10-24}
+\date{2022-10-30}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -5797,6 +5797,156 @@ mean.ending.bankroll & max.ending.bankroll\\
 \end{Shaded}
 
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-107-1.pdf}
+
+\newpage
+
+\hypertarget{simulating-censored-data}{%
+\section{Simulating Censored Data}\label{simulating-censored-data}}
+
+In 1994, major league baseball players went on strike and the season ended prematurely. Most teams played about 115 games out of the scheduled 162 game season. What might have happened in the remainder of the season?
+
+There are two individual statistics are particularly of interest.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  Tony Gwynn of the San Diego Padres was batting 0.394 when the strike occurred. The last time that a player hit 0.400 in a season was 1941 for MLB (Ted Williams, 0.406) and 1948 for the Negro League (Artie Wilson, 0.435).
+\item
+  Matt Williams of the San Francisco Giants had 43 home runs when the strike occurred. At the time, the single season home run record was 61 by Roger Maris of the New York Yankees in 1961.
+\end{enumerate}
+
+We will use simulation to estimate the probability that these players would match these records.
+
+\hypertarget{tony-gwynn-1994-batting-average-simulation}{%
+\subsection{Tony Gwynn 1994 Batting Average Simulation}\label{tony-gwynn-1994-batting-average-simulation}}
+
+The San Diego Padres had played 117 games when the strike ended the season in 1994. Tony Gwynn had a batting average of 0.394, 475 plate appearances, 419 at-bats, and 165 hits over 110 games at that point. Assume that Gwynn would play in all remaining games for the season.
+
+Video: \url{https://www.youtube.com/watch?v=irr-JblLOZM}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  How many at-bats was Gwynn expected to have in the remainder of the season?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n.season }\OtherTok{=} \DecValTok{162}
+\NormalTok{n.partial }\OtherTok{=} \DecValTok{117}
+\NormalTok{n.hits }\OtherTok{=} \DecValTok{165}
+\NormalTok{(}\AttributeTok{n.remain =}\NormalTok{ n.season }\SpecialCharTok{{-}}\NormalTok{ n.partial)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 45
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ab }\OtherTok{=} \DecValTok{419}
+\NormalTok{ab.remain }\OtherTok{=}\NormalTok{ ab}\SpecialCharTok{/}\NormalTok{n.partial}\SpecialCharTok{*}\NormalTok{n.remain}
+\NormalTok{ab.remain }\OtherTok{=} \FunctionTok{round}\NormalTok{(ab.remain); ab.remain}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 161
+\end{verbatim}
+
+Gwynn was expected to have about 161 more at-bats in the remainder of the 45 cancelled games.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Assuming that Gwynn's hitting ability stayed constant for the remainder of the season, estimate the probability that his average would exceed 0.400.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{avg }\OtherTok{=} \FloatTok{0.394}
+\NormalTok{n.sims }\OtherTok{=} \DecValTok{10000}
+\NormalTok{sim.hits }\OtherTok{=} \FunctionTok{rbinom}\NormalTok{(}\AttributeTok{n=}\NormalTok{n.sims,}\AttributeTok{size=}\NormalTok{ab.remain,}\AttributeTok{prob=}\NormalTok{avg)}
+\NormalTok{sim.hits.total }\OtherTok{=}\NormalTok{ n.hits }\SpecialCharTok{+}\NormalTok{ sim.hits}
+\NormalTok{sim.avg }\OtherTok{=}\NormalTok{ sim.hits.total}\SpecialCharTok{/}\NormalTok{(ab}\SpecialCharTok{+}\NormalTok{ab.remain)}
+\FunctionTok{mean}\NormalTok{(sim.avg }\SpecialCharTok{\textgreater{}=} \FloatTok{0.400}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3137
+\end{verbatim}
+
+For more discussion on this issue, see: \url{https://www.complex.com/sports/2016/07/tony-gwynn-would-have-hit-400-1994}
+
+\hypertarget{matt-williams-1994-home-run-simulation}{%
+\subsection{Matt Williams 1994 Home Run Simulation}\label{matt-williams-1994-home-run-simulation}}
+
+The San Francisco Giants had played 115 games when the strike ended the season in 1994. Matt Williams had hit 43 homeruns in 483 plate appearances in 112 games at that point. Assume that Williams would play in all remaining games for the season.
+
+Video: \url{https://www.youtube.com/watch?v=wVkBu---RKw}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  How many plate appearances was Williams expected to have in the remainder of the season?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n.season }\OtherTok{=} \DecValTok{162}
+\NormalTok{n.partial }\OtherTok{=} \DecValTok{115}
+\NormalTok{n.hr }\OtherTok{=} \DecValTok{43}
+\NormalTok{(}\AttributeTok{n.remain =}\NormalTok{ n.season }\SpecialCharTok{{-}}\NormalTok{ n.partial)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 47
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ab }\OtherTok{=} \DecValTok{483}
+\NormalTok{ab.remain }\OtherTok{=}\NormalTok{ ab}\SpecialCharTok{/}\NormalTok{n.partial}\SpecialCharTok{*}\NormalTok{n.remain}
+\NormalTok{ab.remain }\OtherTok{=} \FunctionTok{round}\NormalTok{(ab.remain); ab.remain}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 197
+\end{verbatim}
+
+Williams was expected to have about 197 more plate appearances in the remainder of the 47 cancelled games. He would need to hit 18 home runs to match Maris and 19 or more to beat Maris.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Estimate the probability that Matt Williams would have beaten Maris' single season home run record.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hr.avg }\OtherTok{=}\NormalTok{ n.hr}\SpecialCharTok{/}\NormalTok{ab}
+\NormalTok{n.sims }\OtherTok{=} \DecValTok{10000}
+\NormalTok{sim.hr }\OtherTok{=} \FunctionTok{rbinom}\NormalTok{(}\AttributeTok{n=}\NormalTok{n.sims,}\AttributeTok{size=}\NormalTok{ab.remain,}\AttributeTok{prob=}\NormalTok{hr.avg)}
+\NormalTok{sim.hr.total }\OtherTok{=}\NormalTok{ n.hr }\SpecialCharTok{+}\NormalTok{ sim.hr}
+\FunctionTok{mean}\NormalTok{(sim.hr.total }\SpecialCharTok{\textgreater{}=} \DecValTok{62}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3997
+\end{verbatim}
+
+For more discussion on this issue, see: \url{https://www.mlb.com/news/matt-williams-1994-home-run-chase}
 
 \hypertarget{statistical-inference}{%
 \chapter{Statistical Inference}\label{statistical-inference}}

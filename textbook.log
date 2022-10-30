@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  24 OCT 2022 22:55
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  30 OCT 2022 16:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2324,11 +2324,11 @@ f)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[151] [152]
+[151] [152] [153] [154]
 Chapter 5.
-[153
+[155
 
-] [154]
+] [156]
 Chapter 6.
 File: textbook_files/figure-latex/correlation properties 2-1.pdf Graphic file (
 type pdf)
@@ -2337,75 +2337,75 @@ File: textbook_files/figure-latex/correlation properties 2-2.pdf Graphic file (
 type pdf)
 <use textbook_files/figure-latex/correlation properties 2-2.pdf>
 
-Underfull \hbox (badness 10000) in paragraph at lines 5883--5884
+Underfull \hbox (badness 10000) in paragraph at lines 6033--6034
 [][]
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[155
+[157
 
 ]
 Underfull \vbox (badness 1253) has occurred while \output is active []
 
-[156] [157] [158]
+[158] [159] [160]
 Chapter 7.
-[159
+[161
 
-] [160] [161] [162
+] [162] [163] [164
 
 ]
 Chapter 8.
-[163] [164
-
-]
-Chapter 9.
 [165] [166
 
 ]
-Chapter 10.
+Chapter 9.
 [167] [168
 
 ]
-Chapter 11.
+Chapter 10.
 [169] [170
 
 ]
-Chapter 12.
+Chapter 11.
 [171] [172
 
 ]
-Chapter 13.
+Chapter 12.
 [173] [174
 
 ]
-Chapter 14.
+Chapter 13.
 [175] [176
 
 ]
-Chapter 15.
+Chapter 14.
 [177] [178
 
 ]
-Chapter 16.
+Chapter 15.
 [179] [180
 
 ]
-Chapter 17.
+Chapter 16.
 [181] [182
+
+]
+Chapter 17.
+[183] [184
 
 ]
 Chapter 18.
 No file textbook.bbl.
-[183] (./textbook.aux) ) 
+[185] (./textbook.aux) ) 
 Here is how much of TeX's memory you used:
- 22859 strings out of 476179
- 435160 string characters out of 5809544
- 904755 words of memory out of 5000000
- 43169 multiletter control sequences out of 15000+600000
+ 22863 strings out of 476179
+ 435276 string characters out of 5809544
+ 904960 words of memory out of 5000000
+ 43173 multiletter control sequences out of 15000+600000
  475878 words of font info for 90 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  86i,10n,121p,1131b,512s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on textbook.pdf (183 pages).
+Output written on textbook.pdf (185 pages).
