@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2022-10-30" />
+<meta name="date" content="2022-11-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -255,6 +255,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#martingale-system"><i class="fa fa-check"></i><b>4.4.1</b> Martingale System</a></li>
 <li class="chapter" data-level="4.4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gamblers-ruin"><i class="fa fa-check"></i><b>4.4.2</b> Gambler’s Ruin</a></li>
 <li class="chapter" data-level="4.4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-a-winning-system"><i class="fa fa-check"></i><b>4.4.3</b> Simulating a Winning System</a></li>
+<li class="chapter" data-level="4.4.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#using-the-kelly-growth-criterion"><i class="fa fa-check"></i><b>4.4.4</b> Using the Kelly Growth Criterion</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-censored-data"><i class="fa fa-check"></i><b>4.5</b> Simulating Censored Data</a>
 <ul>
@@ -371,9 +372,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">6.1.2</span> Properties of the Linear Correlation Coefficient<a href="correlation.html#properties-of-the-linear-correlation-coefficient" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Pearson’s correlation coefficient is unaffected by changes in location (adding a constant) or scale (multiplying by a constant) of data. To illustrate this concept, let’s consider the correlation between the number of points scored by the winning team of the Super Bowl and 1) the number of the Super Bowl {1, 2, 3, … , 56} and 2) the year of the Super Bowl {1967, 1968, 1969, … , 2022}.</p>
 <p><img src="textbook_files/figure-html/correlation%20properties%202-1.png" width="672" /><img src="textbook_files/figure-html/correlation%20properties%202-2.png" width="672" /></p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="correlation.html#cb273-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(Super_Bowl_Number, Winning_Team_Points)</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="correlation.html#cb275-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(Super_Bowl_Number, Winning_Team_Points)</span></code></pre></div>
 <pre><code>## [1] 0.1063479</code></pre>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="correlation.html#cb275-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(Super_Bowl_Year, Winning_Team_Points)</span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="correlation.html#cb277-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(Super_Bowl_Year, Winning_Team_Points)</span></code></pre></div>
 <pre><code>## [1] 0.1063479</code></pre>
 <p>The only difference between the two plots is that the x-axis is shifted. Since the change is essentially a linear (location) transformation, the correlations are identical.</p>
 <p>Note: The correlations were equal only because there has been a one-to-one relationship between Super Bowl number and year since 1967. Major League Baseball has had years in which no World Series was held (1904 - boycott, 1994 - players’ strike); thus, the same example applied to the MLB would produce slightly different correlation coefficients.</p>

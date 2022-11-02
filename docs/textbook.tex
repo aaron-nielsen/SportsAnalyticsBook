@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-10-30}
+\date{2022-11-02}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -5769,19 +5769,21 @@ Suppose your betting system allows you pick winners on the spread 55\% of the ti
 \NormalTok{  bankroll.end[i] }\OtherTok{\textless{}{-}}\NormalTok{ bankroll}
 \NormalTok{\}}
 
-\NormalTok{mean.ending.bankroll }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(bankroll.end)}
-\NormalTok{max.ending.bankroll }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(bankroll.end)}
-\FunctionTok{data.frame}\NormalTok{(mean.ending.bankroll,max.ending.bankroll) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kt}\NormalTok{()}
+\NormalTok{mean.bankroll }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(bankroll.end)}
+\NormalTok{max.bankroll }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(bankroll.end)}
+\NormalTok{median.bankroll }\OtherTok{\textless{}{-}} \FunctionTok{median}\NormalTok{(bankroll.end)}
+\NormalTok{prob.zero }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(bankroll.end }\SpecialCharTok{\textless{}=} \DecValTok{20}\NormalTok{)}
+\FunctionTok{data.frame}\NormalTok{(prob.zero,mean.bankroll,median.bankroll,max.bankroll) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\begin{tabular}{rr}
+\begin{tabular}{rrrr}
 \toprule
-mean.ending.bankroll & max.ending.bankroll\\
+prob.zero & mean.bankroll & median.bankroll & max.bankroll\\
 \midrule
-1996.283 & 4634.545\\
+0.003 & 1996.283 & 2000 & 4634.545\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -5797,6 +5799,133 @@ mean.ending.bankroll & max.ending.bankroll\\
 \end{Shaded}
 
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-107-1.pdf}
+
+\newpage
+
+\hypertarget{using-the-kelly-growth-criterion}{%
+\subsection{Using the Kelly Growth Criterion}\label{using-the-kelly-growth-criterion}}
+
+\begin{example}
+Suppose your betting system allows you pick winners on the spread 55\% of the time. If you are betting at -110, then your probability exceeds the implied probability of 52.4\% and this system is not guaranteed to be an eventual loser.
+
+The Kelly Growth Criterion is a formula for an optimal size of a bet when the expected returns are known. The formula is as follows:
+
+\[f = \frac{p}{LoseMult} - \frac{q}{WinMult}\]
+
+Calculate \(f\) and use this value in the previous simulation. How does the results of this simulation differ from the previous fixed bet simulation?
+\end{example}
+
+\vspace{1in}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2022}\NormalTok{)}
+\NormalTok{n.sims }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{bankroll.end }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,n.sims)}
+
+\CommentTok{\# betting info}
+\NormalTok{bankroll.start }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{ml }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\DecValTok{110}
+\NormalTok{total.bets }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{implied.prob }\OtherTok{\textless{}{-}}\NormalTok{ (}\SpecialCharTok{{-}}\NormalTok{ml)}\SpecialCharTok{/}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{ml}\SpecialCharTok{+}\DecValTok{100}\NormalTok{)}
+\NormalTok{dec.odds }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{/}\NormalTok{implied.prob}
+\NormalTok{profit }\OtherTok{\textless{}{-}}\NormalTok{ wager }\SpecialCharTok{*}\NormalTok{ (dec.odds }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)}
+\NormalTok{f }\OtherTok{=} \FloatTok{0.055}
+
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n.sims)\{}
+\NormalTok{  bets }\OtherTok{\textless{}{-}} \DecValTok{0}
+\NormalTok{  bankroll }\OtherTok{\textless{}{-}}\NormalTok{ bankroll.start}
+  \ControlFlowTok{while}\NormalTok{(bankroll }\SpecialCharTok{\textgreater{}} \DecValTok{0} \SpecialCharTok{\&\&}\NormalTok{ bets }\SpecialCharTok{\textless{}}\NormalTok{ total.bets)\{}
+\NormalTok{    wager }\OtherTok{\textless{}{-}}\NormalTok{ bankroll }\SpecialCharTok{*}\NormalTok{ f}
+\NormalTok{    bets }\OtherTok{\textless{}{-}}\NormalTok{ bets }\SpecialCharTok{+} \DecValTok{1}
+    \ControlFlowTok{if}\NormalTok{( }\FunctionTok{rbernoulli}\NormalTok{(}\AttributeTok{n=}\DecValTok{1}\NormalTok{,}\FloatTok{0.55}\NormalTok{) )\{}
+\NormalTok{      bankroll }\OtherTok{\textless{}{-}}\NormalTok{ bankroll }\SpecialCharTok{+}\NormalTok{ wager}\SpecialCharTok{*}\DecValTok{10}\SpecialCharTok{/}\DecValTok{11}
+\NormalTok{    \} }\ControlFlowTok{else}
+\NormalTok{      bankroll }\OtherTok{\textless{}{-}}\NormalTok{ bankroll }\SpecialCharTok{{-}}\NormalTok{ wager}
+\NormalTok{  \}}
+\NormalTok{  bankroll.end[i] }\OtherTok{\textless{}{-}}\NormalTok{ bankroll}
+\NormalTok{\}}
+
+\NormalTok{mean.bankroll }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(bankroll.end)}
+\NormalTok{max.bankroll }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(bankroll.end)}
+\NormalTok{median.bankroll }\OtherTok{\textless{}{-}} \FunctionTok{median}\NormalTok{(bankroll.end)}
+\NormalTok{prob.zero }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(bankroll.end }\SpecialCharTok{\textless{}=} \DecValTok{20}\NormalTok{)}
+\FunctionTok{data.frame}\NormalTok{(f,prob.zero,mean.bankroll,median.bankroll,max.bankroll) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kt}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrr}
+\toprule
+f & prob.zero & mean.bankroll & median.bankroll & max.bankroll\\
+\midrule
+0.055 & 0.001 & 15989.77 & 3966.691 & 5697642\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bankroll.end }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{log10}\NormalTok{(bankroll.end))) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins=}\DecValTok{30}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Simulated Bankroll (starting at $1000) after 1000 bets"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Log10 Bankroll after 1000 bets"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-108-1.pdf}
+
+\newpage
+
+\begin{example}
+Repeat the previous simulation for \(f=0.01, f=0.1, f=0.3\)
+\end{example}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrr}
+\toprule
+f & prob.zero & mean.bankroll & median.bankroll & max.bankroll\\
+\midrule
+0.01 & 0 & 1646.572 & 1575.793 & 5886.551\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrr}
+\toprule
+f & prob.zero & mean.bankroll & median.bankroll & max.bankroll\\
+\midrule
+0.055 & 0.001 & 15989.77 & 3966.691 & 5697642\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrr}
+\toprule
+f & prob.zero & mean.bankroll & median.bankroll & max.bankroll\\
+\midrule
+0.1 & 0.079 & 261172.5 & 1558.97 & 906807883\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrr}
+\toprule
+f & prob.zero & mean.bankroll & median.bankroll & max.bankroll\\
+\midrule
+0.3 & 0.995 & 84832.93 & 0 & 650931393\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \newpage
 
@@ -5878,7 +6007,7 @@ Gwynn was expected to have about 161 more at-bats in the remainder of the 45 can
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.3137
+## [1] 0.3118
 \end{verbatim}
 
 For more discussion on this issue, see: \url{https://www.complex.com/sports/2016/07/tony-gwynn-would-have-hit-400-1994}
@@ -5943,7 +6072,7 @@ Williams was expected to have about 197 more plate appearances in the remainder 
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.3997
+## [1] 0.4
 \end{verbatim}
 
 For more discussion on this issue, see: \url{https://www.mlb.com/news/matt-williams-1994-home-run-chase}

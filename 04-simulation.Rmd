@@ -919,9 +919,11 @@ for(i in 1:n.sims){
   bankroll.end[i] <- bankroll
 }
 
-mean.ending.bankroll <- mean(bankroll.end)
-max.ending.bankroll <- max(bankroll.end)
-data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
+mean.bankroll <- mean(bankroll.end)
+max.bankroll <- max(bankroll.end)
+median.bankroll <- median(bankroll.end)
+prob.zero <- mean(bankroll.end <= 20)
+data.frame(prob.zero,mean.bankroll,median.bankroll,max.bankroll) %>% kt()
 
 bankroll.end %>% as.data.frame() %>% 
   ggplot(aes(x=bankroll.end)) + 
@@ -929,6 +931,212 @@ bankroll.end %>% as.data.frame() %>%
   ggtitle("Simulated Bankroll (starting at $1000) after 1000 bets") + 
   xlab("Bankroll after 1000 bets")
 ```
+
+\newpage
+
+### Using the Kelly Growth Criterion
+
+:::{.example}
+Suppose your betting system allows you pick winners on the spread 55\% of the time. If you are betting at -110, then your probability exceeds the implied probability of 52.4\% and this system is not guaranteed to be an eventual loser. 
+
+The Kelly Growth Criterion is a formula for an optimal size of a bet when the expected returns are known. The formula is as follows:
+
+\[f = \frac{p}{LoseMult} - \frac{q}{WinMult}\]
+
+Calculate $f$ and use this value in the previous simulation. How does the results of this simulation differ from the previous fixed bet simulation?
+:::
+
+\vspace{1in}
+
+
+```{r,cache=TRUE}
+set.seed(2022)
+n.sims <- 10000
+bankroll.end <- rep(0,n.sims)
+
+# betting info
+bankroll.start <- 1000
+ml <- -110
+total.bets <- 1000
+implied.prob <- (-ml)/(-ml+100)
+dec.odds <- 1/implied.prob
+profit <- wager * (dec.odds - 1)
+f = 0.055
+
+for(i in 1:n.sims){
+  bets <- 0
+  bankroll <- bankroll.start
+  while(bankroll > 0 && bets < total.bets){
+    wager <- bankroll * f
+    bets <- bets + 1
+    if( rbernoulli(n=1,0.55) ){
+      bankroll <- bankroll + wager*10/11
+    } else
+      bankroll <- bankroll - wager
+  }
+  bankroll.end[i] <- bankroll
+}
+
+mean.bankroll <- mean(bankroll.end)
+max.bankroll <- max(bankroll.end)
+median.bankroll <- median(bankroll.end)
+prob.zero <- mean(bankroll.end <= 20)
+data.frame(f,prob.zero,mean.bankroll,median.bankroll,max.bankroll) %>% kt()
+
+bankroll.end %>% as.data.frame() %>% 
+  ggplot(aes(x=log10(bankroll.end))) + 
+  geom_histogram(bins=30) +
+  ggtitle("Simulated Bankroll (starting at $1000) after 1000 bets") + 
+  xlab("Log10 Bankroll after 1000 bets")
+```
+
+\newpage
+
+:::{.example}
+Repeat the previous simulation for $f=0.01, f=0.1, f=0.3$
+:::
+
+```{r,cache=TRUE,echo=F}
+set.seed(2022)
+n.sims <- 10000
+bankroll.end <- rep(0,n.sims)
+
+# betting info
+bankroll.start <- 1000
+ml <- -110
+total.bets <- 1000
+implied.prob <- (-ml)/(-ml+100)
+dec.odds <- 1/implied.prob
+profit <- wager * (dec.odds - 1)
+f = 0.01
+
+for(i in 1:n.sims){
+  bets <- 0
+  bankroll <- bankroll.start
+  while(bankroll > 0 && bets < total.bets){
+    wager <- bankroll * f
+    bets <- bets + 1
+    if( rbernoulli(n=1,0.55) ){
+      bankroll <- bankroll + wager*10/11
+    } else
+      bankroll <- bankroll - wager
+  }
+  bankroll.end[i] <- bankroll
+}
+
+mean.bankroll <- mean(bankroll.end)
+max.bankroll <- max(bankroll.end)
+median.bankroll <- median(bankroll.end)
+prob.zero <- mean(bankroll.end <= 20)
+data.frame(f,prob.zero,mean.bankroll,median.bankroll,max.bankroll) %>% kt()
+```
+
+```{r,cache=TRUE,echo=F}
+set.seed(2022)
+n.sims <- 10000
+bankroll.end <- rep(0,n.sims)
+
+# betting info
+bankroll.start <- 1000
+ml <- -110
+total.bets <- 1000
+implied.prob <- (-ml)/(-ml+100)
+dec.odds <- 1/implied.prob
+profit <- wager * (dec.odds - 1)
+f = 0.055
+
+for(i in 1:n.sims){
+  bets <- 0
+  bankroll <- bankroll.start
+  while(bankroll > 0 && bets < total.bets){
+    wager <- bankroll * f
+    bets <- bets + 1
+    if( rbernoulli(n=1,0.55) ){
+      bankroll <- bankroll + wager*10/11
+    } else
+      bankroll <- bankroll - wager
+  }
+  bankroll.end[i] <- bankroll
+}
+
+mean.bankroll <- mean(bankroll.end)
+max.bankroll <- max(bankroll.end)
+median.bankroll <- median(bankroll.end)
+prob.zero <- mean(bankroll.end <= 20)
+data.frame(f,prob.zero,mean.bankroll,median.bankroll,max.bankroll) %>% kt()
+```
+
+```{r,cache=TRUE,echo=F}
+set.seed(2022)
+n.sims <- 10000
+bankroll.end <- rep(0,n.sims)
+
+# betting info
+bankroll.start <- 1000
+ml <- -110
+total.bets <- 1000
+implied.prob <- (-ml)/(-ml+100)
+dec.odds <- 1/implied.prob
+profit <- wager * (dec.odds - 1)
+f = 0.1
+
+for(i in 1:n.sims){
+  bets <- 0
+  bankroll <- bankroll.start
+  while(bankroll > 0 && bets < total.bets){
+    wager <- bankroll * f
+    bets <- bets + 1
+    if( rbernoulli(n=1,0.55) ){
+      bankroll <- bankroll + wager*10/11
+    } else
+      bankroll <- bankroll - wager
+  }
+  bankroll.end[i] <- bankroll
+}
+
+mean.bankroll <- mean(bankroll.end)
+max.bankroll <- max(bankroll.end)
+median.bankroll <- median(bankroll.end)
+prob.zero <- mean(bankroll.end <= 20)
+data.frame(f,prob.zero,mean.bankroll,median.bankroll,max.bankroll) %>% kt()
+```
+
+```{r,cache=TRUE,echo=F}
+set.seed(2022)
+n.sims <- 10000
+bankroll.end <- rep(0,n.sims)
+
+# betting info
+bankroll.start <- 1000
+ml <- -110
+total.bets <- 1000
+implied.prob <- (-ml)/(-ml+100)
+dec.odds <- 1/implied.prob
+profit <- wager * (dec.odds - 1)
+f = 0.3
+
+for(i in 1:n.sims){
+  bets <- 0
+  bankroll <- bankroll.start
+  while(bankroll > 0 && bets < total.bets){
+    wager <- bankroll * f
+    bets <- bets + 1
+    if( rbernoulli(n=1,0.55) ){
+      bankroll <- bankroll + wager*10/11
+    } else
+      bankroll <- bankroll - wager
+  }
+  bankroll.end[i] <- bankroll
+}
+
+mean.bankroll <- mean(bankroll.end)
+max.bankroll <- max(bankroll.end)
+median.bankroll <- median(bankroll.end)
+prob.zero <- mean(bankroll.end <= 20)
+data.frame(f,prob.zero,mean.bankroll,median.bankroll,max.bankroll) %>% kt()
+```
+
+
 
 \newpage
 

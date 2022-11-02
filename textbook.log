@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  30 OCT 2022 16:50
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  2 NOV 2022 12:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2317,18 +2317,19 @@ f)
 File: textbook_files/figure-latex/unnamed-chunk-106-1.pdf Graphic file (type pd
 f)
 <use textbook_files/figure-latex/unnamed-chunk-106-1.pdf>
-[150]
+[150] [151]
 File: textbook_files/figure-latex/unnamed-chunk-107-1.pdf Graphic file (type pd
 f)
 <use textbook_files/figure-latex/unnamed-chunk-107-1.pdf>
+[152] [153]
+File: textbook_files/figure-latex/unnamed-chunk-108-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-108-1.pdf>
+[154] [155] [156] [157] [158
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[151] [152] [153] [154]
+]
 Chapter 5.
-[155
-
-] [156]
+[159] [160]
 Chapter 6.
 File: textbook_files/figure-latex/correlation properties 2-1.pdf Graphic file (
 type pdf)
@@ -2337,75 +2338,75 @@ File: textbook_files/figure-latex/correlation properties 2-2.pdf Graphic file (
 type pdf)
 <use textbook_files/figure-latex/correlation properties 2-2.pdf>
 
-Underfull \hbox (badness 10000) in paragraph at lines 6033--6034
+Underfull \hbox (badness 10000) in paragraph at lines 6162--6163
 [][]
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[157
+[161
 
 ]
 Underfull \vbox (badness 1253) has occurred while \output is active []
 
-[158] [159] [160]
+[162] [163] [164]
 Chapter 7.
-[161
+[165
 
-] [162] [163] [164
+] [166] [167] [168
 
 ]
 Chapter 8.
-[165] [166
-
-]
-Chapter 9.
-[167] [168
-
-]
-Chapter 10.
 [169] [170
 
 ]
-Chapter 11.
+Chapter 9.
 [171] [172
 
 ]
-Chapter 12.
+Chapter 10.
 [173] [174
 
 ]
-Chapter 13.
+Chapter 11.
 [175] [176
 
 ]
-Chapter 14.
+Chapter 12.
 [177] [178
 
 ]
-Chapter 15.
+Chapter 13.
 [179] [180
 
 ]
-Chapter 16.
+Chapter 14.
 [181] [182
 
 ]
-Chapter 17.
+Chapter 15.
 [183] [184
+
+]
+Chapter 16.
+[185] [186
+
+]
+Chapter 17.
+[187] [188
 
 ]
 Chapter 18.
 No file textbook.bbl.
-[185] (./textbook.aux) ) 
+[189] (./textbook.aux) ) 
 Here is how much of TeX's memory you used:
- 22863 strings out of 476179
- 435276 string characters out of 5809544
- 904960 words of memory out of 5000000
- 43173 multiletter control sequences out of 15000+600000
+ 22872 strings out of 476179
+ 435741 string characters out of 5809544
+ 905028 words of memory out of 5000000
+ 43181 multiletter control sequences out of 15000+600000
  475878 words of font info for 90 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  86i,10n,121p,1131b,512s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on textbook.pdf (185 pages).
+Output written on textbook.pdf (189 pages).

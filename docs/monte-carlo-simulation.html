@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2022-10-30" />
+<meta name="date" content="2022-11-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -255,6 +255,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#martingale-system"><i class="fa fa-check"></i><b>4.4.1</b> Martingale System</a></li>
 <li class="chapter" data-level="4.4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gamblers-ruin"><i class="fa fa-check"></i><b>4.4.2</b> Gambler’s Ruin</a></li>
 <li class="chapter" data-level="4.4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-a-winning-system"><i class="fa fa-check"></i><b>4.4.3</b> Simulating a Winning System</a></li>
+<li class="chapter" data-level="4.4.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#using-the-kelly-growth-criterion"><i class="fa fa-check"></i><b>4.4.4</b> Using the Kelly Growth Criterion</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-censored-data"><i class="fa fa-check"></i><b>4.5</b> Simulating Censored Data</a>
 <ul>
@@ -2028,24 +2029,38 @@ Max Ending Payroll
 <span id="cb259-24"><a href="monte-carlo-simulation.html#cb259-24" aria-hidden="true" tabindex="-1"></a>  bankroll.end[i] <span class="ot">&lt;-</span> bankroll</span>
 <span id="cb259-25"><a href="monte-carlo-simulation.html#cb259-25" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb259-26"><a href="monte-carlo-simulation.html#cb259-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb259-27"><a href="monte-carlo-simulation.html#cb259-27" aria-hidden="true" tabindex="-1"></a>mean.ending.bankroll <span class="ot">&lt;-</span> <span class="fu">mean</span>(bankroll.end)</span>
-<span id="cb259-28"><a href="monte-carlo-simulation.html#cb259-28" aria-hidden="true" tabindex="-1"></a>max.ending.bankroll <span class="ot">&lt;-</span> <span class="fu">max</span>(bankroll.end)</span>
-<span id="cb259-29"><a href="monte-carlo-simulation.html#cb259-29" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(mean.ending.bankroll,max.ending.bankroll) <span class="sc">%&gt;%</span> <span class="fu">kt</span>()</span></code></pre></div>
+<span id="cb259-27"><a href="monte-carlo-simulation.html#cb259-27" aria-hidden="true" tabindex="-1"></a>mean.bankroll <span class="ot">&lt;-</span> <span class="fu">mean</span>(bankroll.end)</span>
+<span id="cb259-28"><a href="monte-carlo-simulation.html#cb259-28" aria-hidden="true" tabindex="-1"></a>max.bankroll <span class="ot">&lt;-</span> <span class="fu">max</span>(bankroll.end)</span>
+<span id="cb259-29"><a href="monte-carlo-simulation.html#cb259-29" aria-hidden="true" tabindex="-1"></a>median.bankroll <span class="ot">&lt;-</span> <span class="fu">median</span>(bankroll.end)</span>
+<span id="cb259-30"><a href="monte-carlo-simulation.html#cb259-30" aria-hidden="true" tabindex="-1"></a>prob.zero <span class="ot">&lt;-</span> <span class="fu">mean</span>(bankroll.end <span class="sc">&lt;=</span> <span class="dv">20</span>)</span>
+<span id="cb259-31"><a href="monte-carlo-simulation.html#cb259-31" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(prob.zero,mean.bankroll,median.bankroll,max.bankroll) <span class="sc">%&gt;%</span> <span class="fu">kt</span>()</span></code></pre></div>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:right;">
-mean.ending.bankroll
+prob.zero
 </th>
 <th style="text-align:right;">
-max.ending.bankroll
+mean.bankroll
+</th>
+<th style="text-align:right;">
+median.bankroll
+</th>
+<th style="text-align:right;">
+max.bankroll
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:right;">
+0.003
+</td>
+<td style="text-align:right;">
 1996.283
+</td>
+<td style="text-align:right;">
+2000
 </td>
 <td style="text-align:right;">
 4634.545
@@ -2059,6 +2074,258 @@ max.ending.bankroll
 <span id="cb260-4"><a href="monte-carlo-simulation.html#cb260-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Simulated Bankroll (starting at $1000) after 1000 bets&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb260-5"><a href="monte-carlo-simulation.html#cb260-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Bankroll after 1000 bets&quot;</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="using-the-kelly-growth-criterion" class="section level3 hasAnchor" number="4.4.4">
+<h3><span class="header-section-number">4.4.4</span> Using the Kelly Growth Criterion<a href="monte-carlo-simulation.html#using-the-kelly-growth-criterion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="example">
+<p><span id="exm:unlabeled-div-137" class="example"><strong>Example 4.12  </strong></span>Suppose your betting system allows you pick winners on the spread 55% of the time. If you are betting at -110, then your probability exceeds the implied probability of 52.4% and this system is not guaranteed to be an eventual loser.</p>
+<p>The Kelly Growth Criterion is a formula for an optimal size of a bet when the expected returns are known. The formula is as follows:</p>
+<p><span class="math display">\[f = \frac{p}{LoseMult} - \frac{q}{WinMult}\]</span></p>
+<p>Calculate <span class="math inline">\(f\)</span> and use this value in the previous simulation. How does the results of this simulation differ from the previous fixed bet simulation?</p>
+</div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="monte-carlo-simulation.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb261-2"><a href="monte-carlo-simulation.html#cb261-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb261-3"><a href="monte-carlo-simulation.html#cb261-3" aria-hidden="true" tabindex="-1"></a>bankroll.end <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,n.sims)</span>
+<span id="cb261-4"><a href="monte-carlo-simulation.html#cb261-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-5"><a href="monte-carlo-simulation.html#cb261-5" aria-hidden="true" tabindex="-1"></a><span class="co"># betting info</span></span>
+<span id="cb261-6"><a href="monte-carlo-simulation.html#cb261-6" aria-hidden="true" tabindex="-1"></a>bankroll.start <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb261-7"><a href="monte-carlo-simulation.html#cb261-7" aria-hidden="true" tabindex="-1"></a>ml <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">110</span></span>
+<span id="cb261-8"><a href="monte-carlo-simulation.html#cb261-8" aria-hidden="true" tabindex="-1"></a>total.bets <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb261-9"><a href="monte-carlo-simulation.html#cb261-9" aria-hidden="true" tabindex="-1"></a>implied.prob <span class="ot">&lt;-</span> (<span class="sc">-</span>ml)<span class="sc">/</span>(<span class="sc">-</span>ml<span class="sc">+</span><span class="dv">100</span>)</span>
+<span id="cb261-10"><a href="monte-carlo-simulation.html#cb261-10" aria-hidden="true" tabindex="-1"></a>dec.odds <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>implied.prob</span>
+<span id="cb261-11"><a href="monte-carlo-simulation.html#cb261-11" aria-hidden="true" tabindex="-1"></a>profit <span class="ot">&lt;-</span> wager <span class="sc">*</span> (dec.odds <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb261-12"><a href="monte-carlo-simulation.html#cb261-12" aria-hidden="true" tabindex="-1"></a>f <span class="ot">=</span> <span class="fl">0.055</span></span>
+<span id="cb261-13"><a href="monte-carlo-simulation.html#cb261-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-14"><a href="monte-carlo-simulation.html#cb261-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims){</span>
+<span id="cb261-15"><a href="monte-carlo-simulation.html#cb261-15" aria-hidden="true" tabindex="-1"></a>  bets <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb261-16"><a href="monte-carlo-simulation.html#cb261-16" aria-hidden="true" tabindex="-1"></a>  bankroll <span class="ot">&lt;-</span> bankroll.start</span>
+<span id="cb261-17"><a href="monte-carlo-simulation.html#cb261-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span>(bankroll <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;&amp;</span> bets <span class="sc">&lt;</span> total.bets){</span>
+<span id="cb261-18"><a href="monte-carlo-simulation.html#cb261-18" aria-hidden="true" tabindex="-1"></a>    wager <span class="ot">&lt;-</span> bankroll <span class="sc">*</span> f</span>
+<span id="cb261-19"><a href="monte-carlo-simulation.html#cb261-19" aria-hidden="true" tabindex="-1"></a>    bets <span class="ot">&lt;-</span> bets <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb261-20"><a href="monte-carlo-simulation.html#cb261-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">rbernoulli</span>(<span class="at">n=</span><span class="dv">1</span>,<span class="fl">0.55</span>) ){</span>
+<span id="cb261-21"><a href="monte-carlo-simulation.html#cb261-21" aria-hidden="true" tabindex="-1"></a>      bankroll <span class="ot">&lt;-</span> bankroll <span class="sc">+</span> wager<span class="sc">*</span><span class="dv">10</span><span class="sc">/</span><span class="dv">11</span></span>
+<span id="cb261-22"><a href="monte-carlo-simulation.html#cb261-22" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span></span>
+<span id="cb261-23"><a href="monte-carlo-simulation.html#cb261-23" aria-hidden="true" tabindex="-1"></a>      bankroll <span class="ot">&lt;-</span> bankroll <span class="sc">-</span> wager</span>
+<span id="cb261-24"><a href="monte-carlo-simulation.html#cb261-24" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb261-25"><a href="monte-carlo-simulation.html#cb261-25" aria-hidden="true" tabindex="-1"></a>  bankroll.end[i] <span class="ot">&lt;-</span> bankroll</span>
+<span id="cb261-26"><a href="monte-carlo-simulation.html#cb261-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb261-27"><a href="monte-carlo-simulation.html#cb261-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-28"><a href="monte-carlo-simulation.html#cb261-28" aria-hidden="true" tabindex="-1"></a>mean.bankroll <span class="ot">&lt;-</span> <span class="fu">mean</span>(bankroll.end)</span>
+<span id="cb261-29"><a href="monte-carlo-simulation.html#cb261-29" aria-hidden="true" tabindex="-1"></a>max.bankroll <span class="ot">&lt;-</span> <span class="fu">max</span>(bankroll.end)</span>
+<span id="cb261-30"><a href="monte-carlo-simulation.html#cb261-30" aria-hidden="true" tabindex="-1"></a>median.bankroll <span class="ot">&lt;-</span> <span class="fu">median</span>(bankroll.end)</span>
+<span id="cb261-31"><a href="monte-carlo-simulation.html#cb261-31" aria-hidden="true" tabindex="-1"></a>prob.zero <span class="ot">&lt;-</span> <span class="fu">mean</span>(bankroll.end <span class="sc">&lt;=</span> <span class="dv">20</span>)</span>
+<span id="cb261-32"><a href="monte-carlo-simulation.html#cb261-32" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(f,prob.zero,mean.bankroll,median.bankroll,max.bankroll) <span class="sc">%&gt;%</span> <span class="fu">kt</span>()</span></code></pre></div>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+f
+</th>
+<th style="text-align:right;">
+prob.zero
+</th>
+<th style="text-align:right;">
+mean.bankroll
+</th>
+<th style="text-align:right;">
+median.bankroll
+</th>
+<th style="text-align:right;">
+max.bankroll
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.055
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+<td style="text-align:right;">
+15989.77
+</td>
+<td style="text-align:right;">
+3966.691
+</td>
+<td style="text-align:right;">
+5697642
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="monte-carlo-simulation.html#cb262-1" aria-hidden="true" tabindex="-1"></a>bankroll.end <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb262-2"><a href="monte-carlo-simulation.html#cb262-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log10</span>(bankroll.end))) <span class="sc">+</span> </span>
+<span id="cb262-3"><a href="monte-carlo-simulation.html#cb262-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb262-4"><a href="monte-carlo-simulation.html#cb262-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Simulated Bankroll (starting at $1000) after 1000 bets&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb262-5"><a href="monte-carlo-simulation.html#cb262-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Log10 Bankroll after 1000 bets&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-138" class="example"><strong>Example 4.13  </strong></span>Repeat the previous simulation for <span class="math inline">\(f=0.01, f=0.1, f=0.3\)</span></p>
+</div>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+f
+</th>
+<th style="text-align:right;">
+prob.zero
+</th>
+<th style="text-align:right;">
+mean.bankroll
+</th>
+<th style="text-align:right;">
+median.bankroll
+</th>
+<th style="text-align:right;">
+max.bankroll
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1646.572
+</td>
+<td style="text-align:right;">
+1575.793
+</td>
+<td style="text-align:right;">
+5886.551
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+f
+</th>
+<th style="text-align:right;">
+prob.zero
+</th>
+<th style="text-align:right;">
+mean.bankroll
+</th>
+<th style="text-align:right;">
+median.bankroll
+</th>
+<th style="text-align:right;">
+max.bankroll
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.055
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+<td style="text-align:right;">
+15989.77
+</td>
+<td style="text-align:right;">
+3966.691
+</td>
+<td style="text-align:right;">
+5697642
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+f
+</th>
+<th style="text-align:right;">
+prob.zero
+</th>
+<th style="text-align:right;">
+mean.bankroll
+</th>
+<th style="text-align:right;">
+median.bankroll
+</th>
+<th style="text-align:right;">
+max.bankroll
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.1
+</td>
+<td style="text-align:right;">
+0.079
+</td>
+<td style="text-align:right;">
+261172.5
+</td>
+<td style="text-align:right;">
+1558.97
+</td>
+<td style="text-align:right;">
+906807883
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+f
+</th>
+<th style="text-align:right;">
+prob.zero
+</th>
+<th style="text-align:right;">
+mean.bankroll
+</th>
+<th style="text-align:right;">
+median.bankroll
+</th>
+<th style="text-align:right;">
+max.bankroll
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.3
+</td>
+<td style="text-align:right;">
+0.995
+</td>
+<td style="text-align:right;">
+84832.93
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+650931393
+</td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -2078,26 +2345,26 @@ max.ending.bankroll
 <ol style="list-style-type: lower-alpha">
 <li>How many at-bats was Gwynn expected to have in the remainder of the season?</li>
 </ol>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="monte-carlo-simulation.html#cb261-1" aria-hidden="true" tabindex="-1"></a>n.season <span class="ot">=</span> <span class="dv">162</span></span>
-<span id="cb261-2"><a href="monte-carlo-simulation.html#cb261-2" aria-hidden="true" tabindex="-1"></a>n.partial <span class="ot">=</span> <span class="dv">117</span></span>
-<span id="cb261-3"><a href="monte-carlo-simulation.html#cb261-3" aria-hidden="true" tabindex="-1"></a>n.hits <span class="ot">=</span> <span class="dv">165</span></span>
-<span id="cb261-4"><a href="monte-carlo-simulation.html#cb261-4" aria-hidden="true" tabindex="-1"></a>(<span class="at">n.remain =</span> n.season <span class="sc">-</span> n.partial)</span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="monte-carlo-simulation.html#cb263-1" aria-hidden="true" tabindex="-1"></a>n.season <span class="ot">=</span> <span class="dv">162</span></span>
+<span id="cb263-2"><a href="monte-carlo-simulation.html#cb263-2" aria-hidden="true" tabindex="-1"></a>n.partial <span class="ot">=</span> <span class="dv">117</span></span>
+<span id="cb263-3"><a href="monte-carlo-simulation.html#cb263-3" aria-hidden="true" tabindex="-1"></a>n.hits <span class="ot">=</span> <span class="dv">165</span></span>
+<span id="cb263-4"><a href="monte-carlo-simulation.html#cb263-4" aria-hidden="true" tabindex="-1"></a>(<span class="at">n.remain =</span> n.season <span class="sc">-</span> n.partial)</span></code></pre></div>
 <pre><code>## [1] 45</code></pre>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="monte-carlo-simulation.html#cb263-1" aria-hidden="true" tabindex="-1"></a>ab <span class="ot">=</span> <span class="dv">419</span></span>
-<span id="cb263-2"><a href="monte-carlo-simulation.html#cb263-2" aria-hidden="true" tabindex="-1"></a>ab.remain <span class="ot">=</span> ab<span class="sc">/</span>n.partial<span class="sc">*</span>n.remain</span>
-<span id="cb263-3"><a href="monte-carlo-simulation.html#cb263-3" aria-hidden="true" tabindex="-1"></a>ab.remain <span class="ot">=</span> <span class="fu">round</span>(ab.remain); ab.remain</span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="monte-carlo-simulation.html#cb265-1" aria-hidden="true" tabindex="-1"></a>ab <span class="ot">=</span> <span class="dv">419</span></span>
+<span id="cb265-2"><a href="monte-carlo-simulation.html#cb265-2" aria-hidden="true" tabindex="-1"></a>ab.remain <span class="ot">=</span> ab<span class="sc">/</span>n.partial<span class="sc">*</span>n.remain</span>
+<span id="cb265-3"><a href="monte-carlo-simulation.html#cb265-3" aria-hidden="true" tabindex="-1"></a>ab.remain <span class="ot">=</span> <span class="fu">round</span>(ab.remain); ab.remain</span></code></pre></div>
 <pre><code>## [1] 161</code></pre>
 <p>Gwynn was expected to have about 161 more at-bats in the remainder of the 45 cancelled games.</p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Assuming that Gwynn’s hitting ability stayed constant for the remainder of the season, estimate the probability that his average would exceed 0.400.</li>
 </ol>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="monte-carlo-simulation.html#cb265-1" aria-hidden="true" tabindex="-1"></a>avg <span class="ot">=</span> <span class="fl">0.394</span></span>
-<span id="cb265-2"><a href="monte-carlo-simulation.html#cb265-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">=</span> <span class="dv">10000</span></span>
-<span id="cb265-3"><a href="monte-carlo-simulation.html#cb265-3" aria-hidden="true" tabindex="-1"></a>sim.hits <span class="ot">=</span> <span class="fu">rbinom</span>(<span class="at">n=</span>n.sims,<span class="at">size=</span>ab.remain,<span class="at">prob=</span>avg)</span>
-<span id="cb265-4"><a href="monte-carlo-simulation.html#cb265-4" aria-hidden="true" tabindex="-1"></a>sim.hits.total <span class="ot">=</span> n.hits <span class="sc">+</span> sim.hits</span>
-<span id="cb265-5"><a href="monte-carlo-simulation.html#cb265-5" aria-hidden="true" tabindex="-1"></a>sim.avg <span class="ot">=</span> sim.hits.total<span class="sc">/</span>(ab<span class="sc">+</span>ab.remain)</span>
-<span id="cb265-6"><a href="monte-carlo-simulation.html#cb265-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sim.avg <span class="sc">&gt;=</span> <span class="fl">0.400</span>)</span></code></pre></div>
-<pre><code>## [1] 0.3137</code></pre>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="monte-carlo-simulation.html#cb267-1" aria-hidden="true" tabindex="-1"></a>avg <span class="ot">=</span> <span class="fl">0.394</span></span>
+<span id="cb267-2"><a href="monte-carlo-simulation.html#cb267-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">=</span> <span class="dv">10000</span></span>
+<span id="cb267-3"><a href="monte-carlo-simulation.html#cb267-3" aria-hidden="true" tabindex="-1"></a>sim.hits <span class="ot">=</span> <span class="fu">rbinom</span>(<span class="at">n=</span>n.sims,<span class="at">size=</span>ab.remain,<span class="at">prob=</span>avg)</span>
+<span id="cb267-4"><a href="monte-carlo-simulation.html#cb267-4" aria-hidden="true" tabindex="-1"></a>sim.hits.total <span class="ot">=</span> n.hits <span class="sc">+</span> sim.hits</span>
+<span id="cb267-5"><a href="monte-carlo-simulation.html#cb267-5" aria-hidden="true" tabindex="-1"></a>sim.avg <span class="ot">=</span> sim.hits.total<span class="sc">/</span>(ab<span class="sc">+</span>ab.remain)</span>
+<span id="cb267-6"><a href="monte-carlo-simulation.html#cb267-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sim.avg <span class="sc">&gt;=</span> <span class="fl">0.400</span>)</span></code></pre></div>
+<pre><code>## [1] 0.3118</code></pre>
 <p>For more discussion on this issue, see: <a href="https://www.complex.com/sports/2016/07/tony-gwynn-would-have-hit-400-1994" class="uri">https://www.complex.com/sports/2016/07/tony-gwynn-would-have-hit-400-1994</a></p>
 </div>
 <div id="matt-williams-1994-home-run-simulation" class="section level3 hasAnchor" number="4.5.2">
@@ -2107,25 +2374,25 @@ max.ending.bankroll
 <ol style="list-style-type: lower-alpha">
 <li>How many plate appearances was Williams expected to have in the remainder of the season?</li>
 </ol>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="monte-carlo-simulation.html#cb267-1" aria-hidden="true" tabindex="-1"></a>n.season <span class="ot">=</span> <span class="dv">162</span></span>
-<span id="cb267-2"><a href="monte-carlo-simulation.html#cb267-2" aria-hidden="true" tabindex="-1"></a>n.partial <span class="ot">=</span> <span class="dv">115</span></span>
-<span id="cb267-3"><a href="monte-carlo-simulation.html#cb267-3" aria-hidden="true" tabindex="-1"></a>n.hr <span class="ot">=</span> <span class="dv">43</span></span>
-<span id="cb267-4"><a href="monte-carlo-simulation.html#cb267-4" aria-hidden="true" tabindex="-1"></a>(<span class="at">n.remain =</span> n.season <span class="sc">-</span> n.partial)</span></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="monte-carlo-simulation.html#cb269-1" aria-hidden="true" tabindex="-1"></a>n.season <span class="ot">=</span> <span class="dv">162</span></span>
+<span id="cb269-2"><a href="monte-carlo-simulation.html#cb269-2" aria-hidden="true" tabindex="-1"></a>n.partial <span class="ot">=</span> <span class="dv">115</span></span>
+<span id="cb269-3"><a href="monte-carlo-simulation.html#cb269-3" aria-hidden="true" tabindex="-1"></a>n.hr <span class="ot">=</span> <span class="dv">43</span></span>
+<span id="cb269-4"><a href="monte-carlo-simulation.html#cb269-4" aria-hidden="true" tabindex="-1"></a>(<span class="at">n.remain =</span> n.season <span class="sc">-</span> n.partial)</span></code></pre></div>
 <pre><code>## [1] 47</code></pre>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="monte-carlo-simulation.html#cb269-1" aria-hidden="true" tabindex="-1"></a>ab <span class="ot">=</span> <span class="dv">483</span></span>
-<span id="cb269-2"><a href="monte-carlo-simulation.html#cb269-2" aria-hidden="true" tabindex="-1"></a>ab.remain <span class="ot">=</span> ab<span class="sc">/</span>n.partial<span class="sc">*</span>n.remain</span>
-<span id="cb269-3"><a href="monte-carlo-simulation.html#cb269-3" aria-hidden="true" tabindex="-1"></a>ab.remain <span class="ot">=</span> <span class="fu">round</span>(ab.remain); ab.remain</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="monte-carlo-simulation.html#cb271-1" aria-hidden="true" tabindex="-1"></a>ab <span class="ot">=</span> <span class="dv">483</span></span>
+<span id="cb271-2"><a href="monte-carlo-simulation.html#cb271-2" aria-hidden="true" tabindex="-1"></a>ab.remain <span class="ot">=</span> ab<span class="sc">/</span>n.partial<span class="sc">*</span>n.remain</span>
+<span id="cb271-3"><a href="monte-carlo-simulation.html#cb271-3" aria-hidden="true" tabindex="-1"></a>ab.remain <span class="ot">=</span> <span class="fu">round</span>(ab.remain); ab.remain</span></code></pre></div>
 <pre><code>## [1] 197</code></pre>
 <p>Williams was expected to have about 197 more plate appearances in the remainder of the 47 cancelled games. He would need to hit 18 home runs to match Maris and 19 or more to beat Maris.</p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Estimate the probability that Matt Williams would have beaten Maris’ single season home run record.</li>
 </ol>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="monte-carlo-simulation.html#cb271-1" aria-hidden="true" tabindex="-1"></a>hr.avg <span class="ot">=</span> n.hr<span class="sc">/</span>ab</span>
-<span id="cb271-2"><a href="monte-carlo-simulation.html#cb271-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">=</span> <span class="dv">10000</span></span>
-<span id="cb271-3"><a href="monte-carlo-simulation.html#cb271-3" aria-hidden="true" tabindex="-1"></a>sim.hr <span class="ot">=</span> <span class="fu">rbinom</span>(<span class="at">n=</span>n.sims,<span class="at">size=</span>ab.remain,<span class="at">prob=</span>hr.avg)</span>
-<span id="cb271-4"><a href="monte-carlo-simulation.html#cb271-4" aria-hidden="true" tabindex="-1"></a>sim.hr.total <span class="ot">=</span> n.hr <span class="sc">+</span> sim.hr</span>
-<span id="cb271-5"><a href="monte-carlo-simulation.html#cb271-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sim.hr.total <span class="sc">&gt;=</span> <span class="dv">62</span>)</span></code></pre></div>
-<pre><code>## [1] 0.3997</code></pre>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="monte-carlo-simulation.html#cb273-1" aria-hidden="true" tabindex="-1"></a>hr.avg <span class="ot">=</span> n.hr<span class="sc">/</span>ab</span>
+<span id="cb273-2"><a href="monte-carlo-simulation.html#cb273-2" aria-hidden="true" tabindex="-1"></a>n.sims <span class="ot">=</span> <span class="dv">10000</span></span>
+<span id="cb273-3"><a href="monte-carlo-simulation.html#cb273-3" aria-hidden="true" tabindex="-1"></a>sim.hr <span class="ot">=</span> <span class="fu">rbinom</span>(<span class="at">n=</span>n.sims,<span class="at">size=</span>ab.remain,<span class="at">prob=</span>hr.avg)</span>
+<span id="cb273-4"><a href="monte-carlo-simulation.html#cb273-4" aria-hidden="true" tabindex="-1"></a>sim.hr.total <span class="ot">=</span> n.hr <span class="sc">+</span> sim.hr</span>
+<span id="cb273-5"><a href="monte-carlo-simulation.html#cb273-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sim.hr.total <span class="sc">&gt;=</span> <span class="dv">62</span>)</span></code></pre></div>
+<pre><code>## [1] 0.4</code></pre>
 <p>For more discussion on this issue, see: <a href="https://www.mlb.com/news/matt-williams-1994-home-run-chase" class="uri">https://www.mlb.com/news/matt-williams-1994-home-run-chase</a></p>
 
 </div>
