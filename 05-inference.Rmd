@@ -4,54 +4,74 @@ output:
   html_document: default
 ---
 
-# Statistical Inference
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+library(formatR)
+library(tidyverse)
+library(kableExtra)
 
-## Defining a Population in Sports Data
+# Set so that long lines in R will be wrapped:
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=FALSE)
+knitr::opts_chunk$set(cache=TRUE)
+
+# kable table global setup
+kt <- function(data) {
+  knitr::kable(data, digits=3,linesep='',booktabs=TRUE) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+}
+```
+
+# Inferential Statistics
+
+## Defining a Population
 
 For team and individual statistics in sports, we often split data up by the seasons. For statistical inference, we need to define what the population is and what the sample is. It is acceptable to define a season as the population and a subset of the season as a sample, but this is usually not exactly what we want to do.
 
 Instead, we often think of a season as a random sample from a theoretical population of all possible seasons. In the same manner, we can think of individual games are a random sample from a theoretical population of all possible games.
 
-## Confidence Intervals
+## Statistical Inference
 
 :::{.definition}
 *Statistical Inference* is the process of inferring properties of a population by use of sample data.
 :::
 
-For statistical inference, we need a point estimator and a measure of uncertainty. We will focus on statistical inference for population mean and population proportion.
+For statistical inference, we need a point estimator and a measure of uncertainty. We will focus on statistical inference for population means and population proportions.
+
+We will examine two methods of Statistical Inference:
+
+1. Confidence Intervals 
+2. Hypothesis Tests
 
 For sports data, we often want to infer properties of a player's (or team's) underlying ability on a game or season level.
 
-We will examine two methods of Statistical Inference: \
-1. Confidence Intervals \
-2. Hypothesis Tests \
+
 
 \newpage
 
 
 ### Confidence Intervals
 
+:::{.definition}
 A **confidence interval** gives a range of plausible values for a population parameter. Confidence intervals can be one-sided or two-sided.
+:::
 
-**General Form of a Confidence Interval (Two-Sided)**
+**Different Types of Confidence Intervals**
 
-\vfill
+There are three different types of hypothesis tests.
 
-*Note:* $\alpha$ is the probability that a confidence interval does not contain the true population parameter given that the null hypothesis is true. It is also the probability of a *Type I error*.
+1. Left-tailed confidence interval \ \vfill
 
-**Writing and Interpreting a Confidence Interval**
+2. Right-tailed confidence interval \ \vfill
 
-Here's how to write confidence intervals:
-\vfill
+3. Two-tailed confidence interval \ \vfill
 
-Here's how to interpret confidence intervals:
+**How to Interpret a confidence interval**
+
 \vfill
 
 \newpage
 
 ### Hypothesis Tests
 
-The goal of a hypothesis test is test competing claims about a population parameter. In other words, we want to determine if the sample data are consistent with the null hypothesis, our initial assumption regarding the population parameter of interest.
+The goal of a hypothesis test is to test competing claims about a population parameter. In other words, we want to determine if the sample data are consistent with the null hypothesis which is our initial assumption regarding the population parameter of interest.
 
 :::{.definition}
 The *null hypothesis*, denoted $H_0$, is the claim that is initially assumed to be true.
@@ -122,7 +142,183 @@ Since we don't know the true parameter value, there is a chance we will make an 
 **Step 6:** Interpret the statistical decision (in the context of the problem). \
 \vfill
 
+\newpage
 
+## Inference for One Population Parameter
+
+:::{.theorem}
+A random sample from an infinite population with mean $\mu$ and variance $\sigma^2$ has the following properties:
+
+$E[\bar{X}] = \mu$
+
+$Var(\bar{X}) = \frac{\sigma^2}{n}$
+
+$\hat{SE}(\bar{X}) = \frac{s}{\sqrt{n}}$
+:::
+
+### Confidence Interval for Population Mean
+
+:::{.definition}
+The confidence interval for a population mean $\mu$ with sample mean $\bar{x}$ and sample variance $s^2$ is given by:
+
+$\bar{x} \pm t_{c.v.}\frac{s}{\sqrt{n}}, \, df=n-1$, 
+
+where $t_{c.v.}$ denotes the critical value for a t-distribution with $df=n-1$ degrees of freedom for the required confidence level.
+:::
+
+:::{.example}
+In Michael Jordan's third season, 1986--1987, he had a career best with an average of 37.1 points per game (standard deviation: 9.92) while playing an average of 40.0 minutes per game over 82 games. Data for Jordan's 1986--1987 season are given in `jordan86-87.csv`.
+
+Video highlights from Michael Jordan's 1986--1987 season: \
+https://www.youtube.com/watch?v=cWSrUhhR3DA
+
+Let $\mu$ be the true point scoring ability of Michael Jordan during his 1986--1987 season. Create a 90\% confidence interval for $\mu$.
+:::
+
+\vfill
+
+\newpage
+
+```{r, message=F}
+jordan86_87 <- read_csv("data/jordan86-87.csv")
+
+jordan86_87 %>% summarize(
+  Games = n(), 
+  `Points Mean`= mean(PTS),
+  `Points SD` = sd(PTS),) %>% 
+  kable(booktabs=T,digits = 2)
+```
+\bigskip
+
+```{r}
+library(infer)
+jordan86_87 %>% t_test(response=PTS) %>% 
+  kable(booktabs=T,digits = 2)
+```
+\newpage
+
+### Hypothesis Test for Population Mean
+
+:::{.definition}
+The test statistic for a population mean $\mu$ with sample mean $\bar{x}$ and sample variance $s^2$ is given by:
+
+$t_{test} = \frac{\bar{x}-\mu}{s/\sqrt{n}} \sim t_{n-1}$
+:::
+
+:::{.example}
+Wilt Chamberlain is considered one of the greatest of all-time in basketball and he had a career year in the 1961--1962 season. Data for Chamberlain's 1961--1962 season are given in `wilt61-62.csv`.
+
+On March 2, 1962, Wilt Chamberlain scored 100 points in a single game. He also averaged 50.4 points per game (standard deviation: 12.0 points) while playing an average of 48.5 minutes per game over 80 games.
+
+Background videos on Wilt Chamberlain: \
+https://www.youtube.com/watch?v=LxMeEzhvNRs \
+https://www.youtube.com/watch?v=1WsCtyLGg1w 
+
+Let $\mu$ be Wilt's true point scoring ability in 1961--1962. Test the claim that $\mu > 50$ PPG at $\alpha=0.05$.
+:::
+
+\vfill
+
+\newpage
+
+```{r, message=F}
+wilt61_62 <- read_csv("data/wilt61-62.csv")
+
+wilt61_62 %>% summarize(
+  Games = n(), 
+  `Points Mean`= mean(PTS),
+  `Points SD` = sd(PTS)) %>% 
+  kable(booktabs=T,digits = 2)
+```
+
+\bigskip
+
+```{r}
+wilt61_62 %>% t_test(response=PTS,mu=50,alternative = "greater") %>% 
+  kable(booktabs=T,digits = 2)
+```
+
+\newpage
+
+### Two-Sample t-test
+
+:::{.theorem}
+The test statistic for a difference in population means $\mu_1 - \mu_2$ is given by:
+
+$t_{test} = \frac{\bar{x}_1 -\bar{x}_2 - D_0}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}} \sim t_{\nu}$
+
+where $\nu = \frac{\big(s_1^2/n_1 + s_2^2/n_2\big)^2}{(s_1^2/n_1)^2/(n_1-1) + (s_2^2/n_2)^2/(n_2-1)}$ 
+:::
+
+\newpage
+
+:::{.theorem}
+A random sample of size $n$ from an infinite population with mean $\pi$ has the following properties:
+
+$E[\hat{p}] = \pi$
+
+$Var(\hat{p}) = \frac{\pi(1-\pi)}{n}$
+
+$\hat{SE}(\hat{p}) = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$
+:::
+
+### Confidence Interval for Population Proportion
+
+:::{.theorem}
+The confidence interval for a population proportion $\pi$ with sample proportion $\hat{p}$ and sample size $n$ is given by:
+
+$\hat{p} \pm z_{c.v.}\sqrt{\frac{p(1-p)}{n}}$
+
+where $z_{c.v.}$ denotes the critical value for a z-distribution for the required confidence level. 
+:::
+
+:::{.example}
+x
+:::
+
+\newpage
+
+### Test for Population Proportion
+
+:::{.theorem}
+The test statistic for a population proportion $\pi$ is given by:
+
+$z_{test} = \frac{\hat{p}-\pi}{\sqrt{\frac{\pi(1-\pi)}{n}}} \sim \mathcal{N}(0,1)$
+:::
+
+:::{.example}
+AL vs NL
+:::
+
+\newpage
+
+### Confidence Interval for Difference in Proportions
+
+:::{.theorem}
+The confidence interval for a difference in population proportions $\pi_1 - \pi_2$ is given by:
+
+$(\hat{p}_1 - \hat{p}_2) \pm z_{c.v.}\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1}+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}$
+
+where $z_{c.v.}$ denotes the critical value for a z-distribution for the required confidence level. 
+:::
+
+:::{.example}
+x
+:::
+
+\newpage
+
+### Test for Difference in Proportions
+
+:::{.theorem}
+The test statistic for a difference in population proportions $\pi_1 - \pi_2$ is given by:
+
+$z_{test} = \frac{\hat{p}_1 - \hat{p}_2 - D_0}{\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1}+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}} \sim \mathcal{N}(0,1)$
+:::
+
+:::{.example}
+x
+:::
 
 \newpage
 
@@ -172,3 +368,18 @@ Since we don't know the true parameter value, there is a chance we will make an 
 ## Permutation Tests
 
 ## Bootstrap
+
+```{r}
+
+library(infer)
+observed_statistic <- wilt61_62 %>%
+  specify(response = PTS) %>%
+  calculate(stat = "mean")
+
+null_dist_1_sample <- wilt61_62 %>%
+  specify(response = PTS) %>%
+  hypothesize(null = "point", mu = 50) %>%
+  generate(reps = 1000, type = "bootstrap") %>%
+  calculate(stat = "mean")
+
+```

@@ -6077,50 +6077,63 @@ Williams was expected to have about 197 more plate appearances in the remainder 
 
 For more discussion on this issue, see: \url{https://www.mlb.com/news/matt-williams-1994-home-run-chase}
 
-\hypertarget{statistical-inference}{%
-\chapter{Statistical Inference}\label{statistical-inference}}
+\hypertarget{inferential-statistics}{%
+\chapter{Inferential Statistics}\label{inferential-statistics}}
 
-\hypertarget{defining-a-population-in-sports-data}{%
-\section{Defining a Population in Sports Data}\label{defining-a-population-in-sports-data}}
+\hypertarget{defining-a-population}{%
+\section{Defining a Population}\label{defining-a-population}}
 
 For team and individual statistics in sports, we often split data up by the seasons. For statistical inference, we need to define what the population is and what the sample is. It is acceptable to define a season as the population and a subset of the season as a sample, but this is usually not exactly what we want to do.
 
 Instead, we often think of a season as a random sample from a theoretical population of all possible seasons. In the same manner, we can think of individual games are a random sample from a theoretical population of all possible games.
 
-\hypertarget{statistical-inference-1}{%
-\section{Statistical Inference}\label{statistical-inference-1}}
+\hypertarget{statistical-inference}{%
+\section{Statistical Inference}\label{statistical-inference}}
 
 \begin{definition}
 \emph{Statistical Inference} is the process of inferring properties of a population by use of sample data.
 \end{definition}
 
-For statistical inference, we need a point estimator and a measure of uncertainty. We will focus on creating confidence intervals for population mean and population proportion.
+For statistical inference, we need a point estimator and a measure of uncertainty. We will focus on statistical inference for population means and population proportions.
+
+We will examine two methods of Statistical Inference:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Confidence Intervals
+\item
+  Hypothesis Tests
+\end{enumerate}
 
 For sports data, we often want to infer properties of a player's (or team's) underlying ability on a game or season level.
-
-We will examine two methods of Statistical Inference:\\
-1. Confidence Intervals\\
-2. Hypothesis Tests\\
 
 \newpage
 
 \hypertarget{confidence-intervals}{%
 \subsection{Confidence Intervals}\label{confidence-intervals}}
 
+\begin{definition}
 A \textbf{confidence interval} gives a range of plausible values for a population parameter. Confidence intervals can be one-sided or two-sided.
+\end{definition}
 
-\textbf{General Form of a Confidence Interval (Two-Sided)}
+\textbf{Different Types of Confidence Intervals}
 
-\vfill
+There are three different types of hypothesis tests.
 
-\emph{Note:} \(\alpha\) is the probability that a confidence interval does not contain the true population parameter given that the null hypothesis is true. It is also the probability of a \emph{Type I error}.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Left-tailed confidence interval ~\vfill
+\item
+  Right-tailed confidence interval ~\vfill
+\item
+  Two-tailed confidence interval ~\vfill
+\end{enumerate}
 
-\textbf{Writing and Interpreting a Confidence Interval}
+\textbf{How to Interpret a confidence interval}
 
-Here's how to write confidence intervals:
-\vfill
-
-Here's how to interpret confidence intervals:
 \vfill
 
 \newpage
@@ -6128,7 +6141,7 @@ Here's how to interpret confidence intervals:
 \hypertarget{hypothesis-tests}{%
 \subsection{Hypothesis Tests}\label{hypothesis-tests}}
 
-The goal of a hypothesis test is test competing claims about a population parameter. In other words, we want to determine if the sample data are consistent with the null hypothesis, our initial assumption regarding the population parameter of interest.
+The goal of a hypothesis test is to test competing claims about a population parameter. In other words, we want to determine if the sample data are consistent with the null hypothesis which is our initial assumption regarding the population parameter of interest.
 
 \begin{definition}
 The \emph{null hypothesis}, denoted \(H_0\), is the claim that is initially assumed to be true.
@@ -6161,16 +6174,13 @@ There are three different types of hypothesis tests.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
-  Left-tailed test\\
+  Left-tailed test ~\vfill
 \item
-  Right-tailed test\\
+  Right-tailed test ~\vfill
 \item
-  Two-tailed test
+  Two-tailed test ~\vfill
 \end{enumerate}
-
-\vfill
 
 \textbf{Errors in Hypothesis Testing}
 
@@ -6214,6 +6224,232 @@ Since we don't know the true parameter value, there is a chance we will make an 
 
 \textbf{Step 6:} Interpret the statistical decision (in the context of the problem).\\
 \vfill
+
+\newpage
+
+\hypertarget{inference-for-one-population-parameter}{%
+\section{Inference for One Population Parameter}\label{inference-for-one-population-parameter}}
+
+\begin{theorem}
+A random sample from an infinite population with mean \(\mu\) and variance \(\sigma^2\) has the following properties:
+
+\(E[\bar{X}] = \mu\)
+
+\(Var(\bar{X}) = \frac{\sigma^2}{n}\)
+
+\(\hat{SE}(\bar{X}) = \frac{s}{\sqrt{n}}\)
+\end{theorem}
+
+\hypertarget{confidence-interval-for-population-mean}{%
+\subsection{Confidence Interval for Population Mean}\label{confidence-interval-for-population-mean}}
+
+\begin{definition}
+The confidence interval for a population mean \(\mu\) with sample mean \(\bar{x}\) and sample variance \(s^2\) is given by:
+
+\(\bar{x} \pm t_{c.v.}\frac{s}{\sqrt{n}}, \, df=n-1\),
+
+where \(t_{c.v.}\) denotes the critical value for a t-distribution with \(df=n-1\) degrees of freedom for the required confidence level.
+\end{definition}
+
+\begin{example}
+In Michael Jordan's third season, 1986--1987, he had a career best with an average of 37.1 points per game (standard deviation: 9.92) while playing an average of 40.0 minutes per game over 82 games. Data for Jordan's 1986--1987 season are given in \texttt{jordan86-87.csv}.
+
+Video highlights from Michael Jordan's 1986--1987 season:\\
+\url{https://www.youtube.com/watch?v=cWSrUhhR3DA}
+
+Let \(\mu\) be the true point scoring ability of Michael Jordan during his 1986--1987 season. Create a 90\% confidence interval for \(\mu\).
+\end{example}
+
+\vfill
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{jordan86\_87 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/jordan86{-}87.csv"}\NormalTok{)}
+
+\NormalTok{jordan86\_87 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarize}\NormalTok{(}
+  \AttributeTok{Games =} \FunctionTok{n}\NormalTok{(), }
+  \StringTok{\textasciigrave{}}\AttributeTok{Points Mean}\StringTok{\textasciigrave{}}\OtherTok{=} \FunctionTok{mean}\NormalTok{(PTS),}
+  \StringTok{\textasciigrave{}}\AttributeTok{Points SD}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{sd}\NormalTok{(PTS),) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{rrr}
+\toprule
+Games & Points Mean & Points SD\\
+\midrule
+82 & 37.09 & 9.92\\
+\bottomrule
+\end{tabular}
+\bigskip
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(infer)}
+\NormalTok{jordan86\_87 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{t\_test}\NormalTok{(}\AttributeTok{response=}\NormalTok{PTS) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{rrrlrrr}
+\toprule
+statistic & t\_df & p\_value & alternative & estimate & lower\_ci & upper\_ci\\
+\midrule
+33.84 & 81 & 0 & two.sided & 37.09 & 34.9 & 39.27\\
+\bottomrule
+\end{tabular}
+\newpage
+
+\hypertarget{hypothesis-test-for-population-mean}{%
+\subsection{Hypothesis Test for Population Mean}\label{hypothesis-test-for-population-mean}}
+
+\begin{definition}
+The test statistic for a population mean \(\mu\) with sample mean \(\bar{x}\) and sample variance \(s^2\) is given by:
+
+\(t_{test} = \frac{\bar{x}-\mu}{s/\sqrt{n}} \sim t_{n-1}\)
+\end{definition}
+
+\begin{example}
+Wilt Chamberlain is considered one of the greatest of all-time in basketball and he had a career year in the 1961--1962 season. Data for Chamberlain's 1961--1962 season are given in \texttt{wilt61-62.csv}.
+
+On March 2, 1962, Wilt Chamberlain scored 100 points in a single game. He also averaged 50.4 points per game (standard deviation: 12.0 points) while playing an average of 48.5 minutes per game over 80 games.
+
+Background videos on Wilt Chamberlain:\\
+\url{https://www.youtube.com/watch?v=LxMeEzhvNRs}\strut \\
+\url{https://www.youtube.com/watch?v=1WsCtyLGg1w}
+
+Let \(\mu\) be Wilt's true point scoring ability in 1961--1962. Test the claim that \(\mu > 50\) PPG at \(\alpha=0.05\).
+\end{example}
+
+\vfill
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wilt61\_62 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/wilt61{-}62.csv"}\NormalTok{)}
+
+\NormalTok{wilt61\_62 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarize}\NormalTok{(}
+  \AttributeTok{Games =} \FunctionTok{n}\NormalTok{(), }
+  \StringTok{\textasciigrave{}}\AttributeTok{Points Mean}\StringTok{\textasciigrave{}}\OtherTok{=} \FunctionTok{mean}\NormalTok{(PTS),}
+  \StringTok{\textasciigrave{}}\AttributeTok{Points SD}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{sd}\NormalTok{(PTS)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{rrr}
+\toprule
+Games & Points Mean & Points SD\\
+\midrule
+80 & 50.36 & 11.99\\
+\bottomrule
+\end{tabular}
+
+\bigskip
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wilt61\_62 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{t\_test}\NormalTok{(}\AttributeTok{response=}\NormalTok{PTS,}\AttributeTok{mu=}\DecValTok{50}\NormalTok{,}\AttributeTok{alternative =} \StringTok{"greater"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{rrrlrrr}
+\toprule
+statistic & t\_df & p\_value & alternative & estimate & lower\_ci & upper\_ci\\
+\midrule
+0.27 & 79 & 0.39 & greater & 50.36 & 48.13 & Inf\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\hypertarget{two-sample-t-test}{%
+\subsection{Two-Sample t-test}\label{two-sample-t-test}}
+
+\begin{theorem}
+The test statistic for a difference in population means \(\mu_1 - \mu_2\) is given by:
+
+\(t_{test} = \frac{\bar{x}_1 -\bar{x}_2 - D_0}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}} \sim t_{\nu}\)
+
+where \(\nu = \frac{\big(s_1^2/n_1 + s_2^2/n_2\big)^2}{(s_1^2/n_1)^2/(n_1-1) + (s_2^2/n_2)^2/(n_2-1)}\)
+\end{theorem}
+
+\newpage
+
+\begin{theorem}
+A random sample of size \(n\) from an infinite population with mean \(\pi\) has the following properties:
+
+\(E[\hat{p}] = \pi\)
+
+\(Var(\hat{p}) = \frac{\pi(1-\pi)}{n}\)
+
+\(\hat{SE}(\hat{p}) = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\)
+\end{theorem}
+
+\hypertarget{confidence-interval-for-population-proportion}{%
+\subsection{Confidence Interval for Population Proportion}\label{confidence-interval-for-population-proportion}}
+
+\begin{theorem}
+The confidence interval for a population proportion \(\pi\) with sample proportion \(\hat{p}\) and sample size \(n\) is given by:
+
+\(\hat{p} \pm z_{c.v.}\sqrt{\frac{p(1-p)}{n}}\)
+
+where \(z_{c.v.}\) denotes the critical value for a z-distribution for the required confidence level.
+\end{theorem}
+
+\begin{example}
+x
+\end{example}
+
+\newpage
+
+\hypertarget{test-for-population-proportion}{%
+\subsection{Test for Population Proportion}\label{test-for-population-proportion}}
+
+\begin{theorem}
+The test statistic for a population proportion \(\pi\) is given by:
+
+\(z_{test} = \frac{\hat{p}-\pi}{\sqrt{\frac{\pi(1-\pi)}{n}}} \sim \mathcal{N}(0,1)\)
+\end{theorem}
+
+\begin{example}
+AL vs NL
+\end{example}
+
+\newpage
+
+\hypertarget{confidence-interval-for-difference-in-proportions}{%
+\subsection{Confidence Interval for Difference in Proportions}\label{confidence-interval-for-difference-in-proportions}}
+
+\begin{theorem}
+The confidence interval for a difference in population proportions \(\pi_1 - \pi_2\) is given by:
+
+\((\hat{p}_1 - \hat{p}_2) \pm z_{c.v.}\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1}+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}\)
+
+where \(z_{c.v.}\) denotes the critical value for a z-distribution for the required confidence level.
+\end{theorem}
+
+\begin{example}
+x
+\end{example}
+
+\newpage
+
+\hypertarget{test-for-difference-in-proportions}{%
+\subsection{Test for Difference in Proportions}\label{test-for-difference-in-proportions}}
+
+\begin{theorem}
+The test statistic for a difference in population proportions \(\pi_1 - \pi_2\) is given by:
+
+\(z_{test} = \frac{\hat{p}_1 - \hat{p}_2 - D_0}{\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1}+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}} \sim \mathcal{N}(0,1)\)
+\end{theorem}
+
+\begin{example}
+x
+\end{example}
 
 \newpage
 
@@ -6276,6 +6512,21 @@ Since we don't know the true parameter value, there is a chance we will make an 
 
 \hypertarget{bootstrap}{%
 \section{Bootstrap}\label{bootstrap}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(infer)}
+\NormalTok{observed\_statistic }\OtherTok{\textless{}{-}}\NormalTok{ wilt61\_62 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{specify}\NormalTok{(}\AttributeTok{response =}\NormalTok{ PTS) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{calculate}\NormalTok{(}\AttributeTok{stat =} \StringTok{"mean"}\NormalTok{)}
+
+\NormalTok{null\_dist\_1\_sample }\OtherTok{\textless{}{-}}\NormalTok{ wilt61\_62 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{specify}\NormalTok{(}\AttributeTok{response =}\NormalTok{ PTS) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{hypothesize}\NormalTok{(}\AttributeTok{null =} \StringTok{"point"}\NormalTok{, }\AttributeTok{mu =} \DecValTok{50}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{generate}\NormalTok{(}\AttributeTok{reps =} \DecValTok{1000}\NormalTok{, }\AttributeTok{type =} \StringTok{"bootstrap"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{calculate}\NormalTok{(}\AttributeTok{stat =} \StringTok{"mean"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{correlation}{%
 \chapter{Correlation}\label{correlation}}

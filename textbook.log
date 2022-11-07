@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  6 NOV 2022 17:37
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  6 NOV 2022 22:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2329,18 +2329,8 @@ f)
 
 ]
 Chapter 5.
-
-Underfull \hbox (badness 10000) in paragraph at lines 6101--6104
-
- []
-
 [159] [160]
-Underfull \hbox (badness 10000) in paragraph at lines 6151--6153
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 6153--6155
+Underfull \hbox (badness 10000) in paragraph at lines 6164--6166
 
  []
 
@@ -2350,46 +2340,41 @@ Underfull \hbox (badness 10000) in paragraph at lines 6166--6168
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 6168--6170
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 6187--6189
+Underfull \hbox (badness 10000) in paragraph at lines 6197--6199
 
  []
 
 [161]
-Underfull \hbox (badness 10000) in paragraph at lines 6200--6201
+Underfull \hbox (badness 10000) in paragraph at lines 6210--6211
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 6203--6204
+Underfull \hbox (badness 10000) in paragraph at lines 6213--6214
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 6206--6207
+Underfull \hbox (badness 10000) in paragraph at lines 6216--6217
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 6209--6210
+Underfull \hbox (badness 10000) in paragraph at lines 6219--6220
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 6212--6213
+Underfull \hbox (badness 10000) in paragraph at lines 6222--6223
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 6215--6216
+Underfull \hbox (badness 10000) in paragraph at lines 6225--6226
 
  []
 
-[162] [163] [164
+[162] [163] [164] [165] [166] [167] [168] [169] [170] [171] [172] [173] [174
 
 ]
 Chapter 6.
@@ -2400,73 +2385,73 @@ File: textbook_files/figure-latex/correlation properties 2-2.pdf Graphic file (
 type pdf)
 <use textbook_files/figure-latex/correlation properties 2-2.pdf>
 
-Underfull \hbox (badness 10000) in paragraph at lines 6296--6297
+Underfull \hbox (badness 10000) in paragraph at lines 6547--6548
 [][]
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[165]
+[175]
 Underfull \vbox (badness 1253) has occurred while \output is active []
 
-[166] [167] [168]
+[176] [177] [178]
 Chapter 7.
-[169
+[179
 
-] [170] [171] [172
+] [180] [181] [182
 
 ]
 Chapter 8.
-[173] [174
-
-]
-Chapter 9.
-[175] [176
-
-]
-Chapter 10.
-[177] [178
-
-]
-Chapter 11.
-[179] [180
-
-]
-Chapter 12.
-[181] [182
-
-]
-Chapter 13.
 [183] [184
 
 ]
-Chapter 14.
+Chapter 9.
 [185] [186
 
 ]
-Chapter 15.
+Chapter 10.
 [187] [188
 
 ]
-Chapter 16.
+Chapter 11.
 [189] [190
 
 ]
-Chapter 17.
+Chapter 12.
 [191] [192
+
+]
+Chapter 13.
+[193] [194
+
+]
+Chapter 14.
+[195] [196
+
+]
+Chapter 15.
+[197] [198
+
+]
+Chapter 16.
+[199] [200
+
+]
+Chapter 17.
+[201] [202
 
 ]
 Chapter 18.
 No file textbook.bbl.
-[193] (./textbook.aux) ) 
+[203] (./textbook.aux) ) 
 Here is how much of TeX's memory you used:
- 22876 strings out of 476179
- 435812 string characters out of 5809544
- 905186 words of memory out of 5000000
- 43185 multiletter control sequences out of 15000+600000
+ 22885 strings out of 476179
+ 436105 string characters out of 5809544
+ 905740 words of memory out of 5000000
+ 43194 multiletter control sequences out of 15000+600000
  475878 words of font info for 90 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  86i,10n,121p,1131b,512s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on textbook.pdf (193 pages).
+Output written on textbook.pdf (203 pages).
