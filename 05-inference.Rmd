@@ -185,7 +185,9 @@ jordan86_87 <- read_csv("data/jordan86-87.csv")
 jordan86_87 %>% summarize(
   Games = n(), 
   `Points Mean`= mean(PTS),
-  `Points SD` = sd(PTS),) %>% 
+  `Points SD` = sd(PTS),
+  `Minutes Mean` = mean(MP),
+  `Minutes SD` = sd(MP)) %>% 
   kable(booktabs=T,digits = 2)
 ```
 \bigskip
@@ -227,7 +229,9 @@ wilt61_62 <- read_csv("data/wilt61-62.csv")
 wilt61_62 %>% summarize(
   Games = n(), 
   `Points Mean`= mean(PTS),
-  `Points SD` = sd(PTS)) %>% 
+  `Points SD` = sd(PTS),
+  `Minutes Mean` = mean(MP),
+  `Minutes SD` = sd(MP)) %>% 
   kable(booktabs=T,digits = 2)
 ```
 
@@ -240,7 +244,7 @@ wilt61_62 %>% t_test(response=PTS,mu=50,alternative = "greater") %>%
 
 \newpage
 
-### Two-Sample t-test
+### Test for Difference in Means
 
 :::{.theorem}
 The test statistic for a difference in population means $\mu_1 - \mu_2$ is given by:
@@ -249,6 +253,46 @@ $t_{test} = \frac{\bar{x}_1 -\bar{x}_2 - D_0}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^
 
 where $\nu = \frac{\big(s_1^2/n_1 + s_2^2/n_2\big)^2}{(s_1^2/n_1)^2/(n_1-1) + (s_2^2/n_2)^2/(n_2-1)}$ 
 :::
+
+### Confidence Interval for Difference in Means
+
+:::{.theorem}
+The confidence interval for a difference in population means $\mu_1 - \mu_2$ is given by:
+
+$(\bar{x}_1 - \bar{x}_2) \pm t_{c.v.} \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}$
+
+where $t_{c.v.}$ denotes the critical value for a t-distribution with $df=\nu$ degrees of freedom for the required confidence level and $\nu = \frac{\big(s_1^2/n_1 + s_2^2/n_2\big)^2}{(s_1^2/n_1)^2/(n_1-1) + (s_2^2/n_2)^2/(n_2-1)}$ 
+:::
+
+:::{.example}
+NBA statistics are often given as a rate statistic per 36 minutes to account for differences in playing time. Compare points per game (PPG) and points per 36 minutes (PP36) on a season level for Jordan's 1986--1987 season and Chamberlain's 1961--1962 season.
+:::
+
+```{r}
+wilt_pp36 <- sum(wilt61_62$PTS)/sum(wilt61_62$MP)*36
+jordan_pp36 <- sum(jordan86_87$PTS)/sum(jordan86_87$MP)*36
+data.frame(`Wilt PPG` = mean(wilt61_62$PTS), 
+           `Jordan PPG` = mean(jordan86_87$PTS), 
+           `Wilt PP36` = wilt_pp36,  
+           `Jordan PP36` = jordan_pp36)  %>% 
+  kable(booktabs=T,digits = 2)
+```
+
+\newpage
+
+:::{.example}
+Calculate PP36 on a game-by-game basis for Jordan and Chamberlain. Create a 95\% confidence interval for the difference in PP36 and make a statistical decision as to if there is a difference.
+:::
+
+```{r}
+jordan86_87$PP36 <- jordan86_87$PTS/jordan86_87$MP*36
+wilt61_62$PP36 <- wilt61_62$PTS/wilt61_62$MP*36
+jordan_wilt <- data.frame(PP36=c(jordan86_87$PP36,wilt61_62$PP36),
+                          Player=c(rep("MJ",82),rep("WC",80)))
+jordan_wilt %>% t_test(formula=PP36~Player,
+                       order=c("WC","MJ"),conf_level = 0.95) %>% 
+  kable(booktabs=T,digits = 2)
+```
 
 \newpage
 

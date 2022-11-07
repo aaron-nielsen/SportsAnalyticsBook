@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-11-06}
+\date{2022-11-07}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -6271,16 +6271,18 @@ Let \(\mu\) be the true point scoring ability of Michael Jordan during his 1986-
 \NormalTok{jordan86\_87 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarize}\NormalTok{(}
   \AttributeTok{Games =} \FunctionTok{n}\NormalTok{(), }
   \StringTok{\textasciigrave{}}\AttributeTok{Points Mean}\StringTok{\textasciigrave{}}\OtherTok{=} \FunctionTok{mean}\NormalTok{(PTS),}
-  \StringTok{\textasciigrave{}}\AttributeTok{Points SD}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{sd}\NormalTok{(PTS),) }\SpecialCharTok{\%\textgreater{}\%} 
+  \StringTok{\textasciigrave{}}\AttributeTok{Points SD}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{sd}\NormalTok{(PTS),}
+  \StringTok{\textasciigrave{}}\AttributeTok{Minutes Mean}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{mean}\NormalTok{(MP),}
+  \StringTok{\textasciigrave{}}\AttributeTok{Minutes SD}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{sd}\NormalTok{(MP)) }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tabular}{rrr}
+\begin{tabular}{rrrrr}
 \toprule
-Games & Points Mean & Points SD\\
+Games & Points Mean & Points SD & Minutes Mean & Minutes SD\\
 \midrule
-82 & 37.09 & 9.92\\
+82 & 37.09 & 9.92 & 40.01 & 4.44\\
 \bottomrule
 \end{tabular}
 \bigskip
@@ -6334,16 +6336,18 @@ Let \(\mu\) be Wilt's true point scoring ability in 1961--1962. Test the claim t
 \NormalTok{wilt61\_62 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarize}\NormalTok{(}
   \AttributeTok{Games =} \FunctionTok{n}\NormalTok{(), }
   \StringTok{\textasciigrave{}}\AttributeTok{Points Mean}\StringTok{\textasciigrave{}}\OtherTok{=} \FunctionTok{mean}\NormalTok{(PTS),}
-  \StringTok{\textasciigrave{}}\AttributeTok{Points SD}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{sd}\NormalTok{(PTS)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \StringTok{\textasciigrave{}}\AttributeTok{Points SD}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{sd}\NormalTok{(PTS),}
+  \StringTok{\textasciigrave{}}\AttributeTok{Minutes Mean}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{mean}\NormalTok{(MP),}
+  \StringTok{\textasciigrave{}}\AttributeTok{Minutes SD}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{sd}\NormalTok{(MP)) }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tabular}{rrr}
+\begin{tabular}{rrrrr}
 \toprule
-Games & Points Mean & Points SD\\
+Games & Points Mean & Points SD & Minutes Mean & Minutes SD\\
 \midrule
-80 & 50.36 & 11.99\\
+80 & 50.36 & 11.99 & 48.52 & 2.5\\
 \bottomrule
 \end{tabular}
 
@@ -6366,8 +6370,8 @@ statistic & t\_df & p\_value & alternative & estimate & lower\_ci & upper\_ci\\
 
 \newpage
 
-\hypertarget{two-sample-t-test}{%
-\subsection{Two-Sample t-test}\label{two-sample-t-test}}
+\hypertarget{test-for-difference-in-means}{%
+\subsection{Test for Difference in Means}\label{test-for-difference-in-means}}
 
 \begin{theorem}
 The test statistic for a difference in population means \(\mu_1 - \mu_2\) is given by:
@@ -6376,6 +6380,67 @@ The test statistic for a difference in population means \(\mu_1 - \mu_2\) is giv
 
 where \(\nu = \frac{\big(s_1^2/n_1 + s_2^2/n_2\big)^2}{(s_1^2/n_1)^2/(n_1-1) + (s_2^2/n_2)^2/(n_2-1)}\)
 \end{theorem}
+
+\hypertarget{confidence-interval-for-difference-in-means}{%
+\subsection{Confidence Interval for Difference in Means}\label{confidence-interval-for-difference-in-means}}
+
+\begin{theorem}
+The confidence interval for a difference in population means \(\mu_1 - \mu_2\) is given by:
+
+\((\bar{x}_1 - \bar{x}_2) \pm t_{c.v.} \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}\)
+
+where \(t_{c.v.}\) denotes the critical value for a t-distribution with \(df=\nu\) degrees of freedom for the required confidence level and \(\nu = \frac{\big(s_1^2/n_1 + s_2^2/n_2\big)^2}{(s_1^2/n_1)^2/(n_1-1) + (s_2^2/n_2)^2/(n_2-1)}\)
+\end{theorem}
+
+\begin{example}
+NBA statistics are often given as a rate statistic per 36 minutes to account for differences in playing time. Compare points per game (PPG) and points per 36 minutes (PP36) on a season level for Jordan's 1986--1987 season and Chamberlain's 1961--1962 season.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wilt\_pp36 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(wilt61\_62}\SpecialCharTok{$}\NormalTok{PTS)}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(wilt61\_62}\SpecialCharTok{$}\NormalTok{MP)}\SpecialCharTok{*}\DecValTok{36}
+\NormalTok{jordan\_pp36 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(jordan86\_87}\SpecialCharTok{$}\NormalTok{PTS)}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(jordan86\_87}\SpecialCharTok{$}\NormalTok{MP)}\SpecialCharTok{*}\DecValTok{36}
+\FunctionTok{data.frame}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Wilt PPG}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{mean}\NormalTok{(wilt61\_62}\SpecialCharTok{$}\NormalTok{PTS), }
+           \StringTok{\textasciigrave{}}\AttributeTok{Jordan PPG}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{mean}\NormalTok{(jordan86\_87}\SpecialCharTok{$}\NormalTok{PTS), }
+           \StringTok{\textasciigrave{}}\AttributeTok{Wilt PP36}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ wilt\_pp36,  }
+           \StringTok{\textasciigrave{}}\AttributeTok{Jordan PP36}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ jordan\_pp36)  }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{rrrr}
+\toprule
+Wilt.PPG & Jordan.PPG & Wilt.PP36 & Jordan.PP36\\
+\midrule
+50.36 & 37.09 & 37.36 & 33.37\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{example}
+Calculate PP36 on a game-by-game basis for Jordan and Chamberlain. Create a 95\% confidence interval for the difference in PP36 and make a statistical decision as to if there is a difference.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{jordan86\_87}\SpecialCharTok{$}\NormalTok{PP36 }\OtherTok{\textless{}{-}}\NormalTok{ jordan86\_87}\SpecialCharTok{$}\NormalTok{PTS}\SpecialCharTok{/}\NormalTok{jordan86\_87}\SpecialCharTok{$}\NormalTok{MP}\SpecialCharTok{*}\DecValTok{36}
+\NormalTok{wilt61\_62}\SpecialCharTok{$}\NormalTok{PP36 }\OtherTok{\textless{}{-}}\NormalTok{ wilt61\_62}\SpecialCharTok{$}\NormalTok{PTS}\SpecialCharTok{/}\NormalTok{wilt61\_62}\SpecialCharTok{$}\NormalTok{MP}\SpecialCharTok{*}\DecValTok{36}
+\NormalTok{jordan\_wilt }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{PP36=}\FunctionTok{c}\NormalTok{(jordan86\_87}\SpecialCharTok{$}\NormalTok{PP36,wilt61\_62}\SpecialCharTok{$}\NormalTok{PP36),}
+                          \AttributeTok{Player=}\FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"MJ"}\NormalTok{,}\DecValTok{82}\NormalTok{),}\FunctionTok{rep}\NormalTok{(}\StringTok{"WC"}\NormalTok{,}\DecValTok{80}\NormalTok{)))}
+\NormalTok{jordan\_wilt }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{t\_test}\NormalTok{(}\AttributeTok{formula=}\NormalTok{PP36}\SpecialCharTok{\textasciitilde{}}\NormalTok{Player,}
+                       \AttributeTok{order=}\FunctionTok{c}\NormalTok{(}\StringTok{"WC"}\NormalTok{,}\StringTok{"MJ"}\NormalTok{),}\AttributeTok{conf\_level =} \FloatTok{0.95}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{rrrlrrr}
+\toprule
+statistic & t\_df & p\_value & alternative & estimate & lower\_ci & upper\_ci\\
+\midrule
+2.84 & 159.96 & 0.01 & two.sided & 3.87 & 1.18 & 6.56\\
+\bottomrule
+\end{tabular}
 
 \newpage
 

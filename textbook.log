@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  6 NOV 2022 22:18
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  7 NOV 2022 12:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2374,9 +2374,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 6225--6226
 
  []
 
-[162] [163] [164] [165] [166] [167] [168] [169] [170] [171] [172] [173] [174
-
-]
+[162] [163] [164] [165] [166] [167] [168] [169] [170] [171] [172] [173] [174]
 Chapter 6.
 File: textbook_files/figure-latex/correlation properties 2-1.pdf Graphic file (
 type pdf)
@@ -2385,14 +2383,16 @@ File: textbook_files/figure-latex/correlation properties 2-2.pdf Graphic file (
 type pdf)
 <use textbook_files/figure-latex/correlation properties 2-2.pdf>
 
-Underfull \hbox (badness 10000) in paragraph at lines 6547--6548
+Underfull \hbox (badness 10000) in paragraph at lines 6612--6613
 [][]
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[175]
+[175
+
+]
 Underfull \vbox (badness 1253) has occurred while \output is active []
 
 [176] [177] [178]
@@ -2446,10 +2446,10 @@ Chapter 18.
 No file textbook.bbl.
 [203] (./textbook.aux) ) 
 Here is how much of TeX's memory you used:
- 22885 strings out of 476179
- 436105 string characters out of 5809544
- 905740 words of memory out of 5000000
- 43194 multiletter control sequences out of 15000+600000
+ 22886 strings out of 476179
+ 436161 string characters out of 5809544
+ 905830 words of memory out of 5000000
+ 43195 multiletter control sequences out of 15000+600000
  475878 words of font info for 90 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  86i,10n,121p,1131b,512s stack positions out of 10000i,1000n,20000p,200000b,200000s

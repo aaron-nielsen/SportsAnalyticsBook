@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2022-11-06" />
+<meta name="date" content="2022-11-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -275,11 +275,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.3.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-population-mean"><i class="fa fa-check"></i><b>5.3.1</b> Confidence Interval for Population Mean</a></li>
 <li class="chapter" data-level="5.3.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hypothesis-test-for-population-mean"><i class="fa fa-check"></i><b>5.3.2</b> Hypothesis Test for Population Mean</a></li>
-<li class="chapter" data-level="5.3.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#two-sample-t-test"><i class="fa fa-check"></i><b>5.3.3</b> Two-Sample t-test</a></li>
-<li class="chapter" data-level="5.3.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-population-proportion"><i class="fa fa-check"></i><b>5.3.4</b> Confidence Interval for Population Proportion</a></li>
-<li class="chapter" data-level="5.3.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-population-proportion"><i class="fa fa-check"></i><b>5.3.5</b> Test for Population Proportion</a></li>
-<li class="chapter" data-level="5.3.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.3.6</b> Confidence Interval for Difference in Proportions</a></li>
-<li class="chapter" data-level="5.3.7" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.3.7</b> Test for Difference in Proportions</a></li>
+<li class="chapter" data-level="5.3.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-difference-in-means"><i class="fa fa-check"></i><b>5.3.3</b> Test for Difference in Means</a></li>
+<li class="chapter" data-level="5.3.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-difference-in-means"><i class="fa fa-check"></i><b>5.3.4</b> Confidence Interval for Difference in Means</a></li>
+<li class="chapter" data-level="5.3.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-population-proportion"><i class="fa fa-check"></i><b>5.3.5</b> Confidence Interval for Population Proportion</a></li>
+<li class="chapter" data-level="5.3.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-population-proportion"><i class="fa fa-check"></i><b>5.3.6</b> Test for Population Proportion</a></li>
+<li class="chapter" data-level="5.3.7" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.3.7</b> Confidence Interval for Difference in Proportions</a></li>
+<li class="chapter" data-level="5.3.8" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.3.8</b> Test for Difference in Proportions</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#margin-of-error-calcuations"><i class="fa fa-check"></i><b>5.4</b> Margin of Error Calcuations</a>
 <ul>
@@ -491,8 +492,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb275-3"><a href="inferential-statistics.html#cb275-3" aria-hidden="true" tabindex="-1"></a>jordan86_87 <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(</span>
 <span id="cb275-4"><a href="inferential-statistics.html#cb275-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Games =</span> <span class="fu">n</span>(), </span>
 <span id="cb275-5"><a href="inferential-statistics.html#cb275-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Points Mean</span><span class="st">`</span><span class="ot">=</span> <span class="fu">mean</span>(PTS),</span>
-<span id="cb275-6"><a href="inferential-statistics.html#cb275-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Points SD</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sd</span>(PTS),) <span class="sc">%&gt;%</span> </span>
-<span id="cb275-7"><a href="inferential-statistics.html#cb275-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<span id="cb275-6"><a href="inferential-statistics.html#cb275-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Points SD</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sd</span>(PTS),</span>
+<span id="cb275-7"><a href="inferential-statistics.html#cb275-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Minutes Mean</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(MP),</span>
+<span id="cb275-8"><a href="inferential-statistics.html#cb275-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Minutes SD</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sd</span>(MP)) <span class="sc">%&gt;%</span> </span>
+<span id="cb275-9"><a href="inferential-statistics.html#cb275-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -504,6 +507,12 @@ Points Mean
 </th>
 <th style="text-align:right;">
 Points SD
+</th>
+<th style="text-align:right;">
+Minutes Mean
+</th>
+<th style="text-align:right;">
+Minutes SD
 </th>
 </tr>
 </thead>
@@ -517,6 +526,12 @@ Points SD
 </td>
 <td style="text-align:right;">
 9.92
+</td>
+<td style="text-align:right;">
+40.01
+</td>
+<td style="text-align:right;">
+4.44
 </td>
 </tr>
 </tbody>
@@ -598,8 +613,10 @@ two.sided
 <span id="cb277-3"><a href="inferential-statistics.html#cb277-3" aria-hidden="true" tabindex="-1"></a>wilt61_62 <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(</span>
 <span id="cb277-4"><a href="inferential-statistics.html#cb277-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Games =</span> <span class="fu">n</span>(), </span>
 <span id="cb277-5"><a href="inferential-statistics.html#cb277-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Points Mean</span><span class="st">`</span><span class="ot">=</span> <span class="fu">mean</span>(PTS),</span>
-<span id="cb277-6"><a href="inferential-statistics.html#cb277-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Points SD</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sd</span>(PTS)) <span class="sc">%&gt;%</span> </span>
-<span id="cb277-7"><a href="inferential-statistics.html#cb277-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<span id="cb277-6"><a href="inferential-statistics.html#cb277-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Points SD</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sd</span>(PTS),</span>
+<span id="cb277-7"><a href="inferential-statistics.html#cb277-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Minutes Mean</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(MP),</span>
+<span id="cb277-8"><a href="inferential-statistics.html#cb277-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Minutes SD</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sd</span>(MP)) <span class="sc">%&gt;%</span> </span>
+<span id="cb277-9"><a href="inferential-statistics.html#cb277-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -611,6 +628,12 @@ Points Mean
 </th>
 <th style="text-align:right;">
 Points SD
+</th>
+<th style="text-align:right;">
+Minutes Mean
+</th>
+<th style="text-align:right;">
+Minutes SD
 </th>
 </tr>
 </thead>
@@ -624,6 +647,12 @@ Points SD
 </td>
 <td style="text-align:right;">
 11.99
+</td>
+<td style="text-align:right;">
+48.52
+</td>
+<td style="text-align:right;">
+2.5
 </td>
 </tr>
 </tbody>
@@ -684,64 +713,179 @@ Inf
 </table>
 <div style="page-break-after: always;"></div>
 </div>
-<div id="two-sample-t-test" class="section level3 hasAnchor" number="5.3.3">
-<h3><span class="header-section-number">5.3.3</span> Two-Sample t-test<a href="inferential-statistics.html#two-sample-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="test-for-difference-in-means" class="section level3 hasAnchor" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> Test for Difference in Means<a href="inferential-statistics.html#test-for-difference-in-means" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="theorem">
 <p><span id="thm:unlabeled-div-148" class="theorem"><strong>Theorem 5.2  </strong></span>The test statistic for a difference in population means <span class="math inline">\(\mu_1 - \mu_2\)</span> is given by:</p>
 <p><span class="math inline">\(t_{test} = \frac{\bar{x}_1 -\bar{x}_2 - D_0}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}} \sim t_{\nu}\)</span></p>
 <p>where <span class="math inline">\(\nu = \frac{\big(s_1^2/n_1 + s_2^2/n_2\big)^2}{(s_1^2/n_1)^2/(n_1-1) + (s_2^2/n_2)^2/(n_2-1)}\)</span></p>
 </div>
+</div>
+<div id="confidence-interval-for-difference-in-means" class="section level3 hasAnchor" number="5.3.4">
+<h3><span class="header-section-number">5.3.4</span> Confidence Interval for Difference in Means<a href="inferential-statistics.html#confidence-interval-for-difference-in-means" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-149" class="theorem"><strong>Theorem 5.3  </strong></span>The confidence interval for a difference in population means <span class="math inline">\(\mu_1 - \mu_2\)</span> is given by:</p>
+<p><span class="math inline">\((\bar{x}_1 - \bar{x}_2) \pm t_{c.v.} \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}\)</span></p>
+<p>where <span class="math inline">\(t_{c.v.}\)</span> denotes the critical value for a t-distribution with <span class="math inline">\(df=\nu\)</span> degrees of freedom for the required confidence level and <span class="math inline">\(\nu = \frac{\big(s_1^2/n_1 + s_2^2/n_2\big)^2}{(s_1^2/n_1)^2/(n_1-1) + (s_2^2/n_2)^2/(n_2-1)}\)</span></p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-150" class="example"><strong>Example 5.3  </strong></span>NBA statistics are often given as a rate statistic per 36 minutes to account for differences in playing time. Compare points per game (PPG) and points per 36 minutes (PP36) on a season level for Jordan’s 1986–1987 season and Chamberlain’s 1961–1962 season.</p>
+</div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="inferential-statistics.html#cb279-1" aria-hidden="true" tabindex="-1"></a>wilt_pp36 <span class="ot">&lt;-</span> <span class="fu">sum</span>(wilt61_62<span class="sc">$</span>PTS)<span class="sc">/</span><span class="fu">sum</span>(wilt61_62<span class="sc">$</span>MP)<span class="sc">*</span><span class="dv">36</span></span>
+<span id="cb279-2"><a href="inferential-statistics.html#cb279-2" aria-hidden="true" tabindex="-1"></a>jordan_pp36 <span class="ot">&lt;-</span> <span class="fu">sum</span>(jordan86_87<span class="sc">$</span>PTS)<span class="sc">/</span><span class="fu">sum</span>(jordan86_87<span class="sc">$</span>MP)<span class="sc">*</span><span class="dv">36</span></span>
+<span id="cb279-3"><a href="inferential-statistics.html#cb279-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="st">`</span><span class="at">Wilt PPG</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(wilt61_62<span class="sc">$</span>PTS), </span>
+<span id="cb279-4"><a href="inferential-statistics.html#cb279-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">Jordan PPG</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(jordan86_87<span class="sc">$</span>PTS), </span>
+<span id="cb279-5"><a href="inferential-statistics.html#cb279-5" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">Wilt PP36</span><span class="st">`</span> <span class="ot">=</span> wilt_pp36,  </span>
+<span id="cb279-6"><a href="inferential-statistics.html#cb279-6" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">Jordan PP36</span><span class="st">`</span> <span class="ot">=</span> jordan_pp36)  <span class="sc">%&gt;%</span> </span>
+<span id="cb279-7"><a href="inferential-statistics.html#cb279-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+Wilt.PPG
+</th>
+<th style="text-align:right;">
+Jordan.PPG
+</th>
+<th style="text-align:right;">
+Wilt.PP36
+</th>
+<th style="text-align:right;">
+Jordan.PP36
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+50.36
+</td>
+<td style="text-align:right;">
+37.09
+</td>
+<td style="text-align:right;">
+37.36
+</td>
+<td style="text-align:right;">
+33.37
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-151" class="example"><strong>Example 5.4  </strong></span>Calculate PP36 on a game-by-game basis for Jordan and Chamberlain. Create a 95% confidence interval for the difference in PP36 and make a statistical decision as to if there is a difference.</p>
+</div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="inferential-statistics.html#cb280-1" aria-hidden="true" tabindex="-1"></a>jordan86_87<span class="sc">$</span>PP36 <span class="ot">&lt;-</span> jordan86_87<span class="sc">$</span>PTS<span class="sc">/</span>jordan86_87<span class="sc">$</span>MP<span class="sc">*</span><span class="dv">36</span></span>
+<span id="cb280-2"><a href="inferential-statistics.html#cb280-2" aria-hidden="true" tabindex="-1"></a>wilt61_62<span class="sc">$</span>PP36 <span class="ot">&lt;-</span> wilt61_62<span class="sc">$</span>PTS<span class="sc">/</span>wilt61_62<span class="sc">$</span>MP<span class="sc">*</span><span class="dv">36</span></span>
+<span id="cb280-3"><a href="inferential-statistics.html#cb280-3" aria-hidden="true" tabindex="-1"></a>jordan_wilt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">PP36=</span><span class="fu">c</span>(jordan86_87<span class="sc">$</span>PP36,wilt61_62<span class="sc">$</span>PP36),</span>
+<span id="cb280-4"><a href="inferential-statistics.html#cb280-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">Player=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;MJ&quot;</span>,<span class="dv">82</span>),<span class="fu">rep</span>(<span class="st">&quot;WC&quot;</span>,<span class="dv">80</span>)))</span>
+<span id="cb280-5"><a href="inferential-statistics.html#cb280-5" aria-hidden="true" tabindex="-1"></a>jordan_wilt <span class="sc">%&gt;%</span> <span class="fu">t_test</span>(<span class="at">formula=</span>PP36<span class="sc">~</span>Player,</span>
+<span id="cb280-6"><a href="inferential-statistics.html#cb280-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">order=</span><span class="fu">c</span>(<span class="st">&quot;WC&quot;</span>,<span class="st">&quot;MJ&quot;</span>),<span class="at">conf_level =</span> <span class="fl">0.95</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb280-7"><a href="inferential-statistics.html#cb280-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+t_df
+</th>
+<th style="text-align:right;">
+p_value
+</th>
+<th style="text-align:left;">
+alternative
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+lower_ci
+</th>
+<th style="text-align:right;">
+upper_ci
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2.84
+</td>
+<td style="text-align:right;">
+159.96
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:left;">
+two.sided
+</td>
+<td style="text-align:right;">
+3.87
+</td>
+<td style="text-align:right;">
+1.18
+</td>
+<td style="text-align:right;">
+6.56
+</td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-149" class="theorem"><strong>Theorem 5.3  </strong></span>A random sample of size <span class="math inline">\(n\)</span> from an infinite population with mean <span class="math inline">\(\pi\)</span> has the following properties:</p>
+<p><span id="thm:unlabeled-div-152" class="theorem"><strong>Theorem 5.4  </strong></span>A random sample of size <span class="math inline">\(n\)</span> from an infinite population with mean <span class="math inline">\(\pi\)</span> has the following properties:</p>
 <p><span class="math inline">\(E[\hat{p}] = \pi\)</span></p>
 <p><span class="math inline">\(Var(\hat{p}) = \frac{\pi(1-\pi)}{n}\)</span></p>
 <p><span class="math inline">\(\hat{SE}(\hat{p}) = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\)</span></p>
 </div>
 </div>
-<div id="confidence-interval-for-population-proportion" class="section level3 hasAnchor" number="5.3.4">
-<h3><span class="header-section-number">5.3.4</span> Confidence Interval for Population Proportion<a href="inferential-statistics.html#confidence-interval-for-population-proportion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="confidence-interval-for-population-proportion" class="section level3 hasAnchor" number="5.3.5">
+<h3><span class="header-section-number">5.3.5</span> Confidence Interval for Population Proportion<a href="inferential-statistics.html#confidence-interval-for-population-proportion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-150" class="theorem"><strong>Theorem 5.4  </strong></span>The confidence interval for a population proportion <span class="math inline">\(\pi\)</span> with sample proportion <span class="math inline">\(\hat{p}\)</span> and sample size <span class="math inline">\(n\)</span> is given by:</p>
+<p><span id="thm:unlabeled-div-153" class="theorem"><strong>Theorem 5.5  </strong></span>The confidence interval for a population proportion <span class="math inline">\(\pi\)</span> with sample proportion <span class="math inline">\(\hat{p}\)</span> and sample size <span class="math inline">\(n\)</span> is given by:</p>
 <p><span class="math inline">\(\hat{p} \pm z_{c.v.}\sqrt{\frac{p(1-p)}{n}}\)</span></p>
 <p>where <span class="math inline">\(z_{c.v.}\)</span> denotes the critical value for a z-distribution for the required confidence level.</p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-151" class="example"><strong>Example 5.3  </strong></span>x</p>
+<p><span id="exm:unlabeled-div-154" class="example"><strong>Example 5.5  </strong></span>x</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
-<div id="test-for-population-proportion" class="section level3 hasAnchor" number="5.3.5">
-<h3><span class="header-section-number">5.3.5</span> Test for Population Proportion<a href="inferential-statistics.html#test-for-population-proportion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="test-for-population-proportion" class="section level3 hasAnchor" number="5.3.6">
+<h3><span class="header-section-number">5.3.6</span> Test for Population Proportion<a href="inferential-statistics.html#test-for-population-proportion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-152" class="theorem"><strong>Theorem 5.5  </strong></span>The test statistic for a population proportion <span class="math inline">\(\pi\)</span> is given by:</p>
+<p><span id="thm:unlabeled-div-155" class="theorem"><strong>Theorem 5.6  </strong></span>The test statistic for a population proportion <span class="math inline">\(\pi\)</span> is given by:</p>
 <p><span class="math inline">\(z_{test} = \frac{\hat{p}-\pi}{\sqrt{\frac{\pi(1-\pi)}{n}}} \sim \mathcal{N}(0,1)\)</span></p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-153" class="example"><strong>Example 5.4  </strong></span>AL vs NL</p>
+<p><span id="exm:unlabeled-div-156" class="example"><strong>Example 5.6  </strong></span>AL vs NL</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
-<div id="confidence-interval-for-difference-in-proportions" class="section level3 hasAnchor" number="5.3.6">
-<h3><span class="header-section-number">5.3.6</span> Confidence Interval for Difference in Proportions<a href="inferential-statistics.html#confidence-interval-for-difference-in-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="confidence-interval-for-difference-in-proportions" class="section level3 hasAnchor" number="5.3.7">
+<h3><span class="header-section-number">5.3.7</span> Confidence Interval for Difference in Proportions<a href="inferential-statistics.html#confidence-interval-for-difference-in-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-154" class="theorem"><strong>Theorem 5.6  </strong></span>The confidence interval for a difference in population proportions <span class="math inline">\(\pi_1 - \pi_2\)</span> is given by:</p>
+<p><span id="thm:unlabeled-div-157" class="theorem"><strong>Theorem 5.7  </strong></span>The confidence interval for a difference in population proportions <span class="math inline">\(\pi_1 - \pi_2\)</span> is given by:</p>
 <p><span class="math inline">\((\hat{p}_1 - \hat{p}_2) \pm z_{c.v.}\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1}+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}\)</span></p>
 <p>where <span class="math inline">\(z_{c.v.}\)</span> denotes the critical value for a z-distribution for the required confidence level.</p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-155" class="example"><strong>Example 5.5  </strong></span>x</p>
+<p><span id="exm:unlabeled-div-158" class="example"><strong>Example 5.7  </strong></span>x</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
-<div id="test-for-difference-in-proportions" class="section level3 hasAnchor" number="5.3.7">
-<h3><span class="header-section-number">5.3.7</span> Test for Difference in Proportions<a href="inferential-statistics.html#test-for-difference-in-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="test-for-difference-in-proportions" class="section level3 hasAnchor" number="5.3.8">
+<h3><span class="header-section-number">5.3.8</span> Test for Difference in Proportions<a href="inferential-statistics.html#test-for-difference-in-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-156" class="theorem"><strong>Theorem 5.7  </strong></span>The test statistic for a difference in population proportions <span class="math inline">\(\pi_1 - \pi_2\)</span> is given by:</p>
+<p><span id="thm:unlabeled-div-159" class="theorem"><strong>Theorem 5.8  </strong></span>The test statistic for a difference in population proportions <span class="math inline">\(\pi_1 - \pi_2\)</span> is given by:</p>
 <p><span class="math inline">\(z_{test} = \frac{\hat{p}_1 - \hat{p}_2 - D_0}{\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1}+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}} \sim \mathcal{N}(0,1)\)</span></p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-157" class="example"><strong>Example 5.6  </strong></span>x</p>
+<p><span id="exm:unlabeled-div-160" class="example"><strong>Example 5.8  </strong></span>x</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -795,16 +939,16 @@ Inf
 </div>
 <div id="bootstrap" class="section level2 hasAnchor" number="5.7">
 <h2><span class="header-section-number">5.7</span> Bootstrap<a href="inferential-statistics.html#bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="inferential-statistics.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
-<span id="cb279-2"><a href="inferential-statistics.html#cb279-2" aria-hidden="true" tabindex="-1"></a>observed_statistic <span class="ot">&lt;-</span> wilt61_62 <span class="sc">%&gt;%</span></span>
-<span id="cb279-3"><a href="inferential-statistics.html#cb279-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> PTS) <span class="sc">%&gt;%</span></span>
-<span id="cb279-4"><a href="inferential-statistics.html#cb279-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">&quot;mean&quot;</span>)</span>
-<span id="cb279-5"><a href="inferential-statistics.html#cb279-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb279-6"><a href="inferential-statistics.html#cb279-6" aria-hidden="true" tabindex="-1"></a>null_dist_1_sample <span class="ot">&lt;-</span> wilt61_62 <span class="sc">%&gt;%</span></span>
-<span id="cb279-7"><a href="inferential-statistics.html#cb279-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> PTS) <span class="sc">%&gt;%</span></span>
-<span id="cb279-8"><a href="inferential-statistics.html#cb279-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">&quot;point&quot;</span>, <span class="at">mu =</span> <span class="dv">50</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb279-9"><a href="inferential-statistics.html#cb279-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">&quot;bootstrap&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb279-10"><a href="inferential-statistics.html#cb279-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">&quot;mean&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="inferential-statistics.html#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
+<span id="cb281-2"><a href="inferential-statistics.html#cb281-2" aria-hidden="true" tabindex="-1"></a>observed_statistic <span class="ot">&lt;-</span> wilt61_62 <span class="sc">%&gt;%</span></span>
+<span id="cb281-3"><a href="inferential-statistics.html#cb281-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> PTS) <span class="sc">%&gt;%</span></span>
+<span id="cb281-4"><a href="inferential-statistics.html#cb281-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">&quot;mean&quot;</span>)</span>
+<span id="cb281-5"><a href="inferential-statistics.html#cb281-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb281-6"><a href="inferential-statistics.html#cb281-6" aria-hidden="true" tabindex="-1"></a>null_dist_1_sample <span class="ot">&lt;-</span> wilt61_62 <span class="sc">%&gt;%</span></span>
+<span id="cb281-7"><a href="inferential-statistics.html#cb281-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> PTS) <span class="sc">%&gt;%</span></span>
+<span id="cb281-8"><a href="inferential-statistics.html#cb281-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">&quot;point&quot;</span>, <span class="at">mu =</span> <span class="dv">50</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb281-9"><a href="inferential-statistics.html#cb281-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">&quot;bootstrap&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb281-10"><a href="inferential-statistics.html#cb281-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">&quot;mean&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>
