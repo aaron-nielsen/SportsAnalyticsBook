@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-11-02}
+\date{2022-11-06}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -6082,6 +6082,140 @@ For more discussion on this issue, see: \url{https://www.mlb.com/news/matt-willi
 
 \hypertarget{defining-a-population-in-sports-data}{%
 \section{Defining a Population in Sports Data}\label{defining-a-population-in-sports-data}}
+
+For team and individual statistics in sports, we often split data up by the seasons. For statistical inference, we need to define what the population is and what the sample is. It is acceptable to define a season as the population and a subset of the season as a sample, but this is usually not exactly what we want to do.
+
+Instead, we often think of a season as a random sample from a theoretical population of all possible seasons. In the same manner, we can think of individual games are a random sample from a theoretical population of all possible games.
+
+\hypertarget{statistical-inference-1}{%
+\section{Statistical Inference}\label{statistical-inference-1}}
+
+\begin{definition}
+\emph{Statistical Inference} is the process of inferring properties of a population by use of sample data.
+\end{definition}
+
+For statistical inference, we need a point estimator and a measure of uncertainty. We will focus on creating confidence intervals for population mean and population proportion.
+
+For sports data, we often want to infer properties of a player's (or team's) underlying ability on a game or season level.
+
+We will examine two methods of Statistical Inference:\\
+1. Confidence Intervals\\
+2. Hypothesis Tests\\
+
+\newpage
+
+\hypertarget{confidence-intervals}{%
+\subsection{Confidence Intervals}\label{confidence-intervals}}
+
+A \textbf{confidence interval} gives a range of plausible values for a population parameter. Confidence intervals can be one-sided or two-sided.
+
+\textbf{General Form of a Confidence Interval (Two-Sided)}
+
+\vfill
+
+\emph{Note:} \(\alpha\) is the probability that a confidence interval does not contain the true population parameter given that the null hypothesis is true. It is also the probability of a \emph{Type I error}.
+
+\textbf{Writing and Interpreting a Confidence Interval}
+
+Here's how to write confidence intervals:
+\vfill
+
+Here's how to interpret confidence intervals:
+\vfill
+
+\newpage
+
+\hypertarget{hypothesis-tests}{%
+\subsection{Hypothesis Tests}\label{hypothesis-tests}}
+
+The goal of a hypothesis test is test competing claims about a population parameter. In other words, we want to determine if the sample data are consistent with the null hypothesis, our initial assumption regarding the population parameter of interest.
+
+\begin{definition}
+The \emph{null hypothesis}, denoted \(H_0\), is the claim that is initially assumed to be true.
+\end{definition}
+
+\begin{definition}
+The \emph{alternative hypothesis}, denoted \(H_a\), is the assertion contradictory to \(H_0\) (``the opposite of \(H_0\)'').
+\end{definition}
+
+The null hypothesis will be rejected in favor of the alternative hypothesis if the sample evidence suggests that \(H_0\) is false.
+
+The two possible conclusions of a hypothesis test are \emph{Reject \(H_0\)} or \emph{Fail to Reject \(H_0\)}.
+
+\textbf{Rules for formulating hypotheses}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(H_0\) contains ``=''\\
+\item
+  \(H_a\) contains \(\neq\), \(>\), \(<\)\\
+\item
+  Usually, the claim we are attempting to show is more plausible is \(H_a\)
+\end{enumerate}
+
+\textbf{Different Types of Hypothesis Tests}
+
+There are three different types of hypothesis tests.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Left-tailed test\\
+\item
+  Right-tailed test\\
+\item
+  Two-tailed test
+\end{enumerate}
+
+\vfill
+
+\textbf{Errors in Hypothesis Testing}
+
+After collecting a sample, we will decide which hypothesis is supported by the data.
+
+Since we don't know the true parameter value, there is a chance we will make an error.
+
+\emph{Two Types of Errors in Hypothesis Testing}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Type I error (\(\alpha\)): Reject \(H_0\) when \(H_0\) is true.\\
+\item
+  Type II error (\(\beta\)): Fail to reject \(H_0\) when \(H_0\) is false.
+\end{enumerate}
+
+\emph{Note:} \(\alpha\) is also called the level of significance for a test.
+
+\newpage
+
+\textbf{Six Steps for Hypothesis Testing}
+
+\emph{Different textbooks will give a different number of steps or outline on how to complete a hypothesis test. For our class, stick to the following method.}
+
+\textbf{Step 1:} State the hypotheses.\\
+\vfill
+
+\textbf{Step 2:} Determine the level of significance.\\
+\vfill
+
+\textbf{Step 3:} Compute a test statistic.\\
+\vfill 
+
+\textbf{Step 4:} Calculate a p-value.\\
+\vfill
+
+\textbf{Step 5:} Make a statistical decision.\\
+\vfill
+
+\textbf{Step 6:} Interpret the statistical decision (in the context of the problem).\\
+\vfill
+
+\newpage
 
 \hypertarget{margin-of-error-calcuations}{%
 \section{Margin of Error Calcuations}\label{margin-of-error-calcuations}}

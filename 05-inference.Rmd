@@ -1,6 +1,130 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
 # Statistical Inference
 
 ## Defining a Population in Sports Data
+
+For team and individual statistics in sports, we often split data up by the seasons. For statistical inference, we need to define what the population is and what the sample is. It is acceptable to define a season as the population and a subset of the season as a sample, but this is usually not exactly what we want to do.
+
+Instead, we often think of a season as a random sample from a theoretical population of all possible seasons. In the same manner, we can think of individual games are a random sample from a theoretical population of all possible games.
+
+## Confidence Intervals
+
+:::{.definition}
+*Statistical Inference* is the process of inferring properties of a population by use of sample data.
+:::
+
+For statistical inference, we need a point estimator and a measure of uncertainty. We will focus on statistical inference for population mean and population proportion.
+
+For sports data, we often want to infer properties of a player's (or team's) underlying ability on a game or season level.
+
+We will examine two methods of Statistical Inference: \
+1. Confidence Intervals \
+2. Hypothesis Tests \
+
+\newpage
+
+
+### Confidence Intervals
+
+A **confidence interval** gives a range of plausible values for a population parameter. Confidence intervals can be one-sided or two-sided.
+
+**General Form of a Confidence Interval (Two-Sided)**
+
+\vfill
+
+*Note:* $\alpha$ is the probability that a confidence interval does not contain the true population parameter given that the null hypothesis is true. It is also the probability of a *Type I error*.
+
+**Writing and Interpreting a Confidence Interval**
+
+Here's how to write confidence intervals:
+\vfill
+
+Here's how to interpret confidence intervals:
+\vfill
+
+\newpage
+
+### Hypothesis Tests
+
+The goal of a hypothesis test is test competing claims about a population parameter. In other words, we want to determine if the sample data are consistent with the null hypothesis, our initial assumption regarding the population parameter of interest.
+
+:::{.definition}
+The *null hypothesis*, denoted $H_0$, is the claim that is initially assumed to be true.
+:::
+
+:::{.definition}
+The *alternative hypothesis*, denoted $H_a$, is the assertion contradictory to $H_0$ ("the opposite of $H_0$").
+:::
+
+The null hypothesis will be rejected in favor of the alternative hypothesis if the sample evidence suggests that $H_0$ is false.
+
+The two possible conclusions of a hypothesis test are *Reject $H_0$* or *Fail to Reject $H_0$*.
+
+**Rules for formulating hypotheses**
+
+1. $H_0$ contains "=" \
+2. $H_a$ contains $\neq$, $>$, $<$ \
+3. Usually, the claim we are attempting to show is more plausible is $H_a$
+
+**Different Types of Hypothesis Tests**
+
+There are three different types of hypothesis tests.
+
+1. Left-tailed test \ \vfill
+
+2. Right-tailed test \ \vfill
+
+3. Two-tailed test \ \vfill
+
+
+**Errors in Hypothesis Testing**
+
+After collecting a sample, we will decide which hypothesis is supported by the data.
+
+Since we don't know the true parameter value, there is a chance we will make an error.
+
+
+*Two Types of Errors in Hypothesis Testing*
+
+1. Type I error ($\alpha$): Reject $H_0$ when $H_0$ is true. \
+2. Type II error ($\beta$): Fail to reject $H_0$ when $H_0$ is false.
+
+*Note:* $\alpha$ is also called the level of significance for a test.
+
+
+\newpage
+
+**Six Steps for Hypothesis Testing**
+
+*Different textbooks will give a different number of steps or outline on how to complete a hypothesis test. For our class, stick to the following method.* 
+
+**Step 1:** State the hypotheses. \
+\vfill
+
+
+**Step 2:** Determine the level of significance. \
+\vfill
+
+**Step 3:** Compute a test statistic. \
+\vfill 
+
+**Step 4:** Calculate a p-value. \
+\vfill
+
+**Step 5:** Make a statistical decision. \
+\vfill
+
+**Step 6:** Interpret the statistical decision (in the context of the problem). \
+\vfill
+
+
+
+\newpage
 
 ## Margin of Error Calcuations
 
