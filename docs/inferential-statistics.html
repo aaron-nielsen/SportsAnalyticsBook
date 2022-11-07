@@ -484,7 +484,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span id="exm:unlabeled-div-145" class="example"><strong>Example 5.1  </strong></span>In Michael Jordan’s third season, 1986–1987, he had a career best with an average of 37.1 points per game (standard deviation: 9.92) while playing an average of 40.0 minutes per game over 82 games. Data for Jordan’s 1986–1987 season are given in <code>jordan86-87.csv</code>.</p>
 <p>Video highlights from Michael Jordan’s 1986–1987 season:<br />
 <a href="https://www.youtube.com/watch?v=cWSrUhhR3DA" class="uri">https://www.youtube.com/watch?v=cWSrUhhR3DA</a></p>
-<p>Let <span class="math inline">\(\mu\)</span> be the true point scoring ability of Michael Jordan during his 1986–1987 season. Create a 90% confidence interval for <span class="math inline">\(\mu\)</span>.</p>
+<p>Let <span class="math inline">\(\mu\)</span> be the true point scoring ability of Michael Jordan during his 1986–1987 season. Create a 95% two-sided confidence interval for <span class="math inline">\(\mu\)</span>.</p>
 </div>
 <div style="page-break-after: always;"></div>
 <div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="inferential-statistics.html#cb275-1" aria-hidden="true" tabindex="-1"></a>jordan86_87 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/jordan86-87.csv&quot;</span>)</span>
@@ -537,7 +537,7 @@ Minutes SD
 </tbody>
 </table>
 <div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="inferential-statistics.html#cb276-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
-<span id="cb276-2"><a href="inferential-statistics.html#cb276-2" aria-hidden="true" tabindex="-1"></a>jordan86_87 <span class="sc">%&gt;%</span> <span class="fu">t_test</span>(<span class="at">response=</span>PTS) <span class="sc">%&gt;%</span> </span>
+<span id="cb276-2"><a href="inferential-statistics.html#cb276-2" aria-hidden="true" tabindex="-1"></a>jordan86_87 <span class="sc">%&gt;%</span> <span class="fu">t_test</span>(<span class="at">response=</span>PTS,<span class="at">conf_int =</span> <span class="fl">0.95</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb276-3"><a href="inferential-statistics.html#cb276-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
 <table>
 <thead>
@@ -605,7 +605,7 @@ two.sided
 <p>Background videos on Wilt Chamberlain:<br />
 <a href="https://www.youtube.com/watch?v=LxMeEzhvNRs" class="uri">https://www.youtube.com/watch?v=LxMeEzhvNRs</a><br />
 <a href="https://www.youtube.com/watch?v=1WsCtyLGg1w" class="uri">https://www.youtube.com/watch?v=1WsCtyLGg1w</a></p>
-<p>Let <span class="math inline">\(\mu\)</span> be Wilt’s true point scoring ability in 1961–1962. Test the claim that <span class="math inline">\(\mu &gt; 50\)</span> PPG at <span class="math inline">\(\alpha=0.05\)</span>.</p>
+<p>Let <span class="math inline">\(\mu\)</span> be Wilt’s true point scoring ability in 1961–1962. Test the claim that <span class="math inline">\(\mu &gt; 50\)</span> PPG at <span class="math inline">\(\alpha=0.10\)</span>.</p>
 </div>
 <div style="page-break-after: always;"></div>
 <div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="inferential-statistics.html#cb277-1" aria-hidden="true" tabindex="-1"></a>wilt61_62 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/wilt61-62.csv&quot;</span>)</span>
@@ -774,14 +774,14 @@ Jordan.PP36
 </table>
 <div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-151" class="example"><strong>Example 5.4  </strong></span>Calculate PP36 on a game-by-game basis for Jordan and Chamberlain. Create a 95% confidence interval for the difference in PP36 and make a statistical decision as to if there is a difference.</p>
+<p><span id="exm:unlabeled-div-151" class="example"><strong>Example 5.4  </strong></span>Calculate PP36 on a game-by-game basis for Jordan and Chamberlain. Create a 99% confidence interval for the difference in PP36 and make a statistical decision as to if there is a difference.</p>
 </div>
 <div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="inferential-statistics.html#cb280-1" aria-hidden="true" tabindex="-1"></a>jordan86_87<span class="sc">$</span>PP36 <span class="ot">&lt;-</span> jordan86_87<span class="sc">$</span>PTS<span class="sc">/</span>jordan86_87<span class="sc">$</span>MP<span class="sc">*</span><span class="dv">36</span></span>
 <span id="cb280-2"><a href="inferential-statistics.html#cb280-2" aria-hidden="true" tabindex="-1"></a>wilt61_62<span class="sc">$</span>PP36 <span class="ot">&lt;-</span> wilt61_62<span class="sc">$</span>PTS<span class="sc">/</span>wilt61_62<span class="sc">$</span>MP<span class="sc">*</span><span class="dv">36</span></span>
 <span id="cb280-3"><a href="inferential-statistics.html#cb280-3" aria-hidden="true" tabindex="-1"></a>jordan_wilt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">PP36=</span><span class="fu">c</span>(jordan86_87<span class="sc">$</span>PP36,wilt61_62<span class="sc">$</span>PP36),</span>
 <span id="cb280-4"><a href="inferential-statistics.html#cb280-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">Player=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;MJ&quot;</span>,<span class="dv">82</span>),<span class="fu">rep</span>(<span class="st">&quot;WC&quot;</span>,<span class="dv">80</span>)))</span>
 <span id="cb280-5"><a href="inferential-statistics.html#cb280-5" aria-hidden="true" tabindex="-1"></a>jordan_wilt <span class="sc">%&gt;%</span> <span class="fu">t_test</span>(<span class="at">formula=</span>PP36<span class="sc">~</span>Player,</span>
-<span id="cb280-6"><a href="inferential-statistics.html#cb280-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">order=</span><span class="fu">c</span>(<span class="st">&quot;WC&quot;</span>,<span class="st">&quot;MJ&quot;</span>),<span class="at">conf_level =</span> <span class="fl">0.95</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb280-6"><a href="inferential-statistics.html#cb280-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">order=</span><span class="fu">c</span>(<span class="st">&quot;WC&quot;</span>,<span class="st">&quot;MJ&quot;</span>),<span class="at">conf_level =</span> <span class="fl">0.99</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb280-7"><a href="inferential-statistics.html#cb280-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
 <table>
 <thead>
@@ -827,10 +827,10 @@ two.sided
 3.87
 </td>
 <td style="text-align:right;">
-1.18
+0.32
 </td>
 <td style="text-align:right;">
-6.56
+7.42
 </td>
 </tr>
 </tbody>

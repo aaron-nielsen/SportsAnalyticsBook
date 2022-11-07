@@ -6257,7 +6257,7 @@ In Michael Jordan's third season, 1986--1987, he had a career best with an avera
 Video highlights from Michael Jordan's 1986--1987 season:\\
 \url{https://www.youtube.com/watch?v=cWSrUhhR3DA}
 
-Let \(\mu\) be the true point scoring ability of Michael Jordan during his 1986--1987 season. Create a 90\% confidence interval for \(\mu\).
+Let \(\mu\) be the true point scoring ability of Michael Jordan during his 1986--1987 season. Create a 95\% two-sided confidence interval for \(\mu\).
 \end{example}
 
 \vfill
@@ -6290,7 +6290,7 @@ Games & Points Mean & Points SD & Minutes Mean & Minutes SD\\
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(infer)}
-\NormalTok{jordan86\_87 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{t\_test}\NormalTok{(}\AttributeTok{response=}\NormalTok{PTS) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{jordan86\_87 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{t\_test}\NormalTok{(}\AttributeTok{response=}\NormalTok{PTS,}\AttributeTok{conf\_int =} \FloatTok{0.95}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -6322,7 +6322,7 @@ Background videos on Wilt Chamberlain:\\
 \url{https://www.youtube.com/watch?v=LxMeEzhvNRs}\strut \\
 \url{https://www.youtube.com/watch?v=1WsCtyLGg1w}
 
-Let \(\mu\) be Wilt's true point scoring ability in 1961--1962. Test the claim that \(\mu > 50\) PPG at \(\alpha=0.05\).
+Let \(\mu\) be Wilt's true point scoring ability in 1961--1962. Test the claim that \(\mu > 50\) PPG at \(\alpha=0.10\).
 \end{example}
 
 \vfill
@@ -6419,7 +6419,7 @@ Wilt.PPG & Jordan.PPG & Wilt.PP36 & Jordan.PP36\\
 \newpage
 
 \begin{example}
-Calculate PP36 on a game-by-game basis for Jordan and Chamberlain. Create a 95\% confidence interval for the difference in PP36 and make a statistical decision as to if there is a difference.
+Calculate PP36 on a game-by-game basis for Jordan and Chamberlain. Create a 99\% confidence interval for the difference in PP36 and make a statistical decision as to if there is a difference.
 \end{example}
 
 \begin{Shaded}
@@ -6429,7 +6429,7 @@ Calculate PP36 on a game-by-game basis for Jordan and Chamberlain. Create a 95\%
 \NormalTok{jordan\_wilt }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{PP36=}\FunctionTok{c}\NormalTok{(jordan86\_87}\SpecialCharTok{$}\NormalTok{PP36,wilt61\_62}\SpecialCharTok{$}\NormalTok{PP36),}
                           \AttributeTok{Player=}\FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"MJ"}\NormalTok{,}\DecValTok{82}\NormalTok{),}\FunctionTok{rep}\NormalTok{(}\StringTok{"WC"}\NormalTok{,}\DecValTok{80}\NormalTok{)))}
 \NormalTok{jordan\_wilt }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{t\_test}\NormalTok{(}\AttributeTok{formula=}\NormalTok{PP36}\SpecialCharTok{\textasciitilde{}}\NormalTok{Player,}
-                       \AttributeTok{order=}\FunctionTok{c}\NormalTok{(}\StringTok{"WC"}\NormalTok{,}\StringTok{"MJ"}\NormalTok{),}\AttributeTok{conf\_level =} \FloatTok{0.95}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+                       \AttributeTok{order=}\FunctionTok{c}\NormalTok{(}\StringTok{"WC"}\NormalTok{,}\StringTok{"MJ"}\NormalTok{),}\AttributeTok{conf\_level =} \FloatTok{0.99}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -6438,7 +6438,7 @@ Calculate PP36 on a game-by-game basis for Jordan and Chamberlain. Create a 95\%
 \toprule
 statistic & t\_df & p\_value & alternative & estimate & lower\_ci & upper\_ci\\
 \midrule
-2.84 & 159.96 & 0.01 & two.sided & 3.87 & 1.18 & 6.56\\
+2.84 & 159.96 & 0.01 & two.sided & 3.87 & 0.32 & 7.42\\
 \bottomrule
 \end{tabular}
 
