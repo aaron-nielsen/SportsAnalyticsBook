@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2022-11-07}
+\date{2022-11-09}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -6227,8 +6227,8 @@ Since we don't know the true parameter value, there is a chance we will make an 
 
 \newpage
 
-\hypertarget{inference-for-one-population-parameter}{%
-\section{Inference for One Population Parameter}\label{inference-for-one-population-parameter}}
+\hypertarget{inference-for-population-mean}{%
+\section{Inference for Population Mean}\label{inference-for-population-mean}}
 
 \begin{theorem}
 A random sample from an infinite population with mean \(\mu\) and variance \(\sigma^2\) has the following properties:
@@ -6444,6 +6444,9 @@ statistic & t\_df & p\_value & alternative & estimate & lower\_ci & upper\_ci\\
 
 \newpage
 
+\hypertarget{inference-for-population-proportion}{%
+\section{Inference for Population Proportion}\label{inference-for-population-proportion}}
+
 \begin{theorem}
 A random sample of size \(n\) from an infinite population with mean \(\pi\) has the following properties:
 
@@ -6465,12 +6468,6 @@ The confidence interval for a population proportion \(\pi\) with sample proporti
 where \(z_{c.v.}\) denotes the critical value for a z-distribution for the required confidence level.
 \end{theorem}
 
-\begin{example}
-x
-\end{example}
-
-\newpage
-
 \hypertarget{test-for-population-proportion}{%
 \subsection{Test for Population Proportion}\label{test-for-population-proportion}}
 
@@ -6481,8 +6478,85 @@ The test statistic for a population proportion \(\pi\) is given by:
 \end{theorem}
 
 \begin{example}
-AL vs NL
+From \emph{Mathletics} (Section 4.8): Since interleague play began in 1997, there was a suspicion that American League teams had a slight advantage since they had a full-time designate hitter on their roster. The designated hitter was approved for National League play in 2022. From 1997 until 2013, American League teams played the National League teams in 4,264 interleague games. American League teams won 2,235 of the games (52.4\% winning percentage). We want to test if the true winning percentage of American League teams exceeded 50\% at a significance level of 0.01.
 \end{example}
+
+\vfill
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{4264}
+\NormalTok{al }\OtherTok{\textless{}{-}} \DecValTok{2235}
+\NormalTok{nl }\OtherTok{\textless{}{-}}\NormalTok{ n }\SpecialCharTok{{-}}\NormalTok{ al}
+\NormalTok{phat }\OtherTok{\textless{}{-}}\NormalTok{ al}\SpecialCharTok{/}\NormalTok{n}
+
+\CommentTok{\# Calculate the CI manually}
+\NormalTok{se }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(phat}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{phat)}\SpecialCharTok{/}\NormalTok{n)}
+\NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.99}\NormalTok{)}
+\NormalTok{moe }\OtherTok{\textless{}{-}}\NormalTok{ z}\SpecialCharTok{*}\NormalTok{se}
+\NormalTok{bound }\OtherTok{\textless{}{-}}\NormalTok{ phat}\SpecialCharTok{{-}}\NormalTok{moe; bound}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5063636
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate test statistic and p{-}value manually}
+\NormalTok{z\_test }\OtherTok{\textless{}{-}}\NormalTok{ (phat}\FloatTok{{-}0.5}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FloatTok{0.5}\SpecialCharTok{*}\FloatTok{0.5}\SpecialCharTok{/}\NormalTok{n)}
+\NormalTok{p\_value }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(z\_test,}\AttributeTok{lower.tail =}\NormalTok{ F)}
+\FunctionTok{data.frame}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Test Stat}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ z\_test, }\StringTok{\textasciigrave{}}\AttributeTok{P{-}value}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ p\_value)  }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{rr}
+\toprule
+Test.Stat & P.value\\
+\midrule
+3.1547 & 8e-04\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Use binomial test}
+\FunctionTok{binom.test}\NormalTok{(}\AttributeTok{x=}\NormalTok{al,}\AttributeTok{n=}\NormalTok{n,}\AttributeTok{p=}\FloatTok{0.5}\NormalTok{,}\AttributeTok{alternative =} \StringTok{"greater"}\NormalTok{,}\AttributeTok{conf.level =} \FloatTok{0.99}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Exact binomial test
+## 
+## data:  al and n
+## number of successes = 2235, number of trials = 4264, p-value =
+## 0.0008449
+## alternative hypothesis: true probability of success is greater than 0.5
+## 99 percent confidence interval:
+##  0.5062306 1.0000000
+## sample estimates:
+## probability of success 
+##              0.5241557
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Winner =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,al),}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,nl)))}
+\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{t\_test}\NormalTok{(}\AttributeTok{response=}\NormalTok{Winner,}\AttributeTok{mu=}\FloatTok{0.5}\NormalTok{,}\AttributeTok{conf\_level =} \FloatTok{0.99}\NormalTok{,}\AttributeTok{alternative =} \StringTok{"greater"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 7
+##   statistic  t_df  p_value alternative estimate lower_ci upper_ci
+##       <dbl> <dbl>    <dbl> <chr>          <dbl>    <dbl>    <dbl>
+## 1      3.16  4263 0.000800 greater        0.524    0.506      Inf
+\end{verbatim}
 
 \newpage
 
@@ -6497,12 +6571,6 @@ The confidence interval for a difference in population proportions \(\pi_1 - \pi
 where \(z_{c.v.}\) denotes the critical value for a z-distribution for the required confidence level.
 \end{theorem}
 
-\begin{example}
-x
-\end{example}
-
-\newpage
-
 \hypertarget{test-for-difference-in-proportions}{%
 \subsection{Test for Difference in Proportions}\label{test-for-difference-in-proportions}}
 
@@ -6513,8 +6581,257 @@ The test statistic for a difference in population proportions \(\pi_1 - \pi_2\) 
 \end{theorem}
 
 \begin{example}
-x
+Football coaches often try to ``ice the kicker'' before a late field goal attempt.\\
+
+Paul Dalen did some analysis for icing the kicker on the collegiate level:\\
+
+\url{https://www.footballstudyhall.com/2018/11/24/18110091/is-icing-the-kicker-really-a-thing}
+
+From his dataset that includes data from 2017--2018, we have the following:
+
+For field goal attempts that were 36--45 yards, iced kickers made 41 out of 66 attempts and non-iced kickers made 195 out of 287 attempts. Is there evidence of a difference in proportions of iced and non-iced kickers? Test the hypothesis at \(\alpha=0.05\) and create a 95\% confidence interval for the difference.
 \end{example}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Iced Kickers}
+\NormalTok{n.ice }\OtherTok{\textless{}{-}} \DecValTok{66}
+\NormalTok{x.ice }\OtherTok{\textless{}{-}} \DecValTok{41}
+\NormalTok{phat.ice }\OtherTok{\textless{}{-}}\NormalTok{ x.ice}\SpecialCharTok{/}\NormalTok{n.ice}
+
+\CommentTok{\# Non{-}iced Kickers}
+\NormalTok{n.nice }\OtherTok{\textless{}{-}} \DecValTok{287}
+\NormalTok{x.nice }\OtherTok{\textless{}{-}} \DecValTok{195}
+\NormalTok{phat.nice }\OtherTok{\textless{}{-}}\NormalTok{ x.nice}\SpecialCharTok{/}\NormalTok{n.nice}
+
+\CommentTok{\# Calculate the 95\% CI manually}
+\NormalTok{diff }\OtherTok{\textless{}{-}}\NormalTok{ phat.ice }\SpecialCharTok{{-}}\NormalTok{ phat.nice}
+\NormalTok{se }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(phat.ice}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{phat.ice)}\SpecialCharTok{/}\NormalTok{n.ice }\SpecialCharTok{+}\NormalTok{ phat.nice}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{phat.nice)}\SpecialCharTok{/}\NormalTok{n.nice)}
+\NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{)}
+\NormalTok{moe }\OtherTok{\textless{}{-}}\NormalTok{ z}\SpecialCharTok{*}\NormalTok{se}
+\NormalTok{(bounds }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(diff}\SpecialCharTok{{-}}\NormalTok{moe,diff}\SpecialCharTok{+}\NormalTok{moe))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.1871143  0.0706535
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate the z{-}test and p{-}value manually}
+\NormalTok{z\_test }\OtherTok{\textless{}{-}}\NormalTok{ diff}\SpecialCharTok{/}\NormalTok{se}
+\NormalTok{p\_value }\OtherTok{\textless{}{-}} \DecValTok{2}\SpecialCharTok{*}\FunctionTok{pnorm}\NormalTok{(z\_test)}
+
+\FunctionTok{data.frame}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{P(Make|Ice)}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ phat.ice, }\StringTok{\textasciigrave{}}\AttributeTok{P(Make|No Ice)}\StringTok{\textasciigrave{}}\OtherTok{=}\NormalTok{ phat.nice,}
+           \StringTok{\textasciigrave{}}\AttributeTok{Test Stat}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ z\_test, }\StringTok{\textasciigrave{}}\AttributeTok{P{-}value}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ p\_value)  }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{rrrr}
+\toprule
+P.Make.Ice. & P.Make.No.Ice. & Test.Stat & P.value\\
+\midrule
+0.6212 & 0.6794 & -0.8855 & 0.3759\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\hypertarget{bootstrap}{%
+\section{Bootstrap}\label{bootstrap}}
+
+\textbf{Bootstrapping} is a resampling method with replacement that can be used to estimate margins of error, create confidence intervals, or complete statistical testing. It is particularly useful when distributional assumptions may be in doubt for standard inferential methods.
+
+A \textbf{bootstrap sample} is created by sampling with replacement from known sample data, calculating the statistic of interest, and then analyzing the results from all of the bootstrap samples.
+
+\begin{example}
+Example from \emph{Analytic Methods in Sports} (Section 4.5): In 2012, Baltimore Ravens quarterback Joe Flacco passed for 3,817 yards and had a passer rating of 87.7. We would like to build a confidence interval for Flacco's passer rating using bootstrapping.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load data}
+\NormalTok{flacco2012 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/flacco2012.csv"}\NormalTok{,}\AttributeTok{show\_col\_types =}\NormalTok{ F)}
+
+\CommentTok{\# Build Kable Table for data}
+\NormalTok{flacco2012  }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lllrrrrrr}
+\toprule
+Game & Date & Opp & Cmp & Att & Yds & TD & Int & Rate\\
+\midrule
+1 & 9/10/12 & CIN & 21 & 29 & 299 & 2 & 0 & 128.4\\
+2 & 9/16/12 & PHI & 22 & 42 & 232 & 1 & 1 & 66.8\\
+3 & 9/23/12 & NWE & 28 & 39 & 382 & 3 & 1 & 117.7\\
+4 & 9/27/12 & CLE & 28 & 46 & 356 & 1 & 1 & 83.2\\
+5 & 10/7/12 & KAN & 13 & 27 & 187 & 0 & 1 & 55.6\\
+\addlinespace
+6 & 10/14/12 & DAL & 17 & 26 & 234 & 1 & 0 & 106.9\\
+7 & 10/21/12 & HOU & 21 & 43 & 147 & 1 & 2 & 45.4\\
+8 & 11/4/12 & CLE & 15 & 24 & 153 & 1 & 0 & 94.6\\
+9 & 11/11/12 & OAK & 21 & 33 & 341 & 3 & 1 & 115.8\\
+10 & 11/18/12 & PIT & 20 & 32 & 164 & 0 & 0 & 75.5\\
+\addlinespace
+11 & 11/25/12 & SDG & 30 & 51 & 355 & 1 & 0 & 86.6\\
+12 & 12/2/12 & PIT & 16 & 34 & 188 & 1 & 1 & 61.9\\
+13 & 12/9/12 & WAS & 16 & 21 & 182 & 3 & 1 & 121.4\\
+14 & 12/16/12 & DEN & 20 & 40 & 254 & 2 & 1 & 76.5\\
+15 & 12/23/12 & NYG & 25 & 36 & 309 & 2 & 0 & 114.2\\
+\addlinespace
+16 & 12/30/12 & CIN & 4 & 8 & 34 & 0 & 0 & 61.5\\
+ALL & 16 Games & NA & 317 & 531 & 3817 & 22 & 10 & 87.7\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Function to calculate passer rating}
+\NormalTok{rating }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(QB,ind)\{}
+\NormalTok{  dat }\OtherTok{\textless{}{-}}\NormalTok{ QB[ind,]}
+\NormalTok{  att }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(dat}\SpecialCharTok{$}\NormalTok{Att)}
+\NormalTok{  ypa }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(dat}\SpecialCharTok{$}\NormalTok{Yds)}\SpecialCharTok{/}\NormalTok{att}
+\NormalTok{  ipa }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(dat}\SpecialCharTok{$}\NormalTok{Int)}\SpecialCharTok{/}\NormalTok{att}
+\NormalTok{  cpa }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(dat}\SpecialCharTok{$}\NormalTok{Cmp)}\SpecialCharTok{/}\NormalTok{att}
+\NormalTok{  tdpa }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(dat}\SpecialCharTok{$}\NormalTok{TD)}\SpecialCharTok{/}\NormalTok{att}
+\NormalTok{  Y }\OtherTok{\textless{}{-}} \FloatTok{0.25} \SpecialCharTok{*}\NormalTok{ (ypa }\SpecialCharTok{{-}} \DecValTok{3}\NormalTok{)}
+\NormalTok{  T }\OtherTok{\textless{}{-}} \DecValTok{20} \SpecialCharTok{*}\NormalTok{ tdpa}
+\NormalTok{  I }\OtherTok{\textless{}{-}} \FloatTok{2.375} \SpecialCharTok{{-}} \DecValTok{25}\SpecialCharTok{*}\NormalTok{ipa}
+\NormalTok{  C }\OtherTok{\textless{}{-}} \DecValTok{5} \SpecialCharTok{*}\NormalTok{ (cpa}\FloatTok{{-}0.3}\NormalTok{)}
+  \DecValTok{100}\SpecialCharTok{*}\NormalTok{(C}\SpecialCharTok{+}\NormalTok{Y}\SpecialCharTok{+}\NormalTok{T}\SpecialCharTok{+}\NormalTok{I)}\SpecialCharTok{/}\DecValTok{6}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Remove season total row}
+\NormalTok{flacco2012 }\OtherTok{\textless{}{-}}\NormalTok{ flacco2012 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{16}\NormalTok{)}
+\FunctionTok{rating}\NormalTok{(flacco2012,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{16}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 87.74718
+\end{verbatim}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Manually find bootstrap distribution and statistics}
+\NormalTok{n.sims }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{ratings }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{,}\DecValTok{10000}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n.sims)\{}
+\NormalTok{  temp.ind }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{16}\NormalTok{,}\DecValTok{16}\NormalTok{,}\AttributeTok{replace=}\NormalTok{T)}
+\NormalTok{  ratings[i] }\OtherTok{\textless{}{-}} \FunctionTok{rating}\NormalTok{(flacco2012,temp.ind)}
+\NormalTok{\}}
+
+\NormalTok{ratings }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{.)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins=}\DecValTok{30}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Passer Rating"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Count"}\NormalTok{,}
+       \AttributeTok{title=}\StringTok{"Bootstrap Distribution for Flacco\textquotesingle{}s QB Rating"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-132-1.pdf}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Bootstrap statistics}
+\NormalTok{(mean.pr }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(ratings))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 87.89389
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(se.pr }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(ratings))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6.482204
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Approximate CI for Passer Rating using MOE}
+\NormalTok{moe.pr }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ se.pr}
+\NormalTok{(bounds.pr }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(mean.pr}\SpecialCharTok{{-}}\NormalTok{moe.pr,mean.pr}\SpecialCharTok{+}\NormalTok{moe.pr))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  75.1890 100.5988
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Approximate CI using middle 95\%}
+\FunctionTok{quantile}\NormalTok{(ratings,}\FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{,}\FloatTok{0.975}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      2.5%     97.5% 
+##  75.38335 100.68129
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Bootstrap using "boot" package}
+\FunctionTok{library}\NormalTok{(boot)}
+\NormalTok{(boot.pr }\OtherTok{\textless{}{-}} \FunctionTok{boot}\NormalTok{(}\AttributeTok{data=}\NormalTok{flacco2012,}\AttributeTok{statistic=}\NormalTok{rating,}\AttributeTok{R=}\DecValTok{10000}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = flacco2012, statistic = rating, R = 10000)
+## 
+## 
+## Bootstrap Statistics :
+##     original    bias    std. error
+## t1* 87.74718 0.1468445    6.364337
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boot.ci}\NormalTok{(}\AttributeTok{boot.out =}\NormalTok{ boot.pr,}\AttributeTok{type=}\StringTok{"perc"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 10000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = boot.pr, type = "perc")
+## 
+## Intervals : 
+## Level     Percentile     
+## 95%   ( 75.43, 100.58 )  
+## Calculations and Intervals on Original Scale
+\end{verbatim}
 
 \newpage
 
@@ -6575,8 +6892,8 @@ x
 \hypertarget{permutation-tests}{%
 \section{Permutation Tests}\label{permutation-tests}}
 
-\hypertarget{bootstrap}{%
-\section{Bootstrap}\label{bootstrap}}
+\hypertarget{bootstrap-1}{%
+\section{Bootstrap}\label{bootstrap-1}}
 
 \begin{Shaded}
 \begin{Highlighting}[]

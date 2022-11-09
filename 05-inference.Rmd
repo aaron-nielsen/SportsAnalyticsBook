@@ -144,7 +144,7 @@ Since we don't know the true parameter value, there is a chance we will make an 
 
 \newpage
 
-## Inference for One Population Parameter
+## Inference for Population Mean
 
 :::{.theorem}
 A random sample from an infinite population with mean $\mu$ and variance $\sigma^2$ has the following properties:
@@ -296,6 +296,8 @@ jordan_wilt %>% t_test(formula=PP36~Player,
 
 \newpage
 
+## Inference for Population Proportion
+
 :::{.theorem}
 A random sample of size $n$ from an infinite population with mean $\pi$ has the following properties:
 
@@ -316,12 +318,6 @@ $\hat{p} \pm z_{c.v.}\sqrt{\frac{p(1-p)}{n}}$
 where $z_{c.v.}$ denotes the critical value for a z-distribution for the required confidence level. 
 :::
 
-:::{.example}
-x
-:::
-
-\newpage
-
 ### Test for Population Proportion
 
 :::{.theorem}
@@ -331,8 +327,43 @@ $z_{test} = \frac{\hat{p}-\pi}{\sqrt{\frac{\pi(1-\pi)}{n}}} \sim \mathcal{N}(0,1
 :::
 
 :::{.example}
-AL vs NL
+From *Mathletics* (Section 4.8): Since interleague play began in 1997, there was a suspicion that American League teams had a slight advantage since they had a full-time designate hitter on their roster. The designated hitter was approved for National League play in 2022. From 1997 until 2013, American League teams played the National League teams in 4,264 interleague games. American League teams won 2,235 of the games (52.4\% winning percentage). We want to test if the true winning percentage of American League teams exceeded 50\% at a significance level of 0.01.
 :::
+
+\vfill
+
+\newpage
+
+```{r}
+n <- 4264
+al <- 2235
+nl <- n - al
+phat <- al/n
+
+# Calculate the CI manually
+se <- sqrt(phat*(1-phat)/n)
+z <- qnorm(0.99)
+moe <- z*se
+bound <- phat-moe; bound
+```
+
+```{r}
+# Calculate test statistic and p-value manually
+z_test <- (phat-0.5)/sqrt(0.5*0.5/n)
+p_value <- pnorm(z_test,lower.tail = F)
+data.frame(`Test Stat` = z_test, `P-value` = p_value)  %>% 
+  kable(booktabs=T,digits = 4)
+```
+
+```{r}
+# Use binomial test
+binom.test(x=al,n=n,p=0.5,alternative = "greater",conf.level = 0.99)
+```
+
+```{r}
+data <- data.frame(Winner = c(rep(1,al),rep(0,nl)))
+data %>% t_test(response=Winner,mu=0.5,conf_level = 0.99,alternative = "greater")
+```
 
 \newpage
 
@@ -346,12 +377,6 @@ $(\hat{p}_1 - \hat{p}_2) \pm z_{c.v.}\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1}+\f
 where $z_{c.v.}$ denotes the critical value for a z-distribution for the required confidence level. 
 :::
 
-:::{.example}
-x
-:::
-
-\newpage
-
 ### Test for Difference in Proportions
 
 :::{.theorem}
@@ -361,8 +386,132 @@ $z_{test} = \frac{\hat{p}_1 - \hat{p}_2 - D_0}{\sqrt{\frac{\hat{p}_1(1-\hat{p}_1
 :::
 
 :::{.example}
-x
+Football coaches often try to "ice the kicker" before a late field goal attempt.\
+
+Paul Dalen did some analysis for icing the kicker on the collegiate level: \
+
+https://www.footballstudyhall.com/2018/11/24/18110091/is-icing-the-kicker-really-a-thing
+
+From his dataset that includes data from 2017--2018, we have the following:
+
+For field goal attempts that were 36--45 yards, iced kickers made 41 out of 66 attempts and non-iced kickers made 195 out of 287 attempts. Is there evidence of a difference in proportions of iced and non-iced kickers? Test the hypothesis at $\alpha=0.05$ and create a 95\% confidence interval for the difference.
 :::
+
+\newpage
+
+```{r}
+# Iced Kickers
+n.ice <- 66
+x.ice <- 41
+phat.ice <- x.ice/n.ice
+
+# Non-iced Kickers
+n.nice <- 287
+x.nice <- 195
+phat.nice <- x.nice/n.nice
+
+# Calculate the 95% CI manually
+diff <- phat.ice - phat.nice
+se <- sqrt(phat.ice*(1-phat.ice)/n.ice + phat.nice*(1-phat.nice)/n.nice)
+z <- qnorm(0.975)
+moe <- z*se
+(bounds <- c(diff-moe,diff+moe))
+
+# Calculate the z-test and p-value manually
+z_test <- diff/se
+p_value <- 2*pnorm(z_test)
+
+data.frame(`P(Make|Ice)` = phat.ice, `P(Make|No Ice)`= phat.nice,
+           `Test Stat` = z_test, `P-value` = p_value)  %>% 
+  kable(booktabs=T,digits = 4)
+```
+
+\newpage
+
+## Bootstrap
+
+**Bootstrapping** is a resampling method with replacement that can be used to estimate margins of error, create confidence intervals, or complete statistical testing. It is particularly useful when distributional assumptions may be in doubt for standard inferential methods.
+
+A **bootstrap sample** is created by sampling with replacement from known sample data, calculating the statistic of interest, and then analyzing the results from all of the bootstrap samples.
+
+:::{.example}
+Example from *Analytic Methods in Sports* (Section 4.5): In 2012, Baltimore Ravens quarterback Joe Flacco passed for 3,817 yards and had a passer rating of 87.7. We would like to build a confidence interval for Flacco's passer rating using bootstrapping.
+:::
+
+```{r}
+# Load data
+flacco2012 <- read_csv("data/flacco2012.csv",show_col_types = F)
+
+# Build Kable Table for data
+flacco2012  %>% 
+  kable(booktabs=T,digits = 4)
+```
+
+\newpage
+
+```{r}
+# Function to calculate passer rating
+rating <- function(QB,ind){
+  dat <- QB[ind,]
+  att <- sum(dat$Att)
+  ypa <- sum(dat$Yds)/att
+  ipa <- sum(dat$Int)/att
+  cpa <- sum(dat$Cmp)/att
+  tdpa <- sum(dat$TD)/att
+  Y <- 0.25 * (ypa - 3)
+  T <- 20 * tdpa
+  I <- 2.375 - 25*ipa
+  C <- 5 * (cpa-0.3)
+  100*(C+Y+T+I)/6
+}
+```
+
+```{r}
+# Remove season total row
+flacco2012 <- flacco2012 %>% slice(1:16)
+rating(flacco2012,1:16)
+```
+
+\newpage
+
+```{r}
+# Manually find bootstrap distribution and statistics
+n.sims <- 10000
+ratings <- rep(NA,10000)
+
+for(i in 1:n.sims){
+  temp.ind <- sample(1:16,16,replace=T)
+  ratings[i] <- rating(flacco2012,temp.ind)
+}
+
+ratings %>% data.frame() %>% 
+  ggplot(aes(x=.)) + geom_histogram(bins=30) +
+  labs(x="Passer Rating",y="Count",
+       title="Bootstrap Distribution for Flacco's QB Rating")
+
+```
+
+\newpage
+
+```{r}
+# Bootstrap statistics
+(mean.pr <- mean(ratings))
+(se.pr <- sd(ratings))
+
+# Approximate CI for Passer Rating using MOE
+moe.pr <- qnorm(0.975) * se.pr
+(bounds.pr <- c(mean.pr-moe.pr,mean.pr+moe.pr))
+
+# Approximate CI using middle 95%
+quantile(ratings,c(0.025,0.975))
+```
+
+```{r}
+# Bootstrap using "boot" package
+library(boot)
+(boot.pr <- boot(data=flacco2012,statistic=rating,R=10000))
+boot.ci(boot.out = boot.pr,type="perc")
+```
 
 \newpage
 
