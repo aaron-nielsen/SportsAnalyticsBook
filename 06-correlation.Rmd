@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ```{r, echo=F, message=F,warning=F}
 library(tidyverse)
 library(kableExtra)
@@ -76,7 +81,57 @@ In a similar way to the example above, the correlation between a basketball play
 
 (Mathletics, chapter 11, page 105)
 
+\newpage
+
 ## Association of Categorical Variables
+
+While Pearson's correlations can be used to find associations between categorical variables, there are better measures to be used.
+
+:::{.example}
+(From *Analytic Methods in Sports*) Suppose we are given the following partial contingency table that tabulates the number of "complete games" for a starting pitcher by league. 
+
+```{r}
+mlb_comp <- data.frame(Yes = c(" ", " ", 128), No = c(" ", " ", 4732), Total = c(2592,2268, 4860))
+row.names(mlb_comp) = c("NL", "AL","Total")
+
+mlb_comp %>% kable(booktabs=T,digits = 4)
+```
+Choose values to give the largest and smallest correlations.
+:::
+
+\vfill
+
+```{r}
+League <- c(rep(0,2592),rep(1,2268))
+Complete <- rep(0,4860)
+Complete[1:68] = 1
+Complete[2593:(2593+59)]=1
+small_corr <- data.frame(League,Complete)
+table(small_corr) %>% kable(booktabs=T,digits = 4)
+cor(small_corr)
+
+Complete <- rep(0,4860)
+Complete[1:128] = 1
+large_corr1 <- data.frame(League,Complete)
+table(large_corr1) %>% kable(booktabs=T,digits = 4)
+cor(large_corr1)
+
+Complete <- rep(0,4860)
+Complete[2593:(2593+127)] = 1
+large_corr2 <- data.frame(League,Complete)
+table(large_corr2) %>% kable(booktabs=T,digits = 4)
+cor(large_corr2)
+```
+
+\newpage
+
+### Yule's Q
+
+One possible way to measure the association between two binary variables is to look at the odds ratio.
+
+$OR$
+
+
 
 (AM, page 143, Yule's Q)
 
@@ -85,3 +140,162 @@ In a similar way to the example above, the correlation between a basketball play
 (AM, page 144, Brady TD passes vs sacks)
 
 (AM, page 145, Nadal clay courts)
+
+# Pythagorean Record
+
+Baseball statistican (sabermetrican) Bill James proposed **Pythagorean expectation** to estimate the percentage (or number) of games that a team is expected to win based on the number of runs they score and the number of runs they allow.
+
+:::{.definition}
+The (basic) ***Pythagorean expectation*** for a team's win percentage and win total are given by the following:
+
+\[\text{Pythagorean Win Pct} = PythWin\% = 100 * \frac{RS^2}{RS^2 + RA^2}\]
+
+\[\text{Pythagorean Win Total} = PythWin = N \cdot \frac{RS^2}{RS^2 + RA^2}\]
+
+where for a given team, $N$ is the number of games, $RS$ is the number of runs scored, and $RA$ is the number of runs allowed.
+
+Note that $RS$ and $RA$ can be based on season totals or per game averages.
+:::
+
+:::{.example}
+In 2022, the Colorado Rockies baseball team scored an average of 4.3 runs per game and allowed an average of 5.4 runs per game. The Rockies' record in 2022 was 69-94 (0.420 win pct). Calculate the Pythagorean win percentage and win total. Did the Rockies underperform or overperform based on these results?
+:::
+
+$PythWin\% = 100 * \frac{RS^2}{RS^2+RA^2} = \frac{4.3^2}{4.3^2+5.4^2} = 38.8\%$
+
+$PythWin\% = N \cdot \frac{RS^2}{RS^2+RA^2} = 162 * \frac{4.3^2}{4.3^2+5.4^2} = 63$
+
+```{r}
+( pythwinpct = 100*(4.3^2)/(4.3^2+5.4^2) )
+( pythwins = 162*(4.3^2)/(4.3^2+5.4^2) )
+```
+
+\newpage
+
+It turns out that we can find a more optimal estimate of Pythagorean wins by using an exponent different from 2.
+
+For example, Baseball Reference [(https://www.sports-reference.com/blog/baseball-reference-faqs/)](https://www.sports-reference.com/blog/baseball-reference-faqs/) uses an exponent of 1.83.
+
+:::{.definition}
+The (general) ***Pythagorean expectation*** for a team's win percentage and win total are given by the following:
+
+\[\text{Pythagorean Win Pct} = PythWin\% = 100 * \frac{RS^n}{RS^2 + RA^n}\]
+
+\[\text{Pythagorean Win Total} = PythWin = N \cdot \frac{RS^n}{RS^n + RA^n}\]
+
+where for a given team, $N$ is the number of games, $RS$ is the number of runs scored, and $RA$ is the number of runs allowed. $n$ is optimized for predictive accuracy over a large dataset.
+:::
+
+It will be helpful to have a function to find the optimal Pythagorean exponent. Such a function called `pyth_opt` is given below that minimizes mean squared error. Use `plot_flag=1` to generate a plot.
+
+```{r}
+pyth_opt = function(RS,RA,WinPct,digits,plot_flag){
+  exps = seq(0,15,by=10^(-digits))
+  n_exps = length(exps)
+  MSE = rep(NA,n_exps)
+  for(i in 1:n_exps){
+    temp_exp = exps[i]
+    PyWinPct = RS^temp_exp/(RS^temp_exp + RA^temp_exp)
+    MSE[i] = mean((PyWinPct-WinPct)^2)
+  }
+  min_idx = which(MSE==min(MSE))
+  pyth_opt = exps[min_idx]
+  
+  if(plot_flag){
+  df = data.frame(Exponent=exps,MSE=MSE)
+  df %>% ggplot(aes(x=Exponent,y=MSE)) + 
+    geom_line() + 
+    geom_point(data=df[min_idx,],color="blue")  +
+    geom_label(data = df[min_idx,],
+               aes(x = Exponent, y = MSE, label = Exponent),vjust=-0.5)
+  } else {
+  return(pyth_opt)
+  }
+  
+}
+```
+
+\newpage
+
+
+:::{.example}
+Final season MLB standings and related statistics are given in `mlb_2022.csv`. Find the optimal value of $n$ that minimizes mean squared error between actual wins and Pythagorean wins.
+:::
+
+```{r, message=F}
+mlb_2022 = read_csv("data/mlb_2022.csv")
+mlb_2022 %>% slice(1:10) %>% kable(booktabs=T,digits = 4)
+```
+
+
+
+```{r,eval=T}
+pyth_opt(mlb_2022$R,mlb_2022$RA,mlb_2022$`W-L%`,2,1)
+```
+
+\newpage
+
+
+:::{.example}
+For a more accurate estimate of the optimal Pythagorean exponent, use all MLB final standings data from 2000--2017. This is contained in `mlb_standings_long.csv`.
+:::
+
+```{r,message=F}
+mlb_long = read_csv("data/mlb_standings_long.csv")
+mlb_long %>% slice_head(n = 3) %>% kable(booktabs=T,digits = 4)
+mlb_long %>% slice_tail(n = 3) %>% kable(booktabs=T,digits = 4)
+pyth_opt(mlb_long$R,mlb_long$RA,mlb_long$Wpct,2,1)
+```
+
+\newpage
+
+As previously mentioned, sabermetricans tend to use **PyExp = 1.83 for MLB**. 
+
+:::{.example}
+Create a scatterplot to compare Team Wins and Team Pythagorean Wins in 2022 and calculate the correlation.
+:::
+
+```{r}
+mlb_2022 = mlb_2022 %>% mutate(PyWins=162*R^1.83/(R^1.83+RA^1.83))
+mlb_2022 %>% ggplot(aes(x=W,y=PyWins)) + geom_point() + labs(x="Wins") + 
+  geom_abline(intercept=0, slope=1, color="blue", linetype="dashed")
+
+cor(mlb_2022$W,mlb_2022$PyWins)
+```
+
+:::{.example}
+The Rockies scored 4.31 runs per game and allowed 5.4 runs per game in 2022. Did the Rockies underperform or overperform based on their Pythagorean record?
+:::
+
+```{r}
+mlb_2022 %>% filter(Team=="Colorado Rockies") %>%
+  mutate(PyWins = 162*4.31^1.83/(4.31^1.83+5.39^1.83)) %>% 
+  kable(booktabs=T,digits = 4)
+```
+
+The Rockies won 68 games and were expected to win 65 games based on their Pythagorean record. The Rockies outperformed their Pythagorean record.
+
+\newpage
+
+:::{.example}
+Calculate the Pythagorean exponent for NFL using 2022 season totals. This data is contained in `nfl_2022.csv`.
+:::
+
+```{r,message=F}
+nfl_2022 = read_csv("data/nfl_2022.csv")
+nfl_2022 %>% 
+  slice_head(n=5) %>% 
+  kable(booktabs=T,digits = 4)
+```
+
+```{r}
+pyth_opt(nfl_2022$PF,nfl_2022$PA,nfl_2022$`W-L%`,2,1)
+```
+
+For 2022, there is an optimal Pythagorean exponent of 3.38. Using a larger dataset of more seasons will give a better estimate.
+
+Football Outsiders [(https://www.footballoutsiders.com/stat-analysis/2017/presenting-adjusted-pythagorean-theorem)](https://www.footballoutsiders.com/stat-analysis/2017/presenting-adjusted-pythagorean-theorem) uses **PyExp = 2.37 for NFL**.
+
+Similar analyses can be done for other sports as well. **PyExp = 13.91 is often used for NBA and PyExp = 2.15 for NHL.**
+
+
