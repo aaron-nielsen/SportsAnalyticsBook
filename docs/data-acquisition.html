@@ -4,33 +4,33 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 Data Acquisition | Sports Analytics</title>
-  <meta name="description" content="Chapter 7 Data Acquisition | Sports Analytics Notes" />
+  <title>Chapter 8 Data Acquisition | Sports Analytics</title>
+  <meta name="description" content="Chapter 8 Data Acquisition | Sports Analytics Notes" />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 Data Acquisition | Sports Analytics" />
+  <meta property="og:title" content="Chapter 8 Data Acquisition | Sports Analytics" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
-  <meta property="og:description" content="Chapter 7 Data Acquisition | Sports Analytics Notes" />
+  <meta property="og:description" content="Chapter 8 Data Acquisition | Sports Analytics Notes" />
   <meta name="github-repo" content="aaron-nielsen.github.io/SportsAnalyticsBook/" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Data Acquisition | Sports Analytics" />
+  <meta name="twitter:title" content="Chapter 8 Data Acquisition | Sports Analytics" />
   
-  <meta name="twitter:description" content="Chapter 7 Data Acquisition | Sports Analytics Notes" />
+  <meta name="twitter:description" content="Chapter 8 Data Acquisition | Sports Analytics Notes" />
   <meta name="twitter:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
 
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2023-01-24" />
+<meta name="date" content="2023-01-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="correlation.html"/>
+<link rel="prev" href="pythagorean-record.html"/>
 <link rel="next" href="linear-regression.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -52,6 +52,8 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -320,39 +322,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4.1" data-path="correlation.html"><a href="correlation.html#yules-q"><i class="fa fa-check"></i><b>6.4.1</b> Yule’s Q</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="data-acquisition.html"><a href="data-acquisition.html"><i class="fa fa-check"></i><b>7</b> Data Acquisition</a>
+<li class="chapter" data-level="7" data-path="pythagorean-record.html"><a href="pythagorean-record.html"><i class="fa fa-check"></i><b>7</b> Pythagorean Record</a></li>
+<li class="chapter" data-level="8" data-path="data-acquisition.html"><a href="data-acquisition.html"><i class="fa fa-check"></i><b>8</b> Data Acquisition</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="data-acquisition.html"><a href="data-acquisition.html#tabular-data-from-sports-reference"><i class="fa fa-check"></i><b>7.1</b> Tabular Data From Sports Reference</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>8</b> Linear Regression</a>
+<li class="chapter" data-level="8.1" data-path="data-acquisition.html"><a href="data-acquisition.html#tabular-data-from-sports-reference"><i class="fa fa-check"></i><b>8.1</b> Tabular Data From Sports Reference</a></li>
+<li class="chapter" data-level="8.2" data-path="data-acquisition.html"><a href="data-acquisition.html#downloading-datasets-from-internet"><i class="fa fa-check"></i><b>8.2</b> Downloading Datasets From Internet</a></li>
+<li class="chapter" data-level="8.3" data-path="data-acquisition.html"><a href="data-acquisition.html#importing-data-using-r-libraries"><i class="fa fa-check"></i><b>8.3</b> Importing Data Using R Libraries</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>8.1</b> Simple Linear Regression</a>
-<ul>
-<li class="chapter" data-level="8.1.1" data-path="linear-regression.html"><a href="linear-regression.html#pythagorean-records"><i class="fa fa-check"></i><b>8.1.1</b> Pythagorean Records</a></li>
-<li class="chapter" data-level="8.1.2" data-path="linear-regression.html"><a href="linear-regression.html#regression-to-the-mean"><i class="fa fa-check"></i><b>8.1.2</b> Regression to the Mean</a></li>
-</ul></li>
-<li class="chapter" data-level="8.2" data-path="linear-regression.html"><a href="linear-regression.html#variable-transformations"><i class="fa fa-check"></i><b>8.2</b> Variable Transformations</a>
-<ul>
-<li class="chapter" data-level="8.2.1" data-path="linear-regression.html"><a href="linear-regression.html#draft-pick-values"><i class="fa fa-check"></i><b>8.2.1</b> Draft Pick Values</a></li>
-</ul></li>
-<li class="chapter" data-level="8.3" data-path="linear-regression.html"><a href="linear-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>8.3</b> Multiple Linear Regression</a>
-<ul>
-<li class="chapter" data-level="8.3.1" data-path="linear-regression.html"><a href="linear-regression.html#four-factors-and-winning"><i class="fa fa-check"></i><b>8.3.1</b> Four Factors and Winning</a></li>
-<li class="chapter" data-level="8.3.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-weights-in-baseball"><i class="fa fa-check"></i><b>8.3.2</b> Linear Weights in Baseball</a></li>
-<li class="chapter" data-level="8.3.3" data-path="linear-regression.html"><a href="linear-regression.html#pass-air-yards-regression"><i class="fa fa-check"></i><b>8.3.3</b> Pass Air Yards Regression</a></li>
-<li class="chapter" data-level="8.3.4" data-path="linear-regression.html"><a href="linear-regression.html#epl-passing-and-scoring"><i class="fa fa-check"></i><b>8.3.4</b> EPL Passing and Scoring</a></li>
-<li class="chapter" data-level="8.3.5" data-path="linear-regression.html"><a href="linear-regression.html#hockey-ppg-vs-toi"><i class="fa fa-check"></i><b>8.3.5</b> Hockey PPG vs TOI</a></li>
-</ul></li>
-<li class="chapter" data-level="8.4" data-path="linear-regression.html"><a href="linear-regression.html#issues-with-multiyear-data"><i class="fa fa-check"></i><b>8.4</b> Issues with Multiyear Data</a></li>
-<li class="chapter" data-level="8.5" data-path="linear-regression.html"><a href="linear-regression.html#interaction"><i class="fa fa-check"></i><b>8.5</b> Interaction</a></li>
-<li class="chapter" data-level="8.6" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables"><i class="fa fa-check"></i><b>8.6</b> Confounding Variables</a></li>
-<li class="chapter" data-level="8.7" data-path="linear-regression.html"><a href="linear-regression.html#logistic-regression"><i class="fa fa-check"></i><b>8.7</b> Logistic Regression</a>
-<ul>
-<li class="chapter" data-level="8.7.1" data-path="linear-regression.html"><a href="linear-regression.html#sack-and-interception-probability-models"><i class="fa fa-check"></i><b>8.7.1</b> Sack and Interception Probability Models</a></li>
-<li class="chapter" data-level="8.7.2" data-path="linear-regression.html"><a href="linear-regression.html#soccer-goal-logistic-model"><i class="fa fa-check"></i><b>8.7.2</b> Soccer Goal Logistic Model</a></li>
-<li class="chapter" data-level="8.7.3" data-path="linear-regression.html"><a href="linear-regression.html#field-goal-success"><i class="fa fa-check"></i><b>8.7.3</b> Field Goal Success</a></li>
+<li class="chapter" data-level="8.3.1" data-path="data-acquisition.html"><a href="data-acquisition.html#baseballr-package"><i class="fa fa-check"></i><b>8.3.1</b> BaseballR package</a></li>
+<li class="chapter" data-level="8.3.2" data-path="data-acquisition.html"><a href="data-acquisition.html#nflfastr-package"><i class="fa fa-check"></i><b>8.3.2</b> nflfastR package</a></li>
+<li class="chapter" data-level="8.3.3" data-path="data-acquisition.html"><a href="data-acquisition.html#hoopr-package"><i class="fa fa-check"></i><b>8.3.3</b> hoopR package</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>9</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>9.1</b> Simple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="linear-regression.html"><a href="linear-regression.html#pythagorean-records"><i class="fa fa-check"></i><b>9.1.1</b> Pythagorean Records</a></li>
+<li class="chapter" data-level="9.1.2" data-path="linear-regression.html"><a href="linear-regression.html#regression-to-the-mean"><i class="fa fa-check"></i><b>9.1.2</b> Regression to the Mean</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="linear-regression.html"><a href="linear-regression.html#variable-transformations"><i class="fa fa-check"></i><b>9.2</b> Variable Transformations</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="linear-regression.html"><a href="linear-regression.html#draft-pick-values"><i class="fa fa-check"></i><b>9.2.1</b> Draft Pick Values</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="linear-regression.html"><a href="linear-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>9.3</b> Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="linear-regression.html"><a href="linear-regression.html#four-factors-and-winning"><i class="fa fa-check"></i><b>9.3.1</b> Four Factors and Winning</a></li>
+<li class="chapter" data-level="9.3.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-weights-in-baseball"><i class="fa fa-check"></i><b>9.3.2</b> Linear Weights in Baseball</a></li>
+<li class="chapter" data-level="9.3.3" data-path="linear-regression.html"><a href="linear-regression.html#pass-air-yards-regression"><i class="fa fa-check"></i><b>9.3.3</b> Pass Air Yards Regression</a></li>
+<li class="chapter" data-level="9.3.4" data-path="linear-regression.html"><a href="linear-regression.html#epl-passing-and-scoring"><i class="fa fa-check"></i><b>9.3.4</b> EPL Passing and Scoring</a></li>
+<li class="chapter" data-level="9.3.5" data-path="linear-regression.html"><a href="linear-regression.html#hockey-ppg-vs-toi"><i class="fa fa-check"></i><b>9.3.5</b> Hockey PPG vs TOI</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="linear-regression.html"><a href="linear-regression.html#issues-with-multiyear-data"><i class="fa fa-check"></i><b>9.4</b> Issues with Multiyear Data</a></li>
+<li class="chapter" data-level="9.5" data-path="linear-regression.html"><a href="linear-regression.html#interaction"><i class="fa fa-check"></i><b>9.5</b> Interaction</a></li>
+<li class="chapter" data-level="9.6" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables"><i class="fa fa-check"></i><b>9.6</b> Confounding Variables</a></li>
+<li class="chapter" data-level="9.7" data-path="linear-regression.html"><a href="linear-regression.html#logistic-regression"><i class="fa fa-check"></i><b>9.7</b> Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="linear-regression.html"><a href="linear-regression.html#sack-and-interception-probability-models"><i class="fa fa-check"></i><b>9.7.1</b> Sack and Interception Probability Models</a></li>
+<li class="chapter" data-level="9.7.2" data-path="linear-regression.html"><a href="linear-regression.html#soccer-goal-logistic-model"><i class="fa fa-check"></i><b>9.7.2</b> Soccer Goal Logistic Model</a></li>
+<li class="chapter" data-level="9.7.3" data-path="linear-regression.html"><a href="linear-regression.html#field-goal-success"><i class="fa fa-check"></i><b>9.7.3</b> Field Goal Success</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="data-scraping-and-acquisition.html"><a href="data-scraping-and-acquisition.html"><i class="fa fa-check"></i><b>10</b> Data Scraping and Acquisition</a></li>
+<li class="chapter" data-level="11" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>11</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="12" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>12</b> Clustering</a></li>
+<li class="chapter" data-level="13" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>13</b> Classification</a></li>
+<li class="chapter" data-level="14" data-path="nonparametric-methods.html"><a href="nonparametric-methods.html"><i class="fa fa-check"></i><b>14</b> Nonparametric Methods</a></li>
+<li class="chapter" data-level="15" data-path="sports-drafts.html"><a href="sports-drafts.html"><i class="fa fa-check"></i><b>15</b> Sports Drafts</a></li>
+<li class="chapter" data-level="16" data-path="baseball-1.html"><a href="baseball-1.html"><i class="fa fa-check"></i><b>16</b> Baseball</a></li>
+<li class="chapter" data-level="17" data-path="football-1.html"><a href="football-1.html"><i class="fa fa-check"></i><b>17</b> Football</a></li>
+<li class="chapter" data-level="18" data-path="basketball-1.html"><a href="basketball-1.html"><i class="fa fa-check"></i><b>18</b> Basketball</a></li>
+<li class="chapter" data-level="19" data-path="hockey-1.html"><a href="hockey-1.html"><i class="fa fa-check"></i><b>19</b> Hockey</a></li>
+<li class="chapter" data-level="20" data-path="soccer-1.html"><a href="soccer-1.html"><i class="fa fa-check"></i><b>20</b> Soccer</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -374,8 +395,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-acquisition" class="section level1 hasAnchor" number="7">
-<h1><span class="header-section-number">Chapter 7</span> Data Acquisition<a href="data-acquisition.html#data-acquisition" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="data-acquisition" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Data Acquisition<a href="data-acquisition.html#data-acquisition" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>There are many ways to acquire sports data to analyze in R. These include:</p>
 <ul>
 <li>Manually typing data into a spreadsheet</li>
@@ -384,19 +405,2675 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Importing data using R libraries</li>
 <li>Scraping data from internet websites</li>
 </ul>
-<p>This chapter will explore these various methods of acquiring data and will also review data visualization and summaries.</p>
-<div id="tabular-data-from-sports-reference" class="section level2 hasAnchor" number="7.1">
-<h2><span class="header-section-number">7.1</span> Tabular Data From Sports Reference<a href="data-acquisition.html#tabular-data-from-sports-reference" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>All tabular data on <a href="https://www.sports-reference.com/">(https://www.sports-reference.com/)</a> can be easily downloaded though a little bit of data wrangling and cleaning is required to prepare the data.</p>
-<p><img src="images/sports-ref-csv.png" /></p>
+<p>This chapter will explore these various methods of acquiring data and will also review data visualization and summaries. We will typically use <code>ggplot</code> for visualization and <code>kable</code> for data tables. <a href="http://r-graph-gallery.com/">The R Graph Gallery (http://r-graph-gallery.com/)</a> is a nice resource for visualizations using <code>ggplot</code>.</p>
+<div id="tabular-data-from-sports-reference" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Tabular Data From Sports Reference<a href="data-acquisition.html#tabular-data-from-sports-reference" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>All tabular data on <a href="https://www.sports-reference.com/">Sports Reference (https://www.sports-reference.com/)</a> can be easily downloaded though a little bit of data wrangling and cleaning is required to prepare the data.</p>
+<p>Once you have navigated to the page that you want to download data from, click <strong>Share &amp; Export</strong>, and select <strong>Get table as CSV (for Excel)</strong>. This will generate comma-separated data that you can copy and paste into your favorite text editor.</p>
+<div class="figure">
+<img src="images/sports-ref-csv.png" style="width:40.0%" alt="" />
+<p class="caption">Get table in CSV format</p>
+</div>
+<div class="figure">
+<img src="images/sports-ref-csv2.png" style="width:80.0%" alt="" />
+<p class="caption">Copy data and save as .csv</p>
+</div>
 <div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-1" class="example"><strong>Example 7.1  </strong></span>Acquire the <em>Scoring Regular Season</em> dataset for the Colorado Avalanche 2021–2022 season.</p>
-<p>This data is located on this webpage:  <a href="https://www.hockey-reference.com/teams/COL/2022.html">(https://www.hockey-reference.com/teams/COL/2022.html)</a>.</p>
-<p>Once the data has been collected, using data wrangling and cleaning methods to transform the dataset into an easier to use format. Use this dataset to explore the relationship between goals, assists, and OPS (offensive point shares).</p>
+<p><span id="exm:unlabeled-div-169" class="example"><strong>Example 8.1  </strong></span>Acquire the <strong>Scoring Regular Season</strong> dataset for the Colorado Avalanche 2021–2022 season.</p>
+<p>This data is located on this webpage:
+<a href="https://www.hockey-reference.com/teams/COL/2022.html">https://www.hockey-reference.com/teams/COL/2022.html</a>.</p>
+<p>Once the data has been collected, using data wrangling and cleaning methods to transform the dataset into an easier to use format. Use this dataset to explore the relationship between goals, assists, OPS (offensive point shares), and DPS (defensive point shares).</p>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data-acquisition.html#cb1-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://www.hockey-reference.com/teams/COL/2023.html&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="data-acquisition.html#cb339-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data after collection</span></span>
+<span id="cb339-2"><a href="data-acquisition.html#cb339-2" aria-hidden="true" tabindex="-1"></a>avs21 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/avs21.csv&quot;</span>)</span>
+<span id="cb339-3"><a href="data-acquisition.html#cb339-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb339-4"><a href="data-acquisition.html#cb339-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a look at the first five rows and first five columns</span></span>
+<span id="cb339-5"><a href="data-acquisition.html#cb339-5" aria-hidden="true" tabindex="-1"></a>avs21 <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+…1
+</th>
+<th style="text-align:left;">
+…2
+</th>
+<th style="text-align:left;">
+…3
+</th>
+<th style="text-align:left;">
+…4
+</th>
+<th style="text-align:left;">
+…5
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Rk
+</td>
+<td style="text-align:left;">
+Player
+</td>
+<td style="text-align:left;">
+Age
+</td>
+<td style="text-align:left;">
+Pos
+</td>
+<td style="text-align:left;">
+GP
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+Mikko Rantanen
+</td>
+<td style="text-align:left;">
+25
+</td>
+<td style="text-align:left;">
+RW
+</td>
+<td style="text-align:left;">
+75
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+Nathan MacKinnon
+</td>
+<td style="text-align:left;">
+26
+</td>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+65
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+Nazem Kadri
+</td>
+<td style="text-align:left;">
+31
+</td>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+71
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+Cale Makar
+</td>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:left;">
+77
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="data-acquisition.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove unnecessary first row during loading</span></span>
+<span id="cb340-2"><a href="data-acquisition.html#cb340-2" aria-hidden="true" tabindex="-1"></a>avs21 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/avs21.csv&quot;</span>,<span class="at">skip =</span> <span class="dv">1</span>)</span>
+<span id="cb340-3"><a href="data-acquisition.html#cb340-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb340-4"><a href="data-acquisition.html#cb340-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Select columns of interest</span></span>
+<span id="cb340-5"><a href="data-acquisition.html#cb340-5" aria-hidden="true" tabindex="-1"></a>avs21 <span class="ot">&lt;-</span> avs21 <span class="sc">%&gt;%</span> <span class="fu">select</span>(Player,G,A,OPS)</span>
+<span id="cb340-6"><a href="data-acquisition.html#cb340-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb340-7"><a href="data-acquisition.html#cb340-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a look at the first five rows</span></span>
+<span id="cb340-8"><a href="data-acquisition.html#cb340-8" aria-hidden="true" tabindex="-1"></a>avs21 <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Player
+</th>
+<th style="text-align:right;">
+G
+</th>
+<th style="text-align:right;">
+A
+</th>
+<th style="text-align:right;">
+OPS
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Mikko Rantanen
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+7.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nathan MacKinnon
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+7.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nazem Kadri
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+7.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cale Makar
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+8.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Andre Burakovsky
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+4.3
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="data-acquisition.html#cb341-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure to eliminate any extra rows like &quot;Team Totals&quot;</span></span>
+<span id="cb341-2"><a href="data-acquisition.html#cb341-2" aria-hidden="true" tabindex="-1"></a>avs21 <span class="ot">&lt;-</span> avs21 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb341-3"><a href="data-acquisition.html#cb341-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb341-4"><a href="data-acquisition.html#cb341-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s also remove all players that did not have a goal and an assist</span></span>
+<span id="cb341-5"><a href="data-acquisition.html#cb341-5" aria-hidden="true" tabindex="-1"></a>avs21 <span class="ot">&lt;-</span> avs21 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(G<span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> A <span class="sc">&gt;</span><span class="dv">0</span>)</span></code></pre></div>
+<p><strong><em>Histogram</em></strong></p>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="data-acquisition.html#cb342-1" aria-hidden="true" tabindex="-1"></a>avs21 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>G)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>,<span class="at">color=</span><span class="st">&quot;white&quot;</span>,<span class="at">fill=</span><span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb342-2"><a href="data-acquisition.html#cb342-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Goals&quot;</span>,<span class="at">y=</span><span class="st">&quot;Count&quot;</span>,<span class="at">title=</span><span class="st">&quot;Colorado Avalanche Player Goal Counts, 2021-2022 season&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-152-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<p><strong><em>Density plot</em></strong></p>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="data-acquisition.html#cb343-1" aria-hidden="true" tabindex="-1"></a>avs21 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>OPS)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">fill=</span><span class="st">&quot;#6F263D&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb343-2"><a href="data-acquisition.html#cb343-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Offensive Point Shares (OPS)&quot;</span>,<span class="at">y=</span><span class="st">&quot;Density&quot;</span>,<span class="at">title=</span><span class="st">&quot;Colorado Avalanche Player OPS Density, 2021-2022 season&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-153-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<p><strong><em>Scatterplot with Linear Fit</em></strong></p>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="data-acquisition.html#cb344-1" aria-hidden="true" tabindex="-1"></a>avs21 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>G,<span class="at">y=</span>OPS)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb344-2"><a href="data-acquisition.html#cb344-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm , <span class="at">fill=</span><span class="st">&quot;steelblue&quot;</span>, <span class="at">color=</span><span class="st">&quot;#6F263D&quot;</span>, <span class="at">se=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb344-3"><a href="data-acquisition.html#cb344-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Goals&quot;</span>,<span class="at">y=</span><span class="st">&quot;Offensive Point Shares (OPS)&quot;</span>,<span class="at">title=</span><span class="st">&quot;Colorado Avalanche Player Goals and OPS, 2021-2022 season&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-154-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<p><strong><em>Scatterplot with LOESS Smoother</em></strong></p>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="data-acquisition.html#cb345-1" aria-hidden="true" tabindex="-1"></a>avs21 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>A,<span class="at">y=</span>OPS)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.8</span>,<span class="at">color=</span><span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb345-2"><a href="data-acquisition.html#cb345-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>loess, <span class="at">color=</span><span class="st">&quot;#6F263D&quot;</span>, <span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb345-3"><a href="data-acquisition.html#cb345-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Assists&quot;</span>,<span class="at">y=</span><span class="st">&quot;Offensive Point Shares (DPS)&quot;</span>,<span class="at">title=</span><span class="st">&quot;Colorado Avalanche Player OPS and DPS, 2021-2022 season&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-155-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<p><strong><em>Correlation Matrix Plot</em></strong></p>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="data-acquisition.html#cb346-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb346-2"><a href="data-acquisition.html#cb346-2" aria-hidden="true" tabindex="-1"></a>avs21 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Player) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-156-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="downloading-datasets-from-internet" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Downloading Datasets From Internet<a href="data-acquisition.html#downloading-datasets-from-internet" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can directly download datasets from the internet if we have a valid url to the datset.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-170" class="example"><strong>Example 8.2  </strong></span>Game-by-game data for the CSU volleyball team is available at: <a href="https://aaron-nielsen.github.io/csu_volleyball.csv">https://aaron-nielsen.github.io/csu_volleyball.csv</a></p>
+<p>Download this data and create some visualizations.</p>
+</div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="data-acquisition.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data from URL</span></span>
+<span id="cb347-2"><a href="data-acquisition.html#cb347-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://aaron-nielsen.github.io/csu_volleyball.csv&quot;</span></span>
+<span id="cb347-3"><a href="data-acquisition.html#cb347-3" aria-hidden="true" tabindex="-1"></a>csu_vb <span class="ot">=</span> <span class="fu">read_csv</span>(url,<span class="at">show_col_types =</span> F)</span>
+<span id="cb347-4"><a href="data-acquisition.html#cb347-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb347-5"><a href="data-acquisition.html#cb347-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at first ten rows and columns</span></span>
+<span id="cb347-6"><a href="data-acquisition.html#cb347-6" aria-hidden="true" tabindex="-1"></a>csu_vb <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:left;">
+Opponent
+</th>
+<th style="text-align:left;">
+W/L
+</th>
+<th style="text-align:right;">
+SP
+</th>
+<th style="text-align:right;">
+K
+</th>
+<th style="text-align:right;">
+E
+</th>
+<th style="text-align:right;">
+TA
+</th>
+<th style="text-align:right;">
+PCT
+</th>
+<th style="text-align:right;">
+AST
+</th>
+<th style="text-align:right;">
+SA
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+8/25/17
+</td>
+<td style="text-align:left;">
+Duke
+</td>
+<td style="text-align:left;">
+L
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+179
+</td>
+<td style="text-align:right;">
+0.212
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8/26/17
+</td>
+<td style="text-align:left;">
+Central Florida
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+126
+</td>
+<td style="text-align:right;">
+0.302
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8/29/17
+</td>
+<td style="text-align:left;">
+Northern Colorado
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+77
+</td>
+<td style="text-align:right;">
+0.403
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9/1/17
+</td>
+<td style="text-align:left;">
+vs TCU
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+62
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+149
+</td>
+<td style="text-align:right;">
+0.282
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9/1/17
+</td>
+<td style="text-align:left;">
+vs UNC Asheville
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+0.425
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9/2/17
+</td>
+<td style="text-align:left;">
+at Florida State
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+95
+</td>
+<td style="text-align:right;">
+0.379
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9/8/17
+</td>
+<td style="text-align:left;">
+Ball State
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+145
+</td>
+<td style="text-align:right;">
+0.241
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9/8/17
+</td>
+<td style="text-align:left;">
+Michigan
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+101
+</td>
+<td style="text-align:right;">
+0.396
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9/10/17
+</td>
+<td style="text-align:left;">
+Idaho State
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+92
+</td>
+<td style="text-align:right;">
+0.380
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9/15/17
+</td>
+<td style="text-align:left;">
+UAlbany
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+0.466
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<p><strong><em>Correlogram</em></strong></p>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="data-acquisition.html#cb348-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example adapted from: http://r-graph-gallery.com/97-correlation-ellipses.html</span></span>
+<span id="cb348-2"><a href="data-acquisition.html#cb348-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb348-3"><a href="data-acquisition.html#cb348-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellipse)</span>
+<span id="cb348-4"><a href="data-acquisition.html#cb348-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb348-5"><a href="data-acquisition.html#cb348-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb348-6"><a href="data-acquisition.html#cb348-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use of the mtcars data proposed by R</span></span>
+<span id="cb348-7"><a href="data-acquisition.html#cb348-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> csu_vb <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)) <span class="sc">%&gt;%</span> <span class="fu">cor</span>()</span>
+<span id="cb348-8"><a href="data-acquisition.html#cb348-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb348-9"><a href="data-acquisition.html#cb348-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a Pannel of 100 colors with Rcolor Brewer</span></span>
+<span id="cb348-10"><a href="data-acquisition.html#cb348-10" aria-hidden="true" tabindex="-1"></a>my_colors <span class="ot">&lt;-</span> <span class="fu">brewer.pal</span>(<span class="dv">5</span>, <span class="st">&quot;Spectral&quot;</span>)</span>
+<span id="cb348-11"><a href="data-acquisition.html#cb348-11" aria-hidden="true" tabindex="-1"></a>my_colors <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(my_colors)(<span class="dv">100</span>)</span>
+<span id="cb348-12"><a href="data-acquisition.html#cb348-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb348-13"><a href="data-acquisition.html#cb348-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Order the correlation matrix</span></span>
+<span id="cb348-14"><a href="data-acquisition.html#cb348-14" aria-hidden="true" tabindex="-1"></a>ord <span class="ot">&lt;-</span> <span class="fu">order</span>(data[<span class="dv">1</span>, ])</span>
+<span id="cb348-15"><a href="data-acquisition.html#cb348-15" aria-hidden="true" tabindex="-1"></a>data_ord <span class="ot">&lt;-</span> data[ord, ord]</span>
+<span id="cb348-16"><a href="data-acquisition.html#cb348-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plotcorr</span>(data_ord, <span class="at">col=</span>my_colors[data_ord<span class="sc">*</span><span class="dv">50</span><span class="sc">+</span><span class="dv">50</span>], <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-158-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<p><strong><em>Correlation Matrix Plot</em></strong></p>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="data-acquisition.html#cb349-1" aria-hidden="true" tabindex="-1"></a>csu_vb <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-2"><a href="data-acquisition.html#cb349-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggcorr</span>(<span class="at">method =</span> <span class="fu">c</span>(<span class="st">&quot;everything&quot;</span>, <span class="st">&quot;pearson&quot;</span>))</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-159-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<p><strong><em>Boxplot</em></strong></p>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="data-acquisition.html#cb350-1" aria-hidden="true" tabindex="-1"></a>csu_vb <span class="sc">%&gt;%</span> </span>
+<span id="cb350-2"><a href="data-acquisition.html#cb350-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">W/L</span><span class="st">`</span>, <span class="at">y=</span>PCT, <span class="at">fill=</span><span class="st">`</span><span class="at">W/L</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb350-3"><a href="data-acquisition.html#cb350-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb350-4"><a href="data-acquisition.html#cb350-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb350-5"><a href="data-acquisition.html#cb350-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Match Result&quot;</span>,<span class="at">y=</span><span class="st">&quot;Hitting Percentage&quot;</span>) <span class="sc">+</span></span>
+<span id="cb350-6"><a href="data-acquisition.html#cb350-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="st">&quot;W&quot;</span>, <span class="st">&quot;L&quot;</span>),<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Wins&quot;</span>,<span class="st">&quot;Losses&quot;</span>))</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-160-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<p><strong><em>Violin Plot</em></strong></p>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="data-acquisition.html#cb351-1" aria-hidden="true" tabindex="-1"></a>csu_vb <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">W/L</span><span class="st">`</span>, <span class="at">y=</span>PCT, <span class="at">fill=</span><span class="st">`</span><span class="at">W/L</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb351-2"><a href="data-acquisition.html#cb351-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb351-3"><a href="data-acquisition.html#cb351-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Match Result&quot;</span>,<span class="at">y=</span><span class="st">&quot;Hitting Percentage&quot;</span>) <span class="sc">+</span></span>
+<span id="cb351-4"><a href="data-acquisition.html#cb351-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="st">&quot;W&quot;</span>, <span class="st">&quot;L&quot;</span>),<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Wins&quot;</span>,<span class="st">&quot;Losses&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb351-5"><a href="data-acquisition.html#cb351-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-161-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="importing-data-using-r-libraries" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Importing Data Using R Libraries<a href="data-acquisition.html#importing-data-using-r-libraries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="baseballr-package" class="section level3 hasAnchor" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> BaseballR package<a href="data-acquisition.html#baseballr-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>baseballr</code> package allows for scraping data from Baseball Reference, Fangraphs, and Baseball Savant.</p>
+<p>For more information, visit: <a href="https://billpetti.github.io/baseballr/">https://billpetti.github.io/baseballr/</a></p>
+<div class="example">
+<p><span id="exm:unlabeled-div-171" class="example"><strong>Example 8.3  </strong></span>Use the <code>baseballr</code> package to obtain game results for the Colorado Rockies in 2022. Create a Kable Table of the first 20 games.</p>
+</div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="data-acquisition.html#cb352-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(baseballr)</span>
+<span id="cb352-2"><a href="data-acquisition.html#cb352-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb352-3"><a href="data-acquisition.html#cb352-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Scrape data from Baseball Reference</span></span>
+<span id="cb352-4"><a href="data-acquisition.html#cb352-4" aria-hidden="true" tabindex="-1"></a>rox22 <span class="ot">&lt;-</span> <span class="fu">bref_team_results</span>(<span class="st">&quot;COL&quot;</span>, <span class="dv">2022</span>)</span>
+<span id="cb352-5"><a href="data-acquisition.html#cb352-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb352-6"><a href="data-acquisition.html#cb352-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant columns and display first 20 games</span></span>
+<span id="cb352-7"><a href="data-acquisition.html#cb352-7" aria-hidden="true" tabindex="-1"></a>rox22 <span class="sc">%&gt;%</span> </span>
+<span id="cb352-8"><a href="data-acquisition.html#cb352-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Date,H_A,Opp,Result,R,RA,Time,Attendance) <span class="sc">%&gt;%</span> </span>
+<span id="cb352-9"><a href="data-acquisition.html#cb352-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:left;">
+H_A
+</th>
+<th style="text-align:left;">
+Opp
+</th>
+<th style="text-align:left;">
+Result
+</th>
+<th style="text-align:right;">
+R
+</th>
+<th style="text-align:right;">
+RA
+</th>
+<th style="text-align:left;">
+Time
+</th>
+<th style="text-align:right;">
+Attendance
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Friday, Apr 8
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+LAD
+</td>
+<td style="text-align:left;">
+L
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+3:09
+</td>
+<td style="text-align:right;">
+48627
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Saturday, Apr 9
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+LAD
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+2:48
+</td>
+<td style="text-align:right;">
+48087
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sunday, Apr 10
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+LAD
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+3:13
+</td>
+<td style="text-align:right;">
+40825
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Monday, Apr 11
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+TEX
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+4:01
+</td>
+<td style="text-align:right;">
+35052
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tuesday, Apr 12
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+TEX
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+3:09
+</td>
+<td style="text-align:right;">
+15862
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Thursday, Apr 14
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+CHC
+</td>
+<td style="text-align:left;">
+L
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+3:02
+</td>
+<td style="text-align:right;">
+24444
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Friday, Apr 15
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+CHC
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+3:26
+</td>
+<td style="text-align:right;">
+35450
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Saturday, Apr 16
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+CHC
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+2:58
+</td>
+<td style="text-align:right;">
+37476
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sunday, Apr 17
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+CHC
+</td>
+<td style="text-align:left;">
+L
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+3:19
+</td>
+<td style="text-align:right;">
+36391
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Monday, Apr 18
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2:53
+</td>
+<td style="text-align:right;">
+20403
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tuesday, Apr 19
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+3:02
+</td>
+<td style="text-align:right;">
+23800
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wednesday, Apr 20
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:left;">
+L
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+3:09
+</td>
+<td style="text-align:right;">
+21490
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Saturday, Apr 23 (1)
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+DET
+</td>
+<td style="text-align:left;">
+L
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:left;">
+3:02
+</td>
+<td style="text-align:right;">
+37566
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Saturday, Apr 23 (2)
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+DET
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+2:47
+</td>
+<td style="text-align:right;">
+28635
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sunday, Apr 24
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+DET
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+2:55
+</td>
+<td style="text-align:right;">
+20088
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Monday, Apr 25
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:left;">
+L
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+3:09
+</td>
+<td style="text-align:right;">
+20130
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tuesday, Apr 26
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:left;">
+L
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+3:19
+</td>
+<td style="text-align:right;">
+22300
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wednesday, Apr 27
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:left;">
+L
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+3:20
+</td>
+<td style="text-align:right;">
+20127
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Thursday, Apr 28
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:left;">
+L
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+3:08
+</td>
+<td style="text-align:right;">
+20098
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Friday, Apr 29
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+CIN
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+3:25
+</td>
+<td style="text-align:right;">
+30206
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-172" class="example"><strong>Example 8.4  </strong></span>Use the <code>baseballr</code> packges to obtain the batting leaderboards for MLB in 2022. Create a table with the top ten players in terms of WAR.</p>
+</div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="data-acquisition.html#cb353-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scrape data from Fangraphs</span></span>
+<span id="cb353-2"><a href="data-acquisition.html#cb353-2" aria-hidden="true" tabindex="-1"></a>bat22 <span class="ot">&lt;-</span> <span class="fu">fg_batter_leaders</span>(<span class="at">x =</span> <span class="dv">2022</span>, <span class="at">y =</span> <span class="dv">2022</span>)</span>
+<span id="cb353-3"><a href="data-acquisition.html#cb353-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb353-4"><a href="data-acquisition.html#cb353-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant columns</span></span>
+<span id="cb353-5"><a href="data-acquisition.html#cb353-5" aria-hidden="true" tabindex="-1"></a>bat22 <span class="ot">=</span> bat22 <span class="sc">%&gt;%</span> </span>
+<span id="cb353-6"><a href="data-acquisition.html#cb353-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Name,Team,OPS,WPA,wRC,WAR)</span>
+<span id="cb353-7"><a href="data-acquisition.html#cb353-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb353-8"><a href="data-acquisition.html#cb353-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange by leaders in WAR and print to a Kable table</span></span>
+<span id="cb353-9"><a href="data-acquisition.html#cb353-9" aria-hidden="true" tabindex="-1"></a>bat22 <span class="sc">%&gt;%</span> </span>
+<span id="cb353-10"><a href="data-acquisition.html#cb353-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(WAR)) <span class="sc">%&gt;%</span> </span>
+<span id="cb353-11"><a href="data-acquisition.html#cb353-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb353-12"><a href="data-acquisition.html#cb353-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Name
+</th>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+OPS
+</th>
+<th style="text-align:right;">
+WPA
+</th>
+<th style="text-align:right;">
+wRC
+</th>
+<th style="text-align:right;">
+WAR
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Aaron Judge
+</td>
+<td style="text-align:left;">
+NYY
+</td>
+<td style="text-align:right;">
+1.111
+</td>
+<td style="text-align:right;">
+7.74
+</td>
+<td style="text-align:right;">
+162
+</td>
+<td style="text-align:right;">
+11.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Manny Machado
+</td>
+<td style="text-align:left;">
+SDP
+</td>
+<td style="text-align:right;">
+0.898
+</td>
+<td style="text-align:right;">
+4.65
+</td>
+<td style="text-align:right;">
+110
+</td>
+<td style="text-align:right;">
+7.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nolan Arenado
+</td>
+<td style="text-align:left;">
+STL
+</td>
+<td style="text-align:right;">
+0.891
+</td>
+<td style="text-align:right;">
+2.54
+</td>
+<td style="text-align:right;">
+106
+</td>
+<td style="text-align:right;">
+7.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paul Goldschmidt
+</td>
+<td style="text-align:left;">
+STL
+</td>
+<td style="text-align:right;">
+0.981
+</td>
+<td style="text-align:right;">
+4.91
+</td>
+<td style="text-align:right;">
+131
+</td>
+<td style="text-align:right;">
+7.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Freddie Freeman
+</td>
+<td style="text-align:left;">
+LAD
+</td>
+<td style="text-align:right;">
+0.918
+</td>
+<td style="text-align:right;">
+2.82
+</td>
+<td style="text-align:right;">
+128
+</td>
+<td style="text-align:right;">
+7.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Francisco Lindor
+</td>
+<td style="text-align:left;">
+NYM
+</td>
+<td style="text-align:right;">
+0.788
+</td>
+<td style="text-align:right;">
+3.76
+</td>
+<td style="text-align:right;">
+99
+</td>
+<td style="text-align:right;">
+6.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Yordan Alvarez
+</td>
+<td style="text-align:left;">
+HOU
+</td>
+<td style="text-align:right;">
+1.019
+</td>
+<td style="text-align:right;">
+5.22
+</td>
+<td style="text-align:right;">
+116
+</td>
+<td style="text-align:right;">
+6.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jose Altuve
+</td>
+<td style="text-align:left;">
+HOU
+</td>
+<td style="text-align:right;">
+0.921
+</td>
+<td style="text-align:right;">
+2.85
+</td>
+<td style="text-align:right;">
+111
+</td>
+<td style="text-align:right;">
+6.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mookie Betts
+</td>
+<td style="text-align:left;">
+LAD
+</td>
+<td style="text-align:right;">
+0.873
+</td>
+<td style="text-align:right;">
+4.44
+</td>
+<td style="text-align:right;">
+105
+</td>
+<td style="text-align:right;">
+6.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J.T. Realmuto
+</td>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:right;">
+0.820
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:right;">
+6.5
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-173" class="example"><strong>Example 8.5  </strong></span>Using the <code>baseballr</code> package, obtain the top ten leaders for max hit speed along with these players average hit speed, number of barrels, and barrel percent. Present this information in a Kable table.</p>
+</div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="data-acquisition.html#cb354-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scrape Statcast data from Baseball Savant</span></span>
+<span id="cb354-2"><a href="data-acquisition.html#cb354-2" aria-hidden="true" tabindex="-1"></a>sc_leader <span class="ot">&lt;-</span> <span class="fu">statcast_leaderboards</span>(<span class="at">leaderboard =</span> <span class="st">&quot;exit_velocity_barrels&quot;</span>,<span class="at">year =</span> <span class="dv">2022</span>)</span>
+<span id="cb354-3"><a href="data-acquisition.html#cb354-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb354-4"><a href="data-acquisition.html#cb354-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant columns</span></span>
+<span id="cb354-5"><a href="data-acquisition.html#cb354-5" aria-hidden="true" tabindex="-1"></a>sc_leader <span class="sc">%&gt;%</span> </span>
+<span id="cb354-6"><a href="data-acquisition.html#cb354-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Name =</span> <span class="fu">paste</span>(first_name, last_name),</span>
+<span id="cb354-7"><a href="data-acquisition.html#cb354-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Max Hit Speed</span><span class="st">`</span> <span class="ot">=</span> max_hit_speed,</span>
+<span id="cb354-8"><a href="data-acquisition.html#cb354-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Avg Hit Speed</span><span class="st">`</span> <span class="ot">=</span> avg_hit_speed,</span>
+<span id="cb354-9"><a href="data-acquisition.html#cb354-9" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Barrels</span><span class="st">`</span> <span class="ot">=</span> barrels,</span>
+<span id="cb354-10"><a href="data-acquisition.html#cb354-10" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Barrel Percent</span><span class="st">`</span> <span class="ot">=</span> brl_percent) <span class="sc">%&gt;%</span></span>
+<span id="cb354-11"><a href="data-acquisition.html#cb354-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Name,<span class="st">`</span><span class="at">Max Hit Speed</span><span class="st">`</span>,<span class="st">`</span><span class="at">Avg Hit Speed</span><span class="st">`</span>,<span class="st">`</span><span class="at">Barrels</span><span class="st">`</span>,<span class="st">`</span><span class="at">Barrel Percent</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb354-12"><a href="data-acquisition.html#cb354-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="st">`</span><span class="at">Max Hit Speed</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Name
+</th>
+<th style="text-align:right;">
+Max Hit Speed
+</th>
+<th style="text-align:right;">
+Avg Hit Speed
+</th>
+<th style="text-align:right;">
+Barrels
+</th>
+<th style="text-align:right;">
+Barrel Percent
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Oneil Cruz
+</td>
+<td style="text-align:right;">
+122.4
+</td>
+<td style="text-align:right;">
+91.9
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+15.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Giancarlo Stanton
+</td>
+<td style="text-align:right;">
+119.8
+</td>
+<td style="text-align:right;">
+95.0
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+19.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Shohei Ohtani
+</td>
+<td style="text-align:right;">
+119.1
+</td>
+<td style="text-align:right;">
+92.9
+</td>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+16.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vladimir Guerrero Jr. 
+</td>
+<td style="text-align:right;">
+118.4
+</td>
+<td style="text-align:right;">
+92.8
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+11.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Aaron Judge
+</td>
+<td style="text-align:right;">
+118.4
+</td>
+<td style="text-align:right;">
+95.9
+</td>
+<td style="text-align:right;">
+106
+</td>
+<td style="text-align:right;">
+26.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Luis Robert Jr. 
+</td>
+<td style="text-align:right;">
+117.8
+</td>
+<td style="text-align:right;">
+89.3
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+8.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Yordan Alvarez
+</td>
+<td style="text-align:right;">
+117.4
+</td>
+<td style="text-align:right;">
+95.2
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+21.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Christian Yelich
+</td>
+<td style="text-align:right;">
+117.2
+</td>
+<td style="text-align:right;">
+91.5
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+8.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Julio Rodríguez
+</td>
+<td style="text-align:right;">
+117.2
+</td>
+<td style="text-align:right;">
+92.0
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+13.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rowdy Tellez
+</td>
+<td style="text-align:right;">
+116.9
+</td>
+<td style="text-align:right;">
+91.1
+</td>
+<td style="text-align:right;">
+53
+</td>
+<td style="text-align:right;">
+12.9
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<p>This is a useful website for obtaining and visualizing StatCast pitch data:<br />
+<a href="https://billpetti.github.io/baseballr/articles/using_statcast_pitch_data.html">https://billpetti.github.io/baseballr/articles/using_statcast_pitch_data.html</a></p>
+<div class="example">
+<p><span id="exm:unlabeled-div-174" class="example"><strong>Example 8.6  </strong></span>Obtain Shohei Ohtani’s pitch data for the 2022 season. Plot the horizontal and vertical break of the pitches. Also, investigate his fastball velocity by inning.</p>
+<p>More about Ohtani’s pitching repertoire: <a href="https://www.youtube.com/watch?v=7nZBlYIqEww">https://www.youtube.com/watch?v=7nZBlYIqEww</a></p>
+</div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="data-acquisition.html#cb355-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This follows the example at: </span></span>
+<span id="cb355-2"><a href="data-acquisition.html#cb355-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://billpetti.github.io/baseballr/articles/using_statcast_pitch_data.html</span></span>
+<span id="cb355-3"><a href="data-acquisition.html#cb355-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb355-4"><a href="data-acquisition.html#cb355-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ohtani_id &lt;- baseballr::playerid_lookup(last_name = &quot;Ohtani&quot;, first_name = &quot;Shohei&quot;) %&gt;% </span></span>
+<span id="cb355-5"><a href="data-acquisition.html#cb355-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   pull(mlbam_id)</span></span>
+<span id="cb355-6"><a href="data-acquisition.html#cb355-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb355-7"><a href="data-acquisition.html#cb355-7" aria-hidden="true" tabindex="-1"></a><span class="co"># can get player id for mlbam at: https://razzball.com/mlbamids/</span></span>
+<span id="cb355-8"><a href="data-acquisition.html#cb355-8" aria-hidden="true" tabindex="-1"></a>ohtani_id <span class="ot">&lt;-</span> <span class="st">&quot;660271&quot;</span></span>
+<span id="cb355-9"><a href="data-acquisition.html#cb355-9" aria-hidden="true" tabindex="-1"></a>ohtani_data <span class="ot">&lt;-</span> baseballr<span class="sc">::</span><span class="fu">statcast_search_pitchers</span>(<span class="at">start_date =</span> <span class="st">&quot;2022-03-01&quot;</span>,</span>
+<span id="cb355-10"><a href="data-acquisition.html#cb355-10" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">end_date =</span> <span class="st">&quot;2022-12-01&quot;</span>,</span>
+<span id="cb355-11"><a href="data-acquisition.html#cb355-11" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">pitcherid =</span> <span class="st">&quot;660271&quot;</span>)</span>
+<span id="cb355-12"><a href="data-acquisition.html#cb355-12" aria-hidden="true" tabindex="-1"></a>ohtani_cleaned_data <span class="ot">&lt;-</span> ohtani_data <span class="sc">%&gt;%</span> </span>
+<span id="cb355-13"><a href="data-acquisition.html#cb355-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only keep rows with pitch movement readings</span></span>
+<span id="cb355-14"><a href="data-acquisition.html#cb355-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and during the regular season</span></span>
+<span id="cb355-15"><a href="data-acquisition.html#cb355-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(pfx_x), <span class="sc">!</span><span class="fu">is.na</span>(pfx_z),</span>
+<span id="cb355-16"><a href="data-acquisition.html#cb355-16" aria-hidden="true" tabindex="-1"></a>         game_type <span class="sc">==</span> <span class="st">&quot;R&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb355-17"><a href="data-acquisition.html#cb355-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pfx_x_in_pv =</span> <span class="sc">-</span><span class="dv">12</span><span class="sc">*</span>pfx_x,</span>
+<span id="cb355-18"><a href="data-acquisition.html#cb355-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">pfx_z_in =</span> <span class="dv">12</span><span class="sc">*</span>pfx_z)</span>
+<span id="cb355-19"><a href="data-acquisition.html#cb355-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb355-20"><a href="data-acquisition.html#cb355-20" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">12</span>, <span class="at">name =</span> <span class="st">&quot;Paired&quot;</span>)</span>
+<span id="cb355-21"><a href="data-acquisition.html#cb355-21" aria-hidden="true" tabindex="-1"></a>pitch_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;4-Seam Fastball&quot;</span> <span class="ot">=</span> colors[<span class="dv">1</span>],</span>
+<span id="cb355-22"><a href="data-acquisition.html#cb355-22" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;2-Seam Fastball&quot;</span> <span class="ot">=</span> colors[<span class="dv">2</span>],</span>
+<span id="cb355-23"><a href="data-acquisition.html#cb355-23" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Sinker&quot;</span> <span class="ot">=</span> colors[<span class="dv">3</span>],</span>
+<span id="cb355-24"><a href="data-acquisition.html#cb355-24" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Cutter&quot;</span> <span class="ot">=</span> colors[<span class="dv">4</span>],</span>
+<span id="cb355-25"><a href="data-acquisition.html#cb355-25" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Fastball&quot;</span> <span class="ot">=</span> colors[<span class="dv">5</span>],</span>
+<span id="cb355-26"><a href="data-acquisition.html#cb355-26" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Curveball&quot;</span> <span class="ot">=</span> colors[<span class="dv">6</span>],</span>
+<span id="cb355-27"><a href="data-acquisition.html#cb355-27" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Knuckle Curve&quot;</span> <span class="ot">=</span> colors[<span class="dv">7</span>],</span>
+<span id="cb355-28"><a href="data-acquisition.html#cb355-28" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Slider&quot;</span> <span class="ot">=</span> colors[<span class="dv">8</span>],</span>
+<span id="cb355-29"><a href="data-acquisition.html#cb355-29" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Changeup&quot;</span> <span class="ot">=</span> colors[<span class="dv">9</span>],</span>
+<span id="cb355-30"><a href="data-acquisition.html#cb355-30" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Split-Finger&quot;</span> <span class="ot">=</span> colors[<span class="dv">10</span>],</span>
+<span id="cb355-31"><a href="data-acquisition.html#cb355-31" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Knuckleball&quot;</span> <span class="ot">=</span> colors[<span class="dv">11</span>])</span>
+<span id="cb355-32"><a href="data-acquisition.html#cb355-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb355-33"><a href="data-acquisition.html#cb355-33" aria-hidden="true" tabindex="-1"></a>( ohtani_pitch_types <span class="ot">&lt;-</span> <span class="fu">unique</span>(ohtani_cleaned_data<span class="sc">$</span>pitch_name) )</span></code></pre></div>
+<pre><code>## [1] &quot;Slider&quot;          &quot;Curveball&quot;       &quot;Sinker&quot;          &quot;Cutter&quot;         
+## [5] &quot;4-Seam Fastball&quot; &quot;Split-Finger&quot;</code></pre>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="data-acquisition.html#cb357-1" aria-hidden="true" tabindex="-1"></a>ohtani_cleaned_data <span class="sc">%&gt;%</span> </span>
+<span id="cb357-2"><a href="data-acquisition.html#cb357-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pfx_x_in_pv, <span class="at">y =</span> pfx_z_in, <span class="at">color =</span> pitch_name)) <span class="sc">+</span></span>
+<span id="cb357-3"><a href="data-acquisition.html#cb357-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb357-4"><a href="data-acquisition.html#cb357-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb357-5"><a href="data-acquisition.html#cb357-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb357-6"><a href="data-acquisition.html#cb357-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pitch_colors,</span>
+<span id="cb357-7"><a href="data-acquisition.html#cb357-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> ohtani_pitch_types) <span class="sc">+</span></span>
+<span id="cb357-8"><a href="data-acquisition.html#cb357-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">25</span>,<span class="dv">25</span>),</span>
+<span id="cb357-9"><a href="data-acquisition.html#cb357-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">20</span>,<span class="dv">20</span>, <span class="dv">5</span>),</span>
+<span id="cb357-10"><a href="data-acquisition.html#cb357-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">number_format</span>(<span class="at">suffix =</span> <span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb357-11"><a href="data-acquisition.html#cb357-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">25</span>,<span class="dv">25</span>),</span>
+<span id="cb357-12"><a href="data-acquisition.html#cb357-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">20</span>,<span class="dv">20</span>, <span class="dv">5</span>),</span>
+<span id="cb357-13"><a href="data-acquisition.html#cb357-13" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">number_format</span>(<span class="at">suffix =</span> <span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb357-14"><a href="data-acquisition.html#cb357-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
+<span id="cb357-15"><a href="data-acquisition.html#cb357-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Shohei Ohtani Pitch Movement&quot;</span>,</span>
+<span id="cb357-16"><a href="data-acquisition.html#cb357-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;2022 MLB Season | Pitcher&#39;s POV&quot;</span>,</span>
+<span id="cb357-17"><a href="data-acquisition.html#cb357-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Data: Baseball Savant via baseballr&quot;</span>, </span>
+<span id="cb357-18"><a href="data-acquisition.html#cb357-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Horizontal Break&quot;</span>,</span>
+<span id="cb357-19"><a href="data-acquisition.html#cb357-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Induced Vertical Break&quot;</span>,</span>
+<span id="cb357-20"><a href="data-acquisition.html#cb357-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Pitch Name&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-166-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="data-acquisition.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group pitches by inning</span></span>
+<span id="cb358-2"><a href="data-acquisition.html#cb358-2" aria-hidden="true" tabindex="-1"></a>ohtani_velo_by_inning <span class="ot">&lt;-</span> ohtani_cleaned_data <span class="sc">%&gt;%</span> </span>
+<span id="cb358-3"><a href="data-acquisition.html#cb358-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pitch_name <span class="sc">==</span> <span class="st">&quot;4-Seam Fastball&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb358-4"><a href="data-acquisition.html#cb358-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(inning, pitch_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb358-5"><a href="data-acquisition.html#cb358-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_velo =</span> <span class="fu">mean</span>(release_speed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb358-6"><a href="data-acquisition.html#cb358-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb358-7"><a href="data-acquisition.html#cb358-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot average fastball speed by inning</span></span>
+<span id="cb358-8"><a href="data-acquisition.html#cb358-8" aria-hidden="true" tabindex="-1"></a>ohtani_velo_by_inning <span class="sc">%&gt;%</span> </span>
+<span id="cb358-9"><a href="data-acquisition.html#cb358-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> inning, <span class="at">y =</span> average_velo, <span class="at">color =</span> pitch_name)) <span class="sc">+</span></span>
+<span id="cb358-10"><a href="data-acquisition.html#cb358-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb358-11"><a href="data-acquisition.html#cb358-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb358-12"><a href="data-acquisition.html#cb358-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pitch_colors) <span class="sc">+</span></span>
+<span id="cb358-13"><a href="data-acquisition.html#cb358-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb358-14"><a href="data-acquisition.html#cb358-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">100</span>)) <span class="sc">+</span></span>
+<span id="cb358-15"><a href="data-acquisition.html#cb358-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Shohei Ohtani 4-Seam Fastball Velo By Inning&quot;</span>,</span>
+<span id="cb358-16"><a href="data-acquisition.html#cb358-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;2022 MLB Season&quot;</span>,</span>
+<span id="cb358-17"><a href="data-acquisition.html#cb358-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Data: Baseball Savant via baseballr&quot;</span>,</span>
+<span id="cb358-18"><a href="data-acquisition.html#cb358-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Inning&quot;</span>,</span>
+<span id="cb358-19"><a href="data-acquisition.html#cb358-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Average Velo&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.</code></pre>
+<p><img src="textbook_files/figure-html/unnamed-chunk-167-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="nflfastr-package" class="section level3 hasAnchor" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> nflfastR package<a href="data-acquisition.html#nflfastr-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>nflfastR</code> package is a helpful package for obtaining play-by-play and roster data for NFL games.</p>
+<p>For more details, see: <a href="https://www.nflfastr.com/articles/nflfastR.html">https://www.nflfastr.com/articles/nflfastR.html</a></p>
+<div class="example">
+<p><span id="exm:unlabeled-div-175" class="example"><strong>Example 8.7  </strong></span>Use the <code>nflfastR</code> package to obtain the play-by-play data for the Denver Broncos home game against the San Francisco 49ers during the 2022 season.</p>
+</div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="data-acquisition.html#cb360-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nflfastR)</span>
+<span id="cb360-2"><a href="data-acquisition.html#cb360-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gsisdecoder)</span>
+<span id="cb360-3"><a href="data-acquisition.html#cb360-3" aria-hidden="true" tabindex="-1"></a><span class="co"># First find the game ID by searching Broncos home games in 2022</span></span>
+<span id="cb360-4"><a href="data-acquisition.html#cb360-4" aria-hidden="true" tabindex="-1"></a><span class="fu">fast_scraper_schedules</span>(<span class="dv">2022</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb360-5"><a href="data-acquisition.html#cb360-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(home_team<span class="sc">==</span><span class="st">&quot;DEN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb360-6"><a href="data-acquisition.html#cb360-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(game_id,gameday,away_team,home_team) <span class="sc">%&gt;%</span></span>
+<span id="cb360-7"><a href="data-acquisition.html#cb360-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+game_id
+</th>
+<th style="text-align:left;">
+gameday
+</th>
+<th style="text-align:left;">
+away_team
+</th>
+<th style="text-align:left;">
+home_team
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2022_02_HOU_DEN
+</td>
+<td style="text-align:left;">
+2022-09-18
+</td>
+<td style="text-align:left;">
+HOU
+</td>
+<td style="text-align:left;">
+DEN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022_03_SF_DEN
+</td>
+<td style="text-align:left;">
+2022-09-25
+</td>
+<td style="text-align:left;">
+SF
+</td>
+<td style="text-align:left;">
+DEN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022_05_IND_DEN
+</td>
+<td style="text-align:left;">
+2022-10-06
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:left;">
+DEN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022_07_NYJ_DEN
+</td>
+<td style="text-align:left;">
+2022-10-23
+</td>
+<td style="text-align:left;">
+NYJ
+</td>
+<td style="text-align:left;">
+DEN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022_11_LV_DEN
+</td>
+<td style="text-align:left;">
+2022-11-20
+</td>
+<td style="text-align:left;">
+LV
+</td>
+<td style="text-align:left;">
+DEN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022_14_KC_DEN
+</td>
+<td style="text-align:left;">
+2022-12-11
+</td>
+<td style="text-align:left;">
+KC
+</td>
+<td style="text-align:left;">
+DEN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022_15_ARI_DEN
+</td>
+<td style="text-align:left;">
+2022-12-18
+</td>
+<td style="text-align:left;">
+ARI
+</td>
+<td style="text-align:left;">
+DEN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022_18_LAC_DEN
+</td>
+<td style="text-align:left;">
+2023-01-08
+</td>
+<td style="text-align:left;">
+LAC
+</td>
+<td style="text-align:left;">
+DEN
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="data-acquisition.html#cb361-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scrape data for the specific game and display play-by-play data</span></span>
+<span id="cb361-2"><a href="data-acquisition.html#cb361-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fast_scraper</span>(<span class="st">&quot;2022_03_SF_DEN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb361-3"><a href="data-acquisition.html#cb361-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_pbp</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb361-4"><a href="data-acquisition.html#cb361-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(desc, play_type, ep, epa, home_wp) <span class="sc">%&gt;%</span></span>
+<span id="cb361-5"><a href="data-acquisition.html#cb361-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb361-6"><a href="data-acquisition.html#cb361-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb361-7"><a href="data-acquisition.html#cb361-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">width =</span> <span class="st">&quot;3.5in&quot;</span>)</span></code></pre></div>
+<pre><code>## [22:33:23] WARNING: amalgamation/../src/learner.cc:438: 
+##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
+##   older XGBoost, please export the model by calling `Booster.save_model` from that version
+##   first, then load it back in current version. See:
+## 
+##     https://xgboost.readthedocs.io/en/latest/tutorials/saving_model.html
+## 
+##   for more details about differences between saving model and serializing.
+## 
+## [22:33:24] WARNING: amalgamation/../src/learner.cc:438: 
+##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
+##   older XGBoost, please export the model by calling `Booster.save_model` from that version
+##   first, then load it back in current version. See:
+## 
+##     https://xgboost.readthedocs.io/en/latest/tutorials/saving_model.html
+## 
+##   for more details about differences between saving model and serializing.
+## 
+## [22:33:24] WARNING: amalgamation/../src/learner.cc:438: 
+##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
+##   older XGBoost, please export the model by calling `Booster.save_model` from that version
+##   first, then load it back in current version. See:
+## 
+##     https://xgboost.readthedocs.io/en/latest/tutorials/saving_model.html
+## 
+##   for more details about differences between saving model and serializing.
+## 
+## [22:33:24] WARNING: amalgamation/../src/learner.cc:438: 
+##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
+##   older XGBoost, please export the model by calling `Booster.save_model` from that version
+##   first, then load it back in current version. See:
+## 
+##     https://xgboost.readthedocs.io/en/latest/tutorials/saving_model.html
+## 
+##   for more details about differences between saving model and serializing.</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+desc
+</th>
+<th style="text-align:left;">
+play_type
+</th>
+<th style="text-align:right;">
+ep
+</th>
+<th style="text-align:right;">
+epa
+</th>
+<th style="text-align:right;">
+home_wp
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 3.5in; ">
+GAME
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+0.770
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.567
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3.5in; ">
+8-B.McManus kicks 63 yards from DEN 35 to SF 2. 3-R.McCloud to SF 10 for 8 yards (40-J.Strnad).
+</td>
+<td style="text-align:left;">
+kickoff
+</td>
+<td style="text-align:right;">
+0.770
+</td>
+<td style="text-align:right;">
+-1.071
+</td>
+<td style="text-align:right;">
+0.567
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3.5in; ">
+(14:54) (Shotgun) 22-J.Wilson right tackle to SF 12 for 2 yards (99-D.Williams).
+</td>
+<td style="text-align:left;">
+run
+</td>
+<td style="text-align:right;">
+-0.301
+</td>
+<td style="text-align:right;">
+-0.415
+</td>
+<td style="text-align:right;">
+0.589
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3.5in; ">
+(14:19) 10-J.Garoppolo pass short left to 19-D.Samuel to SF 25 for 13 yards (21-K.Williams, 22-K.Jackson).
+</td>
+<td style="text-align:left;">
+pass
+</td>
+<td style="text-align:right;">
+-0.716
+</td>
+<td style="text-align:right;">
+1.559
+</td>
+<td style="text-align:right;">
+0.599
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3.5in; ">
+(13:42) (Shotgun) 19-D.Samuel left tackle to SF 26 for 1 yard (98-M.Purcell).
+</td>
+<td style="text-align:left;">
+run
+</td>
+<td style="text-align:right;">
+0.843
+</td>
+<td style="text-align:right;">
+-0.530
+</td>
+<td style="text-align:right;">
+0.567
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3.5in; ">
+(13:07) (Shotgun) 10-J.Garoppolo pass incomplete short left to 11-B.Aiyuk (2-P.Surtain).
+</td>
+<td style="text-align:left;">
+pass
+</td>
+<td style="text-align:right;">
+0.313
+</td>
+<td style="text-align:right;">
+-0.752
+</td>
+<td style="text-align:right;">
+0.585
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3.5in; ">
+(13:01) (Shotgun) 10-J.Garoppolo pass incomplete short middle to 85-G.Kittle (97-Dj.Jones).
+</td>
+<td style="text-align:left;">
+pass
+</td>
+<td style="text-align:right;">
+-0.438
+</td>
+<td style="text-align:right;">
+-1.445
+</td>
+<td style="text-align:right;">
+0.610
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3.5in; ">
+(12:57) 18-M.Wishnowsky punts 45 yards to DEN 29, Center-46-T.Pepper, out of bounds.
+</td>
+<td style="text-align:left;">
+punt
+</td>
+<td style="text-align:right;">
+-1.884
+</td>
+<td style="text-align:right;">
+0.035
+</td>
+<td style="text-align:right;">
+0.647
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3.5in; ">
+(12:50) (Shotgun) 3-R.Wilson pass short right to 33-J.Williams to DEN 31 for 2 yards (57-D.Greenlaw).
+</td>
+<td style="text-align:left;">
+pass
+</td>
+<td style="text-align:right;">
+1.849
+</td>
+<td style="text-align:right;">
+-0.587
+</td>
+<td style="text-align:right;">
+0.619
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3.5in; ">
+(12:24) (No Huddle, Shotgun) 33-J.Williams left guard to DEN 31 for no gain (57-D.Greenlaw; 90-K.Givens).
+</td>
+<td style="text-align:left;">
+run
+</td>
+<td style="text-align:right;">
+1.262
+</td>
+<td style="text-align:right;">
+-0.790
+</td>
+<td style="text-align:right;">
+0.607
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="data-acquisition.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nflplotR)</span>
+<span id="cb363-2"><a href="data-acquisition.html#cb363-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Example from: https://www.nflfastr.com/articles/nflfastR.html</span></span>
+<span id="cb363-3"><a href="data-acquisition.html#cb363-3" aria-hidden="true" tabindex="-1"></a>pbp <span class="ot">&lt;-</span> nflfastR<span class="sc">::</span><span class="fu">load_pbp</span>(<span class="dv">2022</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb363-4"><a href="data-acquisition.html#cb363-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season_type <span class="sc">==</span> <span class="st">&quot;REG&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb363-5"><a href="data-acquisition.html#cb363-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(posteam) <span class="sc">&amp;</span> (rush <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> pass <span class="sc">==</span> <span class="dv">1</span>))</span>
+<span id="cb363-6"><a href="data-acquisition.html#cb363-6" aria-hidden="true" tabindex="-1"></a>offense <span class="ot">&lt;-</span> pbp <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(<span class="at">team =</span> posteam) <span class="sc">%&gt;%</span></span>
+<span id="cb363-7"><a href="data-acquisition.html#cb363-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">off_epa =</span> <span class="fu">mean</span>(epa, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb363-8"><a href="data-acquisition.html#cb363-8" aria-hidden="true" tabindex="-1"></a>defense <span class="ot">&lt;-</span> pbp <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(<span class="at">team =</span> defteam) <span class="sc">%&gt;%</span> </span>
+<span id="cb363-9"><a href="data-acquisition.html#cb363-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">def_epa =</span> <span class="fu">mean</span>(epa, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb363-10"><a href="data-acquisition.html#cb363-10" aria-hidden="true" tabindex="-1"></a>offense <span class="sc">%&gt;%</span></span>
+<span id="cb363-11"><a href="data-acquisition.html#cb363-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(defense, <span class="at">by =</span> <span class="st">&quot;team&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb363-12"><a href="data-acquisition.html#cb363-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> off_epa, <span class="at">y =</span> def_epa)) <span class="sc">+</span></span>
+<span id="cb363-13"><a href="data-acquisition.html#cb363-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="sc">-</span><span class="fl">1.5</span>, <span class="at">intercept =</span> <span class="fu">c</span>(.<span class="dv">4</span>, .<span class="dv">3</span>, .<span class="dv">2</span>, .<span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span>.<span class="dv">1</span>, <span class="sc">-</span>.<span class="dv">2</span>, <span class="sc">-</span>.<span class="dv">3</span>), <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb363-14"><a href="data-acquisition.html#cb363-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_mean_lines</span>(<span class="fu">aes</span>(<span class="at">h_var =</span> off_epa, <span class="at">v_var =</span> def_epa)) <span class="sc">+</span></span>
+<span id="cb363-15"><a href="data-acquisition.html#cb363-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_nfl_logos</span>(<span class="fu">aes</span>(<span class="at">team_abbr =</span> team), <span class="at">width =</span> <span class="fl">0.07</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb363-16"><a href="data-acquisition.html#cb363-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Offense EPA/play&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Defense EPA/play&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;Data: @nflfastR&quot;</span>,</span>
+<span id="cb363-17"><a href="data-acquisition.html#cb363-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;2022 NFL Offensive and Defensive EPA per Play&quot;</span>) <span class="sc">+</span></span>
+<span id="cb363-18"><a href="data-acquisition.html#cb363-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb363-19"><a href="data-acquisition.html#cb363-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>( <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>) ) <span class="sc">+</span></span>
+<span id="cb363-20"><a href="data-acquisition.html#cb363-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reverse</span>()</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-170-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="hoopr-package" class="section level3 hasAnchor" number="8.3.3">
+<h3><span class="header-section-number">8.3.3</span> hoopR package<a href="data-acquisition.html#hoopr-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>hoopR</code> allows for one to access data related to professional and college basketball.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-176" class="example"><strong>Example 8.8  </strong></span>Using the <code>hoopR</code> package, obtain the play-by-play data for the Denver Nuggets vs. Philadelphia 76ers game on January 28, 2023.</p>
+</div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="data-acquisition.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hoopR)</span>
+<span id="cb364-2"><a href="data-acquisition.html#cb364-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.espn.com/nba/game/_/gameId/401468896</span></span>
+<span id="cb364-3"><a href="data-acquisition.html#cb364-3" aria-hidden="true" tabindex="-1"></a>hoopR<span class="sc">::</span><span class="fu">espn_nba_pbp</span>(<span class="at">game_id =</span> <span class="dv">401468896</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb364-4"><a href="data-acquisition.html#cb364-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Description</span><span class="st">`</span><span class="ot">=</span>text,<span class="st">`</span><span class="at">Play Type</span><span class="st">`</span><span class="ot">=</span>type_text,</span>
+<span id="cb364-5"><a href="data-acquisition.html#cb364-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">Quarter=</span>period_display_value,<span class="at">Points=</span>score_value,<span class="at">Clock=</span>clock_display_value) <span class="sc">%&gt;%</span></span>
+<span id="cb364-6"><a href="data-acquisition.html#cb364-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb364-7"><a href="data-acquisition.html#cb364-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T) <span class="sc">%&gt;%</span></span>
+<span id="cb364-8"><a href="data-acquisition.html#cb364-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">width =</span> <span class="st">&quot;3in&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb364-9"><a href="data-acquisition.html#cb364-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width =</span> <span class="st">&quot;1in&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Description
+</th>
+<th style="text-align:left;">
+Play Type
+</th>
+<th style="text-align:left;">
+Quarter
+</th>
+<th style="text-align:right;">
+Points
+</th>
+<th style="text-align:left;">
+Clock
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 3in; ">
+Nikola Jokic vs. Joel Embiid (Jamal Murray gains possession)
+</td>
+<td style="text-align:left;width: 1in; ">
+Jumpball
+</td>
+<td style="text-align:left;">
+1st Quarter
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+12:00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3in; ">
+Nikola Jokic misses 11-foot jumper
+</td>
+<td style="text-align:left;width: 1in; ">
+Jump Shot
+</td>
+<td style="text-align:left;">
+1st Quarter
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+11:45
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3in; ">
+James Harden defensive rebound
+</td>
+<td style="text-align:left;width: 1in; ">
+Defensive Rebound
+</td>
+<td style="text-align:left;">
+1st Quarter
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+11:41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3in; ">
+Joel Embiid makes 6-foot two point shot (James Harden assists)
+</td>
+<td style="text-align:left;width: 1in; ">
+Driving Floating Bank Jump Shot
+</td>
+<td style="text-align:left;">
+1st Quarter
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+11:35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3in; ">
+Nikola Jokic shooting foul
+</td>
+<td style="text-align:left;width: 1in; ">
+Shooting Foul
+</td>
+<td style="text-align:left;">
+1st Quarter
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+11:35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3in; ">
+Joel Embiid misses free throw 1 of 1
+</td>
+<td style="text-align:left;width: 1in; ">
+Free Throw - 1 of 1
+</td>
+<td style="text-align:left;">
+1st Quarter
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+11:35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3in; ">
+Michael Porter Jr. defensive rebound
+</td>
+<td style="text-align:left;width: 1in; ">
+Defensive Rebound
+</td>
+<td style="text-align:left;">
+1st Quarter
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+11:32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3in; ">
+Michael Porter Jr. makes 27-foot three point jumper (Kentavious Caldwell-Pope assists)
+</td>
+<td style="text-align:left;width: 1in; ">
+Jump Shot
+</td>
+<td style="text-align:left;">
+1st Quarter
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+11:20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3in; ">
+Tobias Harris misses 26-foot three point jumper
+</td>
+<td style="text-align:left;width: 1in; ">
+Jump Shot
+</td>
+<td style="text-align:left;">
+1st Quarter
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+10:58
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3in; ">
+Kentavious Caldwell-Pope defensive rebound
+</td>
+<td style="text-align:left;width: 1in; ">
+Defensive Rebound
+</td>
+<td style="text-align:left;">
+1st Quarter
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+10:55
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3in; ">
+Nikola Jokic makes finger roll layup (Jamal Murray assists)
+</td>
+<td style="text-align:left;width: 1in; ">
+Finger Roll Layup
+</td>
+<td style="text-align:left;">
+1st Quarter
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+10:48
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3in; ">
+Joel Embiid makes driving layup (James Harden assists)
+</td>
+<td style="text-align:left;width: 1in; ">
+Driving Layup Shot
+</td>
+<td style="text-align:left;">
+1st Quarter
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+10:37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3in; ">
+Aaron Gordon makes 16-foot pullup jump shot
+</td>
+<td style="text-align:left;width: 1in; ">
+Pullup Jump Shot
+</td>
+<td style="text-align:left;">
+1st Quarter
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+10:25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3in; ">
+Joel Embiid makes 14-foot pullup jump shot
+</td>
+<td style="text-align:left;width: 1in; ">
+Pullup Jump Shot
+</td>
+<td style="text-align:left;">
+1st Quarter
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+10:12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3in; ">
+Joel Embiid shooting foul
+</td>
+<td style="text-align:left;width: 1in; ">
+Shooting Foul
+</td>
+<td style="text-align:left;">
+1st Quarter
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+9:59
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-177" class="example"><strong>Example 8.9  </strong></span>Obtain win probability as a function of game time for Colorado State vs. Boise State men’s basketball on January 28, 2023.</p>
+</div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="data-acquisition.html#cb365-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get ID from ESPN game URL: https://www.espn.com/mens-college-basketball/game/_/gameId/401482835</span></span>
+<span id="cb365-2"><a href="data-acquisition.html#cb365-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hoopR)</span>
+<span id="cb365-3"><a href="data-acquisition.html#cb365-3" aria-hidden="true" tabindex="-1"></a>hoopR<span class="sc">::</span><span class="fu">espn_mbb_wp</span>(<span class="at">game_id =</span> <span class="dv">401482835</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb365-4"><a href="data-acquisition.html#cb365-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">Period=</span>period,<span class="st">`</span><span class="at">Seconds Remaining</span><span class="st">`</span><span class="ot">=</span>game_seconds_left,<span class="st">`</span><span class="at">Home Win Pct</span><span class="st">`</span><span class="ot">=</span>home_win_percentage,<span class="st">`</span><span class="at">Play ID</span><span class="st">`</span><span class="ot">=</span>play_id) <span class="sc">%&gt;%</span></span>
+<span id="cb365-5"><a href="data-acquisition.html#cb365-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb365-6"><a href="data-acquisition.html#cb365-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+Period
+</th>
+<th style="text-align:right;">
+Seconds Remaining
+</th>
+<th style="text-align:right;">
+Home Win Pct
+</th>
+<th style="text-align:left;">
+Play ID
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2375
+</td>
+<td style="text-align:right;">
+0.891
+</td>
+<td style="text-align:left;">
+401482835101806401
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2372
+</td>
+<td style="text-align:right;">
+0.893
+</td>
+<td style="text-align:left;">
+401482835101806701
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2349
+</td>
+<td style="text-align:right;">
+0.913
+</td>
+<td style="text-align:left;">
+401482835101809001
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2322
+</td>
+<td style="text-align:right;">
+0.916
+</td>
+<td style="text-align:left;">
+401482835101815701
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2319
+</td>
+<td style="text-align:right;">
+0.918
+</td>
+<td style="text-align:left;">
+401482835101816001
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2297
+</td>
+<td style="text-align:right;">
+0.934
+</td>
+<td style="text-align:left;">
+401482835101818201
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2273
+</td>
+<td style="text-align:right;">
+0.939
+</td>
+<td style="text-align:left;">
+401482835101824601
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2269
+</td>
+<td style="text-align:right;">
+0.933
+</td>
+<td style="text-align:left;">
+401482835101825001
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2269
+</td>
+<td style="text-align:right;">
+0.924
+</td>
+<td style="text-align:left;">
+401482835101825002
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2238
+</td>
+<td style="text-align:right;">
+0.939
+</td>
+<td style="text-align:left;">
+401482835101828101
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="data-acquisition.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ncaahoopR)</span>
+<span id="cb366-2"><a href="data-acquisition.html#cb366-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wp_chart_new</span>(<span class="dv">401482835</span>,<span class="at">show_labels =</span> F)</span></code></pre></div>
+<pre><code>## Scraping Data for Game: 1 of 1</code></pre>
+<p><img src="textbook_files/figure-html/unnamed-chunk-173-1.png" width="672" />
+</p>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="data-acquisition.html#cb368-1" aria-hidden="true" tabindex="-1"></a><span class="fu">game_flow</span>(<span class="at">game_id =</span> <span class="dv">401482835</span>, <span class="at">home_col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">away_col =</span> <span class="st">&quot;forestgreen&quot;</span>)</span></code></pre></div>
+<pre><code>## Scraping Data for Game: 1 of 1</code></pre>
+<p><img src="textbook_files/figure-html/unnamed-chunk-174-1.png" width="672" /></p>
 
+</div>
 </div>
 </div>
             </section>
@@ -404,7 +3081,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="correlation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pythagorean-record.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="linear-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -460,6 +3137,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

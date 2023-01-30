@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2023-01-24}
+\date{2023-01-29}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -7821,6 +7821,375 @@ Julio Rodríguez & 117.2 & 92.0 & 48 & 13.1\\
 Rowdy Tellez & 116.9 & 91.1 & 53 & 12.9\\
 \bottomrule
 \end{tabular}
+
+\newpage
+
+This is a useful website for obtaining and visualizing StatCast pitch data:\\
+\url{https://billpetti.github.io/baseballr/articles/using_statcast_pitch_data.html}
+
+\begin{example}
+Obtain Shohei Ohtani's pitch data for the 2022 season. Plot the horizontal and vertical break of the pitches. Also, investigate his fastball velocity by inning.
+
+More about Ohtani's pitching repertoire: \url{https://www.youtube.com/watch?v=7nZBlYIqEww}
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# This follows the example at: }
+\CommentTok{\# https://billpetti.github.io/baseballr/articles/using\_statcast\_pitch\_data.html}
+
+\CommentTok{\# ohtani\_id \textless{}{-} baseballr::playerid\_lookup(last\_name = "Ohtani", first\_name = "Shohei") \%\textgreater{}\% }
+\CommentTok{\#   pull(mlbam\_id)}
+
+\CommentTok{\# can get player id for mlbam at: https://razzball.com/mlbamids/}
+\NormalTok{ohtani\_id }\OtherTok{\textless{}{-}} \StringTok{"660271"}
+\NormalTok{ohtani\_data }\OtherTok{\textless{}{-}}\NormalTok{ baseballr}\SpecialCharTok{::}\FunctionTok{statcast\_search\_pitchers}\NormalTok{(}\AttributeTok{start\_date =} \StringTok{"2022{-}03{-}01"}\NormalTok{,}
+                                                   \AttributeTok{end\_date =} \StringTok{"2022{-}12{-}01"}\NormalTok{,}
+                                                   \AttributeTok{pitcherid =} \StringTok{"660271"}\NormalTok{)}
+\NormalTok{ohtani\_cleaned\_data }\OtherTok{\textless{}{-}}\NormalTok{ ohtani\_data }\SpecialCharTok{\%\textgreater{}\%} 
+  \CommentTok{\# Only keep rows with pitch movement readings}
+  \CommentTok{\# and during the regular season}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(pfx\_x), }\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(pfx\_z),}
+\NormalTok{         game\_type }\SpecialCharTok{==} \StringTok{"R"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{pfx\_x\_in\_pv =} \SpecialCharTok{{-}}\DecValTok{12}\SpecialCharTok{*}\NormalTok{pfx\_x,}
+         \AttributeTok{pfx\_z\_in =} \DecValTok{12}\SpecialCharTok{*}\NormalTok{pfx\_z)}
+
+\NormalTok{colors }\OtherTok{\textless{}{-}} \FunctionTok{brewer.pal}\NormalTok{(}\AttributeTok{n =} \DecValTok{12}\NormalTok{, }\AttributeTok{name =} \StringTok{"Paired"}\NormalTok{)}
+\NormalTok{pitch\_colors }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"4{-}Seam Fastball"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{1}\NormalTok{],}
+                  \StringTok{"2{-}Seam Fastball"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{2}\NormalTok{],}
+                  \StringTok{"Sinker"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{3}\NormalTok{],}
+                  \StringTok{"Cutter"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{4}\NormalTok{],}
+                  \StringTok{"Fastball"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{5}\NormalTok{],}
+                  \StringTok{"Curveball"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{6}\NormalTok{],}
+                  \StringTok{"Knuckle Curve"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{7}\NormalTok{],}
+                  \StringTok{"Slider"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{8}\NormalTok{],}
+                  \StringTok{"Changeup"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{9}\NormalTok{],}
+                  \StringTok{"Split{-}Finger"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{10}\NormalTok{],}
+                  \StringTok{"Knuckleball"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{11}\NormalTok{])}
+
+\NormalTok{( ohtani\_pitch\_types }\OtherTok{\textless{}{-}} \FunctionTok{unique}\NormalTok{(ohtani\_cleaned\_data}\SpecialCharTok{$}\NormalTok{pitch\_name) )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Slider"          "Curveball"       "Sinker"          "Cutter"         
+## [5] "4-Seam Fastball" "Split-Finger"
+\end{verbatim}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ohtani\_cleaned\_data }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ pfx\_x\_in\_pv, }\AttributeTok{y =}\NormalTok{ pfx\_z\_in, }\AttributeTok{color =}\NormalTok{ pitch\_name)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ pitch\_colors,}
+                     \AttributeTok{limits =}\NormalTok{ ohtani\_pitch\_types) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{25}\NormalTok{,}\DecValTok{25}\NormalTok{),}
+                     \AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{20}\NormalTok{,}\DecValTok{20}\NormalTok{, }\DecValTok{5}\NormalTok{),}
+                     \AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{number\_format}\NormalTok{(}\AttributeTok{suffix =} \StringTok{"}\SpecialCharTok{\textbackslash{}"}\StringTok{"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{25}\NormalTok{,}\DecValTok{25}\NormalTok{),}
+                     \AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{20}\NormalTok{,}\DecValTok{20}\NormalTok{, }\DecValTok{5}\NormalTok{),}
+                     \AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{number\_format}\NormalTok{(}\AttributeTok{suffix =} \StringTok{"}\SpecialCharTok{\textbackslash{}"}\StringTok{"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{coord\_equal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Shohei Ohtani Pitch Movement"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"2022 MLB Season | Pitcher\textquotesingle{}s POV"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"Data: Baseball Savant via baseballr"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Horizontal Break"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Induced Vertical Break"}\NormalTok{,}
+       \AttributeTok{color =} \StringTok{"Pitch Name"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-166-1.pdf}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Group pitches by inning}
+\NormalTok{ohtani\_velo\_by\_inning }\OtherTok{\textless{}{-}}\NormalTok{ ohtani\_cleaned\_data }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(pitch\_name }\SpecialCharTok{==} \StringTok{"4{-}Seam Fastball"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(inning, pitch\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{average\_velo =} \FunctionTok{mean}\NormalTok{(release\_speed, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+
+\CommentTok{\# Plot average fastball speed by inning}
+\NormalTok{ohtani\_velo\_by\_inning }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ inning, }\AttributeTok{y =}\NormalTok{ average\_velo, }\AttributeTok{color =}\NormalTok{ pitch\_name)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{3}\NormalTok{, }\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ pitch\_colors) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{9}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{90}\NormalTok{, }\DecValTok{100}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Shohei Ohtani 4{-}Seam Fastball Velo By Inning"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"2022 MLB Season"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"Data: Baseball Savant via baseballr"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Inning"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Average Velo"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Using `size` aesthetic for lines was
+## deprecated in ggplot2 3.4.0.
+## i Please use `linewidth` instead.
+\end{verbatim}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-167-1.pdf}
+
+\newpage
+
+\hypertarget{nflfastr-package}{%
+\subsection{nflfastR package}\label{nflfastr-package}}
+
+The \texttt{nflfastR} package is a helpful package for obtaining play-by-play and roster data for NFL games.
+
+For more details, see: \url{https://www.nflfastr.com/articles/nflfastR.html}
+
+\begin{example}
+Use the \texttt{nflfastR} package to obtain the play-by-play data for the Denver Broncos home game against the San Francisco 49ers during the 2022 season.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(nflfastR)}
+\FunctionTok{library}\NormalTok{(gsisdecoder)}
+\CommentTok{\# First find the game ID by searching Broncos home games in 2022}
+\FunctionTok{fast\_scraper\_schedules}\NormalTok{(}\DecValTok{2022}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(home\_team}\SpecialCharTok{==}\StringTok{"DEN"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(game\_id,gameday,away\_team,home\_team) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{llll}
+\toprule
+game\_id & gameday & away\_team & home\_team\\
+\midrule
+2022\_02\_HOU\_DEN & 2022-09-18 & HOU & DEN\\
+2022\_03\_SF\_DEN & 2022-09-25 & SF & DEN\\
+2022\_05\_IND\_DEN & 2022-10-06 & IND & DEN\\
+2022\_07\_NYJ\_DEN & 2022-10-23 & NYJ & DEN\\
+2022\_11\_LV\_DEN & 2022-11-20 & LV & DEN\\
+\addlinespace
+2022\_14\_KC\_DEN & 2022-12-11 & KC & DEN\\
+2022\_15\_ARI\_DEN & 2022-12-18 & ARI & DEN\\
+2022\_18\_LAC\_DEN & 2023-01-08 & LAC & DEN\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Scrape data for the specific game and display play{-}by{-}play data}
+\FunctionTok{fast\_scraper}\NormalTok{(}\StringTok{"2022\_03\_SF\_DEN"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{clean\_pbp}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(desc, play\_type, ep, epa, home\_wp) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{(}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{width =} \StringTok{"3.5in"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [17:42:19] WARNING: amalgamation/../src/learner.cc:438: 
+##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
+##   older XGBoost, please export the model by calling `Booster.save_model` from that version
+##   first, then load it back in current version. See:
+## 
+##     https://xgboost.readthedocs.io/en/latest/tutorials/saving_model.html
+## 
+##   for more details about differences between saving model and serializing.
+## 
+## [17:42:19] WARNING: amalgamation/../src/learner.cc:438: 
+##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
+##   older XGBoost, please export the model by calling `Booster.save_model` from that version
+##   first, then load it back in current version. See:
+## 
+##     https://xgboost.readthedocs.io/en/latest/tutorials/saving_model.html
+## 
+##   for more details about differences between saving model and serializing.
+## 
+## [17:42:19] WARNING: amalgamation/../src/learner.cc:438: 
+##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
+##   older XGBoost, please export the model by calling `Booster.save_model` from that version
+##   first, then load it back in current version. See:
+## 
+##     https://xgboost.readthedocs.io/en/latest/tutorials/saving_model.html
+## 
+##   for more details about differences between saving model and serializing.
+## 
+## [17:42:19] WARNING: amalgamation/../src/learner.cc:438: 
+##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
+##   older XGBoost, please export the model by calling `Booster.save_model` from that version
+##   first, then load it back in current version. See:
+## 
+##     https://xgboost.readthedocs.io/en/latest/tutorials/saving_model.html
+## 
+##   for more details about differences between saving model and serializing.
+\end{verbatim}
+
+\begin{tabular}{>{\raggedright\arraybackslash}p{3.5in}lrrr}
+\toprule
+desc & play\_type & ep & epa & home\_wp\\
+\midrule
+GAME & NA & 0.770 & 0.000 & 0.567\\
+8-B.McManus kicks 63 yards from DEN 35 to SF 2. 3-R.McCloud to SF 10 for 8 yards (40-J.Strnad). & kickoff & 0.770 & -1.071 & 0.567\\
+(14:54) (Shotgun) 22-J.Wilson right tackle to SF 12 for 2 yards (99-D.Williams). & run & -0.301 & -0.415 & 0.589\\
+(14:19) 10-J.Garoppolo pass short left to 19-D.Samuel to SF 25 for 13 yards (21-K.Williams, 22-K.Jackson). & pass & -0.716 & 1.559 & 0.599\\
+(13:42) (Shotgun) 19-D.Samuel left tackle to SF 26 for 1 yard (98-M.Purcell). & run & 0.843 & -0.530 & 0.567\\
+\addlinespace
+(13:07) (Shotgun) 10-J.Garoppolo pass incomplete short left to 11-B.Aiyuk (2-P.Surtain). & pass & 0.313 & -0.752 & 0.585\\
+(13:01) (Shotgun) 10-J.Garoppolo pass incomplete short middle to 85-G.Kittle (97-Dj.Jones). & pass & -0.438 & -1.445 & 0.610\\
+(12:57) 18-M.Wishnowsky punts 45 yards to DEN 29, Center-46-T.Pepper, out of bounds. & punt & -1.884 & 0.035 & 0.647\\
+(12:50) (Shotgun) 3-R.Wilson pass short right to 33-J.Williams to DEN 31 for 2 yards (57-D.Greenlaw). & pass & 1.849 & -0.587 & 0.619\\
+(12:24) (No Huddle, Shotgun) 33-J.Williams left guard to DEN 31 for no gain (57-D.Greenlaw; 90-K.Givens). & run & 1.262 & -0.790 & 0.607\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(nflplotR)}
+\CommentTok{\# Example from: https://www.nflfastr.com/articles/nflfastR.html}
+\NormalTok{pbp }\OtherTok{\textless{}{-}}\NormalTok{ nflfastR}\SpecialCharTok{::}\FunctionTok{load\_pbp}\NormalTok{(}\DecValTok{2022}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(season\_type }\SpecialCharTok{==} \StringTok{"REG"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(posteam) }\SpecialCharTok{\&}\NormalTok{ (rush }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{|}\NormalTok{ pass }\SpecialCharTok{==} \DecValTok{1}\NormalTok{))}
+\NormalTok{offense }\OtherTok{\textless{}{-}}\NormalTok{ pbp }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(}\AttributeTok{team =}\NormalTok{ posteam) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{off\_epa =} \FunctionTok{mean}\NormalTok{(epa, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+\NormalTok{defense }\OtherTok{\textless{}{-}}\NormalTok{ pbp }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(}\AttributeTok{team =}\NormalTok{ defteam) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{def\_epa =} \FunctionTok{mean}\NormalTok{(epa, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+\NormalTok{offense }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{inner\_join}\NormalTok{(defense, }\AttributeTok{by =} \StringTok{"team"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ off\_epa, }\AttributeTok{y =}\NormalTok{ def\_epa)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{slope =} \SpecialCharTok{{-}}\FloatTok{1.5}\NormalTok{, }\AttributeTok{intercept =} \FunctionTok{c}\NormalTok{(.}\DecValTok{4}\NormalTok{, .}\DecValTok{3}\NormalTok{, .}\DecValTok{2}\NormalTok{, .}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{2}\NormalTok{, }\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{3}\NormalTok{), }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_mean\_lines}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{h\_var =}\NormalTok{ off\_epa, }\AttributeTok{v\_var =}\NormalTok{ def\_epa)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_nfl\_logos}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{team\_abbr =}\NormalTok{ team), }\AttributeTok{width =} \FloatTok{0.07}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Offense EPA/play"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Defense EPA/play"}\NormalTok{, }\AttributeTok{caption =} \StringTok{"Data: @nflfastR"}\NormalTok{,}
+    \AttributeTok{title =} \StringTok{"2022 NFL Offensive and Defensive EPA per Play"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{( }\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{, }\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{) ) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_reverse}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-170-1.pdf}
+
+\newpage
+
+\hypertarget{hoopr-package}{%
+\subsection{hoopR package}\label{hoopr-package}}
+
+The \texttt{hoopR} allows for one to access data related to professional and college basketball.
+
+\begin{example}
+Using the \texttt{hoopR} package, obtain the play-by-play data for the Denver Nuggets vs.~Philadelphia 76ers game on January 28, 2023.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(hoopR)}
+\CommentTok{\# https://www.espn.com/nba/game/\_/gameId/401468896}
+\NormalTok{hoopR}\SpecialCharTok{::}\FunctionTok{espn\_nba\_pbp}\NormalTok{(}\AttributeTok{game\_id =} \DecValTok{401468896}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Description}\StringTok{\textasciigrave{}}\OtherTok{=}\NormalTok{text,}\StringTok{\textasciigrave{}}\AttributeTok{Play Type}\StringTok{\textasciigrave{}}\OtherTok{=}\NormalTok{type\_text,}
+         \AttributeTok{Quarter=}\NormalTok{period\_display\_value,}\AttributeTok{Points=}\NormalTok{score\_value,}\AttributeTok{Clock=}\NormalTok{clock\_display\_value) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{15}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{width =} \StringTok{"3in"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{2}\NormalTok{, }\AttributeTok{width =} \StringTok{"1in"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{>{\raggedright\arraybackslash}p{3in}>{\raggedright\arraybackslash}p{1in}lrl}
+\toprule
+Description & Play Type & Quarter & Points & Clock\\
+\midrule
+Nikola Jokic vs. Joel Embiid (Jamal Murray gains possession) & Jumpball & 1st Quarter & 0 & 12:00\\
+Nikola Jokic misses 11-foot jumper & Jump Shot & 1st Quarter & 0 & 11:45\\
+James Harden defensive rebound & Defensive Rebound & 1st Quarter & 0 & 11:41\\
+Joel Embiid makes 6-foot two point shot (James Harden assists) & Driving Floating Bank Jump Shot & 1st Quarter & 2 & 11:35\\
+Nikola Jokic shooting foul & Shooting Foul & 1st Quarter & 0 & 11:35\\
+\addlinespace
+Joel Embiid misses free throw 1 of 1 & Free Throw - 1 of 1 & 1st Quarter & 0 & 11:35\\
+Michael Porter Jr. defensive rebound & Defensive Rebound & 1st Quarter & 0 & 11:32\\
+Michael Porter Jr. makes 27-foot three point jumper (Kentavious Caldwell-Pope assists) & Jump Shot & 1st Quarter & 3 & 11:20\\
+Tobias Harris misses 26-foot three point jumper & Jump Shot & 1st Quarter & 0 & 10:58\\
+Kentavious Caldwell-Pope defensive rebound & Defensive Rebound & 1st Quarter & 0 & 10:55\\
+\addlinespace
+Nikola Jokic makes finger roll layup (Jamal Murray assists) & Finger Roll Layup & 1st Quarter & 2 & 10:48\\
+Joel Embiid makes driving layup (James Harden assists) & Driving Layup Shot & 1st Quarter & 2 & 10:37\\
+Aaron Gordon makes 16-foot pullup jump shot & Pullup Jump Shot & 1st Quarter & 2 & 10:25\\
+Joel Embiid makes 14-foot pullup jump shot & Pullup Jump Shot & 1st Quarter & 2 & 10:12\\
+Joel Embiid shooting foul & Shooting Foul & 1st Quarter & 0 & 9:59\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{example}
+Obtain win probability as a function of game time for Colorado State vs.~Boise State men's basketball on January 28, 2023.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Get ID from ESPN game URL: https://www.espn.com/mens{-}college{-}basketball/game/\_/gameId/401482835}
+\FunctionTok{library}\NormalTok{(hoopR)}
+\NormalTok{hoopR}\SpecialCharTok{::}\FunctionTok{espn\_mbb\_wp}\NormalTok{(}\AttributeTok{game\_id =} \DecValTok{401482835}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\AttributeTok{Period=}\NormalTok{period,}\StringTok{\textasciigrave{}}\AttributeTok{Seconds Remaining}\StringTok{\textasciigrave{}}\OtherTok{=}\NormalTok{game\_seconds\_left,}\StringTok{\textasciigrave{}}\AttributeTok{Home Win Pct}\StringTok{\textasciigrave{}}\OtherTok{=}\NormalTok{home\_win\_percentage,}\StringTok{\textasciigrave{}}\AttributeTok{Play ID}\StringTok{\textasciigrave{}}\OtherTok{=}\NormalTok{play\_id) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{rrrl}
+\toprule
+Period & Seconds Remaining & Home Win Pct & Play ID\\
+\midrule
+1 & 2375 & 0.891 & 401482835101806401\\
+1 & 2372 & 0.893 & 401482835101806701\\
+1 & 2349 & 0.913 & 401482835101809001\\
+1 & 2322 & 0.916 & 401482835101815701\\
+1 & 2319 & 0.918 & 401482835101816001\\
+\addlinespace
+1 & 2297 & 0.934 & 401482835101818201\\
+1 & 2273 & 0.939 & 401482835101824601\\
+1 & 2269 & 0.933 & 401482835101825001\\
+1 & 2269 & 0.924 & 401482835101825002\\
+1 & 2238 & 0.939 & 401482835101828101\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ncaahoopR)}
+\FunctionTok{wp\_chart\_new}\NormalTok{(}\DecValTok{401482835}\NormalTok{,}\AttributeTok{show\_labels =}\NormalTok{ F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Scraping Data for Game: 1 of 1
+\end{verbatim}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-173-1.pdf}
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{game\_flow}\NormalTok{(}\AttributeTok{game\_id =} \DecValTok{401482835}\NormalTok{, }\AttributeTok{home\_col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{away\_col =} \StringTok{"forestgreen"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Scraping Data for Game: 1 of 1
+\end{verbatim}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-174-1.pdf}
 
 \hypertarget{linear-regression}{%
 \chapter{Linear Regression}\label{linear-regression}}
