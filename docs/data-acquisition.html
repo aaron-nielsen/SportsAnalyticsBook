@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2023-01-29" />
+<meta name="date" content="2023-01-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -332,6 +332,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3.1" data-path="data-acquisition.html"><a href="data-acquisition.html#baseballr-package"><i class="fa fa-check"></i><b>8.3.1</b> BaseballR package</a></li>
 <li class="chapter" data-level="8.3.2" data-path="data-acquisition.html"><a href="data-acquisition.html#nflfastr-package"><i class="fa fa-check"></i><b>8.3.2</b> nflfastR package</a></li>
 <li class="chapter" data-level="8.3.3" data-path="data-acquisition.html"><a href="data-acquisition.html#hoopr-package"><i class="fa fa-check"></i><b>8.3.3</b> hoopR package</a></li>
+<li class="chapter" data-level="8.3.4" data-path="data-acquisition.html"><a href="data-acquisition.html#hockeyr-package"><i class="fa fa-check"></i><b>8.3.4</b> hockeyR package</a></li>
+<li class="chapter" data-level="8.3.5" data-path="data-acquisition.html"><a href="data-acquisition.html#worldfootballr"><i class="fa fa-check"></i><b>8.3.5</b> worldfootballR</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>9</b> Linear Regression</a>
@@ -2110,41 +2112,38 @@ Rowdy Tellez
 <a href="https://billpetti.github.io/baseballr/articles/using_statcast_pitch_data.html">https://billpetti.github.io/baseballr/articles/using_statcast_pitch_data.html</a></p>
 <div class="example">
 <p><span id="exm:unlabeled-div-174" class="example"><strong>Example 8.6  </strong></span>Obtain Shohei Ohtani’s pitch data for the 2022 season. Plot the horizontal and vertical break of the pitches. Also, investigate his fastball velocity by inning.</p>
-<p>More about Ohtani’s pitching repertoire: <a href="https://www.youtube.com/watch?v=7nZBlYIqEww">https://www.youtube.com/watch?v=7nZBlYIqEww</a></p>
+<p>More about Ohtani’s pitching repertoire: <a href="https://youtu.be/7nZBlYIqEww">https://youtu.be/7nZBlYIqEww</a></p>
+<p>More about types of pitches: <a href="https://youtu.be/1FTFWzcgjHE">https://youtu.be/1FTFWzcgjHE</a></p>
 </div>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="data-acquisition.html#cb355-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This follows the example at: </span></span>
-<span id="cb355-2"><a href="data-acquisition.html#cb355-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://billpetti.github.io/baseballr/articles/using_statcast_pitch_data.html</span></span>
-<span id="cb355-3"><a href="data-acquisition.html#cb355-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb355-4"><a href="data-acquisition.html#cb355-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ohtani_id &lt;- baseballr::playerid_lookup(last_name = &quot;Ohtani&quot;, first_name = &quot;Shohei&quot;) %&gt;% </span></span>
-<span id="cb355-5"><a href="data-acquisition.html#cb355-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   pull(mlbam_id)</span></span>
-<span id="cb355-6"><a href="data-acquisition.html#cb355-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb355-7"><a href="data-acquisition.html#cb355-7" aria-hidden="true" tabindex="-1"></a><span class="co"># can get player id for mlbam at: https://razzball.com/mlbamids/</span></span>
-<span id="cb355-8"><a href="data-acquisition.html#cb355-8" aria-hidden="true" tabindex="-1"></a>ohtani_id <span class="ot">&lt;-</span> <span class="st">&quot;660271&quot;</span></span>
-<span id="cb355-9"><a href="data-acquisition.html#cb355-9" aria-hidden="true" tabindex="-1"></a>ohtani_data <span class="ot">&lt;-</span> baseballr<span class="sc">::</span><span class="fu">statcast_search_pitchers</span>(<span class="at">start_date =</span> <span class="st">&quot;2022-03-01&quot;</span>,</span>
-<span id="cb355-10"><a href="data-acquisition.html#cb355-10" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">end_date =</span> <span class="st">&quot;2022-12-01&quot;</span>,</span>
-<span id="cb355-11"><a href="data-acquisition.html#cb355-11" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">pitcherid =</span> <span class="st">&quot;660271&quot;</span>)</span>
-<span id="cb355-12"><a href="data-acquisition.html#cb355-12" aria-hidden="true" tabindex="-1"></a>ohtani_cleaned_data <span class="ot">&lt;-</span> ohtani_data <span class="sc">%&gt;%</span> </span>
-<span id="cb355-13"><a href="data-acquisition.html#cb355-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only keep rows with pitch movement readings</span></span>
-<span id="cb355-14"><a href="data-acquisition.html#cb355-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and during the regular season</span></span>
-<span id="cb355-15"><a href="data-acquisition.html#cb355-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(pfx_x), <span class="sc">!</span><span class="fu">is.na</span>(pfx_z),</span>
-<span id="cb355-16"><a href="data-acquisition.html#cb355-16" aria-hidden="true" tabindex="-1"></a>         game_type <span class="sc">==</span> <span class="st">&quot;R&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb355-17"><a href="data-acquisition.html#cb355-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pfx_x_in_pv =</span> <span class="sc">-</span><span class="dv">12</span><span class="sc">*</span>pfx_x,</span>
-<span id="cb355-18"><a href="data-acquisition.html#cb355-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">pfx_z_in =</span> <span class="dv">12</span><span class="sc">*</span>pfx_z)</span>
-<span id="cb355-19"><a href="data-acquisition.html#cb355-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb355-20"><a href="data-acquisition.html#cb355-20" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">12</span>, <span class="at">name =</span> <span class="st">&quot;Paired&quot;</span>)</span>
-<span id="cb355-21"><a href="data-acquisition.html#cb355-21" aria-hidden="true" tabindex="-1"></a>pitch_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;4-Seam Fastball&quot;</span> <span class="ot">=</span> colors[<span class="dv">1</span>],</span>
-<span id="cb355-22"><a href="data-acquisition.html#cb355-22" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;2-Seam Fastball&quot;</span> <span class="ot">=</span> colors[<span class="dv">2</span>],</span>
-<span id="cb355-23"><a href="data-acquisition.html#cb355-23" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Sinker&quot;</span> <span class="ot">=</span> colors[<span class="dv">3</span>],</span>
-<span id="cb355-24"><a href="data-acquisition.html#cb355-24" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Cutter&quot;</span> <span class="ot">=</span> colors[<span class="dv">4</span>],</span>
-<span id="cb355-25"><a href="data-acquisition.html#cb355-25" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Fastball&quot;</span> <span class="ot">=</span> colors[<span class="dv">5</span>],</span>
-<span id="cb355-26"><a href="data-acquisition.html#cb355-26" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Curveball&quot;</span> <span class="ot">=</span> colors[<span class="dv">6</span>],</span>
-<span id="cb355-27"><a href="data-acquisition.html#cb355-27" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Knuckle Curve&quot;</span> <span class="ot">=</span> colors[<span class="dv">7</span>],</span>
-<span id="cb355-28"><a href="data-acquisition.html#cb355-28" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Slider&quot;</span> <span class="ot">=</span> colors[<span class="dv">8</span>],</span>
-<span id="cb355-29"><a href="data-acquisition.html#cb355-29" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Changeup&quot;</span> <span class="ot">=</span> colors[<span class="dv">9</span>],</span>
-<span id="cb355-30"><a href="data-acquisition.html#cb355-30" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Split-Finger&quot;</span> <span class="ot">=</span> colors[<span class="dv">10</span>],</span>
-<span id="cb355-31"><a href="data-acquisition.html#cb355-31" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Knuckleball&quot;</span> <span class="ot">=</span> colors[<span class="dv">11</span>])</span>
-<span id="cb355-32"><a href="data-acquisition.html#cb355-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb355-33"><a href="data-acquisition.html#cb355-33" aria-hidden="true" tabindex="-1"></a>( ohtani_pitch_types <span class="ot">&lt;-</span> <span class="fu">unique</span>(ohtani_cleaned_data<span class="sc">$</span>pitch_name) )</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="data-acquisition.html#cb355-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb355-2"><a href="data-acquisition.html#cb355-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This follows the example at: </span></span>
+<span id="cb355-3"><a href="data-acquisition.html#cb355-3" aria-hidden="true" tabindex="-1"></a><span class="co"># https://billpetti.github.io/baseballr/articles/using_statcast_pitch_data.html</span></span>
+<span id="cb355-4"><a href="data-acquisition.html#cb355-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb355-5"><a href="data-acquisition.html#cb355-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ohtani_id &lt;- baseballr::playerid_lookup(last_name = &quot;Ohtani&quot;, first_name = &quot;Shohei&quot;) %&gt;% </span></span>
+<span id="cb355-6"><a href="data-acquisition.html#cb355-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   pull(mlbam_id)</span></span>
+<span id="cb355-7"><a href="data-acquisition.html#cb355-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb355-8"><a href="data-acquisition.html#cb355-8" aria-hidden="true" tabindex="-1"></a><span class="co"># can get player id for mlbam at: https://razzball.com/mlbamids/</span></span>
+<span id="cb355-9"><a href="data-acquisition.html#cb355-9" aria-hidden="true" tabindex="-1"></a>ohtani_id <span class="ot">&lt;-</span> <span class="st">&quot;660271&quot;</span></span>
+<span id="cb355-10"><a href="data-acquisition.html#cb355-10" aria-hidden="true" tabindex="-1"></a>ohtani_data <span class="ot">&lt;-</span> baseballr<span class="sc">::</span><span class="fu">statcast_search_pitchers</span>(<span class="at">start_date =</span> <span class="st">&quot;2022-03-01&quot;</span>,</span>
+<span id="cb355-11"><a href="data-acquisition.html#cb355-11" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">end_date =</span> <span class="st">&quot;2022-12-01&quot;</span>,</span>
+<span id="cb355-12"><a href="data-acquisition.html#cb355-12" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">pitcherid =</span> <span class="st">&quot;660271&quot;</span>)</span>
+<span id="cb355-13"><a href="data-acquisition.html#cb355-13" aria-hidden="true" tabindex="-1"></a>ohtani_cleaned_data <span class="ot">&lt;-</span> ohtani_data <span class="sc">%&gt;%</span> </span>
+<span id="cb355-14"><a href="data-acquisition.html#cb355-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only keep rows with pitch movement readings</span></span>
+<span id="cb355-15"><a href="data-acquisition.html#cb355-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and during the regular season</span></span>
+<span id="cb355-16"><a href="data-acquisition.html#cb355-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(pfx_x), <span class="sc">!</span><span class="fu">is.na</span>(pfx_z),</span>
+<span id="cb355-17"><a href="data-acquisition.html#cb355-17" aria-hidden="true" tabindex="-1"></a>         game_type <span class="sc">==</span> <span class="st">&quot;R&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb355-18"><a href="data-acquisition.html#cb355-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pfx_x_in_pv =</span> <span class="sc">-</span><span class="dv">12</span><span class="sc">*</span>pfx_x,</span>
+<span id="cb355-19"><a href="data-acquisition.html#cb355-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">pfx_z_in =</span> <span class="dv">12</span><span class="sc">*</span>pfx_z)</span>
+<span id="cb355-20"><a href="data-acquisition.html#cb355-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb355-21"><a href="data-acquisition.html#cb355-21" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">6</span>, <span class="at">name =</span> <span class="st">&quot;Dark2&quot;</span>)</span>
+<span id="cb355-22"><a href="data-acquisition.html#cb355-22" aria-hidden="true" tabindex="-1"></a>pitch_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;4-Seam Fastball&quot;</span> <span class="ot">=</span> colors[<span class="dv">1</span>],</span>
+<span id="cb355-23"><a href="data-acquisition.html#cb355-23" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Sinker&quot;</span> <span class="ot">=</span> colors[<span class="dv">2</span>],</span>
+<span id="cb355-24"><a href="data-acquisition.html#cb355-24" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Cutter&quot;</span> <span class="ot">=</span> colors[<span class="dv">3</span>],</span>
+<span id="cb355-25"><a href="data-acquisition.html#cb355-25" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Curveball&quot;</span> <span class="ot">=</span> colors[<span class="dv">4</span>],</span>
+<span id="cb355-26"><a href="data-acquisition.html#cb355-26" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Slider&quot;</span> <span class="ot">=</span> colors[<span class="dv">5</span>],</span>
+<span id="cb355-27"><a href="data-acquisition.html#cb355-27" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Split-Finger&quot;</span> <span class="ot">=</span> colors[<span class="dv">6</span>])</span>
+<span id="cb355-28"><a href="data-acquisition.html#cb355-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb355-29"><a href="data-acquisition.html#cb355-29" aria-hidden="true" tabindex="-1"></a>( ohtani_pitch_types <span class="ot">&lt;-</span> <span class="fu">unique</span>(ohtani_cleaned_data<span class="sc">$</span>pitch_name) )</span></code></pre></div>
 <pre><code>## [1] &quot;Slider&quot;          &quot;Curveball&quot;       &quot;Sinker&quot;          &quot;Cutter&quot;         
 ## [5] &quot;4-Seam Fastball&quot; &quot;Split-Finger&quot;</code></pre>
 <div style="page-break-after: always;"></div>
@@ -2168,7 +2167,7 @@ Rowdy Tellez
 <span id="cb357-18"><a href="data-acquisition.html#cb357-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Horizontal Break&quot;</span>,</span>
 <span id="cb357-19"><a href="data-acquisition.html#cb357-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Induced Vertical Break&quot;</span>,</span>
 <span id="cb357-20"><a href="data-acquisition.html#cb357-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Pitch Name&quot;</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-166-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/r-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 <div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="data-acquisition.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group pitches by inning</span></span>
 <span id="cb358-2"><a href="data-acquisition.html#cb358-2" aria-hidden="true" tabindex="-1"></a>ohtani_velo_by_inning <span class="ot">&lt;-</span> ohtani_cleaned_data <span class="sc">%&gt;%</span> </span>
@@ -2179,7 +2178,7 @@ Rowdy Tellez
 <span id="cb358-7"><a href="data-acquisition.html#cb358-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot average fastball speed by inning</span></span>
 <span id="cb358-8"><a href="data-acquisition.html#cb358-8" aria-hidden="true" tabindex="-1"></a>ohtani_velo_by_inning <span class="sc">%&gt;%</span> </span>
 <span id="cb358-9"><a href="data-acquisition.html#cb358-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> inning, <span class="at">y =</span> average_velo, <span class="at">color =</span> pitch_name)) <span class="sc">+</span></span>
-<span id="cb358-10"><a href="data-acquisition.html#cb358-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb358-10"><a href="data-acquisition.html#cb358-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb358-11"><a href="data-acquisition.html#cb358-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb358-12"><a href="data-acquisition.html#cb358-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pitch_colors) <span class="sc">+</span></span>
 <span id="cb358-13"><a href="data-acquisition.html#cb358-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">+</span></span>
@@ -2189,25 +2188,24 @@ Rowdy Tellez
 <span id="cb358-17"><a href="data-acquisition.html#cb358-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Data: Baseball Savant via baseballr&quot;</span>,</span>
 <span id="cb358-18"><a href="data-acquisition.html#cb358-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Inning&quot;</span>,</span>
 <span id="cb358-19"><a href="data-acquisition.html#cb358-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Average Velo&quot;</span>)</span></code></pre></div>
-<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-## ℹ Please use `linewidth` instead.</code></pre>
-<p><img src="textbook_files/figure-html/unnamed-chunk-167-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-166-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 </div>
 <div id="nflfastr-package" class="section level3 hasAnchor" number="8.3.2">
 <h3><span class="header-section-number">8.3.2</span> nflfastR package<a href="data-acquisition.html#nflfastr-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>nflfastR</code> package is a helpful package for obtaining play-by-play and roster data for NFL games.</p>
 <p>For more details, see: <a href="https://www.nflfastr.com/articles/nflfastR.html">https://www.nflfastr.com/articles/nflfastR.html</a></p>
+<p>For a quick explanation of expected points added, see: <a href="https://youtu.be/qo7-zeJEVzs">https://youtu.be/qo7-zeJEVzs</a></p>
 <div class="example">
 <p><span id="exm:unlabeled-div-175" class="example"><strong>Example 8.7  </strong></span>Use the <code>nflfastR</code> package to obtain the play-by-play data for the Denver Broncos home game against the San Francisco 49ers during the 2022 season.</p>
 </div>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="data-acquisition.html#cb360-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nflfastR)</span>
-<span id="cb360-2"><a href="data-acquisition.html#cb360-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gsisdecoder)</span>
-<span id="cb360-3"><a href="data-acquisition.html#cb360-3" aria-hidden="true" tabindex="-1"></a><span class="co"># First find the game ID by searching Broncos home games in 2022</span></span>
-<span id="cb360-4"><a href="data-acquisition.html#cb360-4" aria-hidden="true" tabindex="-1"></a><span class="fu">fast_scraper_schedules</span>(<span class="dv">2022</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb360-5"><a href="data-acquisition.html#cb360-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(home_team<span class="sc">==</span><span class="st">&quot;DEN&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb360-6"><a href="data-acquisition.html#cb360-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(game_id,gameday,away_team,home_team) <span class="sc">%&gt;%</span></span>
-<span id="cb360-7"><a href="data-acquisition.html#cb360-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="data-acquisition.html#cb359-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nflfastR)</span>
+<span id="cb359-2"><a href="data-acquisition.html#cb359-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gsisdecoder)</span>
+<span id="cb359-3"><a href="data-acquisition.html#cb359-3" aria-hidden="true" tabindex="-1"></a><span class="co"># First find the game ID by searching Broncos home games in 2022</span></span>
+<span id="cb359-4"><a href="data-acquisition.html#cb359-4" aria-hidden="true" tabindex="-1"></a><span class="fu">fast_scraper_schedules</span>(<span class="dv">2022</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb359-5"><a href="data-acquisition.html#cb359-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(home_team<span class="sc">==</span><span class="st">&quot;DEN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb359-6"><a href="data-acquisition.html#cb359-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(game_id,gameday,away_team,home_team) <span class="sc">%&gt;%</span></span>
+<span id="cb359-7"><a href="data-acquisition.html#cb359-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2341,14 +2339,14 @@ DEN
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="data-acquisition.html#cb361-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scrape data for the specific game and display play-by-play data</span></span>
-<span id="cb361-2"><a href="data-acquisition.html#cb361-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fast_scraper</span>(<span class="st">&quot;2022_03_SF_DEN&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb361-3"><a href="data-acquisition.html#cb361-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_pbp</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb361-4"><a href="data-acquisition.html#cb361-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(desc, play_type, ep, epa, home_wp) <span class="sc">%&gt;%</span></span>
-<span id="cb361-5"><a href="data-acquisition.html#cb361-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb361-6"><a href="data-acquisition.html#cb361-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb361-7"><a href="data-acquisition.html#cb361-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">width =</span> <span class="st">&quot;3.5in&quot;</span>)</span></code></pre></div>
-<pre><code>## [22:33:23] WARNING: amalgamation/../src/learner.cc:438: 
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="data-acquisition.html#cb360-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scrape data for the specific game and display play-by-play data</span></span>
+<span id="cb360-2"><a href="data-acquisition.html#cb360-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fast_scraper</span>(<span class="st">&quot;2022_03_SF_DEN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb360-3"><a href="data-acquisition.html#cb360-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_pbp</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb360-4"><a href="data-acquisition.html#cb360-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(desc, play_type, ep, epa, home_wp) <span class="sc">%&gt;%</span></span>
+<span id="cb360-5"><a href="data-acquisition.html#cb360-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb360-6"><a href="data-acquisition.html#cb360-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb360-7"><a href="data-acquisition.html#cb360-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">width =</span> <span class="st">&quot;3.5in&quot;</span>)</span></code></pre></div>
+<pre><code>## [14:28:03] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -2357,7 +2355,7 @@ DEN
 ## 
 ##   for more details about differences between saving model and serializing.
 ## 
-## [22:33:24] WARNING: amalgamation/../src/learner.cc:438: 
+## [14:28:04] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -2366,7 +2364,7 @@ DEN
 ## 
 ##   for more details about differences between saving model and serializing.
 ## 
-## [22:33:24] WARNING: amalgamation/../src/learner.cc:438: 
+## [14:28:04] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -2375,7 +2373,7 @@ DEN
 ## 
 ##   for more details about differences between saving model and serializing.
 ## 
-## [22:33:24] WARNING: amalgamation/../src/learner.cc:438: 
+## [14:28:04] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -2577,27 +2575,27 @@ run
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="data-acquisition.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nflplotR)</span>
-<span id="cb363-2"><a href="data-acquisition.html#cb363-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Example from: https://www.nflfastr.com/articles/nflfastR.html</span></span>
-<span id="cb363-3"><a href="data-acquisition.html#cb363-3" aria-hidden="true" tabindex="-1"></a>pbp <span class="ot">&lt;-</span> nflfastR<span class="sc">::</span><span class="fu">load_pbp</span>(<span class="dv">2022</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb363-4"><a href="data-acquisition.html#cb363-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season_type <span class="sc">==</span> <span class="st">&quot;REG&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb363-5"><a href="data-acquisition.html#cb363-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(posteam) <span class="sc">&amp;</span> (rush <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> pass <span class="sc">==</span> <span class="dv">1</span>))</span>
-<span id="cb363-6"><a href="data-acquisition.html#cb363-6" aria-hidden="true" tabindex="-1"></a>offense <span class="ot">&lt;-</span> pbp <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(<span class="at">team =</span> posteam) <span class="sc">%&gt;%</span></span>
-<span id="cb363-7"><a href="data-acquisition.html#cb363-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">off_epa =</span> <span class="fu">mean</span>(epa, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb363-8"><a href="data-acquisition.html#cb363-8" aria-hidden="true" tabindex="-1"></a>defense <span class="ot">&lt;-</span> pbp <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(<span class="at">team =</span> defteam) <span class="sc">%&gt;%</span> </span>
-<span id="cb363-9"><a href="data-acquisition.html#cb363-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">def_epa =</span> <span class="fu">mean</span>(epa, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb363-10"><a href="data-acquisition.html#cb363-10" aria-hidden="true" tabindex="-1"></a>offense <span class="sc">%&gt;%</span></span>
-<span id="cb363-11"><a href="data-acquisition.html#cb363-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(defense, <span class="at">by =</span> <span class="st">&quot;team&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb363-12"><a href="data-acquisition.html#cb363-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> off_epa, <span class="at">y =</span> def_epa)) <span class="sc">+</span></span>
-<span id="cb363-13"><a href="data-acquisition.html#cb363-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="sc">-</span><span class="fl">1.5</span>, <span class="at">intercept =</span> <span class="fu">c</span>(.<span class="dv">4</span>, .<span class="dv">3</span>, .<span class="dv">2</span>, .<span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span>.<span class="dv">1</span>, <span class="sc">-</span>.<span class="dv">2</span>, <span class="sc">-</span>.<span class="dv">3</span>), <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb363-14"><a href="data-acquisition.html#cb363-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_mean_lines</span>(<span class="fu">aes</span>(<span class="at">h_var =</span> off_epa, <span class="at">v_var =</span> def_epa)) <span class="sc">+</span></span>
-<span id="cb363-15"><a href="data-acquisition.html#cb363-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_nfl_logos</span>(<span class="fu">aes</span>(<span class="at">team_abbr =</span> team), <span class="at">width =</span> <span class="fl">0.07</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb363-16"><a href="data-acquisition.html#cb363-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Offense EPA/play&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Defense EPA/play&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;Data: @nflfastR&quot;</span>,</span>
-<span id="cb363-17"><a href="data-acquisition.html#cb363-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;2022 NFL Offensive and Defensive EPA per Play&quot;</span>) <span class="sc">+</span></span>
-<span id="cb363-18"><a href="data-acquisition.html#cb363-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb363-19"><a href="data-acquisition.html#cb363-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>( <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>) ) <span class="sc">+</span></span>
-<span id="cb363-20"><a href="data-acquisition.html#cb363-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reverse</span>()</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-170-1.png" width="672" /></p>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="data-acquisition.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nflplotR)</span>
+<span id="cb362-2"><a href="data-acquisition.html#cb362-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Example from: https://www.nflfastr.com/articles/nflfastR.html</span></span>
+<span id="cb362-3"><a href="data-acquisition.html#cb362-3" aria-hidden="true" tabindex="-1"></a>pbp <span class="ot">&lt;-</span> nflfastR<span class="sc">::</span><span class="fu">load_pbp</span>(<span class="dv">2022</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb362-4"><a href="data-acquisition.html#cb362-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season_type <span class="sc">==</span> <span class="st">&quot;REG&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb362-5"><a href="data-acquisition.html#cb362-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(posteam) <span class="sc">&amp;</span> (rush <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> pass <span class="sc">==</span> <span class="dv">1</span>))</span>
+<span id="cb362-6"><a href="data-acquisition.html#cb362-6" aria-hidden="true" tabindex="-1"></a>offense <span class="ot">&lt;-</span> pbp <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(<span class="at">team =</span> posteam) <span class="sc">%&gt;%</span></span>
+<span id="cb362-7"><a href="data-acquisition.html#cb362-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">off_epa =</span> <span class="fu">mean</span>(epa, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb362-8"><a href="data-acquisition.html#cb362-8" aria-hidden="true" tabindex="-1"></a>defense <span class="ot">&lt;-</span> pbp <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(<span class="at">team =</span> defteam) <span class="sc">%&gt;%</span> </span>
+<span id="cb362-9"><a href="data-acquisition.html#cb362-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">def_epa =</span> <span class="fu">mean</span>(epa, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb362-10"><a href="data-acquisition.html#cb362-10" aria-hidden="true" tabindex="-1"></a>offense <span class="sc">%&gt;%</span></span>
+<span id="cb362-11"><a href="data-acquisition.html#cb362-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(defense, <span class="at">by =</span> <span class="st">&quot;team&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb362-12"><a href="data-acquisition.html#cb362-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> off_epa, <span class="at">y =</span> def_epa)) <span class="sc">+</span></span>
+<span id="cb362-13"><a href="data-acquisition.html#cb362-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="sc">-</span><span class="fl">1.5</span>, <span class="at">intercept =</span> <span class="fu">c</span>(.<span class="dv">4</span>, .<span class="dv">3</span>, .<span class="dv">2</span>, .<span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span>.<span class="dv">1</span>, <span class="sc">-</span>.<span class="dv">2</span>, <span class="sc">-</span>.<span class="dv">3</span>), <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb362-14"><a href="data-acquisition.html#cb362-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_mean_lines</span>(<span class="fu">aes</span>(<span class="at">h_var =</span> off_epa, <span class="at">v_var =</span> def_epa)) <span class="sc">+</span></span>
+<span id="cb362-15"><a href="data-acquisition.html#cb362-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_nfl_logos</span>(<span class="fu">aes</span>(<span class="at">team_abbr =</span> team), <span class="at">width =</span> <span class="fl">0.07</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb362-16"><a href="data-acquisition.html#cb362-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Offense EPA/play&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Defense EPA/play&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;Data: @nflfastR&quot;</span>,</span>
+<span id="cb362-17"><a href="data-acquisition.html#cb362-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;2022 NFL Offensive and Defensive EPA per Play&quot;</span>) <span class="sc">+</span></span>
+<span id="cb362-18"><a href="data-acquisition.html#cb362-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb362-19"><a href="data-acquisition.html#cb362-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>( <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>) ) <span class="sc">+</span></span>
+<span id="cb362-20"><a href="data-acquisition.html#cb362-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reverse</span>()</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-169-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 </div>
 <div id="hoopr-package" class="section level3 hasAnchor" number="8.3.3">
@@ -2606,15 +2604,15 @@ run
 <div class="example">
 <p><span id="exm:unlabeled-div-176" class="example"><strong>Example 8.8  </strong></span>Using the <code>hoopR</code> package, obtain the play-by-play data for the Denver Nuggets vs. Philadelphia 76ers game on January 28, 2023.</p>
 </div>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="data-acquisition.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hoopR)</span>
-<span id="cb364-2"><a href="data-acquisition.html#cb364-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.espn.com/nba/game/_/gameId/401468896</span></span>
-<span id="cb364-3"><a href="data-acquisition.html#cb364-3" aria-hidden="true" tabindex="-1"></a>hoopR<span class="sc">::</span><span class="fu">espn_nba_pbp</span>(<span class="at">game_id =</span> <span class="dv">401468896</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb364-4"><a href="data-acquisition.html#cb364-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Description</span><span class="st">`</span><span class="ot">=</span>text,<span class="st">`</span><span class="at">Play Type</span><span class="st">`</span><span class="ot">=</span>type_text,</span>
-<span id="cb364-5"><a href="data-acquisition.html#cb364-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">Quarter=</span>period_display_value,<span class="at">Points=</span>score_value,<span class="at">Clock=</span>clock_display_value) <span class="sc">%&gt;%</span></span>
-<span id="cb364-6"><a href="data-acquisition.html#cb364-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb364-7"><a href="data-acquisition.html#cb364-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T) <span class="sc">%&gt;%</span></span>
-<span id="cb364-8"><a href="data-acquisition.html#cb364-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">width =</span> <span class="st">&quot;3in&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb364-9"><a href="data-acquisition.html#cb364-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width =</span> <span class="st">&quot;1in&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="data-acquisition.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hoopR)</span>
+<span id="cb363-2"><a href="data-acquisition.html#cb363-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.espn.com/nba/game/_/gameId/401468896</span></span>
+<span id="cb363-3"><a href="data-acquisition.html#cb363-3" aria-hidden="true" tabindex="-1"></a>hoopR<span class="sc">::</span><span class="fu">espn_nba_pbp</span>(<span class="at">game_id =</span> <span class="dv">401468896</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb363-4"><a href="data-acquisition.html#cb363-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Description</span><span class="st">`</span><span class="ot">=</span>text,<span class="st">`</span><span class="at">Play Type</span><span class="st">`</span><span class="ot">=</span>type_text,</span>
+<span id="cb363-5"><a href="data-acquisition.html#cb363-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">Quarter=</span>period_display_value,<span class="at">Points=</span>score_value,<span class="at">Clock=</span>clock_display_value) <span class="sc">%&gt;%</span></span>
+<span id="cb363-6"><a href="data-acquisition.html#cb363-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb363-7"><a href="data-acquisition.html#cb363-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T) <span class="sc">%&gt;%</span></span>
+<span id="cb363-8"><a href="data-acquisition.html#cb363-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">width =</span> <span class="st">&quot;3in&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb363-9"><a href="data-acquisition.html#cb363-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width =</span> <span class="st">&quot;1in&quot;</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2897,12 +2895,12 @@ Shooting Foul
 <div class="example">
 <p><span id="exm:unlabeled-div-177" class="example"><strong>Example 8.9  </strong></span>Obtain win probability as a function of game time for Colorado State vs. Boise State men’s basketball on January 28, 2023.</p>
 </div>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="data-acquisition.html#cb365-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get ID from ESPN game URL: https://www.espn.com/mens-college-basketball/game/_/gameId/401482835</span></span>
-<span id="cb365-2"><a href="data-acquisition.html#cb365-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hoopR)</span>
-<span id="cb365-3"><a href="data-acquisition.html#cb365-3" aria-hidden="true" tabindex="-1"></a>hoopR<span class="sc">::</span><span class="fu">espn_mbb_wp</span>(<span class="at">game_id =</span> <span class="dv">401482835</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb365-4"><a href="data-acquisition.html#cb365-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">Period=</span>period,<span class="st">`</span><span class="at">Seconds Remaining</span><span class="st">`</span><span class="ot">=</span>game_seconds_left,<span class="st">`</span><span class="at">Home Win Pct</span><span class="st">`</span><span class="ot">=</span>home_win_percentage,<span class="st">`</span><span class="at">Play ID</span><span class="st">`</span><span class="ot">=</span>play_id) <span class="sc">%&gt;%</span></span>
-<span id="cb365-5"><a href="data-acquisition.html#cb365-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb365-6"><a href="data-acquisition.html#cb365-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="data-acquisition.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get ID from ESPN game URL: https://www.espn.com/mens-college-basketball/game/_/gameId/401482835</span></span>
+<span id="cb364-2"><a href="data-acquisition.html#cb364-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hoopR)</span>
+<span id="cb364-3"><a href="data-acquisition.html#cb364-3" aria-hidden="true" tabindex="-1"></a>hoopR<span class="sc">::</span><span class="fu">espn_mbb_wp</span>(<span class="at">game_id =</span> <span class="dv">401482835</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb364-4"><a href="data-acquisition.html#cb364-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">Period=</span>period,<span class="st">`</span><span class="at">Seconds Remaining</span><span class="st">`</span><span class="ot">=</span>game_seconds_left,<span class="st">`</span><span class="at">Home Win Pct</span><span class="st">`</span><span class="ot">=</span>home_win_percentage,<span class="st">`</span><span class="at">Play ID</span><span class="st">`</span><span class="ot">=</span>play_id) <span class="sc">%&gt;%</span></span>
+<span id="cb364-5"><a href="data-acquisition.html#cb364-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb364-6"><a href="data-acquisition.html#cb364-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -3064,14 +3062,616 @@ Play ID
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="data-acquisition.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ncaahoopR)</span>
-<span id="cb366-2"><a href="data-acquisition.html#cb366-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wp_chart_new</span>(<span class="dv">401482835</span>,<span class="at">show_labels =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="data-acquisition.html#cb365-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ncaahoopR)</span>
+<span id="cb365-2"><a href="data-acquisition.html#cb365-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wp_chart_new</span>(<span class="dv">401482835</span>,<span class="at">show_labels =</span> F)</span></code></pre></div>
 <pre><code>## Scraping Data for Game: 1 of 1</code></pre>
-<p><img src="textbook_files/figure-html/unnamed-chunk-173-1.png" width="672" />
+<p><img src="textbook_files/figure-html/unnamed-chunk-172-1.png" width="672" />
 </p>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="data-acquisition.html#cb368-1" aria-hidden="true" tabindex="-1"></a><span class="fu">game_flow</span>(<span class="at">game_id =</span> <span class="dv">401482835</span>, <span class="at">home_col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">away_col =</span> <span class="st">&quot;forestgreen&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="data-acquisition.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="fu">game_flow</span>(<span class="at">game_id =</span> <span class="dv">401482835</span>, <span class="at">home_col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">away_col =</span> <span class="st">&quot;forestgreen&quot;</span>)</span></code></pre></div>
 <pre><code>## Scraping Data for Game: 1 of 1</code></pre>
-<p><img src="textbook_files/figure-html/unnamed-chunk-174-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-173-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="hockeyr-package" class="section level3 hasAnchor" number="8.3.4">
+<h3><span class="header-section-number">8.3.4</span> hockeyR package<a href="data-acquisition.html#hockeyr-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>hockeyR</code> packages allows you to obtain data from NHL.com and Hockey Reference. The <code>sportyR</code> package is useful for plotting spatial data on various playing fields/courts.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-178" class="example"><strong>Example 8.10  </strong></span>Create a shot plot for the Colorado Avalanche vs. St. Louis Blues on January 28, 2023.</p>
+</div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="data-acquisition.html#cb369-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example adapted from: https://hockeyr.netlify.app/</span></span>
+<span id="cb369-2"><a href="data-acquisition.html#cb369-2" aria-hidden="true" tabindex="-1"></a><span class="co"># devtools::install_github(&quot;danmorse314/hockeyR&quot;)</span></span>
+<span id="cb369-3"><a href="data-acquisition.html#cb369-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hockeyR)</span>
+<span id="cb369-4"><a href="data-acquisition.html#cb369-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sportyR)</span>
+<span id="cb369-5"><a href="data-acquisition.html#cb369-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb369-6"><a href="data-acquisition.html#cb369-6" aria-hidden="true" tabindex="-1"></a>pbp <span class="ot">&lt;-</span> hockeyR<span class="sc">::</span><span class="fu">load_pbp</span>(<span class="st">&#39;2022-2023&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="data-acquisition.html#cb370-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get single game</span></span>
+<span id="cb370-2"><a href="data-acquisition.html#cb370-2" aria-hidden="true" tabindex="-1"></a>game <span class="ot">&lt;-</span> pbp <span class="sc">%&gt;%</span></span>
+<span id="cb370-3"><a href="data-acquisition.html#cb370-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(game_date <span class="sc">==</span> <span class="st">&quot;2023-01-28&quot;</span> <span class="sc">&amp;</span> home_abbreviation <span class="sc">==</span> <span class="st">&quot;COL&quot;</span>)</span>
+<span id="cb370-4"><a href="data-acquisition.html#cb370-4" aria-hidden="true" tabindex="-1"></a>game <span class="sc">%&gt;%</span> </span>
+<span id="cb370-5"><a href="data-acquisition.html#cb370-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">Date=</span>game_date,<span class="at">Period=</span>period,<span class="at">Time=</span>period_time_remaining,<span class="at">Event=</span>event,</span>
+<span id="cb370-6"><a href="data-acquisition.html#cb370-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">Description=</span>description) <span class="sc">%&gt;%</span></span>
+<span id="cb370-7"><a href="data-acquisition.html#cb370-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb370-8"><a href="data-acquisition.html#cb370-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:right;">
+Period
+</th>
+<th style="text-align:left;">
+Time
+</th>
+<th style="text-align:left;">
+Event
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2023-01-28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+20:00
+</td>
+<td style="text-align:left;">
+Game Scheduled
+</td>
+<td style="text-align:left;">
+Game Scheduled
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+20:00
+</td>
+<td style="text-align:left;">
+Faceoff
+</td>
+<td style="text-align:left;">
+J.T. Compher faceoff won against Noel Acciari
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+19:47
+</td>
+<td style="text-align:left;">
+Stoppage
+</td>
+<td style="text-align:left;">
+Icing
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+19:47
+</td>
+<td style="text-align:left;">
+Faceoff
+</td>
+<td style="text-align:left;">
+J.T. Compher faceoff won against Noel Acciari
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+19:35
+</td>
+<td style="text-align:left;">
+Takeaway
+</td>
+<td style="text-align:left;">
+Takeaway by Matt Nieto
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+19:09
+</td>
+<td style="text-align:left;">
+Shot
+</td>
+<td style="text-align:left;">
+Torey Krug Wrist Shot saved by Alexandar Georgiev
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+19:09
+</td>
+<td style="text-align:left;">
+Stoppage
+</td>
+<td style="text-align:left;">
+Goalie Stopped
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+19:09
+</td>
+<td style="text-align:left;">
+Faceoff
+</td>
+<td style="text-align:left;">
+Nathan MacKinnon faceoff won against Brayden Schenn
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+18:39
+</td>
+<td style="text-align:left;">
+Shot
+</td>
+<td style="text-align:left;">
+Evan Rodrigues Wrist Shot saved by Jordan Binnington
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+18:07
+</td>
+<td style="text-align:left;">
+Hit
+</td>
+<td style="text-align:left;">
+Andreas Englund hit Logan Brown
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+17:30
+</td>
+<td style="text-align:left;">
+Shot
+</td>
+<td style="text-align:left;">
+Denis Malgin Wrist Shot saved by Jordan Binnington
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+17:21
+</td>
+<td style="text-align:left;">
+Blocked Shot
+</td>
+<td style="text-align:left;">
+Samuel Girard shot blocked shot by Niko Mikkola
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+16:46
+</td>
+<td style="text-align:left;">
+Hit
+</td>
+<td style="text-align:left;">
+Noel Acciari hit Erik Johnson
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+16:35
+</td>
+<td style="text-align:left;">
+Missed Shot
+</td>
+<td style="text-align:left;">
+Noel Acciari Wide of Net Alexandar Georgiev
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-28
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+16:25
+</td>
+<td style="text-align:left;">
+Shot
+</td>
+<td style="text-align:left;">
+Matt Nieto Wrist Shot saved by Jordan Binnington
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="data-acquisition.html#cb371-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grab team logos &amp; colors</span></span>
+<span id="cb371-2"><a href="data-acquisition.html#cb371-2" aria-hidden="true" tabindex="-1"></a>team_logos <span class="ot">&lt;-</span> hockeyR<span class="sc">::</span>team_logos_colors <span class="sc">%&gt;%</span></span>
+<span id="cb371-3"><a href="data-acquisition.html#cb371-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(team_abbr <span class="sc">==</span> <span class="fu">unique</span>(game<span class="sc">$</span>home_abbreviation) <span class="sc">|</span> team_abbr <span class="sc">==</span> <span class="fu">unique</span>(game<span class="sc">$</span>away_abbreviation)) <span class="sc">%&gt;%</span></span>
+<span id="cb371-4"><a href="data-acquisition.html#cb371-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add in dummy variables to put logos on the ice</span></span>
+<span id="cb371-5"><a href="data-acquisition.html#cb371-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> <span class="fu">ifelse</span>(full_team_name <span class="sc">==</span> <span class="fu">unique</span>(game<span class="sc">$</span>home_name), <span class="dv">50</span>, <span class="sc">-</span><span class="dv">50</span>),</span>
+<span id="cb371-6"><a href="data-acquisition.html#cb371-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="dv">0</span>)</span>
+<span id="cb371-7"><a href="data-acquisition.html#cb371-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb371-8"><a href="data-acquisition.html#cb371-8" aria-hidden="true" tabindex="-1"></a><span class="co"># add transparency to logo</span></span>
+<span id="cb371-9"><a href="data-acquisition.html#cb371-9" aria-hidden="true" tabindex="-1"></a>transparent <span class="ot">&lt;-</span> <span class="cf">function</span>(img) {</span>
+<span id="cb371-10"><a href="data-acquisition.html#cb371-10" aria-hidden="true" tabindex="-1"></a>  magick<span class="sc">::</span><span class="fu">image_fx</span>(img, <span class="at">expression =</span> <span class="st">&quot;0.3*a&quot;</span>, <span class="at">channel =</span> <span class="st">&quot;alpha&quot;</span>)</span>
+<span id="cb371-11"><a href="data-acquisition.html#cb371-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb371-12"><a href="data-acquisition.html#cb371-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb371-13"><a href="data-acquisition.html#cb371-13" aria-hidden="true" tabindex="-1"></a><span class="co"># get only shot events</span></span>
+<span id="cb371-14"><a href="data-acquisition.html#cb371-14" aria-hidden="true" tabindex="-1"></a>fenwick_events <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;MISSED_SHOT&quot;</span>,<span class="st">&quot;SHOT&quot;</span>,<span class="st">&quot;GOAL&quot;</span>)</span>
+<span id="cb371-15"><a href="data-acquisition.html#cb371-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb371-16"><a href="data-acquisition.html#cb371-16" aria-hidden="true" tabindex="-1"></a>shots <span class="ot">&lt;-</span> game <span class="sc">%&gt;%</span> <span class="fu">filter</span>(event_type <span class="sc">%in%</span> fenwick_events) <span class="sc">%&gt;%</span></span>
+<span id="cb371-17"><a href="data-acquisition.html#cb371-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adding team colors</span></span>
+<span id="cb371-18"><a href="data-acquisition.html#cb371-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(team_logos, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;event_team_abbr&quot;</span> <span class="ot">=</span> <span class="st">&quot;team_abbr&quot;</span>))</span>
+<span id="cb371-19"><a href="data-acquisition.html#cb371-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb371-20"><a href="data-acquisition.html#cb371-20" aria-hidden="true" tabindex="-1"></a><span class="co"># create shot plot</span></span>
+<span id="cb371-21"><a href="data-acquisition.html#cb371-21" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_hockey</span>(<span class="st">&quot;nhl&quot;</span>) <span class="sc">+</span></span>
+<span id="cb371-22"><a href="data-acquisition.html#cb371-22" aria-hidden="true" tabindex="-1"></a>  ggimage<span class="sc">::</span><span class="fu">geom_image</span>(</span>
+<span id="cb371-23"><a href="data-acquisition.html#cb371-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> team_logos,</span>
+<span id="cb371-24"><a href="data-acquisition.html#cb371-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">image =</span> team_logo_espn),</span>
+<span id="cb371-25"><a href="data-acquisition.html#cb371-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">image_fun =</span> transparent, <span class="at">size =</span> <span class="fl">0.22</span>, <span class="at">asp =</span> <span class="fl">2.35</span></span>
+<span id="cb371-26"><a href="data-acquisition.html#cb371-26" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb371-27"><a href="data-acquisition.html#cb371-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb371-28"><a href="data-acquisition.html#cb371-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> shots,</span>
+<span id="cb371-29"><a href="data-acquisition.html#cb371-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x_fixed, y_fixed),</span>
+<span id="cb371-30"><a href="data-acquisition.html#cb371-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb371-31"><a href="data-acquisition.html#cb371-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> shots<span class="sc">$</span>team_color1,</span>
+<span id="cb371-32"><a href="data-acquisition.html#cb371-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="fu">ifelse</span>(shots<span class="sc">$</span>event_type <span class="sc">==</span> <span class="st">&quot;GOAL&quot;</span>, <span class="dv">19</span>, <span class="dv">1</span>)</span>
+<span id="cb371-33"><a href="data-acquisition.html#cb371-33" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb371-34"><a href="data-acquisition.html#cb371-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb371-35"><a href="data-acquisition.html#cb371-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;{unique(game$away_name)} @ {unique(game$home_name)}&quot;</span>),</span>
+<span id="cb371-36"><a href="data-acquisition.html#cb371-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb371-37"><a href="data-acquisition.html#cb371-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;{unique(game$game_date)}</span><span class="sc">\n</span></span>
+<span id="cb371-38"><a href="data-acquisition.html#cb371-38" aria-hidden="true" tabindex="-1"></a><span class="st">    {unique(shots$away_abbreviation)} {unique(shots$away_final)} - {unique(shots$home_final)} {unique(shots$home_abbreviation)}&quot;</span></span>
+<span id="cb371-39"><a href="data-acquisition.html#cb371-39" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb371-40"><a href="data-acquisition.html#cb371-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;data from hockeyR | plot made with sportyR&quot;</span></span>
+<span id="cb371-41"><a href="data-acquisition.html#cb371-41" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb371-42"><a href="data-acquisition.html#cb371-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb371-43"><a href="data-acquisition.html#cb371-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb371-44"><a href="data-acquisition.html#cb371-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb371-45"><a href="data-acquisition.html#cb371-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> .<span class="dv">9</span>))</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-176-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="worldfootballr" class="section level3 hasAnchor" number="8.3.5">
+<h3><span class="header-section-number">8.3.5</span> worldfootballR<a href="data-acquisition.html#worldfootballr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>worldfootballR</code> package allows one to access data from FBRef, Understat, and other soccer websites.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-179" class="example"><strong>Example 8.11  </strong></span>Download the match summaries for all US Women’s National Team (USWNT) in the 2019 World Cup. Display this information in a kable table.</p>
+</div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="data-acquisition.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(worldfootballR)</span>
+<span id="cb372-2"><a href="data-acquisition.html#cb372-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb372-3"><a href="data-acquisition.html#cb372-3" aria-hidden="true" tabindex="-1"></a><span class="co"># USWNT 2019 World Cup results</span></span>
+<span id="cb372-4"><a href="data-acquisition.html#cb372-4" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://fbref.com/en/squads/1c912aa0/2019/United-States-Women-Stats&quot;</span></span>
+<span id="cb372-5"><a href="data-acquisition.html#cb372-5" aria-hidden="true" tabindex="-1"></a>uswnt19 <span class="ot">&lt;-</span> <span class="fu">get_team_match_results</span>(url)</span>
+<span id="cb372-6"><a href="data-acquisition.html#cb372-6" aria-hidden="true" tabindex="-1"></a>uswnt19 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Comp <span class="sc">==</span> <span class="st">&quot;World Cup&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb372-7"><a href="data-acquisition.html#cb372-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Day,<span class="sc">-</span>Time,<span class="sc">-</span>Comp,<span class="sc">-</span>Team_Url,<span class="sc">-</span>Captain,<span class="sc">-</span>Formation,</span>
+<span id="cb372-8"><a href="data-acquisition.html#cb372-8" aria-hidden="true" tabindex="-1"></a>         <span class="sc">-</span>Referee,<span class="sc">-</span>Notes,<span class="sc">-</span>Attendance,<span class="sc">-</span>Venue,<span class="sc">-</span>Team) <span class="sc">%&gt;%</span> </span>
+<span id="cb372-9"><a href="data-acquisition.html#cb372-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:left;">
+Round
+</th>
+<th style="text-align:left;">
+Result
+</th>
+<th style="text-align:left;">
+GF
+</th>
+<th style="text-align:left;">
+GA
+</th>
+<th style="text-align:left;">
+Opponent
+</th>
+<th style="text-align:right;">
+xG
+</th>
+<th style="text-align:right;">
+xGA
+</th>
+<th style="text-align:right;">
+Poss
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2019-06-11
+</td>
+<td style="text-align:left;">
+Group stage
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+Thailand
+</td>
+<td style="text-align:right;">
+7.1
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+<td style="text-align:right;">
+72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-06-16
+</td>
+<td style="text-align:left;">
+Group stage
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+Chile
+</td>
+<td style="text-align:right;">
+3.7
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+71
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-06-20
+</td>
+<td style="text-align:left;">
+Group stage
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+Sweden
+</td>
+<td style="text-align:right;">
+2.1
+</td>
+<td style="text-align:right;">
+0.4
+</td>
+<td style="text-align:right;">
+61
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-06-24
+</td>
+<td style="text-align:left;">
+Round of 16
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+Spain
+</td>
+<td style="text-align:right;">
+2.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:right;">
+55
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-06-28
+</td>
+<td style="text-align:left;">
+Quarter-finals
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+France
+</td>
+<td style="text-align:right;">
+1.1
+</td>
+<td style="text-align:right;">
+1.6
+</td>
+<td style="text-align:right;">
+40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-07-02
+</td>
+<td style="text-align:left;">
+Semi-finals
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+England
+</td>
+<td style="text-align:right;">
+0.9
+</td>
+<td style="text-align:right;">
+1.7
+</td>
+<td style="text-align:right;">
+43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-07-07
+</td>
+<td style="text-align:left;">
+Final
+</td>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+Netherlands
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:right;">
+53
+</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>

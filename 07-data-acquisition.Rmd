@@ -276,10 +276,13 @@ This is a useful website for obtaining and visualizing StatCast pitch data: \
 :::{.example}
 Obtain Shohei Ohtani's pitch data for the 2022 season. Plot the horizontal and vertical break of the pitches. Also, investigate his fastball velocity by inning.
 
-More about Ohtani's pitching repertoire: [https://www.youtube.com/watch?v=7nZBlYIqEww](https://www.youtube.com/watch?v=7nZBlYIqEww)
+More about Ohtani's pitching repertoire: [https://youtu.be/7nZBlYIqEww](https://youtu.be/7nZBlYIqEww)
+
+More about types of pitches: [https://youtu.be/1FTFWzcgjHE](https://youtu.be/1FTFWzcgjHE)
 :::
 
 ```{r}
+library(RColorBrewer)
 # This follows the example at: 
 # https://billpetti.github.io/baseballr/articles/using_statcast_pitch_data.html
 
@@ -299,25 +302,20 @@ ohtani_cleaned_data <- ohtani_data %>%
   mutate(pfx_x_in_pv = -12*pfx_x,
          pfx_z_in = 12*pfx_z)
 
-colors <- brewer.pal(n = 12, name = "Paired")
+colors <- brewer.pal(n = 6, name = "Dark2")
 pitch_colors <- c("4-Seam Fastball" = colors[1],
-                  "2-Seam Fastball" = colors[2],
-                  "Sinker" = colors[3],
-                  "Cutter" = colors[4],
-                  "Fastball" = colors[5],
-                  "Curveball" = colors[6],
-                  "Knuckle Curve" = colors[7],
-                  "Slider" = colors[8],
-                  "Changeup" = colors[9],
-                  "Split-Finger" = colors[10],
-                  "Knuckleball" = colors[11])
+                  "Sinker" = colors[2],
+                  "Cutter" = colors[3],
+                  "Curveball" = colors[4],
+                  "Slider" = colors[5],
+                  "Split-Finger" = colors[6])
 
 ( ohtani_pitch_types <- unique(ohtani_cleaned_data$pitch_name) )
 ```
 
 \newpage
 
-```{r,warning=F,message=F}
+```{r message=FALSE, r,warning=F}
 ohtani_cleaned_data %>% 
   ggplot(aes(x = pfx_x_in_pv, y = pfx_z_in, color = pitch_name)) +
   geom_vline(xintercept = 0) +
@@ -371,6 +369,8 @@ ohtani_velo_by_inning %>%
 The `nflfastR` package is a helpful package for obtaining play-by-play and roster data for NFL games.
 
 For more details, see: [https://www.nflfastr.com/articles/nflfastR.html](https://www.nflfastr.com/articles/nflfastR.html)
+
+For a quick explanation of expected points added, see: [https://youtu.be/qo7-zeJEVzs](https://youtu.be/qo7-zeJEVzs)
 
 :::{.example}
 Use the `nflfastR` package to obtain the play-by-play data for the Denver Broncos home game against the San Francisco 49ers during the 2022 season.
@@ -470,4 +470,107 @@ wp_chart_new(401482835,show_labels = F)
 
 ```{r}
 game_flow(game_id = 401482835, home_col = "blue", away_col = "forestgreen")
+```
+
+\newpage
+
+### hockeyR package
+
+The `hockeyR` packages allows you to obtain data from NHL.com and Hockey Reference. The `sportyR` package is useful for plotting spatial data on various playing fields/courts.
+
+:::{.example}
+Create a shot plot for the Colorado Avalanche vs. St. Louis Blues on January 28, 2023.
+:::
+
+```{r, cache=T,message=F,warning=F}
+# Example adapted from: https://hockeyr.netlify.app/
+# devtools::install_github("danmorse314/hockeyR")
+library(hockeyR)
+library(sportyR)
+
+pbp <- hockeyR::load_pbp('2022-2023')
+```
+
+```{r}
+# get single game
+game <- pbp %>%
+  filter(game_date == "2023-01-28" & home_abbreviation == "COL")
+game %>% 
+  select(Date=game_date,Period=period,Time=period_time_remaining,Event=event,
+         Description=description) %>%
+  slice(1:15)  %>%
+  kable(booktabs=T)
+```
+
+\newpage
+
+```{r}
+# grab team logos & colors
+team_logos <- hockeyR::team_logos_colors %>%
+  filter(team_abbr == unique(game$home_abbreviation) | team_abbr == unique(game$away_abbreviation)) %>%
+  # add in dummy variables to put logos on the ice
+  mutate(x = ifelse(full_team_name == unique(game$home_name), 50, -50),
+         y = 0)
+
+# add transparency to logo
+transparent <- function(img) {
+  magick::image_fx(img, expression = "0.3*a", channel = "alpha")
+}
+
+# get only shot events
+fenwick_events <- c("MISSED_SHOT","SHOT","GOAL")
+
+shots <- game %>% filter(event_type %in% fenwick_events) %>%
+  # adding team colors
+  left_join(team_logos, by = c("event_team_abbr" = "team_abbr"))
+
+# create shot plot
+geom_hockey("nhl") +
+  ggimage::geom_image(
+    data = team_logos,
+    aes(x = x, y = y, image = team_logo_espn),
+    image_fun = transparent, size = 0.22, asp = 2.35
+    ) +
+  geom_point(
+    data = shots,
+    aes(x_fixed, y_fixed),
+    size = 3,
+    color = shots$team_color1,
+    shape = ifelse(shots$event_type == "GOAL", 19, 1)
+    ) +
+  labs(
+    title = glue::glue("{unique(game$away_name)} @ {unique(game$home_name)}"),
+    subtitle = glue::glue(
+    "{unique(game$game_date)}\n
+    {unique(shots$away_abbreviation)} {unique(shots$away_final)} - {unique(shots$home_final)} {unique(shots$home_abbreviation)}"
+    ),
+    caption = "data from hockeyR | plot made with sportyR"
+    ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    plot.caption = element_text(hjust = .9))
+```
+
+\newpage
+
+### worldfootballR
+
+The `worldfootballR` package allows one to access data from FBRef, Understat, and other soccer websites.
+
+:::{.example}
+Download the match summaries for all US Women's National Team (USWNT) in the 2019 World Cup. Display this information in a kable table.
+:::
+
+```{r,cache=T,warning=F,message=F}
+library(worldfootballR)
+
+# USWNT 2019 World Cup results
+url <- "https://fbref.com/en/squads/1c912aa0/2019/United-States-Women-Stats"
+uswnt19 <- get_team_match_results(url)
+uswnt19 %>% filter(Comp == "World Cup") %>% 
+  select(-Day,-Time,-Comp,-Team_Url,-Captain,-Formation,
+         -Referee,-Notes,-Attendance,-Venue,-Team) %>% 
+  kable(booktabs=T)
+
 ```

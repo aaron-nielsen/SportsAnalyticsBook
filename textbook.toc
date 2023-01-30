@@ -135,33 +135,35 @@
 \contentsline {subsection}{\numberline {8.3.1}BaseballR package}{205}{subsection.8.3.1}%
 \contentsline {subsection}{\numberline {8.3.2}nflfastR package}{211}{subsection.8.3.2}%
 \contentsline {subsection}{\numberline {8.3.3}hoopR package}{215}{subsection.8.3.3}%
-\contentsline {chapter}{\numberline {9}Linear Regression}{219}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Simple Linear Regression}{219}{section.9.1}%
-\contentsline {subsection}{\numberline {9.1.1}Pythagorean Records}{219}{subsection.9.1.1}%
-\contentsline {subsection}{\numberline {9.1.2}Regression to the Mean}{219}{subsection.9.1.2}%
-\contentsline {section}{\numberline {9.2}Variable Transformations}{219}{section.9.2}%
-\contentsline {subsection}{\numberline {9.2.1}Draft Pick Values}{219}{subsection.9.2.1}%
-\contentsline {section}{\numberline {9.3}Multiple Linear Regression}{219}{section.9.3}%
-\contentsline {subsection}{\numberline {9.3.1}Four Factors and Winning}{219}{subsection.9.3.1}%
-\contentsline {subsection}{\numberline {9.3.2}Linear Weights in Baseball}{219}{subsection.9.3.2}%
-\contentsline {subsection}{\numberline {9.3.3}Pass Air Yards Regression}{219}{subsection.9.3.3}%
-\contentsline {subsection}{\numberline {9.3.4}EPL Passing and Scoring}{219}{subsection.9.3.4}%
-\contentsline {subsection}{\numberline {9.3.5}Hockey PPG vs TOI}{220}{subsection.9.3.5}%
-\contentsline {section}{\numberline {9.4}Issues with Multiyear Data}{220}{section.9.4}%
-\contentsline {section}{\numberline {9.5}Interaction}{220}{section.9.5}%
-\contentsline {section}{\numberline {9.6}Confounding Variables}{220}{section.9.6}%
-\contentsline {section}{\numberline {9.7}Logistic Regression}{221}{section.9.7}%
-\contentsline {subsection}{\numberline {9.7.1}Sack and Interception Probability Models}{221}{subsection.9.7.1}%
-\contentsline {subsection}{\numberline {9.7.2}Soccer Goal Logistic Model}{221}{subsection.9.7.2}%
-\contentsline {subsection}{\numberline {9.7.3}Field Goal Success}{221}{subsection.9.7.3}%
-\contentsline {chapter}{\numberline {10}Data Scraping and Acquisition}{223}{chapter.10}%
-\contentsline {chapter}{\numberline {11}Principal Component Analysis}{225}{chapter.11}%
-\contentsline {chapter}{\numberline {12}Clustering}{227}{chapter.12}%
-\contentsline {chapter}{\numberline {13}Classification}{229}{chapter.13}%
-\contentsline {chapter}{\numberline {14}Nonparametric Methods}{231}{chapter.14}%
-\contentsline {chapter}{\numberline {15}Sports Drafts}{233}{chapter.15}%
-\contentsline {chapter}{\numberline {16}Baseball}{235}{chapter.16}%
-\contentsline {chapter}{\numberline {17}Football}{237}{chapter.17}%
-\contentsline {chapter}{\numberline {18}Basketball}{239}{chapter.18}%
-\contentsline {chapter}{\numberline {19}Hockey}{241}{chapter.19}%
-\contentsline {chapter}{\numberline {20}Soccer}{243}{chapter.20}%
+\contentsline {subsection}{\numberline {8.3.4}hockeyR package}{219}{subsection.8.3.4}%
+\contentsline {subsection}{\numberline {8.3.5}worldfootballR}{222}{subsection.8.3.5}%
+\contentsline {chapter}{\numberline {9}Linear Regression}{223}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Simple Linear Regression}{223}{section.9.1}%
+\contentsline {subsection}{\numberline {9.1.1}Pythagorean Records}{223}{subsection.9.1.1}%
+\contentsline {subsection}{\numberline {9.1.2}Regression to the Mean}{223}{subsection.9.1.2}%
+\contentsline {section}{\numberline {9.2}Variable Transformations}{223}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Draft Pick Values}{223}{subsection.9.2.1}%
+\contentsline {section}{\numberline {9.3}Multiple Linear Regression}{223}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}Four Factors and Winning}{223}{subsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.3.2}Linear Weights in Baseball}{223}{subsection.9.3.2}%
+\contentsline {subsection}{\numberline {9.3.3}Pass Air Yards Regression}{223}{subsection.9.3.3}%
+\contentsline {subsection}{\numberline {9.3.4}EPL Passing and Scoring}{223}{subsection.9.3.4}%
+\contentsline {subsection}{\numberline {9.3.5}Hockey PPG vs TOI}{224}{subsection.9.3.5}%
+\contentsline {section}{\numberline {9.4}Issues with Multiyear Data}{224}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Interaction}{224}{section.9.5}%
+\contentsline {section}{\numberline {9.6}Confounding Variables}{224}{section.9.6}%
+\contentsline {section}{\numberline {9.7}Logistic Regression}{225}{section.9.7}%
+\contentsline {subsection}{\numberline {9.7.1}Sack and Interception Probability Models}{225}{subsection.9.7.1}%
+\contentsline {subsection}{\numberline {9.7.2}Soccer Goal Logistic Model}{225}{subsection.9.7.2}%
+\contentsline {subsection}{\numberline {9.7.3}Field Goal Success}{225}{subsection.9.7.3}%
+\contentsline {chapter}{\numberline {10}Data Scraping and Acquisition}{227}{chapter.10}%
+\contentsline {chapter}{\numberline {11}Principal Component Analysis}{229}{chapter.11}%
+\contentsline {chapter}{\numberline {12}Clustering}{231}{chapter.12}%
+\contentsline {chapter}{\numberline {13}Classification}{233}{chapter.13}%
+\contentsline {chapter}{\numberline {14}Nonparametric Methods}{235}{chapter.14}%
+\contentsline {chapter}{\numberline {15}Sports Drafts}{237}{chapter.15}%
+\contentsline {chapter}{\numberline {16}Baseball}{239}{chapter.16}%
+\contentsline {chapter}{\numberline {17}Football}{241}{chapter.17}%
+\contentsline {chapter}{\numberline {18}Basketball}{243}{chapter.18}%
+\contentsline {chapter}{\numberline {19}Hockey}{245}{chapter.19}%
+\contentsline {chapter}{\numberline {20}Soccer}{247}{chapter.20}%

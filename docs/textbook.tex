@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2023-01-29}
+\date{2023-01-30}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -7830,11 +7830,14 @@ This is a useful website for obtaining and visualizing StatCast pitch data:\\
 \begin{example}
 Obtain Shohei Ohtani's pitch data for the 2022 season. Plot the horizontal and vertical break of the pitches. Also, investigate his fastball velocity by inning.
 
-More about Ohtani's pitching repertoire: \url{https://www.youtube.com/watch?v=7nZBlYIqEww}
+More about Ohtani's pitching repertoire: \url{https://youtu.be/7nZBlYIqEww}
+
+More about types of pitches: \url{https://youtu.be/1FTFWzcgjHE}
 \end{example}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(RColorBrewer)}
 \CommentTok{\# This follows the example at: }
 \CommentTok{\# https://billpetti.github.io/baseballr/articles/using\_statcast\_pitch\_data.html}
 
@@ -7854,18 +7857,13 @@ More about Ohtani's pitching repertoire: \url{https://www.youtube.com/watch?v=7n
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{pfx\_x\_in\_pv =} \SpecialCharTok{{-}}\DecValTok{12}\SpecialCharTok{*}\NormalTok{pfx\_x,}
          \AttributeTok{pfx\_z\_in =} \DecValTok{12}\SpecialCharTok{*}\NormalTok{pfx\_z)}
 
-\NormalTok{colors }\OtherTok{\textless{}{-}} \FunctionTok{brewer.pal}\NormalTok{(}\AttributeTok{n =} \DecValTok{12}\NormalTok{, }\AttributeTok{name =} \StringTok{"Paired"}\NormalTok{)}
+\NormalTok{colors }\OtherTok{\textless{}{-}} \FunctionTok{brewer.pal}\NormalTok{(}\AttributeTok{n =} \DecValTok{6}\NormalTok{, }\AttributeTok{name =} \StringTok{"Dark2"}\NormalTok{)}
 \NormalTok{pitch\_colors }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"4{-}Seam Fastball"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{1}\NormalTok{],}
-                  \StringTok{"2{-}Seam Fastball"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{2}\NormalTok{],}
-                  \StringTok{"Sinker"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{3}\NormalTok{],}
-                  \StringTok{"Cutter"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{4}\NormalTok{],}
-                  \StringTok{"Fastball"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{5}\NormalTok{],}
-                  \StringTok{"Curveball"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{6}\NormalTok{],}
-                  \StringTok{"Knuckle Curve"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{7}\NormalTok{],}
-                  \StringTok{"Slider"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{8}\NormalTok{],}
-                  \StringTok{"Changeup"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{9}\NormalTok{],}
-                  \StringTok{"Split{-}Finger"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{10}\NormalTok{],}
-                  \StringTok{"Knuckleball"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{11}\NormalTok{])}
+                  \StringTok{"Sinker"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{2}\NormalTok{],}
+                  \StringTok{"Cutter"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{3}\NormalTok{],}
+                  \StringTok{"Curveball"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{4}\NormalTok{],}
+                  \StringTok{"Slider"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{5}\NormalTok{],}
+                  \StringTok{"Split{-}Finger"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{6}\NormalTok{])}
 
 \NormalTok{( ohtani\_pitch\_types }\OtherTok{\textless{}{-}} \FunctionTok{unique}\NormalTok{(ohtani\_cleaned\_data}\SpecialCharTok{$}\NormalTok{pitch\_name) )}
 \end{Highlighting}
@@ -7903,7 +7901,7 @@ More about Ohtani's pitching repertoire: \url{https://www.youtube.com/watch?v=7n
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-166-1.pdf}
+\includegraphics{textbook_files/figure-latex/r-1.pdf}
 
 \newpage
 
@@ -7918,7 +7916,7 @@ More about Ohtani's pitching repertoire: \url{https://www.youtube.com/watch?v=7n
 \CommentTok{\# Plot average fastball speed by inning}
 \NormalTok{ohtani\_velo\_by\_inning }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ inning, }\AttributeTok{y =}\NormalTok{ average\_velo, }\AttributeTok{color =}\NormalTok{ pitch\_name)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{linewidth =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{3}\NormalTok{, }\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ pitch\_colors) }\SpecialCharTok{+}
   \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{9}\NormalTok{) }\SpecialCharTok{+}
@@ -7931,13 +7929,7 @@ More about Ohtani's pitching repertoire: \url{https://www.youtube.com/watch?v=7n
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## Warning: Using `size` aesthetic for lines was
-## deprecated in ggplot2 3.4.0.
-## i Please use `linewidth` instead.
-\end{verbatim}
-
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-167-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-166-1.pdf}
 
 \newpage
 
@@ -7947,6 +7939,8 @@ More about Ohtani's pitching repertoire: \url{https://www.youtube.com/watch?v=7n
 The \texttt{nflfastR} package is a helpful package for obtaining play-by-play and roster data for NFL games.
 
 For more details, see: \url{https://www.nflfastr.com/articles/nflfastR.html}
+
+For a quick explanation of expected points added, see: \url{https://youtu.be/qo7-zeJEVzs}
 
 \begin{example}
 Use the \texttt{nflfastR} package to obtain the play-by-play data for the Denver Broncos home game against the San Francisco 49ers during the 2022 season.
@@ -7995,7 +7989,7 @@ game\_id & gameday & away\_team & home\_team\\
 \end{Shaded}
 
 \begin{verbatim}
-## [17:42:19] WARNING: amalgamation/../src/learner.cc:438: 
+## [14:29:27] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -8004,7 +7998,7 @@ game\_id & gameday & away\_team & home\_team\\
 ## 
 ##   for more details about differences between saving model and serializing.
 ## 
-## [17:42:19] WARNING: amalgamation/../src/learner.cc:438: 
+## [14:29:28] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -8013,7 +8007,7 @@ game\_id & gameday & away\_team & home\_team\\
 ## 
 ##   for more details about differences between saving model and serializing.
 ## 
-## [17:42:19] WARNING: amalgamation/../src/learner.cc:438: 
+## [14:29:28] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -8022,7 +8016,7 @@ game\_id & gameday & away\_team & home\_team\\
 ## 
 ##   for more details about differences between saving model and serializing.
 ## 
-## [17:42:19] WARNING: amalgamation/../src/learner.cc:438: 
+## [14:29:28] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -8077,7 +8071,7 @@ GAME & NA & 0.770 & 0.000 & 0.567\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-170-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-169-1.pdf}
 
 \newpage
 
@@ -8176,7 +8170,7 @@ Period & Seconds Remaining & Home Win Pct & Play ID\\
 ## Scraping Data for Game: 1 of 1
 \end{verbatim}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-173-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-172-1.pdf}
 \newpage
 
 \begin{Shaded}
@@ -8189,7 +8183,160 @@ Period & Seconds Remaining & Home Win Pct & Play ID\\
 ## Scraping Data for Game: 1 of 1
 \end{verbatim}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-174-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-173-1.pdf}
+
+\newpage
+
+\hypertarget{hockeyr-package}{%
+\subsection{hockeyR package}\label{hockeyr-package}}
+
+The \texttt{hockeyR} packages allows you to obtain data from NHL.com and Hockey Reference. The \texttt{sportyR} package is useful for plotting spatial data on various playing fields/courts.
+
+\begin{example}
+Create a shot plot for the Colorado Avalanche vs.~St.~Louis Blues on January 28, 2023.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Example adapted from: https://hockeyr.netlify.app/}
+\CommentTok{\# devtools::install\_github("danmorse314/hockeyR")}
+\FunctionTok{library}\NormalTok{(hockeyR)}
+\FunctionTok{library}\NormalTok{(sportyR)}
+
+\NormalTok{pbp }\OtherTok{\textless{}{-}}\NormalTok{ hockeyR}\SpecialCharTok{::}\FunctionTok{load\_pbp}\NormalTok{(}\StringTok{\textquotesingle{}2022{-}2023\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# get single game}
+\NormalTok{game }\OtherTok{\textless{}{-}}\NormalTok{ pbp }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(game\_date }\SpecialCharTok{==} \StringTok{"2023{-}01{-}28"} \SpecialCharTok{\&}\NormalTok{ home\_abbreviation }\SpecialCharTok{==} \StringTok{"COL"}\NormalTok{)}
+\NormalTok{game }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\AttributeTok{Date=}\NormalTok{game\_date,}\AttributeTok{Period=}\NormalTok{period,}\AttributeTok{Time=}\NormalTok{period\_time\_remaining,}\AttributeTok{Event=}\NormalTok{event,}
+         \AttributeTok{Description=}\NormalTok{description) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{15}\NormalTok{)  }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrlll}
+\toprule
+Date & Period & Time & Event & Description\\
+\midrule
+2023-01-28 & 1 & 20:00 & Game Scheduled & Game Scheduled\\
+2023-01-28 & 1 & 20:00 & Faceoff & J.T. Compher faceoff won against Noel Acciari\\
+2023-01-28 & 1 & 19:47 & Stoppage & Icing\\
+2023-01-28 & 1 & 19:47 & Faceoff & J.T. Compher faceoff won against Noel Acciari\\
+2023-01-28 & 1 & 19:35 & Takeaway & Takeaway by Matt Nieto\\
+\addlinespace
+2023-01-28 & 1 & 19:09 & Shot & Torey Krug Wrist Shot saved by Alexandar Georgiev\\
+2023-01-28 & 1 & 19:09 & Stoppage & Goalie Stopped\\
+2023-01-28 & 1 & 19:09 & Faceoff & Nathan MacKinnon faceoff won against Brayden Schenn\\
+2023-01-28 & 1 & 18:39 & Shot & Evan Rodrigues Wrist Shot saved by Jordan Binnington\\
+2023-01-28 & 1 & 18:07 & Hit & Andreas Englund hit Logan Brown\\
+\addlinespace
+2023-01-28 & 1 & 17:30 & Shot & Denis Malgin Wrist Shot saved by Jordan Binnington\\
+2023-01-28 & 1 & 17:21 & Blocked Shot & Samuel Girard shot blocked shot by Niko Mikkola\\
+2023-01-28 & 1 & 16:46 & Hit & Noel Acciari hit Erik Johnson\\
+2023-01-28 & 1 & 16:35 & Missed Shot & Noel Acciari Wide of Net Alexandar Georgiev\\
+2023-01-28 & 1 & 16:25 & Shot & Matt Nieto Wrist Shot saved by Jordan Binnington\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# grab team logos \& colors}
+\NormalTok{team\_logos }\OtherTok{\textless{}{-}}\NormalTok{ hockeyR}\SpecialCharTok{::}\NormalTok{team\_logos\_colors }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(team\_abbr }\SpecialCharTok{==} \FunctionTok{unique}\NormalTok{(game}\SpecialCharTok{$}\NormalTok{home\_abbreviation) }\SpecialCharTok{|}\NormalTok{ team\_abbr }\SpecialCharTok{==} \FunctionTok{unique}\NormalTok{(game}\SpecialCharTok{$}\NormalTok{away\_abbreviation)) }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# add in dummy variables to put logos on the ice}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{x =} \FunctionTok{ifelse}\NormalTok{(full\_team\_name }\SpecialCharTok{==} \FunctionTok{unique}\NormalTok{(game}\SpecialCharTok{$}\NormalTok{home\_name), }\DecValTok{50}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{50}\NormalTok{),}
+         \AttributeTok{y =} \DecValTok{0}\NormalTok{)}
+
+\CommentTok{\# add transparency to logo}
+\NormalTok{transparent }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(img) \{}
+\NormalTok{  magick}\SpecialCharTok{::}\FunctionTok{image\_fx}\NormalTok{(img, }\AttributeTok{expression =} \StringTok{"0.3*a"}\NormalTok{, }\AttributeTok{channel =} \StringTok{"alpha"}\NormalTok{)}
+\NormalTok{\}}
+
+\CommentTok{\# get only shot events}
+\NormalTok{fenwick\_events }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"MISSED\_SHOT"}\NormalTok{,}\StringTok{"SHOT"}\NormalTok{,}\StringTok{"GOAL"}\NormalTok{)}
+
+\NormalTok{shots }\OtherTok{\textless{}{-}}\NormalTok{ game }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(event\_type }\SpecialCharTok{\%in\%}\NormalTok{ fenwick\_events) }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# adding team colors}
+  \FunctionTok{left\_join}\NormalTok{(team\_logos, }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"event\_team\_abbr"} \OtherTok{=} \StringTok{"team\_abbr"}\NormalTok{))}
+
+\CommentTok{\# create shot plot}
+\FunctionTok{geom\_hockey}\NormalTok{(}\StringTok{"nhl"}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{  ggimage}\SpecialCharTok{::}\FunctionTok{geom\_image}\NormalTok{(}
+    \AttributeTok{data =}\NormalTok{ team\_logos,}
+    \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y, }\AttributeTok{image =}\NormalTok{ team\_logo\_espn),}
+    \AttributeTok{image\_fun =}\NormalTok{ transparent, }\AttributeTok{size =} \FloatTok{0.22}\NormalTok{, }\AttributeTok{asp =} \FloatTok{2.35}
+\NormalTok{    ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}
+    \AttributeTok{data =}\NormalTok{ shots,}
+    \FunctionTok{aes}\NormalTok{(x\_fixed, y\_fixed),}
+    \AttributeTok{size =} \DecValTok{3}\NormalTok{,}
+    \AttributeTok{color =}\NormalTok{ shots}\SpecialCharTok{$}\NormalTok{team\_color1,}
+    \AttributeTok{shape =} \FunctionTok{ifelse}\NormalTok{(shots}\SpecialCharTok{$}\NormalTok{event\_type }\SpecialCharTok{==} \StringTok{"GOAL"}\NormalTok{, }\DecValTok{19}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{    ) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =}\NormalTok{ glue}\SpecialCharTok{::}\FunctionTok{glue}\NormalTok{(}\StringTok{"\{unique(game$away\_name)\} @ \{unique(game$home\_name)\}"}\NormalTok{),}
+    \AttributeTok{subtitle =}\NormalTok{ glue}\SpecialCharTok{::}\FunctionTok{glue}\NormalTok{(}
+    \StringTok{"\{unique(game$game\_date)\}}\SpecialCharTok{\textbackslash{}n}
+\StringTok{    \{unique(shots$away\_abbreviation)\} \{unique(shots$away\_final)\} {-} \{unique(shots$home\_final)\} \{unique(shots$home\_abbreviation)\}"}
+\NormalTok{    ),}
+    \AttributeTok{caption =} \StringTok{"data from hockeyR | plot made with sportyR"}
+\NormalTok{    ) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{),}
+    \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{),}
+    \AttributeTok{plot.caption =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =}\NormalTok{ .}\DecValTok{9}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-176-1.pdf}
+
+\newpage
+
+\hypertarget{worldfootballr}{%
+\subsection{worldfootballR}\label{worldfootballr}}
+
+The \texttt{worldfootballR} package allows one to access data from FBRef, Understat, and other soccer websites.
+
+\begin{example}
+Download the match summaries for all US Women's National Team (USWNT) in the 2019 World Cup. Display this information in a kable table.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(worldfootballR)}
+
+\CommentTok{\# USWNT 2019 World Cup results}
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{"https://fbref.com/en/squads/1c912aa0/2019/United{-}States{-}Women{-}Stats"}
+\NormalTok{uswnt19 }\OtherTok{\textless{}{-}} \FunctionTok{get\_team\_match\_results}\NormalTok{(url)}
+\NormalTok{uswnt19 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Comp }\SpecialCharTok{==} \StringTok{"World Cup"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Day,}\SpecialCharTok{{-}}\NormalTok{Time,}\SpecialCharTok{{-}}\NormalTok{Comp,}\SpecialCharTok{{-}}\NormalTok{Team\_Url,}\SpecialCharTok{{-}}\NormalTok{Captain,}\SpecialCharTok{{-}}\NormalTok{Formation,}
+         \SpecialCharTok{{-}}\NormalTok{Referee,}\SpecialCharTok{{-}}\NormalTok{Notes,}\SpecialCharTok{{-}}\NormalTok{Attendance,}\SpecialCharTok{{-}}\NormalTok{Venue,}\SpecialCharTok{{-}}\NormalTok{Team) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{llllllrrr}
+\toprule
+Date & Round & Result & GF & GA & Opponent & xG & xGA & Poss\\
+\midrule
+2019-06-11 & Group stage & W & 13 & 0 & Thailand & 7.1 & 0.1 & 72\\
+2019-06-16 & Group stage & W & 3 & 0 & Chile & 3.7 & 0.0 & 71\\
+2019-06-20 & Group stage & W & 2 & 0 & Sweden & 2.1 & 0.4 & 61\\
+2019-06-24 & Round of 16 & W & 2 & 1 & Spain & 2.4 & 0.2 & 55\\
+2019-06-28 & Quarter-finals & W & 2 & 1 & France & 1.1 & 1.6 & 40\\
+\addlinespace
+2019-07-02 & Semi-finals & W & 2 & 1 & England & 0.9 & 1.7 & 43\\
+2019-07-07 & Final & W & 2 & 0 & Netherlands & 3.0 & 0.2 & 53\\
+\bottomrule
+\end{tabular}
 
 \hypertarget{linear-regression}{%
 \chapter{Linear Regression}\label{linear-regression}}
