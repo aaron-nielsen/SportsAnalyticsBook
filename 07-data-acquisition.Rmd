@@ -560,6 +560,8 @@ The `worldfootballR` package allows one to access data from FBRef, Understat, an
 
 :::{.example}
 Download the match summaries for all US Women's National Team (USWNT) in the 2019 World Cup. Display this information in a kable table.
+
+For more on xG, see: [https://youtu.be/zSaeaFcm1SY](https://youtu.be/zSaeaFcm1SY)
 :::
 
 ```{r,cache=T,warning=F,message=F}
