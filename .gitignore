@@ -5,6 +5,7 @@
 # Session Data files
 .RData
 Icon
+Icon?
 # Example code in package build process
 *-Ex.R
 
