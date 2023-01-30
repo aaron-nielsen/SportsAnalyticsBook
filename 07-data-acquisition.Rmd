@@ -352,7 +352,7 @@ ohtani_velo_by_inning <- ohtani_cleaned_data %>%
 # Plot average fastball speed by inning
 ohtani_velo_by_inning %>% 
   ggplot(aes(x = inning, y = average_velo, color = pitch_name)) +
-  geom_line(size = 1.5, alpha = 0.5, show.legend = FALSE) +
+  geom_line(linewidth = 1.5, alpha = 0.5, show.legend = FALSE) +
   geom_point(size = 3, show.legend = FALSE) +
   scale_color_manual(values = pitch_colors) +
   scale_x_continuous(breaks = 1:9) +
