@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2023-01-30}
+\date{2023-01-31}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -8307,6 +8307,8 @@ The \texttt{worldfootballR} package allows one to access data from FBRef, Unders
 
 \begin{example}
 Download the match summaries for all US Women's National Team (USWNT) in the 2019 World Cup. Display this information in a kable table.
+
+For more on xG, see: \url{https://youtu.be/zSaeaFcm1SY}
 \end{example}
 
 \begin{Shaded}
@@ -8335,6 +8337,275 @@ Date & Round & Result & GF & GA & Opponent & xG & xGA & Poss\\
 \addlinespace
 2019-07-02 & Semi-finals & W & 2 & 1 & England & 0.9 & 1.7 & 43\\
 2019-07-07 & Final & W & 2 & 0 & Netherlands & 3.0 & 0.2 & 53\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\hypertarget{data-scraping}{%
+\section{Data Scraping}\label{data-scraping}}
+
+Acquiring data from internet websites can be completed by using data scraping methods. In essence, this allows your computer to extract data from websites. There are a handful of techniques that we will use to accomplish some basic scraping tasks.
+
+\hypertarget{general-tips}{%
+\subsection{General Tips}\label{general-tips}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \emph{Brainstorm}: Ask yourself what data you need and were to find it. If you pull from different sources, do you have a unique identifier between the sources?
+\item
+  \emph{Start small}: View your scraping project as a war, winning it with small battles. If you want to scrape sports statistics for the NFL, consider how to scrape these statistics for one team.
+\item
+  \emph{Hyperlinks are your friend}: Lead to websites with more detailed information and/or serve as the unique identifier between different data sources?
+\item
+  \emph{Data is everywhere}: Text color, font, or highlighting may serve as valuable data that you need. If these features exist on the webpage, then they exist within the HTML code which generated the document.
+\item
+  \emph{Ready your search engine}: When you are undoubtably stuck and have a question, it's likely the answer is already on
+  \href{https://stackoverflow.com/}{StackOverflow (https://stackoverflow.com/)}
+\item
+  \emph{Careful how quickly you scrape from a website}: If you attempt to scrape from a website too frequently, you may get a temporary (or even permanent) IP ban. You can view a website's rules for scraping by looking at the \texttt{robots.txt} file on the website of interest. For example, see: \url{https://www.basketball-reference.com/robots.txt}
+\end{enumerate}
+
+\hypertarget{introduction-to-html}{%
+\subsection{Introduction to HTML}\label{introduction-to-html}}
+
+All contents that are displayed on a web page are structured through HTML with the help of HTML
+elements. HTML elements consist of a tag and contents. The tag defines how the web browser should format and display the content.
+
+Aptly, the content is what should be displayed.
+
+Attributes are optional parameters which provide additional information about the element in which the attribute is included. The type of attribute is the attribute name , whereas the quantity assigned to the attribute is the attribute value.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{images/html.png}
+\caption{HTML element structure}
+\end{figure}
+
+\newpage
+
+\hypertarget{rvest-package}{%
+\subsection{rvest Package}\label{rvest-package}}
+
+The \texttt{rvest} (pronounced ``harvest'') package in R is one of the best options for scraping data directly into R.
+
+This is part of the tidyverse ecosystem in R. Allows users to scrape (or harvest) data from webpages.
+
+Common use functions from the package include:
+- read\_html(): read HTML from a webpage
+- html\_elements(): returns a subset of elements with specified characteristics
+- html\_text(): returns the content of all elements
+- html\_attr(): returns attribute values for all elements with specified attribute
+- html\_table(): returns a list of all HTML tables
+
+A working knowledge of css and/or xpath is helpful.
+
+\hypertarget{css-gadget-selector}{%
+\subsection{CSS Gadget Selector}\label{css-gadget-selector}}
+
+All web pages are composed of HTML elements, but some elements are incredibly complex. They often are
+nested inside of other elements or rely on other elements from another document.
+
+A selector gadget allows you to determine what css selector you need to extract the information you desire. These JavaScript bookmark lets determine where the information you desire belongs in the HTML code.
+
+You can download the most popular selector gadget here which also has a \href{https://chrome.google.com/webstore/detail/selectorgadget/mhjhnkcfbdhnjickkkdbjoemdmbfginb?hl=en}{Google Chrome extension available (shorturl.at/nrFJP)}.
+
+Probably more than half the time, these gadgets prove less than helpful which is why I suggest perusing the HTML file on your own with the Inspect feature in Google Chrome.
+
+\newpage
+
+\hypertarget{scraping-examples}{%
+\subsection{Scraping Examples}\label{scraping-examples}}
+
+Many R packages exist to scrape data from the Sports Reference websites, however, we can also scrape the data ourselves without too much trouble.
+
+\begin{example}
+Scrape A'ja Wilson's per game statistics on Basketball Reference and output the data into a kable table. Use the selector gadget to find the correct
+
+Link: \url{https://www.basketball-reference.com/wnba/players/w/wilsoa01w.html}
+\end{example}
+
+We want to get this data into R:
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{images/wilson-scrape.png}
+\caption{HTML element structure}
+\end{figure}
+
+We can use the Selector Gadget to identify the html tag for this table.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{images/wilson-scrape2.png}
+\caption{Using the selector gadget}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rvest)}
+\FunctionTok{library}\NormalTok{(kableExtra)}
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{"https://www.basketball{-}reference.com/wnba/players/w/wilsoa01w.html"}
+
+\CommentTok{\# Be careful to not run this function too quickly or you may be IP banned}
+\NormalTok{wilson }\OtherTok{\textless{}{-}} \FunctionTok{read\_html}\NormalTok{(url)}
+
+\CommentTok{\# Grab the node of interest and format the output as a html\_table(). }
+\CommentTok{\# This is now a list}
+\NormalTok{wilson }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{html\_elements}\NormalTok{(}\StringTok{"\#per\_game0"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{html\_table}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## # A tibble: 6 x 28
+##   Year  Tm      Age     G    GS    MP    FG   FGA `FG%`  `3P` `3PA`  `3P%`  `2P`
+##   <chr> <chr> <int> <int> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl> <dbl>
+## 1 2018  "LVA"    21    33    33  30.6   7.4  16.1 0.462   0     0   NA       7.4
+## 2 2019  "LVA"    22    26    25  28.5   6.1  12.7 0.479   0     0    0       6.1
+## 3 2020  "LVA"    23    22    22  31.7   7.5  15.7 0.48    0     0   NA       7.5
+## 4 2021  "LVA"    24    32    32  31.9   6.5  14.6 0.444   0     0    1       6.4
+## 5 2022  "LVA"    25    36    36  30     7.2  14.4 0.501   0.9   2.3  0.373   6.4
+## 6 Care~ ""       NA   149   148  30.5   7    14.7 0.473   0.2   0.6  0.376   6.7
+## # ... with 15 more variables: `2PA` <dbl>, `2P%` <dbl>, `eFG%` <dbl>, FT <dbl>,
+## #   FTA <dbl>, `FT%` <dbl>, ORB <dbl>, DRB <dbl>, TRB <dbl>, AST <dbl>,
+## #   STL <dbl>, BLK <dbl>, TOV <dbl>, PF <dbl>, PTS <dbl>
+\end{verbatim}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# We can convert the list to a data frame to allow us to use dplyr functions}
+\CommentTok{\# like select}
+\CommentTok{\# Output the first ten columns}
+\NormalTok{wilson }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{html\_elements}\NormalTok{(}\StringTok{"\#per\_game0"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{html\_table}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{llrrrrrrrr}
+\toprule
+Year & Tm & Age & G & GS & MP & FG & FGA & FG. & X3P\\
+\midrule
+2018 & LVA & 21 & 33 & 33 & 30.6 & 7.4 & 16.1 & 0.462 & 0.0\\
+2019 & LVA & 22 & 26 & 25 & 28.5 & 6.1 & 12.7 & 0.479 & 0.0\\
+2020 & LVA & 23 & 22 & 22 & 31.7 & 7.5 & 15.7 & 0.480 & 0.0\\
+2021 & LVA & 24 & 32 & 32 & 31.9 & 6.5 & 14.6 & 0.444 & 0.0\\
+2022 & LVA & 25 & 36 & 36 & 30.0 & 7.2 & 14.4 & 0.501 & 0.9\\
+\addlinespace
+Career &  & NA & 149 & 148 & 30.5 & 7.0 & 14.7 & 0.473 & 0.2\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{example}
+Player efficiency rating (PER) is an advanced basketball statistic that attempts to quantify a player's overall contribution.
+
+Scrape the data from the following site and build a kable table with the top 20 players in terms of PER.
+
+Link: \url{http://www.espn.com/nba/hollinger/statistics}
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{"http://www.espn.com/nba/hollinger/statistics"}
+\NormalTok{hollinger }\OtherTok{\textless{}{-}} \FunctionTok{read\_html}\NormalTok{(url)}
+\NormalTok{holl\_df }\OtherTok{\textless{}{-}}\NormalTok{ hollinger }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{html\_elements}\NormalTok{(}\StringTok{"div.mod{-}content"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ .[}\DecValTok{2}\NormalTok{] }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{html\_table}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{data.frame}\NormalTok{()}
+\FunctionTok{colnames}\NormalTok{(holl\_df) }\OtherTok{=}\NormalTok{ holl\_df[}\DecValTok{2}\NormalTok{,]}
+\NormalTok{holl\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{13}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{24}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{35}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{46}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{20}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(RK,PLAYER,PER) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lll}
+\toprule
+RK & PLAYER & PER\\
+\midrule
+1 & Nikola Jokic, DEN & 32.12\\
+2 & Joel Embiid, PHI & 31.20\\
+3 & Anthony Davis, LAL & 31.09\\
+4 & Luka Doncic, DAL & 30.68\\
+5 & Giannis Antetokounmpo, MIL & 27.93\\
+\addlinespace
+6 & Shai Gilgeous-Alexander, OKC & 27.59\\
+7 & Kevin Durant, BKN & 26.87\\
+8 & Damian Lillard, POR & 26.24\\
+9 & Jimmy Butler, MIA & 25.95\\
+10 & LeBron James, LAL & 25.66\\
+\addlinespace
+11 & Stephen Curry, GS & 25.52\\
+12 & Zion Williamson, NO & 25.42\\
+13 & Jayson Tatum, BOS & 24.32\\
+14 & Kawhi Leonard, LAC & 23.77\\
+15 & Ja Morant, MEM & 23.65\\
+\addlinespace
+16 & Tyrese Haliburton, IND & 23.32\\
+17 & Donovan Mitchell, CLE & 23.14\\
+18 & Domantas Sabonis, SAC & 23.04\\
+19 & Lauri Markkanen, UTAH & 22.98\\
+20 & Clint Capela, ATL & 22.81\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{example}
+Obtain the top ten leaders for goals on the US Women's National Team and output as a kable table.
+
+Link: \url{https://www.ussoccer.com/uswnt-stats/2022}
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{"https://www.ussoccer.com/uswnt{-}stats/2022"}
+\NormalTok{uswnt }\OtherTok{\textless{}{-}} \FunctionTok{read\_html}\NormalTok{(url)}
+\NormalTok{uswnt\_df }\OtherTok{\textless{}{-}}\NormalTok{ uswnt }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{html\_elements}\NormalTok{(}\StringTok{"\#some\_table\_id"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ .[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{html\_table}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{data.frame}\NormalTok{()}
+\FunctionTok{colnames}\NormalTok{(uswnt\_df) }\OtherTok{=}\NormalTok{ uswnt\_df[}\DecValTok{1}\NormalTok{,]}
+\NormalTok{uswnt\_df}\SpecialCharTok{$}\NormalTok{Goals }\OtherTok{\textless{}{-}} \FunctionTok{as.integer}\NormalTok{(uswnt\_df}\SpecialCharTok{$}\NormalTok{Goals)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: NAs introduced by coercion
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{uswnt\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}\SpecialCharTok{{-}}\FunctionTok{n}\NormalTok{(),}\SpecialCharTok{{-}}\NormalTok{(}\FunctionTok{n}\NormalTok{()}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(Goals)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{llllllllllr}
+\toprule
+Name & Pos. & GP & GS & Min & G & A & Y & R & Career Caps & Goals\\
+\midrule
+Morgan, Alex & F & 10 & 9 & 783 & 4 & 1 & 0 &  & 200 & 119\\
+Rapinoe, Megan & F & 10 & 3 & 364 & 1 & 2 & 2 &  & 197 & 63\\
+Horan, Lindsey & M & 14 & 14 & 979 & 1 & 0 & 1 &  & 122 & 26\\
+Pugh, Mallory & F & 15 & 13 & 1030 & 7 & 7 & 0 &  & 82 & 25\\
+Dunn, Crystal & D & 3 & 0 & 85 & 0 & 0 & 0 &  & 126 & 24\\
+\addlinespace
+Lavelle, Rose & M & 16 & 15 & 1107 & 4 & 6 & 2 &  & 84 & 22\\
+Williams, Lynn & F & 2 & 0 & 56 & 0 & 0 & 0 &  & 47 & 14\\
+Smith, Sophia & F & 17 & 17 & 1192 & 11 & 1 & 0 &  & 27 & 12\\
+Gautrat, Morgan & M & 1 & 1 & 45 & 0 & 0 & 0 &  & 88 & 8\\
+Macario, Catarina & M & 5 & 5 & 342 & 5 & 1 & 1 &  & 17 & 8\\
 \bottomrule
 \end{tabular}
 

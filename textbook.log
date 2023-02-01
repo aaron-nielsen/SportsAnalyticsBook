@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  30 JAN 2023 14:44
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  31 JAN 2023 16:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2568,62 +2568,124 @@ f)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [220] [221] [222]
-Chapter 9.
-[223
+File: images/html.png Graphic file (type bmp)
+<images/html.png>
+[223] [224]
+File: images/wilson-scrape.png Graphic file (type bmp)
+<images/wilson-scrape.png>
+File: images/wilson-scrape2.png Graphic file (type bmp)
+<images/wilson-scrape2.png>
 
-] [224] [225] [226
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 8476--8476
+[]\TU/lmtt/m/n/10.95 ##   Year  Tm      Age     G    GS    MP    FG   FGA []FG%
+[]  []3P[] []3PA[]  []3P%[]  []2P[][] 
+ []
+
+
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 8476--8476
+[]\TU/lmtt/m/n/10.95 ##   <chr> <chr> <int> <int> <int> <dbl> <dbl> <dbl> <dbl>
+ <dbl> <dbl>  <dbl> <dbl>[] 
+ []
+
+[225]
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 8476--8476
+[]\TU/lmtt/m/n/10.95 ## 1 2018  "LVA"    21    33    33  30.6   7.4  16.1 0.462
+   0     0   NA       7.4[] 
+ []
+
+
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 8476--8476
+[]\TU/lmtt/m/n/10.95 ## 2 2019  "LVA"    22    26    25  28.5   6.1  12.7 0.479
+   0     0    0       6.1[] 
+ []
+
+
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 8476--8476
+[]\TU/lmtt/m/n/10.95 ## 3 2020  "LVA"    23    22    22  31.7   7.5  15.7 0.48 
+   0     0   NA       7.5[] 
+ []
+
+
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 8476--8476
+[]\TU/lmtt/m/n/10.95 ## 4 2021  "LVA"    24    32    32  31.9   6.5  14.6 0.444
+   0     0    1       6.4[] 
+ []
+
+
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 8476--8476
+[]\TU/lmtt/m/n/10.95 ## 5 2022  "LVA"    25    36    36  30     7.2  14.4 0.501
+   0.9   2.3  0.373   6.4[] 
+ []
+
+
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 8476--8476
+[]\TU/lmtt/m/n/10.95 ## 6 Care~ ""       NA   149   148  30.5   7    14.7 0.473
+   0.2   0.6  0.376   6.7[] 
+ []
+
+
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 8476--8476
+[]\TU/lmtt/m/n/10.95 ## # ... with 15 more variables: []2PA[] <dbl>, []2P%[] <d
+bl>, []eFG%[] <dbl>, FT <dbl>,[] 
+ []
+
+[226] [227] [228] [229] [230
+
+]
+Chapter 9.
+[231] [232] [233] [234
 
 ]
 Chapter 10.
-[227] [228
-
-]
-Chapter 11.
-[229] [230
-
-]
-Chapter 12.
-[231] [232
-
-]
-Chapter 13.
-[233] [234
-
-]
-Chapter 14.
 [235] [236
 
 ]
-Chapter 15.
+Chapter 11.
 [237] [238
 
 ]
-Chapter 16.
+Chapter 12.
 [239] [240
 
 ]
-Chapter 17.
+Chapter 13.
 [241] [242
 
 ]
-Chapter 18.
+Chapter 14.
 [243] [244
 
 ]
-Chapter 19.
+Chapter 15.
 [245] [246
+
+]
+Chapter 16.
+[247] [248
+
+]
+Chapter 17.
+[249] [250
+
+]
+Chapter 18.
+[251] [252
+
+]
+Chapter 19.
+[253] [254
 
 ]
 Chapter 20.
 No file textbook.bbl.
-[247] (./textbook.aux) ) 
+[255] (./textbook.aux) ) 
 Here is how much of TeX's memory you used:
- 23082 strings out of 476179
- 445438 string characters out of 5809544
- 906498 words of memory out of 5000000
- 43369 multiletter control sequences out of 15000+600000
+ 23113 strings out of 476179
+ 446146 string characters out of 5809544
+ 906801 words of memory out of 5000000
+ 43397 multiletter control sequences out of 15000+600000
  475878 words of font info for 90 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 86i,10n,121p,1131b,512s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,10n,121p,1131b,516s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on textbook.pdf (247 pages).
+Output written on textbook.pdf (255 pages).
