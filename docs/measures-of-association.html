@@ -52,6 +52,8 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -311,7 +313,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="measures-of-association.html"><a href="measures-of-association.html#association-of-categorical-variables"><i class="fa fa-check"></i><b>6.2</b> Association of Categorical Variables</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="measures-of-association.html"><a href="measures-of-association.html#yules-q"><i class="fa fa-check"></i><b>6.2.1</b> Yule’s Q</a></li>
+<li class="chapter" data-level="6.2.1" data-path="measures-of-association.html"><a href="measures-of-association.html#odds-ratios"><i class="fa fa-check"></i><b>6.2.1</b> Odds Ratios</a></li>
+<li class="chapter" data-level="6.2.2" data-path="measures-of-association.html"><a href="measures-of-association.html#yules-q"><i class="fa fa-check"></i><b>6.2.2</b> Yule’s Q</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="measures-of-association.html"><a href="measures-of-association.html#rank-correlation"><i class="fa fa-check"></i><b>6.3</b> Rank Correlation</a></li>
 <li class="chapter" data-level="6.4" data-path="measures-of-association.html"><a href="measures-of-association.html#autocorrelation"><i class="fa fa-check"></i><b>6.4</b> Autocorrelation</a>
@@ -371,6 +374,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.7.3" data-path="linear-regression.html"><a href="linear-regression.html#field-goal-success"><i class="fa fa-check"></i><b>9.7.3</b> Field Goal Success</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="data-scraping-and-acquisition.html"><a href="data-scraping-and-acquisition.html"><i class="fa fa-check"></i><b>10</b> Data Scraping and Acquisition</a></li>
+<li class="chapter" data-level="11" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>11</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="12" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>12</b> Clustering</a></li>
+<li class="chapter" data-level="13" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>13</b> Classification</a></li>
+<li class="chapter" data-level="14" data-path="nonparametric-methods.html"><a href="nonparametric-methods.html"><i class="fa fa-check"></i><b>14</b> Nonparametric Methods</a></li>
+<li class="chapter" data-level="15" data-path="sports-drafts.html"><a href="sports-drafts.html"><i class="fa fa-check"></i><b>15</b> Sports Drafts</a></li>
+<li class="chapter" data-level="16" data-path="baseball-1.html"><a href="baseball-1.html"><i class="fa fa-check"></i><b>16</b> Baseball</a></li>
+<li class="chapter" data-level="17" data-path="football-1.html"><a href="football-1.html"><i class="fa fa-check"></i><b>17</b> Football</a></li>
+<li class="chapter" data-level="18" data-path="basketball-1.html"><a href="basketball-1.html"><i class="fa fa-check"></i><b>18</b> Basketball</a></li>
+<li class="chapter" data-level="19" data-path="hockey-1.html"><a href="hockey-1.html"><i class="fa fa-check"></i><b>19</b> Hockey</a></li>
+<li class="chapter" data-level="20" data-path="soccer-1.html"><a href="soccer-1.html"><i class="fa fa-check"></i><b>20</b> Soccer</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -398,27 +412,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="pearson-correlation-coefficient" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> Pearson Correlation Coefficient<a href="measures-of-association.html#pearson-correlation-coefficient" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="definition">
-<p><span id="def:unlabeled-div-1" class="definition"><strong>Definition 6.1  </strong></span>The <strong><em>Pearson correlation coefficient</em></strong> (also known as <strong><em>Pearson’s R</em></strong> or <strong><em>correlation coefficient</em></strong>) is a measure of linear relationship between two quantitative variables.</p>
+<p><span id="def:unlabeled-div-160" class="definition"><strong>Definition 6.1  </strong></span>The <strong><em>Pearson correlation coefficient</em></strong> (also known as <strong><em>Pearson’s R</em></strong> or <strong><em>correlation coefficient</em></strong>) is a measure of linear relationship between two quantitative variables.</p>
 <p>For two random variables, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, the Pearson correlation coefficient, <span class="math inline">\(\rho\)</span>, is:</p>
 <p><span class="math inline">\(\rho = \frac{Cov(X,Y)}{\sigma_X \sigma_Y}\)</span></p>
 <p>For two sets of sample data, <span class="math inline">\(\{x_1,x_2,\ldots,x_n\}\)</span> and <span class="math inline">\(\{y_1,y_2,\ldots,y_n\}\)</span>, the Pearson correlation coefficient is:</p>
 <p><span class="math inline">\(r_{xy} = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^n(x_i-\bar{x})^2}\sqrt{\sum_{i=1}^n(y_i-\bar{y})^2}}\)</span></p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-2" class="example"><strong>Example 6.1  </strong></span>Download pitching data for individual pitchers in the 2022 MLB season. Investigate the correlation between common pitching statistics.</p>
+<p><span id="exm:unlabeled-div-161" class="example"><strong>Example 6.1  </strong></span>Download pitching data for individual pitchers in the 2022 MLB season. Investigate the correlation between common pitching statistics.</p>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="measures-of-association.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="measures-of-association.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-3"><a href="measures-of-association.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(baseballr)</span>
-<span id="cb1-4"><a href="measures-of-association.html#cb1-4" aria-hidden="true" tabindex="-1"></a>mlb22_all <span class="ot">&lt;-</span> <span class="fu">bref_daily_pitcher</span>(<span class="st">&quot;2022-01-01&quot;</span>, <span class="st">&quot;2022-12-31&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-5"><a href="measures-of-association.html#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fip_plus</span>()</span>
-<span id="cb1-6"><a href="measures-of-association.html#cb1-6" aria-hidden="true" tabindex="-1"></a>mlb22_pitch <span class="ot">&lt;-</span> mlb22_all <span class="sc">%&gt;%</span>  </span>
-<span id="cb1-7"><a href="measures-of-association.html#cb1-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Name, IP, SO, uBB, HR, ERA, FIP) <span class="sc">%&gt;%</span></span>
-<span id="cb1-8"><a href="measures-of-association.html#cb1-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(dplyr<span class="sc">::</span><span class="fu">desc</span>(IP))</span>
-<span id="cb1-9"><a href="measures-of-association.html#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="measures-of-association.html#cb1-10" aria-hidden="true" tabindex="-1"></a>mlb22_pitch <span class="sc">%&gt;%</span> </span>
-<span id="cb1-11"><a href="measures-of-association.html#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-12"><a href="measures-of-association.html#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="measures-of-association.html#cb315-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb315-2"><a href="measures-of-association.html#cb315-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb315-3"><a href="measures-of-association.html#cb315-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(baseballr)</span>
+<span id="cb315-4"><a href="measures-of-association.html#cb315-4" aria-hidden="true" tabindex="-1"></a>mlb22_all <span class="ot">&lt;-</span> <span class="fu">bref_daily_pitcher</span>(<span class="st">&quot;2022-01-01&quot;</span>, <span class="st">&quot;2022-12-31&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb315-5"><a href="measures-of-association.html#cb315-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fip_plus</span>()</span>
+<span id="cb315-6"><a href="measures-of-association.html#cb315-6" aria-hidden="true" tabindex="-1"></a>mlb22_pitch <span class="ot">&lt;-</span> mlb22_all <span class="sc">%&gt;%</span>  </span>
+<span id="cb315-7"><a href="measures-of-association.html#cb315-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Name, IP, SO, uBB, HR, ERA, FIP) <span class="sc">%&gt;%</span></span>
+<span id="cb315-8"><a href="measures-of-association.html#cb315-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(dplyr<span class="sc">::</span><span class="fu">desc</span>(IP))</span>
+<span id="cb315-9"><a href="measures-of-association.html#cb315-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb315-10"><a href="measures-of-association.html#cb315-10" aria-hidden="true" tabindex="-1"></a>mlb22_pitch <span class="sc">%&gt;%</span> </span>
+<span id="cb315-11"><a href="measures-of-association.html#cb315-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb315-12"><a href="measures-of-association.html#cb315-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -655,7 +669,7 @@ Alek Manoah
 </tr>
 <tr>
 <td style="text-align:left;">
-Martín Pérez
+MartÃ­n PÃ©rez
 </td>
 <td style="text-align:right;">
 196.1
@@ -678,96 +692,91 @@ Martín Pérez
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="measures-of-association.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb2-2"><a href="measures-of-association.html#cb2-2" aria-hidden="true" tabindex="-1"></a>mlb22_pitch <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Name) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="measures-of-association.html#cb316-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb316-2"><a href="measures-of-association.html#cb316-2" aria-hidden="true" tabindex="-1"></a>mlb22_pitch <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Name) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-133-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="measures-of-association.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellipse)</span></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;ellipse&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:graphics&#39;:
-## 
-##     pairs</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="measures-of-association.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
-<span id="cb6-2"><a href="measures-of-association.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="measures-of-association.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use of the mtcars data proposed by R</span></span>
-<span id="cb6-4"><a href="measures-of-association.html#cb6-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> mlb22_pitch <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Name) <span class="sc">%&gt;%</span> <span class="fu">cor</span>()</span>
-<span id="cb6-5"><a href="measures-of-association.html#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="measures-of-association.html#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a Pannel of 100 colors with Rcolor Brewer</span></span>
-<span id="cb6-7"><a href="measures-of-association.html#cb6-7" aria-hidden="true" tabindex="-1"></a>my_colors <span class="ot">&lt;-</span> <span class="fu">brewer.pal</span>(<span class="dv">5</span>, <span class="st">&quot;Spectral&quot;</span>)</span>
-<span id="cb6-8"><a href="measures-of-association.html#cb6-8" aria-hidden="true" tabindex="-1"></a>my_colors <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(my_colors)(<span class="dv">100</span>)</span>
-<span id="cb6-9"><a href="measures-of-association.html#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="measures-of-association.html#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Order the correlation matrix</span></span>
-<span id="cb6-11"><a href="measures-of-association.html#cb6-11" aria-hidden="true" tabindex="-1"></a>ord <span class="ot">&lt;-</span> <span class="fu">order</span>(data[<span class="dv">1</span>, ])</span>
-<span id="cb6-12"><a href="measures-of-association.html#cb6-12" aria-hidden="true" tabindex="-1"></a>data_ord <span class="ot">&lt;-</span> data[ord, ord]</span>
-<span id="cb6-13"><a href="measures-of-association.html#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plotcorr</span>(data_ord, <span class="at">col=</span>my_colors[data_ord<span class="sc">*</span><span class="dv">50</span><span class="sc">+</span><span class="dv">50</span>], <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="measures-of-association.html#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellipse)</span>
+<span id="cb317-2"><a href="measures-of-association.html#cb317-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb317-3"><a href="measures-of-association.html#cb317-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb317-4"><a href="measures-of-association.html#cb317-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use of the mtcars data proposed by R</span></span>
+<span id="cb317-5"><a href="measures-of-association.html#cb317-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> mlb22_pitch <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Name) <span class="sc">%&gt;%</span> <span class="fu">cor</span>()</span>
+<span id="cb317-6"><a href="measures-of-association.html#cb317-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb317-7"><a href="measures-of-association.html#cb317-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a Pannel of 100 colors with Rcolor Brewer</span></span>
+<span id="cb317-8"><a href="measures-of-association.html#cb317-8" aria-hidden="true" tabindex="-1"></a>my_colors <span class="ot">&lt;-</span> <span class="fu">brewer.pal</span>(<span class="dv">5</span>, <span class="st">&quot;Spectral&quot;</span>)</span>
+<span id="cb317-9"><a href="measures-of-association.html#cb317-9" aria-hidden="true" tabindex="-1"></a>my_colors <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(my_colors)(<span class="dv">100</span>)</span>
+<span id="cb317-10"><a href="measures-of-association.html#cb317-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb317-11"><a href="measures-of-association.html#cb317-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Order the correlation matrix</span></span>
+<span id="cb317-12"><a href="measures-of-association.html#cb317-12" aria-hidden="true" tabindex="-1"></a>ord <span class="ot">&lt;-</span> <span class="fu">order</span>(data[<span class="dv">1</span>, ])</span>
+<span id="cb317-13"><a href="measures-of-association.html#cb317-13" aria-hidden="true" tabindex="-1"></a>data_ord <span class="ot">&lt;-</span> data[ord, ord]</span>
+<span id="cb317-14"><a href="measures-of-association.html#cb317-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plotcorr</span>(data_ord, <span class="at">col=</span>my_colors[data_ord<span class="sc">*</span><span class="dv">50</span><span class="sc">+</span><span class="dv">50</span>], <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-134-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="measures-of-association.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example adapted from: </span></span>
-<span id="cb7-2"><a href="measures-of-association.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://r-graph-gallery.com/273-custom-your-scatterplot-ggplot2.html</span></span>
-<span id="cb7-3"><a href="measures-of-association.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
-<span id="cb7-4"><a href="measures-of-association.html#cb7-4" aria-hidden="true" tabindex="-1"></a>mlb22_pitch <span class="sc">%&gt;%</span></span>
-<span id="cb7-5"><a href="measures-of-association.html#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>IP,<span class="at">y=</span>SO)) <span class="sc">+</span></span>
-<span id="cb7-6"><a href="measures-of-association.html#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb7-7"><a href="measures-of-association.html#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">color=</span><span class="st">&quot;black&quot;</span>,</span>
-<span id="cb7-8"><a href="measures-of-association.html#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill=</span><span class="st">&quot;#69b3a2&quot;</span>,</span>
-<span id="cb7-9"><a href="measures-of-association.html#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape=</span><span class="dv">22</span>,</span>
-<span id="cb7-10"><a href="measures-of-association.html#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha=</span><span class="fl">0.5</span>,</span>
-<span id="cb7-11"><a href="measures-of-association.html#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">size=</span><span class="dv">2</span></span>
-<span id="cb7-12"><a href="measures-of-association.html#cb7-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb7-13"><a href="measures-of-association.html#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm,<span class="at">se=</span>F,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-14"><a href="measures-of-association.html#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Innings Pitched vs. Strikeouts&quot;</span>,</span>
-<span id="cb7-15"><a href="measures-of-association.html#cb7-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;2022 MLB Season | Individual Pitchers&quot;</span>,</span>
-<span id="cb7-16"><a href="measures-of-association.html#cb7-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Data: Baseball Reference via baseballr&quot;</span>, </span>
-<span id="cb7-17"><a href="measures-of-association.html#cb7-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Innings Pitched (IP)&quot;</span>,</span>
-<span id="cb7-18"><a href="measures-of-association.html#cb7-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Strikeouts (SO)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-19"><a href="measures-of-association.html#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_cor</span>(<span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="at">label.x =</span> <span class="dv">155</span>, <span class="at">label.y =</span> <span class="dv">70</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="measures-of-association.html#cb318-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example adapted from: </span></span>
+<span id="cb318-2"><a href="measures-of-association.html#cb318-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://r-graph-gallery.com/273-custom-your-scatterplot-ggplot2.html</span></span>
+<span id="cb318-3"><a href="measures-of-association.html#cb318-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb318-4"><a href="measures-of-association.html#cb318-4" aria-hidden="true" tabindex="-1"></a>mlb22_pitch <span class="sc">%&gt;%</span></span>
+<span id="cb318-5"><a href="measures-of-association.html#cb318-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>IP,<span class="at">y=</span>SO)) <span class="sc">+</span></span>
+<span id="cb318-6"><a href="measures-of-association.html#cb318-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb318-7"><a href="measures-of-association.html#cb318-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">color=</span><span class="st">&quot;black&quot;</span>,</span>
+<span id="cb318-8"><a href="measures-of-association.html#cb318-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill=</span><span class="st">&quot;#69b3a2&quot;</span>,</span>
+<span id="cb318-9"><a href="measures-of-association.html#cb318-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape=</span><span class="dv">22</span>,</span>
+<span id="cb318-10"><a href="measures-of-association.html#cb318-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha=</span><span class="fl">0.5</span>,</span>
+<span id="cb318-11"><a href="measures-of-association.html#cb318-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">size=</span><span class="dv">2</span></span>
+<span id="cb318-12"><a href="measures-of-association.html#cb318-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb318-13"><a href="measures-of-association.html#cb318-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm,<span class="at">se=</span>F,<span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb318-14"><a href="measures-of-association.html#cb318-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Innings Pitched vs. Strikeouts&quot;</span>,</span>
+<span id="cb318-15"><a href="measures-of-association.html#cb318-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;2022 MLB Season | Individual Pitchers&quot;</span>,</span>
+<span id="cb318-16"><a href="measures-of-association.html#cb318-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Data: Baseball Reference via baseballr&quot;</span>, </span>
+<span id="cb318-17"><a href="measures-of-association.html#cb318-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Innings Pitched (IP)&quot;</span>,</span>
+<span id="cb318-18"><a href="measures-of-association.html#cb318-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Strikeouts (SO)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb318-19"><a href="measures-of-association.html#cb318-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_cor</span>(<span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="at">label.x =</span> <span class="dv">155</span>, <span class="at">label.y =</span> <span class="dv">70</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-135-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="measures-of-association.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExtra)</span>
-<span id="cb8-2"><a href="measures-of-association.html#cb8-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> mlb22_pitch <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="measures-of-association.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>SO,<span class="at">y=</span>ERA)) <span class="sc">+</span></span>
-<span id="cb8-4"><a href="measures-of-association.html#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb8-5"><a href="measures-of-association.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggMarginal</span>(p, <span class="at">type=</span><span class="st">&quot;histogram&quot;</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="measures-of-association.html#cb319-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExtra)</span>
+<span id="cb319-2"><a href="measures-of-association.html#cb319-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> mlb22_pitch <span class="sc">%&gt;%</span></span>
+<span id="cb319-3"><a href="measures-of-association.html#cb319-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>SO,<span class="at">y=</span>ERA)) <span class="sc">+</span></span>
+<span id="cb319-4"><a href="measures-of-association.html#cb319-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb319-5"><a href="measures-of-association.html#cb319-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggMarginal</span>(p, <span class="at">type=</span><span class="st">&quot;histogram&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-136-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="measures-of-association.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
-<span id="cb9-2"><a href="measures-of-association.html#cb9-2" aria-hidden="true" tabindex="-1"></a>color_pal <span class="ot">&lt;-</span> <span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">8</span>, <span class="at">name =</span> <span class="st">&quot;Dark2&quot;</span>)</span>
-<span id="cb9-3"><a href="measures-of-association.html#cb9-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> mlb22_pitch <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ERA <span class="sc">&lt;=</span> <span class="fl">10.00</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="measures-of-association.html#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>SO,<span class="at">y=</span>ERA)) <span class="sc">+</span></span>
-<span id="cb9-5"><a href="measures-of-association.html#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.5</span>,<span class="at">color=</span>color_pal[<span class="dv">1</span>]) <span class="sc">+</span></span>
-<span id="cb9-6"><a href="measures-of-association.html#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>,<span class="at">color=</span>color_pal[<span class="dv">2</span>]) <span class="sc">+</span></span>
-<span id="cb9-7"><a href="measures-of-association.html#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_cor</span>(<span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="at">label.x =</span> <span class="dv">185</span>, <span class="at">label.y =</span> <span class="fl">5.8</span>) <span class="sc">+</span></span>
-<span id="cb9-8"><a href="measures-of-association.html#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Strikeouts (SO) vs. Earned Run Average (ERA)&quot;</span>,</span>
-<span id="cb9-9"><a href="measures-of-association.html#cb9-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;2022 MLB Season | Individual Pitchers&quot;</span>,</span>
-<span id="cb9-10"><a href="measures-of-association.html#cb9-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Data: Baseball Reference via baseballr&quot;</span>, </span>
-<span id="cb9-11"><a href="measures-of-association.html#cb9-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Innings Pitched (IP)&quot;</span>,</span>
-<span id="cb9-12"><a href="measures-of-association.html#cb9-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Earned Run Average (ERA)&quot;</span>)</span>
-<span id="cb9-13"><a href="measures-of-association.html#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggMarginal</span>(p, <span class="at">type=</span><span class="st">&quot;histogram&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="measures-of-association.html#cb320-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb320-2"><a href="measures-of-association.html#cb320-2" aria-hidden="true" tabindex="-1"></a>color_pal <span class="ot">&lt;-</span> <span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">8</span>, <span class="at">name =</span> <span class="st">&quot;Dark2&quot;</span>)</span>
+<span id="cb320-3"><a href="measures-of-association.html#cb320-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> mlb22_pitch <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ERA <span class="sc">&lt;=</span> <span class="fl">10.00</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb320-4"><a href="measures-of-association.html#cb320-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>SO,<span class="at">y=</span>ERA)) <span class="sc">+</span></span>
+<span id="cb320-5"><a href="measures-of-association.html#cb320-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.5</span>,<span class="at">color=</span>color_pal[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb320-6"><a href="measures-of-association.html#cb320-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>,<span class="at">color=</span>color_pal[<span class="dv">2</span>]) <span class="sc">+</span></span>
+<span id="cb320-7"><a href="measures-of-association.html#cb320-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_cor</span>(<span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="at">label.x =</span> <span class="dv">185</span>, <span class="at">label.y =</span> <span class="fl">5.8</span>) <span class="sc">+</span></span>
+<span id="cb320-8"><a href="measures-of-association.html#cb320-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Strikeouts (SO) vs. Earned Run Average (ERA)&quot;</span>,</span>
+<span id="cb320-9"><a href="measures-of-association.html#cb320-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;2022 MLB Season | Individual Pitchers&quot;</span>,</span>
+<span id="cb320-10"><a href="measures-of-association.html#cb320-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Data: Baseball Reference via baseballr&quot;</span>, </span>
+<span id="cb320-11"><a href="measures-of-association.html#cb320-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Innings Pitched (IP)&quot;</span>,</span>
+<span id="cb320-12"><a href="measures-of-association.html#cb320-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Earned Run Average (ERA)&quot;</span>)</span>
+<span id="cb320-13"><a href="measures-of-association.html#cb320-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggMarginal</span>(p, <span class="at">type=</span><span class="st">&quot;histogram&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;
 ## `geom_smooth()` using formula = &#39;y ~ x&#39;
 ## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="textbook_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="textbook_files/figure-html/unnamed-chunk-137-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="measures-of-association.html#cb11-1" aria-hidden="true" tabindex="-1"></a>mlb22_pitch <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="measures-of-association.html#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>ERA,<span class="at">y=</span>FIP)) <span class="sc">+</span></span>
-<span id="cb11-3"><a href="measures-of-association.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.5</span>,<span class="at">color=</span>color_pal[<span class="dv">1</span>]) <span class="sc">+</span></span>
-<span id="cb11-4"><a href="measures-of-association.html#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>)) <span class="sc">+</span></span>
-<span id="cb11-5"><a href="measures-of-association.html#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>)) <span class="sc">+</span></span>
-<span id="cb11-6"><a href="measures-of-association.html#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb11-7"><a href="measures-of-association.html#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Earned Run Average (ERA) vs. Fielding Independent Pitching (FIP)&quot;</span>,</span>
-<span id="cb11-8"><a href="measures-of-association.html#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;2022 MLB Season | Individual Pitchers&quot;</span>,</span>
-<span id="cb11-9"><a href="measures-of-association.html#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Data: Baseball Reference via baseballr&quot;</span>, </span>
-<span id="cb11-10"><a href="measures-of-association.html#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Earned Run Average (ERA)&quot;</span>,</span>
-<span id="cb11-11"><a href="measures-of-association.html#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Fielding Independent Pitching (FIP)&quot;</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="measures-of-association.html#cb322-1" aria-hidden="true" tabindex="-1"></a>mlb22_pitch <span class="sc">%&gt;%</span> </span>
+<span id="cb322-2"><a href="measures-of-association.html#cb322-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>ERA,<span class="at">y=</span>FIP)) <span class="sc">+</span></span>
+<span id="cb322-3"><a href="measures-of-association.html#cb322-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.5</span>,<span class="at">color=</span>color_pal[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb322-4"><a href="measures-of-association.html#cb322-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb322-5"><a href="measures-of-association.html#cb322-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb322-6"><a href="measures-of-association.html#cb322-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb322-7"><a href="measures-of-association.html#cb322-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Earned Run Average (ERA) vs. Fielding Independent Pitching (FIP)&quot;</span>,</span>
+<span id="cb322-8"><a href="measures-of-association.html#cb322-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;2022 MLB Season | Individual Pitchers&quot;</span>,</span>
+<span id="cb322-9"><a href="measures-of-association.html#cb322-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Data: Baseball Reference via baseballr&quot;</span>, </span>
+<span id="cb322-10"><a href="measures-of-association.html#cb322-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Earned Run Average (ERA)&quot;</span>,</span>
+<span id="cb322-11"><a href="measures-of-association.html#cb322-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Fielding Independent Pitching (FIP)&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-138-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="measures-of-association.html#cb12-1" aria-hidden="true" tabindex="-1"></a>rox22_pitch <span class="ot">&lt;-</span> mlb22_all <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="measures-of-association.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Name,Team,IP,H,uBB,ERA,FIP) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-3"><a href="measures-of-association.html#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team<span class="sc">==</span><span class="st">&quot;Colorado&quot;</span>)</span>
-<span id="cb12-4"><a href="measures-of-association.html#cb12-4" aria-hidden="true" tabindex="-1"></a>rox22_pitch <span class="sc">%&gt;%</span> </span>
-<span id="cb12-5"><a href="measures-of-association.html#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(IP)) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-6"><a href="measures-of-association.html#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="measures-of-association.html#cb323-1" aria-hidden="true" tabindex="-1"></a>rox22_pitch <span class="ot">&lt;-</span> mlb22_all <span class="sc">%&gt;%</span> </span>
+<span id="cb323-2"><a href="measures-of-association.html#cb323-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Name,Team,IP,H,uBB,ERA,FIP) <span class="sc">%&gt;%</span> </span>
+<span id="cb323-3"><a href="measures-of-association.html#cb323-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team<span class="sc">==</span><span class="st">&quot;Colorado&quot;</span>)</span>
+<span id="cb323-4"><a href="measures-of-association.html#cb323-4" aria-hidden="true" tabindex="-1"></a>rox22_pitch <span class="sc">%&gt;%</span> </span>
+<span id="cb323-5"><a href="measures-of-association.html#cb323-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(IP)) <span class="sc">%&gt;%</span> </span>
+<span id="cb323-6"><a href="measures-of-association.html#cb323-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -797,7 +806,7 @@ FIP
 <tbody>
 <tr>
 <td style="text-align:left;">
-Germán Márquez
+GermÃ¡n MÃ¡rquez
 </td>
 <td style="text-align:left;">
 Colorado
@@ -958,7 +967,7 @@ Colorado
 </tr>
 <tr>
 <td style="text-align:left;">
-Carlos Estévez
+Carlos EstÃ©vez
 </td>
 <td style="text-align:left;">
 Colorado
@@ -1004,7 +1013,7 @@ Colorado
 </tr>
 <tr>
 <td style="text-align:left;">
-Jhoulys Chacín
+Jhoulys ChacÃ­n
 </td>
 <td style="text-align:left;">
 Colorado
@@ -1027,7 +1036,7 @@ Colorado
 </tr>
 <tr>
 <td style="text-align:left;">
-Alex Colomé
+Alex ColomÃ©
 </td>
 <td style="text-align:left;">
 Colorado
@@ -1304,35 +1313,35 @@ Colorado
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="measures-of-association.html#cb13-1" aria-hidden="true" tabindex="-1"></a>rox22_pitch <span class="sc">%&gt;%</span> </span>
-<span id="cb13-2"><a href="measures-of-association.html#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>H,<span class="at">y=</span>uBB,<span class="at">size=</span>IP)) <span class="sc">+</span></span>
-<span id="cb13-3"><a href="measures-of-association.html#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.5</span>,<span class="at">color=</span>color_pal[<span class="dv">1</span>]) <span class="sc">+</span></span>
-<span id="cb13-4"><a href="measures-of-association.html#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Colorado Rockies Pitchers: Hits Allowed vs. Unintentional Walks&quot;</span>,</span>
-<span id="cb13-5"><a href="measures-of-association.html#cb13-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;2022 MLB Season | Individual Pitchers&quot;</span>,</span>
-<span id="cb13-6"><a href="measures-of-association.html#cb13-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Data: Baseball Reference via baseballr&quot;</span>, </span>
-<span id="cb13-7"><a href="measures-of-association.html#cb13-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Hits Allowed (H)&quot;</span>,</span>
-<span id="cb13-8"><a href="measures-of-association.html#cb13-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Unintentional Walks (uBB)&quot;</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="measures-of-association.html#cb324-1" aria-hidden="true" tabindex="-1"></a>rox22_pitch <span class="sc">%&gt;%</span> </span>
+<span id="cb324-2"><a href="measures-of-association.html#cb324-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>H,<span class="at">y=</span>uBB,<span class="at">size=</span>IP)) <span class="sc">+</span></span>
+<span id="cb324-3"><a href="measures-of-association.html#cb324-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.5</span>,<span class="at">color=</span>color_pal[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb324-4"><a href="measures-of-association.html#cb324-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Colorado Rockies Pitchers: Hits Allowed vs. Unintentional Walks&quot;</span>,</span>
+<span id="cb324-5"><a href="measures-of-association.html#cb324-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;2022 MLB Season | Individual Pitchers&quot;</span>,</span>
+<span id="cb324-6"><a href="measures-of-association.html#cb324-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Data: Baseball Reference via baseballr&quot;</span>, </span>
+<span id="cb324-7"><a href="measures-of-association.html#cb324-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Hits Allowed (H)&quot;</span>,</span>
+<span id="cb324-8"><a href="measures-of-association.html#cb324-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Unintentional Walks (uBB)&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-140-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 <div id="partial-correlation-and-confounding-variables" class="section level3 hasAnchor" number="6.1.1">
 <h3><span class="header-section-number">6.1.1</span> Partial Correlation and Confounding Variables<a href="measures-of-association.html#partial-correlation-and-confounding-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As seen in the previous example, counting statistics are often highly correlated. In particular, we may want to speculate that pitchers with poor control (high walks) tend to give up lots of hits due to poor control. This is only due to the presence of a <strong><em>lurking variable</em></strong> (innings pitched). To account for a lurking variable, one can calculate partial correlation coefficient in such situations.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-3" class="example"><strong>Example 6.2  </strong></span>Let <span class="math inline">\(X,Y,Z\)</span> be random variables and let <span class="math inline">\(r_{XY}\)</span> be the (standard) correlation coefficient between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. The <strong><em>partial correlation coefficient</em></strong> of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, controlling for <span class="math inline">\(Z\)</span> is:</p>
+<p><span id="exm:unlabeled-div-162" class="example"><strong>Example 6.2  </strong></span>Let <span class="math inline">\(X,Y,Z\)</span> be random variables and let <span class="math inline">\(r_{XY}\)</span> be the (standard) correlation coefficient between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. The <strong><em>partial correlation coefficient</em></strong> of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, controlling for <span class="math inline">\(Z\)</span> is:</p>
 <p><span class="math inline">\(r_{XY \bullet Z} = \frac{r_{XY}-r_{XZ}r_{YZ}}{\sqrt{1-r_{XZ}^2}\sqrt{1-r_{YZ}^2}}\)</span></p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-4" class="example"><strong>Example 6.3  </strong></span>Calculate the correlation between strikeouts and (unintentional) walks for pitchers with at least 20 IP during the 2022 season, with and without controlling for innings pitched.</p>
+<p><span id="exm:unlabeled-div-163" class="example"><strong>Example 6.3  </strong></span>Calculate the correlation between strikeouts and (unintentional) walks for pitchers with at least 20 IP during the 2022 season, with and without controlling for innings pitched.</p>
 </div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="measures-of-association.html#cb14-1" aria-hidden="true" tabindex="-1"></a>( cor_matrix <span class="ot">&lt;-</span> mlb22_all <span class="sc">%&gt;%</span> <span class="fu">select</span>(H,uBB,IP) <span class="sc">%&gt;%</span> <span class="fu">cor</span>() )</span></code></pre></div>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="measures-of-association.html#cb325-1" aria-hidden="true" tabindex="-1"></a>( cor_matrix <span class="ot">&lt;-</span> mlb22_all <span class="sc">%&gt;%</span> <span class="fu">select</span>(H,uBB,IP) <span class="sc">%&gt;%</span> <span class="fu">cor</span>() )</span></code></pre></div>
 <pre><code>##             H       uBB        IP
 ## H   1.0000000 0.8766316 0.9698289
 ## uBB 0.8766316 1.0000000 0.8927844
 ## IP  0.9698289 0.8927844 1.0000000</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="measures-of-association.html#cb16-1" aria-hidden="true" tabindex="-1"></a>( cor_without <span class="ot">&lt;-</span> cor_matrix[<span class="dv">1</span>,<span class="dv">2</span>] )</span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="measures-of-association.html#cb327-1" aria-hidden="true" tabindex="-1"></a>( cor_without <span class="ot">&lt;-</span> cor_matrix[<span class="dv">1</span>,<span class="dv">2</span>] )</span></code></pre></div>
 <pre><code>## [1] 0.8766316</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="measures-of-association.html#cb18-1" aria-hidden="true" tabindex="-1"></a>( cor_with <span class="ot">&lt;-</span> (cor_matrix[<span class="dv">1</span>,<span class="dv">2</span>] <span class="sc">-</span> cor_matrix[<span class="dv">1</span>,<span class="dv">3</span>]<span class="sc">*</span>cor_matrix[<span class="dv">2</span>,<span class="dv">3</span>]) <span class="sc">/</span></span>
-<span id="cb18-2"><a href="measures-of-association.html#cb18-2" aria-hidden="true" tabindex="-1"></a>    (<span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">-</span>cor_matrix[<span class="dv">1</span>,<span class="dv">3</span>]<span class="sc">^</span><span class="dv">2</span>)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">-</span>cor_matrix[<span class="dv">2</span>,<span class="dv">3</span>]<span class="sc">^</span><span class="dv">2</span>)) )</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="measures-of-association.html#cb329-1" aria-hidden="true" tabindex="-1"></a>( cor_with <span class="ot">&lt;-</span> (cor_matrix[<span class="dv">1</span>,<span class="dv">2</span>] <span class="sc">-</span> cor_matrix[<span class="dv">1</span>,<span class="dv">3</span>]<span class="sc">*</span>cor_matrix[<span class="dv">2</span>,<span class="dv">3</span>]) <span class="sc">/</span></span>
+<span id="cb329-2"><a href="measures-of-association.html#cb329-2" aria-hidden="true" tabindex="-1"></a>    (<span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">-</span>cor_matrix[<span class="dv">1</span>,<span class="dv">3</span>]<span class="sc">^</span><span class="dv">2</span>)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">-</span>cor_matrix[<span class="dv">2</span>,<span class="dv">3</span>]<span class="sc">^</span><span class="dv">2</span>)) )</span></code></pre></div>
 <pre><code>## [1] 0.09819068</code></pre>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1340,9 +1349,9 @@ Colorado
 <h3><span class="header-section-number">6.1.2</span> Properties of the Linear Correlation Coefficient<a href="measures-of-association.html#properties-of-the-linear-correlation-coefficient" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Pearson’s correlation coefficient is unaffected by changes in location (adding a constant) or scale (multiplying by a constant) of data. To illustrate this concept, let’s consider the correlation between the number of points scored by the winning team of the Super Bowl and 1) the number of the Super Bowl {1, 2, 3, … , 56} and 2) the year of the Super Bowl {1967, 1968, 1969, … , 2022}.</p>
 <p><img src="textbook_files/figure-html/correlation%20properties%202-1.png" width="672" /></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="measures-of-association.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(Super_Bowl_Number, Winning_Team_Points)</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="measures-of-association.html#cb331-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(Super_Bowl_Number, Winning_Team_Points)</span></code></pre></div>
 <pre><code>## [1] 0.1063479</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="measures-of-association.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(Super_Bowl_Year, Winning_Team_Points)</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="measures-of-association.html#cb333-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(Super_Bowl_Year, Winning_Team_Points)</span></code></pre></div>
 <pre><code>## [1] 0.1063479</code></pre>
 <p>The only difference between the two plots is that the x-axis is shifted. Since the change is essentially a linear (location) transformation, the correlations are identical.</p>
 <p>Note: The correlations were equal only because there has been a one-to-one relationship between Super Bowl number and year since 1967. Major League Baseball has had years in which no World Series was held (1904 - boycott, 1994 - players’ strike); thus, the same example applied to the MLB would produce slightly different correlation coefficients.</p>
@@ -1357,11 +1366,7 @@ Colorado
 <h2><span class="header-section-number">6.2</span> Association of Categorical Variables<a href="measures-of-association.html#association-of-categorical-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>While Pearson’s correlations can be used to find associations between categorical variables, there are better measures to be used.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-5" class="example"><strong>Example 6.4  </strong></span>(From <em>Analytic Methods in Sports</em>) Suppose we are given the following partial contingency table that tabulates the number of “complete games” for a starting pitcher by league.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="measures-of-association.html#cb24-1" aria-hidden="true" tabindex="-1"></a>mlb_comp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Yes =</span> <span class="fu">c</span>(<span class="st">&quot; &quot;</span>, <span class="st">&quot; &quot;</span>, <span class="dv">128</span>), <span class="at">No =</span> <span class="fu">c</span>(<span class="st">&quot; &quot;</span>, <span class="st">&quot; &quot;</span>, <span class="dv">4732</span>), <span class="at">Total =</span> <span class="fu">c</span>(<span class="dv">2592</span>,<span class="dv">2268</span>, <span class="dv">4860</span>))</span>
-<span id="cb24-2"><a href="measures-of-association.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(mlb_comp) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;NL&quot;</span>, <span class="st">&quot;AL&quot;</span>,<span class="st">&quot;Total&quot;</span>)</span>
-<span id="cb24-3"><a href="measures-of-association.html#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="measures-of-association.html#cb24-4" aria-hidden="true" tabindex="-1"></a>mlb_comp <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><span id="exm:unlabeled-div-164" class="example"><strong>Example 6.4  </strong></span>(From <em>Analytic Methods in Sports</em>) Suppose we are given the following partial contingency table that tabulates the number of “complete games” for a starting pitcher by league.</p>
 <table>
 <thead>
 <tr>
@@ -1421,25 +1426,27 @@ Total
 </table>
 <p>Choose values to give the largest and smallest correlations.</p>
 </div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="measures-of-association.html#cb25-1" aria-hidden="true" tabindex="-1"></a>League <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">2592</span>),<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">2268</span>))</span>
-<span id="cb25-2"><a href="measures-of-association.html#cb25-2" aria-hidden="true" tabindex="-1"></a>Complete <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4860</span>)</span>
-<span id="cb25-3"><a href="measures-of-association.html#cb25-3" aria-hidden="true" tabindex="-1"></a>Complete[<span class="dv">1</span><span class="sc">:</span><span class="dv">68</span>] <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb25-4"><a href="measures-of-association.html#cb25-4" aria-hidden="true" tabindex="-1"></a>Complete[<span class="dv">2593</span><span class="sc">:</span>(<span class="dv">2593</span><span class="sc">+</span><span class="dv">59</span>)]<span class="ot">=</span><span class="dv">1</span></span>
-<span id="cb25-5"><a href="measures-of-association.html#cb25-5" aria-hidden="true" tabindex="-1"></a>small_corr <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(League,Complete)</span>
-<span id="cb25-6"><a href="measures-of-association.html#cb25-6" aria-hidden="true" tabindex="-1"></a>small_corr_table <span class="ot">&lt;-</span> <span class="fu">table</span>(small_corr)</span>
-<span id="cb25-7"><a href="measures-of-association.html#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(small_corr_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;NL&quot;</span>,<span class="st">&quot;AL&quot;</span>)</span>
-<span id="cb25-8"><a href="measures-of-association.html#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(small_corr_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Yes&quot;</span>,<span class="st">&quot;No&quot;</span>)</span>
-<span id="cb25-9"><a href="measures-of-association.html#cb25-9" aria-hidden="true" tabindex="-1"></a>small_corr_table <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><strong><em>Example 1: Small correlation</em></strong><br />
+</p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="measures-of-association.html#cb335-1" aria-hidden="true" tabindex="-1"></a>League <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">2592</span>),<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">2268</span>))</span>
+<span id="cb335-2"><a href="measures-of-association.html#cb335-2" aria-hidden="true" tabindex="-1"></a>Complete <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4860</span>)</span>
+<span id="cb335-3"><a href="measures-of-association.html#cb335-3" aria-hidden="true" tabindex="-1"></a>Complete[<span class="dv">1</span><span class="sc">:</span><span class="dv">68</span>] <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb335-4"><a href="measures-of-association.html#cb335-4" aria-hidden="true" tabindex="-1"></a>Complete[<span class="dv">2593</span><span class="sc">:</span>(<span class="dv">2593</span><span class="sc">+</span><span class="dv">59</span>)]<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb335-5"><a href="measures-of-association.html#cb335-5" aria-hidden="true" tabindex="-1"></a>small_corr <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(League,Complete)</span>
+<span id="cb335-6"><a href="measures-of-association.html#cb335-6" aria-hidden="true" tabindex="-1"></a>small_corr_table <span class="ot">&lt;-</span> <span class="fu">table</span>(small_corr)</span>
+<span id="cb335-7"><a href="measures-of-association.html#cb335-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(small_corr_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;NL&quot;</span>,<span class="st">&quot;AL&quot;</span>)</span>
+<span id="cb335-8"><a href="measures-of-association.html#cb335-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(small_corr_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
+<span id="cb335-9"><a href="measures-of-association.html#cb335-9" aria-hidden="true" tabindex="-1"></a>small_corr_table <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
 <th style="text-align:left;">
 </th>
 <th style="text-align:right;">
-Yes
+No
 </th>
 <th style="text-align:right;">
-No
+Yes
 </th>
 </tr>
 </thead>
@@ -1468,7 +1475,7 @@ AL
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="measures-of-association.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(small_corr) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="measures-of-association.html#cb336-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(small_corr) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1507,23 +1514,26 @@ Complete
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="measures-of-association.html#cb27-1" aria-hidden="true" tabindex="-1"></a>Complete <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4860</span>)</span>
-<span id="cb27-2"><a href="measures-of-association.html#cb27-2" aria-hidden="true" tabindex="-1"></a>Complete[<span class="dv">1</span><span class="sc">:</span><span class="dv">128</span>] <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb27-3"><a href="measures-of-association.html#cb27-3" aria-hidden="true" tabindex="-1"></a>large_corr1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(League,Complete)</span>
-<span id="cb27-4"><a href="measures-of-association.html#cb27-4" aria-hidden="true" tabindex="-1"></a>large_corr1_table <span class="ot">&lt;-</span> <span class="fu">table</span>(large_corr1)</span>
-<span id="cb27-5"><a href="measures-of-association.html#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(large_corr1_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;NL&quot;</span>,<span class="st">&quot;AL&quot;</span>)</span>
-<span id="cb27-6"><a href="measures-of-association.html#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(large_corr1_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Yes&quot;</span>,<span class="st">&quot;No&quot;</span>)</span>
-<span id="cb27-7"><a href="measures-of-association.html#cb27-7" aria-hidden="true" tabindex="-1"></a>large_corr1_table <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div style="page-break-after: always;"></div>
+<p><strong><em>Example 2: Large correlation (1)</em></strong><br />
+</p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="measures-of-association.html#cb337-1" aria-hidden="true" tabindex="-1"></a>Complete <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4860</span>)</span>
+<span id="cb337-2"><a href="measures-of-association.html#cb337-2" aria-hidden="true" tabindex="-1"></a>Complete[<span class="dv">1</span><span class="sc">:</span><span class="dv">128</span>] <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb337-3"><a href="measures-of-association.html#cb337-3" aria-hidden="true" tabindex="-1"></a>large_corr1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(League,Complete)</span>
+<span id="cb337-4"><a href="measures-of-association.html#cb337-4" aria-hidden="true" tabindex="-1"></a>large_corr1_table <span class="ot">&lt;-</span> <span class="fu">table</span>(large_corr1)</span>
+<span id="cb337-5"><a href="measures-of-association.html#cb337-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(large_corr1_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;NL&quot;</span>,<span class="st">&quot;AL&quot;</span>)</span>
+<span id="cb337-6"><a href="measures-of-association.html#cb337-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(large_corr1_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
+<span id="cb337-7"><a href="measures-of-association.html#cb337-7" aria-hidden="true" tabindex="-1"></a>large_corr1_table <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
 <th style="text-align:left;">
 </th>
 <th style="text-align:right;">
-Yes
+No
 </th>
 <th style="text-align:right;">
-No
+Yes
 </th>
 </tr>
 </thead>
@@ -1552,7 +1562,7 @@ AL
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="measures-of-association.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(large_corr1) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="measures-of-association.html#cb338-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(large_corr1) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1591,24 +1601,26 @@ Complete
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="measures-of-association.html#cb29-1" aria-hidden="true" tabindex="-1"></a>Complete <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4860</span>)</span>
-<span id="cb29-2"><a href="measures-of-association.html#cb29-2" aria-hidden="true" tabindex="-1"></a>Complete[<span class="dv">2593</span><span class="sc">:</span>(<span class="dv">2593</span><span class="sc">+</span><span class="dv">127</span>)] <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb29-3"><a href="measures-of-association.html#cb29-3" aria-hidden="true" tabindex="-1"></a>large_corr2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(League,Complete)</span>
-<span id="cb29-4"><a href="measures-of-association.html#cb29-4" aria-hidden="true" tabindex="-1"></a>large_corr2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(League,Complete)</span>
-<span id="cb29-5"><a href="measures-of-association.html#cb29-5" aria-hidden="true" tabindex="-1"></a>large_corr2_table <span class="ot">&lt;-</span> <span class="fu">table</span>(large_corr2)</span>
-<span id="cb29-6"><a href="measures-of-association.html#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(large_corr2_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;NL&quot;</span>,<span class="st">&quot;AL&quot;</span>)</span>
-<span id="cb29-7"><a href="measures-of-association.html#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(large_corr2_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Yes&quot;</span>,<span class="st">&quot;No&quot;</span>)</span>
-<span id="cb29-8"><a href="measures-of-association.html#cb29-8" aria-hidden="true" tabindex="-1"></a>large_corr2_table <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><strong><em>Example 3: Large correlation (2)</em></strong><br />
+</p>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="measures-of-association.html#cb339-1" aria-hidden="true" tabindex="-1"></a>Complete <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4860</span>)</span>
+<span id="cb339-2"><a href="measures-of-association.html#cb339-2" aria-hidden="true" tabindex="-1"></a>Complete[<span class="dv">2593</span><span class="sc">:</span>(<span class="dv">2593</span><span class="sc">+</span><span class="dv">127</span>)] <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb339-3"><a href="measures-of-association.html#cb339-3" aria-hidden="true" tabindex="-1"></a>large_corr2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(League,Complete)</span>
+<span id="cb339-4"><a href="measures-of-association.html#cb339-4" aria-hidden="true" tabindex="-1"></a>large_corr2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(League,Complete)</span>
+<span id="cb339-5"><a href="measures-of-association.html#cb339-5" aria-hidden="true" tabindex="-1"></a>large_corr2_table <span class="ot">&lt;-</span> <span class="fu">table</span>(large_corr2)</span>
+<span id="cb339-6"><a href="measures-of-association.html#cb339-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(large_corr2_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;NL&quot;</span>,<span class="st">&quot;AL&quot;</span>)</span>
+<span id="cb339-7"><a href="measures-of-association.html#cb339-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(large_corr2_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
+<span id="cb339-8"><a href="measures-of-association.html#cb339-8" aria-hidden="true" tabindex="-1"></a>large_corr2_table <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
 <th style="text-align:left;">
 </th>
 <th style="text-align:right;">
-Yes
+No
 </th>
 <th style="text-align:right;">
-No
+Yes
 </th>
 </tr>
 </thead>
@@ -1637,7 +1649,7 @@ AL
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="measures-of-association.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(large_corr2) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="measures-of-association.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(large_corr2) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1677,15 +1689,140 @@ Complete
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
-<p>::{.definition}
-The <strong><em>tetrachoric correlation</em></strong> is a measure of association between two binary, categorical variables and is calculated by:</p>
-<p><span class="math inline">\(r = \frac{ad-bc}{(a+b)}\)</span>
-:::</p>
-<div style="page-break-after: always;"></div>
-<div id="yules-q" class="section level3 hasAnchor" number="6.2.1">
-<h3><span class="header-section-number">6.2.1</span> Yule’s Q<a href="measures-of-association.html#yules-q" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="odds-ratios" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Odds Ratios<a href="measures-of-association.html#odds-ratios" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be two binary, categorical variables with the following contingency table.</p>
+<table>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Y  X
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+Total
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+a
+</td>
+<td style="text-align:left;">
+c
+</td>
+<td style="text-align:left;">
+a+c
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+b
+</td>
+<td style="text-align:left;">
+d
+</td>
+<td style="text-align:left;">
+b+d
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:left;">
+a+b
+</td>
+<td style="text-align:left;">
+c+d
+</td>
+<td style="text-align:left;">
+a+b+c+d
+</td>
+</tr>
+</tbody>
+</table>
 <p>One possible way to measure the association between two binary variables is to look at the odds ratio.</p>
-<p><span class="math inline">\(OR\)</span></p>
+<div class="definition">
+<p><span id="def:unlabeled-div-165" class="definition"><strong>Definition 6.2  </strong></span>The odds ratio (OR) is a measure of association between two categorical variables of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> and is:</p>
+<p><span class="math inline">\(OR =\frac{ad}{bc}\)</span></p>
+<p><span class="math inline">\(OR &gt; 1\)</span> means that <span class="math inline">\(Y=1\)</span> is more likely when <span class="math inline">\(X=1\)</span> than when <span class="math inline">\(X=0\)</span>.<br />
+<span class="math inline">\(OR &lt; 1\)</span> means that <span class="math inline">\(Y=1\)</span> is less likely when <span class="math inline">\(X=1\)</span> than when <span class="math inline">\(X=0\)</span>.<br />
+<span class="math inline">\(OR = 1\)</span> means that <span class="math inline">\(Y=1\)</span> is equally likely when <span class="math inline">\(X=1\)</span> than when <span class="math inline">\(X=0\)</span>.</p>
+<p><span class="math inline">\(OR\)</span> ranges from 0 to <span class="math inline">\(\infty\)</span></p>
+</div>
+<p>The odds ratio allows one to compare the relative likelihoods of <span class="math inline">\(Y=1\)</span> given <span class="math inline">\(X=1\)</span> vs. <span class="math inline">\(X=0\)</span>.</p>
+<p><span class="math inline">\(\text{Ratio of OR} = \frac{P(Y=1|X=1)/P(Y=0|X=1)}{P(Y=1|X=0)/P(Y=0|X=0)}\)</span></p>
+<div class="example">
+<p><span id="exm:unlabeled-div-166" class="example"><strong>Example 6.5  </strong></span>The following contingency table summarizes complete games by league during the 2012 MLB season.<br />
+</p>
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+No
+</th>
+<th style="text-align:right;">
+Yes
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+NL
+</td>
+<td style="text-align:right;">
+2533
+</td>
+<td style="text-align:right;">
+59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AL
+</td>
+<td style="text-align:right;">
+2199
+</td>
+<td style="text-align:right;">
+69
+</td>
+</tr>
+</tbody>
+</table>
+<p>Calculate the following:<br />
+(a) <span class="math inline">\(P(CG|AL)\)</span><br />
+(b) <span class="math inline">\(P(CG|NL)\)</span><br />
+(c) <span class="math inline">\(OR(CG)\)</span><br />
+</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="yules-q" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Yule’s Q<a href="measures-of-association.html#yules-q" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="definition">
+<p><span id="def:unlabeled-div-167" class="definition"><strong>Definition 6.3  </strong></span>Yule’s Q is a measure of association between two categorical variables and is defined by:</p>
+<p><span class="math inline">\(Q = \frac{OR-1}{OR+1}\)</span></p>
+<p><span class="math inline">\(Q\)</span> ranges from -1 to 1, where <span class="math inline">\(Q=0\)</span> implies no relationship between the variables.</p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-168" class="example"><strong>Example 6.6  </strong></span>Calculate Yule’s Q for the previous example and interpret the value in the context of the problem.</p>
+</div>
+<div style="page-break-after: always;"></div>
 <p>(AM, page 143, Yule’s Q)</p>
 <p>(AM, page 139, winning at halftime vs winning game)</p>
 <p>(AM, page 144, Brady TD passes vs sacks)</p>

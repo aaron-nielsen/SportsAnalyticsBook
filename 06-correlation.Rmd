@@ -257,8 +257,6 @@ mlb_comp %>% kable(booktabs=T,digits = 3)
 Choose values to give the largest and smallest correlations.
 :::
 
-\vfill
-
 ***Example 1: Small correlation*** \
 
 ```{r}

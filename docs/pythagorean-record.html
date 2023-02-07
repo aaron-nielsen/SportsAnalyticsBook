@@ -52,6 +52,8 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -311,7 +313,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="measures-of-association.html"><a href="measures-of-association.html#association-of-categorical-variables"><i class="fa fa-check"></i><b>6.2</b> Association of Categorical Variables</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="measures-of-association.html"><a href="measures-of-association.html#yules-q"><i class="fa fa-check"></i><b>6.2.1</b> Yule’s Q</a></li>
+<li class="chapter" data-level="6.2.1" data-path="measures-of-association.html"><a href="measures-of-association.html#odds-ratios"><i class="fa fa-check"></i><b>6.2.1</b> Odds Ratios</a></li>
+<li class="chapter" data-level="6.2.2" data-path="measures-of-association.html"><a href="measures-of-association.html#yules-q"><i class="fa fa-check"></i><b>6.2.2</b> Yule’s Q</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="measures-of-association.html"><a href="measures-of-association.html#rank-correlation"><i class="fa fa-check"></i><b>6.3</b> Rank Correlation</a></li>
 <li class="chapter" data-level="6.4" data-path="measures-of-association.html"><a href="measures-of-association.html#autocorrelation"><i class="fa fa-check"></i><b>6.4</b> Autocorrelation</a>
@@ -371,6 +374,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.7.3" data-path="linear-regression.html"><a href="linear-regression.html#field-goal-success"><i class="fa fa-check"></i><b>9.7.3</b> Field Goal Success</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="data-scraping-and-acquisition.html"><a href="data-scraping-and-acquisition.html"><i class="fa fa-check"></i><b>10</b> Data Scraping and Acquisition</a></li>
+<li class="chapter" data-level="11" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>11</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="12" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>12</b> Clustering</a></li>
+<li class="chapter" data-level="13" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>13</b> Classification</a></li>
+<li class="chapter" data-level="14" data-path="nonparametric-methods.html"><a href="nonparametric-methods.html"><i class="fa fa-check"></i><b>14</b> Nonparametric Methods</a></li>
+<li class="chapter" data-level="15" data-path="sports-drafts.html"><a href="sports-drafts.html"><i class="fa fa-check"></i><b>15</b> Sports Drafts</a></li>
+<li class="chapter" data-level="16" data-path="baseball-1.html"><a href="baseball-1.html"><i class="fa fa-check"></i><b>16</b> Baseball</a></li>
+<li class="chapter" data-level="17" data-path="football-1.html"><a href="football-1.html"><i class="fa fa-check"></i><b>17</b> Football</a></li>
+<li class="chapter" data-level="18" data-path="basketball-1.html"><a href="basketball-1.html"><i class="fa fa-check"></i><b>18</b> Basketball</a></li>
+<li class="chapter" data-level="19" data-path="hockey-1.html"><a href="hockey-1.html"><i class="fa fa-check"></i><b>19</b> Hockey</a></li>
+<li class="chapter" data-level="20" data-path="soccer-1.html"><a href="soccer-1.html"><i class="fa fa-check"></i><b>20</b> Soccer</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -396,61 +410,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 7</span> Pythagorean Record<a href="pythagorean-record.html#pythagorean-record" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Baseball statistican (sabermetrican) Bill James proposed <strong>Pythagorean expectation</strong> to estimate the percentage (or number) of games that a team is expected to win based on the number of runs they score and the number of runs they allow.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-6" class="definition"><strong>Definition 7.1  </strong></span>The (basic) <strong><em>Pythagorean expectation</em></strong> for a team’s win percentage and win total are given by the following:</p>
+<p><span id="def:unlabeled-div-169" class="definition"><strong>Definition 7.1  </strong></span>The (basic) <strong><em>Pythagorean expectation</em></strong> for a team’s win percentage and win total are given by the following:</p>
 <p><span class="math display">\[\text{Pythagorean Win Pct} = PythWin\% = 100 * \frac{RS^2}{RS^2 + RA^2}\]</span></p>
 <p><span class="math display">\[\text{Pythagorean Win Total} = PythWin = N \cdot \frac{RS^2}{RS^2 + RA^2}\]</span></p>
 <p>where for a given team, <span class="math inline">\(N\)</span> is the number of games, <span class="math inline">\(RS\)</span> is the number of runs scored, and <span class="math inline">\(RA\)</span> is the number of runs allowed.</p>
 <p>Note that <span class="math inline">\(RS\)</span> and <span class="math inline">\(RA\)</span> can be based on season totals or per game averages.</p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-7" class="example"><strong>Example 7.1  </strong></span>In 2022, the Colorado Rockies baseball team scored an average of 4.3 runs per game and allowed an average of 5.4 runs per game. The Rockies’ record in 2022 was 69-94 (0.420 win pct). Calculate the Pythagorean win percentage and win total. Did the Rockies underperform or overperform based on these results?</p>
+<p><span id="exm:unlabeled-div-170" class="example"><strong>Example 7.1  </strong></span>In 2022, the Colorado Rockies baseball team scored an average of 4.3 runs per game and allowed an average of 5.4 runs per game. The Rockies’ record in 2022 was 69-94 (0.420 win pct). Calculate the Pythagorean win percentage and win total. Did the Rockies underperform or overperform based on these results?</p>
 </div>
 <p><span class="math inline">\(PythWin\% = 100 * \frac{RS^2}{RS^2+RA^2} = \frac{4.3^2}{4.3^2+5.4^2} = 38.8\%\)</span></p>
 <p><span class="math inline">\(PythWin\% = N \cdot \frac{RS^2}{RS^2+RA^2} = 162 * \frac{4.3^2}{4.3^2+5.4^2} = 63\)</span></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="pythagorean-record.html#cb31-1" aria-hidden="true" tabindex="-1"></a>( <span class="at">pythwinpct =</span> <span class="dv">100</span><span class="sc">*</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span><span class="fl">+5.4</span><span class="sc">^</span><span class="dv">2</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="pythagorean-record.html#cb341-1" aria-hidden="true" tabindex="-1"></a>( <span class="at">pythwinpct =</span> <span class="dv">100</span><span class="sc">*</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span><span class="fl">+5.4</span><span class="sc">^</span><span class="dv">2</span>) )</span></code></pre></div>
 <pre><code>## [1] 38.80378</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="pythagorean-record.html#cb33-1" aria-hidden="true" tabindex="-1"></a>( <span class="at">pythwins =</span> <span class="dv">162</span><span class="sc">*</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span><span class="fl">+5.4</span><span class="sc">^</span><span class="dv">2</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="pythagorean-record.html#cb343-1" aria-hidden="true" tabindex="-1"></a>( <span class="at">pythwins =</span> <span class="dv">162</span><span class="sc">*</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span><span class="fl">+5.4</span><span class="sc">^</span><span class="dv">2</span>) )</span></code></pre></div>
 <pre><code>## [1] 62.86212</code></pre>
 <div style="page-break-after: always;"></div>
 <p>It turns out that we can find a more optimal estimate of Pythagorean wins by using an exponent different from 2.</p>
 <p>For example, Baseball Reference <a href="https://www.sports-reference.com/blog/baseball-reference-faqs/">(https://www.sports-reference.com/blog/baseball-reference-faqs/)</a> uses an exponent of 1.83.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-8" class="definition"><strong>Definition 7.2  </strong></span>The (general) <strong><em>Pythagorean expectation</em></strong> for a team’s win percentage and win total are given by the following:</p>
+<p><span id="def:unlabeled-div-171" class="definition"><strong>Definition 7.2  </strong></span>The (general) <strong><em>Pythagorean expectation</em></strong> for a team’s win percentage and win total are given by the following:</p>
 <p><span class="math display">\[\text{Pythagorean Win Pct} = PythWin\% = 100 * \frac{RS^n}{RS^2 + RA^n}\]</span></p>
 <p><span class="math display">\[\text{Pythagorean Win Total} = PythWin = N \cdot \frac{RS^n}{RS^n + RA^n}\]</span></p>
 <p>where for a given team, <span class="math inline">\(N\)</span> is the number of games, <span class="math inline">\(RS\)</span> is the number of runs scored, and <span class="math inline">\(RA\)</span> is the number of runs allowed. <span class="math inline">\(n\)</span> is optimized for predictive accuracy over a large dataset.</p>
 </div>
 <p>It will be helpful to have a function to find the optimal Pythagorean exponent. Such a function called <code>pyth_opt</code> is given below that minimizes mean squared error. Use <code>plot_flag=1</code> to generate a plot.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="pythagorean-record.html#cb35-1" aria-hidden="true" tabindex="-1"></a>pyth_opt <span class="ot">=</span> <span class="cf">function</span>(RS,RA,WinPct,digits,plot_flag){</span>
-<span id="cb35-2"><a href="pythagorean-record.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  exps <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="at">by=</span><span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span>digits))</span>
-<span id="cb35-3"><a href="pythagorean-record.html#cb35-3" aria-hidden="true" tabindex="-1"></a>  n_exps <span class="ot">=</span> <span class="fu">length</span>(exps)</span>
-<span id="cb35-4"><a href="pythagorean-record.html#cb35-4" aria-hidden="true" tabindex="-1"></a>  MSE <span class="ot">=</span> <span class="fu">rep</span>(<span class="cn">NA</span>,n_exps)</span>
-<span id="cb35-5"><a href="pythagorean-record.html#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_exps){</span>
-<span id="cb35-6"><a href="pythagorean-record.html#cb35-6" aria-hidden="true" tabindex="-1"></a>    temp_exp <span class="ot">=</span> exps[i]</span>
-<span id="cb35-7"><a href="pythagorean-record.html#cb35-7" aria-hidden="true" tabindex="-1"></a>    PyWinPct <span class="ot">=</span> RS<span class="sc">^</span>temp_exp<span class="sc">/</span>(RS<span class="sc">^</span>temp_exp <span class="sc">+</span> RA<span class="sc">^</span>temp_exp)</span>
-<span id="cb35-8"><a href="pythagorean-record.html#cb35-8" aria-hidden="true" tabindex="-1"></a>    MSE[i] <span class="ot">=</span> <span class="fu">mean</span>((PyWinPct<span class="sc">-</span>WinPct)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb35-9"><a href="pythagorean-record.html#cb35-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb35-10"><a href="pythagorean-record.html#cb35-10" aria-hidden="true" tabindex="-1"></a>  min_idx <span class="ot">=</span> <span class="fu">which</span>(MSE<span class="sc">==</span><span class="fu">min</span>(MSE))</span>
-<span id="cb35-11"><a href="pythagorean-record.html#cb35-11" aria-hidden="true" tabindex="-1"></a>  pyth_opt <span class="ot">=</span> exps[min_idx]</span>
-<span id="cb35-12"><a href="pythagorean-record.html#cb35-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb35-13"><a href="pythagorean-record.html#cb35-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(plot_flag){</span>
-<span id="cb35-14"><a href="pythagorean-record.html#cb35-14" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Exponent=</span>exps,<span class="at">MSE=</span>MSE)</span>
-<span id="cb35-15"><a href="pythagorean-record.html#cb35-15" aria-hidden="true" tabindex="-1"></a>    df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Exponent,<span class="at">y=</span>MSE)) <span class="sc">+</span> </span>
-<span id="cb35-16"><a href="pythagorean-record.html#cb35-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb35-17"><a href="pythagorean-record.html#cb35-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="at">data=</span>df[min_idx,],<span class="at">color=</span><span class="st">&quot;blue&quot;</span>)  <span class="sc">+</span></span>
-<span id="cb35-18"><a href="pythagorean-record.html#cb35-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_label</span>(<span class="at">data =</span> df[min_idx,],</span>
-<span id="cb35-19"><a href="pythagorean-record.html#cb35-19" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x =</span> Exponent, <span class="at">y =</span> MSE, <span class="at">label =</span> Exponent),<span class="at">vjust=</span><span class="sc">-</span><span class="fl">0.5</span>)</span>
-<span id="cb35-20"><a href="pythagorean-record.html#cb35-20" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb35-21"><a href="pythagorean-record.html#cb35-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(pyth_opt)</span>
-<span id="cb35-22"><a href="pythagorean-record.html#cb35-22" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb35-23"><a href="pythagorean-record.html#cb35-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb35-24"><a href="pythagorean-record.html#cb35-24" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="pythagorean-record.html#cb345-1" aria-hidden="true" tabindex="-1"></a>pyth_opt <span class="ot">=</span> <span class="cf">function</span>(RS,RA,WinPct,digits,plot_flag){</span>
+<span id="cb345-2"><a href="pythagorean-record.html#cb345-2" aria-hidden="true" tabindex="-1"></a>  exps <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="at">by=</span><span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span>digits))</span>
+<span id="cb345-3"><a href="pythagorean-record.html#cb345-3" aria-hidden="true" tabindex="-1"></a>  n_exps <span class="ot">=</span> <span class="fu">length</span>(exps)</span>
+<span id="cb345-4"><a href="pythagorean-record.html#cb345-4" aria-hidden="true" tabindex="-1"></a>  MSE <span class="ot">=</span> <span class="fu">rep</span>(<span class="cn">NA</span>,n_exps)</span>
+<span id="cb345-5"><a href="pythagorean-record.html#cb345-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_exps){</span>
+<span id="cb345-6"><a href="pythagorean-record.html#cb345-6" aria-hidden="true" tabindex="-1"></a>    temp_exp <span class="ot">=</span> exps[i]</span>
+<span id="cb345-7"><a href="pythagorean-record.html#cb345-7" aria-hidden="true" tabindex="-1"></a>    PyWinPct <span class="ot">=</span> RS<span class="sc">^</span>temp_exp<span class="sc">/</span>(RS<span class="sc">^</span>temp_exp <span class="sc">+</span> RA<span class="sc">^</span>temp_exp)</span>
+<span id="cb345-8"><a href="pythagorean-record.html#cb345-8" aria-hidden="true" tabindex="-1"></a>    MSE[i] <span class="ot">=</span> <span class="fu">mean</span>((PyWinPct<span class="sc">-</span>WinPct)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb345-9"><a href="pythagorean-record.html#cb345-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb345-10"><a href="pythagorean-record.html#cb345-10" aria-hidden="true" tabindex="-1"></a>  min_idx <span class="ot">=</span> <span class="fu">which</span>(MSE<span class="sc">==</span><span class="fu">min</span>(MSE))</span>
+<span id="cb345-11"><a href="pythagorean-record.html#cb345-11" aria-hidden="true" tabindex="-1"></a>  pyth_opt <span class="ot">=</span> exps[min_idx]</span>
+<span id="cb345-12"><a href="pythagorean-record.html#cb345-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb345-13"><a href="pythagorean-record.html#cb345-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(plot_flag){</span>
+<span id="cb345-14"><a href="pythagorean-record.html#cb345-14" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Exponent=</span>exps,<span class="at">MSE=</span>MSE)</span>
+<span id="cb345-15"><a href="pythagorean-record.html#cb345-15" aria-hidden="true" tabindex="-1"></a>    df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Exponent,<span class="at">y=</span>MSE)) <span class="sc">+</span> </span>
+<span id="cb345-16"><a href="pythagorean-record.html#cb345-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb345-17"><a href="pythagorean-record.html#cb345-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="at">data=</span>df[min_idx,],<span class="at">color=</span><span class="st">&quot;blue&quot;</span>)  <span class="sc">+</span></span>
+<span id="cb345-18"><a href="pythagorean-record.html#cb345-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_label</span>(<span class="at">data =</span> df[min_idx,],</span>
+<span id="cb345-19"><a href="pythagorean-record.html#cb345-19" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x =</span> Exponent, <span class="at">y =</span> MSE, <span class="at">label =</span> Exponent),<span class="at">vjust=</span><span class="sc">-</span><span class="fl">0.5</span>)</span>
+<span id="cb345-20"><a href="pythagorean-record.html#cb345-20" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb345-21"><a href="pythagorean-record.html#cb345-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(pyth_opt)</span>
+<span id="cb345-22"><a href="pythagorean-record.html#cb345-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb345-23"><a href="pythagorean-record.html#cb345-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb345-24"><a href="pythagorean-record.html#cb345-24" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-9" class="example"><strong>Example 7.2  </strong></span>Final season MLB standings and related statistics are given in <code>mlb_2022.csv</code>. Find the optimal value of <span class="math inline">\(n\)</span> that minimizes mean squared error between actual wins and Pythagorean wins.</p>
+<p><span id="exm:unlabeled-div-172" class="example"><strong>Example 7.2  </strong></span>Final season MLB standings and related statistics are given in <code>mlb_2022.csv</code>. Find the optimal value of <span class="math inline">\(n\)</span> that minimizes mean squared error between actual wins and Pythagorean wins.</p>
 </div>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="pythagorean-record.html#cb36-1" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/mlb_2022.csv&quot;</span>)</span>
-<span id="cb36-2"><a href="pythagorean-record.html#cb36-2" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="pythagorean-record.html#cb346-1" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/mlb_2022.csv&quot;</span>)</span>
+<span id="cb346-2"><a href="pythagorean-record.html#cb346-2" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -743,14 +757,14 @@ San Diego Padres
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="pythagorean-record.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pyth_opt</span>(mlb_2022<span class="sc">$</span>R,mlb_2022<span class="sc">$</span>RA,mlb_2022<span class="sc">$</span><span class="st">`</span><span class="at">W-L%</span><span class="st">`</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="pythagorean-record.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pyth_opt</span>(mlb_2022<span class="sc">$</span>R,mlb_2022<span class="sc">$</span>RA,mlb_2022<span class="sc">$</span><span class="st">`</span><span class="at">W-L%</span><span class="st">`</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-151-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-10" class="example"><strong>Example 7.3  </strong></span>For a more accurate estimate of the optimal Pythagorean exponent, use all MLB final standings data from 2000–2017. This is contained in <code>mlb_standings_long.csv</code>.</p>
+<p><span id="exm:unlabeled-div-173" class="example"><strong>Example 7.3  </strong></span>For a more accurate estimate of the optimal Pythagorean exponent, use all MLB final standings data from 2000–2017. This is contained in <code>mlb_standings_long.csv</code>.</p>
 </div>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="pythagorean-record.html#cb38-1" aria-hidden="true" tabindex="-1"></a>mlb_long <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/mlb_standings_long.csv&quot;</span>)</span>
-<span id="cb38-2"><a href="pythagorean-record.html#cb38-2" aria-hidden="true" tabindex="-1"></a>mlb_long <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="pythagorean-record.html#cb348-1" aria-hidden="true" tabindex="-1"></a>mlb_long <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/mlb_standings_long.csv&quot;</span>)</span>
+<span id="cb348-2"><a href="pythagorean-record.html#cb348-2" aria-hidden="true" tabindex="-1"></a>mlb_long <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -885,7 +899,7 @@ ATL
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="pythagorean-record.html#cb39-1" aria-hidden="true" tabindex="-1"></a>mlb_long <span class="sc">%&gt;%</span> <span class="fu">slice_tail</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="pythagorean-record.html#cb349-1" aria-hidden="true" tabindex="-1"></a>mlb_long <span class="sc">%&gt;%</span> <span class="fu">slice_tail</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1020,25 +1034,25 @@ WAS
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="pythagorean-record.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pyth_opt</span>(mlb_long<span class="sc">$</span>R,mlb_long<span class="sc">$</span>RA,mlb_long<span class="sc">$</span>Wpct,<span class="dv">2</span>,<span class="dv">1</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="pythagorean-record.html#cb350-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pyth_opt</span>(mlb_long<span class="sc">$</span>R,mlb_long<span class="sc">$</span>RA,mlb_long<span class="sc">$</span>Wpct,<span class="dv">2</span>,<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-152-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 <p>As previously mentioned, sabermetricans tend to use <strong>PyExp = 1.83 for MLB</strong>.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-11" class="example"><strong>Example 7.4  </strong></span>Create a scatterplot to compare Team Wins and Team Pythagorean Wins in 2022 and calculate the correlation.</p>
+<p><span id="exm:unlabeled-div-174" class="example"><strong>Example 7.4  </strong></span>Create a scatterplot to compare Team Wins and Team Pythagorean Wins in 2022 and calculate the correlation.</p>
 </div>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="pythagorean-record.html#cb41-1" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="ot">=</span> mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PyWins=</span><span class="dv">162</span><span class="sc">*</span>R<span class="sc">^</span><span class="fl">1.83</span><span class="sc">/</span>(R<span class="sc">^</span><span class="fl">1.83</span><span class="sc">+</span>RA<span class="sc">^</span><span class="fl">1.83</span>))</span>
-<span id="cb41-2"><a href="pythagorean-record.html#cb41-2" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>W,<span class="at">y=</span>PyWins)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Wins&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb41-3"><a href="pythagorean-record.html#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept=</span><span class="dv">0</span>, <span class="at">slope=</span><span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;blue&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="pythagorean-record.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mlb_2022<span class="sc">$</span>W,mlb_2022<span class="sc">$</span>PyWins)</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="pythagorean-record.html#cb351-1" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="ot">=</span> mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PyWins=</span><span class="dv">162</span><span class="sc">*</span>R<span class="sc">^</span><span class="fl">1.83</span><span class="sc">/</span>(R<span class="sc">^</span><span class="fl">1.83</span><span class="sc">+</span>RA<span class="sc">^</span><span class="fl">1.83</span>))</span>
+<span id="cb351-2"><a href="pythagorean-record.html#cb351-2" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>W,<span class="at">y=</span>PyWins)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Wins&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb351-3"><a href="pythagorean-record.html#cb351-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept=</span><span class="dv">0</span>, <span class="at">slope=</span><span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;blue&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-153-1.png" width="672" /></p>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="pythagorean-record.html#cb352-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mlb_2022<span class="sc">$</span>W,mlb_2022<span class="sc">$</span>PyWins)</span></code></pre></div>
 <pre><code>## [1] 0.9764977</code></pre>
 <div class="example">
-<p><span id="exm:unlabeled-div-12" class="example"><strong>Example 7.5  </strong></span>The Rockies scored 4.31 runs per game and allowed 5.4 runs per game in 2022. Did the Rockies underperform or overperform based on their Pythagorean record?</p>
+<p><span id="exm:unlabeled-div-175" class="example"><strong>Example 7.5  </strong></span>The Rockies scored 4.31 runs per game and allowed 5.4 runs per game in 2022. Did the Rockies underperform or overperform based on their Pythagorean record?</p>
 </div>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="pythagorean-record.html#cb44-1" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Team<span class="sc">==</span><span class="st">&quot;Colorado Rockies&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb44-2"><a href="pythagorean-record.html#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PyWins =</span> <span class="dv">162</span><span class="sc">*</span><span class="fl">4.31</span><span class="sc">^</span><span class="fl">1.83</span><span class="sc">/</span>(<span class="fl">4.31</span><span class="sc">^</span><span class="fl">1.83+5.39</span><span class="sc">^</span><span class="fl">1.83</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-3"><a href="pythagorean-record.html#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="pythagorean-record.html#cb354-1" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Team<span class="sc">==</span><span class="st">&quot;Colorado Rockies&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb354-2"><a href="pythagorean-record.html#cb354-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PyWins =</span> <span class="dv">162</span><span class="sc">*</span><span class="fl">4.31</span><span class="sc">^</span><span class="fl">1.83</span><span class="sc">/</span>(<span class="fl">4.31</span><span class="sc">^</span><span class="fl">1.83+5.39</span><span class="sc">^</span><span class="fl">1.83</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb354-3"><a href="pythagorean-record.html#cb354-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1106,12 +1120,12 @@ Colorado Rockies
 <p>The Rockies won 68 games and were expected to win 65 games based on their Pythagorean record. The Rockies outperformed their Pythagorean record.</p>
 <div style="page-break-after: always;"></div>
 <div class="example">
-<p><span id="exm:unlabeled-div-13" class="example"><strong>Example 7.6  </strong></span>Calculate the Pythagorean exponent for NFL using 2022 season totals. This data is contained in <code>nfl_2022.csv</code>.</p>
+<p><span id="exm:unlabeled-div-176" class="example"><strong>Example 7.6  </strong></span>Calculate the Pythagorean exponent for NFL using 2022 season totals. This data is contained in <code>nfl_2022.csv</code>.</p>
 </div>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="pythagorean-record.html#cb45-1" aria-hidden="true" tabindex="-1"></a>nfl_2022 <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl_2022.csv&quot;</span>)</span>
-<span id="cb45-2"><a href="pythagorean-record.html#cb45-2" aria-hidden="true" tabindex="-1"></a>nfl_2022 <span class="sc">%&gt;%</span> </span>
-<span id="cb45-3"><a href="pythagorean-record.html#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb45-4"><a href="pythagorean-record.html#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="pythagorean-record.html#cb355-1" aria-hidden="true" tabindex="-1"></a>nfl_2022 <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl_2022.csv&quot;</span>)</span>
+<span id="cb355-2"><a href="pythagorean-record.html#cb355-2" aria-hidden="true" tabindex="-1"></a>nfl_2022 <span class="sc">%&gt;%</span> </span>
+<span id="cb355-3"><a href="pythagorean-record.html#cb355-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb355-4"><a href="pythagorean-record.html#cb355-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1256,8 +1270,8 @@ Cincinnati Bengals*
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="pythagorean-record.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pyth_opt</span>(nfl_2022<span class="sc">$</span>PF,nfl_2022<span class="sc">$</span>PA,nfl_2022<span class="sc">$</span><span class="st">`</span><span class="at">W-L%</span><span class="st">`</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span></code></pre></div>
-<p><img src="textbook_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="pythagorean-record.html#cb356-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pyth_opt</span>(nfl_2022<span class="sc">$</span>PF,nfl_2022<span class="sc">$</span>PA,nfl_2022<span class="sc">$</span><span class="st">`</span><span class="at">W-L%</span><span class="st">`</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-156-1.png" width="672" /></p>
 <p>For 2022, there is an optimal Pythagorean exponent of 3.38. Using a larger dataset of more seasons will give a better estimate.</p>
 <p>Football Outsiders <a href="https://www.footballoutsiders.com/stat-analysis/2017/presenting-adjusted-pythagorean-theorem">(https://www.footballoutsiders.com/stat-analysis/2017/presenting-adjusted-pythagorean-theorem)</a> uses <strong>PyExp = 2.37 for NFL</strong>.</p>
 <p>Similar analyses can be done for other sports as well. <strong>PyExp = 13.91 is often used for NBA and PyExp = 2.15 for NHL.</strong></p>
