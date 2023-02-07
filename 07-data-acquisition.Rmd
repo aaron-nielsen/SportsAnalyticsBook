@@ -47,7 +47,7 @@ This data is located on this webpage:
 Once the data has been collected, using data wrangling and cleaning methods to transform the dataset into an easier to use format. Use this dataset to explore the relationship between goals, assists, OPS (offensive point shares), and DPS (defensive point shares).
 :::
 
-```{r,message=F} 
+```{r nhl-data,message=F} 
 # Load data after collection
 avs21 <- read_csv("data/avs21.csv")
 
@@ -617,11 +617,11 @@ The `rvest` (pronounced "harvest") package in R is one of the best options for s
 
 This is part of the tidyverse ecosystem in R. Allows users to scrape (or harvest) data from webpages.
 
-Common use functions from the package include:
-- read_html(): read HTML from a webpage
-- html_elements(): returns a subset of elements with specified characteristics
-- html_text(): returns the content of all elements
-- html_attr(): returns attribute values for all elements with specified attribute
+Common use functions from the package include: \
+- read_html(): read HTML from a webpage \
+- html_elements(): returns a subset of elements with specified characteristics \
+- html_text(): returns the content of all elements \
+- html_attr(): returns attribute values for all elements with specified attribute \
 - html_table(): returns a list of all HTML tables
 
 A working knowledge of css and/or xpath is helpful.
@@ -658,14 +658,16 @@ We can use the Selector Gadget to identify the html tag for this table.
 ![Using the selector gadget](images/wilson-scrape2.png){width=80%}
 
 
-```{r,message=F}
+```{r wilson-scrape,message=F,cache=T}
 library(rvest)
 library(kableExtra)
 url <- "https://www.basketball-reference.com/wnba/players/w/wilsoa01w.html"
 
 # Be careful to not run this function too quickly or you may be IP banned
 wilson <- read_html(url)
+```
 
+```{r wilson-scrape2}
 # Grab the node of interest and format the output as a html_table(). 
 # This is now a list
 wilson %>% 
@@ -675,10 +677,11 @@ wilson %>%
 
 \newpage
 
-```{r}
+```{r, cache=T}
 # We can convert the list to a data frame to allow us to use dplyr functions
 # like select
 # Output the first ten columns
+wilson <- read_html(url)
 wilson %>% 
   html_elements("#per_game0") %>% 
   html_table() %>% 
@@ -697,7 +700,7 @@ Scrape the data from the following site and build a kable table with the top 20 
 Link: [http://www.espn.com/nba/hollinger/statistics](http://www.espn.com/nba/hollinger/statistics)
 :::
 
-```{r}
+```{r, cache=T}
 url <- "http://www.espn.com/nba/hollinger/statistics"
 hollinger <- read_html(url)
 holl_df <- hollinger %>% html_elements("div.mod-content") %>% .[2] %>%
@@ -714,7 +717,7 @@ Obtain the top ten leaders for goals on the US Women's National Team and output 
 Link: [https://www.ussoccer.com/uswnt-stats/2022](https://www.ussoccer.com/uswnt-stats/2022)
 :::
 
-```{r}
+```{r, cache=T}
 url <- "https://www.ussoccer.com/uswnt-stats/2022"
 uswnt <- read_html(url)
 uswnt_df <- uswnt %>% 

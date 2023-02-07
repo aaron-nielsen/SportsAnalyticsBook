@@ -14,13 +14,183 @@ kt <- function(data) {
 }
 ```
 
-# Correlation
+# Measures of Association
 
-## Pearson's Correlation Coefficient
+This chapter will examine various measures of association betweeen two or more variables. A popular measure of association is Pearson's Correlation Coefficient for two continuous, quantitative variables. Other measures of association are more appropriate for other types of data like qualitative data.
+
+## Pearson Correlation Coefficient
+
+:::{.definition}
+The ***Pearson correlation coefficient*** (also known as ***Pearson's R*** or ***correlation coefficient***) is a measure of linear relationship between two quantitative variables.
+
+For two random variables, $X$ and $Y$, the Pearson correlation coefficient, $\rho$, is:
+
+$\rho = \frac{Cov(X,Y)}{\sigma_X \sigma_Y}$
+
+For two sets of sample data, $\{x_1,x_2,\ldots,x_n\}$ and $\{y_1,y_2,\ldots,y_n\}$, the Pearson correlation coefficient is:
+
+$r_{xy} = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^n(x_i-\bar{x})^2}\sqrt{\sum_{i=1}^n(y_i-\bar{y})^2}}$
+:::
+
+:::{.example}
+Download pitching data for individual pitchers in the 2022 MLB season. Investigate the correlation between common pitching statistics.
+:::
+
+```{r,message=F,warning=F,cache=T}
+library(tidyverse)
+library(knitr)
+library(baseballr)
+mlb22_all <- bref_daily_pitcher("2022-01-01", "2022-12-31") %>% 
+  fip_plus()
+mlb22_pitch <- mlb22_all %>%  
+  dplyr::select(Name, IP, SO, uBB, HR, ERA, FIP) %>%
+  dplyr::arrange(dplyr::desc(IP))
+
+mlb22_pitch %>% 
+  head(n=10) %>%
+  kable(booktabs=T)
+```
+
+
+```{r,message=F,warning=F}
+library(GGally)
+mlb22_pitch %>% select(-Name) %>% ggpairs()
+```
+
+\newpage
+
+```{r}
+library(ellipse)
+library(RColorBrewer)
+
+# Use of the mtcars data proposed by R
+data <- mlb22_pitch %>% select(-Name) %>% cor()
+
+# Build a Pannel of 100 colors with Rcolor Brewer
+my_colors <- brewer.pal(5, "Spectral")
+my_colors <- colorRampPalette(my_colors)(100)
+
+# Order the correlation matrix
+ord <- order(data[1, ])
+data_ord <- data[ord, ord]
+plotcorr(data_ord, col=my_colors[data_ord*50+50], mar=c(1,1,1,1))
+```
+
+\newpage
+
+```{r,warning=F,message=F}
+# Example adapted from: 
+# https://r-graph-gallery.com/273-custom-your-scatterplot-ggplot2.html
+library(ggpubr)
+mlb22_pitch %>%
+  ggplot(aes(x=IP,y=SO)) +
+  geom_point(
+    color="black",
+    fill="#69b3a2",
+    shape=22,
+    alpha=0.5,
+    size=2
+  ) +
+  geom_smooth(method=lm,se=F,color="black") +
+  labs(title = "Innings Pitched vs. Strikeouts",
+       subtitle = "2022 MLB Season | Individual Pitchers",
+       caption = "Data: Baseball Reference via baseballr", 
+       x = "Innings Pitched (IP)",
+       y = "Strikeouts (SO)") +
+  stat_cor(method = "pearson", label.x = 155, label.y = 70)
+```
+
+\newpage
+
+```{r}
+library(ggExtra)
+p <- mlb22_pitch %>%
+  ggplot(aes(x=SO,y=ERA)) +
+  geom_point()
+ggMarginal(p, type="histogram")
+```
+
+\newpage
+
+```{r}
+library(RColorBrewer)
+color_pal <- brewer.pal(n = 8, name = "Dark2")
+p <- mlb22_pitch %>% filter(ERA <= 10.00) %>%
+  ggplot(aes(x=SO,y=ERA)) +
+  geom_point(alpha=0.5,color=color_pal[1]) +
+  geom_smooth(method="lm",color=color_pal[2]) +
+  stat_cor(method = "pearson", label.x = 185, label.y = 5.8) +
+  labs(title = "Strikeouts (SO) vs. Earned Run Average (ERA)",
+       subtitle = "2022 MLB Season | Individual Pitchers",
+       caption = "Data: Baseball Reference via baseballr", 
+       x = "Innings Pitched (IP)",
+       y = "Earned Run Average (ERA)")
+ggMarginal(p, type="histogram")
+```
+
+\newpage
+
+```{r,message=F,warning=F}
+mlb22_pitch %>% 
+  ggplot(aes(x=ERA,y=FIP)) +
+  geom_point(alpha=0.5,color=color_pal[1]) +
+  scale_x_continuous(limits=c(0,5)) +
+  scale_y_continuous(limits=c(0,5)) +
+  labs(
+    title = "Earned Run Average (ERA) vs. Fielding Independent Pitching (FIP)",
+    subtitle = "2022 MLB Season | Individual Pitchers",
+    caption = "Data: Baseball Reference via baseballr", 
+    x = "Earned Run Average (ERA)",
+    y = "Fielding Independent Pitching (FIP)")
+```
+
+\newpage
+
+```{r}
+rox22_pitch <- mlb22_all %>% 
+  select(Name,Team,IP,H,uBB,ERA,FIP) %>% 
+  filter(Team=="Colorado")
+rox22_pitch %>% 
+  arrange(desc(IP)) %>% 
+  kable(booktabs=T)
+```
+
+\newpage
+
+```{r,message=F,warning=F}
+rox22_pitch %>% 
+  ggplot(aes(x=H,y=uBB,size=IP)) +
+  geom_point(alpha=0.5,color=color_pal[1]) +
+  labs(title = "Colorado Rockies Pitchers: Hits Allowed vs. Unintentional Walks",
+       subtitle = "2022 MLB Season | Individual Pitchers",
+       caption = "Data: Baseball Reference via baseballr", 
+       x = "Hits Allowed (H)",
+       y = "Unintentional Walks (uBB)")
+```
+
+\newpage
 
 ### Partial Correlation and Confounding Variables
 
-(AM, page 131, pitchers with more innings)
+As seen in the previous example, counting statistics are often highly correlated. In particular, we may want to speculate that pitchers with poor control (high walks) tend to give up lots of hits due to poor control. This is only due to the presence of a ***lurking variable*** (innings pitched). To account for a lurking variable, one can calculate partial correlation coefficient in such situations.
+
+:::{.example}
+Let $X,Y,Z$ be random variables and let $r_{XY}$ be the (standard) correlation coefficient between $X$ and $Y$. The ***partial correlation coefficient*** of $X$ and $Y$, controlling for $Z$ is:
+
+$r_{XY \bullet Z} = \frac{r_{XY}-r_{XZ}r_{YZ}}{\sqrt{1-r_{XZ}^2}\sqrt{1-r_{YZ}^2}}$
+:::
+
+:::{.example}
+Calculate the correlation between strikeouts and (unintentional) walks for pitchers with at least 20 IP during the 2022 season, with and without controlling for innings pitched.
+:::
+
+```{r}
+( cor_matrix <- mlb22_all %>% select(H,uBB,IP) %>% cor() )
+( cor_without <- cor_matrix[1,2] )
+( cor_with <- (cor_matrix[1,2] - cor_matrix[1,3]*cor_matrix[2,3]) /
+    (sqrt(1-cor_matrix[1,3]^2)*sqrt(1-cor_matrix[2,3]^2)) )
+```
+\newpage
 
 ### Properties of the Linear Correlation Coefficient
 
@@ -34,16 +204,22 @@ Winning_Team_Points <- c(35,33,16,23,16,24,14,24,16,21,32,27,25,31,27,26,27,38,3
 Super_Bowl_Data <- data.frame(Super_Bowl_Number, Super_Bowl_Year, Winning_Team_Points)
 ```
 
-```{r correlation properties 2, echo=FALSE}
-ggplot(Super_Bowl_Data, aes(x=Super_Bowl_Number, y=Winning_Team_Points)) + 
-    geom_point() +
-    geom_line(color="red") +
-    ggtitle("Super Bowl Number and Points Scored by Winning Team")
+```{r correlation properties 2, echo=FALSE,message=F,warning=F}
+library(gridExtra)
+p1 <- ggplot(Super_Bowl_Data, aes(x=Super_Bowl_Number, y=Winning_Team_Points)) + 
+  geom_point() +
+  geom_line(color="red") +
+  geom_smooth(method="lm",color="steelblue",se=F) +
+  ggtitle("Super Bowl Number and Points Scored by Winning Team") +
+  labs(x="Super Bowl Number",y="Winning Team Points")
 
-ggplot(Super_Bowl_Data, aes(x=Super_Bowl_Year, y=Winning_Team_Points)) + 
-    geom_point() +
-    geom_line(color="red") +
-    ggtitle("Super Bowl Number and Points Scored by Winning Team")
+p2 <- ggplot(Super_Bowl_Data, aes(x=Super_Bowl_Year, y=Winning_Team_Points)) + 
+  geom_point() +
+  geom_line(color="red") +
+  geom_smooth(method="loess",color="purple3",se=F) +
+  ggtitle("Super Bowl Year and Points Scored by Winning Team") +
+  labs(x="Super Bowl Year",y="Winning Team Points")
+grid.arrange(p1,p2,ncol=1)
 ```
 
 ```{r correlation properties 3}
@@ -55,13 +231,167 @@ The only difference between the two plots is that the x-axis is shifted. Since t
 
 Note: The correlations were equal only because there has been a one-to-one relationship between Super Bowl number and year since 1967. Major League Baseball has had years in which no World Series was held (1904 - boycott, 1994 - players' strike); thus, the same example applied to the MLB would produce slightly different correlation coefficients.
 
-Q: The correlation coefficient is positive. What does this mean in terms of the trend of number of points scored by Super Bowl winners over time?
+<!-- Q: The correlation coefficient is positive. What does this mean in terms of the trend of number of points scored by Super Bowl winners over time? -->
 
-A: Winners of more recent Super Bowls are more likely to have scored more points than winners of older Super Bowls.
+<!-- A: Winners of more recent Super Bowls are more likely to have scored more points than winners of older Super Bowls. -->
 
-In a similar way to the example above, the correlation between a basketball player's career field goal attempts and three-pointers made and the correlation between the same player's career FGA and points scored from three-point field goals are exactly the same, due to the scale invariance property of correlation.
+<!-- In a similar way to the example above, the correlation between a basketball player's career field goal attempts and three-pointers made and the correlation between the same player's career FGA and points scored from three-point field goals are exactly the same, due to the scale invariance property of correlation. -->
 
 <!-- Note to Aaron: This could be a good homework exercise. Find data or simulate career FGA and 3PM for basketball players, then show that the two correlations described above are equal. -->
+
+\newpage
+
+## Association of Categorical Variables
+
+While Pearson's correlations can be used to find associations between categorical variables, there are better measures to be used.
+
+:::{.example}
+(From *Analytic Methods in Sports*) Suppose we are given the following partial contingency table that tabulates the number of "complete games" for a starting pitcher by league. 
+
+```{r,echo=F}
+mlb_comp <- data.frame(Yes = c(" ", " ", 128), No = c(" ", " ", 4732), Total = c(2592,2268, 4860))
+row.names(mlb_comp) = c("NL", "AL","Total")
+
+mlb_comp %>% kable(booktabs=T,digits = 3)
+```
+Choose values to give the largest and smallest correlations.
+:::
+
+\vfill
+
+***Example 1: Small correlation*** \
+
+```{r}
+League <- c(rep(0,2592),rep(1,2268))
+Complete <- rep(0,4860)
+Complete[1:68] = 1
+Complete[2593:(2593+59)]=1
+small_corr <- data.frame(League,Complete)
+small_corr_table <- table(small_corr)
+rownames(small_corr_table) = c("NL","AL")
+colnames(small_corr_table) = c("No","Yes")
+small_corr_table %>% kable(booktabs=T,digits = 3)
+cor(small_corr) %>% kable(booktabs=T,digits = 3)
+```
+
+\newpage
+
+
+***Example 2: Large correlation (1)*** \
+
+```{r}
+Complete <- rep(0,4860)
+Complete[1:128] = 1
+large_corr1 <- data.frame(League,Complete)
+large_corr1_table <- table(large_corr1)
+rownames(large_corr1_table) = c("NL","AL")
+colnames(large_corr1_table) = c("No","Yes")
+large_corr1_table %>% kable(booktabs=T,digits = 3)
+cor(large_corr1) %>% kable(booktabs=T,digits = 3)
+```
+
+
+***Example 3: Large correlation (2)*** \
+
+```{r}
+Complete <- rep(0,4860)
+Complete[2593:(2593+127)] = 1
+large_corr2 <- data.frame(League,Complete)
+large_corr2 <- data.frame(League,Complete)
+large_corr2_table <- table(large_corr2)
+rownames(large_corr2_table) = c("NL","AL")
+colnames(large_corr2_table) = c("No","Yes")
+large_corr2_table %>% kable(booktabs=T,digits = 3)
+cor(large_corr2) %>% kable(booktabs=T,digits = 3)
+```
+
+\newpage
+
+### Odds Ratios
+
+Let $X$ and $Y$ be two binary, categorical variables with the following contingency table.
+
+```{r, echo=F}
+gen <- matrix(c("Y \\ X","No","Yes","Total",
+                "Yes","a","b","a+b",
+                "No","c","d","c+d","Total",
+                "a+c","b+d","a+b+c+d"),ncol=4)
+gen %>% kable(booktabs=T)
+```
+
+
+One possible way to measure the association between two binary variables is to look at the odds ratio.
+
+:::{.definition}
+The odds ratio (OR) is a measure of association between two categorical variables of $X$ and $Y$ and is:
+
+$OR =\frac{ad}{bc}$
+
+$OR > 1$ means that $Y=1$ is more likely when $X=1$ than when $X=0$. \
+$OR < 1$ means that $Y=1$ is less likely when $X=1$ than when $X=0$. \
+$OR = 1$ means that $Y=1$ is equally likely when $X=1$ than when $X=0$.
+
+$OR$ ranges from 0 to $\infty$
+:::
+
+The odds ratio allows one to compare the relative likelihoods of $Y=1$ given $X=1$ vs. $X=0$.
+
+$\text{Ratio of OR} =  \frac{P(Y=1|X=1)/P(Y=0|X=1)}{P(Y=1|X=0)/P(Y=0|X=0)}$
+
+
+:::{.example}
+The following contingency table summarizes complete games by league during the 2012 MLB season.\
+:::
+
+```{r,echo=F}
+League <- c(rep(0,2592),rep(1,2268))
+Complete <- rep(0,4860)
+Complete[1:59] = 1
+Complete[2593:(2593+68)]=1
+mlb_corr <- data.frame(League,Complete)
+mlb_corr_table <- table(mlb_corr)
+rownames(mlb_corr_table) = c("NL","AL")
+colnames(mlb_corr_table) = c("No","Yes")
+mlb_corr_table %>% kable(booktabs=T,digits = 3)
+```
+
+\bigskip
+
+Calculate the following:\
+(a) $P(CG|AL)$ \
+(b) $P(CG|NL)$ \
+(c) $OR(CG)$ \
+
+\vfill
+
+\newpage
+
+### Yule's Q
+
+:::{.definition}
+Yule's Q is a measure of association between two categorical variables and is defined by:
+
+$Q = \frac{OR-1}{OR+1}$
+
+$Q$ ranges from -1 to 1, where $Q=0$ implies no relationship between the variables.
+:::
+
+:::{.example}
+Calculate Yule's Q for the previous example and interpret the value in the context of the problem. 
+:::
+
+\newpage
+
+(AM, page 143, Yule's Q)
+
+(AM, page 139, winning at halftime vs winning game)
+
+(AM, page 144, Brady TD passes vs sacks)
+
+(AM, page 145, Nadal clay courts)
+
+
+\newpage
 
 ## Rank Correlation
 
@@ -82,64 +412,6 @@ In a similar way to the example above, the correlation between a basketball play
 (Mathletics, chapter 11, page 105)
 
 \newpage
-
-## Association of Categorical Variables
-
-While Pearson's correlations can be used to find associations between categorical variables, there are better measures to be used.
-
-:::{.example}
-(From *Analytic Methods in Sports*) Suppose we are given the following partial contingency table that tabulates the number of "complete games" for a starting pitcher by league. 
-
-```{r}
-mlb_comp <- data.frame(Yes = c(" ", " ", 128), No = c(" ", " ", 4732), Total = c(2592,2268, 4860))
-row.names(mlb_comp) = c("NL", "AL","Total")
-
-mlb_comp %>% kable(booktabs=T,digits = 4)
-```
-Choose values to give the largest and smallest correlations.
-:::
-
-\vfill
-
-```{r}
-League <- c(rep(0,2592),rep(1,2268))
-Complete <- rep(0,4860)
-Complete[1:68] = 1
-Complete[2593:(2593+59)]=1
-small_corr <- data.frame(League,Complete)
-table(small_corr) %>% kable(booktabs=T,digits = 4)
-cor(small_corr)
-
-Complete <- rep(0,4860)
-Complete[1:128] = 1
-large_corr1 <- data.frame(League,Complete)
-table(large_corr1) %>% kable(booktabs=T,digits = 4)
-cor(large_corr1)
-
-Complete <- rep(0,4860)
-Complete[2593:(2593+127)] = 1
-large_corr2 <- data.frame(League,Complete)
-table(large_corr2) %>% kable(booktabs=T,digits = 4)
-cor(large_corr2)
-```
-
-\newpage
-
-### Yule's Q
-
-One possible way to measure the association between two binary variables is to look at the odds ratio.
-
-$OR$
-
-
-
-(AM, page 143, Yule's Q)
-
-(AM, page 139, winning at halftime vs winning game)
-
-(AM, page 144, Brady TD passes vs sacks)
-
-(AM, page 145, Nadal clay courts)
 
 # Pythagorean Record
 
@@ -202,14 +474,14 @@ pyth_opt = function(RS,RA,WinPct,digits,plot_flag){
   pyth_opt = exps[min_idx]
   
   if(plot_flag){
-  df = data.frame(Exponent=exps,MSE=MSE)
-  df %>% ggplot(aes(x=Exponent,y=MSE)) + 
-    geom_line() + 
-    geom_point(data=df[min_idx,],color="blue")  +
-    geom_label(data = df[min_idx,],
-               aes(x = Exponent, y = MSE, label = Exponent),vjust=-0.5)
+    df = data.frame(Exponent=exps,MSE=MSE)
+    df %>% ggplot(aes(x=Exponent,y=MSE)) + 
+      geom_line() + 
+      geom_point(data=df[min_idx,],color="blue")  +
+      geom_label(data = df[min_idx,],
+                 aes(x = Exponent, y = MSE, label = Exponent),vjust=-0.5)
   } else {
-  return(pyth_opt)
+    return(pyth_opt)
   }
   
 }

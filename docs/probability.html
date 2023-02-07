@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2023-01-30" />
+<meta name="date" content="2023-02-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -334,6 +334,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3.3" data-path="data-acquisition.html"><a href="data-acquisition.html#hoopr-package"><i class="fa fa-check"></i><b>8.3.3</b> hoopR package</a></li>
 <li class="chapter" data-level="8.3.4" data-path="data-acquisition.html"><a href="data-acquisition.html#hockeyr-package"><i class="fa fa-check"></i><b>8.3.4</b> hockeyR package</a></li>
 <li class="chapter" data-level="8.3.5" data-path="data-acquisition.html"><a href="data-acquisition.html#worldfootballr"><i class="fa fa-check"></i><b>8.3.5</b> worldfootballR</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="data-acquisition.html"><a href="data-acquisition.html#data-scraping"><i class="fa fa-check"></i><b>8.4</b> Data Scraping</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="data-acquisition.html"><a href="data-acquisition.html#general-tips"><i class="fa fa-check"></i><b>8.4.1</b> General Tips</a></li>
+<li class="chapter" data-level="8.4.2" data-path="data-acquisition.html"><a href="data-acquisition.html#introduction-to-html"><i class="fa fa-check"></i><b>8.4.2</b> Introduction to HTML</a></li>
+<li class="chapter" data-level="8.4.3" data-path="data-acquisition.html"><a href="data-acquisition.html#rvest-package"><i class="fa fa-check"></i><b>8.4.3</b> rvest Package</a></li>
+<li class="chapter" data-level="8.4.4" data-path="data-acquisition.html"><a href="data-acquisition.html#css-gadget-selector"><i class="fa fa-check"></i><b>8.4.4</b> CSS Gadget Selector</a></li>
+<li class="chapter" data-level="8.4.5" data-path="data-acquisition.html"><a href="data-acquisition.html#scraping-examples"><i class="fa fa-check"></i><b>8.4.5</b> Scraping Examples</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>9</b> Linear Regression</a>
@@ -815,41 +823,46 @@ Probability, p(X)
 <div class="example">
 <p><span id="exm:unlabeled-div-89" class="example"><strong>Example 2.23  </strong></span>Let’s generate two simulated datasets. The first dataset will follow a normal distribution with mean 10 and variance 4 and the second dataset will follow a Poisson distribution with rate 5. We’ll use QQ-plots to match each simulation with the correct distribution.</p>
 </div>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="probability.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
-<span id="cb116-2"><a href="probability.html#cb116-2" aria-hidden="true" tabindex="-1"></a>sim1.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>,<span class="at">mean =</span> <span class="dv">10</span>,<span class="at">sd =</span> <span class="dv">2</span>))</span>
-<span id="cb116-3"><a href="probability.html#cb116-3" aria-hidden="true" tabindex="-1"></a>sim2.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">1000</span>,<span class="at">lambda =</span> <span class="dv">5</span>))</span>
-<span id="cb116-4"><a href="probability.html#cb116-4" aria-hidden="true" tabindex="-1"></a>jitter_width <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
-<span id="cb116-5"><a href="probability.html#cb116-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb116-6"><a href="probability.html#cb116-6" aria-hidden="true" tabindex="-1"></a>fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim1.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
-<span id="cb116-7"><a href="probability.html#cb116-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> jitter_width,<span class="at">height =</span> jitter_width)) <span class="sc">+</span></span>
-<span id="cb116-8"><a href="probability.html#cb116-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
-<span id="cb116-9"><a href="probability.html#cb116-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 1 vs. Normal&quot;</span>) <span class="sc">+</span></span>
-<span id="cb116-10"><a href="probability.html#cb116-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
-<span id="cb116-11"><a href="probability.html#cb116-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span>
-<span id="cb116-12"><a href="probability.html#cb116-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb116-13"><a href="probability.html#cb116-13" aria-hidden="true" tabindex="-1"></a>fig2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim2.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
-<span id="cb116-14"><a href="probability.html#cb116-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> jitter_width,<span class="at">height =</span> jitter_width)) <span class="sc">+</span></span>
-<span id="cb116-15"><a href="probability.html#cb116-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
-<span id="cb116-16"><a href="probability.html#cb116-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 2 vs. Normal&quot;</span>) <span class="sc">+</span></span>
-<span id="cb116-17"><a href="probability.html#cb116-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
-<span id="cb116-18"><a href="probability.html#cb116-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span>
-<span id="cb116-19"><a href="probability.html#cb116-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb116-20"><a href="probability.html#cb116-20" aria-hidden="true" tabindex="-1"></a>fig3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim1.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
-<span id="cb116-21"><a href="probability.html#cb116-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>,<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> jitter_width,<span class="at">height =</span> jitter_width)) <span class="sc">+</span></span>
-<span id="cb116-22"><a href="probability.html#cb116-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb116-23"><a href="probability.html#cb116-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 1 vs. Poisson&quot;</span>) <span class="sc">+</span></span>
-<span id="cb116-24"><a href="probability.html#cb116-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
-<span id="cb116-25"><a href="probability.html#cb116-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span>
-<span id="cb116-26"><a href="probability.html#cb116-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb116-27"><a href="probability.html#cb116-27" aria-hidden="true" tabindex="-1"></a>fig4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim2.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
-<span id="cb116-28"><a href="probability.html#cb116-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>,<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> jitter_width,<span class="at">height =</span> jitter_width)) <span class="sc">+</span></span>
-<span id="cb116-29"><a href="probability.html#cb116-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb116-30"><a href="probability.html#cb116-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 2 vs. Poisson&quot;</span>) <span class="sc">+</span></span>
-<span id="cb116-31"><a href="probability.html#cb116-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
-<span id="cb116-32"><a href="probability.html#cb116-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="probability.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb119-2"><a href="probability.html#cb119-2" aria-hidden="true" tabindex="-1"></a>sim1.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>,<span class="at">mean =</span> <span class="dv">10</span>,<span class="at">sd =</span> <span class="dv">2</span>))</span>
+<span id="cb119-3"><a href="probability.html#cb119-3" aria-hidden="true" tabindex="-1"></a>sim2.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">1000</span>,<span class="at">lambda =</span> <span class="dv">5</span>))</span>
+<span id="cb119-4"><a href="probability.html#cb119-4" aria-hidden="true" tabindex="-1"></a>jitter_width <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
+<span id="cb119-5"><a href="probability.html#cb119-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-6"><a href="probability.html#cb119-6" aria-hidden="true" tabindex="-1"></a>fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim1.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
+<span id="cb119-7"><a href="probability.html#cb119-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> jitter_width,<span class="at">height =</span> jitter_width)) <span class="sc">+</span></span>
+<span id="cb119-8"><a href="probability.html#cb119-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
+<span id="cb119-9"><a href="probability.html#cb119-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 1 vs. Normal&quot;</span>) <span class="sc">+</span></span>
+<span id="cb119-10"><a href="probability.html#cb119-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
+<span id="cb119-11"><a href="probability.html#cb119-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span>
+<span id="cb119-12"><a href="probability.html#cb119-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-13"><a href="probability.html#cb119-13" aria-hidden="true" tabindex="-1"></a>fig2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim2.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
+<span id="cb119-14"><a href="probability.html#cb119-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> jitter_width,<span class="at">height =</span> jitter_width)) <span class="sc">+</span></span>
+<span id="cb119-15"><a href="probability.html#cb119-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
+<span id="cb119-16"><a href="probability.html#cb119-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 2 vs. Normal&quot;</span>) <span class="sc">+</span></span>
+<span id="cb119-17"><a href="probability.html#cb119-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
+<span id="cb119-18"><a href="probability.html#cb119-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span>
+<span id="cb119-19"><a href="probability.html#cb119-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-20"><a href="probability.html#cb119-20" aria-hidden="true" tabindex="-1"></a>fig3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim1.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
+<span id="cb119-21"><a href="probability.html#cb119-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>,<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> jitter_width,<span class="at">height =</span> jitter_width)) <span class="sc">+</span></span>
+<span id="cb119-22"><a href="probability.html#cb119-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb119-23"><a href="probability.html#cb119-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 1 vs. Poisson&quot;</span>) <span class="sc">+</span></span>
+<span id="cb119-24"><a href="probability.html#cb119-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
+<span id="cb119-25"><a href="probability.html#cb119-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span>
+<span id="cb119-26"><a href="probability.html#cb119-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-27"><a href="probability.html#cb119-27" aria-hidden="true" tabindex="-1"></a>fig4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim2.df, <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span></span>
+<span id="cb119-28"><a href="probability.html#cb119-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>,<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> jitter_width,<span class="at">height =</span> jitter_width)) <span class="sc">+</span></span>
+<span id="cb119-29"><a href="probability.html#cb119-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb119-30"><a href="probability.html#cb119-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sim 2 vs. Poisson&quot;</span>) <span class="sc">+</span></span>
+<span id="cb119-31"><a href="probability.html#cb119-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
+<span id="cb119-32"><a href="probability.html#cb119-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span></code></pre></div>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="probability.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
-<span id="cb117-2"><a href="probability.html#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(fig1,fig2,fig3,fig4,<span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="probability.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;gridExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     combine</code></pre>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="probability.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(fig1,fig2,fig3,fig4,<span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
 <p>What do you conclude from the four QQ plots?</p>
 <div style="page-break-after: always;"></div>
@@ -906,14 +919,14 @@ Probability, p(X)
 <div class="example">
 <p><span id="exm:unlabeled-div-92" class="example"><strong>Example 2.25  </strong></span>Complete 10,000 simulations of the four game series between the Rockies and Cubs. For the number of Rockies wins, calculate the sample mean and sample variance and compare these to the population values. Also, plot a histogram of the sample data.</p>
 </div>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="probability.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
-<span id="cb118-2"><a href="probability.html#cb118-2" aria-hidden="true" tabindex="-1"></a>rockies_wins <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">10000</span>,<span class="at">size=</span><span class="dv">4</span>,<span class="at">prob=</span><span class="fl">0.65</span>)</span>
-<span id="cb118-3"><a href="probability.html#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rockies_wins)</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="probability.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb124-2"><a href="probability.html#cb124-2" aria-hidden="true" tabindex="-1"></a>rockies_wins <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">10000</span>,<span class="at">size=</span><span class="dv">4</span>,<span class="at">prob=</span><span class="fl">0.65</span>)</span>
+<span id="cb124-3"><a href="probability.html#cb124-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rockies_wins)</span></code></pre></div>
 <pre><code>## [1] 2.6036</code></pre>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="probability.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(rockies_wins)</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="probability.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(rockies_wins)</span></code></pre></div>
 <pre><code>## [1] 0.9121583</code></pre>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="probability.html#cb122-1" aria-hidden="true" tabindex="-1"></a>rockies_wins_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Wins=</span>rockies_wins)</span>
-<span id="cb122-2"><a href="probability.html#cb122-2" aria-hidden="true" tabindex="-1"></a>rockies_wins_df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(Wins)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>,<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;purple&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="probability.html#cb128-1" aria-hidden="true" tabindex="-1"></a>rockies_wins_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Wins=</span>rockies_wins)</span>
+<span id="cb128-2"><a href="probability.html#cb128-2" aria-hidden="true" tabindex="-1"></a>rockies_wins_df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(Wins)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>,<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;purple&quot;</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 <div id="binomial-coefficient-symmetry" class="section level4 hasAnchor" number="2.6.1.1">
@@ -925,7 +938,7 @@ Probability, p(X)
 </p>
 <p>However, instead of thinking about the number of ways to assign the games to the team that gets four home games, what if we thought about the number of ways to assign games to the team that gets three home games?</p>
 <p>That would be <span class="math inline">\(\binom{7}{3}\)</span>. We can use the <code>choose</code> command in R to find this quantity.</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="probability.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">7</span>,<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="probability.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">7</span>,<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 35</code></pre>
 <p>It turns out that this binomial coefficient is also equal to 35.</p>
 <p>Theorem: <span class="math inline">\(\binom{n}{k} = \binom{n}{n-k}\)</span></p>
@@ -963,20 +976,20 @@ Probability, p(X)
 </ol>
 <p><strong>Caution:</strong> Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful.</p>
 <p>Let’s simulate the number of shot attempts required to score the first goal (Geometric(<span class="math inline">\(p=1/10\)</span>)) from the previous example.</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="probability.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
-<span id="cb125-2"><a href="probability.html#cb125-2" aria-hidden="true" tabindex="-1"></a>geometric <span class="ot">&lt;-</span> <span class="fu">rgeom</span>(<span class="dv">10000</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">10</span>)</span>
-<span id="cb125-3"><a href="probability.html#cb125-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(geometric, <span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="probability.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
+<span id="cb131-2"><a href="probability.html#cb131-2" aria-hidden="true" tabindex="-1"></a>geometric <span class="ot">&lt;-</span> <span class="fu">rgeom</span>(<span class="dv">10000</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">10</span>)</span>
+<span id="cb131-3"><a href="probability.html#cb131-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(geometric, <span class="dv">20</span>)</span></code></pre></div>
 <pre><code>##  [1]  2  2  7 55  6 11  2 11  2  5  0 50 17  2  7  0  7 19 17  1</code></pre>
 <p>Some of the values were 0, which could not happen if R was considering the number of the trial on which the first success occurred. You can add 1 to the values given by <code>R</code> to arrive at the first success distribution.</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="probability.html#cb127-1" aria-hidden="true" tabindex="-1"></a>first_success <span class="ot">&lt;-</span> geometric <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb127-2"><a href="probability.html#cb127-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(first_success, <span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="probability.html#cb133-1" aria-hidden="true" tabindex="-1"></a>first_success <span class="ot">&lt;-</span> geometric <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb133-2"><a href="probability.html#cb133-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(first_success, <span class="dv">20</span>)</span></code></pre></div>
 <pre><code>##  [1]  3  3  8 56  7 12  3 12  3  6  1 51 18  3  8  1  8 20 18  2</code></pre>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="probability.html#cb129-1" aria-hidden="true" tabindex="-1"></a>(mean_success <span class="ot">&lt;-</span> <span class="fu">mean</span>(first_success))</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="probability.html#cb135-1" aria-hidden="true" tabindex="-1"></a>(mean_success <span class="ot">&lt;-</span> <span class="fu">mean</span>(first_success))</span></code></pre></div>
 <pre><code>## [1] 10.0669</code></pre>
 <p>The mean of this sample of variables is 10.0669, which is close to the expected mean of <span class="math inline">\(\frac{1}{p} = 10\)</span>.</p>
 <p>Let’s plot the sample distribution of shots required to score a goal from the simulation as well.</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="probability.html#cb131-1" aria-hidden="true" tabindex="-1"></a>first_success_df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Shots =</span> first_success)</span>
-<span id="cb131-2"><a href="probability.html#cb131-2" aria-hidden="true" tabindex="-1"></a>first_success_df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Shots)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="probability.html#cb137-1" aria-hidden="true" tabindex="-1"></a>first_success_df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Shots =</span> first_success)</span>
+<span id="cb137-2"><a href="probability.html#cb137-2" aria-hidden="true" tabindex="-1"></a>first_success_df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Shots)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 </div>
@@ -999,41 +1012,41 @@ Probability, p(X)
 </li>
 </ol>
 <p>We can calculate these probabilities in R using the <code>dpois</code> command.</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="probability.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="at">x=</span><span class="dv">0</span>, <span class="at">lambda=</span><span class="fl">1.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="probability.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="at">x=</span><span class="dv">0</span>, <span class="at">lambda=</span><span class="fl">1.5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.2231302</code></pre>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="probability.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="at">x=</span><span class="dv">2</span>, <span class="at">lambda=</span><span class="fl">1.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="probability.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="at">x=</span><span class="dv">2</span>, <span class="at">lambda=</span><span class="fl">1.5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.2510214</code></pre>
 <div style="page-break-after: always;"></div>
 <p>We can also plot the PMF of Y to check visually.</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="probability.html#cb136-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">8</span></span>
-<span id="cb136-2"><a href="probability.html#cb136-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">1.5</span>)</span>
-<span id="cb136-3"><a href="probability.html#cb136-3" aria-hidden="true" tabindex="-1"></a>poisson.pmf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x,y)</span>
-<span id="cb136-4"><a href="probability.html#cb136-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">transform</span>(poisson.pmf), <span class="fu">aes</span>(x, y)) <span class="sc">+</span> </span>
-<span id="cb136-5"><a href="probability.html#cb136-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb136-6"><a href="probability.html#cb136-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Probability mass function of Poisson(1.5) random variable&quot;</span>) <span class="sc">+</span></span>
-<span id="cb136-7"><a href="probability.html#cb136-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Value&quot;</span>) <span class="sc">+</span></span>
-<span id="cb136-8"><a href="probability.html#cb136-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Probability&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="probability.html#cb142-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">8</span></span>
+<span id="cb142-2"><a href="probability.html#cb142-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">1.5</span>)</span>
+<span id="cb142-3"><a href="probability.html#cb142-3" aria-hidden="true" tabindex="-1"></a>poisson.pmf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x,y)</span>
+<span id="cb142-4"><a href="probability.html#cb142-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">transform</span>(poisson.pmf), <span class="fu">aes</span>(x, y)) <span class="sc">+</span> </span>
+<span id="cb142-5"><a href="probability.html#cb142-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb142-6"><a href="probability.html#cb142-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Probability mass function of Poisson(1.5) random variable&quot;</span>) <span class="sc">+</span></span>
+<span id="cb142-7"><a href="probability.html#cb142-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Value&quot;</span>) <span class="sc">+</span></span>
+<span id="cb142-8"><a href="probability.html#cb142-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Probability&quot;</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 <p>Let’s check whether using a Poisson distribution was appropriate by comparing it to the actual 2021 Colorado Rapids match results.</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="probability.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data: https://www.espn.com/soccer/team/results/_/id/184/season/2021</span></span>
-<span id="cb137-2"><a href="probability.html#cb137-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb137-3"><a href="probability.html#cb137-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;kableExtra&quot;</span>)</span>
-<span id="cb137-4"><a href="probability.html#cb137-4" aria-hidden="true" tabindex="-1"></a>rapids21 <span class="ot">&lt;-</span> </span>
-<span id="cb137-5"><a href="probability.html#cb137-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">5</span>)</span>
-<span id="cb137-6"><a href="probability.html#cb137-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb137-7"><a href="probability.html#cb137-7" aria-hidden="true" tabindex="-1"></a>goals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>, <span class="st">&quot;5+&quot;</span>)</span>
-<span id="cb137-8"><a href="probability.html#cb137-8" aria-hidden="true" tabindex="-1"></a>actual_frequency <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">14</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb137-9"><a href="probability.html#cb137-9" aria-hidden="true" tabindex="-1"></a>actual_proportion <span class="ot">&lt;-</span> actual_frequency <span class="sc">/</span> <span class="fu">sum</span>(actual_frequency)</span>
-<span id="cb137-10"><a href="probability.html#cb137-10" aria-hidden="true" tabindex="-1"></a>expected_proportion <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">dpois</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">lambda=</span><span class="fl">1.5</span>), </span>
-<span id="cb137-11"><a href="probability.html#cb137-11" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">ppois</span>(<span class="dv">4</span>, <span class="at">lambda=</span><span class="fl">1.5</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>))</span>
-<span id="cb137-12"><a href="probability.html#cb137-12" aria-hidden="true" tabindex="-1"></a>expected_frequency <span class="ot">&lt;-</span> <span class="fu">round</span>(expected_proportion <span class="sc">*</span> <span class="dv">34</span>, <span class="dv">1</span>)</span>
-<span id="cb137-13"><a href="probability.html#cb137-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb137-14"><a href="probability.html#cb137-14" aria-hidden="true" tabindex="-1"></a>rapids.data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(goals, actual_frequency, actual_proportion, </span>
-<span id="cb137-15"><a href="probability.html#cb137-15" aria-hidden="true" tabindex="-1"></a>                          expected_frequency, expected_proportion)</span>
-<span id="cb137-16"><a href="probability.html#cb137-16" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(rapids.data) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Goals&quot;</span>,<span class="st">&quot;Actual Frequency&quot;</span>,<span class="st">&quot;Actual Proportion&quot;</span>,<span class="st">&quot;Expected Frequency&quot;</span>,<span class="st">&quot;Expected Proportion&quot;</span>)</span>
-<span id="cb137-17"><a href="probability.html#cb137-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb137-18"><a href="probability.html#cb137-18" aria-hidden="true" tabindex="-1"></a>rapids.data <span class="sc">%&gt;%</span> <span class="fu">kt</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="probability.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data: https://www.espn.com/soccer/team/results/_/id/184/season/2021</span></span>
+<span id="cb143-2"><a href="probability.html#cb143-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-3"><a href="probability.html#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;kableExtra&quot;</span>)</span>
+<span id="cb143-4"><a href="probability.html#cb143-4" aria-hidden="true" tabindex="-1"></a>rapids21 <span class="ot">&lt;-</span> </span>
+<span id="cb143-5"><a href="probability.html#cb143-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">5</span>)</span>
+<span id="cb143-6"><a href="probability.html#cb143-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-7"><a href="probability.html#cb143-7" aria-hidden="true" tabindex="-1"></a>goals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>, <span class="st">&quot;5+&quot;</span>)</span>
+<span id="cb143-8"><a href="probability.html#cb143-8" aria-hidden="true" tabindex="-1"></a>actual_frequency <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">14</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb143-9"><a href="probability.html#cb143-9" aria-hidden="true" tabindex="-1"></a>actual_proportion <span class="ot">&lt;-</span> actual_frequency <span class="sc">/</span> <span class="fu">sum</span>(actual_frequency)</span>
+<span id="cb143-10"><a href="probability.html#cb143-10" aria-hidden="true" tabindex="-1"></a>expected_proportion <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">dpois</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">lambda=</span><span class="fl">1.5</span>), </span>
+<span id="cb143-11"><a href="probability.html#cb143-11" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">ppois</span>(<span class="dv">4</span>, <span class="at">lambda=</span><span class="fl">1.5</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>))</span>
+<span id="cb143-12"><a href="probability.html#cb143-12" aria-hidden="true" tabindex="-1"></a>expected_frequency <span class="ot">&lt;-</span> <span class="fu">round</span>(expected_proportion <span class="sc">*</span> <span class="dv">34</span>, <span class="dv">1</span>)</span>
+<span id="cb143-13"><a href="probability.html#cb143-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-14"><a href="probability.html#cb143-14" aria-hidden="true" tabindex="-1"></a>rapids.data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(goals, actual_frequency, actual_proportion, </span>
+<span id="cb143-15"><a href="probability.html#cb143-15" aria-hidden="true" tabindex="-1"></a>                          expected_frequency, expected_proportion)</span>
+<span id="cb143-16"><a href="probability.html#cb143-16" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(rapids.data) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Goals&quot;</span>,<span class="st">&quot;Actual Frequency&quot;</span>,<span class="st">&quot;Actual Proportion&quot;</span>,<span class="st">&quot;Expected Frequency&quot;</span>,<span class="st">&quot;Expected Proportion&quot;</span>)</span>
+<span id="cb143-17"><a href="probability.html#cb143-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-18"><a href="probability.html#cb143-18" aria-hidden="true" tabindex="-1"></a>rapids.data <span class="sc">%&gt;%</span> <span class="fu">kt</span>()</span></code></pre></div>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1180,15 +1193,15 @@ Expected Proportion
 <li>Use a QQ plot to compare the probability distribution of the 2021 Rapids goals to a Poisson distribution.<br />
 </li>
 </ol>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="probability.html#cb138-1" aria-hidden="true" tabindex="-1"></a>rapids21 <span class="sc">%&gt;%</span> </span>
-<span id="cb138-2"><a href="probability.html#cb138-2" aria-hidden="true" tabindex="-1"></a>  as.data.frame <span class="sc">%&gt;%</span> </span>
-<span id="cb138-3"><a href="probability.html#cb138-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> rapids21)) <span class="sc">+</span></span>
-<span id="cb138-4"><a href="probability.html#cb138-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qpois,</span>
-<span id="cb138-5"><a href="probability.html#cb138-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">dparams =</span> <span class="fl">1.5</span>,<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>,<span class="at">height =</span> <span class="fl">0.1</span>)) <span class="sc">+</span></span>
-<span id="cb138-6"><a href="probability.html#cb138-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb138-7"><a href="probability.html#cb138-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;QQ-plot for Rapids 2021 Goals vs. Poisson Distribution&quot;</span>) <span class="sc">+</span></span>
-<span id="cb138-8"><a href="probability.html#cb138-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
-<span id="cb138-9"><a href="probability.html#cb138-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="probability.html#cb144-1" aria-hidden="true" tabindex="-1"></a>rapids21 <span class="sc">%&gt;%</span> </span>
+<span id="cb144-2"><a href="probability.html#cb144-2" aria-hidden="true" tabindex="-1"></a>  as.data.frame <span class="sc">%&gt;%</span> </span>
+<span id="cb144-3"><a href="probability.html#cb144-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> rapids21)) <span class="sc">+</span></span>
+<span id="cb144-4"><a href="probability.html#cb144-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qpois,</span>
+<span id="cb144-5"><a href="probability.html#cb144-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">dparams =</span> <span class="fl">1.5</span>,<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>,<span class="at">height =</span> <span class="fl">0.1</span>)) <span class="sc">+</span></span>
+<span id="cb144-6"><a href="probability.html#cb144-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb144-7"><a href="probability.html#cb144-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;QQ-plot for Rapids 2021 Goals vs. Poisson Distribution&quot;</span>) <span class="sc">+</span></span>
+<span id="cb144-8"><a href="probability.html#cb144-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
+<span id="cb144-9"><a href="probability.html#cb144-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>What are the advantages of using the Poisson distribution to model Major League soccer goals? What are the disadvantages?<br />
@@ -1205,24 +1218,24 @@ Expected Proportion
 <ol style="list-style-type: lower-alpha">
 <li>Plot the data.</li>
 </ol>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="probability.html#cb139-1" aria-hidden="true" tabindex="-1"></a>shaq9798 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/shaq9798.csv&quot;</span>)</span>
-<span id="cb139-2"><a href="probability.html#cb139-2" aria-hidden="true" tabindex="-1"></a>shaq9798 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>FTA))  <span class="sc">+</span> </span>
-<span id="cb139-3"><a href="probability.html#cb139-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;purple&quot;</span>) <span class="sc">+</span></span>
-<span id="cb139-4"><a href="probability.html#cb139-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Per Game FT Attempt Totals by Shaq in 1997-1998&quot;</span>) <span class="sc">+</span></span>
-<span id="cb139-5"><a href="probability.html#cb139-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">25</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="probability.html#cb145-1" aria-hidden="true" tabindex="-1"></a>shaq9798 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/shaq9798.csv&quot;</span>)</span>
+<span id="cb145-2"><a href="probability.html#cb145-2" aria-hidden="true" tabindex="-1"></a>shaq9798 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>FTA))  <span class="sc">+</span> </span>
+<span id="cb145-3"><a href="probability.html#cb145-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;purple&quot;</span>) <span class="sc">+</span></span>
+<span id="cb145-4"><a href="probability.html#cb145-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Per Game FT Attempt Totals by Shaq in 1997-1998&quot;</span>) <span class="sc">+</span></span>
+<span id="cb145-5"><a href="probability.html#cb145-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">25</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Plot the PMF of a Poisson(11.35) random variable.</li>
 </ol>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="probability.html#cb140-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">25</span></span>
-<span id="cb140-2"><a href="probability.html#cb140-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">11.35</span>)</span>
-<span id="cb140-3"><a href="probability.html#cb140-3" aria-hidden="true" tabindex="-1"></a>poisson.pmf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x,y)</span>
-<span id="cb140-4"><a href="probability.html#cb140-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(poisson.pmf, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> </span>
-<span id="cb140-5"><a href="probability.html#cb140-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb140-6"><a href="probability.html#cb140-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Probability mass function of Poisson(11.35) random variable&quot;</span>) <span class="sc">+</span></span>
-<span id="cb140-7"><a href="probability.html#cb140-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Value&quot;</span>) <span class="sc">+</span></span>
-<span id="cb140-8"><a href="probability.html#cb140-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Probability&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="probability.html#cb146-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">25</span></span>
+<span id="cb146-2"><a href="probability.html#cb146-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">11.35</span>)</span>
+<span id="cb146-3"><a href="probability.html#cb146-3" aria-hidden="true" tabindex="-1"></a>poisson.pmf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x,y)</span>
+<span id="cb146-4"><a href="probability.html#cb146-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(poisson.pmf, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> </span>
+<span id="cb146-5"><a href="probability.html#cb146-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb146-6"><a href="probability.html#cb146-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Probability mass function of Poisson(11.35) random variable&quot;</span>) <span class="sc">+</span></span>
+<span id="cb146-7"><a href="probability.html#cb146-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Value&quot;</span>) <span class="sc">+</span></span>
+<span id="cb146-8"><a href="probability.html#cb146-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Probability&quot;</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>What similarities and what differences do you notice?<br />
@@ -1235,28 +1248,28 @@ Expected Proportion
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Calculate the variance of the two distributions and compare them.</li>
 </ol>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="probability.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(shaq9798<span class="sc">$</span>FTA)</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="probability.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(shaq9798<span class="sc">$</span>FTA)</span></code></pre></div>
 <pre><code>## [1] 16.33305</code></pre>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="probability.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Var(Poisson(11.35)) = 11.35</span></span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="probability.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Var(Poisson(11.35)) = 11.35</span></span></code></pre></div>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Calculate the probability that Shaq had 20 or more free throws and compare it to <span class="math inline">\(P(Poisson(11.35) \geq 20)\)</span></li>
 </ol>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="probability.html#cb144-1" aria-hidden="true" tabindex="-1"></a>shaqFTA <span class="ot">&lt;-</span> shaq9798<span class="sc">$</span>FTA</span>
-<span id="cb144-2"><a href="probability.html#cb144-2" aria-hidden="true" tabindex="-1"></a>shaq20 <span class="ot">&lt;-</span> <span class="fu">sum</span>(shaqFTA <span class="sc">&gt;=</span> <span class="dv">20</span>)<span class="sc">/</span><span class="fu">length</span>(shaqFTA); shaq20</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="probability.html#cb150-1" aria-hidden="true" tabindex="-1"></a>shaqFTA <span class="ot">&lt;-</span> shaq9798<span class="sc">$</span>FTA</span>
+<span id="cb150-2"><a href="probability.html#cb150-2" aria-hidden="true" tabindex="-1"></a>shaq20 <span class="ot">&lt;-</span> <span class="fu">sum</span>(shaqFTA <span class="sc">&gt;=</span> <span class="dv">20</span>)<span class="sc">/</span><span class="fu">length</span>(shaqFTA); shaq20</span></code></pre></div>
 <pre><code>## [1] 0.06666667</code></pre>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="probability.html#cb146-1" aria-hidden="true" tabindex="-1"></a>poisson20 <span class="ot">&lt;-</span> <span class="fu">ppois</span>(<span class="dv">20</span>, <span class="at">lambda=</span><span class="fl">11.35</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>); poisson20</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="probability.html#cb152-1" aria-hidden="true" tabindex="-1"></a>poisson20 <span class="ot">&lt;-</span> <span class="fu">ppois</span>(<span class="dv">20</span>, <span class="at">lambda=</span><span class="fl">11.35</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>); poisson20</span></code></pre></div>
 <pre><code>## [1] 0.006536079</code></pre>
 <div style="page-break-after: always;"></div>
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Create a QQ-plot of Shaq’s per game free throw attempts and a Poisson distribution.</li>
 </ol>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="probability.html#cb148-1" aria-hidden="true" tabindex="-1"></a>shaq9798 <span class="sc">%&gt;%</span> </span>
-<span id="cb148-2"><a href="probability.html#cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> FTA)) <span class="sc">+</span></span>
-<span id="cb148-3"><a href="probability.html#cb148-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qpois,<span class="at">dparams =</span> <span class="fl">11.35</span>,<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width=</span><span class="fl">0.2</span>,<span class="at">height=</span><span class="fl">0.2</span>)) <span class="sc">+</span></span>
-<span id="cb148-4"><a href="probability.html#cb148-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="fl">11.35</span>) <span class="sc">+</span></span>
-<span id="cb148-5"><a href="probability.html#cb148-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;QQ-plot for Shaq&#39;s Free Throw Attempts vs. Poisson Distribution&quot;</span>) <span class="sc">+</span></span>
-<span id="cb148-6"><a href="probability.html#cb148-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
-<span id="cb148-7"><a href="probability.html#cb148-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="probability.html#cb154-1" aria-hidden="true" tabindex="-1"></a>shaq9798 <span class="sc">%&gt;%</span> </span>
+<span id="cb154-2"><a href="probability.html#cb154-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> FTA)) <span class="sc">+</span></span>
+<span id="cb154-3"><a href="probability.html#cb154-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qpois,<span class="at">dparams =</span> <span class="fl">11.35</span>,<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width=</span><span class="fl">0.2</span>,<span class="at">height=</span><span class="fl">0.2</span>)) <span class="sc">+</span></span>
+<span id="cb154-4"><a href="probability.html#cb154-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qpois, <span class="at">dparams =</span> <span class="fl">11.35</span>) <span class="sc">+</span></span>
+<span id="cb154-5"><a href="probability.html#cb154-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;QQ-plot for Shaq&#39;s Free Throw Attempts vs. Poisson Distribution&quot;</span>) <span class="sc">+</span></span>
+<span id="cb154-6"><a href="probability.html#cb154-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
+<span id="cb154-7"><a href="probability.html#cb154-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
 <ol start="7" style="list-style-type: lower-alpha">
 <li>Is the Poisson distribution appropriate to model Shaq’s FTA per game? Explain.<br />
@@ -1284,51 +1297,51 @@ Expected Proportion
 <ol style="list-style-type: lower-alpha">
 <li>Find an appropriate choice of parameters, <span class="math inline">\(r\)</span> and <span class="math inline">\(p\)</span>.</li>
 </ol>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="probability.html#cb149-1" aria-hidden="true" tabindex="-1"></a>shaq.mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(shaqFTA)</span>
-<span id="cb149-2"><a href="probability.html#cb149-2" aria-hidden="true" tabindex="-1"></a>shaq.var <span class="ot">&lt;-</span> <span class="fu">var</span>(shaqFTA)</span>
-<span id="cb149-3"><a href="probability.html#cb149-3" aria-hidden="true" tabindex="-1"></a>rhat <span class="ot">&lt;-</span> shaq.mean<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(shaq.var<span class="sc">-</span>shaq.mean)</span>
-<span id="cb149-4"><a href="probability.html#cb149-4" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> (shaq.var<span class="sc">-</span>shaq.mean)<span class="sc">/</span>shaq.var</span>
-<span id="cb149-5"><a href="probability.html#cb149-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(rhat,phat)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="probability.html#cb155-1" aria-hidden="true" tabindex="-1"></a>shaq.mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(shaqFTA)</span>
+<span id="cb155-2"><a href="probability.html#cb155-2" aria-hidden="true" tabindex="-1"></a>shaq.var <span class="ot">&lt;-</span> <span class="fu">var</span>(shaqFTA)</span>
+<span id="cb155-3"><a href="probability.html#cb155-3" aria-hidden="true" tabindex="-1"></a>rhat <span class="ot">&lt;-</span> shaq.mean<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(shaq.var<span class="sc">-</span>shaq.mean)</span>
+<span id="cb155-4"><a href="probability.html#cb155-4" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> (shaq.var<span class="sc">-</span>shaq.mean)<span class="sc">/</span>shaq.var</span>
+<span id="cb155-5"><a href="probability.html#cb155-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(rhat,phat)</span></code></pre></div>
 <pre><code>## [1] 25.85213  0.30509</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Plot the Negative Binomial distribution. Note that R uses an alternative parameterization for <span class="math inline">\(p\)</span>. Use <span class="math inline">\(prob = 1-p\)</span>.</li>
 </ol>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="probability.html#cb151-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">25</span></span>
-<span id="cb151-2"><a href="probability.html#cb151-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dnbinom</span>(x,<span class="at">size=</span>rhat,<span class="at">prob=</span><span class="dv">1</span><span class="sc">-</span>phat)</span>
-<span id="cb151-3"><a href="probability.html#cb151-3" aria-hidden="true" tabindex="-1"></a>geom.pmf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x,y)</span>
-<span id="cb151-4"><a href="probability.html#cb151-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(geom.pmf, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> </span>
-<span id="cb151-5"><a href="probability.html#cb151-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb151-6"><a href="probability.html#cb151-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Value&quot;</span>, <span class="at">y=</span><span class="st">&quot;Frequency&quot;</span>, <span class="at">title=</span><span class="st">&quot;Probability mass function of NB(r=25.852,p=0.305) random variable&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="probability.html#cb157-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">25</span></span>
+<span id="cb157-2"><a href="probability.html#cb157-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dnbinom</span>(x,<span class="at">size=</span>rhat,<span class="at">prob=</span><span class="dv">1</span><span class="sc">-</span>phat)</span>
+<span id="cb157-3"><a href="probability.html#cb157-3" aria-hidden="true" tabindex="-1"></a>geom.pmf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x,y)</span>
+<span id="cb157-4"><a href="probability.html#cb157-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(geom.pmf, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> </span>
+<span id="cb157-5"><a href="probability.html#cb157-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb157-6"><a href="probability.html#cb157-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Value&quot;</span>, <span class="at">y=</span><span class="st">&quot;Frequency&quot;</span>, <span class="at">title=</span><span class="st">&quot;Probability mass function of NB(r=25.852,p=0.305) random variable&quot;</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Calculate the mean and variance of the Negative Binomial and Shaq’s dataset.</li>
 </ol>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="probability.html#cb152-1" aria-hidden="true" tabindex="-1"></a>shaq.mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(shaqFTA)</span>
-<span id="cb152-2"><a href="probability.html#cb152-2" aria-hidden="true" tabindex="-1"></a>shaq.var <span class="ot">&lt;-</span> <span class="fu">var</span>(shaqFTA)</span>
-<span id="cb152-3"><a href="probability.html#cb152-3" aria-hidden="true" tabindex="-1"></a>NB.mean <span class="ot">&lt;-</span> (rhat<span class="sc">*</span>phat)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>phat)</span>
-<span id="cb152-4"><a href="probability.html#cb152-4" aria-hidden="true" tabindex="-1"></a>NB.var <span class="ot">&lt;-</span> (rhat<span class="sc">*</span>phat)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>phat)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb152-5"><a href="probability.html#cb152-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(shaq.mean,shaq.var)</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="probability.html#cb158-1" aria-hidden="true" tabindex="-1"></a>shaq.mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(shaqFTA)</span>
+<span id="cb158-2"><a href="probability.html#cb158-2" aria-hidden="true" tabindex="-1"></a>shaq.var <span class="ot">&lt;-</span> <span class="fu">var</span>(shaqFTA)</span>
+<span id="cb158-3"><a href="probability.html#cb158-3" aria-hidden="true" tabindex="-1"></a>NB.mean <span class="ot">&lt;-</span> (rhat<span class="sc">*</span>phat)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>phat)</span>
+<span id="cb158-4"><a href="probability.html#cb158-4" aria-hidden="true" tabindex="-1"></a>NB.var <span class="ot">&lt;-</span> (rhat<span class="sc">*</span>phat)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>phat)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb158-5"><a href="probability.html#cb158-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(shaq.mean,shaq.var)</span></code></pre></div>
 <pre><code>## [1] 11.35000 16.33305</code></pre>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="probability.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(NB.mean,NB.var)</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="probability.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(NB.mean,NB.var)</span></code></pre></div>
 <pre><code>## [1] 11.35000 16.33305</code></pre>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Calculate the probability that Shaq had 20 or more free throws and compare it to <span class="math inline">\(P(NB(r=25.852,p=0.305) \geq 20)\)</span></li>
 </ol>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="probability.html#cb156-1" aria-hidden="true" tabindex="-1"></a>shaq20 <span class="ot">&lt;-</span> <span class="fu">sum</span>(shaqFTA <span class="sc">&gt;=</span> <span class="dv">20</span>)<span class="sc">/</span><span class="fu">length</span>(shaqFTA); shaq20</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="probability.html#cb162-1" aria-hidden="true" tabindex="-1"></a>shaq20 <span class="ot">&lt;-</span> <span class="fu">sum</span>(shaqFTA <span class="sc">&gt;=</span> <span class="dv">20</span>)<span class="sc">/</span><span class="fu">length</span>(shaqFTA); shaq20</span></code></pre></div>
 <pre><code>## [1] 0.06666667</code></pre>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="probability.html#cb158-1" aria-hidden="true" tabindex="-1"></a>nb20 <span class="ot">&lt;-</span> <span class="fu">pnbinom</span>(<span class="dv">20</span>,<span class="at">size=</span>rhat,<span class="at">prob=</span><span class="dv">1</span><span class="sc">-</span>phat,<span class="at">lower.tail=</span><span class="cn">FALSE</span>); nb20</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="probability.html#cb164-1" aria-hidden="true" tabindex="-1"></a>nb20 <span class="ot">&lt;-</span> <span class="fu">pnbinom</span>(<span class="dv">20</span>,<span class="at">size=</span>rhat,<span class="at">prob=</span><span class="dv">1</span><span class="sc">-</span>phat,<span class="at">lower.tail=</span><span class="cn">FALSE</span>); nb20</span></code></pre></div>
 <pre><code>## [1] 0.0208711</code></pre>
 <div style="page-break-after: always;"></div>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Create a QQ-plot of Shaq’s per game free throw attempts and a Negative Binomial distribution.</li>
 </ol>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="probability.html#cb160-1" aria-hidden="true" tabindex="-1"></a>shaq9798 <span class="sc">%&gt;%</span> </span>
-<span id="cb160-2"><a href="probability.html#cb160-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> FTA)) <span class="sc">+</span></span>
-<span id="cb160-3"><a href="probability.html#cb160-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qnbinom,<span class="at">dparams =</span> <span class="fu">list</span>(<span class="at">size=</span><span class="fl">25.852</span>,<span class="at">mu=</span><span class="fl">11.35</span>),<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width=</span><span class="fl">0.2</span>,<span class="at">height=</span><span class="fl">0.2</span>)) <span class="sc">+</span></span>
-<span id="cb160-4"><a href="probability.html#cb160-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qnbinom, <span class="at">dparams =</span> <span class="fu">list</span>(<span class="at">size=</span><span class="fl">25.852</span>,<span class="at">mu=</span><span class="fl">11.35</span>)) <span class="sc">+</span></span>
-<span id="cb160-5"><a href="probability.html#cb160-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;QQ-plot for Shaq&#39;s Free Throw Attempts vs. Negative Binomial Distribution&quot;</span>) <span class="sc">+</span></span>
-<span id="cb160-6"><a href="probability.html#cb160-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
-<span id="cb160-7"><a href="probability.html#cb160-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="probability.html#cb166-1" aria-hidden="true" tabindex="-1"></a>shaq9798 <span class="sc">%&gt;%</span> </span>
+<span id="cb166-2"><a href="probability.html#cb166-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> FTA)) <span class="sc">+</span></span>
+<span id="cb166-3"><a href="probability.html#cb166-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">distribution =</span> qnbinom,<span class="at">dparams =</span> <span class="fu">list</span>(<span class="at">size=</span><span class="fl">25.852</span>,<span class="at">mu=</span><span class="fl">11.35</span>),<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">width=</span><span class="fl">0.2</span>,<span class="at">height=</span><span class="fl">0.2</span>)) <span class="sc">+</span></span>
+<span id="cb166-4"><a href="probability.html#cb166-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">distribution =</span> qnbinom, <span class="at">dparams =</span> <span class="fu">list</span>(<span class="at">size=</span><span class="fl">25.852</span>,<span class="at">mu=</span><span class="fl">11.35</span>)) <span class="sc">+</span></span>
+<span id="cb166-5"><a href="probability.html#cb166-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;QQ-plot for Shaq&#39;s Free Throw Attempts vs. Negative Binomial Distribution&quot;</span>) <span class="sc">+</span></span>
+<span id="cb166-6"><a href="probability.html#cb166-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Theoretical Quantiles&quot;</span>) <span class="sc">+</span></span>
+<span id="cb166-7"><a href="probability.html#cb166-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Empirical Quantiles&quot;</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Is the Negative Binomial distribution appropriate to model Shaq’s FTA per game? How does it compare to using the Poisson distribution? Explain.<br />
@@ -1387,15 +1400,15 @@ Expected Proportion
 </p></li>
 </ol>
 <p>Let’s check our answers:</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="probability.html#cb161-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(<span class="at">q=</span><span class="dv">70</span>,<span class="at">mean=</span><span class="dv">50</span>,<span class="at">sd=</span><span class="dv">10</span>); a</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="probability.html#cb167-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(<span class="at">q=</span><span class="dv">70</span>,<span class="at">mean=</span><span class="dv">50</span>,<span class="at">sd=</span><span class="dv">10</span>); a</span></code></pre></div>
 <pre><code>## [1] 0.02275013</code></pre>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="probability.html#cb163-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q=</span><span class="dv">55</span>,<span class="at">mean=</span><span class="dv">50</span>,<span class="at">sd=</span><span class="dv">10</span>); b</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="probability.html#cb169-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q=</span><span class="dv">55</span>,<span class="at">mean=</span><span class="dv">50</span>,<span class="at">sd=</span><span class="dv">10</span>); b</span></code></pre></div>
 <pre><code>## [1] 0.6914625</code></pre>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="probability.html#cb165-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.1</span>,<span class="at">mean=</span><span class="dv">50</span>,<span class="at">sd=</span><span class="dv">10</span>,<span class="at">lower.tail =</span> F); c</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="probability.html#cb171-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.1</span>,<span class="at">mean=</span><span class="dv">50</span>,<span class="at">sd=</span><span class="dv">10</span>,<span class="at">lower.tail =</span> F); c</span></code></pre></div>
 <pre><code>## [1] 62.81552</code></pre>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="probability.html#cb167-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.2</span>,<span class="at">mean=</span><span class="dv">50</span>,<span class="at">sd=</span><span class="dv">10</span>,<span class="at">lower.tail =</span> T); d</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="probability.html#cb173-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.2</span>,<span class="at">mean=</span><span class="dv">50</span>,<span class="at">sd=</span><span class="dv">10</span>,<span class="at">lower.tail =</span> T); d</span></code></pre></div>
 <pre><code>## [1] 41.58379</code></pre>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="probability.html#cb169-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q=</span><span class="dv">70</span>,<span class="at">mean=</span><span class="dv">50</span>,<span class="at">sd=</span><span class="dv">10</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q=</span><span class="dv">30</span>,<span class="at">mean=</span><span class="dv">50</span>,<span class="at">sd=</span><span class="dv">10</span>); e</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="probability.html#cb175-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q=</span><span class="dv">70</span>,<span class="at">mean=</span><span class="dv">50</span>,<span class="at">sd=</span><span class="dv">10</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q=</span><span class="dv">30</span>,<span class="at">mean=</span><span class="dv">50</span>,<span class="at">sd=</span><span class="dv">10</span>); e</span></code></pre></div>
 <pre><code>## [1] 0.9544997</code></pre>
 <div style="page-break-after: always;"></div>
 <div class="example">
@@ -1404,8 +1417,8 @@ Expected Proportion
 </div>
 <p>We want <span class="math inline">\(P(X&gt;Y)\)</span> or <span class="math inline">\(P(X-Y&gt;0)\)</span><br />
 </p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="probability.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate probability Z&lt;=0</span></span>
-<span id="cb171-2"><a href="probability.html#cb171-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="dv">0</span>,<span class="fl">1.5</span>,<span class="fu">sqrt</span>(<span class="dv">5</span>),<span class="at">lower.tail =</span> F); p</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="probability.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate probability Z&lt;=0</span></span>
+<span id="cb177-2"><a href="probability.html#cb177-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="dv">0</span>,<span class="fl">1.5</span>,<span class="fu">sqrt</span>(<span class="dv">5</span>),<span class="at">lower.tail =</span> F); p</span></code></pre></div>
 <pre><code>## [1] 0.7488325</code></pre>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1421,20 +1434,20 @@ Expected Proportion
 <div class="example">
 <p><span id="exm:unlabeled-div-104" class="example"><strong>Example 2.32  </strong></span>Sketch the distribution of the final margin of victory for an NFL team that is favored by 7 points. Shade the area for a win in regulation (for the favorite) and a tie in regulation.</p>
 </div>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="probability.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb173-2"><a href="probability.html#cb173-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
-<span id="cb173-3"><a href="probability.html#cb173-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb173-4"><a href="probability.html#cb173-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb173-5"><a href="probability.html#cb173-5" aria-hidden="true" tabindex="-1"></a>final_margin_full <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">21</span>, <span class="dv">42</span>)), <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
-<span id="cb173-6"><a href="probability.html#cb173-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">7</span>, <span class="at">sd =</span> <span class="fl">13.45</span>)) <span class="sc">+</span> </span>
-<span id="cb173-7"><a href="probability.html#cb173-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Final Margin (for favorite)&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Full Distribution&quot;</span>)</span>
-<span id="cb173-8"><a href="probability.html#cb173-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb173-9"><a href="probability.html#cb173-9" aria-hidden="true" tabindex="-1"></a>final_margin_zoom <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">10</span>)), <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
-<span id="cb173-10"><a href="probability.html#cb173-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">7</span>, <span class="at">sd =</span> <span class="fl">13.45</span>)) <span class="sc">+</span> </span>
-<span id="cb173-11"><a href="probability.html#cb173-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Final Margin (for favorite)&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Zoomed Distribution&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb173-12"><a href="probability.html#cb173-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">1</span>))</span>
-<span id="cb173-13"><a href="probability.html#cb173-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb173-14"><a href="probability.html#cb173-14" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(final_margin_full, final_margin_zoom, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="probability.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb179-2"><a href="probability.html#cb179-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb179-3"><a href="probability.html#cb179-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-4"><a href="probability.html#cb179-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-5"><a href="probability.html#cb179-5" aria-hidden="true" tabindex="-1"></a>final_margin_full <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">21</span>, <span class="dv">42</span>)), <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb179-6"><a href="probability.html#cb179-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">7</span>, <span class="at">sd =</span> <span class="fl">13.45</span>)) <span class="sc">+</span> </span>
+<span id="cb179-7"><a href="probability.html#cb179-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Final Margin (for favorite)&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Full Distribution&quot;</span>)</span>
+<span id="cb179-8"><a href="probability.html#cb179-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-9"><a href="probability.html#cb179-9" aria-hidden="true" tabindex="-1"></a>final_margin_zoom <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">10</span>)), <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb179-10"><a href="probability.html#cb179-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">7</span>, <span class="at">sd =</span> <span class="fl">13.45</span>)) <span class="sc">+</span> </span>
+<span id="cb179-11"><a href="probability.html#cb179-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Final Margin (for favorite)&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Zoomed Distribution&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb179-12"><a href="probability.html#cb179-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">1</span>))</span>
+<span id="cb179-13"><a href="probability.html#cb179-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-14"><a href="probability.html#cb179-14" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(final_margin_full, final_margin_zoom, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 <div class="example">
@@ -1442,19 +1455,19 @@ Expected Proportion
 </p>
 </div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="probability.html#cb174-1" aria-hidden="true" tabindex="-1"></a>fav_line <span class="ot">&lt;-</span> <span class="fl">5.5</span></span>
-<span id="cb174-2"><a href="probability.html#cb174-2" aria-hidden="true" tabindex="-1"></a>full_sd <span class="ot">&lt;-</span> <span class="fl">13.45</span></span>
-<span id="cb174-3"><a href="probability.html#cb174-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb174-4"><a href="probability.html#cb174-4" aria-hidden="true" tabindex="-1"></a>win_prob <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">0.5</span>, <span class="at">mean =</span> fav_line, <span class="at">sd =</span> full_sd, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb174-5"><a href="probability.html#cb174-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb174-6"><a href="probability.html#cb174-6" aria-hidden="true" tabindex="-1"></a>tie_prob <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">0.5</span>, <span class="at">mean =</span> fav_line, <span class="at">sd =</span> full_sd, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>) <span class="sc">-</span></span>
-<span id="cb174-7"><a href="probability.html#cb174-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">mean =</span> fav_line, <span class="at">sd =</span> full_sd, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb174-8"><a href="probability.html#cb174-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb174-9"><a href="probability.html#cb174-9" aria-hidden="true" tabindex="-1"></a><span class="co"># win probability for favorite (panthers)</span></span>
-<span id="cb174-10"><a href="probability.html#cb174-10" aria-hidden="true" tabindex="-1"></a>win_prob <span class="ot">&lt;-</span> win_prob <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span> <span class="sc">*</span> tie_prob</span>
-<span id="cb174-11"><a href="probability.html#cb174-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb174-12"><a href="probability.html#cb174-12" aria-hidden="true" tabindex="-1"></a><span class="co"># win probability for underdog (broncos)</span></span>
-<span id="cb174-13"><a href="probability.html#cb174-13" aria-hidden="true" tabindex="-1"></a>(broncos_win_prob <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> win_prob)</span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="probability.html#cb180-1" aria-hidden="true" tabindex="-1"></a>fav_line <span class="ot">&lt;-</span> <span class="fl">5.5</span></span>
+<span id="cb180-2"><a href="probability.html#cb180-2" aria-hidden="true" tabindex="-1"></a>full_sd <span class="ot">&lt;-</span> <span class="fl">13.45</span></span>
+<span id="cb180-3"><a href="probability.html#cb180-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-4"><a href="probability.html#cb180-4" aria-hidden="true" tabindex="-1"></a>win_prob <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">0.5</span>, <span class="at">mean =</span> fav_line, <span class="at">sd =</span> full_sd, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb180-5"><a href="probability.html#cb180-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-6"><a href="probability.html#cb180-6" aria-hidden="true" tabindex="-1"></a>tie_prob <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">0.5</span>, <span class="at">mean =</span> fav_line, <span class="at">sd =</span> full_sd, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>) <span class="sc">-</span></span>
+<span id="cb180-7"><a href="probability.html#cb180-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">mean =</span> fav_line, <span class="at">sd =</span> full_sd, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb180-8"><a href="probability.html#cb180-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-9"><a href="probability.html#cb180-9" aria-hidden="true" tabindex="-1"></a><span class="co"># win probability for favorite (panthers)</span></span>
+<span id="cb180-10"><a href="probability.html#cb180-10" aria-hidden="true" tabindex="-1"></a>win_prob <span class="ot">&lt;-</span> win_prob <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span> <span class="sc">*</span> tie_prob</span>
+<span id="cb180-11"><a href="probability.html#cb180-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-12"><a href="probability.html#cb180-12" aria-hidden="true" tabindex="-1"></a><span class="co"># win probability for underdog (broncos)</span></span>
+<span id="cb180-13"><a href="probability.html#cb180-13" aria-hidden="true" tabindex="-1"></a>(broncos_win_prob <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> win_prob)</span></code></pre></div>
 <pre><code>## [1] 0.3414021</code></pre>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1471,28 +1484,28 @@ Expected Proportion
 <p><span id="exm:unlabeled-div-106" class="example"><strong>Example 2.34  </strong></span>In Super Bowl 50, the Denver Broncos led the Carolina Panthers 10-0 after the first quarter. The Broncos were 5.5 point underdogs at the start of the game. Use Winston’s method to estimate the probability of a Broncos win after one quarter.<br />
 </p>
 </div>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="probability.html#cb176-1" aria-hidden="true" tabindex="-1"></a>fav_margin <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">10</span></span>
-<span id="cb176-2"><a href="probability.html#cb176-2" aria-hidden="true" tabindex="-1"></a>fav_line <span class="ot">&lt;-</span> <span class="fl">5.5</span></span>
-<span id="cb176-3"><a href="probability.html#cb176-3" aria-hidden="true" tabindex="-1"></a>full_sd <span class="ot">&lt;-</span> <span class="fl">13.45</span></span>
-<span id="cb176-4"><a href="probability.html#cb176-4" aria-hidden="true" tabindex="-1"></a>full_min <span class="ot">&lt;-</span> <span class="dv">60</span></span>
-<span id="cb176-5"><a href="probability.html#cb176-5" aria-hidden="true" tabindex="-1"></a>new_min <span class="ot">&lt;-</span> <span class="dv">45</span></span>
-<span id="cb176-6"><a href="probability.html#cb176-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb176-7"><a href="probability.html#cb176-7" aria-hidden="true" tabindex="-1"></a>new_mean <span class="ot">&lt;-</span> fav_line <span class="sc">*</span> new_min<span class="sc">/</span>full_min</span>
-<span id="cb176-8"><a href="probability.html#cb176-8" aria-hidden="true" tabindex="-1"></a>new_sd <span class="ot">&lt;-</span> full_sd <span class="sc">/</span> <span class="fu">sqrt</span>(full_min<span class="sc">/</span>new_min)</span>
-<span id="cb176-9"><a href="probability.html#cb176-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb176-10"><a href="probability.html#cb176-10" aria-hidden="true" tabindex="-1"></a>win_prob <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">0.5</span> <span class="sc">-</span> fav_margin, <span class="at">mean =</span> new_mean, </span>
-<span id="cb176-11"><a href="probability.html#cb176-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sd =</span> new_sd, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb176-12"><a href="probability.html#cb176-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb176-13"><a href="probability.html#cb176-13" aria-hidden="true" tabindex="-1"></a>tie_prob <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">0.5</span> <span class="sc">-</span> fav_margin, <span class="at">mean =</span> new_mean, </span>
-<span id="cb176-14"><a href="probability.html#cb176-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sd =</span> new_sd, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>) <span class="sc">-</span></span>
-<span id="cb176-15"><a href="probability.html#cb176-15" aria-hidden="true" tabindex="-1"></a>            <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">0.5</span> <span class="sc">-</span> fav_margin, <span class="at">mean =</span> new_mean, </span>
-<span id="cb176-16"><a href="probability.html#cb176-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sd =</span> new_sd, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb176-17"><a href="probability.html#cb176-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb176-18"><a href="probability.html#cb176-18" aria-hidden="true" tabindex="-1"></a><span class="co"># win probability for favorite (panthers)</span></span>
-<span id="cb176-19"><a href="probability.html#cb176-19" aria-hidden="true" tabindex="-1"></a>win_prob <span class="ot">&lt;-</span> win_prob <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span> <span class="sc">*</span> tie_prob</span>
-<span id="cb176-20"><a href="probability.html#cb176-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb176-21"><a href="probability.html#cb176-21" aria-hidden="true" tabindex="-1"></a><span class="co"># win probability for underdog (broncos)</span></span>
-<span id="cb176-22"><a href="probability.html#cb176-22" aria-hidden="true" tabindex="-1"></a>(broncos_win_prob <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> win_prob)</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="probability.html#cb182-1" aria-hidden="true" tabindex="-1"></a>fav_margin <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">10</span></span>
+<span id="cb182-2"><a href="probability.html#cb182-2" aria-hidden="true" tabindex="-1"></a>fav_line <span class="ot">&lt;-</span> <span class="fl">5.5</span></span>
+<span id="cb182-3"><a href="probability.html#cb182-3" aria-hidden="true" tabindex="-1"></a>full_sd <span class="ot">&lt;-</span> <span class="fl">13.45</span></span>
+<span id="cb182-4"><a href="probability.html#cb182-4" aria-hidden="true" tabindex="-1"></a>full_min <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb182-5"><a href="probability.html#cb182-5" aria-hidden="true" tabindex="-1"></a>new_min <span class="ot">&lt;-</span> <span class="dv">45</span></span>
+<span id="cb182-6"><a href="probability.html#cb182-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-7"><a href="probability.html#cb182-7" aria-hidden="true" tabindex="-1"></a>new_mean <span class="ot">&lt;-</span> fav_line <span class="sc">*</span> new_min<span class="sc">/</span>full_min</span>
+<span id="cb182-8"><a href="probability.html#cb182-8" aria-hidden="true" tabindex="-1"></a>new_sd <span class="ot">&lt;-</span> full_sd <span class="sc">/</span> <span class="fu">sqrt</span>(full_min<span class="sc">/</span>new_min)</span>
+<span id="cb182-9"><a href="probability.html#cb182-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-10"><a href="probability.html#cb182-10" aria-hidden="true" tabindex="-1"></a>win_prob <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">0.5</span> <span class="sc">-</span> fav_margin, <span class="at">mean =</span> new_mean, </span>
+<span id="cb182-11"><a href="probability.html#cb182-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sd =</span> new_sd, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb182-12"><a href="probability.html#cb182-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-13"><a href="probability.html#cb182-13" aria-hidden="true" tabindex="-1"></a>tie_prob <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">0.5</span> <span class="sc">-</span> fav_margin, <span class="at">mean =</span> new_mean, </span>
+<span id="cb182-14"><a href="probability.html#cb182-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sd =</span> new_sd, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>) <span class="sc">-</span></span>
+<span id="cb182-15"><a href="probability.html#cb182-15" aria-hidden="true" tabindex="-1"></a>            <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">0.5</span> <span class="sc">-</span> fav_margin, <span class="at">mean =</span> new_mean, </span>
+<span id="cb182-16"><a href="probability.html#cb182-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sd =</span> new_sd, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb182-17"><a href="probability.html#cb182-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-18"><a href="probability.html#cb182-18" aria-hidden="true" tabindex="-1"></a><span class="co"># win probability for favorite (panthers)</span></span>
+<span id="cb182-19"><a href="probability.html#cb182-19" aria-hidden="true" tabindex="-1"></a>win_prob <span class="ot">&lt;-</span> win_prob <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span> <span class="sc">*</span> tie_prob</span>
+<span id="cb182-20"><a href="probability.html#cb182-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-21"><a href="probability.html#cb182-21" aria-hidden="true" tabindex="-1"></a><span class="co"># win probability for underdog (broncos)</span></span>
+<span id="cb182-22"><a href="probability.html#cb182-22" aria-hidden="true" tabindex="-1"></a>(broncos_win_prob <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> win_prob)</span></code></pre></div>
 <pre><code>## [1] 0.6928385</code></pre>
 <div style="page-break-after: always;"></div>
 <p>The win probability models outlined above use only the Vegas line, the current score, and the time remaining in the game. More accurate estimation models will also consider possession, down, distance, and field-position conditions. Pro Football Reference offers an in-game win probability model with these additional factors.</p>

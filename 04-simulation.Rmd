@@ -280,7 +280,7 @@ Simulate 100,000 games (5 at-bats per game) for Tulowitzki based on his career n
 Tulowitzki's career totals are: 4804 at-bats, 878 singles, 264 doubles, 24 triples, and 225 home runs.
 :::
 
-```{r}
+```{r cycle}
 set.seed(2022)
 n.sims <- 100000
 n.ab <- 5
@@ -450,7 +450,7 @@ sim.pa <- sample(x=pa$PA,prob = pa$Prob,size=139,replace=T)
 sim.pa
 ```
 
-```{r,cache=TRUE}
+```{r dimaggio,cache=TRUE}
 # DiMaggio Simulation
 set.seed(2022)
 n.sims <- 10000
@@ -647,7 +647,7 @@ One such famous betting system is called a martingale system. Under this system,
 Suppose you are betting on sports matches on the spread where there is no house advantage, so all bets are 1:1 and each team is equally likely to win. You begin by wagering \$1 and you lose the initial bet (call it *Bet Zero*). You decide to employee the martingale system. Calculate the expected number of bets that you would have to make to break even. Also, create a histogram for the the biggest deficits in the simulations.
 :::
 
-```{r,cache=TRUE}
+```{r bets1,cache=TRUE}
 set.seed(2022)
 n.sims <- 10000
 sim.bets <- rep(NA,n.sims)
@@ -657,7 +657,7 @@ for( i in 1:n.sims ){
   bets <- 1
   
   while( 1 ){
-    if( rbernoulli(n=1,0.5) ){
+    if( runif(1) < 0.5 ){
       bets <- bets + 1
     } else {
       break;
@@ -728,7 +728,7 @@ for(i in 1:n.sims){
   bankroll <- bankroll.start
   while(bankroll >= 20 && bets < total.bets){
     bets <- bets + 1
-    if( rbernoulli(n=1,0.5) ){
+    if( runif(1) < 0.5 ){
       bankroll <- bankroll + profit
     } else
       bankroll <- bankroll - 20
@@ -768,7 +768,7 @@ for(i in 1:n.sims){
   bankroll <- bankroll.start
   while(bankroll >= 20 && bets < total.bets){
     bets <- bets + 1
-    if( rbernoulli(n=1,0.5) ){
+    if( runif(1) < 0.5 ){
       bankroll <- bankroll + profit
     } else
       bankroll <- bankroll - 20
@@ -807,7 +807,7 @@ for(i in 1:n.sims){
   bankroll <- bankroll.start
   while(bankroll >= 20 && bets < total.bets){
     bets <- bets + 1
-    if( rbernoulli(n=1,0.5) ){
+    if( runif(1) < 0.5 ){
       bankroll <- bankroll + profit
     } else
       bankroll <- bankroll - 20
@@ -827,7 +827,7 @@ p2 <- bankroll.end2 %>% as.data.frame() %>%
   xlab("Simulated Bankrolls")
 ```
 
-```{r, echo=F,cache=TRUE}
+```{r bets, echo=F,cache=TRUE}
 set.seed(2022)
 n.sims <- 10000
 bankroll.end3 <- rep(0,n.sims)
@@ -846,7 +846,7 @@ for(i in 1:n.sims){
   bankroll <- bankroll.start
   while(bankroll >= 20 && bets < total.bets){
     bets <- bets + 1
-    if( rbernoulli(n=1,0.5) ){
+    if( runif(1) < 0.5 ){
       bankroll <- bankroll + profit
     } else
       bankroll <- bankroll - 20
@@ -911,7 +911,7 @@ for(i in 1:n.sims){
   bankroll <- bankroll.start
   while(bankroll >= 20 && bets < total.bets){
     bets <- bets + 1
-    if( rbernoulli(n=1,0.55) ){
+    if( runif(1) < 0.55 ){
       bankroll <- bankroll + profit
     } else
       bankroll <- bankroll - 20
@@ -969,7 +969,7 @@ for(i in 1:n.sims){
   while(bankroll > 0 && bets < total.bets){
     wager <- bankroll * f
     bets <- bets + 1
-    if( rbernoulli(n=1,0.55) ){
+    if( runif(1) < 0.55 ){
       bankroll <- bankroll + wager*10/11
     } else
       bankroll <- bankroll - wager
@@ -1016,7 +1016,7 @@ for(i in 1:n.sims){
   while(bankroll > 0 && bets < total.bets){
     wager <- bankroll * f
     bets <- bets + 1
-    if( rbernoulli(n=1,0.55) ){
+    if( runif(1) < 0.55 ){
       bankroll <- bankroll + wager*10/11
     } else
       bankroll <- bankroll - wager
@@ -1051,7 +1051,7 @@ for(i in 1:n.sims){
   while(bankroll > 0 && bets < total.bets){
     wager <- bankroll * f
     bets <- bets + 1
-    if( rbernoulli(n=1,0.55) ){
+    if( runif(1) < 0.55 ){
       bankroll <- bankroll + wager*10/11
     } else
       bankroll <- bankroll - wager
@@ -1086,7 +1086,7 @@ for(i in 1:n.sims){
   while(bankroll > 0 && bets < total.bets){
     wager <- bankroll * f
     bets <- bets + 1
-    if( rbernoulli(n=1,0.55) ){
+    if( runif(1) < 0.55 ){
       bankroll <- bankroll + wager*10/11
     } else
       bankroll <- bankroll - wager
@@ -1121,7 +1121,7 @@ for(i in 1:n.sims){
   while(bankroll > 0 && bets < total.bets){
     wager <- bankroll * f
     bets <- bets + 1
-    if( rbernoulli(n=1,0.55) ){
+    if( runif(1) < 0.55 ){
       bankroll <- bankroll + wager*10/11
     } else
       bankroll <- bankroll - wager
@@ -1207,7 +1207,7 @@ Williams was expected to have about 197 more plate appearances in the remainder 
 
 (b) Estimate the probability that Matt Williams would have beaten Maris' single season home run record.
 
-```{r}
+```{r williams}
 hr.avg = n.hr/ab
 n.sims = 10000
 sim.hr = rbinom(n=n.sims,size=ab.remain,prob=hr.avg)
