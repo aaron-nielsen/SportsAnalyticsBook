@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2023-02-07}
+\date{2023-02-08}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -7289,16 +7289,17 @@ Choose values to give the largest and smallest correlations.
 \NormalTok{small\_corr\_table }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(small\_corr)}
 \FunctionTok{rownames}\NormalTok{(small\_corr\_table) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"NL"}\NormalTok{,}\StringTok{"AL"}\NormalTok{)}
 \FunctionTok{colnames}\NormalTok{(small\_corr\_table) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{,}\StringTok{"Yes"}\NormalTok{)}
+\NormalTok{small\_corr\_table }\OtherTok{\textless{}{-}}\NormalTok{ small\_corr\_table[,}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{)]}
 \NormalTok{small\_corr\_table }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{3}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{tabular}{lrr}
 \toprule
-  & No & Yes\\
+  & Yes & No\\
 \midrule
-NL & 2524 & 68\\
-AL & 2208 & 60\\
+NL & 68 & 2524\\
+AL & 60 & 2208\\
 \bottomrule
 \end{tabular}
 
@@ -7329,16 +7330,17 @@ Complete & 0.001 & 1.000\\
 \NormalTok{large\_corr1\_table }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(large\_corr1)}
 \FunctionTok{rownames}\NormalTok{(large\_corr1\_table) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"NL"}\NormalTok{,}\StringTok{"AL"}\NormalTok{)}
 \FunctionTok{colnames}\NormalTok{(large\_corr1\_table) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{,}\StringTok{"Yes"}\NormalTok{)}
+\NormalTok{large\_corr1\_table }\OtherTok{\textless{}{-}}\NormalTok{ large\_corr1\_table[,}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{)]}
 \NormalTok{large\_corr1\_table }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{3}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{tabular}{lrr}
 \toprule
-  & No & Yes\\
+  & Yes & No\\
 \midrule
-NL & 2464 & 128\\
-AL & 2268 & 0\\
+NL & 128 & 2464\\
+AL & 0 & 2268\\
 \bottomrule
 \end{tabular}
 
@@ -7368,16 +7370,17 @@ Complete & -0.154 & 1.000\\
 \NormalTok{large\_corr2\_table }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(large\_corr2)}
 \FunctionTok{rownames}\NormalTok{(large\_corr2\_table) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"NL"}\NormalTok{,}\StringTok{"AL"}\NormalTok{)}
 \FunctionTok{colnames}\NormalTok{(large\_corr2\_table) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{,}\StringTok{"Yes"}\NormalTok{)}
+\NormalTok{large\_corr2\_table }\OtherTok{\textless{}{-}}\NormalTok{ large\_corr2\_table[,}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{)]}
 \NormalTok{large\_corr2\_table }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{3}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{tabular}{lrr}
 \toprule
-  & No & Yes\\
+  & Yes & No\\
 \midrule
-NL & 2592 & 0\\
-AL & 2140 & 128\\
+NL & 0 & 2592\\
+AL & 128 & 2140\\
 \bottomrule
 \end{tabular}
 
@@ -7405,10 +7408,11 @@ Let \(X\) and \(Y\) be two binary, categorical variables with the following cont
 
 \begin{tabular}{llll}
 \toprule
-Y \textbackslash{} X & Yes & No & Total\\
-No & a & c & a+c\\
-Yes & b & d & b+d\\
-Total & a+b & c+d & a+b+c+d\\
+  & Yes & No & Total\\
+\midrule
+Yes & a & b & a+b\\
+No & c & d & c+d\\
+Total & a+c & b+d & a+b+c+d\\
 \bottomrule
 \end{tabular}
 
@@ -7417,7 +7421,7 @@ One possible way to measure the association between two binary variables is to l
 \begin{definition}
 The odds ratio (OR) is a measure of association between two categorical variables of \(X\) and \(Y\) and is:
 
-\(OR =\frac{ad}{bc}\)
+\(OR = \frac{ad}{bc}\)
 
 \(OR > 1\) means that \(Y=1\) is more likely when \(X=1\) than when \(X=0\).\\
 \(OR < 1\) means that \(Y=1\) is less likely when \(X=1\) than when \(X=0\).\\
@@ -7437,10 +7441,10 @@ The following contingency table summarizes complete games by league during the 2
 
 \begin{tabular}{lrr}
 \toprule
-  & No & Yes\\
+  & Yes & No\\
 \midrule
-NL & 2533 & 59\\
-AL & 2199 & 69\\
+NL & 59 & 2533\\
+AL & 69 & 2199\\
 \bottomrule
 \end{tabular}
 
@@ -7461,24 +7465,73 @@ Calculate the following:\\
 \begin{definition}
 Yule's Q is a measure of association between two categorical variables and is defined by:
 
-\(Q = \frac{OR-1}{OR+1}\)
+\(Q = \frac{OR-1}{OR+1} = \frac{ad-bc}{ad+bc}\)
 
 \(Q\) ranges from -1 to 1, where \(Q=0\) implies no relationship between the variables.
+
+Some general guidelines:\\
+\(Q=0\): No association\\
+\(|Q| < 0.3\): Weak association\\
+\(0.3 \leq |Q| < 0.5\): Moderate association\\
+\(0.5 \leq |Q| < 1\): Strong assocation\\
+\(|Q|=1\): Perfect association
 \end{definition}
 
 \begin{example}
-Calculate Yule's Q for the previous example and interpret the value in the context of the problem.
+Calculate Yule's Q for the four examples (Examples 1-3 and Actual) and determine if there appears to be an association between and complete games for each of these examples
 \end{example}
 
 \newpage
 
-(AM, page 143, Yule's Q)
+\begin{example}
+(From \emph{Analytic Methods in Sports}) Rafael Nadal is often considered to be the best clay-court tennis player of all-time. Assess this belief by calculating Yule's Q for the Nadal's performances between 2008--2012.
+\end{example}
 
-(AM, page 139, winning at halftime vs winning game)
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mat }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1660}\NormalTok{,}\DecValTok{3658}\NormalTok{,}\DecValTok{5318}\NormalTok{,}\DecValTok{863}\NormalTok{,}\DecValTok{2715}\NormalTok{,}\DecValTok{3578}\NormalTok{,}\DecValTok{2523}\NormalTok{,}\DecValTok{6373}\NormalTok{,}\DecValTok{8896}\NormalTok{),}\AttributeTok{ncol=}\DecValTok{3}\NormalTok{))}
+\FunctionTok{rownames}\NormalTok{(mat) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Clay"}\NormalTok{,}\StringTok{"Nonclay"}\NormalTok{,}\StringTok{"Total"}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(mat) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Win"}\NormalTok{,}\StringTok{"Loss"}\NormalTok{,}\StringTok{"Total"}\NormalTok{)}
+\NormalTok{mat }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
 
-(AM, page 144, Brady TD passes vs sacks)
+\begin{tabular}{lrrr}
+\toprule
+  & Win & Loss & Total\\
+\midrule
+Clay & 1660 & 863 & 2523\\
+Nonclay & 3658 & 2715 & 6373\\
+Total & 5318 & 3578 & 8896\\
+\bottomrule
+\end{tabular}
 
-(AM, page 145, Nadal clay courts)
+\vfill
+
+\begin{example}
+(From \emph{Analytic Methods in Sports}) Does the pass rush have an effect on Tom Brady's performance? We can turn numerical variables into categories and calculate Yule's Q to help us answer this question. Use the following table to calculate Yule's Q and assess the belief that the pass rush affects Brady's performance. Data is given for the 2009--2012 seasons
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mat }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{29}\NormalTok{,}\DecValTok{18}\NormalTok{,}\DecValTok{47}\NormalTok{,}\DecValTok{22}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{24}\NormalTok{,}\DecValTok{51}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{71}\NormalTok{),}\AttributeTok{ncol=}\DecValTok{3}\NormalTok{))}
+\FunctionTok{rownames}\NormalTok{(mat) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"0{-}2 sacks"}\NormalTok{,}\StringTok{"3+ sacks"}\NormalTok{,}\StringTok{"Total"}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(mat) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"0{-}2 TDs"}\NormalTok{,}\StringTok{"3+ TDs"}\NormalTok{,}\StringTok{"Total"}\NormalTok{)}
+\NormalTok{mat }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrrr}
+\toprule
+  & 0-2 TDs & 3+ TDs & Total\\
+\midrule
+0-2 sacks & 29 & 22 & 51\\
+3+ sacks & 18 & 2 & 20\\
+Total & 47 & 24 & 71\\
+\bottomrule
+\end{tabular}
+
+\vfill
 
 \newpage
 
@@ -7633,7 +7686,7 @@ San Diego Padres & 89 & 73 & 0.549 & 4.4 & 4.1 & 0.3 & 86-76\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-151-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-153-1.pdf}
 
 \newpage
 
@@ -7680,7 +7733,7 @@ yearID & lgID & teamID & G & W & L & R & RA & RD & Wpct\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-152-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-154-1.pdf}
 
 \newpage
 
@@ -7698,7 +7751,7 @@ Create a scatterplot to compare Team Wins and Team Pythagorean Wins in 2022 and 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-153-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-155-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7765,7 +7818,7 @@ Cincinnati Bengals* & 12 & 4 & 0 & 0.750 & 418 & 322\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-156-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-158-1.pdf}
 
 For 2022, there is an optimal Pythagorean exponent of 3.38. Using a larger dataset of more seasons will give a better estimate.
 
@@ -7892,7 +7945,7 @@ Andre Burakovsky & 22 & 39 & 4.3\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-160-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-162-1.pdf}
 
 \newpage
 
@@ -7905,7 +7958,7 @@ Andre Burakovsky & 22 & 39 & 4.3\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-161-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-163-1.pdf}
 
 \newpage
 
@@ -7919,7 +7972,7 @@ Andre Burakovsky & 22 & 39 & 4.3\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-162-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-164-1.pdf}
 
 \newpage
 
@@ -7933,7 +7986,7 @@ Andre Burakovsky & 22 & 39 & 4.3\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-163-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-165-1.pdf}
 
 \newpage
 
@@ -7946,7 +7999,7 @@ Andre Burakovsky & 22 & 39 & 4.3\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-164-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-166-1.pdf}
 
 \newpage
 
@@ -8015,7 +8068,7 @@ Date & Opponent & W/L & SP & K & E & TA & PCT & AST & SA\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-166-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-168-1.pdf}
 
 \newpage
 
@@ -8028,7 +8081,7 @@ Date & Opponent & W/L & SP & K & E & TA & PCT & AST & SA\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-167-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-169-1.pdf}
 
 \newpage
 
@@ -8045,7 +8098,7 @@ Date & Opponent & W/L & SP & K & E & TA & PCT & AST & SA\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-168-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-170-1.pdf}
 
 \newpage
 
@@ -8061,7 +8114,7 @@ Date & Opponent & W/L & SP & K & E & TA & PCT & AST & SA\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-169-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-171-1.pdf}
 
 \newpage
 
@@ -8312,7 +8365,7 @@ More about types of pitches: \url{https://youtu.be/1FTFWzcgjHE}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-174-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-176-1.pdf}
 
 \newpage
 
@@ -8372,7 +8425,7 @@ game\_id & gameday & away\_team & home\_team\\
 \end{Shaded}
 
 \begin{verbatim}
-## [14:48:49] WARNING: src/learner.cc:553: 
+## [12:44:17] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -8381,7 +8434,7 @@ game\_id & gameday & away\_team & home\_team\\
 ## 
 ##   for more details about differences between saving model and serializing.
 ## 
-## [14:48:49] WARNING: src/learner.cc:553: 
+## [12:44:17] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -8390,7 +8443,7 @@ game\_id & gameday & away\_team & home\_team\\
 ## 
 ##   for more details about differences between saving model and serializing.
 ## 
-## [14:48:49] WARNING: src/learner.cc:553: 
+## [12:44:17] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -8399,7 +8452,7 @@ game\_id & gameday & away\_team & home\_team\\
 ## 
 ##   for more details about differences between saving model and serializing.
 ## 
-## [14:48:49] WARNING: src/learner.cc:553: 
+## [12:44:17] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -8454,7 +8507,7 @@ GAME & NA & 0.770 & 0.000 & 0.567\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-177-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-179-1.pdf}
 
 \newpage
 
@@ -8553,7 +8606,7 @@ Period & Seconds Remaining & Home Win Pct & Play ID\\
 ## Scraping Data for Game: 1 of 1
 \end{verbatim}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-180-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-182-1.pdf}
 \newpage
 
 \begin{Shaded}
@@ -8566,7 +8619,7 @@ Period & Seconds Remaining & Home Win Pct & Play ID\\
 ## Scraping Data for Game: 1 of 1
 \end{verbatim}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-181-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-183-1.pdf}
 
 \newpage
 
@@ -8679,7 +8732,7 @@ Date & Period & Time & Event & Description\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-184-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-186-1.pdf}
 
 \newpage
 
@@ -8918,29 +8971,29 @@ Link: \url{http://www.espn.com/nba/hollinger/statistics}
 \toprule
 RK & PLAYER & PER\\
 \midrule
-1 & Nikola Jokic, DEN & 32.04\\
-2 & Luka Doncic, DAL & 30.78\\
- & Joel Embiid, PHI & 30.78\\
-4 & Anthony Davis, LAL & 30.23\\
-5 & Giannis Antetokounmpo, MIL & 28.94\\
+1 & Nikola Jokic, DEN & 32.57\\
+2 & Joel Embiid, PHI & 30.77\\
+3 & Luka Doncic, DAL & 30.49\\
+4 & Anthony Davis, LAL & 30.14\\
+5 & Giannis Antetokounmpo, MIL & 28.64\\
 \addlinespace
-6 & Shai Gilgeous-Alexander, OKC & 27.65\\
-7 & Kevin Durant, BKN & 26.85\\
-8 & Damian Lillard, POR & 26.64\\
-9 & Jimmy Butler, MIA & 25.58\\
-10 & Zion Williamson, NO & 25.41\\
+6 & Shai Gilgeous-Alexander, OKC & 27.53\\
+7 & Kevin Durant, BKN & 26.82\\
+8 & Damian Lillard, POR & 26.37\\
+9 & Zion Williamson, NO & 25.65\\
+10 & Jimmy Butler, MIA & 25.58\\
 \addlinespace
-11 & Stephen Curry, GS & 25.19\\
-12 & LeBron James, LAL & 24.90\\
-13 & Jayson Tatum, BOS & 24.59\\
-14 & Kawhi Leonard, LAC & 23.91\\
-15 & Ja Morant, MEM & 23.84\\
+11 & LeBron James, LAL & 25.35\\
+12 & Stephen Curry, GS & 24.95\\
+13 & Jayson Tatum, BOS & 24.37\\
+14 & Ja Morant, MEM & 24.26\\
+15 & Kawhi Leonard, LAC & 23.70\\
 \addlinespace
-16 & Domantas Sabonis, SAC & 23.06\\
-17 & Lauri Markkanen, UTAH & 23.00\\
-18 & Tyrese Haliburton, IND & 22.89\\
-19 & Andre Drummond, CHI & 22.88\\
-20 & Donovan Mitchell, CLE & 22.51\\
+16 & Tyrese Haliburton, IND & 22.88\\
+17 & Domantas Sabonis, SAC & 22.85\\
+18 & Lauri Markkanen, UTAH & 22.80\\
+19 & Andre Drummond, CHI & 22.35\\
+20 & Donovan Mitchell, CLE & 22.31\\
 \bottomrule
 \end{tabular}
 

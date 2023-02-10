@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2023-02-07" />
+<meta name="date" content="2023-02-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1436,17 +1436,18 @@ Total
 <span id="cb335-6"><a href="measures-of-association.html#cb335-6" aria-hidden="true" tabindex="-1"></a>small_corr_table <span class="ot">&lt;-</span> <span class="fu">table</span>(small_corr)</span>
 <span id="cb335-7"><a href="measures-of-association.html#cb335-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(small_corr_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;NL&quot;</span>,<span class="st">&quot;AL&quot;</span>)</span>
 <span id="cb335-8"><a href="measures-of-association.html#cb335-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(small_corr_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
-<span id="cb335-9"><a href="measures-of-association.html#cb335-9" aria-hidden="true" tabindex="-1"></a>small_corr_table <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<span id="cb335-9"><a href="measures-of-association.html#cb335-9" aria-hidden="true" tabindex="-1"></a>small_corr_table <span class="ot">&lt;-</span> small_corr_table[,<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>)]</span>
+<span id="cb335-10"><a href="measures-of-association.html#cb335-10" aria-hidden="true" tabindex="-1"></a>small_corr_table <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
 <th style="text-align:left;">
 </th>
 <th style="text-align:right;">
-No
+Yes
 </th>
 <th style="text-align:right;">
-Yes
+No
 </th>
 </tr>
 </thead>
@@ -1456,10 +1457,10 @@ Yes
 NL
 </td>
 <td style="text-align:right;">
-2524
+68
 </td>
 <td style="text-align:right;">
-68
+2524
 </td>
 </tr>
 <tr>
@@ -1467,10 +1468,10 @@ NL
 AL
 </td>
 <td style="text-align:right;">
-2208
+60
 </td>
 <td style="text-align:right;">
-60
+2208
 </td>
 </tr>
 </tbody>
@@ -1523,17 +1524,18 @@ Complete
 <span id="cb337-4"><a href="measures-of-association.html#cb337-4" aria-hidden="true" tabindex="-1"></a>large_corr1_table <span class="ot">&lt;-</span> <span class="fu">table</span>(large_corr1)</span>
 <span id="cb337-5"><a href="measures-of-association.html#cb337-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(large_corr1_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;NL&quot;</span>,<span class="st">&quot;AL&quot;</span>)</span>
 <span id="cb337-6"><a href="measures-of-association.html#cb337-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(large_corr1_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
-<span id="cb337-7"><a href="measures-of-association.html#cb337-7" aria-hidden="true" tabindex="-1"></a>large_corr1_table <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<span id="cb337-7"><a href="measures-of-association.html#cb337-7" aria-hidden="true" tabindex="-1"></a>large_corr1_table <span class="ot">&lt;-</span> large_corr1_table[,<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>)]</span>
+<span id="cb337-8"><a href="measures-of-association.html#cb337-8" aria-hidden="true" tabindex="-1"></a>large_corr1_table <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
 <th style="text-align:left;">
 </th>
 <th style="text-align:right;">
-No
+Yes
 </th>
 <th style="text-align:right;">
-Yes
+No
 </th>
 </tr>
 </thead>
@@ -1543,10 +1545,10 @@ Yes
 NL
 </td>
 <td style="text-align:right;">
-2464
+128
 </td>
 <td style="text-align:right;">
-128
+2464
 </td>
 </tr>
 <tr>
@@ -1554,10 +1556,10 @@ NL
 AL
 </td>
 <td style="text-align:right;">
-2268
+0
 </td>
 <td style="text-align:right;">
-0
+2268
 </td>
 </tr>
 </tbody>
@@ -1610,17 +1612,18 @@ Complete
 <span id="cb339-5"><a href="measures-of-association.html#cb339-5" aria-hidden="true" tabindex="-1"></a>large_corr2_table <span class="ot">&lt;-</span> <span class="fu">table</span>(large_corr2)</span>
 <span id="cb339-6"><a href="measures-of-association.html#cb339-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(large_corr2_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;NL&quot;</span>,<span class="st">&quot;AL&quot;</span>)</span>
 <span id="cb339-7"><a href="measures-of-association.html#cb339-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(large_corr2_table) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
-<span id="cb339-8"><a href="measures-of-association.html#cb339-8" aria-hidden="true" tabindex="-1"></a>large_corr2_table <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<span id="cb339-8"><a href="measures-of-association.html#cb339-8" aria-hidden="true" tabindex="-1"></a>large_corr2_table <span class="ot">&lt;-</span> large_corr2_table[,<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>)]</span>
+<span id="cb339-9"><a href="measures-of-association.html#cb339-9" aria-hidden="true" tabindex="-1"></a>large_corr2_table <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
 <th style="text-align:left;">
 </th>
 <th style="text-align:right;">
-No
+Yes
 </th>
 <th style="text-align:right;">
-Yes
+No
 </th>
 </tr>
 </thead>
@@ -1630,10 +1633,10 @@ Yes
 NL
 </td>
 <td style="text-align:right;">
-2592
+0
 </td>
 <td style="text-align:right;">
-0
+2592
 </td>
 </tr>
 <tr>
@@ -1641,10 +1644,10 @@ NL
 AL
 </td>
 <td style="text-align:right;">
-2140
+128
 </td>
 <td style="text-align:right;">
-128
+2140
 </td>
 </tr>
 </tbody>
@@ -1693,47 +1696,48 @@ Complete
 <h3><span class="header-section-number">6.2.1</span> Odds Ratios<a href="measures-of-association.html#odds-ratios" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be two binary, categorical variables with the following contingency table.</p>
 <table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Yes
+</th>
+<th style="text-align:left;">
+No
+</th>
+<th style="text-align:left;">
+Total
+</th>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-Y  X
-</td>
-<td style="text-align:left;">
 Yes
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:left;">
-Total
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-No
 </td>
 <td style="text-align:left;">
 a
 </td>
 <td style="text-align:left;">
-c
+b
 </td>
 <td style="text-align:left;">
-a+c
+a+b
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Yes
+No
 </td>
 <td style="text-align:left;">
-b
+c
 </td>
 <td style="text-align:left;">
 d
 </td>
 <td style="text-align:left;">
-b+d
+c+d
 </td>
 </tr>
 <tr>
@@ -1741,10 +1745,10 @@ b+d
 Total
 </td>
 <td style="text-align:left;">
-a+b
+a+c
 </td>
 <td style="text-align:left;">
-c+d
+b+d
 </td>
 <td style="text-align:left;">
 a+b+c+d
@@ -1755,7 +1759,7 @@ a+b+c+d
 <p>One possible way to measure the association between two binary variables is to look at the odds ratio.</p>
 <div class="definition">
 <p><span id="def:unlabeled-div-165" class="definition"><strong>Definition 6.2  </strong></span>The odds ratio (OR) is a measure of association between two categorical variables of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> and is:</p>
-<p><span class="math inline">\(OR =\frac{ad}{bc}\)</span></p>
+<p><span class="math inline">\(OR = \frac{ad}{bc}\)</span></p>
 <p><span class="math inline">\(OR &gt; 1\)</span> means that <span class="math inline">\(Y=1\)</span> is more likely when <span class="math inline">\(X=1\)</span> than when <span class="math inline">\(X=0\)</span>.<br />
 <span class="math inline">\(OR &lt; 1\)</span> means that <span class="math inline">\(Y=1\)</span> is less likely when <span class="math inline">\(X=1\)</span> than when <span class="math inline">\(X=0\)</span>.<br />
 <span class="math inline">\(OR = 1\)</span> means that <span class="math inline">\(Y=1\)</span> is equally likely when <span class="math inline">\(X=1\)</span> than when <span class="math inline">\(X=0\)</span>.</p>
@@ -1773,10 +1777,10 @@ a+b+c+d
 <th style="text-align:left;">
 </th>
 <th style="text-align:right;">
-No
+Yes
 </th>
 <th style="text-align:right;">
-Yes
+No
 </th>
 </tr>
 </thead>
@@ -1786,10 +1790,10 @@ Yes
 NL
 </td>
 <td style="text-align:right;">
-2533
+59
 </td>
 <td style="text-align:right;">
-59
+2533
 </td>
 </tr>
 <tr>
@@ -1797,10 +1801,10 @@ NL
 AL
 </td>
 <td style="text-align:right;">
-2199
+69
 </td>
 <td style="text-align:right;">
-69
+2199
 </td>
 </tr>
 </tbody>
@@ -1816,17 +1820,155 @@ AL
 <h3><span class="header-section-number">6.2.2</span> Yule’s Q<a href="measures-of-association.html#yules-q" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="definition">
 <p><span id="def:unlabeled-div-167" class="definition"><strong>Definition 6.3  </strong></span>Yule’s Q is a measure of association between two categorical variables and is defined by:</p>
-<p><span class="math inline">\(Q = \frac{OR-1}{OR+1}\)</span></p>
+<p><span class="math inline">\(Q = \frac{OR-1}{OR+1} = \frac{ad-bc}{ad+bc}\)</span></p>
 <p><span class="math inline">\(Q\)</span> ranges from -1 to 1, where <span class="math inline">\(Q=0\)</span> implies no relationship between the variables.</p>
+<p>Some general guidelines:<br />
+<span class="math inline">\(Q=0\)</span>: No association<br />
+<span class="math inline">\(|Q| &lt; 0.3\)</span>: Weak association<br />
+<span class="math inline">\(0.3 \leq |Q| &lt; 0.5\)</span>: Moderate association<br />
+<span class="math inline">\(0.5 \leq |Q| &lt; 1\)</span>: Strong assocation<br />
+<span class="math inline">\(|Q|=1\)</span>: Perfect association</p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-168" class="example"><strong>Example 6.6  </strong></span>Calculate Yule’s Q for the previous example and interpret the value in the context of the problem.</p>
+<p><span id="exm:unlabeled-div-168" class="example"><strong>Example 6.6  </strong></span>Calculate Yule’s Q for the four examples (Examples 1-3 and Actual) and determine if there appears to be an association between and complete games for each of these examples</p>
 </div>
 <div style="page-break-after: always;"></div>
-<p>(AM, page 143, Yule’s Q)</p>
-<p>(AM, page 139, winning at halftime vs winning game)</p>
-<p>(AM, page 144, Brady TD passes vs sacks)</p>
-<p>(AM, page 145, Nadal clay courts)</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-169" class="example"><strong>Example 6.7  </strong></span>(From <em>Analytic Methods in Sports</em>) Rafael Nadal is often considered to be the best clay-court tennis player of all-time. Assess this belief by calculating Yule’s Q for the Nadal’s performances between 2008–2012.</p>
+</div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="measures-of-association.html#cb341-1" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1660</span>,<span class="dv">3658</span>,<span class="dv">5318</span>,<span class="dv">863</span>,<span class="dv">2715</span>,<span class="dv">3578</span>,<span class="dv">2523</span>,<span class="dv">6373</span>,<span class="dv">8896</span>),<span class="at">ncol=</span><span class="dv">3</span>))</span>
+<span id="cb341-2"><a href="measures-of-association.html#cb341-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(mat) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Clay&quot;</span>,<span class="st">&quot;Nonclay&quot;</span>,<span class="st">&quot;Total&quot;</span>)</span>
+<span id="cb341-3"><a href="measures-of-association.html#cb341-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(mat) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Win&quot;</span>,<span class="st">&quot;Loss&quot;</span>,<span class="st">&quot;Total&quot;</span>)</span>
+<span id="cb341-4"><a href="measures-of-association.html#cb341-4" aria-hidden="true" tabindex="-1"></a>mat <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Win
+</th>
+<th style="text-align:right;">
+Loss
+</th>
+<th style="text-align:right;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Clay
+</td>
+<td style="text-align:right;">
+1660
+</td>
+<td style="text-align:right;">
+863
+</td>
+<td style="text-align:right;">
+2523
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nonclay
+</td>
+<td style="text-align:right;">
+3658
+</td>
+<td style="text-align:right;">
+2715
+</td>
+<td style="text-align:right;">
+6373
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+5318
+</td>
+<td style="text-align:right;">
+3578
+</td>
+<td style="text-align:right;">
+8896
+</td>
+</tr>
+</tbody>
+</table>
+<div class="example">
+<p><span id="exm:unlabeled-div-170" class="example"><strong>Example 6.8  </strong></span>(From <em>Analytic Methods in Sports</em>) Does the pass rush have an effect on Tom Brady’s performance? We can turn numerical variables into categories and calculate Yule’s Q to help us answer this question. Use the following table to calculate Yule’s Q and assess the belief that the pass rush affects Brady’s performance. Data is given for the 2009–2012 seasons</p>
+</div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="measures-of-association.html#cb342-1" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">29</span>,<span class="dv">18</span>,<span class="dv">47</span>,<span class="dv">22</span>,<span class="dv">2</span>,<span class="dv">24</span>,<span class="dv">51</span>,<span class="dv">20</span>,<span class="dv">71</span>),<span class="at">ncol=</span><span class="dv">3</span>))</span>
+<span id="cb342-2"><a href="measures-of-association.html#cb342-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(mat) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;0-2 sacks&quot;</span>,<span class="st">&quot;3+ sacks&quot;</span>,<span class="st">&quot;Total&quot;</span>)</span>
+<span id="cb342-3"><a href="measures-of-association.html#cb342-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(mat) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;0-2 TDs&quot;</span>,<span class="st">&quot;3+ TDs&quot;</span>,<span class="st">&quot;Total&quot;</span>)</span>
+<span id="cb342-4"><a href="measures-of-association.html#cb342-4" aria-hidden="true" tabindex="-1"></a>mat <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+0-2 TDs
+</th>
+<th style="text-align:right;">
+3+ TDs
+</th>
+<th style="text-align:right;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+0-2 sacks
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+51
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3+ sacks
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+71
+</td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
