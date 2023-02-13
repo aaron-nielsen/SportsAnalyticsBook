@@ -491,7 +491,7 @@ library(sportyR)
 pbp <- hockeyR::load_pbp('2022-2023')
 ```
 
-```{r}
+```{r, cache=T}
 # get single game
 game <- pbp %>%
   filter(game_date == "2023-01-28" & home_abbreviation == "COL")
@@ -504,7 +504,7 @@ game %>%
 
 \newpage
 
-```{r}
+```{r, cache=T}
 # grab team logos & colors
 team_logos <- hockeyR::team_logos_colors %>%
   filter(team_abbr == unique(game$home_abbreviation) | team_abbr == unique(game$away_abbreviation)) %>%
@@ -574,7 +574,6 @@ uswnt19 %>% filter(Comp == "World Cup") %>%
   select(-Day,-Time,-Comp,-Team_Url,-Captain,-Formation,
          -Referee,-Notes,-Attendance,-Venue,-Team) %>% 
   kable(booktabs=T)
-
 ```
 
 \newpage

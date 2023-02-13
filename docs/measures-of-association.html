@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2023-02-08" />
+<meta name="date" content="2023-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="inferential-statistics.html"/>
-<link rel="next" href="pythagorean-record.html"/>
+<link rel="next" href="data-acquisition.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -315,6 +315,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.2.1" data-path="measures-of-association.html"><a href="measures-of-association.html#odds-ratios"><i class="fa fa-check"></i><b>6.2.1</b> Odds Ratios</a></li>
 <li class="chapter" data-level="6.2.2" data-path="measures-of-association.html"><a href="measures-of-association.html#yules-q"><i class="fa fa-check"></i><b>6.2.2</b> Yule’s Q</a></li>
+<li class="chapter" data-level="6.2.3" data-path="measures-of-association.html"><a href="measures-of-association.html#chi-squared-test-of-independence"><i class="fa fa-check"></i><b>6.2.3</b> Chi-Squared Test of Independence</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="measures-of-association.html"><a href="measures-of-association.html#rank-correlation"><i class="fa fa-check"></i><b>6.3</b> Rank Correlation</a></li>
 <li class="chapter" data-level="6.4" data-path="measures-of-association.html"><a href="measures-of-association.html#autocorrelation"><i class="fa fa-check"></i><b>6.4</b> Autocorrelation</a>
@@ -322,69 +323,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4.1" data-path="measures-of-association.html"><a href="measures-of-association.html#hot-hand"><i class="fa fa-check"></i><b>6.4.1</b> Hot Hand</a></li>
 <li class="chapter" data-level="6.4.2" data-path="measures-of-association.html"><a href="measures-of-association.html#streakiness-in-sports"><i class="fa fa-check"></i><b>6.4.2</b> Streakiness in Sports</a></li>
 </ul></li>
+<li class="chapter" data-level="6.5" data-path="measures-of-association.html"><a href="measures-of-association.html#pythagorean-record"><i class="fa fa-check"></i><b>6.5</b> Pythagorean Record</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="pythagorean-record.html"><a href="pythagorean-record.html"><i class="fa fa-check"></i><b>7</b> Pythagorean Record</a></li>
-<li class="chapter" data-level="8" data-path="data-acquisition.html"><a href="data-acquisition.html"><i class="fa fa-check"></i><b>8</b> Data Acquisition</a>
+<li class="chapter" data-level="7" data-path="data-acquisition.html"><a href="data-acquisition.html"><i class="fa fa-check"></i><b>7</b> Data Acquisition</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="data-acquisition.html"><a href="data-acquisition.html#tabular-data-from-sports-reference"><i class="fa fa-check"></i><b>8.1</b> Tabular Data From Sports Reference</a></li>
-<li class="chapter" data-level="8.2" data-path="data-acquisition.html"><a href="data-acquisition.html#downloading-datasets-from-internet"><i class="fa fa-check"></i><b>8.2</b> Downloading Datasets From Internet</a></li>
-<li class="chapter" data-level="8.3" data-path="data-acquisition.html"><a href="data-acquisition.html#importing-data-using-r-libraries"><i class="fa fa-check"></i><b>8.3</b> Importing Data Using R Libraries</a>
+<li class="chapter" data-level="7.1" data-path="data-acquisition.html"><a href="data-acquisition.html#tabular-data-from-sports-reference"><i class="fa fa-check"></i><b>7.1</b> Tabular Data From Sports Reference</a></li>
+<li class="chapter" data-level="7.2" data-path="data-acquisition.html"><a href="data-acquisition.html#downloading-datasets-from-internet"><i class="fa fa-check"></i><b>7.2</b> Downloading Datasets From Internet</a></li>
+<li class="chapter" data-level="7.3" data-path="data-acquisition.html"><a href="data-acquisition.html#importing-data-using-r-libraries"><i class="fa fa-check"></i><b>7.3</b> Importing Data Using R Libraries</a>
 <ul>
-<li class="chapter" data-level="8.3.1" data-path="data-acquisition.html"><a href="data-acquisition.html#baseballr-package"><i class="fa fa-check"></i><b>8.3.1</b> BaseballR package</a></li>
-<li class="chapter" data-level="8.3.2" data-path="data-acquisition.html"><a href="data-acquisition.html#nflfastr-package"><i class="fa fa-check"></i><b>8.3.2</b> nflfastR package</a></li>
-<li class="chapter" data-level="8.3.3" data-path="data-acquisition.html"><a href="data-acquisition.html#hoopr-package"><i class="fa fa-check"></i><b>8.3.3</b> hoopR package</a></li>
-<li class="chapter" data-level="8.3.4" data-path="data-acquisition.html"><a href="data-acquisition.html#hockeyr-package"><i class="fa fa-check"></i><b>8.3.4</b> hockeyR package</a></li>
-<li class="chapter" data-level="8.3.5" data-path="data-acquisition.html"><a href="data-acquisition.html#worldfootballr"><i class="fa fa-check"></i><b>8.3.5</b> worldfootballR</a></li>
+<li class="chapter" data-level="7.3.1" data-path="data-acquisition.html"><a href="data-acquisition.html#baseballr-package"><i class="fa fa-check"></i><b>7.3.1</b> BaseballR package</a></li>
+<li class="chapter" data-level="7.3.2" data-path="data-acquisition.html"><a href="data-acquisition.html#nflfastr-package"><i class="fa fa-check"></i><b>7.3.2</b> nflfastR package</a></li>
+<li class="chapter" data-level="7.3.3" data-path="data-acquisition.html"><a href="data-acquisition.html#hoopr-package"><i class="fa fa-check"></i><b>7.3.3</b> hoopR package</a></li>
+<li class="chapter" data-level="7.3.4" data-path="data-acquisition.html"><a href="data-acquisition.html#hockeyr-package"><i class="fa fa-check"></i><b>7.3.4</b> hockeyR package</a></li>
+<li class="chapter" data-level="7.3.5" data-path="data-acquisition.html"><a href="data-acquisition.html#worldfootballr"><i class="fa fa-check"></i><b>7.3.5</b> worldfootballR</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="data-acquisition.html"><a href="data-acquisition.html#data-scraping"><i class="fa fa-check"></i><b>8.4</b> Data Scraping</a>
+<li class="chapter" data-level="7.4" data-path="data-acquisition.html"><a href="data-acquisition.html#data-scraping"><i class="fa fa-check"></i><b>7.4</b> Data Scraping</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="data-acquisition.html"><a href="data-acquisition.html#general-tips"><i class="fa fa-check"></i><b>8.4.1</b> General Tips</a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-acquisition.html"><a href="data-acquisition.html#introduction-to-html"><i class="fa fa-check"></i><b>8.4.2</b> Introduction to HTML</a></li>
-<li class="chapter" data-level="8.4.3" data-path="data-acquisition.html"><a href="data-acquisition.html#rvest-package"><i class="fa fa-check"></i><b>8.4.3</b> rvest Package</a></li>
-<li class="chapter" data-level="8.4.4" data-path="data-acquisition.html"><a href="data-acquisition.html#css-gadget-selector"><i class="fa fa-check"></i><b>8.4.4</b> CSS Gadget Selector</a></li>
-<li class="chapter" data-level="8.4.5" data-path="data-acquisition.html"><a href="data-acquisition.html#scraping-examples"><i class="fa fa-check"></i><b>8.4.5</b> Scraping Examples</a></li>
+<li class="chapter" data-level="7.4.1" data-path="data-acquisition.html"><a href="data-acquisition.html#general-tips"><i class="fa fa-check"></i><b>7.4.1</b> General Tips</a></li>
+<li class="chapter" data-level="7.4.2" data-path="data-acquisition.html"><a href="data-acquisition.html#introduction-to-html"><i class="fa fa-check"></i><b>7.4.2</b> Introduction to HTML</a></li>
+<li class="chapter" data-level="7.4.3" data-path="data-acquisition.html"><a href="data-acquisition.html#rvest-package"><i class="fa fa-check"></i><b>7.4.3</b> rvest Package</a></li>
+<li class="chapter" data-level="7.4.4" data-path="data-acquisition.html"><a href="data-acquisition.html#css-gadget-selector"><i class="fa fa-check"></i><b>7.4.4</b> CSS Gadget Selector</a></li>
+<li class="chapter" data-level="7.4.5" data-path="data-acquisition.html"><a href="data-acquisition.html#scraping-examples"><i class="fa fa-check"></i><b>7.4.5</b> Scraping Examples</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>9</b> Linear Regression</a>
+<li class="chapter" data-level="8" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>8</b> Linear Regression</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>9.1</b> Simple Linear Regression</a>
+<li class="chapter" data-level="8.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>8.1</b> Simple Linear Regression</a>
 <ul>
-<li class="chapter" data-level="9.1.1" data-path="linear-regression.html"><a href="linear-regression.html#pythagorean-records"><i class="fa fa-check"></i><b>9.1.1</b> Pythagorean Records</a></li>
-<li class="chapter" data-level="9.1.2" data-path="linear-regression.html"><a href="linear-regression.html#regression-to-the-mean"><i class="fa fa-check"></i><b>9.1.2</b> Regression to the Mean</a></li>
+<li class="chapter" data-level="8.1.1" data-path="linear-regression.html"><a href="linear-regression.html#pythagorean-records"><i class="fa fa-check"></i><b>8.1.1</b> Pythagorean Records</a></li>
+<li class="chapter" data-level="8.1.2" data-path="linear-regression.html"><a href="linear-regression.html#regression-to-the-mean"><i class="fa fa-check"></i><b>8.1.2</b> Regression to the Mean</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="linear-regression.html"><a href="linear-regression.html#variable-transformations"><i class="fa fa-check"></i><b>9.2</b> Variable Transformations</a>
+<li class="chapter" data-level="8.2" data-path="linear-regression.html"><a href="linear-regression.html#variable-transformations"><i class="fa fa-check"></i><b>8.2</b> Variable Transformations</a>
 <ul>
-<li class="chapter" data-level="9.2.1" data-path="linear-regression.html"><a href="linear-regression.html#draft-pick-values"><i class="fa fa-check"></i><b>9.2.1</b> Draft Pick Values</a></li>
+<li class="chapter" data-level="8.2.1" data-path="linear-regression.html"><a href="linear-regression.html#draft-pick-values"><i class="fa fa-check"></i><b>8.2.1</b> Draft Pick Values</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="linear-regression.html"><a href="linear-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>9.3</b> Multiple Linear Regression</a>
+<li class="chapter" data-level="8.3" data-path="linear-regression.html"><a href="linear-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>8.3</b> Multiple Linear Regression</a>
 <ul>
-<li class="chapter" data-level="9.3.1" data-path="linear-regression.html"><a href="linear-regression.html#four-factors-and-winning"><i class="fa fa-check"></i><b>9.3.1</b> Four Factors and Winning</a></li>
-<li class="chapter" data-level="9.3.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-weights-in-baseball"><i class="fa fa-check"></i><b>9.3.2</b> Linear Weights in Baseball</a></li>
-<li class="chapter" data-level="9.3.3" data-path="linear-regression.html"><a href="linear-regression.html#pass-air-yards-regression"><i class="fa fa-check"></i><b>9.3.3</b> Pass Air Yards Regression</a></li>
-<li class="chapter" data-level="9.3.4" data-path="linear-regression.html"><a href="linear-regression.html#epl-passing-and-scoring"><i class="fa fa-check"></i><b>9.3.4</b> EPL Passing and Scoring</a></li>
-<li class="chapter" data-level="9.3.5" data-path="linear-regression.html"><a href="linear-regression.html#hockey-ppg-vs-toi"><i class="fa fa-check"></i><b>9.3.5</b> Hockey PPG vs TOI</a></li>
+<li class="chapter" data-level="8.3.1" data-path="linear-regression.html"><a href="linear-regression.html#four-factors-and-winning"><i class="fa fa-check"></i><b>8.3.1</b> Four Factors and Winning</a></li>
+<li class="chapter" data-level="8.3.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-weights-in-baseball"><i class="fa fa-check"></i><b>8.3.2</b> Linear Weights in Baseball</a></li>
+<li class="chapter" data-level="8.3.3" data-path="linear-regression.html"><a href="linear-regression.html#pass-air-yards-regression"><i class="fa fa-check"></i><b>8.3.3</b> Pass Air Yards Regression</a></li>
+<li class="chapter" data-level="8.3.4" data-path="linear-regression.html"><a href="linear-regression.html#epl-passing-and-scoring"><i class="fa fa-check"></i><b>8.3.4</b> EPL Passing and Scoring</a></li>
+<li class="chapter" data-level="8.3.5" data-path="linear-regression.html"><a href="linear-regression.html#hockey-ppg-vs-toi"><i class="fa fa-check"></i><b>8.3.5</b> Hockey PPG vs TOI</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="linear-regression.html"><a href="linear-regression.html#issues-with-multiyear-data"><i class="fa fa-check"></i><b>9.4</b> Issues with Multiyear Data</a></li>
-<li class="chapter" data-level="9.5" data-path="linear-regression.html"><a href="linear-regression.html#interaction"><i class="fa fa-check"></i><b>9.5</b> Interaction</a></li>
-<li class="chapter" data-level="9.6" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables"><i class="fa fa-check"></i><b>9.6</b> Confounding Variables</a></li>
-<li class="chapter" data-level="9.7" data-path="linear-regression.html"><a href="linear-regression.html#logistic-regression"><i class="fa fa-check"></i><b>9.7</b> Logistic Regression</a>
+<li class="chapter" data-level="8.4" data-path="linear-regression.html"><a href="linear-regression.html#issues-with-multiyear-data"><i class="fa fa-check"></i><b>8.4</b> Issues with Multiyear Data</a></li>
+<li class="chapter" data-level="8.5" data-path="linear-regression.html"><a href="linear-regression.html#interaction"><i class="fa fa-check"></i><b>8.5</b> Interaction</a></li>
+<li class="chapter" data-level="8.6" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables"><i class="fa fa-check"></i><b>8.6</b> Confounding Variables</a></li>
+<li class="chapter" data-level="8.7" data-path="linear-regression.html"><a href="linear-regression.html#logistic-regression"><i class="fa fa-check"></i><b>8.7</b> Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="9.7.1" data-path="linear-regression.html"><a href="linear-regression.html#sack-and-interception-probability-models"><i class="fa fa-check"></i><b>9.7.1</b> Sack and Interception Probability Models</a></li>
-<li class="chapter" data-level="9.7.2" data-path="linear-regression.html"><a href="linear-regression.html#soccer-goal-logistic-model"><i class="fa fa-check"></i><b>9.7.2</b> Soccer Goal Logistic Model</a></li>
-<li class="chapter" data-level="9.7.3" data-path="linear-regression.html"><a href="linear-regression.html#field-goal-success"><i class="fa fa-check"></i><b>9.7.3</b> Field Goal Success</a></li>
+<li class="chapter" data-level="8.7.1" data-path="linear-regression.html"><a href="linear-regression.html#sack-and-interception-probability-models"><i class="fa fa-check"></i><b>8.7.1</b> Sack and Interception Probability Models</a></li>
+<li class="chapter" data-level="8.7.2" data-path="linear-regression.html"><a href="linear-regression.html#soccer-goal-logistic-model"><i class="fa fa-check"></i><b>8.7.2</b> Soccer Goal Logistic Model</a></li>
+<li class="chapter" data-level="8.7.3" data-path="linear-regression.html"><a href="linear-regression.html#field-goal-success"><i class="fa fa-check"></i><b>8.7.3</b> Field Goal Success</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="data-scraping-and-acquisition.html"><a href="data-scraping-and-acquisition.html"><i class="fa fa-check"></i><b>10</b> Data Scraping and Acquisition</a></li>
-<li class="chapter" data-level="11" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>11</b> Principal Component Analysis</a></li>
-<li class="chapter" data-level="12" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>12</b> Clustering</a></li>
-<li class="chapter" data-level="13" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>13</b> Classification</a></li>
-<li class="chapter" data-level="14" data-path="nonparametric-methods.html"><a href="nonparametric-methods.html"><i class="fa fa-check"></i><b>14</b> Nonparametric Methods</a></li>
-<li class="chapter" data-level="15" data-path="sports-drafts.html"><a href="sports-drafts.html"><i class="fa fa-check"></i><b>15</b> Sports Drafts</a></li>
-<li class="chapter" data-level="16" data-path="baseball-1.html"><a href="baseball-1.html"><i class="fa fa-check"></i><b>16</b> Baseball</a></li>
-<li class="chapter" data-level="17" data-path="football-1.html"><a href="football-1.html"><i class="fa fa-check"></i><b>17</b> Football</a></li>
-<li class="chapter" data-level="18" data-path="basketball-1.html"><a href="basketball-1.html"><i class="fa fa-check"></i><b>18</b> Basketball</a></li>
-<li class="chapter" data-level="19" data-path="hockey-1.html"><a href="hockey-1.html"><i class="fa fa-check"></i><b>19</b> Hockey</a></li>
-<li class="chapter" data-level="20" data-path="soccer-1.html"><a href="soccer-1.html"><i class="fa fa-check"></i><b>20</b> Soccer</a></li>
+<li class="chapter" data-level="9" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>9</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="10" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>10</b> Clustering</a></li>
+<li class="chapter" data-level="11" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>11</b> Classification</a></li>
+<li class="chapter" data-level="12" data-path="nonparametric-methods.html"><a href="nonparametric-methods.html"><i class="fa fa-check"></i><b>12</b> Nonparametric Methods</a></li>
+<li class="chapter" data-level="13" data-path="sports-drafts.html"><a href="sports-drafts.html"><i class="fa fa-check"></i><b>13</b> Sports Drafts</a></li>
+<li class="chapter" data-level="14" data-path="baseball-1.html"><a href="baseball-1.html"><i class="fa fa-check"></i><b>14</b> Baseball</a></li>
+<li class="chapter" data-level="15" data-path="football-1.html"><a href="football-1.html"><i class="fa fa-check"></i><b>15</b> Football</a></li>
+<li class="chapter" data-level="16" data-path="basketball-1.html"><a href="basketball-1.html"><i class="fa fa-check"></i><b>16</b> Basketball</a></li>
+<li class="chapter" data-level="17" data-path="hockey-1.html"><a href="hockey-1.html"><i class="fa fa-check"></i><b>17</b> Hockey</a></li>
+<li class="chapter" data-level="18" data-path="soccer-1.html"><a href="soccer-1.html"><i class="fa fa-check"></i><b>18</b> Soccer</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -1971,11 +1971,659 @@ Total
 </table>
 <div style="page-break-after: always;"></div>
 </div>
+<div id="chi-squared-test-of-independence" class="section level3 hasAnchor" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> Chi-Squared Test of Independence<a href="measures-of-association.html#chi-squared-test-of-independence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can formally test whether two categorical variables are related to each other by use of the Chi-Squared Test of Independence.</p>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-171" class="theorem"><strong>Theorem 6.1  </strong></span>A Chi-Squared Test of Independence (<span class="math inline">\(\chi^2-test\)</span>) between two categorical variables has the test statistic <span class="math inline">\(X^2\)</span> which follows a <span class="math inline">\(\chi^2(df=(r-1)(c-1))\)</span>, where:</p>
+<p><span class="math inline">\(X^2 = \sum_{i=1}^r\sum_{j=1}^c\frac{(E_{ij}-O_{ij})^2}{E_{ij}}\)</span></p>
+<p><span class="math inline">\(O_{ij}\)</span> is the <span class="math inline">\(i^{th}\)</span> row and <span class="math inline">\(j^{th}\)</span> column observation count and <span class="math inline">\(E_{ij} = \frac{R_i \cdot C_j}{N}\)</span></p>
+<p>Note: Sometimes, a Yate’s chi-squared test (or Yate’s correction of continuity) used for 2x2 contingency tables with cell counts under 5. Under this test, the test statistic is:</p>
+<p><span class="math inline">\(X^2_{Yates} = \sum_{i=1}^r\sum_{j=1}^c\frac{(|E_{ij}-O_{ij}|-0.5)^2}{E_{ij}}\)</span></p>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-172" class="example"><strong>Example 6.9  </strong></span>Complete a Chi-Squared Test of Independence for the Tom Brady TDs/Sacks example. Is there evidence of dependence between Touchdowns and Sacks? Explain.</p>
+</div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="measures-of-association.html#cb343-1" aria-hidden="true" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Complete=</span><span class="fu">rep</span>(<span class="st">&quot;No&quot;</span>,<span class="dv">2533</span>),<span class="at">League=</span><span class="fu">rep</span>(<span class="st">&quot;NL&quot;</span>,<span class="dv">2533</span>))</span>
+<span id="cb343-2"><a href="measures-of-association.html#cb343-2" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Complete=</span><span class="fu">rep</span>(<span class="st">&quot;No&quot;</span>,<span class="dv">2199</span>),<span class="at">League=</span><span class="fu">rep</span>(<span class="st">&quot;AL&quot;</span>,<span class="dv">2199</span>))</span>
+<span id="cb343-3"><a href="measures-of-association.html#cb343-3" aria-hidden="true" tabindex="-1"></a>a3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Complete=</span><span class="fu">rep</span>(<span class="st">&quot;Yes&quot;</span>,<span class="dv">59</span>),<span class="at">League=</span><span class="fu">rep</span>(<span class="st">&quot;NL&quot;</span>,<span class="dv">59</span>))</span>
+<span id="cb343-4"><a href="measures-of-association.html#cb343-4" aria-hidden="true" tabindex="-1"></a>a4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Complete=</span><span class="fu">rep</span>(<span class="st">&quot;Yes&quot;</span>,<span class="dv">69</span>),<span class="at">League=</span><span class="fu">rep</span>(<span class="st">&quot;AL&quot;</span>,<span class="dv">69</span>))</span>
+<span id="cb343-5"><a href="measures-of-association.html#cb343-5" aria-hidden="true" tabindex="-1"></a>mlb_data <span class="ot">=</span> <span class="fu">rbind</span>(a1,a2,a3,a4)</span>
+<span id="cb343-6"><a href="measures-of-association.html#cb343-6" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(mlb_data<span class="sc">$</span>Complete,mlb_data<span class="sc">$</span>League))</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  table(mlb_data$Complete, mlb_data$League)
+## X-squared = 2.4777, df = 1, p-value = 0.1155</code></pre>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="measures-of-association.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(mlb_data<span class="sc">$</span>Complete,mlb_data<span class="sc">$</span>League),<span class="at">correct=</span>F)</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  table(mlb_data$Complete, mlb_data$League)
+## X-squared = 2.7684, df = 1, p-value = 0.09614</code></pre>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-173" class="example"><strong>Example 6.10  </strong></span>Complete a Chi-Squared Test of Independence for the AL/NL complete game example. Is there evidence of dependence between League and Complete Games? Explain.</p>
+</div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="measures-of-association.html#cb347-1" aria-hidden="true" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">TDs=</span><span class="fu">rep</span>(<span class="st">&quot;0-2&quot;</span>,<span class="dv">29</span>),<span class="at">Sacks=</span><span class="fu">rep</span>(<span class="st">&quot;0-2&quot;</span>,<span class="dv">29</span>))</span>
+<span id="cb347-2"><a href="measures-of-association.html#cb347-2" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">TDs=</span><span class="fu">rep</span>(<span class="st">&quot;0-2&quot;</span>,<span class="dv">18</span>),<span class="at">Sacks=</span><span class="fu">rep</span>(<span class="st">&quot;3+&quot;</span>,<span class="dv">18</span>))</span>
+<span id="cb347-3"><a href="measures-of-association.html#cb347-3" aria-hidden="true" tabindex="-1"></a>a3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">TDs=</span><span class="fu">rep</span>(<span class="st">&quot;3+&quot;</span>,<span class="dv">22</span>),<span class="at">Sacks=</span><span class="fu">rep</span>(<span class="st">&quot;0-2&quot;</span>,<span class="dv">22</span>))</span>
+<span id="cb347-4"><a href="measures-of-association.html#cb347-4" aria-hidden="true" tabindex="-1"></a>a4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">TDs=</span><span class="fu">rep</span>(<span class="st">&quot;3+&quot;</span>,<span class="dv">2</span>),<span class="at">Sacks=</span><span class="fu">rep</span>(<span class="st">&quot;3+&quot;</span>,<span class="dv">2</span>))</span>
+<span id="cb347-5"><a href="measures-of-association.html#cb347-5" aria-hidden="true" tabindex="-1"></a>brady_data <span class="ot">=</span> <span class="fu">rbind</span>(a1,a2,a3,a4)</span>
+<span id="cb347-6"><a href="measures-of-association.html#cb347-6" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(brady_data<span class="sc">$</span>TDs,brady_data<span class="sc">$</span>Sacks))</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  table(brady_data$TDs, brady_data$Sacks)
+## X-squared = 5.6468, df = 1, p-value = 0.01749</code></pre>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="measures-of-association.html#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(brady_data<span class="sc">$</span>TDs,brady_data<span class="sc">$</span>Sacks),<span class="at">correct =</span> F)</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  table(brady_data$TDs, brady_data$Sacks)
+## X-squared = 7.0499, df = 1, p-value = 0.007927</code></pre>
+<div style="page-break-after: always;"></div>
+</div>
 </div>
 <div id="rank-correlation" class="section level2 hasAnchor" number="6.3">
 <h2><span class="header-section-number">6.3</span> Rank Correlation<a href="measures-of-association.html#rank-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<!-- Used for nonlinear relationships -->
-<p>(Example using team data)</p>
+<p>Rank correlation is a nonparametric method to measure the ordinal association between two different variables. Rank correlation can investigate non-linear relationships between variables and thus measure monotonicity.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-174" class="definition"><strong>Definition 6.4  </strong></span><strong><em>Spearman’s rank correlation coefficient</em></strong> or <strong><em>Spearman’s <span class="math inline">\(\rho\)</span></em></strong> is a nonparametric measure of rank correlation and is calculated by:</p>
+<p><span class="math inline">\(r_s = \frac{Cov(R(X),R(Y))}{\sigma_{R(X)}\sigma_{R(Y)}}\)</span></p>
+<p>That is, the Spearman’s rank correlation coefficient is Pearson’s correlation between the rank values of the two variables.</p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-175" class="example"><strong>Example 6.11  </strong></span><code>nfl22.csv</code> contains NFL team offense statistics for the 2022 season. Investigate the relationship between PF (points scored for) and RPCT (percentage of offensive plays that were rushes). Calculate the ranks for PF and RPCT and use these values to calculate the Spearman correlation coefficient.</p>
+</div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="measures-of-association.html#cb351-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl22.csv&quot;</span>,<span class="at">show_col_types =</span> F)</span>
+<span id="cb351-2"><a href="measures-of-association.html#cb351-2" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">32</span>)</span>
+<span id="cb351-3"><a href="measures-of-association.html#cb351-3" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+Rk
+</th>
+<th style="text-align:left;">
+Tm
+</th>
+<th style="text-align:right;">
+G
+</th>
+<th style="text-align:right;">
+PF
+</th>
+<th style="text-align:right;">
+Yds
+</th>
+<th style="text-align:right;">
+Plays
+</th>
+<th style="text-align:right;">
+Pass_Att
+</th>
+<th style="text-align:right;">
+Pass_Yds
+</th>
+<th style="text-align:right;">
+Rush_Att
+</th>
+<th style="text-align:right;">
+Rush_Yds
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Kansas City Chiefs
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+496
+</td>
+<td style="text-align:right;">
+7032
+</td>
+<td style="text-align:right;">
+1094
+</td>
+<td style="text-align:right;">
+651
+</td>
+<td style="text-align:right;">
+5062
+</td>
+<td style="text-align:right;">
+417
+</td>
+<td style="text-align:right;">
+1970
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Philadelphia Eagles
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+477
+</td>
+<td style="text-align:right;">
+6614
+</td>
+<td style="text-align:right;">
+1124
+</td>
+<td style="text-align:right;">
+536
+</td>
+<td style="text-align:right;">
+4105
+</td>
+<td style="text-align:right;">
+544
+</td>
+<td style="text-align:right;">
+2509
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+Dallas Cowboys
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+467
+</td>
+<td style="text-align:right;">
+6034
+</td>
+<td style="text-align:right;">
+1114
+</td>
+<td style="text-align:right;">
+556
+</td>
+<td style="text-align:right;">
+3736
+</td>
+<td style="text-align:right;">
+531
+</td>
+<td style="text-align:right;">
+2298
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+Buffalo Bills
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+455
+</td>
+<td style="text-align:right;">
+6361
+</td>
+<td style="text-align:right;">
+1037
+</td>
+<td style="text-align:right;">
+574
+</td>
+<td style="text-align:right;">
+4129
+</td>
+<td style="text-align:right;">
+430
+</td>
+<td style="text-align:right;">
+2232
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+Detroit Lions
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+453
+</td>
+<td style="text-align:right;">
+6460
+</td>
+<td style="text-align:right;">
+1092
+</td>
+<td style="text-align:right;">
+588
+</td>
+<td style="text-align:right;">
+4281
+</td>
+<td style="text-align:right;">
+480
+</td>
+<td style="text-align:right;">
+2179
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+San Francisco 49ers
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+450
+</td>
+<td style="text-align:right;">
+6216
+</td>
+<td style="text-align:right;">
+1047
+</td>
+<td style="text-align:right;">
+512
+</td>
+<td style="text-align:right;">
+3856
+</td>
+<td style="text-align:right;">
+504
+</td>
+<td style="text-align:right;">
+2360
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+Minnesota Vikings
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+424
+</td>
+<td style="text-align:right;">
+6145
+</td>
+<td style="text-align:right;">
+1123
+</td>
+<td style="text-align:right;">
+672
+</td>
+<td style="text-align:right;">
+4484
+</td>
+<td style="text-align:right;">
+404
+</td>
+<td style="text-align:right;">
+1661
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+Cincinnati Bengals
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+418
+</td>
+<td style="text-align:right;">
+5768
+</td>
+<td style="text-align:right;">
+1053
+</td>
+<td style="text-align:right;">
+610
+</td>
+<td style="text-align:right;">
+4240
+</td>
+<td style="text-align:right;">
+399
+</td>
+<td style="text-align:right;">
+1528
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+Seattle Seahawks
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+407
+</td>
+<td style="text-align:right;">
+5976
+</td>
+<td style="text-align:right;">
+1044
+</td>
+<td style="text-align:right;">
+573
+</td>
+<td style="text-align:right;">
+3934
+</td>
+<td style="text-align:right;">
+425
+</td>
+<td style="text-align:right;">
+2042
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+Jacksonville Jaguars
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+404
+</td>
+<td style="text-align:right;">
+6075
+</td>
+<td style="text-align:right;">
+1072
+</td>
+<td style="text-align:right;">
+596
+</td>
+<td style="text-align:right;">
+3959
+</td>
+<td style="text-align:right;">
+448
+</td>
+<td style="text-align:right;">
+2116
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="measures-of-association.html#cb352-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="st">`</span><span class="at">RPCT</span><span class="st">`</span><span class="ot">=</span><span class="dv">100</span><span class="sc">*</span>Rush_Att<span class="sc">/</span>Plays)</span>
+<span id="cb352-2"><a href="measures-of-association.html#cb352-2" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> </span>
+<span id="cb352-3"><a href="measures-of-association.html#cb352-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PF_Rank =</span> <span class="fu">rank</span>(PF),</span>
+<span id="cb352-4"><a href="measures-of-association.html#cb352-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">RPCT_Rank =</span> <span class="fu">rank</span>(RPCT))</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="measures-of-association.html#cb353-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">select</span>(Tm,PF,PF_Rank,RPCT,RPCT_Rank) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits=</span><span class="dv">1</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Tm
+</th>
+<th style="text-align:right;">
+PF
+</th>
+<th style="text-align:right;">
+PF_Rank
+</th>
+<th style="text-align:right;">
+RPCT
+</th>
+<th style="text-align:right;">
+RPCT_Rank
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Kansas City Chiefs
+</td>
+<td style="text-align:right;">
+496
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+38.1
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Philadelphia Eagles
+</td>
+<td style="text-align:right;">
+477
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+48.4
+</td>
+<td style="text-align:right;">
+27
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dallas Cowboys
+</td>
+<td style="text-align:right;">
+467
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+47.7
+</td>
+<td style="text-align:right;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Buffalo Bills
+</td>
+<td style="text-align:right;">
+455
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+41.5
+</td>
+<td style="text-align:right;">
+15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Detroit Lions
+</td>
+<td style="text-align:right;">
+453
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+44.0
+</td>
+<td style="text-align:right;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+San Francisco 49ers
+</td>
+<td style="text-align:right;">
+450
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+48.1
+</td>
+<td style="text-align:right;">
+26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Minnesota Vikings
+</td>
+<td style="text-align:right;">
+424
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+36.0
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cincinnati Bengals
+</td>
+<td style="text-align:right;">
+418
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+37.9
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Seattle Seahawks
+</td>
+<td style="text-align:right;">
+407
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+40.7
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jacksonville Jaguars
+</td>
+<td style="text-align:right;">
+404
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+41.8
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="measures-of-association.html#cb354-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PF,PF_Rank,RPCT,RPCT_Rank) <span class="sc">%&gt;%</span> <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
+<pre><code>##                      PF      PF_Rank        RPCT    RPCT_Rank
+## PF         1.0000000000  0.988409408 -0.02501179 0.0008416183
+## PF_Rank    0.9884094078  1.000000000 -0.01187428 0.0097158572
+## RPCT      -0.0250117927 -0.011874280  1.00000000 0.9759711461
+## RPCT_Rank  0.0008416183  0.009715857  0.97597115 1.0000000000</code></pre>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="measures-of-association.html#cb356-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PF,PF_Rank,RPCT,RPCT_Rank) <span class="sc">%&gt;%</span> <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<pre><code>##                    PF     PF_Rank        RPCT   RPCT_Rank
+## PF        1.000000000 1.000000000 0.009715857 0.009715857
+## PF_Rank   1.000000000 1.000000000 0.009715857 0.009715857
+## RPCT      0.009715857 0.009715857 1.000000000 1.000000000
+## RPCT_Rank 0.009715857 0.009715857 1.000000000 1.000000000</code></pre>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-176" class="example"><strong>Example 6.12  </strong></span>Investigate the relationship between PPG (points per game), RYPG (rushing yards per game), and PYPG (passing yards per game) using Spearman’s rank correlation coefficient.</p>
+</div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="measures-of-association.html#cb358-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PPG=</span>PF<span class="sc">/</span>G,<span class="at">RYPG=</span>Rush_Yds<span class="sc">/</span>G,<span class="at">PYPG=</span>Pass_Yds<span class="sc">/</span>G)</span>
+<span id="cb358-2"><a href="measures-of-association.html#cb358-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb358-3"><a href="measures-of-association.html#cb358-3" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PPG,RYPG,PYPG) <span class="sc">%&gt;%</span> <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<pre><code>##            PPG       RYPG       PYPG
+## PPG  1.0000000  0.2640264  0.6237052
+## RYPG 0.2640264  1.0000000 -0.4310203
+## PYPG 0.6237052 -0.4310203  1.0000000</code></pre>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="measures-of-association.html#cb360-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb360-2"><a href="measures-of-association.html#cb360-2" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PPG,RYPG,PYPG) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-158-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
 </div>
 <div id="autocorrelation" class="section level2 hasAnchor" number="6.4">
 <h2><span class="header-section-number">6.4</span> Autocorrelation<a href="measures-of-association.html#autocorrelation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1990,6 +2638,877 @@ Total
 <div style="page-break-after: always;"></div>
 </div>
 </div>
+<div id="pythagorean-record" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Pythagorean Record<a href="measures-of-association.html#pythagorean-record" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Baseball statistican (sabermetrican) Bill James proposed <strong>Pythagorean expectation</strong> to estimate the percentage (or number) of games that a team is expected to win based on the number of runs they score and the number of runs they allow.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-177" class="definition"><strong>Definition 6.5  </strong></span>The (basic) <strong><em>Pythagorean expectation</em></strong> for a team’s win percentage and win total are given by the following:</p>
+<p><span class="math display">\[\text{Pythagorean Win Pct} = PythWin\% = 100 * \frac{RS^2}{RS^2 + RA^2}\]</span></p>
+<p><span class="math display">\[\text{Pythagorean Win Total} = PythWin = N \cdot \frac{RS^2}{RS^2 + RA^2}\]</span></p>
+<p>where for a given team, <span class="math inline">\(N\)</span> is the number of games, <span class="math inline">\(RS\)</span> is the number of runs scored, and <span class="math inline">\(RA\)</span> is the number of runs allowed.</p>
+<p>Note that <span class="math inline">\(RS\)</span> and <span class="math inline">\(RA\)</span> can be based on season totals or per game averages.</p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-178" class="example"><strong>Example 6.13  </strong></span>In 2022, the Colorado Rockies baseball team scored an average of 4.3 runs per game and allowed an average of 5.4 runs per game. The Rockies’ record in 2022 was 69-94 (0.420 win pct). Calculate the Pythagorean win percentage and win total. Did the Rockies underperform or overperform based on these results?</p>
+</div>
+<p><span class="math inline">\(PythWin\% = 100 * \frac{RS^2}{RS^2+RA^2} = \frac{4.3^2}{4.3^2+5.4^2} = 38.8\%\)</span></p>
+<p><span class="math inline">\(PythWin\% = N \cdot \frac{RS^2}{RS^2+RA^2} = 162 * \frac{4.3^2}{4.3^2+5.4^2} = 63\)</span></p>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="measures-of-association.html#cb361-1" aria-hidden="true" tabindex="-1"></a>( <span class="at">pythwinpct =</span> <span class="dv">100</span><span class="sc">*</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span><span class="fl">+5.4</span><span class="sc">^</span><span class="dv">2</span>) )</span></code></pre></div>
+<pre><code>## [1] 38.80378</code></pre>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="measures-of-association.html#cb363-1" aria-hidden="true" tabindex="-1"></a>( <span class="at">pythwins =</span> <span class="dv">162</span><span class="sc">*</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span><span class="fl">+5.4</span><span class="sc">^</span><span class="dv">2</span>) )</span></code></pre></div>
+<pre><code>## [1] 62.86212</code></pre>
+<div style="page-break-after: always;"></div>
+<p>It turns out that we can find a more optimal estimate of Pythagorean wins by using an exponent different from 2.</p>
+<p>For example, Baseball Reference <a href="https://www.sports-reference.com/blog/baseball-reference-faqs/">(https://www.sports-reference.com/blog/baseball-reference-faqs/)</a> uses an exponent of 1.83.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-179" class="definition"><strong>Definition 6.6  </strong></span>The (general) <strong><em>Pythagorean expectation</em></strong> for a team’s win percentage and win total are given by the following:</p>
+<p><span class="math display">\[\text{Pythagorean Win Pct} = PythWin\% = 100 * \frac{RS^n}{RS^2 + RA^n}\]</span></p>
+<p><span class="math display">\[\text{Pythagorean Win Total} = PythWin = N \cdot \frac{RS^n}{RS^n + RA^n}\]</span></p>
+<p>where for a given team, <span class="math inline">\(N\)</span> is the number of games, <span class="math inline">\(RS\)</span> is the number of runs scored, and <span class="math inline">\(RA\)</span> is the number of runs allowed. <span class="math inline">\(n\)</span> is optimized for predictive accuracy over a large dataset.</p>
+</div>
+<p>It will be helpful to have a function to find the optimal Pythagorean exponent. Such a function called <code>pyth_opt</code> is given below that minimizes mean squared error. Use <code>plot_flag=1</code> to generate a plot.</p>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="measures-of-association.html#cb365-1" aria-hidden="true" tabindex="-1"></a>pyth_opt <span class="ot">=</span> <span class="cf">function</span>(RS,RA,WinPct,digits,plot_flag){</span>
+<span id="cb365-2"><a href="measures-of-association.html#cb365-2" aria-hidden="true" tabindex="-1"></a>  exps <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="at">by=</span><span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span>digits))</span>
+<span id="cb365-3"><a href="measures-of-association.html#cb365-3" aria-hidden="true" tabindex="-1"></a>  n_exps <span class="ot">=</span> <span class="fu">length</span>(exps)</span>
+<span id="cb365-4"><a href="measures-of-association.html#cb365-4" aria-hidden="true" tabindex="-1"></a>  MSE <span class="ot">=</span> <span class="fu">rep</span>(<span class="cn">NA</span>,n_exps)</span>
+<span id="cb365-5"><a href="measures-of-association.html#cb365-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_exps){</span>
+<span id="cb365-6"><a href="measures-of-association.html#cb365-6" aria-hidden="true" tabindex="-1"></a>    temp_exp <span class="ot">=</span> exps[i]</span>
+<span id="cb365-7"><a href="measures-of-association.html#cb365-7" aria-hidden="true" tabindex="-1"></a>    PyWinPct <span class="ot">=</span> RS<span class="sc">^</span>temp_exp<span class="sc">/</span>(RS<span class="sc">^</span>temp_exp <span class="sc">+</span> RA<span class="sc">^</span>temp_exp)</span>
+<span id="cb365-8"><a href="measures-of-association.html#cb365-8" aria-hidden="true" tabindex="-1"></a>    MSE[i] <span class="ot">=</span> <span class="fu">mean</span>((PyWinPct<span class="sc">-</span>WinPct)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb365-9"><a href="measures-of-association.html#cb365-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb365-10"><a href="measures-of-association.html#cb365-10" aria-hidden="true" tabindex="-1"></a>  min_idx <span class="ot">=</span> <span class="fu">which</span>(MSE<span class="sc">==</span><span class="fu">min</span>(MSE))</span>
+<span id="cb365-11"><a href="measures-of-association.html#cb365-11" aria-hidden="true" tabindex="-1"></a>  pyth_opt <span class="ot">=</span> exps[min_idx]</span>
+<span id="cb365-12"><a href="measures-of-association.html#cb365-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb365-13"><a href="measures-of-association.html#cb365-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(plot_flag){</span>
+<span id="cb365-14"><a href="measures-of-association.html#cb365-14" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Exponent=</span>exps,<span class="at">MSE=</span>MSE)</span>
+<span id="cb365-15"><a href="measures-of-association.html#cb365-15" aria-hidden="true" tabindex="-1"></a>    df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Exponent,<span class="at">y=</span>MSE)) <span class="sc">+</span> </span>
+<span id="cb365-16"><a href="measures-of-association.html#cb365-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb365-17"><a href="measures-of-association.html#cb365-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="at">data=</span>df[min_idx,],<span class="at">color=</span><span class="st">&quot;blue&quot;</span>)  <span class="sc">+</span></span>
+<span id="cb365-18"><a href="measures-of-association.html#cb365-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_label</span>(<span class="at">data =</span> df[min_idx,],</span>
+<span id="cb365-19"><a href="measures-of-association.html#cb365-19" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x =</span> Exponent, <span class="at">y =</span> MSE, <span class="at">label =</span> Exponent),<span class="at">vjust=</span><span class="sc">-</span><span class="fl">0.5</span>)</span>
+<span id="cb365-20"><a href="measures-of-association.html#cb365-20" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb365-21"><a href="measures-of-association.html#cb365-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(pyth_opt)</span>
+<span id="cb365-22"><a href="measures-of-association.html#cb365-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb365-23"><a href="measures-of-association.html#cb365-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb365-24"><a href="measures-of-association.html#cb365-24" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-180" class="example"><strong>Example 6.14  </strong></span>Final season MLB standings and related statistics are given in <code>mlb_2022.csv</code>. Find the optimal value of <span class="math inline">\(n\)</span> that minimizes mean squared error between actual wins and Pythagorean wins.</p>
+</div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="measures-of-association.html#cb366-1" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/mlb_2022.csv&quot;</span>)</span>
+<span id="cb366-2"><a href="measures-of-association.html#cb366-2" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+W
+</th>
+<th style="text-align:right;">
+L
+</th>
+<th style="text-align:right;">
+W-L%
+</th>
+<th style="text-align:right;">
+R
+</th>
+<th style="text-align:right;">
+RA
+</th>
+<th style="text-align:right;">
+Rdiff
+</th>
+<th style="text-align:left;">
+pythWL
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Los Angeles Dodgers
+</td>
+<td style="text-align:right;">
+111
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+0.685
+</td>
+<td style="text-align:right;">
+5.2
+</td>
+<td style="text-align:right;">
+3.2
+</td>
+<td style="text-align:right;">
+2.1
+</td>
+<td style="text-align:left;">
+116-46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Houston Astros
+</td>
+<td style="text-align:right;">
+106
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+0.654
+</td>
+<td style="text-align:right;">
+4.5
+</td>
+<td style="text-align:right;">
+3.2
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:left;">
+106-56
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Atlanta Braves
+</td>
+<td style="text-align:right;">
+101
+</td>
+<td style="text-align:right;">
+61
+</td>
+<td style="text-align:right;">
+0.623
+</td>
+<td style="text-align:right;">
+4.9
+</td>
+<td style="text-align:right;">
+3.8
+</td>
+<td style="text-align:right;">
+1.1
+</td>
+<td style="text-align:left;">
+100-62
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+New York Mets
+</td>
+<td style="text-align:right;">
+101
+</td>
+<td style="text-align:right;">
+61
+</td>
+<td style="text-align:right;">
+0.623
+</td>
+<td style="text-align:right;">
+4.8
+</td>
+<td style="text-align:right;">
+3.7
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:left;">
+99-63
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+New York Yankees
+</td>
+<td style="text-align:right;">
+99
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+0.611
+</td>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+3.5
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:left;">
+106-56
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+St. Louis Cardinals
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+0.574
+</td>
+<td style="text-align:right;">
+4.8
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+<td style="text-align:right;">
+0.8
+</td>
+<td style="text-align:left;">
+95-67
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cleveland Guardians
+</td>
+<td style="text-align:right;">
+92
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+0.568
+</td>
+<td style="text-align:right;">
+4.3
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+<td style="text-align:right;">
+0.4
+</td>
+<td style="text-align:left;">
+88-74
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Toronto Blue Jays
+</td>
+<td style="text-align:right;">
+92
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+0.568
+</td>
+<td style="text-align:right;">
+4.8
+</td>
+<td style="text-align:right;">
+4.2
+</td>
+<td style="text-align:right;">
+0.6
+</td>
+<td style="text-align:left;">
+91-71
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Seattle Mariners
+</td>
+<td style="text-align:right;">
+90
+</td>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+0.556
+</td>
+<td style="text-align:right;">
+4.3
+</td>
+<td style="text-align:right;">
+3.8
+</td>
+<td style="text-align:right;">
+0.4
+</td>
+<td style="text-align:left;">
+89-73
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+San Diego Padres
+</td>
+<td style="text-align:right;">
+89
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+0.549
+</td>
+<td style="text-align:right;">
+4.4
+</td>
+<td style="text-align:right;">
+4.1
+</td>
+<td style="text-align:right;">
+0.3
+</td>
+<td style="text-align:left;">
+86-76
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="measures-of-association.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pyth_opt</span>(mlb_2022<span class="sc">$</span>R,mlb_2022<span class="sc">$</span>RA,mlb_2022<span class="sc">$</span><span class="st">`</span><span class="at">W-L%</span><span class="st">`</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-162-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-181" class="example"><strong>Example 6.15  </strong></span>For a more accurate estimate of the optimal Pythagorean exponent, use all MLB final standings data from 2000–2017. This is contained in <code>mlb_standings_long.csv</code>.</p>
+</div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="measures-of-association.html#cb368-1" aria-hidden="true" tabindex="-1"></a>mlb_long <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/mlb_standings_long.csv&quot;</span>)</span>
+<span id="cb368-2"><a href="measures-of-association.html#cb368-2" aria-hidden="true" tabindex="-1"></a>mlb_long <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+yearID
+</th>
+<th style="text-align:left;">
+lgID
+</th>
+<th style="text-align:left;">
+teamID
+</th>
+<th style="text-align:right;">
+G
+</th>
+<th style="text-align:right;">
+W
+</th>
+<th style="text-align:right;">
+L
+</th>
+<th style="text-align:right;">
+R
+</th>
+<th style="text-align:right;">
+RA
+</th>
+<th style="text-align:right;">
+RD
+</th>
+<th style="text-align:right;">
+Wpct
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+AL
+</td>
+<td style="text-align:left;">
+ANA
+</td>
+<td style="text-align:right;">
+162
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+864
+</td>
+<td style="text-align:right;">
+869
+</td>
+<td style="text-align:right;">
+-5
+</td>
+<td style="text-align:right;">
+0.5062
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+NL
+</td>
+<td style="text-align:left;">
+ARI
+</td>
+<td style="text-align:right;">
+162
+</td>
+<td style="text-align:right;">
+85
+</td>
+<td style="text-align:right;">
+77
+</td>
+<td style="text-align:right;">
+792
+</td>
+<td style="text-align:right;">
+754
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+0.5247
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+NL
+</td>
+<td style="text-align:left;">
+ATL
+</td>
+<td style="text-align:right;">
+162
+</td>
+<td style="text-align:right;">
+95
+</td>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+810
+</td>
+<td style="text-align:right;">
+714
+</td>
+<td style="text-align:right;">
+96
+</td>
+<td style="text-align:right;">
+0.5864
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="measures-of-association.html#cb369-1" aria-hidden="true" tabindex="-1"></a>mlb_long <span class="sc">%&gt;%</span> <span class="fu">slice_tail</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+yearID
+</th>
+<th style="text-align:left;">
+lgID
+</th>
+<th style="text-align:left;">
+teamID
+</th>
+<th style="text-align:right;">
+G
+</th>
+<th style="text-align:right;">
+W
+</th>
+<th style="text-align:right;">
+L
+</th>
+<th style="text-align:right;">
+R
+</th>
+<th style="text-align:right;">
+RA
+</th>
+<th style="text-align:right;">
+RD
+</th>
+<th style="text-align:right;">
+Wpct
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:left;">
+AL
+</td>
+<td style="text-align:left;">
+TEX
+</td>
+<td style="text-align:right;">
+162
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:right;">
+799
+</td>
+<td style="text-align:right;">
+816
+</td>
+<td style="text-align:right;">
+-17
+</td>
+<td style="text-align:right;">
+0.4815
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:left;">
+AL
+</td>
+<td style="text-align:left;">
+TOR
+</td>
+<td style="text-align:right;">
+162
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+86
+</td>
+<td style="text-align:right;">
+693
+</td>
+<td style="text-align:right;">
+784
+</td>
+<td style="text-align:right;">
+-91
+</td>
+<td style="text-align:right;">
+0.4691
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:left;">
+NL
+</td>
+<td style="text-align:left;">
+WAS
+</td>
+<td style="text-align:right;">
+162
+</td>
+<td style="text-align:right;">
+97
+</td>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:right;">
+819
+</td>
+<td style="text-align:right;">
+672
+</td>
+<td style="text-align:right;">
+147
+</td>
+<td style="text-align:right;">
+0.5988
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="measures-of-association.html#cb370-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pyth_opt</span>(mlb_long<span class="sc">$</span>R,mlb_long<span class="sc">$</span>RA,mlb_long<span class="sc">$</span>Wpct,<span class="dv">2</span>,<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-163-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<p>As previously mentioned, sabermetricans tend to use <strong>PyExp = 1.83 for MLB</strong>.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-182" class="example"><strong>Example 6.16  </strong></span>Create a scatterplot to compare Team Wins and Team Pythagorean Wins in 2022 and calculate the correlation.</p>
+</div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="measures-of-association.html#cb371-1" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="ot">=</span> mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PyWins=</span><span class="dv">162</span><span class="sc">*</span>R<span class="sc">^</span><span class="fl">1.83</span><span class="sc">/</span>(R<span class="sc">^</span><span class="fl">1.83</span><span class="sc">+</span>RA<span class="sc">^</span><span class="fl">1.83</span>))</span>
+<span id="cb371-2"><a href="measures-of-association.html#cb371-2" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>W,<span class="at">y=</span>PyWins)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Wins&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb371-3"><a href="measures-of-association.html#cb371-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept=</span><span class="dv">0</span>, <span class="at">slope=</span><span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;blue&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-164-1.png" width="672" /></p>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="measures-of-association.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mlb_2022<span class="sc">$</span>W,mlb_2022<span class="sc">$</span>PyWins)</span></code></pre></div>
+<pre><code>## [1] 0.9764977</code></pre>
+<div class="example">
+<p><span id="exm:unlabeled-div-183" class="example"><strong>Example 6.17  </strong></span>The Rockies scored 4.31 runs per game and allowed 5.4 runs per game in 2022. Did the Rockies underperform or overperform based on their Pythagorean record?</p>
+</div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="measures-of-association.html#cb374-1" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Team<span class="sc">==</span><span class="st">&quot;Colorado Rockies&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb374-2"><a href="measures-of-association.html#cb374-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PyWins =</span> <span class="dv">162</span><span class="sc">*</span><span class="fl">4.31</span><span class="sc">^</span><span class="fl">1.83</span><span class="sc">/</span>(<span class="fl">4.31</span><span class="sc">^</span><span class="fl">1.83+5.39</span><span class="sc">^</span><span class="fl">1.83</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb374-3"><a href="measures-of-association.html#cb374-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+W
+</th>
+<th style="text-align:right;">
+L
+</th>
+<th style="text-align:right;">
+W-L%
+</th>
+<th style="text-align:right;">
+R
+</th>
+<th style="text-align:right;">
+RA
+</th>
+<th style="text-align:right;">
+Rdiff
+</th>
+<th style="text-align:left;">
+pythWL
+</th>
+<th style="text-align:right;">
+PyWins
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Colorado Rockies
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+94
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+<td style="text-align:right;">
+4.3
+</td>
+<td style="text-align:right;">
+5.4
+</td>
+<td style="text-align:right;">
+-1.1
+</td>
+<td style="text-align:left;">
+65-97
+</td>
+<td style="text-align:right;">
+64.6548
+</td>
+</tr>
+</tbody>
+</table>
+<p>The Rockies won 68 games and were expected to win 65 games based on their Pythagorean record. The Rockies outperformed their Pythagorean record.</p>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-184" class="example"><strong>Example 6.18  </strong></span>Calculate the Pythagorean exponent for NFL using 2022 season totals. This data is contained in <code>nfl_2022.csv</code>.</p>
+</div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="measures-of-association.html#cb375-1" aria-hidden="true" tabindex="-1"></a>nfl_2022 <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl_2022.csv&quot;</span>)</span>
+<span id="cb375-2"><a href="measures-of-association.html#cb375-2" aria-hidden="true" tabindex="-1"></a>nfl_2022 <span class="sc">%&gt;%</span> </span>
+<span id="cb375-3"><a href="measures-of-association.html#cb375-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb375-4"><a href="measures-of-association.html#cb375-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+W
+</th>
+<th style="text-align:right;">
+L
+</th>
+<th style="text-align:right;">
+T
+</th>
+<th style="text-align:right;">
+W-L%
+</th>
+<th style="text-align:right;">
+PF
+</th>
+<th style="text-align:right;">
+PA
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Buffalo Bills*
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.813
+</td>
+<td style="text-align:right;">
+455
+</td>
+<td style="text-align:right;">
+286
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Miami Dolphins+
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.529
+</td>
+<td style="text-align:right;">
+397
+</td>
+<td style="text-align:right;">
+399
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+New England Patriots
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.471
+</td>
+<td style="text-align:right;">
+364
+</td>
+<td style="text-align:right;">
+347
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+New York Jets
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.412
+</td>
+<td style="text-align:right;">
+296
+</td>
+<td style="text-align:right;">
+316
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cincinnati Bengals*
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.750
+</td>
+<td style="text-align:right;">
+418
+</td>
+<td style="text-align:right;">
+322
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="measures-of-association.html#cb376-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pyth_opt</span>(nfl_2022<span class="sc">$</span>PF,nfl_2022<span class="sc">$</span>PA,nfl_2022<span class="sc">$</span><span class="st">`</span><span class="at">W-L%</span><span class="st">`</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-167-1.png" width="672" /></p>
+<p>For 2022, there is an optimal Pythagorean exponent of 3.38. Using a larger dataset of more seasons will give a better estimate.</p>
+<p>Football Outsiders <a href="https://www.footballoutsiders.com/stat-analysis/2017/presenting-adjusted-pythagorean-theorem">(https://www.footballoutsiders.com/stat-analysis/2017/presenting-adjusted-pythagorean-theorem)</a> uses <strong>PyExp = 2.37 for NFL</strong>.</p>
+<p>Similar analyses can be done for other sports as well. <strong>PyExp = 13.91 is often used for NBA and PyExp = 2.15 for NHL.</strong></p>
+
+</div>
 </div>
             </section>
 
@@ -1997,7 +3516,7 @@ Total
         </div>
       </div>
 <a href="inferential-statistics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="pythagorean-record.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-acquisition.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

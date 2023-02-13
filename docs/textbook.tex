@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2023-02-08}
+\date{2023-02-12}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -7535,10 +7535,244 @@ Total & 47 & 24 & 71\\
 
 \newpage
 
+\hypertarget{chi-squared-test-of-independence}{%
+\subsection{Chi-Squared Test of Independence}\label{chi-squared-test-of-independence}}
+
+We can formally test whether two categorical variables are related to each other by use of the Chi-Squared Test of Independence.
+
+\begin{theorem}
+A Chi-Squared Test of Independence (\(\chi^2-test\)) between two categorical variables has the test statistic \(X^2\) which follows a \(\chi^2(df=(r-1)(c-1))\), where:
+
+\(X^2 = \sum_{i=1}^r\sum_{j=1}^c\frac{(E_{ij}-O_{ij})^2}{E_{ij}}\)
+
+\(O_{ij}\) is the \(i^{th}\) row and \(j^{th}\) column observation count and \(E_{ij} = \frac{R_i \cdot C_j}{N}\)
+
+Note: Sometimes, a Yate's chi-squared test (or Yate's correction of continuity) used for 2x2 contingency tables with cell counts under 5. Under this test, the test statistic is:
+
+\(X^2_{Yates} = \sum_{i=1}^r\sum_{j=1}^c\frac{(|E_{ij}-O_{ij}|-0.5)^2}{E_{ij}}\)
+\end{theorem}
+
+\newpage
+
+\begin{example}
+Complete a Chi-Squared Test of Independence for the Tom Brady TDs/Sacks example. Is there evidence of dependence between Touchdowns and Sacks? Explain.
+\end{example}
+
+\vfill
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a1 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Complete=}\FunctionTok{rep}\NormalTok{(}\StringTok{"No"}\NormalTok{,}\DecValTok{2533}\NormalTok{),}\AttributeTok{League=}\FunctionTok{rep}\NormalTok{(}\StringTok{"NL"}\NormalTok{,}\DecValTok{2533}\NormalTok{))}
+\NormalTok{a2 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Complete=}\FunctionTok{rep}\NormalTok{(}\StringTok{"No"}\NormalTok{,}\DecValTok{2199}\NormalTok{),}\AttributeTok{League=}\FunctionTok{rep}\NormalTok{(}\StringTok{"AL"}\NormalTok{,}\DecValTok{2199}\NormalTok{))}
+\NormalTok{a3 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Complete=}\FunctionTok{rep}\NormalTok{(}\StringTok{"Yes"}\NormalTok{,}\DecValTok{59}\NormalTok{),}\AttributeTok{League=}\FunctionTok{rep}\NormalTok{(}\StringTok{"NL"}\NormalTok{,}\DecValTok{59}\NormalTok{))}
+\NormalTok{a4 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Complete=}\FunctionTok{rep}\NormalTok{(}\StringTok{"Yes"}\NormalTok{,}\DecValTok{69}\NormalTok{),}\AttributeTok{League=}\FunctionTok{rep}\NormalTok{(}\StringTok{"AL"}\NormalTok{,}\DecValTok{69}\NormalTok{))}
+\NormalTok{mlb\_data }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(a1,a2,a3,a4)}
+\FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(mlb\_data}\SpecialCharTok{$}\NormalTok{Complete,mlb\_data}\SpecialCharTok{$}\NormalTok{League))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  table(mlb_data$Complete, mlb_data$League)
+## X-squared = 2.4777, df = 1, p-value = 0.1155
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(mlb\_data}\SpecialCharTok{$}\NormalTok{Complete,mlb\_data}\SpecialCharTok{$}\NormalTok{League),}\AttributeTok{correct=}\NormalTok{F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test
+## 
+## data:  table(mlb_data$Complete, mlb_data$League)
+## X-squared = 2.7684, df = 1, p-value = 0.09614
+\end{verbatim}
+
+\newpage
+
+\begin{example}
+Complete a Chi-Squared Test of Independence for the AL/NL complete game example. Is there evidence of dependence between League and Complete Games? Explain.
+\end{example}
+
+\vfill
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a1 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{29}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{29}\NormalTok{))}
+\NormalTok{a2 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{18}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{18}\NormalTok{))}
+\NormalTok{a3 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{22}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{22}\NormalTok{))}
+\NormalTok{a4 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\NormalTok{brady\_data }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(a1,a2,a3,a4)}
+\FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(brady\_data}\SpecialCharTok{$}\NormalTok{TDs,brady\_data}\SpecialCharTok{$}\NormalTok{Sacks))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  table(brady_data$TDs, brady_data$Sacks)
+## X-squared = 5.6468, df = 1, p-value = 0.01749
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(brady\_data}\SpecialCharTok{$}\NormalTok{TDs,brady\_data}\SpecialCharTok{$}\NormalTok{Sacks),}\AttributeTok{correct =}\NormalTok{ F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test
+## 
+## data:  table(brady_data$TDs, brady_data$Sacks)
+## X-squared = 7.0499, df = 1, p-value = 0.007927
+\end{verbatim}
+
+\newpage
+
 \hypertarget{rank-correlation}{%
 \section{Rank Correlation}\label{rank-correlation}}
 
-(Example using team data)
+Rank correlation is a nonparametric method to measure the ordinal association between two different variables. Rank correlation can investigate non-linear relationships between variables and thus measure monotonicity.
+
+\begin{definition}
+\textbf{\emph{Spearman's rank correlation coefficient}} or \textbf{\emph{Spearman's \(\rho\)}} is a nonparametric measure of rank correlation and is calculated by:
+
+\(r_s = \frac{Cov(R(X),R(Y))}{\sigma_{R(X)}\sigma_{R(Y)}}\)
+
+That is, the Spearman's rank correlation coefficient is Pearson's correlation between the rank values of the two variables.
+\end{definition}
+
+\begin{example}
+\texttt{nfl22.csv} contains NFL team offense statistics for the 2022 season. Investigate the relationship between PF (points scored for) and RPCT (percentage of offensive plays that were rushes). Calculate the ranks for PF and RPCT and use these values to calculate the Spearman correlation coefficient.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl22 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/nfl22.csv"}\NormalTok{,}\AttributeTok{show\_col\_types =}\NormalTok{ F)}
+\NormalTok{nfl22 }\OtherTok{\textless{}{-}}\NormalTok{ nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{32}\NormalTok{)}
+\NormalTok{nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n=}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{rlrrrrrrrr}
+\toprule
+Rk & Tm & G & PF & Yds & Plays & Pass\_Att & Pass\_Yds & Rush\_Att & Rush\_Yds\\
+\midrule
+1 & Kansas City Chiefs & 17 & 496 & 7032 & 1094 & 651 & 5062 & 417 & 1970\\
+2 & Philadelphia Eagles & 17 & 477 & 6614 & 1124 & 536 & 4105 & 544 & 2509\\
+3 & Dallas Cowboys & 17 & 467 & 6034 & 1114 & 556 & 3736 & 531 & 2298\\
+4 & Buffalo Bills & 16 & 455 & 6361 & 1037 & 574 & 4129 & 430 & 2232\\
+5 & Detroit Lions & 17 & 453 & 6460 & 1092 & 588 & 4281 & 480 & 2179\\
+\addlinespace
+6 & San Francisco 49ers & 17 & 450 & 6216 & 1047 & 512 & 3856 & 504 & 2360\\
+7 & Minnesota Vikings & 17 & 424 & 6145 & 1123 & 672 & 4484 & 404 & 1661\\
+8 & Cincinnati Bengals & 16 & 418 & 5768 & 1053 & 610 & 4240 & 399 & 1528\\
+9 & Seattle Seahawks & 17 & 407 & 5976 & 1044 & 573 & 3934 & 425 & 2042\\
+10 & Jacksonville Jaguars & 17 & 404 & 6075 & 1072 & 596 & 3959 & 448 & 2116\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl22 }\OtherTok{\textless{}{-}}\NormalTok{ nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{RPCT}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{100}\SpecialCharTok{*}\NormalTok{Rush\_Att}\SpecialCharTok{/}\NormalTok{Plays)}
+\NormalTok{nfl22 }\OtherTok{\textless{}{-}}\NormalTok{ nfl22 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{PF\_Rank =} \FunctionTok{rank}\NormalTok{(PF),}
+         \AttributeTok{RPCT\_Rank =} \FunctionTok{rank}\NormalTok{(RPCT))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(Tm,PF,PF\_Rank,RPCT,RPCT\_Rank) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrrrr}
+\toprule
+Tm & PF & PF\_Rank & RPCT & RPCT\_Rank\\
+\midrule
+Kansas City Chiefs & 496 & 32 & 38.1 & 7\\
+Philadelphia Eagles & 477 & 31 & 48.4 & 27\\
+Dallas Cowboys & 467 & 30 & 47.7 & 23\\
+Buffalo Bills & 455 & 29 & 41.5 & 15\\
+Detroit Lions & 453 & 28 & 44.0 & 19\\
+\addlinespace
+San Francisco 49ers & 450 & 27 & 48.1 & 26\\
+Minnesota Vikings & 424 & 26 & 36.0 & 3\\
+Cincinnati Bengals & 418 & 25 & 37.9 & 5\\
+Seattle Seahawks & 407 & 24 & 40.7 & 11\\
+Jacksonville Jaguars & 404 & 23 & 41.8 & 16\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(PF,PF\_Rank,RPCT,RPCT\_Rank) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{cor}\NormalTok{(}\AttributeTok{method =} \StringTok{"pearson"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      PF      PF_Rank        RPCT    RPCT_Rank
+## PF         1.0000000000  0.988409408 -0.02501179 0.0008416183
+## PF_Rank    0.9884094078  1.000000000 -0.01187428 0.0097158572
+## RPCT      -0.0250117927 -0.011874280  1.00000000 0.9759711461
+## RPCT_Rank  0.0008416183  0.009715857  0.97597115 1.0000000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(PF,PF\_Rank,RPCT,RPCT\_Rank) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{cor}\NormalTok{(}\AttributeTok{method =} \StringTok{"spearman"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                    PF     PF_Rank        RPCT   RPCT_Rank
+## PF        1.000000000 1.000000000 0.009715857 0.009715857
+## PF_Rank   1.000000000 1.000000000 0.009715857 0.009715857
+## RPCT      0.009715857 0.009715857 1.000000000 1.000000000
+## RPCT_Rank 0.009715857 0.009715857 1.000000000 1.000000000
+\end{verbatim}
+
+\newpage
+
+\begin{example}
+Investigate the relationship between PPG (points per game), RYPG (rushing yards per game), and PYPG (passing yards per game) using Spearman's rank correlation coefficient.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl22 }\OtherTok{\textless{}{-}}\NormalTok{ nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{PPG=}\NormalTok{PF}\SpecialCharTok{/}\NormalTok{G,}\AttributeTok{RYPG=}\NormalTok{Rush\_Yds}\SpecialCharTok{/}\NormalTok{G,}\AttributeTok{PYPG=}\NormalTok{Pass\_Yds}\SpecialCharTok{/}\NormalTok{G)}
+
+\NormalTok{nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(PPG,RYPG,PYPG) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{cor}\NormalTok{(}\AttributeTok{method =} \StringTok{"spearman"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            PPG       RYPG       PYPG
+## PPG  1.0000000  0.2640264  0.6237052
+## RYPG 0.2640264  1.0000000 -0.4310203
+## PYPG 0.6237052 -0.4310203  1.0000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(GGally)}
+\NormalTok{nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(PPG,RYPG,PYPG) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggpairs}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-158-1.pdf}
+
+\newpage
 
 \hypertarget{autocorrelation}{%
 \section{Autocorrelation}\label{autocorrelation}}
@@ -7558,7 +7792,7 @@ Total & 47 & 24 & 71\\
 \newpage
 
 \hypertarget{pythagorean-record}{%
-\chapter{Pythagorean Record}\label{pythagorean-record}}
+\section{Pythagorean Record}\label{pythagorean-record}}
 
 Baseball statistican (sabermetrican) Bill James proposed \textbf{Pythagorean expectation} to estimate the percentage (or number) of games that a team is expected to win based on the number of runs they score and the number of runs they allow.
 
@@ -7686,7 +7920,7 @@ San Diego Padres & 89 & 73 & 0.549 & 4.4 & 4.1 & 0.3 & 86-76\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-153-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-162-1.pdf}
 
 \newpage
 
@@ -7733,7 +7967,7 @@ yearID & lgID & teamID & G & W & L & R & RA & RD & Wpct\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-154-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-163-1.pdf}
 
 \newpage
 
@@ -7751,7 +7985,7 @@ Create a scatterplot to compare Team Wins and Team Pythagorean Wins in 2022 and 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-155-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-164-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7818,7 +8052,7 @@ Cincinnati Bengals* & 12 & 4 & 0 & 0.750 & 418 & 322\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-158-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-167-1.pdf}
 
 For 2022, there is an optimal Pythagorean exponent of 3.38. Using a larger dataset of more seasons will give a better estimate.
 
@@ -7945,7 +8179,7 @@ Andre Burakovsky & 22 & 39 & 4.3\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-162-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-171-1.pdf}
 
 \newpage
 
@@ -7958,7 +8192,7 @@ Andre Burakovsky & 22 & 39 & 4.3\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-163-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-172-1.pdf}
 
 \newpage
 
@@ -7972,7 +8206,7 @@ Andre Burakovsky & 22 & 39 & 4.3\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-164-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-173-1.pdf}
 
 \newpage
 
@@ -7986,7 +8220,7 @@ Andre Burakovsky & 22 & 39 & 4.3\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-165-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-174-1.pdf}
 
 \newpage
 
@@ -7999,7 +8233,7 @@ Andre Burakovsky & 22 & 39 & 4.3\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-166-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-175-1.pdf}
 
 \newpage
 
@@ -8068,7 +8302,7 @@ Date & Opponent & W/L & SP & K & E & TA & PCT & AST & SA\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-168-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-177-1.pdf}
 
 \newpage
 
@@ -8081,7 +8315,7 @@ Date & Opponent & W/L & SP & K & E & TA & PCT & AST & SA\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-169-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-178-1.pdf}
 
 \newpage
 
@@ -8098,7 +8332,7 @@ Date & Opponent & W/L & SP & K & E & TA & PCT & AST & SA\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-170-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-179-1.pdf}
 
 \newpage
 
@@ -8114,7 +8348,7 @@ Date & Opponent & W/L & SP & K & E & TA & PCT & AST & SA\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-171-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-180-1.pdf}
 
 \newpage
 
@@ -8365,7 +8599,7 @@ More about types of pitches: \url{https://youtu.be/1FTFWzcgjHE}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-176-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-185-1.pdf}
 
 \newpage
 
@@ -8425,7 +8659,7 @@ game\_id & gameday & away\_team & home\_team\\
 \end{Shaded}
 
 \begin{verbatim}
-## [12:44:17] WARNING: src/learner.cc:553: 
+## [15:57:11] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -8434,7 +8668,7 @@ game\_id & gameday & away\_team & home\_team\\
 ## 
 ##   for more details about differences between saving model and serializing.
 ## 
-## [12:44:17] WARNING: src/learner.cc:553: 
+## [15:57:11] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -8443,7 +8677,7 @@ game\_id & gameday & away\_team & home\_team\\
 ## 
 ##   for more details about differences between saving model and serializing.
 ## 
-## [12:44:17] WARNING: src/learner.cc:553: 
+## [15:57:11] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -8452,7 +8686,7 @@ game\_id & gameday & away\_team & home\_team\\
 ## 
 ##   for more details about differences between saving model and serializing.
 ## 
-## [12:44:17] WARNING: src/learner.cc:553: 
+## [15:57:11] WARNING: src/learner.cc:553: 
 ##   If you are loading a serialized model (like pickle in Python, RDS in R) generated by
 ##   older XGBoost, please export the model by calling `Booster.save_model` from that version
 ##   first, then load it back in current version. See:
@@ -8507,7 +8741,7 @@ GAME & NA & 0.770 & 0.000 & 0.567\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-179-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-188-1.pdf}
 
 \newpage
 
@@ -8606,7 +8840,7 @@ Period & Seconds Remaining & Home Win Pct & Play ID\\
 ## Scraping Data for Game: 1 of 1
 \end{verbatim}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-182-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-191-1.pdf}
 \newpage
 
 \begin{Shaded}
@@ -8619,7 +8853,7 @@ Period & Seconds Remaining & Home Win Pct & Play ID\\
 ## Scraping Data for Game: 1 of 1
 \end{verbatim}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-183-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-192-1.pdf}
 
 \newpage
 
@@ -8732,7 +8966,7 @@ Date & Period & Time & Event & Description\\
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-186-1.pdf}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-195-1.pdf}
 
 \newpage
 
@@ -8971,29 +9205,29 @@ Link: \url{http://www.espn.com/nba/hollinger/statistics}
 \toprule
 RK & PLAYER & PER\\
 \midrule
-1 & Nikola Jokic, DEN & 32.57\\
-2 & Joel Embiid, PHI & 30.77\\
-3 & Luka Doncic, DAL & 30.49\\
-4 & Anthony Davis, LAL & 30.14\\
-5 & Giannis Antetokounmpo, MIL & 28.64\\
+1 & Nikola Jokic, DEN & 32.04\\
+2 & Joel Embiid, PHI & 30.98\\
+3 & Luka Doncic, DAL & 30.09\\
+4 & Giannis Antetokounmpo, MIL & 29.00\\
+5 & Anthony Davis, LAL & 28.40\\
 \addlinespace
-6 & Shai Gilgeous-Alexander, OKC & 27.53\\
-7 & Kevin Durant, BKN & 26.82\\
-8 & Damian Lillard, POR & 26.37\\
-9 & Zion Williamson, NO & 25.65\\
-10 & Jimmy Butler, MIA & 25.58\\
+6 & Shai Gilgeous-Alexander, OKC & 27.61\\
+7 & Damian Lillard, POR & 26.56\\
+8 & Kevin Durant, BKN & 26.55\\
+9 & Jimmy Butler, MIA & 25.55\\
+10 & Zion Williamson, NO & 25.44\\
 \addlinespace
-11 & LeBron James, LAL & 25.35\\
-12 & Stephen Curry, GS & 24.95\\
-13 & Jayson Tatum, BOS & 24.37\\
-14 & Ja Morant, MEM & 24.26\\
-15 & Kawhi Leonard, LAC & 23.70\\
+11 & LeBron James, LAL & 25.10\\
+12 & Stephen Curry, GS & 24.92\\
+13 & Jayson Tatum, BOS & 24.25\\
+14 & Ja Morant, MEM & 24.22\\
+15 & Kawhi Leonard, LAC & 23.73\\
 \addlinespace
-16 & Tyrese Haliburton, IND & 22.88\\
-17 & Domantas Sabonis, SAC & 22.85\\
-18 & Lauri Markkanen, UTAH & 22.80\\
-19 & Andre Drummond, CHI & 22.35\\
-20 & Donovan Mitchell, CLE & 22.31\\
+16 & Domantas Sabonis, SAC & 22.91\\
+17 & Tyrese Haliburton, IND & 22.72\\
+18 & Lauri Markkanen, UTAH & 22.69\\
+19 & Donovan Mitchell, CLE & 22.60\\
+20 & Kristaps Porzingis, WSH & 22.49\\
 \bottomrule
 \end{tabular}
 
@@ -9187,9 +9421,6 @@ When controlling for an NBA team's wins in the previous season, the sign for the
 (AM, page 266)
 
 \newpage
-
-\hypertarget{data-scraping-and-acquisition}{%
-\chapter{Data Scraping and Acquisition}\label{data-scraping-and-acquisition}}
 
 \hypertarget{principal-component-analysis}{%
 \chapter{Principal Component Analysis}\label{principal-component-analysis}}

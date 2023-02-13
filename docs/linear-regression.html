@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Linear Regression | Sports Analytics</title>
-  <meta name="description" content="Chapter 9 Linear Regression | Sports Analytics Notes" />
+  <title>Chapter 8 Linear Regression | Sports Analytics</title>
+  <meta name="description" content="Chapter 8 Linear Regression | Sports Analytics Notes" />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Linear Regression | Sports Analytics" />
+  <meta property="og:title" content="Chapter 8 Linear Regression | Sports Analytics" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
-  <meta property="og:description" content="Chapter 9 Linear Regression | Sports Analytics Notes" />
+  <meta property="og:description" content="Chapter 8 Linear Regression | Sports Analytics Notes" />
   <meta name="github-repo" content="aaron-nielsen.github.io/SportsAnalyticsBook/" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Linear Regression | Sports Analytics" />
+  <meta name="twitter:title" content="Chapter 8 Linear Regression | Sports Analytics" />
   
-  <meta name="twitter:description" content="Chapter 9 Linear Regression | Sports Analytics Notes" />
+  <meta name="twitter:description" content="Chapter 8 Linear Regression | Sports Analytics Notes" />
   <meta name="twitter:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
 
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2023-02-08" />
+<meta name="date" content="2023-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="data-acquisition.html"/>
-<link rel="next" href="data-scraping-and-acquisition.html"/>
+<link rel="next" href="principal-component-analysis.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -315,6 +315,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.2.1" data-path="measures-of-association.html"><a href="measures-of-association.html#odds-ratios"><i class="fa fa-check"></i><b>6.2.1</b> Odds Ratios</a></li>
 <li class="chapter" data-level="6.2.2" data-path="measures-of-association.html"><a href="measures-of-association.html#yules-q"><i class="fa fa-check"></i><b>6.2.2</b> Yule’s Q</a></li>
+<li class="chapter" data-level="6.2.3" data-path="measures-of-association.html"><a href="measures-of-association.html#chi-squared-test-of-independence"><i class="fa fa-check"></i><b>6.2.3</b> Chi-Squared Test of Independence</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="measures-of-association.html"><a href="measures-of-association.html#rank-correlation"><i class="fa fa-check"></i><b>6.3</b> Rank Correlation</a></li>
 <li class="chapter" data-level="6.4" data-path="measures-of-association.html"><a href="measures-of-association.html#autocorrelation"><i class="fa fa-check"></i><b>6.4</b> Autocorrelation</a>
@@ -322,69 +323,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4.1" data-path="measures-of-association.html"><a href="measures-of-association.html#hot-hand"><i class="fa fa-check"></i><b>6.4.1</b> Hot Hand</a></li>
 <li class="chapter" data-level="6.4.2" data-path="measures-of-association.html"><a href="measures-of-association.html#streakiness-in-sports"><i class="fa fa-check"></i><b>6.4.2</b> Streakiness in Sports</a></li>
 </ul></li>
+<li class="chapter" data-level="6.5" data-path="measures-of-association.html"><a href="measures-of-association.html#pythagorean-record"><i class="fa fa-check"></i><b>6.5</b> Pythagorean Record</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="pythagorean-record.html"><a href="pythagorean-record.html"><i class="fa fa-check"></i><b>7</b> Pythagorean Record</a></li>
-<li class="chapter" data-level="8" data-path="data-acquisition.html"><a href="data-acquisition.html"><i class="fa fa-check"></i><b>8</b> Data Acquisition</a>
+<li class="chapter" data-level="7" data-path="data-acquisition.html"><a href="data-acquisition.html"><i class="fa fa-check"></i><b>7</b> Data Acquisition</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="data-acquisition.html"><a href="data-acquisition.html#tabular-data-from-sports-reference"><i class="fa fa-check"></i><b>8.1</b> Tabular Data From Sports Reference</a></li>
-<li class="chapter" data-level="8.2" data-path="data-acquisition.html"><a href="data-acquisition.html#downloading-datasets-from-internet"><i class="fa fa-check"></i><b>8.2</b> Downloading Datasets From Internet</a></li>
-<li class="chapter" data-level="8.3" data-path="data-acquisition.html"><a href="data-acquisition.html#importing-data-using-r-libraries"><i class="fa fa-check"></i><b>8.3</b> Importing Data Using R Libraries</a>
+<li class="chapter" data-level="7.1" data-path="data-acquisition.html"><a href="data-acquisition.html#tabular-data-from-sports-reference"><i class="fa fa-check"></i><b>7.1</b> Tabular Data From Sports Reference</a></li>
+<li class="chapter" data-level="7.2" data-path="data-acquisition.html"><a href="data-acquisition.html#downloading-datasets-from-internet"><i class="fa fa-check"></i><b>7.2</b> Downloading Datasets From Internet</a></li>
+<li class="chapter" data-level="7.3" data-path="data-acquisition.html"><a href="data-acquisition.html#importing-data-using-r-libraries"><i class="fa fa-check"></i><b>7.3</b> Importing Data Using R Libraries</a>
 <ul>
-<li class="chapter" data-level="8.3.1" data-path="data-acquisition.html"><a href="data-acquisition.html#baseballr-package"><i class="fa fa-check"></i><b>8.3.1</b> BaseballR package</a></li>
-<li class="chapter" data-level="8.3.2" data-path="data-acquisition.html"><a href="data-acquisition.html#nflfastr-package"><i class="fa fa-check"></i><b>8.3.2</b> nflfastR package</a></li>
-<li class="chapter" data-level="8.3.3" data-path="data-acquisition.html"><a href="data-acquisition.html#hoopr-package"><i class="fa fa-check"></i><b>8.3.3</b> hoopR package</a></li>
-<li class="chapter" data-level="8.3.4" data-path="data-acquisition.html"><a href="data-acquisition.html#hockeyr-package"><i class="fa fa-check"></i><b>8.3.4</b> hockeyR package</a></li>
-<li class="chapter" data-level="8.3.5" data-path="data-acquisition.html"><a href="data-acquisition.html#worldfootballr"><i class="fa fa-check"></i><b>8.3.5</b> worldfootballR</a></li>
+<li class="chapter" data-level="7.3.1" data-path="data-acquisition.html"><a href="data-acquisition.html#baseballr-package"><i class="fa fa-check"></i><b>7.3.1</b> BaseballR package</a></li>
+<li class="chapter" data-level="7.3.2" data-path="data-acquisition.html"><a href="data-acquisition.html#nflfastr-package"><i class="fa fa-check"></i><b>7.3.2</b> nflfastR package</a></li>
+<li class="chapter" data-level="7.3.3" data-path="data-acquisition.html"><a href="data-acquisition.html#hoopr-package"><i class="fa fa-check"></i><b>7.3.3</b> hoopR package</a></li>
+<li class="chapter" data-level="7.3.4" data-path="data-acquisition.html"><a href="data-acquisition.html#hockeyr-package"><i class="fa fa-check"></i><b>7.3.4</b> hockeyR package</a></li>
+<li class="chapter" data-level="7.3.5" data-path="data-acquisition.html"><a href="data-acquisition.html#worldfootballr"><i class="fa fa-check"></i><b>7.3.5</b> worldfootballR</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="data-acquisition.html"><a href="data-acquisition.html#data-scraping"><i class="fa fa-check"></i><b>8.4</b> Data Scraping</a>
+<li class="chapter" data-level="7.4" data-path="data-acquisition.html"><a href="data-acquisition.html#data-scraping"><i class="fa fa-check"></i><b>7.4</b> Data Scraping</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="data-acquisition.html"><a href="data-acquisition.html#general-tips"><i class="fa fa-check"></i><b>8.4.1</b> General Tips</a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-acquisition.html"><a href="data-acquisition.html#introduction-to-html"><i class="fa fa-check"></i><b>8.4.2</b> Introduction to HTML</a></li>
-<li class="chapter" data-level="8.4.3" data-path="data-acquisition.html"><a href="data-acquisition.html#rvest-package"><i class="fa fa-check"></i><b>8.4.3</b> rvest Package</a></li>
-<li class="chapter" data-level="8.4.4" data-path="data-acquisition.html"><a href="data-acquisition.html#css-gadget-selector"><i class="fa fa-check"></i><b>8.4.4</b> CSS Gadget Selector</a></li>
-<li class="chapter" data-level="8.4.5" data-path="data-acquisition.html"><a href="data-acquisition.html#scraping-examples"><i class="fa fa-check"></i><b>8.4.5</b> Scraping Examples</a></li>
+<li class="chapter" data-level="7.4.1" data-path="data-acquisition.html"><a href="data-acquisition.html#general-tips"><i class="fa fa-check"></i><b>7.4.1</b> General Tips</a></li>
+<li class="chapter" data-level="7.4.2" data-path="data-acquisition.html"><a href="data-acquisition.html#introduction-to-html"><i class="fa fa-check"></i><b>7.4.2</b> Introduction to HTML</a></li>
+<li class="chapter" data-level="7.4.3" data-path="data-acquisition.html"><a href="data-acquisition.html#rvest-package"><i class="fa fa-check"></i><b>7.4.3</b> rvest Package</a></li>
+<li class="chapter" data-level="7.4.4" data-path="data-acquisition.html"><a href="data-acquisition.html#css-gadget-selector"><i class="fa fa-check"></i><b>7.4.4</b> CSS Gadget Selector</a></li>
+<li class="chapter" data-level="7.4.5" data-path="data-acquisition.html"><a href="data-acquisition.html#scraping-examples"><i class="fa fa-check"></i><b>7.4.5</b> Scraping Examples</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>9</b> Linear Regression</a>
+<li class="chapter" data-level="8" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>8</b> Linear Regression</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>9.1</b> Simple Linear Regression</a>
+<li class="chapter" data-level="8.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>8.1</b> Simple Linear Regression</a>
 <ul>
-<li class="chapter" data-level="9.1.1" data-path="linear-regression.html"><a href="linear-regression.html#pythagorean-records"><i class="fa fa-check"></i><b>9.1.1</b> Pythagorean Records</a></li>
-<li class="chapter" data-level="9.1.2" data-path="linear-regression.html"><a href="linear-regression.html#regression-to-the-mean"><i class="fa fa-check"></i><b>9.1.2</b> Regression to the Mean</a></li>
+<li class="chapter" data-level="8.1.1" data-path="linear-regression.html"><a href="linear-regression.html#pythagorean-records"><i class="fa fa-check"></i><b>8.1.1</b> Pythagorean Records</a></li>
+<li class="chapter" data-level="8.1.2" data-path="linear-regression.html"><a href="linear-regression.html#regression-to-the-mean"><i class="fa fa-check"></i><b>8.1.2</b> Regression to the Mean</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="linear-regression.html"><a href="linear-regression.html#variable-transformations"><i class="fa fa-check"></i><b>9.2</b> Variable Transformations</a>
+<li class="chapter" data-level="8.2" data-path="linear-regression.html"><a href="linear-regression.html#variable-transformations"><i class="fa fa-check"></i><b>8.2</b> Variable Transformations</a>
 <ul>
-<li class="chapter" data-level="9.2.1" data-path="linear-regression.html"><a href="linear-regression.html#draft-pick-values"><i class="fa fa-check"></i><b>9.2.1</b> Draft Pick Values</a></li>
+<li class="chapter" data-level="8.2.1" data-path="linear-regression.html"><a href="linear-regression.html#draft-pick-values"><i class="fa fa-check"></i><b>8.2.1</b> Draft Pick Values</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="linear-regression.html"><a href="linear-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>9.3</b> Multiple Linear Regression</a>
+<li class="chapter" data-level="8.3" data-path="linear-regression.html"><a href="linear-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>8.3</b> Multiple Linear Regression</a>
 <ul>
-<li class="chapter" data-level="9.3.1" data-path="linear-regression.html"><a href="linear-regression.html#four-factors-and-winning"><i class="fa fa-check"></i><b>9.3.1</b> Four Factors and Winning</a></li>
-<li class="chapter" data-level="9.3.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-weights-in-baseball"><i class="fa fa-check"></i><b>9.3.2</b> Linear Weights in Baseball</a></li>
-<li class="chapter" data-level="9.3.3" data-path="linear-regression.html"><a href="linear-regression.html#pass-air-yards-regression"><i class="fa fa-check"></i><b>9.3.3</b> Pass Air Yards Regression</a></li>
-<li class="chapter" data-level="9.3.4" data-path="linear-regression.html"><a href="linear-regression.html#epl-passing-and-scoring"><i class="fa fa-check"></i><b>9.3.4</b> EPL Passing and Scoring</a></li>
-<li class="chapter" data-level="9.3.5" data-path="linear-regression.html"><a href="linear-regression.html#hockey-ppg-vs-toi"><i class="fa fa-check"></i><b>9.3.5</b> Hockey PPG vs TOI</a></li>
+<li class="chapter" data-level="8.3.1" data-path="linear-regression.html"><a href="linear-regression.html#four-factors-and-winning"><i class="fa fa-check"></i><b>8.3.1</b> Four Factors and Winning</a></li>
+<li class="chapter" data-level="8.3.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-weights-in-baseball"><i class="fa fa-check"></i><b>8.3.2</b> Linear Weights in Baseball</a></li>
+<li class="chapter" data-level="8.3.3" data-path="linear-regression.html"><a href="linear-regression.html#pass-air-yards-regression"><i class="fa fa-check"></i><b>8.3.3</b> Pass Air Yards Regression</a></li>
+<li class="chapter" data-level="8.3.4" data-path="linear-regression.html"><a href="linear-regression.html#epl-passing-and-scoring"><i class="fa fa-check"></i><b>8.3.4</b> EPL Passing and Scoring</a></li>
+<li class="chapter" data-level="8.3.5" data-path="linear-regression.html"><a href="linear-regression.html#hockey-ppg-vs-toi"><i class="fa fa-check"></i><b>8.3.5</b> Hockey PPG vs TOI</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="linear-regression.html"><a href="linear-regression.html#issues-with-multiyear-data"><i class="fa fa-check"></i><b>9.4</b> Issues with Multiyear Data</a></li>
-<li class="chapter" data-level="9.5" data-path="linear-regression.html"><a href="linear-regression.html#interaction"><i class="fa fa-check"></i><b>9.5</b> Interaction</a></li>
-<li class="chapter" data-level="9.6" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables"><i class="fa fa-check"></i><b>9.6</b> Confounding Variables</a></li>
-<li class="chapter" data-level="9.7" data-path="linear-regression.html"><a href="linear-regression.html#logistic-regression"><i class="fa fa-check"></i><b>9.7</b> Logistic Regression</a>
+<li class="chapter" data-level="8.4" data-path="linear-regression.html"><a href="linear-regression.html#issues-with-multiyear-data"><i class="fa fa-check"></i><b>8.4</b> Issues with Multiyear Data</a></li>
+<li class="chapter" data-level="8.5" data-path="linear-regression.html"><a href="linear-regression.html#interaction"><i class="fa fa-check"></i><b>8.5</b> Interaction</a></li>
+<li class="chapter" data-level="8.6" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables"><i class="fa fa-check"></i><b>8.6</b> Confounding Variables</a></li>
+<li class="chapter" data-level="8.7" data-path="linear-regression.html"><a href="linear-regression.html#logistic-regression"><i class="fa fa-check"></i><b>8.7</b> Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="9.7.1" data-path="linear-regression.html"><a href="linear-regression.html#sack-and-interception-probability-models"><i class="fa fa-check"></i><b>9.7.1</b> Sack and Interception Probability Models</a></li>
-<li class="chapter" data-level="9.7.2" data-path="linear-regression.html"><a href="linear-regression.html#soccer-goal-logistic-model"><i class="fa fa-check"></i><b>9.7.2</b> Soccer Goal Logistic Model</a></li>
-<li class="chapter" data-level="9.7.3" data-path="linear-regression.html"><a href="linear-regression.html#field-goal-success"><i class="fa fa-check"></i><b>9.7.3</b> Field Goal Success</a></li>
+<li class="chapter" data-level="8.7.1" data-path="linear-regression.html"><a href="linear-regression.html#sack-and-interception-probability-models"><i class="fa fa-check"></i><b>8.7.1</b> Sack and Interception Probability Models</a></li>
+<li class="chapter" data-level="8.7.2" data-path="linear-regression.html"><a href="linear-regression.html#soccer-goal-logistic-model"><i class="fa fa-check"></i><b>8.7.2</b> Soccer Goal Logistic Model</a></li>
+<li class="chapter" data-level="8.7.3" data-path="linear-regression.html"><a href="linear-regression.html#field-goal-success"><i class="fa fa-check"></i><b>8.7.3</b> Field Goal Success</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="data-scraping-and-acquisition.html"><a href="data-scraping-and-acquisition.html"><i class="fa fa-check"></i><b>10</b> Data Scraping and Acquisition</a></li>
-<li class="chapter" data-level="11" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>11</b> Principal Component Analysis</a></li>
-<li class="chapter" data-level="12" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>12</b> Clustering</a></li>
-<li class="chapter" data-level="13" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>13</b> Classification</a></li>
-<li class="chapter" data-level="14" data-path="nonparametric-methods.html"><a href="nonparametric-methods.html"><i class="fa fa-check"></i><b>14</b> Nonparametric Methods</a></li>
-<li class="chapter" data-level="15" data-path="sports-drafts.html"><a href="sports-drafts.html"><i class="fa fa-check"></i><b>15</b> Sports Drafts</a></li>
-<li class="chapter" data-level="16" data-path="baseball-1.html"><a href="baseball-1.html"><i class="fa fa-check"></i><b>16</b> Baseball</a></li>
-<li class="chapter" data-level="17" data-path="football-1.html"><a href="football-1.html"><i class="fa fa-check"></i><b>17</b> Football</a></li>
-<li class="chapter" data-level="18" data-path="basketball-1.html"><a href="basketball-1.html"><i class="fa fa-check"></i><b>18</b> Basketball</a></li>
-<li class="chapter" data-level="19" data-path="hockey-1.html"><a href="hockey-1.html"><i class="fa fa-check"></i><b>19</b> Hockey</a></li>
-<li class="chapter" data-level="20" data-path="soccer-1.html"><a href="soccer-1.html"><i class="fa fa-check"></i><b>20</b> Soccer</a></li>
+<li class="chapter" data-level="9" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>9</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="10" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>10</b> Clustering</a></li>
+<li class="chapter" data-level="11" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>11</b> Classification</a></li>
+<li class="chapter" data-level="12" data-path="nonparametric-methods.html"><a href="nonparametric-methods.html"><i class="fa fa-check"></i><b>12</b> Nonparametric Methods</a></li>
+<li class="chapter" data-level="13" data-path="sports-drafts.html"><a href="sports-drafts.html"><i class="fa fa-check"></i><b>13</b> Sports Drafts</a></li>
+<li class="chapter" data-level="14" data-path="baseball-1.html"><a href="baseball-1.html"><i class="fa fa-check"></i><b>14</b> Baseball</a></li>
+<li class="chapter" data-level="15" data-path="football-1.html"><a href="football-1.html"><i class="fa fa-check"></i><b>15</b> Football</a></li>
+<li class="chapter" data-level="16" data-path="basketball-1.html"><a href="basketball-1.html"><i class="fa fa-check"></i><b>16</b> Basketball</a></li>
+<li class="chapter" data-level="17" data-path="hockey-1.html"><a href="hockey-1.html"><i class="fa fa-check"></i><b>17</b> Hockey</a></li>
+<li class="chapter" data-level="18" data-path="soccer-1.html"><a href="soccer-1.html"><i class="fa fa-check"></i><b>18</b> Soccer</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -406,63 +406,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="linear-regression" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">Chapter 9</span> Linear Regression<a href="linear-regression.html#linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="simple-linear-regression" class="section level2 hasAnchor" number="9.1">
-<h2><span class="header-section-number">9.1</span> Simple Linear Regression<a href="linear-regression.html#simple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="linear-regression" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Linear Regression<a href="linear-regression.html#linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="simple-linear-regression" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Simple Linear Regression<a href="linear-regression.html#simple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>(AM, page 162, OPS vs runs scored)</p>
-<div id="pythagorean-records" class="section level3 hasAnchor" number="9.1.1">
-<h3><span class="header-section-number">9.1.1</span> Pythagorean Records<a href="linear-regression.html#pythagorean-records" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="pythagorean-records" class="section level3 hasAnchor" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Pythagorean Records<a href="linear-regression.html#pythagorean-records" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(Mathletics, chapter 1, page 13)
 (Mathletics, chapter 41, page 385)</p>
 </div>
-<div id="regression-to-the-mean" class="section level3 hasAnchor" number="9.1.2">
-<h3><span class="header-section-number">9.1.2</span> Regression to the Mean<a href="linear-regression.html#regression-to-the-mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="regression-to-the-mean" class="section level3 hasAnchor" number="8.1.2">
+<h3><span class="header-section-number">8.1.2</span> Regression to the Mean<a href="linear-regression.html#regression-to-the-mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(Rushing Yards, Batting Average, Rank in Goals)</p>
 </div>
 </div>
-<div id="variable-transformations" class="section level2 hasAnchor" number="9.2">
-<h2><span class="header-section-number">9.2</span> Variable Transformations<a href="linear-regression.html#variable-transformations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="draft-pick-values" class="section level3 hasAnchor" number="9.2.1">
-<h3><span class="header-section-number">9.2.1</span> Draft Pick Values<a href="linear-regression.html#draft-pick-values" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="variable-transformations" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Variable Transformations<a href="linear-regression.html#variable-transformations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="draft-pick-values" class="section level3 hasAnchor" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Draft Pick Values<a href="linear-regression.html#draft-pick-values" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(Mathletics, chapter 26, page 222)</p>
 </div>
 </div>
-<div id="multiple-linear-regression" class="section level2 hasAnchor" number="9.3">
-<h2><span class="header-section-number">9.3</span> Multiple Linear Regression<a href="linear-regression.html#multiple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="four-factors-and-winning" class="section level3 hasAnchor" number="9.3.1">
-<h3><span class="header-section-number">9.3.1</span> Four Factors and Winning<a href="linear-regression.html#four-factors-and-winning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="multiple-linear-regression" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Multiple Linear Regression<a href="linear-regression.html#multiple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="four-factors-and-winning" class="section level3 hasAnchor" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Four Factors and Winning<a href="linear-regression.html#four-factors-and-winning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(Mathletics, chapter 28, page 250)</p>
 </div>
-<div id="linear-weights-in-baseball" class="section level3 hasAnchor" number="9.3.2">
-<h3><span class="header-section-number">9.3.2</span> Linear Weights in Baseball<a href="linear-regression.html#linear-weights-in-baseball" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="linear-weights-in-baseball" class="section level3 hasAnchor" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> Linear Weights in Baseball<a href="linear-regression.html#linear-weights-in-baseball" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(Mathletics, chapter 3, page 18)</p>
 </div>
-<div id="pass-air-yards-regression" class="section level3 hasAnchor" number="9.3.3">
-<h3><span class="header-section-number">9.3.3</span> Pass Air Yards Regression<a href="linear-regression.html#pass-air-yards-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="pass-air-yards-regression" class="section level3 hasAnchor" number="8.3.3">
+<h3><span class="header-section-number">8.3.3</span> Pass Air Yards Regression<a href="linear-regression.html#pass-air-yards-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(Mathletics, chapter 27, page 230)</p>
 </div>
-<div id="epl-passing-and-scoring" class="section level3 hasAnchor" number="9.3.4">
-<h3><span class="header-section-number">9.3.4</span> EPL Passing and Scoring<a href="linear-regression.html#epl-passing-and-scoring" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="epl-passing-and-scoring" class="section level3 hasAnchor" number="8.3.4">
+<h3><span class="header-section-number">8.3.4</span> EPL Passing and Scoring<a href="linear-regression.html#epl-passing-and-scoring" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(AM, page 183, 213)</p>
 </div>
-<div id="hockey-ppg-vs-toi" class="section level3 hasAnchor" number="9.3.5">
-<h3><span class="header-section-number">9.3.5</span> Hockey PPG vs TOI<a href="linear-regression.html#hockey-ppg-vs-toi" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="hockey-ppg-vs-toi" class="section level3 hasAnchor" number="8.3.5">
+<h3><span class="header-section-number">8.3.5</span> Hockey PPG vs TOI<a href="linear-regression.html#hockey-ppg-vs-toi" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(AM, page 181, 187, quadratic, exponential models)</p>
 </div>
 </div>
-<div id="issues-with-multiyear-data" class="section level2 hasAnchor" number="9.4">
-<h2><span class="header-section-number">9.4</span> Issues with Multiyear Data<a href="linear-regression.html#issues-with-multiyear-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="issues-with-multiyear-data" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Issues with Multiyear Data<a href="linear-regression.html#issues-with-multiyear-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>(AM, page 191, correlated errors)</p>
 </div>
-<div id="interaction" class="section level2 hasAnchor" number="9.5">
-<h2><span class="header-section-number">9.5</span> Interaction<a href="linear-regression.html#interaction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="interaction" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Interaction<a href="linear-regression.html#interaction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>(AM, page 222, strikeout rate vs. movement and velocity)</p>
 </div>
-<div id="confounding-variables" class="section level2 hasAnchor" number="9.6">
-<h2><span class="header-section-number">9.6</span> Confounding Variables<a href="linear-regression.html#confounding-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="confounding-variables" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> Confounding Variables<a href="linear-regression.html#confounding-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="example">
-<p><span id="exm:unlabeled-div-193" class="example"><strong>Example 9.1  </strong></span>A statistician hypothesizes that an NBA team’s draft position can be used to predict the number of regular-season wins for the team for the upcoming season. To investigate the relationship, they decide to estimate the following simple linear regression model:</p>
+<p><span id="exm:unlabeled-div-199" class="example"><strong>Example 8.1  </strong></span>A statistician hypothesizes that an NBA team’s draft position can be used to predict the number of regular-season wins for the team for the upcoming season. To investigate the relationship, they decide to estimate the following simple linear regression model:</p>
 <p><span class="math inline">\(Wins\ = \beta_0 + \beta_1(Draft\ Position) + \epsilon_i\)</span></p>
 <p>Using 2021-22 NBA data, the estimated intercept and slope for the model are:</p>
 <pre><code>## 
@@ -495,19 +495,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- Homework problem idea: Use these models and the predict() function in R to simulate win totals for an NBA season. Include random noise in the model by picking a residual variance sigms and adding rnorm(0, sigma) to each observation. Then check to see if the totsl number of wins is close to (82/2)*30 = 1230 and see how the variance and histogram of the simulated win totals compare to actual NBA season results. Can also test the sensitivity of the simulation to different values of residual variance. -->
 <p><em>Data: <a href="https://en.wikipedia.org/wiki/2021_NBA_draft" class="uri">https://en.wikipedia.org/wiki/2021_NBA_draft</a>, <a href="https://www.nba.com/standings?GroupBy=conf&amp;Season=2020-21&amp;Section=overall" class="uri">https://www.nba.com/standings?GroupBy=conf&amp;Season=2020-21&amp;Section=overall</a></em></p>
 </div>
-<div id="logistic-regression" class="section level2 hasAnchor" number="9.7">
-<h2><span class="header-section-number">9.7</span> Logistic Regression<a href="linear-regression.html#logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="sack-and-interception-probability-models" class="section level3 hasAnchor" number="9.7.1">
-<h3><span class="header-section-number">9.7.1</span> Sack and Interception Probability Models<a href="linear-regression.html#sack-and-interception-probability-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="logistic-regression" class="section level2 hasAnchor" number="8.7">
+<h2><span class="header-section-number">8.7</span> Logistic Regression<a href="linear-regression.html#logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="sack-and-interception-probability-models" class="section level3 hasAnchor" number="8.7.1">
+<h3><span class="header-section-number">8.7.1</span> Sack and Interception Probability Models<a href="linear-regression.html#sack-and-interception-probability-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(Mathletics, chapter 27, page 230)
 (Mathletics, chapter 1, page 13)</p>
 </div>
-<div id="soccer-goal-logistic-model" class="section level3 hasAnchor" number="9.7.2">
-<h3><span class="header-section-number">9.7.2</span> Soccer Goal Logistic Model<a href="linear-regression.html#soccer-goal-logistic-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="soccer-goal-logistic-model" class="section level3 hasAnchor" number="8.7.2">
+<h3><span class="header-section-number">8.7.2</span> Soccer Goal Logistic Model<a href="linear-regression.html#soccer-goal-logistic-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(Mathletics, chapter 39, page 354)</p>
 </div>
-<div id="field-goal-success" class="section level3 hasAnchor" number="9.7.3">
-<h3><span class="header-section-number">9.7.3</span> Field Goal Success<a href="linear-regression.html#field-goal-success" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="field-goal-success" class="section level3 hasAnchor" number="8.7.3">
+<h3><span class="header-section-number">8.7.3</span> Field Goal Success<a href="linear-regression.html#field-goal-success" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(AM, page 266)</p>
 <div style="page-break-after: always;"></div>
 </div>
@@ -519,7 +519,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="data-acquisition.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-scraping-and-acquisition.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="principal-component-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

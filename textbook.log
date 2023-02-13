@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  8 FEB 2023 12:53
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  12 FEB 2023 16:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2439,127 +2439,132 @@ Underfull \hbox (badness 10000) in paragraph at lines 7453--7457
 
  []
 
-[194] [195] [196] [197] [198
+[194] [195] [196] [197] [198] [199]
+Overfull \hbox (28.4141pt too wide) in paragraph at lines 7664--7681
+[][] 
+ []
 
-]
-Chapter 7.
-[199] [200]
-File: textbook_files/figure-latex/unnamed-chunk-153-1.pdf Graphic file (type pd
-f)
-<use textbook_files/figure-latex/unnamed-chunk-153-1.pdf>
-[201]
-File: textbook_files/figure-latex/unnamed-chunk-154-1.pdf Graphic file (type pd
-f)
-<use textbook_files/figure-latex/unnamed-chunk-154-1.pdf>
-[202]
-File: textbook_files/figure-latex/unnamed-chunk-155-1.pdf Graphic file (type pd
-f)
-<use textbook_files/figure-latex/unnamed-chunk-155-1.pdf>
-[203]
+[200] [201]
 File: textbook_files/figure-latex/unnamed-chunk-158-1.pdf Graphic file (type pd
 f)
 <use textbook_files/figure-latex/unnamed-chunk-158-1.pdf>
+[202] [203] [204] [205]
+File: textbook_files/figure-latex/unnamed-chunk-162-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-162-1.pdf>
+[206]
+File: textbook_files/figure-latex/unnamed-chunk-163-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-163-1.pdf>
+[207]
+File: textbook_files/figure-latex/unnamed-chunk-164-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-164-1.pdf>
+[208]
+File: textbook_files/figure-latex/unnamed-chunk-167-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-167-1.pdf>
 
-Underfull \hbox (badness 4429) in paragraph at lines 7825--7826
+Underfull \hbox (badness 4429) in paragraph at lines 8059--8060
 []\TU/lmr/m/n/10.95 Football Outsiders [](https://www.footballoutsiders.com/sta
 t-analysis/2017/presenting-adjusted-
  []
 
-[204]
-Chapter 8.
+[209] [210
+
+]
+Chapter 7.
 File: images/sports-ref-csv.png Graphic file (type bmp)
 <images/sports-ref-csv.png>
 File: images/sports-ref-csv2.png Graphic file (type bmp)
 <images/sports-ref-csv2.png>
-[205
-
-] [206]
-File: textbook_files/figure-latex/unnamed-chunk-162-1.pdf Graphic file (type pd
-f)
-<use textbook_files/figure-latex/unnamed-chunk-162-1.pdf>
-[207]
-File: textbook_files/figure-latex/unnamed-chunk-163-1.pdf Graphic file (type pd
-f)
-<use textbook_files/figure-latex/unnamed-chunk-163-1.pdf>
-[208]
-File: textbook_files/figure-latex/unnamed-chunk-164-1.pdf Graphic file (type pd
-f)
-<use textbook_files/figure-latex/unnamed-chunk-164-1.pdf>
-[209]
-File: textbook_files/figure-latex/unnamed-chunk-165-1.pdf Graphic file (type pd
-f)
-<use textbook_files/figure-latex/unnamed-chunk-165-1.pdf>
-[210]
-File: textbook_files/figure-latex/unnamed-chunk-166-1.pdf Graphic file (type pd
-f)
-<use textbook_files/figure-latex/unnamed-chunk-166-1.pdf>
 [211] [212]
-File: textbook_files/figure-latex/unnamed-chunk-168-1.pdf Graphic file (type pd
-f)
-<use textbook_files/figure-latex/unnamed-chunk-168-1.pdf>
-[213]
-File: textbook_files/figure-latex/unnamed-chunk-169-1.pdf Graphic file (type pd
-f)
-<use textbook_files/figure-latex/unnamed-chunk-169-1.pdf>
-[214]
-File: textbook_files/figure-latex/unnamed-chunk-170-1.pdf Graphic file (type pd
-f)
-<use textbook_files/figure-latex/unnamed-chunk-170-1.pdf>
-[215]
 File: textbook_files/figure-latex/unnamed-chunk-171-1.pdf Graphic file (type pd
 f)
 <use textbook_files/figure-latex/unnamed-chunk-171-1.pdf>
-[216] [217] [218] [219] [220]
+[213]
+File: textbook_files/figure-latex/unnamed-chunk-172-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-172-1.pdf>
+[214]
+File: textbook_files/figure-latex/unnamed-chunk-173-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-173-1.pdf>
+[215]
+File: textbook_files/figure-latex/unnamed-chunk-174-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-174-1.pdf>
+[216]
+File: textbook_files/figure-latex/unnamed-chunk-175-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-175-1.pdf>
+[217] [218]
+File: textbook_files/figure-latex/unnamed-chunk-177-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-177-1.pdf>
+[219]
+File: textbook_files/figure-latex/unnamed-chunk-178-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-178-1.pdf>
+[220]
+File: textbook_files/figure-latex/unnamed-chunk-179-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-179-1.pdf>
+[221]
+File: textbook_files/figure-latex/unnamed-chunk-180-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-180-1.pdf>
+[222] [223] [224] [225] [226]
 File: textbook_files/figure-latex/r-1.pdf Graphic file (type pdf)
 <use textbook_files/figure-latex/r-1.pdf>
-[221]
-File: textbook_files/figure-latex/unnamed-chunk-176-1.pdf Graphic file (type pd
+[227]
+File: textbook_files/figure-latex/unnamed-chunk-185-1.pdf Graphic file (type pd
 f)
-<use textbook_files/figure-latex/unnamed-chunk-176-1.pdf>
-[222] [223]
-Overfull \hbox (41.88362pt too wide) in paragraph at lines 8463--8463
+<use textbook_files/figure-latex/unnamed-chunk-185-1.pdf>
+[228] [229]
+Overfull \hbox (41.88362pt too wide) in paragraph at lines 8697--8697
 []\TU/lmtt/m/n/10.95 ##   If you are loading a serialized model (like pickle in
  Python, RDS in R) generated by[] 
  []
 
 
-Overfull \hbox (64.87862pt too wide) in paragraph at lines 8463--8463
+Overfull \hbox (64.87862pt too wide) in paragraph at lines 8697--8697
 []\TU/lmtt/m/n/10.95 ##   older XGBoost, please export the model by calling []B
 ooster.save_model[] from that version[] 
  []
 
 
-Overfull \hbox (41.88362pt too wide) in paragraph at lines 8463--8463
+Overfull \hbox (41.88362pt too wide) in paragraph at lines 8697--8697
 []\TU/lmtt/m/n/10.95 ##   If you are loading a serialized model (like pickle in
  Python, RDS in R) generated by[] 
  []
 
 
-Overfull \hbox (64.87862pt too wide) in paragraph at lines 8463--8463
+Overfull \hbox (64.87862pt too wide) in paragraph at lines 8697--8697
 []\TU/lmtt/m/n/10.95 ##   older XGBoost, please export the model by calling []B
 ooster.save_model[] from that version[] 
  []
 
 
-Overfull \hbox (41.88362pt too wide) in paragraph at lines 8463--8463
+Overfull \hbox (41.88362pt too wide) in paragraph at lines 8697--8697
 []\TU/lmtt/m/n/10.95 ##   If you are loading a serialized model (like pickle in
  Python, RDS in R) generated by[] 
  []
 
 
-Overfull \hbox (64.87862pt too wide) in paragraph at lines 8463--8463
+Overfull \hbox (64.87862pt too wide) in paragraph at lines 8697--8697
 []\TU/lmtt/m/n/10.95 ##   older XGBoost, please export the model by calling []B
 ooster.save_model[] from that version[] 
  []
 
 
-Overfull \hbox (41.88362pt too wide) in paragraph at lines 8463--8463
+Overfull \hbox (41.88362pt too wide) in paragraph at lines 8697--8697
 []\TU/lmtt/m/n/10.95 ##   If you are loading a serialized model (like pickle in
  Python, RDS in R) generated by[] 
  []
 
 
-Overfull \hbox (64.87862pt too wide) in paragraph at lines 8463--8463
+Overfull \hbox (64.87862pt too wide) in paragraph at lines 8697--8697
 []\TU/lmtt/m/n/10.95 ##   older XGBoost, please export the model by calling []B
 ooster.save_model[] from that version[] 
  []
@@ -2567,155 +2572,151 @@ ooster.save_model[] from that version[]
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[224] [225]
-File: textbook_files/figure-latex/unnamed-chunk-179-1.pdf Graphic file (type pd
+[230] [231]
+File: textbook_files/figure-latex/unnamed-chunk-188-1.pdf Graphic file (type pd
 f)
-<use textbook_files/figure-latex/unnamed-chunk-179-1.pdf>
-[226]
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 8529--8529
+<use textbook_files/figure-latex/unnamed-chunk-188-1.pdf>
+[232]
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 8763--8763
 []\TU/lmtt/m/n/10.95 Quarter=[]period_display_value,[]Points=[]score_value,[]Cl
 ock=[]clock_display_value) 
  []
 
-[227] [228]
-File: textbook_files/figure-latex/unnamed-chunk-182-1.pdf Graphic file (type pd
+[233] [234]
+File: textbook_files/figure-latex/unnamed-chunk-191-1.pdf Graphic file (type pd
 f)
-<use textbook_files/figure-latex/unnamed-chunk-182-1.pdf>
-[229]
-File: textbook_files/figure-latex/unnamed-chunk-183-1.pdf Graphic file (type pd
+<use textbook_files/figure-latex/unnamed-chunk-191-1.pdf>
+[235]
+File: textbook_files/figure-latex/unnamed-chunk-192-1.pdf Graphic file (type pd
 f)
-<use textbook_files/figure-latex/unnamed-chunk-183-1.pdf>
-[230]
-Overfull \hbox (47.62636pt too wide) in paragraph at lines 8659--8682
+<use textbook_files/figure-latex/unnamed-chunk-192-1.pdf>
+[236]
+Overfull \hbox (47.62636pt too wide) in paragraph at lines 8893--8916
 [][] 
  []
 
-[231]
-File: textbook_files/figure-latex/unnamed-chunk-186-1.pdf Graphic file (type pd
+[237]
+File: textbook_files/figure-latex/unnamed-chunk-195-1.pdf Graphic file (type pd
 f)
-<use textbook_files/figure-latex/unnamed-chunk-186-1.pdf>
+<use textbook_files/figure-latex/unnamed-chunk-195-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[232] [233] [234]
+[238] [239] [240]
 File: images/html.png Graphic file (type bmp)
 <images/html.png>
-[235] [236]
+[241] [242]
 File: images/wilson-scrape.png Graphic file (type bmp)
 <images/wilson-scrape.png>
 File: images/wilson-scrape2.png Graphic file (type bmp)
 <images/wilson-scrape2.png>
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 8916--8916
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 9150--9150
 []\TU/lmtt/m/n/10.95 ##   Year  Tm      Age     G    GS    MP    FG   FGA []FG%
 []  []3P[] []3PA[]  []3P%[]  []2P[][] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 8916--8916
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 9150--9150
 []\TU/lmtt/m/n/10.95 ##   <chr> <chr> <int> <int> <int> <dbl> <dbl> <dbl> <dbl>
  <dbl> <dbl>  <dbl> <dbl>[] 
  []
 
-[237]
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 8916--8916
+[243]
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 9150--9150
 []\TU/lmtt/m/n/10.95 ## 1 2018  "LVA"    21    33    33  30.6   7.4  16.1 0.462
    0     0   NA       7.4[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 8916--8916
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 9150--9150
 []\TU/lmtt/m/n/10.95 ## 2 2019  "LVA"    22    26    25  28.5   6.1  12.7 0.479
    0     0    0       6.1[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 8916--8916
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 9150--9150
 []\TU/lmtt/m/n/10.95 ## 3 2020  "LVA"    23    22    22  31.7   7.5  15.7 0.48 
    0     0   NA       7.5[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 8916--8916
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 9150--9150
 []\TU/lmtt/m/n/10.95 ## 4 2021  "LVA"    24    32    32  31.9   6.5  14.6 0.444
    0     0    1       6.4[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 8916--8916
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 9150--9150
 []\TU/lmtt/m/n/10.95 ## 5 2022  "LVA"    25    36    36  30     7.2  14.4 0.501
    0.9   2.3  0.373   6.4[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 8916--8916
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 9150--9150
 []\TU/lmtt/m/n/10.95 ## 6 Care~ ""       NA   149   148  30.5   7    14.7 0.473
    0.2   0.6  0.376   6.7[] 
  []
 
 
-Overfull \hbox (1.64238pt too wide) in paragraph at lines 8916--8916
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 9150--9150
 []\TU/lmtt/m/n/10.95 ## # ... with 15 more variables: []2PA[] <dbl>, []2P%[] <d
 bl>, []eFG%[] <dbl>, FT <dbl>,[] 
  []
 
-[238] [239] [240] [241] [242
+[244] [245] [246] [247] [248
+
+]
+Chapter 8.
+[249] [250] [251] [252
 
 ]
 Chapter 9.
-[243] [244] [245] [246
-
-]
-Chapter 10.
-[247] [248
-
-]
-Chapter 11.
-[249] [250
-
-]
-Chapter 12.
-[251] [252
-
-]
-Chapter 13.
 [253] [254
 
 ]
-Chapter 14.
+Chapter 10.
 [255] [256
 
 ]
-Chapter 15.
+Chapter 11.
 [257] [258
 
 ]
-Chapter 16.
+Chapter 12.
 [259] [260
 
 ]
-Chapter 17.
+Chapter 13.
 [261] [262
 
 ]
-Chapter 18.
+Chapter 14.
 [263] [264
 
 ]
-Chapter 19.
+Chapter 15.
 [265] [266
 
 ]
-Chapter 20.
+Chapter 16.
+[267] [268
+
+]
+Chapter 17.
+[269] [270
+
+]
+Chapter 18.
 No file textbook.bbl.
-[267] (./textbook.aux) ) 
+[271] (./textbook.aux) ) 
 Here is how much of TeX's memory you used:
- 23162 strings out of 476179
- 448532 string characters out of 5809544
- 906858 words of memory out of 5000000
- 43440 multiletter control sequences out of 15000+600000
+ 23169 strings out of 476179
+ 448960 string characters out of 5809544
+ 906872 words of memory out of 5000000
+ 43446 multiletter control sequences out of 15000+600000
  475878 words of font info for 90 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  86i,10n,121p,1131b,516s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on textbook.pdf (267 pages).
+Output written on textbook.pdf (271 pages).

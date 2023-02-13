@@ -128,7 +128,6 @@ When controlling for an NBA team's wins in the previous season, the sign for the
 
 \newpage
 
-# Data Scraping and Acquisition
 
 # Principal Component Analysis
 

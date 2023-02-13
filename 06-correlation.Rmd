@@ -416,14 +416,124 @@ mat %>% kable(booktabs=T)
 
 \vfill
 
+\newpage
+
+### Chi-Squared Test of Independence
+
+We can formally test whether two categorical variables are related to each other by use of the Chi-Squared Test of Independence.
+
+:::{.theorem}
+A Chi-Squared Test of Independence ($\chi^2-test$) between two categorical variables has the test statistic $X^2$ which follows a $\chi^2(df=(r-1)(c-1))$, where:
+
+$X^2 = \sum_{i=1}^r\sum_{j=1}^c\frac{(E_{ij}-O_{ij})^2}{E_{ij}}$
+
+$O_{ij}$ is the $i^{th}$ row and $j^{th}$ column observation count and $E_{ij} = \frac{R_i \cdot C_j}{N}$
+
+Note: Sometimes, a Yate's chi-squared test (or Yate's correction of continuity) used for 2x2 contingency tables with cell counts under 5. Under this test, the test statistic is:
+
+$X^2_{Yates} = \sum_{i=1}^r\sum_{j=1}^c\frac{(|E_{ij}-O_{ij}|-0.5)^2}{E_{ij}}$
+:::
+
+\newpage
+
+:::{.example}
+Complete a Chi-Squared Test of Independence for the Tom Brady TDs/Sacks example. Is there evidence of dependence between Touchdowns and Sacks? Explain.
+:::
+
+\vfill
+
+```{r}
+a1 <- data.frame(Complete=rep("No",2533),League=rep("NL",2533))
+a2 <- data.frame(Complete=rep("No",2199),League=rep("AL",2199))
+a3 <- data.frame(Complete=rep("Yes",59),League=rep("NL",59))
+a4 <- data.frame(Complete=rep("Yes",69),League=rep("AL",69))
+mlb_data = rbind(a1,a2,a3,a4)
+chisq.test(table(mlb_data$Complete,mlb_data$League))
+chisq.test(table(mlb_data$Complete,mlb_data$League),correct=F)
+```
+
+\newpage
+
+:::{.example}
+Complete a Chi-Squared Test of Independence for the AL/NL complete game example. Is there evidence of dependence between League and Complete Games? Explain.
+:::
+
+\vfill
+
+```{r}
+a1 <- data.frame(TDs=rep("0-2",29),Sacks=rep("0-2",29))
+a2 <- data.frame(TDs=rep("0-2",18),Sacks=rep("3+",18))
+a3 <- data.frame(TDs=rep("3+",22),Sacks=rep("0-2",22))
+a4 <- data.frame(TDs=rep("3+",2),Sacks=rep("3+",2))
+brady_data = rbind(a1,a2,a3,a4)
+chisq.test(table(brady_data$TDs,brady_data$Sacks))
+chisq.test(table(brady_data$TDs,brady_data$Sacks),correct = F)
+```
 
 \newpage
 
 ## Rank Correlation
 
-<!-- Used for nonlinear relationships -->
+Rank correlation is a nonparametric method to measure the ordinal association between two different variables. Rank correlation can investigate non-linear relationships between variables and thus measure monotonicity.
 
-(Example using team data)
+:::{.definition}
+***Spearman's rank correlation coefficient*** or ***Spearman's $\rho$***  is a nonparametric measure of rank correlation and is calculated by:
+
+$r_s = \frac{Cov(R(X),R(Y))}{\sigma_{R(X)}\sigma_{R(Y)}}$
+
+That is, the Spearman's rank correlation coefficient is Pearson's correlation between the rank values of the two variables.
+:::
+
+:::{.example}
+`nfl22.csv` contains NFL team offense statistics for the 2022 season. Investigate the relationship between PF (points scored for) and RPCT (percentage of offensive plays that were rushes). Calculate the ranks for PF and RPCT and use these values to calculate the Spearman correlation coefficient.
+:::
+
+```{r}
+nfl22 <- read_csv("data/nfl22.csv",show_col_types = F)
+nfl22 <- nfl22 %>% slice(1:32)
+nfl22 %>% slice_head(n=10) %>% kable(booktabs=T)
+```
+
+\newpage
+
+
+```{r}
+nfl22 <- nfl22 %>% mutate(`RPCT`=100*Rush_Att/Plays)
+nfl22 <- nfl22 %>% 
+  mutate(PF_Rank = rank(PF),
+         RPCT_Rank = rank(RPCT))
+```
+
+```{r}
+nfl22 %>% select(Tm,PF,PF_Rank,RPCT,RPCT_Rank) %>% slice(1:10) %>% kable(booktabs=T,digits=1)
+```
+
+```{r}
+nfl22 %>% select(PF,PF_Rank,RPCT,RPCT_Rank) %>% cor(method = "pearson")
+```
+
+```{r}
+nfl22 %>% select(PF,PF_Rank,RPCT,RPCT_Rank) %>% cor(method = "spearman")
+```
+
+\newpage
+
+:::{.example}
+Investigate the relationship between PPG (points per game), RYPG (rushing yards per game), and PYPG (passing yards per game) using Spearman's rank correlation coefficient.
+:::
+
+```{r}
+nfl22 <- nfl22 %>% mutate(PPG=PF/G,RYPG=Rush_Yds/G,PYPG=Pass_Yds/G)
+
+nfl22 %>% select(PPG,RYPG,PYPG) %>% cor(method = "spearman")
+```
+
+```{r}
+library(GGally)
+nfl22 %>% select(PPG,RYPG,PYPG) %>% ggpairs()
+```
+
+\newpage
 
 ## Autocorrelation
 
@@ -439,7 +549,7 @@ mat %>% kable(booktabs=T)
 
 \newpage
 
-# Pythagorean Record
+## Pythagorean Record
 
 Baseball statistican (sabermetrican) Bill James proposed **Pythagorean expectation** to estimate the percentage (or number) of games that a team is expected to win based on the number of runs they score and the number of runs they allow.
 
