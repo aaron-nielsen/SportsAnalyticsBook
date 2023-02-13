@@ -443,14 +443,15 @@ Complete a Chi-Squared Test of Independence for the Tom Brady TDs/Sacks example.
 \vfill
 
 ```{r}
-a1 <- data.frame(Complete=rep("No",2533),League=rep("NL",2533))
-a2 <- data.frame(Complete=rep("No",2199),League=rep("AL",2199))
-a3 <- data.frame(Complete=rep("Yes",59),League=rep("NL",59))
-a4 <- data.frame(Complete=rep("Yes",69),League=rep("AL",69))
-mlb_data = rbind(a1,a2,a3,a4)
-chisq.test(table(mlb_data$Complete,mlb_data$League))
-chisq.test(table(mlb_data$Complete,mlb_data$League),correct=F)
+a1 <- data.frame(TDs=rep("0-2",29),Sacks=rep("0-2",29))
+a2 <- data.frame(TDs=rep("0-2",18),Sacks=rep("3+",18))
+a3 <- data.frame(TDs=rep("3+",22),Sacks=rep("0-2",22))
+a4 <- data.frame(TDs=rep("3+",2),Sacks=rep("3+",2))
+brady_data = rbind(a1,a2,a3,a4)
+chisq.test(table(brady_data$TDs,brady_data$Sacks))
+chisq.test(table(brady_data$TDs,brady_data$Sacks),correct = F)
 ```
+
 
 \newpage
 
@@ -460,14 +461,16 @@ Complete a Chi-Squared Test of Independence for the AL/NL complete game example.
 
 \vfill
 
+
 ```{r}
-a1 <- data.frame(TDs=rep("0-2",29),Sacks=rep("0-2",29))
-a2 <- data.frame(TDs=rep("0-2",18),Sacks=rep("3+",18))
-a3 <- data.frame(TDs=rep("3+",22),Sacks=rep("0-2",22))
-a4 <- data.frame(TDs=rep("3+",2),Sacks=rep("3+",2))
-brady_data = rbind(a1,a2,a3,a4)
-chisq.test(table(brady_data$TDs,brady_data$Sacks))
-chisq.test(table(brady_data$TDs,brady_data$Sacks),correct = F)
+a1 <- data.frame(Complete=rep("No",2533),League=rep("NL",2533))
+a2 <- data.frame(Complete=rep("No",2199),League=rep("AL",2199))
+a3 <- data.frame(Complete=rep("Yes",59),League=rep("NL",59))
+a4 <- data.frame(Complete=rep("Yes",69),League=rep("AL",69))
+mlb_data = rbind(a1,a2,a3,a4)
+chisq.test(table(mlb_data$Complete,mlb_data$League))
+chisq.test(table(mlb_data$Complete,mlb_data$League),correct=F)
+summary(table(mlb_data$Complete,mlb_data$League))
 ```
 
 \newpage

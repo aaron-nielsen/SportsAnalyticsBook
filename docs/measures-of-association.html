@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2023-02-12" />
+<meta name="date" content="2023-02-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1985,44 +1985,49 @@ Total
 <div class="example">
 <p><span id="exm:unlabeled-div-172" class="example"><strong>Example 6.9  </strong></span>Complete a Chi-Squared Test of Independence for the Tom Brady TDs/Sacks example. Is there evidence of dependence between Touchdowns and Sacks? Explain.</p>
 </div>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="measures-of-association.html#cb343-1" aria-hidden="true" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Complete=</span><span class="fu">rep</span>(<span class="st">&quot;No&quot;</span>,<span class="dv">2533</span>),<span class="at">League=</span><span class="fu">rep</span>(<span class="st">&quot;NL&quot;</span>,<span class="dv">2533</span>))</span>
-<span id="cb343-2"><a href="measures-of-association.html#cb343-2" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Complete=</span><span class="fu">rep</span>(<span class="st">&quot;No&quot;</span>,<span class="dv">2199</span>),<span class="at">League=</span><span class="fu">rep</span>(<span class="st">&quot;AL&quot;</span>,<span class="dv">2199</span>))</span>
-<span id="cb343-3"><a href="measures-of-association.html#cb343-3" aria-hidden="true" tabindex="-1"></a>a3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Complete=</span><span class="fu">rep</span>(<span class="st">&quot;Yes&quot;</span>,<span class="dv">59</span>),<span class="at">League=</span><span class="fu">rep</span>(<span class="st">&quot;NL&quot;</span>,<span class="dv">59</span>))</span>
-<span id="cb343-4"><a href="measures-of-association.html#cb343-4" aria-hidden="true" tabindex="-1"></a>a4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Complete=</span><span class="fu">rep</span>(<span class="st">&quot;Yes&quot;</span>,<span class="dv">69</span>),<span class="at">League=</span><span class="fu">rep</span>(<span class="st">&quot;AL&quot;</span>,<span class="dv">69</span>))</span>
-<span id="cb343-5"><a href="measures-of-association.html#cb343-5" aria-hidden="true" tabindex="-1"></a>mlb_data <span class="ot">=</span> <span class="fu">rbind</span>(a1,a2,a3,a4)</span>
-<span id="cb343-6"><a href="measures-of-association.html#cb343-6" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(mlb_data<span class="sc">$</span>Complete,mlb_data<span class="sc">$</span>League))</span></code></pre></div>
-<pre><code>## 
-##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
-## 
-## data:  table(mlb_data$Complete, mlb_data$League)
-## X-squared = 2.4777, df = 1, p-value = 0.1155</code></pre>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="measures-of-association.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(mlb_data<span class="sc">$</span>Complete,mlb_data<span class="sc">$</span>League),<span class="at">correct=</span>F)</span></code></pre></div>
-<pre><code>## 
-##  Pearson&#39;s Chi-squared test
-## 
-## data:  table(mlb_data$Complete, mlb_data$League)
-## X-squared = 2.7684, df = 1, p-value = 0.09614</code></pre>
-<div style="page-break-after: always;"></div>
-<div class="example">
-<p><span id="exm:unlabeled-div-173" class="example"><strong>Example 6.10  </strong></span>Complete a Chi-Squared Test of Independence for the AL/NL complete game example. Is there evidence of dependence between League and Complete Games? Explain.</p>
-</div>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="measures-of-association.html#cb347-1" aria-hidden="true" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">TDs=</span><span class="fu">rep</span>(<span class="st">&quot;0-2&quot;</span>,<span class="dv">29</span>),<span class="at">Sacks=</span><span class="fu">rep</span>(<span class="st">&quot;0-2&quot;</span>,<span class="dv">29</span>))</span>
-<span id="cb347-2"><a href="measures-of-association.html#cb347-2" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">TDs=</span><span class="fu">rep</span>(<span class="st">&quot;0-2&quot;</span>,<span class="dv">18</span>),<span class="at">Sacks=</span><span class="fu">rep</span>(<span class="st">&quot;3+&quot;</span>,<span class="dv">18</span>))</span>
-<span id="cb347-3"><a href="measures-of-association.html#cb347-3" aria-hidden="true" tabindex="-1"></a>a3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">TDs=</span><span class="fu">rep</span>(<span class="st">&quot;3+&quot;</span>,<span class="dv">22</span>),<span class="at">Sacks=</span><span class="fu">rep</span>(<span class="st">&quot;0-2&quot;</span>,<span class="dv">22</span>))</span>
-<span id="cb347-4"><a href="measures-of-association.html#cb347-4" aria-hidden="true" tabindex="-1"></a>a4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">TDs=</span><span class="fu">rep</span>(<span class="st">&quot;3+&quot;</span>,<span class="dv">2</span>),<span class="at">Sacks=</span><span class="fu">rep</span>(<span class="st">&quot;3+&quot;</span>,<span class="dv">2</span>))</span>
-<span id="cb347-5"><a href="measures-of-association.html#cb347-5" aria-hidden="true" tabindex="-1"></a>brady_data <span class="ot">=</span> <span class="fu">rbind</span>(a1,a2,a3,a4)</span>
-<span id="cb347-6"><a href="measures-of-association.html#cb347-6" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(brady_data<span class="sc">$</span>TDs,brady_data<span class="sc">$</span>Sacks))</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="measures-of-association.html#cb343-1" aria-hidden="true" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">TDs=</span><span class="fu">rep</span>(<span class="st">&quot;0-2&quot;</span>,<span class="dv">29</span>),<span class="at">Sacks=</span><span class="fu">rep</span>(<span class="st">&quot;0-2&quot;</span>,<span class="dv">29</span>))</span>
+<span id="cb343-2"><a href="measures-of-association.html#cb343-2" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">TDs=</span><span class="fu">rep</span>(<span class="st">&quot;0-2&quot;</span>,<span class="dv">18</span>),<span class="at">Sacks=</span><span class="fu">rep</span>(<span class="st">&quot;3+&quot;</span>,<span class="dv">18</span>))</span>
+<span id="cb343-3"><a href="measures-of-association.html#cb343-3" aria-hidden="true" tabindex="-1"></a>a3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">TDs=</span><span class="fu">rep</span>(<span class="st">&quot;3+&quot;</span>,<span class="dv">22</span>),<span class="at">Sacks=</span><span class="fu">rep</span>(<span class="st">&quot;0-2&quot;</span>,<span class="dv">22</span>))</span>
+<span id="cb343-4"><a href="measures-of-association.html#cb343-4" aria-hidden="true" tabindex="-1"></a>a4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">TDs=</span><span class="fu">rep</span>(<span class="st">&quot;3+&quot;</span>,<span class="dv">2</span>),<span class="at">Sacks=</span><span class="fu">rep</span>(<span class="st">&quot;3+&quot;</span>,<span class="dv">2</span>))</span>
+<span id="cb343-5"><a href="measures-of-association.html#cb343-5" aria-hidden="true" tabindex="-1"></a>brady_data <span class="ot">=</span> <span class="fu">rbind</span>(a1,a2,a3,a4)</span>
+<span id="cb343-6"><a href="measures-of-association.html#cb343-6" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(brady_data<span class="sc">$</span>TDs,brady_data<span class="sc">$</span>Sacks))</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
 ## 
 ## data:  table(brady_data$TDs, brady_data$Sacks)
 ## X-squared = 5.6468, df = 1, p-value = 0.01749</code></pre>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="measures-of-association.html#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(brady_data<span class="sc">$</span>TDs,brady_data<span class="sc">$</span>Sacks),<span class="at">correct =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="measures-of-association.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(brady_data<span class="sc">$</span>TDs,brady_data<span class="sc">$</span>Sacks),<span class="at">correct =</span> F)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  table(brady_data$TDs, brady_data$Sacks)
 ## X-squared = 7.0499, df = 1, p-value = 0.007927</code></pre>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-173" class="example"><strong>Example 6.10  </strong></span>Complete a Chi-Squared Test of Independence for the AL/NL complete game example. Is there evidence of dependence between League and Complete Games? Explain.</p>
+</div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="measures-of-association.html#cb347-1" aria-hidden="true" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Complete=</span><span class="fu">rep</span>(<span class="st">&quot;No&quot;</span>,<span class="dv">2533</span>),<span class="at">League=</span><span class="fu">rep</span>(<span class="st">&quot;NL&quot;</span>,<span class="dv">2533</span>))</span>
+<span id="cb347-2"><a href="measures-of-association.html#cb347-2" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Complete=</span><span class="fu">rep</span>(<span class="st">&quot;No&quot;</span>,<span class="dv">2199</span>),<span class="at">League=</span><span class="fu">rep</span>(<span class="st">&quot;AL&quot;</span>,<span class="dv">2199</span>))</span>
+<span id="cb347-3"><a href="measures-of-association.html#cb347-3" aria-hidden="true" tabindex="-1"></a>a3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Complete=</span><span class="fu">rep</span>(<span class="st">&quot;Yes&quot;</span>,<span class="dv">59</span>),<span class="at">League=</span><span class="fu">rep</span>(<span class="st">&quot;NL&quot;</span>,<span class="dv">59</span>))</span>
+<span id="cb347-4"><a href="measures-of-association.html#cb347-4" aria-hidden="true" tabindex="-1"></a>a4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Complete=</span><span class="fu">rep</span>(<span class="st">&quot;Yes&quot;</span>,<span class="dv">69</span>),<span class="at">League=</span><span class="fu">rep</span>(<span class="st">&quot;AL&quot;</span>,<span class="dv">69</span>))</span>
+<span id="cb347-5"><a href="measures-of-association.html#cb347-5" aria-hidden="true" tabindex="-1"></a>mlb_data <span class="ot">=</span> <span class="fu">rbind</span>(a1,a2,a3,a4)</span>
+<span id="cb347-6"><a href="measures-of-association.html#cb347-6" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(mlb_data<span class="sc">$</span>Complete,mlb_data<span class="sc">$</span>League))</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  table(mlb_data$Complete, mlb_data$League)
+## X-squared = 2.4777, df = 1, p-value = 0.1155</code></pre>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="measures-of-association.html#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(mlb_data<span class="sc">$</span>Complete,mlb_data<span class="sc">$</span>League),<span class="at">correct=</span>F)</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  table(mlb_data$Complete, mlb_data$League)
+## X-squared = 2.7684, df = 1, p-value = 0.09614</code></pre>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="measures-of-association.html#cb351-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">table</span>(mlb_data<span class="sc">$</span>Complete,mlb_data<span class="sc">$</span>League))</span></code></pre></div>
+<pre><code>## Number of cases in table: 4860 
+## Number of factors: 2 
+## Test for independence of all factors:
+##  Chisq = 2.7684, df = 1, p-value = 0.09614</code></pre>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -2037,9 +2042,9 @@ Total
 <div class="example">
 <p><span id="exm:unlabeled-div-175" class="example"><strong>Example 6.11  </strong></span><code>nfl22.csv</code> contains NFL team offense statistics for the 2022 season. Investigate the relationship between PF (points scored for) and RPCT (percentage of offensive plays that were rushes). Calculate the ranks for PF and RPCT and use these values to calculate the Spearman correlation coefficient.</p>
 </div>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="measures-of-association.html#cb351-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl22.csv&quot;</span>,<span class="at">show_col_types =</span> F)</span>
-<span id="cb351-2"><a href="measures-of-association.html#cb351-2" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">32</span>)</span>
-<span id="cb351-3"><a href="measures-of-association.html#cb351-3" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="measures-of-association.html#cb353-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl22.csv&quot;</span>,<span class="at">show_col_types =</span> F)</span>
+<span id="cb353-2"><a href="measures-of-association.html#cb353-2" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">32</span>)</span>
+<span id="cb353-3"><a href="measures-of-association.html#cb353-3" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2399,11 +2404,11 @@ Jacksonville Jaguars
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="measures-of-association.html#cb352-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="st">`</span><span class="at">RPCT</span><span class="st">`</span><span class="ot">=</span><span class="dv">100</span><span class="sc">*</span>Rush_Att<span class="sc">/</span>Plays)</span>
-<span id="cb352-2"><a href="measures-of-association.html#cb352-2" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> </span>
-<span id="cb352-3"><a href="measures-of-association.html#cb352-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PF_Rank =</span> <span class="fu">rank</span>(PF),</span>
-<span id="cb352-4"><a href="measures-of-association.html#cb352-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">RPCT_Rank =</span> <span class="fu">rank</span>(RPCT))</span></code></pre></div>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="measures-of-association.html#cb353-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">select</span>(Tm,PF,PF_Rank,RPCT,RPCT_Rank) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="measures-of-association.html#cb354-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="st">`</span><span class="at">RPCT</span><span class="st">`</span><span class="ot">=</span><span class="dv">100</span><span class="sc">*</span>Rush_Att<span class="sc">/</span>Plays)</span>
+<span id="cb354-2"><a href="measures-of-association.html#cb354-2" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> </span>
+<span id="cb354-3"><a href="measures-of-association.html#cb354-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PF_Rank =</span> <span class="fu">rank</span>(PF),</span>
+<span id="cb354-4"><a href="measures-of-association.html#cb354-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">RPCT_Rank =</span> <span class="fu">rank</span>(RPCT))</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="measures-of-association.html#cb355-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">select</span>(Tm,PF,PF_Rank,RPCT,RPCT_Rank) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits=</span><span class="dv">1</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2597,13 +2602,13 @@ Jacksonville Jaguars
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="measures-of-association.html#cb354-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PF,PF_Rank,RPCT,RPCT_Rank) <span class="sc">%&gt;%</span> <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="measures-of-association.html#cb356-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PF,PF_Rank,RPCT,RPCT_Rank) <span class="sc">%&gt;%</span> <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
 <pre><code>##                      PF      PF_Rank        RPCT    RPCT_Rank
 ## PF         1.0000000000  0.988409408 -0.02501179 0.0008416183
 ## PF_Rank    0.9884094078  1.000000000 -0.01187428 0.0097158572
 ## RPCT      -0.0250117927 -0.011874280  1.00000000 0.9759711461
 ## RPCT_Rank  0.0008416183  0.009715857  0.97597115 1.0000000000</code></pre>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="measures-of-association.html#cb356-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PF,PF_Rank,RPCT,RPCT_Rank) <span class="sc">%&gt;%</span> <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="measures-of-association.html#cb358-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PF,PF_Rank,RPCT,RPCT_Rank) <span class="sc">%&gt;%</span> <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
 <pre><code>##                    PF     PF_Rank        RPCT   RPCT_Rank
 ## PF        1.000000000 1.000000000 0.009715857 0.009715857
 ## PF_Rank   1.000000000 1.000000000 0.009715857 0.009715857
@@ -2613,15 +2618,15 @@ Jacksonville Jaguars
 <div class="example">
 <p><span id="exm:unlabeled-div-176" class="example"><strong>Example 6.12  </strong></span>Investigate the relationship between PPG (points per game), RYPG (rushing yards per game), and PYPG (passing yards per game) using Spearman’s rank correlation coefficient.</p>
 </div>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="measures-of-association.html#cb358-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PPG=</span>PF<span class="sc">/</span>G,<span class="at">RYPG=</span>Rush_Yds<span class="sc">/</span>G,<span class="at">PYPG=</span>Pass_Yds<span class="sc">/</span>G)</span>
-<span id="cb358-2"><a href="measures-of-association.html#cb358-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb358-3"><a href="measures-of-association.html#cb358-3" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PPG,RYPG,PYPG) <span class="sc">%&gt;%</span> <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="measures-of-association.html#cb360-1" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PPG=</span>PF<span class="sc">/</span>G,<span class="at">RYPG=</span>Rush_Yds<span class="sc">/</span>G,<span class="at">PYPG=</span>Pass_Yds<span class="sc">/</span>G)</span>
+<span id="cb360-2"><a href="measures-of-association.html#cb360-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb360-3"><a href="measures-of-association.html#cb360-3" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PPG,RYPG,PYPG) <span class="sc">%&gt;%</span> <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
 <pre><code>##            PPG       RYPG       PYPG
 ## PPG  1.0000000  0.2640264  0.6237052
 ## RYPG 0.2640264  1.0000000 -0.4310203
 ## PYPG 0.6237052 -0.4310203  1.0000000</code></pre>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="measures-of-association.html#cb360-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb360-2"><a href="measures-of-association.html#cb360-2" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PPG,RYPG,PYPG) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="measures-of-association.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb362-2"><a href="measures-of-association.html#cb362-2" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">select</span>(PPG,RYPG,PYPG) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-158-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 </div>
@@ -2653,9 +2658,9 @@ Jacksonville Jaguars
 </div>
 <p><span class="math inline">\(PythWin\% = 100 * \frac{RS^2}{RS^2+RA^2} = \frac{4.3^2}{4.3^2+5.4^2} = 38.8\%\)</span></p>
 <p><span class="math inline">\(PythWin\% = N \cdot \frac{RS^2}{RS^2+RA^2} = 162 * \frac{4.3^2}{4.3^2+5.4^2} = 63\)</span></p>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="measures-of-association.html#cb361-1" aria-hidden="true" tabindex="-1"></a>( <span class="at">pythwinpct =</span> <span class="dv">100</span><span class="sc">*</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span><span class="fl">+5.4</span><span class="sc">^</span><span class="dv">2</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="measures-of-association.html#cb363-1" aria-hidden="true" tabindex="-1"></a>( <span class="at">pythwinpct =</span> <span class="dv">100</span><span class="sc">*</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span><span class="fl">+5.4</span><span class="sc">^</span><span class="dv">2</span>) )</span></code></pre></div>
 <pre><code>## [1] 38.80378</code></pre>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="measures-of-association.html#cb363-1" aria-hidden="true" tabindex="-1"></a>( <span class="at">pythwins =</span> <span class="dv">162</span><span class="sc">*</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span><span class="fl">+5.4</span><span class="sc">^</span><span class="dv">2</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="measures-of-association.html#cb365-1" aria-hidden="true" tabindex="-1"></a>( <span class="at">pythwins =</span> <span class="dv">162</span><span class="sc">*</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="fl">4.3</span><span class="sc">^</span><span class="dv">2</span><span class="fl">+5.4</span><span class="sc">^</span><span class="dv">2</span>) )</span></code></pre></div>
 <pre><code>## [1] 62.86212</code></pre>
 <div style="page-break-after: always;"></div>
 <p>It turns out that we can find a more optimal estimate of Pythagorean wins by using an exponent different from 2.</p>
@@ -2667,36 +2672,36 @@ Jacksonville Jaguars
 <p>where for a given team, <span class="math inline">\(N\)</span> is the number of games, <span class="math inline">\(RS\)</span> is the number of runs scored, and <span class="math inline">\(RA\)</span> is the number of runs allowed. <span class="math inline">\(n\)</span> is optimized for predictive accuracy over a large dataset.</p>
 </div>
 <p>It will be helpful to have a function to find the optimal Pythagorean exponent. Such a function called <code>pyth_opt</code> is given below that minimizes mean squared error. Use <code>plot_flag=1</code> to generate a plot.</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="measures-of-association.html#cb365-1" aria-hidden="true" tabindex="-1"></a>pyth_opt <span class="ot">=</span> <span class="cf">function</span>(RS,RA,WinPct,digits,plot_flag){</span>
-<span id="cb365-2"><a href="measures-of-association.html#cb365-2" aria-hidden="true" tabindex="-1"></a>  exps <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="at">by=</span><span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span>digits))</span>
-<span id="cb365-3"><a href="measures-of-association.html#cb365-3" aria-hidden="true" tabindex="-1"></a>  n_exps <span class="ot">=</span> <span class="fu">length</span>(exps)</span>
-<span id="cb365-4"><a href="measures-of-association.html#cb365-4" aria-hidden="true" tabindex="-1"></a>  MSE <span class="ot">=</span> <span class="fu">rep</span>(<span class="cn">NA</span>,n_exps)</span>
-<span id="cb365-5"><a href="measures-of-association.html#cb365-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_exps){</span>
-<span id="cb365-6"><a href="measures-of-association.html#cb365-6" aria-hidden="true" tabindex="-1"></a>    temp_exp <span class="ot">=</span> exps[i]</span>
-<span id="cb365-7"><a href="measures-of-association.html#cb365-7" aria-hidden="true" tabindex="-1"></a>    PyWinPct <span class="ot">=</span> RS<span class="sc">^</span>temp_exp<span class="sc">/</span>(RS<span class="sc">^</span>temp_exp <span class="sc">+</span> RA<span class="sc">^</span>temp_exp)</span>
-<span id="cb365-8"><a href="measures-of-association.html#cb365-8" aria-hidden="true" tabindex="-1"></a>    MSE[i] <span class="ot">=</span> <span class="fu">mean</span>((PyWinPct<span class="sc">-</span>WinPct)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb365-9"><a href="measures-of-association.html#cb365-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb365-10"><a href="measures-of-association.html#cb365-10" aria-hidden="true" tabindex="-1"></a>  min_idx <span class="ot">=</span> <span class="fu">which</span>(MSE<span class="sc">==</span><span class="fu">min</span>(MSE))</span>
-<span id="cb365-11"><a href="measures-of-association.html#cb365-11" aria-hidden="true" tabindex="-1"></a>  pyth_opt <span class="ot">=</span> exps[min_idx]</span>
-<span id="cb365-12"><a href="measures-of-association.html#cb365-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb365-13"><a href="measures-of-association.html#cb365-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(plot_flag){</span>
-<span id="cb365-14"><a href="measures-of-association.html#cb365-14" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Exponent=</span>exps,<span class="at">MSE=</span>MSE)</span>
-<span id="cb365-15"><a href="measures-of-association.html#cb365-15" aria-hidden="true" tabindex="-1"></a>    df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Exponent,<span class="at">y=</span>MSE)) <span class="sc">+</span> </span>
-<span id="cb365-16"><a href="measures-of-association.html#cb365-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb365-17"><a href="measures-of-association.html#cb365-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="at">data=</span>df[min_idx,],<span class="at">color=</span><span class="st">&quot;blue&quot;</span>)  <span class="sc">+</span></span>
-<span id="cb365-18"><a href="measures-of-association.html#cb365-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_label</span>(<span class="at">data =</span> df[min_idx,],</span>
-<span id="cb365-19"><a href="measures-of-association.html#cb365-19" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x =</span> Exponent, <span class="at">y =</span> MSE, <span class="at">label =</span> Exponent),<span class="at">vjust=</span><span class="sc">-</span><span class="fl">0.5</span>)</span>
-<span id="cb365-20"><a href="measures-of-association.html#cb365-20" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb365-21"><a href="measures-of-association.html#cb365-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(pyth_opt)</span>
-<span id="cb365-22"><a href="measures-of-association.html#cb365-22" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb365-23"><a href="measures-of-association.html#cb365-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb365-24"><a href="measures-of-association.html#cb365-24" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="measures-of-association.html#cb367-1" aria-hidden="true" tabindex="-1"></a>pyth_opt <span class="ot">=</span> <span class="cf">function</span>(RS,RA,WinPct,digits,plot_flag){</span>
+<span id="cb367-2"><a href="measures-of-association.html#cb367-2" aria-hidden="true" tabindex="-1"></a>  exps <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="at">by=</span><span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span>digits))</span>
+<span id="cb367-3"><a href="measures-of-association.html#cb367-3" aria-hidden="true" tabindex="-1"></a>  n_exps <span class="ot">=</span> <span class="fu">length</span>(exps)</span>
+<span id="cb367-4"><a href="measures-of-association.html#cb367-4" aria-hidden="true" tabindex="-1"></a>  MSE <span class="ot">=</span> <span class="fu">rep</span>(<span class="cn">NA</span>,n_exps)</span>
+<span id="cb367-5"><a href="measures-of-association.html#cb367-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_exps){</span>
+<span id="cb367-6"><a href="measures-of-association.html#cb367-6" aria-hidden="true" tabindex="-1"></a>    temp_exp <span class="ot">=</span> exps[i]</span>
+<span id="cb367-7"><a href="measures-of-association.html#cb367-7" aria-hidden="true" tabindex="-1"></a>    PyWinPct <span class="ot">=</span> RS<span class="sc">^</span>temp_exp<span class="sc">/</span>(RS<span class="sc">^</span>temp_exp <span class="sc">+</span> RA<span class="sc">^</span>temp_exp)</span>
+<span id="cb367-8"><a href="measures-of-association.html#cb367-8" aria-hidden="true" tabindex="-1"></a>    MSE[i] <span class="ot">=</span> <span class="fu">mean</span>((PyWinPct<span class="sc">-</span>WinPct)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb367-9"><a href="measures-of-association.html#cb367-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb367-10"><a href="measures-of-association.html#cb367-10" aria-hidden="true" tabindex="-1"></a>  min_idx <span class="ot">=</span> <span class="fu">which</span>(MSE<span class="sc">==</span><span class="fu">min</span>(MSE))</span>
+<span id="cb367-11"><a href="measures-of-association.html#cb367-11" aria-hidden="true" tabindex="-1"></a>  pyth_opt <span class="ot">=</span> exps[min_idx]</span>
+<span id="cb367-12"><a href="measures-of-association.html#cb367-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb367-13"><a href="measures-of-association.html#cb367-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(plot_flag){</span>
+<span id="cb367-14"><a href="measures-of-association.html#cb367-14" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Exponent=</span>exps,<span class="at">MSE=</span>MSE)</span>
+<span id="cb367-15"><a href="measures-of-association.html#cb367-15" aria-hidden="true" tabindex="-1"></a>    df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Exponent,<span class="at">y=</span>MSE)) <span class="sc">+</span> </span>
+<span id="cb367-16"><a href="measures-of-association.html#cb367-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb367-17"><a href="measures-of-association.html#cb367-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="at">data=</span>df[min_idx,],<span class="at">color=</span><span class="st">&quot;blue&quot;</span>)  <span class="sc">+</span></span>
+<span id="cb367-18"><a href="measures-of-association.html#cb367-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_label</span>(<span class="at">data =</span> df[min_idx,],</span>
+<span id="cb367-19"><a href="measures-of-association.html#cb367-19" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x =</span> Exponent, <span class="at">y =</span> MSE, <span class="at">label =</span> Exponent),<span class="at">vjust=</span><span class="sc">-</span><span class="fl">0.5</span>)</span>
+<span id="cb367-20"><a href="measures-of-association.html#cb367-20" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb367-21"><a href="measures-of-association.html#cb367-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(pyth_opt)</span>
+<span id="cb367-22"><a href="measures-of-association.html#cb367-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb367-23"><a href="measures-of-association.html#cb367-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb367-24"><a href="measures-of-association.html#cb367-24" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div style="page-break-after: always;"></div>
 <div class="example">
 <p><span id="exm:unlabeled-div-180" class="example"><strong>Example 6.14  </strong></span>Final season MLB standings and related statistics are given in <code>mlb_2022.csv</code>. Find the optimal value of <span class="math inline">\(n\)</span> that minimizes mean squared error between actual wins and Pythagorean wins.</p>
 </div>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="measures-of-association.html#cb366-1" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/mlb_2022.csv&quot;</span>)</span>
-<span id="cb366-2"><a href="measures-of-association.html#cb366-2" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="measures-of-association.html#cb368-1" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/mlb_2022.csv&quot;</span>)</span>
+<span id="cb368-2"><a href="measures-of-association.html#cb368-2" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2989,14 +2994,14 @@ San Diego Padres
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="measures-of-association.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pyth_opt</span>(mlb_2022<span class="sc">$</span>R,mlb_2022<span class="sc">$</span>RA,mlb_2022<span class="sc">$</span><span class="st">`</span><span class="at">W-L%</span><span class="st">`</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="measures-of-association.html#cb369-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pyth_opt</span>(mlb_2022<span class="sc">$</span>R,mlb_2022<span class="sc">$</span>RA,mlb_2022<span class="sc">$</span><span class="st">`</span><span class="at">W-L%</span><span class="st">`</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-162-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 <div class="example">
 <p><span id="exm:unlabeled-div-181" class="example"><strong>Example 6.15  </strong></span>For a more accurate estimate of the optimal Pythagorean exponent, use all MLB final standings data from 2000–2017. This is contained in <code>mlb_standings_long.csv</code>.</p>
 </div>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="measures-of-association.html#cb368-1" aria-hidden="true" tabindex="-1"></a>mlb_long <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/mlb_standings_long.csv&quot;</span>)</span>
-<span id="cb368-2"><a href="measures-of-association.html#cb368-2" aria-hidden="true" tabindex="-1"></a>mlb_long <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="measures-of-association.html#cb370-1" aria-hidden="true" tabindex="-1"></a>mlb_long <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/mlb_standings_long.csv&quot;</span>)</span>
+<span id="cb370-2"><a href="measures-of-association.html#cb370-2" aria-hidden="true" tabindex="-1"></a>mlb_long <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -3131,7 +3136,7 @@ ATL
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="measures-of-association.html#cb369-1" aria-hidden="true" tabindex="-1"></a>mlb_long <span class="sc">%&gt;%</span> <span class="fu">slice_tail</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="measures-of-association.html#cb371-1" aria-hidden="true" tabindex="-1"></a>mlb_long <span class="sc">%&gt;%</span> <span class="fu">slice_tail</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -3266,25 +3271,25 @@ WAS
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="measures-of-association.html#cb370-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pyth_opt</span>(mlb_long<span class="sc">$</span>R,mlb_long<span class="sc">$</span>RA,mlb_long<span class="sc">$</span>Wpct,<span class="dv">2</span>,<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="measures-of-association.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pyth_opt</span>(mlb_long<span class="sc">$</span>R,mlb_long<span class="sc">$</span>RA,mlb_long<span class="sc">$</span>Wpct,<span class="dv">2</span>,<span class="dv">1</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-163-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 <p>As previously mentioned, sabermetricans tend to use <strong>PyExp = 1.83 for MLB</strong>.</p>
 <div class="example">
 <p><span id="exm:unlabeled-div-182" class="example"><strong>Example 6.16  </strong></span>Create a scatterplot to compare Team Wins and Team Pythagorean Wins in 2022 and calculate the correlation.</p>
 </div>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="measures-of-association.html#cb371-1" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="ot">=</span> mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PyWins=</span><span class="dv">162</span><span class="sc">*</span>R<span class="sc">^</span><span class="fl">1.83</span><span class="sc">/</span>(R<span class="sc">^</span><span class="fl">1.83</span><span class="sc">+</span>RA<span class="sc">^</span><span class="fl">1.83</span>))</span>
-<span id="cb371-2"><a href="measures-of-association.html#cb371-2" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>W,<span class="at">y=</span>PyWins)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Wins&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb371-3"><a href="measures-of-association.html#cb371-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept=</span><span class="dv">0</span>, <span class="at">slope=</span><span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;blue&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="measures-of-association.html#cb373-1" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="ot">=</span> mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PyWins=</span><span class="dv">162</span><span class="sc">*</span>R<span class="sc">^</span><span class="fl">1.83</span><span class="sc">/</span>(R<span class="sc">^</span><span class="fl">1.83</span><span class="sc">+</span>RA<span class="sc">^</span><span class="fl">1.83</span>))</span>
+<span id="cb373-2"><a href="measures-of-association.html#cb373-2" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>W,<span class="at">y=</span>PyWins)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Wins&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb373-3"><a href="measures-of-association.html#cb373-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept=</span><span class="dv">0</span>, <span class="at">slope=</span><span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;blue&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-164-1.png" width="672" /></p>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="measures-of-association.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mlb_2022<span class="sc">$</span>W,mlb_2022<span class="sc">$</span>PyWins)</span></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="measures-of-association.html#cb374-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mlb_2022<span class="sc">$</span>W,mlb_2022<span class="sc">$</span>PyWins)</span></code></pre></div>
 <pre><code>## [1] 0.9764977</code></pre>
 <div class="example">
 <p><span id="exm:unlabeled-div-183" class="example"><strong>Example 6.17  </strong></span>The Rockies scored 4.31 runs per game and allowed 5.4 runs per game in 2022. Did the Rockies underperform or overperform based on their Pythagorean record?</p>
 </div>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="measures-of-association.html#cb374-1" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Team<span class="sc">==</span><span class="st">&quot;Colorado Rockies&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb374-2"><a href="measures-of-association.html#cb374-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PyWins =</span> <span class="dv">162</span><span class="sc">*</span><span class="fl">4.31</span><span class="sc">^</span><span class="fl">1.83</span><span class="sc">/</span>(<span class="fl">4.31</span><span class="sc">^</span><span class="fl">1.83+5.39</span><span class="sc">^</span><span class="fl">1.83</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb374-3"><a href="measures-of-association.html#cb374-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="measures-of-association.html#cb376-1" aria-hidden="true" tabindex="-1"></a>mlb_2022 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Team<span class="sc">==</span><span class="st">&quot;Colorado Rockies&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb376-2"><a href="measures-of-association.html#cb376-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PyWins =</span> <span class="dv">162</span><span class="sc">*</span><span class="fl">4.31</span><span class="sc">^</span><span class="fl">1.83</span><span class="sc">/</span>(<span class="fl">4.31</span><span class="sc">^</span><span class="fl">1.83+5.39</span><span class="sc">^</span><span class="fl">1.83</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb376-3"><a href="measures-of-association.html#cb376-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -3354,10 +3359,10 @@ Colorado Rockies
 <div class="example">
 <p><span id="exm:unlabeled-div-184" class="example"><strong>Example 6.18  </strong></span>Calculate the Pythagorean exponent for NFL using 2022 season totals. This data is contained in <code>nfl_2022.csv</code>.</p>
 </div>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="measures-of-association.html#cb375-1" aria-hidden="true" tabindex="-1"></a>nfl_2022 <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl_2022.csv&quot;</span>)</span>
-<span id="cb375-2"><a href="measures-of-association.html#cb375-2" aria-hidden="true" tabindex="-1"></a>nfl_2022 <span class="sc">%&gt;%</span> </span>
-<span id="cb375-3"><a href="measures-of-association.html#cb375-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb375-4"><a href="measures-of-association.html#cb375-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="measures-of-association.html#cb377-1" aria-hidden="true" tabindex="-1"></a>nfl_2022 <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl_2022.csv&quot;</span>)</span>
+<span id="cb377-2"><a href="measures-of-association.html#cb377-2" aria-hidden="true" tabindex="-1"></a>nfl_2022 <span class="sc">%&gt;%</span> </span>
+<span id="cb377-3"><a href="measures-of-association.html#cb377-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb377-4"><a href="measures-of-association.html#cb377-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -3502,7 +3507,7 @@ Cincinnati Bengals*
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="measures-of-association.html#cb376-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pyth_opt</span>(nfl_2022<span class="sc">$</span>PF,nfl_2022<span class="sc">$</span>PA,nfl_2022<span class="sc">$</span><span class="st">`</span><span class="at">W-L%</span><span class="st">`</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="measures-of-association.html#cb378-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pyth_opt</span>(nfl_2022<span class="sc">$</span>PF,nfl_2022<span class="sc">$</span>PA,nfl_2022<span class="sc">$</span><span class="st">`</span><span class="at">W-L%</span><span class="st">`</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-167-1.png" width="672" /></p>
 <p>For 2022, there is an optimal Pythagorean exponent of 3.38. Using a larger dataset of more seasons will give a better estimate.</p>
 <p>Football Outsiders <a href="https://www.footballoutsiders.com/stat-analysis/2017/presenting-adjusted-pythagorean-theorem">(https://www.footballoutsiders.com/stat-analysis/2017/presenting-adjusted-pythagorean-theorem)</a> uses <strong>PyExp = 2.37 for NFL</strong>.</p>

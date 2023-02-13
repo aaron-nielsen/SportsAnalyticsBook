@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2023-02-12}
+\date{2023-02-13}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -7562,6 +7562,47 @@ Complete a Chi-Squared Test of Independence for the Tom Brady TDs/Sacks example.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{a1 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{29}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{29}\NormalTok{))}
+\NormalTok{a2 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{18}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{18}\NormalTok{))}
+\NormalTok{a3 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{22}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{22}\NormalTok{))}
+\NormalTok{a4 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\NormalTok{brady\_data }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(a1,a2,a3,a4)}
+\FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(brady\_data}\SpecialCharTok{$}\NormalTok{TDs,brady\_data}\SpecialCharTok{$}\NormalTok{Sacks))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  table(brady_data$TDs, brady_data$Sacks)
+## X-squared = 5.6468, df = 1, p-value = 0.01749
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(brady\_data}\SpecialCharTok{$}\NormalTok{TDs,brady\_data}\SpecialCharTok{$}\NormalTok{Sacks),}\AttributeTok{correct =}\NormalTok{ F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test
+## 
+## data:  table(brady_data$TDs, brady_data$Sacks)
+## X-squared = 7.0499, df = 1, p-value = 0.007927
+\end{verbatim}
+
+\newpage
+
+\begin{example}
+Complete a Chi-Squared Test of Independence for the AL/NL complete game example. Is there evidence of dependence between League and Complete Games? Explain.
+\end{example}
+
+\vfill
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{a1 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Complete=}\FunctionTok{rep}\NormalTok{(}\StringTok{"No"}\NormalTok{,}\DecValTok{2533}\NormalTok{),}\AttributeTok{League=}\FunctionTok{rep}\NormalTok{(}\StringTok{"NL"}\NormalTok{,}\DecValTok{2533}\NormalTok{))}
 \NormalTok{a2 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Complete=}\FunctionTok{rep}\NormalTok{(}\StringTok{"No"}\NormalTok{,}\DecValTok{2199}\NormalTok{),}\AttributeTok{League=}\FunctionTok{rep}\NormalTok{(}\StringTok{"AL"}\NormalTok{,}\DecValTok{2199}\NormalTok{))}
 \NormalTok{a3 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Complete=}\FunctionTok{rep}\NormalTok{(}\StringTok{"Yes"}\NormalTok{,}\DecValTok{59}\NormalTok{),}\AttributeTok{League=}\FunctionTok{rep}\NormalTok{(}\StringTok{"NL"}\NormalTok{,}\DecValTok{59}\NormalTok{))}
@@ -7593,45 +7634,17 @@ Complete a Chi-Squared Test of Independence for the Tom Brady TDs/Sacks example.
 ## X-squared = 2.7684, df = 1, p-value = 0.09614
 \end{verbatim}
 
-\newpage
-
-\begin{example}
-Complete a Chi-Squared Test of Independence for the AL/NL complete game example. Is there evidence of dependence between League and Complete Games? Explain.
-\end{example}
-
-\vfill
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{a1 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{29}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{29}\NormalTok{))}
-\NormalTok{a2 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{18}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{18}\NormalTok{))}
-\NormalTok{a3 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{22}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{22}\NormalTok{))}
-\NormalTok{a4 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{2}\NormalTok{))}
-\NormalTok{brady\_data }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(a1,a2,a3,a4)}
-\FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(brady\_data}\SpecialCharTok{$}\NormalTok{TDs,brady\_data}\SpecialCharTok{$}\NormalTok{Sacks))}
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{table}\NormalTok{(mlb\_data}\SpecialCharTok{$}\NormalTok{Complete,mlb\_data}\SpecialCharTok{$}\NormalTok{League))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## 
-##  Pearson's Chi-squared test with Yates' continuity correction
-## 
-## data:  table(brady_data$TDs, brady_data$Sacks)
-## X-squared = 5.6468, df = 1, p-value = 0.01749
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(brady\_data}\SpecialCharTok{$}\NormalTok{TDs,brady\_data}\SpecialCharTok{$}\NormalTok{Sacks),}\AttributeTok{correct =}\NormalTok{ F)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-##  Pearson's Chi-squared test
-## 
-## data:  table(brady_data$TDs, brady_data$Sacks)
-## X-squared = 7.0499, df = 1, p-value = 0.007927
+## Number of cases in table: 4860 
+## Number of factors: 2 
+## Test for independence of all factors:
+##  Chisq = 2.7684, df = 1, p-value = 0.09614
 \end{verbatim}
 
 \newpage
