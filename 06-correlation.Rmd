@@ -538,9 +538,215 @@ nfl22 %>% select(PPG,RYPG,PYPG) %>% ggpairs()
 
 \newpage
 
-## Autocorrelation
+## Serial Correlation
 
-(AM, page 134, NFL team records, pre- and post- salary cap)
+Another type of correlation that we can utilize to look for patterns in sports data is serial correlation.
+
+### Autocorrelation
+
+:::{.definition}
+The ***autocorrelation*** (or ***serial correlation***) of a sequence of outcomes is the Pearson correlation coefficient between successive outcomes or the correlation between outcomes and lag delayed outcomes.
+:::
+
+:::{.example}
+Simulate three sets of Bernoulli trials (zeros and ones) of length 10000. One dataset should exhibit no serial correlation, one should exhibit positive serial correlation, and one should exhibit negative serial correlation.
+:::
+
+```{r}
+set.seed(2023)
+len <- 10000
+# Easy to simulate independent Bernoulli trials
+corr_none <- sample(c(0,1),size=len,prob=c(0.5,0.5),replace=T)
+
+# initialize vectors for other two examples
+corr_pos <- rep(0,len)
+corr_neg <- rep(0,len)
+
+# Positive serial correlation
+# Notice that the probability of switching is less than 0.5
+for(i in 1:10000){
+  if(i == 1){
+    corr_pos[i] <- sample(c(0,1),size=1,prob=c(0.5,0.5),replace=T)
+  } else {
+    if(runif(1)<0.8){
+      corr_pos[i] <- corr_pos[i-1]
+    } else {
+      corr_pos[i] <- 1-corr_pos[i-1]
+    }
+  }
+}
+# Negative serial correlation
+# Notice that the probability of switching is greater than 0.5
+for(i in 1:10000){
+  if(i == 1){
+    corr_neg[i] <- sample(c(0,1),size=1,prob=c(0.5,0.5),replace=T)
+  } else {
+    if(runif(1)<0.2){
+      corr_neg[i] <- corr_neg[i-1]
+    } else {
+      corr_neg[i] <- 1-corr_neg[i-1]
+    }
+  }
+}
+```
+
+\newpage
+
+```{r}
+# Look at first 20 values of each sequence
+corr_none[1:20]
+corr_pos[1:20]
+corr_neg[1:20]
+
+# Calculate mean of each sequence
+c(mean(corr_none),mean(corr_pos),mean(corr_neg))
+```
+
+Note that all three sequences have approximately equal probability of 1 and 0, however, the serial correlation differs between them.
+
+```{r}
+corr_none %>% acf(lag.max = 30,main="Autocorrelation of Sequence 1 (No Corr.)")
+```
+
+\vfill
+
+\newpage
+
+```{r,warning=F}
+library(ggplot2)
+library(gridExtra)
+library(forecast)
+corr_none %>% ggAcf(lag.max = 10,main='Autocorrelation of Sequence 1 (No Corr.)')
+acf(corr_none,lag.max=10,plot=F)
+```
+
+\newpage
+
+```{r,warning=F}
+corr_pos %>% ggAcf(lag.max = 10,main='Autocorrelation of Sequence 2 (Positive Corr.)')
+acf(corr_pos,lag.max=10,plot=F)
+```
+
+\newpage
+
+```{r,warning=F}
+corr_neg %>% ggAcf(lag.max = 10,main='Autocorrelation of Sequence 3 (Negative Corr.)')
+acf(corr_neg,lag.max=10,plot=F)
+```
+
+\newpage
+
+### Run Lengths
+
+Another way to investigate serial correlation is to look at the lengths of "streaks" using the `rle` function.
+
+```{r}
+t(table(rle(corr_none)))
+```
+
+\smallskip
+
+:::{.example}
+Which of the three examples has the most "streaks"? How about fewest streaks?
+:::
+
+```{r}
+# Use rle to calculate run lengths
+t(table(rle(corr_none)))
+t(table(rle(corr_pos)))
+t(table(rle(corr_neg)))
+```
+
+\newpage
+
+:::{.example}
+Examine the autocorrelation function for Joe DiMaggio's 1941 and 1942 seasons. Also, calculate the length of his streaks that season.
+:::
+
+```{r,warning=F}
+dimaggio41 <- read_csv("data/dimaggio41.csv", show_col_types = FALSE)
+dimaggio41 <- dimaggio41 %>% slice(1:139)
+
+# Create indicator variable for a hit
+hit.game41 <- ifelse(dimaggio41$H > 0,1,0)
+
+hit.game41 %>% ggAcf(lag.max = 10,main='Autocorrelation of DiMaggio 1941 season')
+acf(hit.game41,lag.max=10,plot=F)
+
+t(table(rle(hit.game)))
+```
+
+\newpage
+
+```{r,warning=F,message=F}
+dimaggio42 <- read_csv("data/dimaggio42.csv")
+
+# Create indicator variable for a hit
+hit.game42 <- ifelse(dimaggio42$H > 0,1,0)
+
+hit.game42 %>% ggAcf(lag.max = 10,main='Autocorrelation of DiMaggio 1942 season')
+acf(hit.game42,lag.max=10,plot=F)
+
+t(table(rle(hit.game)))
+```
+\newpage
+
+### Wald-Wolfowitz Runs Test
+
+:::{.theorem}
+The Wald-Wolfowitz runs test is a nonparametric statistical method for testing the hypothesis of an independent sequence of binary data.
+
+$H_0:$ Elements of sequence are mutually independent \
+$H_a:$ Elements of the sequence are mutually dependent
+
+Let $N_+$ be the number of runs of the indicator/positive values and let $N_-$ be the number of runs of the negative values.
+
+The number of runs, $N = N_+ + N_-$, is approximately normally distributed with:
+
+Mean: $\mu=\frac{2N_+N_-}{N}+1$ \
+Variance: $\sigma^2 = \frac{2N_+N_-(2N_+N_- - N)}{N^2(N-1)}$
+:::
+
+:::{.example}
+Complete a WW runs test for the three simulated sequences. State the conclusion of the WW hypothesis test.
+:::
+
+```{r,warning=F,message=F}
+library(DescTools)
+RunsTest(corr_none)
+```
+
+\vfill
+
+```{r}
+RunsTest(corr_pos)
+```
+
+\vfill
+
+```{r}
+RunsTest(corr_neg)
+```
+
+\newpage
+
+:::{.example}
+Complete a WW runs test for DiMaggio's 1941 and 1942 seasons. State the conclusion of the WW hypothesis test.
+:::
+
+```{r}
+RunsTest(hit.game41)
+```
+
+\vfill
+
+```{r}
+RunsTest(hit.game42)
+```
+
+\vfill
+
+\newpage
 
 ### Hot Hand
 
