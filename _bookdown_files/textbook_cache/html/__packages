@@ -31,3 +31,6 @@ infer
 boot
 knitr
 ggpubr
+forecast
+DescTools
+broom

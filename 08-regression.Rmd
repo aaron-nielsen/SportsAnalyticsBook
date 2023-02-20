@@ -1,7 +1,12 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ```{r, echo=F, message=F,warning=F}
 library(tidyverse)
 library(kableExtra)
-knitr::opts_chunk$set(tidy=FALSE)
+knitr::opts_chunk$set(tidy=FALSE,message=F,warning=F)
 
 # kable table global setup
 kt <- function(data) {
@@ -10,6 +15,323 @@ kt <- function(data) {
 ```
 
 # Linear Regression  
+
+\newpage
+
+:::{.example}
+Download individual MLB pitching statistics for the 2021 and 2022 seasons. Use these datasets to build simple linear regression models with 2022 season ERA as the dependent variable and 2021 season ERA and FIP as the independent variables.
+:::
+
+```{r}
+# Download individual pitching data for 2021 and 2022 seasons
+library(tidyverse)
+library(baseballr)
+
+pit21 <- bref_daily_pitcher("2021-01-01", "2021-12-31") %>% 
+  fip_plus() %>% 
+  dplyr::select(Name, IP, ERA, FIP) %>%
+  dplyr::arrange(dplyr::desc(IP)) %>%
+  mutate(IP21=IP,ERA21=ERA,FIP21=FIP)
+
+pit22 <- bref_daily_pitcher("2022-01-01", "2022-12-31") %>% 
+  fip_plus() %>% 
+  dplyr::select(Name, IP, ERA, FIP) %>%
+  dplyr::arrange(dplyr::desc(IP)) %>%
+  mutate(IP22=IP,ERA22=ERA,FIP22=FIP)
+
+# merge the datasets together, remove redundant columns
+all_pit <- pit21 %>% 
+  left_join(pit22,by = "Name") %>% 
+  select(-c(2:4,8:10)) %>%
+  filter(IP21>5 & IP22 > 5)
+
+all_pit %>% slice(1:10) %>% kable(booktabs=T)
+```
+
+\newpage
+
+```{r,message=F,warning=F}
+# look at correlation between pitching stats in 2021 and 2022
+library(GGally)
+all_pit %>% select(ERA21,ERA22,FIP21,FIP22) %>% ggpairs()
+```
+
+\newpage
+
+```{r,cache=T,warning=F,message=F}
+# build scatterplots of ERA22 vs ERA21 and ERA22 vs FIP21
+library(gridExtra)
+p1 <- all_pit %>% ggplot(aes(x=ERA21,y=ERA22)) +
+  geom_point() +
+  geom_smooth(method="lm") +
+  scale_x_continuous(limits=c(0,10)) +
+  scale_y_continuous(limits=c(0,10))
+
+p2 <- all_pit %>% ggplot(aes(x=FIP21,y=ERA22)) +
+  geom_point() +
+  geom_smooth(method="lm") +
+  scale_x_continuous(limits=c(0,10)) +
+  scale_y_continuous(limits=c(0,10))
+grid.arrange(p1,p2,nrow=1)
+```
+
+\newpage
+
+```{r}
+# build SLR model 1: ERA22 ~ ERA21
+model1 <- lm(ERA22~ERA21,data=all_pit)
+
+# sloppy output
+summary(model1)
+```
+
+```{r}
+library(broom)
+# format the output nicely in a kable table
+model1 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "ERA21")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating ERA22 Using ERA21",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+```{r}
+# build SLR model 2: ERA22 ~ FIP21
+model2 <- lm(ERA22~FIP21,data=all_pit)
+
+# Nicely output regression information
+model2 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "FIP21")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating ERA22 Using FIP21",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value"))
+```
+
+```{r}
+# build MR model: ERA22 ~ ERA21 + FIP21
+model3 <- lm(ERA22~ERA21+FIP21,data=all_pit)
+
+# Nicely output regression information
+model3 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept","ERA21","FIP21")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating ERA22 Using FIP21",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value"))
+```
+
+\newpage
+
+:::{.example}
+Our goal is to investigate the relationship between MLB team OPS and runs per game. 
+:::
+
+(a) Download MLB team offensive statistics for the 2022 season using `rvest`.
+
+```{r,cache=T}
+# scrape the data and output as a kable table
+library(rvest)
+url <- "https://www.baseball-reference.com/leagues/majors/2022.shtml"
+site <- read_html(url)
+mlb22 <- site %>% html_elements("#teams_standard_batting") %>% html_table()
+mlb22 <- mlb22 %>% data.frame() %>% column_to_rownames("Tm") %>%
+  rename(`R/G`=R.G) %>% slice(-(31:33))
+mlb22 %>% select(1:8) %>% kable(booktabs=T)
+```
+
+\newpage
+
+(b) Examine the correlation structure between R/G, BA, OBP, SLG, and OPS.
+
+```{r}
+mlb22_off <- mlb22 %>% select(`R/G`,BA,OBP,SLG,OPS) %>% data.frame() %>% mutate_all(as.numeric)
+mlb22_off %>% ggpairs()
+```
+
+\newpage
+
+(c) Build a SLR model between runs scored and OPS. 
+
+```{r}
+# build SLR model: R/G ~ OPS
+model1 <- lm(R.G~OPS,data=mlb22_off)
+
+# Nicely output regression information
+model1 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "OPS")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating Runs Per Game Using Team OPS",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+(d) Build a MR model between runs scored and OPS, BA, OBP, and OPS.
+
+```{r}
+# build MR model: R/G ~ OPS + BA + OBP + SLG
+model2 <- lm(R.G~OPS+BA+OBP+SLG,data=mlb22_off)
+
+# Nicely output regression information
+model2 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "OPS","BA","OBP","SLG")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "MR Model Estimating Runs Per Game Using Team OPS, BA, OBP, SLG",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+(e) Use residual analysis to assess the model assumptions in the SLR model.
+
+```{r}
+# Create a data frame with the residuals
+residuals <- data.frame(x = fitted(model1), y = residuals(model1))
+
+# Create a residual plot using ggplot2
+ggplot(residuals, aes(x, y)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Fitted values", y = "Residuals", title = "Residual plot")
+```
+
+\newpage
+
+```{r}
+# Create a QQ-plot of the residuals using ggplot2
+ggplot(residuals, aes(sample = y)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Theoretical Quantiles", y = "Sample Quantiles", title = "QQ-plot of Residuals")
+```
+
+\newpage
+
+(f) Plot a scatterplot of R/G and OPS along with the SLR line of best fit and confidence intervals.
+
+```{r,warning=F,message=F}
+mlb22_off %>% ggplot(aes(x=OPS,y=R.G)) + geom_point() +
+  geom_smooth(method=lm , fill="gray", color="steelblue", se=TRUE) +
+  labs(title = "Runs Per Game vs. OPS",
+       subtitle = "2022 MLB Season | Teams",
+       caption = "Data: Baseball Reference", 
+       x = "On-Base Plus Slugging (OPS)",
+       y = "Runs Per Game (R/G)") +
+  theme_bw()
+```
+
+\newpage
+
+:::{.example}
+Data for the MLB 2022 season including team WAR (wins above replacement) and team wins are contained in `mlb_2022_team_war.csv`. 
+:::
+
+(a) Output this data as a kable table.
+
+```{r,warning=F,message=F}
+mlb22_war <- read_csv("data/mlb_2022_team_war.csv")
+
+mlb22_war <- mlb22_war %>% rename(Wins=`Team Wins`,WAR=`Team WAR`)
+mlb22_war %>% kable(booktabs=T)
+```
+
+\newpage
+
+(b) Fit a simple linear regression model with team wins as the dependent variable and team WAR as the independent variable.
+
+```{r}
+# build SLR model: Team Wins ~ Team WAR
+model <- lm(Wins~WAR,data=mlb22_war)
+
+# Nicely output regression information
+model %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "Team WAR")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating Team Wins Using Team WAR",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+(c) Plot a scatterplot along with the line of best fit.
+
+```{r,warning=F,message=F}
+mlb22_war %>% ggplot(aes(x=WAR,y=Wins)) +
+  geom_point() +
+  geom_smooth(method="lm") + 
+  stat_regline_equation(label.x.npc = 0.3,label.y.npc = 0.6) +
+  labs(title = "Team Wins vs. Team WAR",
+       subtitle = "2022 MLB Season | Teams",
+       caption = "Data: Baseball Reference", 
+       x = "Team WAR",
+       y = "Team Wins")
+```
+\newpage
+
+(d) Complete residual analysis of the SLR model.
+
+```{r}
+# Create a data frame with the residuals
+residuals <- data.frame(x = fitted(model), y = residuals(model))
+
+# Create a residual plot using ggplot2
+ggplot(residuals, aes(x, y)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Fitted values", y = "Residuals", title = "Residual plot")
+```
+
+\newpage
+
+```{r}
+# Create a QQ-plot of the residuals using ggplot2
+ggplot(residuals, aes(sample = y)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Theoretical Quantiles", y = "Sample Quantiles", title = "QQ-plot of Residuals")
+```
+
+\newpage
+
+
+(e) In 2022, the Colorado Rockies were 68-94 and accumulated a total of 21.2 team wins above replacement (WAR). Estimate the Rockies team wins from their team WAR and compare this to their actual win total.
+
+```{r}
+mlb22_war <- mlb22_war %>%
+  mutate(xWins = predict(model,data.frame(WAR=mlb22_war$WAR)))
+
+( xWins <- predict(model,data.frame(WAR=21.2)) )
+
+mlb22_war %>% filter(Team=="Colorado Rockies")
+```
+
+\newpage
+
+
+\newpage
 
 ## Simple Linear Regression
 

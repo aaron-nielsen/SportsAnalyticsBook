@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  15 FEB 2023 14:04
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  19 FEB 2023 22:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2692,55 +2692,91 @@ bl>, []eFG%[] <dbl>, FT <dbl>,[]
 
 ]
 Chapter 8.
-[259] [260] [261] [262
-
-]
+[259] [260]
+File: textbook_files/figure-latex/unnamed-chunk-217-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-217-1.pdf>
+[261]
+File: textbook_files/figure-latex/unnamed-chunk-218-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-218-1.pdf>
+[262] [263] [264] [265]
+File: textbook_files/figure-latex/unnamed-chunk-224-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-224-1.pdf>
+[266] [267] [268]
+File: textbook_files/figure-latex/unnamed-chunk-227-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-227-1.pdf>
+[269]
+File: textbook_files/figure-latex/unnamed-chunk-228-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-228-1.pdf>
+[270]
+File: textbook_files/figure-latex/unnamed-chunk-229-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-229-1.pdf>
+[271] [272] [273]
+File: textbook_files/figure-latex/unnamed-chunk-232-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-232-1.pdf>
+[274]
+File: textbook_files/figure-latex/unnamed-chunk-233-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-233-1.pdf>
+[275]
+File: textbook_files/figure-latex/unnamed-chunk-234-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-234-1.pdf>
+[276] [277] [278] [279] [280]
 Chapter 9.
-[263] [264
+[281
+
+] [282
 
 ]
 Chapter 10.
-[265] [266
+[283] [284
 
 ]
 Chapter 11.
-[267] [268
+[285] [286
 
 ]
 Chapter 12.
-[269] [270
+[287] [288
 
 ]
 Chapter 13.
-[271] [272
+[289] [290
 
 ]
 Chapter 14.
-[273] [274
+[291] [292
 
 ]
 Chapter 15.
-[275] [276
+[293] [294
 
 ]
 Chapter 16.
-[277] [278
+[295] [296
 
 ]
 Chapter 17.
-[279] [280
+[297] [298
 
 ]
 Chapter 18.
 No file textbook.bbl.
-[281] (./textbook.aux) ) 
+[299] (./textbook.aux) ) 
 Here is how much of TeX's memory you used:
- 23220 strings out of 476179
- 451605 string characters out of 5809544
- 907033 words of memory out of 5000000
- 43491 multiletter control sequences out of 15000+600000
+ 23299 strings out of 476179
+ 455636 string characters out of 5809544
+ 913465 words of memory out of 5000000
+ 43561 multiletter control sequences out of 15000+600000
  475878 words of font info for 90 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  86i,10n,121p,1131b,516s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on textbook.pdf (281 pages).
+Output written on textbook.pdf (299 pages).
