@@ -16,6 +16,24 @@ kt <- function(data) {
 
 # Linear Regression  
 
+Linear regression is a statistical method for modeling a quantitative variable as a function of one or more quantitative variables. This method determines a "line of best fit" by minimizing the sum of squared errors.
+
+:::{.definition}
+A ***simple linear regression model***, $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x$, between a dependent variable $y$ and an independent variable $x$ is found by minimizing $SSE=\sum(y_i-\hat{\beta}_0-\hat{\beta}_1x)^2$, where: \
+
+$\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}$ \hspace{0.1in}  $\hat{\beta}_1 = \frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{\sum(x_i-\bar{x})^2}$ \
+:::
+
+:::{.definition}
+A ***multiple linear regression model***, $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_1 + \ldots \hat{\beta}_p x_p$, between a dependent variable $y$ and an independent variables $x_1, x_2, \ldots, x_p$ is found by minimizing $SSE=\sum(y_i-\hat{\beta}_0-\hat{\beta}_1x_1-\hat{\beta}_2x_2- \ldots - -\hat{\beta}_px_p)^2$ \
+:::
+
+We make a few assumptions when we fit these regression models:
+
+1. The response variable can be modeled as a linear combination of the predictor variables (linearity in the parameters). \
+2. The errors are independent normal random variables. \
+3. We seek to minimize the sum of squared errors, SSE.
+
 \newpage
 
 :::{.example}
@@ -113,7 +131,8 @@ model2 %>% tidy() %>%
   ) %>%
   kable(booktabs=T,digits=c(3,3,3,3), 
         caption = "SLR Model Estimating ERA22 Using FIP21",
-        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value"))
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
 ```
 
 ```{r}
@@ -128,7 +147,8 @@ model3 %>% tidy() %>%
   ) %>%
   kable(booktabs=T,digits=c(3,3,3,3), 
         caption = "SLR Model Estimating ERA22 Using FIP21",
-        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value"))
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
 ```
 
 \newpage
@@ -181,25 +201,22 @@ model1 %>% tidy() %>%
 
 \newpage
 
-(d) Build a MR model between runs scored and OPS, BA, OBP, and OPS.
+(d) Plot a scatterplot of R/G and OPS along with the SLR line of best fit and confidence intervals.
 
-```{r}
-# build MR model: R/G ~ OPS + BA + OBP + SLG
-model2 <- lm(R.G~OPS+BA+OBP+SLG,data=mlb22_off)
-
-# Nicely output regression information
-model2 %>% tidy() %>%
-  mutate(
-    p.value = scales::pvalue(p.value),
-    term = c("Intercept", "OPS","BA","OBP","SLG")
-  ) %>%
-  kable(booktabs=T,digits=c(3,3,3,3), 
-        caption = "MR Model Estimating Runs Per Game Using Team OPS, BA, OBP, SLG",
-        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
-  kable_styling(latex_options = "hold_position")
+```{r,warning=F,message=F}
+mlb22_off %>% ggplot(aes(x=OPS,y=R.G)) + geom_point() +
+  geom_smooth(method=lm , fill="gray", color="steelblue", se=TRUE) +
+  labs(title = "Runs Per Game vs. OPS",
+       subtitle = "2022 MLB Season | Teams",
+       caption = "Data: Baseball Reference", 
+       x = "On-Base Plus Slugging (OPS)",
+       y = "Runs Per Game (R/G)") +
+  theme_bw()
 ```
 
 \newpage
+
+
 
 (e) Use residual analysis to assess the model assumptions in the SLR model.
 
@@ -226,20 +243,27 @@ ggplot(residuals, aes(sample = y)) +
 
 \newpage
 
-(f) Plot a scatterplot of R/G and OPS along with the SLR line of best fit and confidence intervals.
+(f) Build a MR model between runs scored and OPS, BA, OBP, and OPS.
 
-```{r,warning=F,message=F}
-mlb22_off %>% ggplot(aes(x=OPS,y=R.G)) + geom_point() +
-  geom_smooth(method=lm , fill="gray", color="steelblue", se=TRUE) +
-  labs(title = "Runs Per Game vs. OPS",
-       subtitle = "2022 MLB Season | Teams",
-       caption = "Data: Baseball Reference", 
-       x = "On-Base Plus Slugging (OPS)",
-       y = "Runs Per Game (R/G)") +
-  theme_bw()
+```{r}
+# build MR model: R/G ~ OPS + BA + OBP + SLG
+model2 <- lm(R.G~OPS+BA+OBP+SLG,data=mlb22_off)
+
+# Nicely output regression information
+model2 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "OPS","BA","OBP","SLG")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "MR Model Estimating Runs Per Game Using Team OPS, BA, OBP, SLG",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
 ```
 
 \newpage
+
+
 
 :::{.example}
 Data for the MLB 2022 season including team WAR (wins above replacement) and team wins are contained in `mlb_2022_team_war.csv`. 
@@ -279,6 +303,7 @@ model %>% tidy() %>%
 (c) Plot a scatterplot along with the line of best fit.
 
 ```{r,warning=F,message=F}
+library(ggpubr)
 mlb22_war %>% ggplot(aes(x=WAR,y=Wins)) +
   geom_point() +
   geom_smooth(method="lm") + 
@@ -287,7 +312,8 @@ mlb22_war %>% ggplot(aes(x=WAR,y=Wins)) +
        subtitle = "2022 MLB Season | Teams",
        caption = "Data: Baseball Reference", 
        x = "Team WAR",
-       y = "Team Wins")
+       y = "Team Wins") +
+  theme_classic()
 ```
 \newpage
 
@@ -330,6 +356,212 @@ mlb22_war %>% filter(Team=="Colorado Rockies")
 
 \newpage
 
+:::{.example}
+Ken Griffey Jr. was a baseball hall of fame outfielder from 1989--2009. For each of his of his career, the number of at-bats per home run is record. This data is found in `griffey_hr.csv`. (From \textit{Analytic Methods in Sports})
+:::
+
+(a) Output this dataset to a kable table.
+
+```{r,warning=F,message=F}
+griffey <- read_csv("data/griffey_hr.csv")
+griffey <- griffey %>% mutate(Year = Year-1988,`AB/HR` = HR) %>% select(Year,`AB/HR`)
+griffey %>% kable(booktabs=T,digits=c(0,2))
+```
+
+\newpage
+
+(b) Fit a SLR model between HR/AB and Year. 
+
+```{r}
+model <- lm(`AB/HR`~Year,data=griffey)
+model %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "Year")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating AB/HR using Year",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+(c) Plot the SLR model and comment on the model fit.
+
+```{r,warning=F,message=F}
+griffey %>% ggplot(aes(x=Year,y=`AB/HR`)) +
+  geom_point() +
+  geom_smooth(method="lm") + 
+  stat_regline_equation(label.x.npc = 0.3,label.y.npc = 0.6) +
+  labs(title = "At-Bats per Home Run vs. Year",
+       subtitle = "Ken Griffey Jr.'s Career",
+       caption = "Data: Baseball Reference, Analytic Methods in Sports", 
+       x = "Team WAR",
+       y = "Team Wins") +
+  theme_classic()
+```
+
+\newpage
+
+(d) Plot the residuals as a function of fitted values for the SLR model. Is the linearity assumption appropriate?
+
+```{r}
+# Create a data frame with the residuals
+residuals <- data.frame(x = fitted(model), y = residuals(model))
+
+# Create a residual plot using ggplot2
+ggplot(residuals, aes(x, y)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Fitted values", y = "Residuals", title = "Residual plot")
+```
+
+\newpage
+
+(e) Repeat (b)-(c) using a quadratic model.
+
+```{r}
+model_quad <- lm(`AB/HR`~Year+I(Year^2),data=griffey)
+model_quad %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "Year","Year^2")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating AB/HR using Year",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+```{r}
+griffey %>% ggplot(aes(x=Year,y=`AB/HR`)) +
+  geom_point() +
+  geom_smooth(method="lm", formula = y ~ x + I(x^2)) + 
+  labs(title = "Ken Griffey Jr.'s Career",
+       subtitle = "At-Bats per Home Run vs. Year",
+       caption = "Data: Baseball Reference, Analytic Methods in Sports", 
+       x = "Year",
+       y = "At-Bats Per Home Run") +
+  theme_minimal()
+```
+
+\newpage
+
+:::{.example}
+For the 2011-2012 NHL season, data was collected for all forwards that played at least 60 games and average at least 6 minutes per game.
+:::
+
+(a) Create a kable table with the first ten entries.
+
+```{r,warning=F,message=F}
+nhl_toi <- read_csv("data/nhl_toi_11-12.csv")
+nhl_toi <- nhl_toi %>% mutate(PPG = P/GP)
+nhl_toi <- nhl_toi %>% column_to_rownames("Name")
+
+nhl_toi %>% slice(1:10) %>% kable(booktabs=T,digits=3)
+```
+
+\newpage
+
+(b) Fit a SLR model with Points Per Game (PPG) as the dependent variable and Time on Ice (TOI) as the independent variable.
+
+```{r}
+model <- lm(PPG~TOI,data=nhl_toi)
+model %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "TOI")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating Points Per Game Using Time on Ice",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+(c) Plot the SLR model and assess the quality of the model.
+
+```{r,message=F,warning=F}
+nhl_toi %>% ggplot(aes(x=TOI,y=PPG)) +
+  geom_point() +
+  geom_smooth(method="lm") + 
+  stat_regline_equation(label.x.npc = 0.3,label.y.npc = 0.6) +
+  labs(title = "Points Per Game vs. Time on Ice",
+       subtitle = "NHL Forwards | 2011-2012 Season",
+       caption = "Data: Analytic Methods in Sports", 
+       x = "Time on Ice (TOI)",
+       y = "Points Per Game (PPG)") +
+  theme_light()
+```
+
+\newpage
+
+(d) Generate a fitted values versus residuals plot and use it to determine the appropriateness of the linearity assumption.
+
+```{r}
+# Create a data frame with the residuals
+residuals <- data.frame(x = fitted(model), y = residuals(model))
+
+# Create a residual plot using ggplot2
+ggplot(residuals, aes(x, y)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Fitted values", y = "Residuals", title = "Residual plot")
+```
+\newpage
+
+(e) Log-transform PPG and refit the SLR model.
+
+```{r}
+nhl_toi <- nhl_toi %>% mutate(logPPG = log(PPG))
+model <- lm(logPPG~TOI,data=nhl_toi)
+model %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "TOI")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating Log Points Per Game Using Time on Ice",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+(f) Plot the log-transformed model. Does the model seem appropriate?
+
+```{r,warning=F,message=F}
+nhl_toi %>% ggplot(aes(x=TOI,y=logPPG)) +
+  geom_point() +
+  geom_smooth(method="lm",se=F) + 
+  labs(title = "Log Points Per Game vs. Time on Ice",
+       subtitle = "NHL Forwards | 2011-2012 Season",
+       caption = "Analytic Methods in Sports", 
+       x = "Time on Ice (TOI)",
+       y = "Points Per Game (logPPG)") +
+  theme_classic2() +
+  coord_trans(y = "exp")  +
+  scale_y_continuous(breaks=-3:1)
+```
+
+\newpage
+
+(d) Generate a fitted values versus residuals plot and use it to determine the appropriateness of the linearity assumption.
+
+```{r}
+# Create a data frame with the residuals
+residuals <- data.frame(x = fitted(model), y = residuals(model))
+
+# Create a residual plot using ggplot2
+ggplot(residuals, aes(x, y)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Fitted values", y = "Residuals", title = "Residual plot")
+```
 
 \newpage
 

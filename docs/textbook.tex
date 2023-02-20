@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2023-02-19}
+\date{2023-02-20}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -9756,6 +9756,33 @@ Macario, Catarina & M & 5 & 5 & 342 & 5 & 1 & 1 &  & 17 & 8\\
 \hypertarget{linear-regression}{%
 \chapter{Linear Regression}\label{linear-regression}}
 
+Linear regression is a statistical method for modeling a quantitative variable as a function of one or more quantitative variables. This method determines a ``line of best fit'' by minimizing the sum of squared errors.
+
+\begin{definition}
+A \textbf{\emph{simple linear regression model}}, \(\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x\), between a dependent variable \(y\) and an independent variable \(x\) is found by minimizing \(SSE=\sum(y_i-\hat{\beta}_0-\hat{\beta}_1x)^2\), where:\\
+
+\(\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}\) \hspace{0.1in} \(\hat{\beta}_1 = \frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{\sum(x_i-\bar{x})^2}\)\\
+
+\end{definition}
+
+\begin{definition}
+A \textbf{\emph{multiple linear regression model}}, \(\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_1 + \ldots \hat{\beta}_p x_p\), between a dependent variable \(y\) and an independent variables \(x_1, x_2, \ldots, x_p\) is found by minimizing \(SSE=\sum(y_i-\hat{\beta}_0-\hat{\beta}_1x_1-\hat{\beta}_2x_2- \ldots - -\hat{\beta}_px_p)^2\)\\
+
+\end{definition}
+
+We make a few assumptions when we fit these regression models:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The response variable can be modeled as a linear combination of the predictor variables (linearity in the parameters).\\
+\item
+  The errors are independent normal random variables.\\
+\item
+  We seek to minimize the sum of squared errors, SSE.
+\end{enumerate}
+
 \newpage
 
 \begin{example}
@@ -9921,11 +9948,12 @@ ERA21 & 0.129 & 0.049 & 2.644 & 0.008\\
 \NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }
         \AttributeTok{caption =} \StringTok{"SLR Model Estimating ERA22 Using FIP21"}\NormalTok{,}
-        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{))}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}
+\begin{table}[!h]
 
 \caption{\label{tab:unnamed-chunk-221}SLR Model Estimating ERA22 Using FIP21}
 \centering
@@ -9952,11 +9980,12 @@ FIP21 & 0.238 & 0.066 & 3.626 & <0.001\\
 \NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }
         \AttributeTok{caption =} \StringTok{"SLR Model Estimating ERA22 Using FIP21"}\NormalTok{,}
-        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{))}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}
+\begin{table}[!h]
 
 \caption{\label{tab:unnamed-chunk-222}SLR Model Estimating ERA22 Using FIP21}
 \centering
@@ -10107,43 +10136,23 @@ OPS & 11.509 & 0.686 & 16.771 & <0.001\\
 \setcounter{enumi}{3}
 \tightlist
 \item
-  Build a MR model between runs scored and OPS, BA, OBP, and OPS.
+  Plot a scatterplot of R/G and OPS along with the SLR line of best fit and confidence intervals.
 \end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# build MR model: R/G \textasciitilde{} OPS + BA + OBP + SLG}
-\NormalTok{model2 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(R.G}\SpecialCharTok{\textasciitilde{}}\NormalTok{OPS}\SpecialCharTok{+}\NormalTok{BA}\SpecialCharTok{+}\NormalTok{OBP}\SpecialCharTok{+}\NormalTok{SLG,}\AttributeTok{data=}\NormalTok{mlb22\_off)}
-
-\CommentTok{\# Nicely output regression information}
-\NormalTok{model2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}
-    \AttributeTok{p.value =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{pvalue}\NormalTok{(p.value),}
-    \AttributeTok{term =} \FunctionTok{c}\NormalTok{(}\StringTok{"Intercept"}\NormalTok{, }\StringTok{"OPS"}\NormalTok{,}\StringTok{"BA"}\NormalTok{,}\StringTok{"OBP"}\NormalTok{,}\StringTok{"SLG"}\NormalTok{)}
-\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }
-        \AttributeTok{caption =} \StringTok{"MR Model Estimating Runs Per Game Using Team OPS, BA, OBP, SLG"}\NormalTok{,}
-        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
+\NormalTok{mlb22\_off }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{OPS,}\AttributeTok{y=}\NormalTok{R.G)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\NormalTok{lm , }\AttributeTok{fill=}\StringTok{"gray"}\NormalTok{, }\AttributeTok{color=}\StringTok{"steelblue"}\NormalTok{, }\AttributeTok{se=}\ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Runs Per Game vs. OPS"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"2022 MLB Season | Teams"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"Data: Baseball Reference"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"On{-}Base Plus Slugging (OPS)"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Runs Per Game (R/G)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}[!h]
-
-\caption{\label{tab:unnamed-chunk-226}MR Model Estimating Runs Per Game Using Team OPS, BA, OBP, SLG}
-\centering
-\begin{tabular}[t]{lrrrl}
-\toprule
-Predictor & Estimate & Std Error & t stat & p-value\\
-\midrule
-Intercept & -4.054 & 0.642 & -6.312 & <0.001\\
-OPS & -49.862 & 61.599 & -0.809 & 0.426\\
-BA & -4.482 & 4.081 & -1.098 & 0.283\\
-OBP & 66.032 & 60.116 & 1.098 & 0.282\\
-SLG & 61.004 & 61.762 & 0.988 & 0.333\\
-\bottomrule
-\end{tabular}
-\end{table}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-226-1.pdf}
 
 \newpage
 
@@ -10191,23 +10200,43 @@ SLG & 61.004 & 61.762 & 0.988 & 0.333\\
 \setcounter{enumi}{5}
 \tightlist
 \item
-  Plot a scatterplot of R/G and OPS along with the SLR line of best fit and confidence intervals.
+  Build a MR model between runs scored and OPS, BA, OBP, and OPS.
 \end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mlb22\_off }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{OPS,}\AttributeTok{y=}\NormalTok{R.G)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\NormalTok{lm , }\AttributeTok{fill=}\StringTok{"gray"}\NormalTok{, }\AttributeTok{color=}\StringTok{"steelblue"}\NormalTok{, }\AttributeTok{se=}\ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Runs Per Game vs. OPS"}\NormalTok{,}
-       \AttributeTok{subtitle =} \StringTok{"2022 MLB Season | Teams"}\NormalTok{,}
-       \AttributeTok{caption =} \StringTok{"Data: Baseball Reference"}\NormalTok{, }
-       \AttributeTok{x =} \StringTok{"On{-}Base Plus Slugging (OPS)"}\NormalTok{,}
-       \AttributeTok{y =} \StringTok{"Runs Per Game (R/G)"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{theme\_bw}\NormalTok{()}
+\CommentTok{\# build MR model: R/G \textasciitilde{} OPS + BA + OBP + SLG}
+\NormalTok{model2 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(R.G}\SpecialCharTok{\textasciitilde{}}\NormalTok{OPS}\SpecialCharTok{+}\NormalTok{BA}\SpecialCharTok{+}\NormalTok{OBP}\SpecialCharTok{+}\NormalTok{SLG,}\AttributeTok{data=}\NormalTok{mlb22\_off)}
+
+\CommentTok{\# Nicely output regression information}
+\NormalTok{model2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{p.value =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{pvalue}\NormalTok{(p.value),}
+    \AttributeTok{term =} \FunctionTok{c}\NormalTok{(}\StringTok{"Intercept"}\NormalTok{, }\StringTok{"OPS"}\NormalTok{,}\StringTok{"BA"}\NormalTok{,}\StringTok{"OBP"}\NormalTok{,}\StringTok{"SLG"}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }
+        \AttributeTok{caption =} \StringTok{"MR Model Estimating Runs Per Game Using Team OPS, BA, OBP, SLG"}\NormalTok{,}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{textbook_files/figure-latex/unnamed-chunk-229-1.pdf}
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-229}MR Model Estimating Runs Per Game Using Team OPS, BA, OBP, SLG}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+Intercept & -4.054 & 0.642 & -6.312 & <0.001\\
+OPS & -49.862 & 61.599 & -0.809 & 0.426\\
+BA & -4.482 & 4.081 & -1.098 & 0.283\\
+OBP & 66.032 & 60.116 & 1.098 & 0.282\\
+SLG & 61.004 & 61.762 & 0.988 & 0.333\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \newpage
 
@@ -10327,6 +10356,7 @@ Team WAR & 1.022 & 0.055 & 18.630 & <0.001\\
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggpubr)}
 \NormalTok{mlb22\_war }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{WAR,}\AttributeTok{y=}\NormalTok{Wins)) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+} 
@@ -10335,7 +10365,8 @@ Team WAR & 1.022 & 0.055 & 18.630 & <0.001\\
        \AttributeTok{subtitle =} \StringTok{"2022 MLB Season | Teams"}\NormalTok{,}
        \AttributeTok{caption =} \StringTok{"Data: Baseball Reference"}\NormalTok{, }
        \AttributeTok{x =} \StringTok{"Team WAR"}\NormalTok{,}
-       \AttributeTok{y =} \StringTok{"Team Wins"}\NormalTok{)}
+       \AttributeTok{y =} \StringTok{"Team Wins"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_classic}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -10417,6 +10448,430 @@ Team WAR & 1.022 & 0.055 & 18.630 & <0.001\\
 \end{verbatim}
 
 \newpage
+
+\begin{example}
+Ken Griffey Jr.~was a baseball hall of fame outfielder from 1989--2009. For each of his of his career, the number of at-bats per home run is record. This data is found in \texttt{griffey\_hr.csv}. (From \textit{Analytic Methods in Sports})
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Output this dataset to a kable table.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{griffey }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/griffey\_hr.csv"}\NormalTok{)}
+\NormalTok{griffey }\OtherTok{\textless{}{-}}\NormalTok{ griffey }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Year =}\NormalTok{ Year}\DecValTok{{-}1988}\NormalTok{,}\StringTok{\textasciigrave{}}\AttributeTok{AB/HR}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ HR) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(Year,}\StringTok{\textasciigrave{}}\AttributeTok{AB/HR}\StringTok{\textasciigrave{}}\NormalTok{)}
+\NormalTok{griffey }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{rr}
+\toprule
+Year & AB/HR\\
+\midrule
+1 & 3.52\\
+2 & 3.69\\
+3 & 4.01\\
+4 & 4.78\\
+5 & 7.73\\
+\addlinespace
+6 & 9.24\\
+7 & 6.54\\
+8 & 8.99\\
+9 & 9.21\\
+10 & 8.85\\
+\addlinespace
+11 & 7.92\\
+12 & 7.69\\
+13 & 6.04\\
+14 & 4.06\\
+15 & 7.83\\
+\addlinespace
+16 & 6.67\\
+17 & 7.13\\
+18 & 6.31\\
+19 & 5.68\\
+20 & 3.67\\
+\addlinespace
+21 & 4.91\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Fit a SLR model between HR/AB and Year.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{AB/HR}\StringTok{\textasciigrave{}}\SpecialCharTok{\textasciitilde{}}\NormalTok{Year,}\AttributeTok{data=}\NormalTok{griffey)}
+\NormalTok{model }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{p.value =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{pvalue}\NormalTok{(p.value),}
+    \AttributeTok{term =} \FunctionTok{c}\NormalTok{(}\StringTok{"Intercept"}\NormalTok{, }\StringTok{"Year"}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }
+        \AttributeTok{caption =} \StringTok{"SLR Model Estimating AB/HR using Year"}\NormalTok{,}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-237}SLR Model Estimating AB/HR using Year}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+Intercept & 6.342 & 0.910 & 6.969 & <0.001\\
+Year & 0.006 & 0.072 & 0.077 & 0.940\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Plot the SLR model and comment on the model fit.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{griffey }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year,}\AttributeTok{y=}\StringTok{\textasciigrave{}}\AttributeTok{AB/HR}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{stat\_regline\_equation}\NormalTok{(}\AttributeTok{label.x.npc =} \FloatTok{0.3}\NormalTok{,}\AttributeTok{label.y.npc =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"At{-}Bats per Home Run vs. Year"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Ken Griffey Jr.\textquotesingle{}s Career"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"Data: Baseball Reference, Analytic Methods in Sports"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Team WAR"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Team Wins"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_classic}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-238-1.pdf}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Plot the residuals as a function of fitted values for the SLR model. Is the linearity assumption appropriate?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a data frame with the residuals}
+\NormalTok{residuals }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{fitted}\NormalTok{(model), }\AttributeTok{y =} \FunctionTok{residuals}\NormalTok{(model))}
+
+\CommentTok{\# Create a residual plot using ggplot2}
+\FunctionTok{ggplot}\NormalTok{(residuals, }\FunctionTok{aes}\NormalTok{(x, y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Fitted values"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Residuals"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Residual plot"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-239-1.pdf}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Repeat (b)-(c) using a quadratic model.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_quad }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{AB/HR}\StringTok{\textasciigrave{}}\SpecialCharTok{\textasciitilde{}}\NormalTok{Year}\SpecialCharTok{+}\FunctionTok{I}\NormalTok{(Year}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{),}\AttributeTok{data=}\NormalTok{griffey)}
+\NormalTok{model\_quad }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{p.value =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{pvalue}\NormalTok{(p.value),}
+    \AttributeTok{term =} \FunctionTok{c}\NormalTok{(}\StringTok{"Intercept"}\NormalTok{, }\StringTok{"Year"}\NormalTok{,}\StringTok{"Year\^{}2"}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }
+        \AttributeTok{caption =} \StringTok{"SLR Model Estimating AB/HR using Year"}\NormalTok{,}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-240}SLR Model Estimating AB/HR using Year}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+Intercept & 2.693 & 1.005 & 2.680 & 0.015\\
+Year & 0.957 & 0.210 & 4.549 & <0.001\\
+Year\textasciicircum{}2 & -0.043 & 0.009 & -4.657 & <0.001\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{griffey }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year,}\AttributeTok{y=}\StringTok{\textasciigrave{}}\AttributeTok{AB/HR}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{, }\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(x}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Ken Griffey Jr.\textquotesingle{}s Career"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"At{-}Bats per Home Run vs. Year"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"Data: Baseball Reference, Analytic Methods in Sports"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Year"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"At{-}Bats Per Home Run"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-241-1.pdf}
+
+\newpage
+
+\begin{example}
+For the 2011-2012 NHL season, data was collected for all forwards that played at least 60 games and average at least 6 minutes per game.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Create a kable table with the first ten entries.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nhl\_toi }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/nhl\_toi\_11{-}12.csv"}\NormalTok{)}
+\NormalTok{nhl\_toi }\OtherTok{\textless{}{-}}\NormalTok{ nhl\_toi }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{PPG =}\NormalTok{ P}\SpecialCharTok{/}\NormalTok{GP)}
+\NormalTok{nhl\_toi }\OtherTok{\textless{}{-}}\NormalTok{ nhl\_toi }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{column\_to\_rownames}\NormalTok{(}\StringTok{"Name"}\NormalTok{)}
+
+\NormalTok{nhl\_toi }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrrrr}
+\toprule
+  & GP & P & TOI & PPG\\
+\midrule
+Daniel Winnik & 84 & 23 & 16.700 & 0.274\\
+Cody Hodgson & 83 & 41 & 13.817 & 0.494\\
+Steven Stamkos & 82 & 97 & 22.017 & 1.183\\
+Ryan Getzlaf & 82 & 57 & 21.600 & 0.695\\
+Eric Staal & 82 & 70 & 21.550 & 0.854\\
+\addlinespace
+Zach Parise & 82 & 69 & 21.483 & 0.841\\
+Anze Kopitar & 82 & 76 & 21.333 & 0.927\\
+Dany Heatley & 82 & 53 & 20.950 & 0.646\\
+Joe Pavelski & 82 & 61 & 20.617 & 0.744\\
+Jarome Iginla & 82 & 67 & 20.600 & 0.817\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Fit a SLR model with Points Per Game (PPG) as the dependent variable and Time on Ice (TOI) as the independent variable.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(PPG}\SpecialCharTok{\textasciitilde{}}\NormalTok{TOI,}\AttributeTok{data=}\NormalTok{nhl\_toi)}
+\NormalTok{model }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{p.value =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{pvalue}\NormalTok{(p.value),}
+    \AttributeTok{term =} \FunctionTok{c}\NormalTok{(}\StringTok{"Intercept"}\NormalTok{, }\StringTok{"TOI"}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }
+        \AttributeTok{caption =} \StringTok{"SLR Model Estimating Points Per Game Using Time on Ice"}\NormalTok{,}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-243}SLR Model Estimating Points Per Game Using Time on Ice}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+Intercept & -0.505 & 0.037 & -13.503 & <0.001\\
+TOI & 0.064 & 0.002 & 27.622 & <0.001\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Plot the SLR model and assess the quality of the model.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nhl\_toi }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{TOI,}\AttributeTok{y=}\NormalTok{PPG)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{stat\_regline\_equation}\NormalTok{(}\AttributeTok{label.x.npc =} \FloatTok{0.3}\NormalTok{,}\AttributeTok{label.y.npc =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Points Per Game vs. Time on Ice"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"NHL Forwards | 2011{-}2012 Season"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"Data: Analytic Methods in Sports"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Time on Ice (TOI)"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Points Per Game (PPG)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_light}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-244-1.pdf}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Generate a fitted values versus residuals plot and use it to determine the appropriateness of the linearity assumption.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a data frame with the residuals}
+\NormalTok{residuals }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{fitted}\NormalTok{(model), }\AttributeTok{y =} \FunctionTok{residuals}\NormalTok{(model))}
+
+\CommentTok{\# Create a residual plot using ggplot2}
+\FunctionTok{ggplot}\NormalTok{(residuals, }\FunctionTok{aes}\NormalTok{(x, y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Fitted values"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Residuals"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Residual plot"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-245-1.pdf}
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Log-transform PPG and refit the SLR model.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nhl\_toi }\OtherTok{\textless{}{-}}\NormalTok{ nhl\_toi }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{logPPG =} \FunctionTok{log}\NormalTok{(PPG))}
+\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(logPPG}\SpecialCharTok{\textasciitilde{}}\NormalTok{TOI,}\AttributeTok{data=}\NormalTok{nhl\_toi)}
+\NormalTok{model }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{p.value =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{pvalue}\NormalTok{(p.value),}
+    \AttributeTok{term =} \FunctionTok{c}\NormalTok{(}\StringTok{"Intercept"}\NormalTok{, }\StringTok{"TOI"}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }
+        \AttributeTok{caption =} \StringTok{"SLR Model Estimating Log Points Per Game Using Time on Ice"}\NormalTok{,}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-246}SLR Model Estimating Log Points Per Game Using Time on Ice}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+Intercept & -3.39 & 0.089 & -38.157 & <0.001\\
+TOI & 0.16 & 0.005 & 29.191 & <0.001\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Plot the log-transformed model. Does the model seem appropriate?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nhl\_toi }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{TOI,}\AttributeTok{y=}\NormalTok{logPPG)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{,}\AttributeTok{se=}\NormalTok{F) }\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Log Points Per Game vs. Time on Ice"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"NHL Forwards | 2011{-}2012 Season"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"Analytic Methods in Sports"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Time on Ice (TOI)"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Points Per Game (logPPG)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_classic2}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_trans}\NormalTok{(}\AttributeTok{y =} \StringTok{"exp"}\NormalTok{)  }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks=}\SpecialCharTok{{-}}\DecValTok{3}\SpecialCharTok{:}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-247-1.pdf}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Generate a fitted values versus residuals plot and use it to determine the appropriateness of the linearity assumption.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a data frame with the residuals}
+\NormalTok{residuals }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{fitted}\NormalTok{(model), }\AttributeTok{y =} \FunctionTok{residuals}\NormalTok{(model))}
+
+\CommentTok{\# Create a residual plot using ggplot2}
+\FunctionTok{ggplot}\NormalTok{(residuals, }\FunctionTok{aes}\NormalTok{(x, y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Fitted values"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Residuals"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Residual plot"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-248-1.pdf}
 
 \newpage
 
