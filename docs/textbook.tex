@@ -7848,32 +7848,32 @@ Simulate three sets of Bernoulli trials (zeros and ones) of length 10000. One da
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Look at first 20 values of each sequence}
-\NormalTok{corr\_none[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{20}\NormalTok{]}
+\NormalTok{corr\_none[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{30}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 1 1 1 1 1 1 1 0 1 1 0 1 1 0 0 1 1 0 1 0
+##  [1] 1 1 1 1 1 1 1 0 1 1 0 1 1 0 0 1 1 0 1 0 0 1 1 0 0 0 0 1 1 1
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{corr\_pos[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{20}\NormalTok{]}
+\NormalTok{corr\_pos[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{30}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 0 1 0 1 0 1 0 0 0 1 0 1 0 0 1 0 0 1 0 1
+##  [1] 0 0 0 0 1 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 1 1 1 1 1 0 0 1 1 1
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{corr\_neg[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{20}\NormalTok{]}
+\NormalTok{corr\_neg[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{30}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 0 0 0 0 0 0 0 0 0 0 1 0 1 1 1 1 1 1 0 0
+##  [1] 0 1 0 1 1 1 0 0 1 0 1 0 1 0 1 1 0 1 0 1 1 0 1 0 1 0 0 0 1 0
 \end{verbatim}
 
 \begin{Shaded}
@@ -7884,7 +7884,7 @@ Simulate three sets of Bernoulli trials (zeros and ones) of length 10000. One da
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.5068 0.4974 0.4858
+## [1] 0.5068 0.5001 0.5006
 \end{verbatim}
 
 Note that all three sequences have approximately equal probability of 1 and 0, however, the serial correlation differs between them.
@@ -10450,7 +10450,7 @@ Team WAR & 1.022 & 0.055 & 18.630 & <0.001\\
 \newpage
 
 \begin{example}
-Ken Griffey Jr.~was a baseball hall of fame outfielder from 1989--2009. For each of his of his career, the number of at-bats per home run is record. This data is found in \texttt{griffey\_hr.csv}. (From \textit{Analytic Methods in Sports})
+Ken Griffey Jr.~was a baseball hall of fame outfielder from 1989--2009. For each of his of his career, the number of home runs per 100 at-bats is record. This data is found in \texttt{griffey\_hr.csv}. (From \textit{Analytic Methods in Sports})
 \end{example}
 
 \begin{enumerate}
@@ -10519,7 +10519,7 @@ Year & AB/HR\\
     \AttributeTok{term =} \FunctionTok{c}\NormalTok{(}\StringTok{"Intercept"}\NormalTok{, }\StringTok{"Year"}\NormalTok{)}
 \NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }
-        \AttributeTok{caption =} \StringTok{"SLR Model Estimating AB/HR using Year"}\NormalTok{,}
+        \AttributeTok{caption =} \StringTok{"SLR Model Estimating HR/100AB using Year"}\NormalTok{,}
         \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
 \end{Highlighting}
@@ -10527,7 +10527,7 @@ Year & AB/HR\\
 
 \begin{table}[!h]
 
-\caption{\label{tab:unnamed-chunk-237}SLR Model Estimating AB/HR using Year}
+\caption{\label{tab:unnamed-chunk-237}SLR Model Estimating HR/100AB using Year}
 \centering
 \begin{tabular}[t]{lrrrl}
 \toprule
@@ -10555,7 +10555,7 @@ Year & 0.006 & 0.072 & 0.077 & 0.940\\
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+} 
   \FunctionTok{stat\_regline\_equation}\NormalTok{(}\AttributeTok{label.x.npc =} \FloatTok{0.3}\NormalTok{,}\AttributeTok{label.y.npc =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"At{-}Bats per Home Run vs. Year"}\NormalTok{,}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Home Runs Per 100 At{-}Bats vs. Year"}\NormalTok{,}
        \AttributeTok{subtitle =} \StringTok{"Ken Griffey Jr.\textquotesingle{}s Career"}\NormalTok{,}
        \AttributeTok{caption =} \StringTok{"Data: Baseball Reference, Analytic Methods in Sports"}\NormalTok{, }
        \AttributeTok{x =} \StringTok{"Team WAR"}\NormalTok{,}
@@ -10639,10 +10639,10 @@ Year\textasciicircum{}2 & -0.043 & 0.009 & -4.657 & <0.001\\
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{, }\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(x}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{+} 
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Ken Griffey Jr.\textquotesingle{}s Career"}\NormalTok{,}
-       \AttributeTok{subtitle =} \StringTok{"At{-}Bats per Home Run vs. Year"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Home Runs Per 100 At{-}Bats vs. Year"}\NormalTok{,}
        \AttributeTok{caption =} \StringTok{"Data: Baseball Reference, Analytic Methods in Sports"}\NormalTok{, }
        \AttributeTok{x =} \StringTok{"Year"}\NormalTok{,}
-       \AttributeTok{y =} \StringTok{"At{-}Bats Per Home Run"}\NormalTok{) }\SpecialCharTok{+}
+       \AttributeTok{y =} \StringTok{"Home Runs Per 100 At{-}Bats"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_minimal}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}

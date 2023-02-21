@@ -357,7 +357,7 @@ mlb22_war %>% filter(Team=="Colorado Rockies")
 \newpage
 
 :::{.example}
-Ken Griffey Jr. was a baseball hall of fame outfielder from 1989--2009. For each of his of his career, the number of at-bats per home run is record. This data is found in `griffey_hr.csv`. (From \textit{Analytic Methods in Sports})
+Ken Griffey Jr. was a baseball hall of fame outfielder from 1989--2009. For each of his of his career, the number of home runs per 100 at-bats is record. This data is found in `griffey_hr.csv`. (From \textit{Analytic Methods in Sports})
 :::
 
 (a) Output this dataset to a kable table.
@@ -380,7 +380,7 @@ model %>% tidy() %>%
     term = c("Intercept", "Year")
   ) %>%
   kable(booktabs=T,digits=c(3,3,3,3), 
-        caption = "SLR Model Estimating AB/HR using Year",
+        caption = "SLR Model Estimating HR/100AB using Year",
         col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
   kable_styling(latex_options = "hold_position")
 ```
@@ -394,7 +394,7 @@ griffey %>% ggplot(aes(x=Year,y=`AB/HR`)) +
   geom_point() +
   geom_smooth(method="lm") + 
   stat_regline_equation(label.x.npc = 0.3,label.y.npc = 0.6) +
-  labs(title = "At-Bats per Home Run vs. Year",
+  labs(title = "Home Runs Per 100 At-Bats vs. Year",
        subtitle = "Ken Griffey Jr.'s Career",
        caption = "Data: Baseball Reference, Analytic Methods in Sports", 
        x = "Team WAR",
@@ -441,10 +441,10 @@ griffey %>% ggplot(aes(x=Year,y=`AB/HR`)) +
   geom_point() +
   geom_smooth(method="lm", formula = y ~ x + I(x^2)) + 
   labs(title = "Ken Griffey Jr.'s Career",
-       subtitle = "At-Bats per Home Run vs. Year",
+       subtitle = "Home Runs Per 100 At-Bats vs. Year",
        caption = "Data: Baseball Reference, Analytic Methods in Sports", 
        x = "Year",
-       y = "At-Bats Per Home Run") +
+       y = "Home Runs Per 100 At-Bats") +
   theme_minimal()
 ```
 

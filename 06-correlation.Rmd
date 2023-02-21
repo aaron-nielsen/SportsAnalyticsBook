@@ -594,9 +594,9 @@ for(i in 1:10000){
 
 ```{r}
 # Look at first 20 values of each sequence
-corr_none[1:20]
-corr_pos[1:20]
-corr_neg[1:20]
+corr_none[1:30]
+corr_pos[1:30]
+corr_neg[1:30]
 
 # Calculate mean of each sequence
 c(mean(corr_none),mean(corr_pos),mean(corr_neg))
