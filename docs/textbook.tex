@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2023-02-20}
+\date{2023-02-27}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -9785,6 +9785,9 @@ We make a few assumptions when we fit these regression models:
 
 \newpage
 
+\hypertarget{simple-linear-regression}{%
+\section{Simple Linear Regression}\label{simple-linear-regression}}
+
 \begin{example}
 Download individual MLB pitching statistics for the 2021 and 2022 seasons. Use these datasets to build simple linear regression models with 2022 season ERA as the dependent variable and 2021 season ERA and FIP as the independent variables.
 \end{example}
@@ -10200,7 +10203,7 @@ OPS & 11.509 & 0.686 & 16.771 & <0.001\\
 \setcounter{enumi}{5}
 \tightlist
 \item
-  Build a MR model between runs scored and OPS, BA, OBP, and OPS.
+  Build a MR model between runs scored and SLG, BA, OBP, and OPS.
 \end{enumerate}
 
 \begin{Shaded}
@@ -10373,6 +10376,11 @@ Team WAR & 1.022 & 0.055 & 18.630 & <0.001\\
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-232-1.pdf}
 \newpage
 
+\hypertarget{residual-analysis}{%
+\section{Residual Analysis}\label{residual-analysis}}
+
+It is important to check model assumptions. If assumptions are violated, then our inferences may be flawed.
+
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
 \setcounter{enumi}{3}
@@ -10449,6 +10457,9 @@ Team WAR & 1.022 & 0.055 & 18.630 & <0.001\\
 
 \newpage
 
+\hypertarget{polynomial-regression}{%
+\section{Polynomial Regression}\label{polynomial-regression}}
+
 \begin{example}
 Ken Griffey Jr.~was a baseball hall of fame outfielder from 1989--2009. For each of his of his career, the number of home runs per 100 at-bats is record. This data is found in \texttt{griffey\_hr.csv}. (From \textit{Analytic Methods in Sports})
 \end{example}
@@ -10463,14 +10474,14 @@ Ken Griffey Jr.~was a baseball hall of fame outfielder from 1989--2009. For each
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{griffey }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/griffey\_hr.csv"}\NormalTok{)}
-\NormalTok{griffey }\OtherTok{\textless{}{-}}\NormalTok{ griffey }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Year =}\NormalTok{ Year}\DecValTok{{-}1988}\NormalTok{,}\StringTok{\textasciigrave{}}\AttributeTok{AB/HR}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ HR) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(Year,}\StringTok{\textasciigrave{}}\AttributeTok{AB/HR}\StringTok{\textasciigrave{}}\NormalTok{)}
+\NormalTok{griffey }\OtherTok{\textless{}{-}}\NormalTok{ griffey }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Year =}\NormalTok{ Year}\DecValTok{{-}1988}\NormalTok{,}\StringTok{\textasciigrave{}}\AttributeTok{HR/100AB}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ HR) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(Year,}\StringTok{\textasciigrave{}}\AttributeTok{HR/100AB}\StringTok{\textasciigrave{}}\NormalTok{)}
 \NormalTok{griffey }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{tabular}{rr}
 \toprule
-Year & AB/HR\\
+Year & HR/100AB\\
 \midrule
 1 & 3.52\\
 2 & 3.69\\
@@ -10512,7 +10523,7 @@ Year & AB/HR\\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{AB/HR}\StringTok{\textasciigrave{}}\SpecialCharTok{\textasciitilde{}}\NormalTok{Year,}\AttributeTok{data=}\NormalTok{griffey)}
+\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{HR/100AB}\StringTok{\textasciigrave{}}\SpecialCharTok{\textasciitilde{}}\NormalTok{Year,}\AttributeTok{data=}\NormalTok{griffey)}
 \NormalTok{model }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}
     \AttributeTok{p.value =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{pvalue}\NormalTok{(p.value),}
@@ -10551,15 +10562,15 @@ Year & 0.006 & 0.072 & 0.077 & 0.940\\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{griffey }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year,}\AttributeTok{y=}\StringTok{\textasciigrave{}}\AttributeTok{AB/HR}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
+\NormalTok{griffey }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year,}\AttributeTok{y=}\StringTok{\textasciigrave{}}\AttributeTok{HR/100AB}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+} 
   \FunctionTok{stat\_regline\_equation}\NormalTok{(}\AttributeTok{label.x.npc =} \FloatTok{0.3}\NormalTok{,}\AttributeTok{label.y.npc =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Home Runs Per 100 At{-}Bats vs. Year"}\NormalTok{,}
        \AttributeTok{subtitle =} \StringTok{"Ken Griffey Jr.\textquotesingle{}s Career"}\NormalTok{,}
        \AttributeTok{caption =} \StringTok{"Data: Baseball Reference, Analytic Methods in Sports"}\NormalTok{, }
-       \AttributeTok{x =} \StringTok{"Team WAR"}\NormalTok{,}
-       \AttributeTok{y =} \StringTok{"Team Wins"}\NormalTok{) }\SpecialCharTok{+}
+       \AttributeTok{x =} \StringTok{"Year"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Home Runs per 100 AB"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_classic}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -10603,14 +10614,14 @@ Year & 0.006 & 0.072 & 0.077 & 0.940\\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{model\_quad }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{AB/HR}\StringTok{\textasciigrave{}}\SpecialCharTok{\textasciitilde{}}\NormalTok{Year}\SpecialCharTok{+}\FunctionTok{I}\NormalTok{(Year}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{),}\AttributeTok{data=}\NormalTok{griffey)}
+\NormalTok{model\_quad }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{HR/100AB}\StringTok{\textasciigrave{}}\SpecialCharTok{\textasciitilde{}}\NormalTok{Year}\SpecialCharTok{+}\FunctionTok{I}\NormalTok{(Year}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{),}\AttributeTok{data=}\NormalTok{griffey)}
 \NormalTok{model\_quad }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}
     \AttributeTok{p.value =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{pvalue}\NormalTok{(p.value),}
     \AttributeTok{term =} \FunctionTok{c}\NormalTok{(}\StringTok{"Intercept"}\NormalTok{, }\StringTok{"Year"}\NormalTok{,}\StringTok{"Year\^{}2"}\NormalTok{)}
 \NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }
-        \AttributeTok{caption =} \StringTok{"SLR Model Estimating AB/HR using Year"}\NormalTok{,}
+        \AttributeTok{caption =} \StringTok{"SLR Model Estimating Home Runs per 100 At{-}Bats using Year"}\NormalTok{,}
         \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
 \end{Highlighting}
@@ -10618,7 +10629,7 @@ Year & 0.006 & 0.072 & 0.077 & 0.940\\
 
 \begin{table}[!h]
 
-\caption{\label{tab:unnamed-chunk-240}SLR Model Estimating AB/HR using Year}
+\caption{\label{tab:unnamed-chunk-240}SLR Model Estimating Home Runs per 100 At-Bats using Year}
 \centering
 \begin{tabular}[t]{lrrrl}
 \toprule
@@ -10635,7 +10646,7 @@ Year\textasciicircum{}2 & -0.043 & 0.009 & -4.657 & <0.001\\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{griffey }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year,}\AttributeTok{y=}\StringTok{\textasciigrave{}}\AttributeTok{AB/HR}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
+\NormalTok{griffey }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year,}\AttributeTok{y=}\StringTok{\textasciigrave{}}\AttributeTok{HR/100AB}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{, }\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(x}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{+} 
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Ken Griffey Jr.\textquotesingle{}s Career"}\NormalTok{,}
@@ -10650,6 +10661,11 @@ Year\textasciicircum{}2 & -0.043 & 0.009 & -4.657 & <0.001\\
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-241-1.pdf}
 
 \newpage
+
+\hypertarget{variable-transformations}{%
+\section{Variable Transformations}\label{variable-transformations}}
+
+Sometimes a variable transformation (either predictor or response) may be necessary to meet our model assumptions.
 
 \begin{example}
 For the 2011-2012 NHL season, data was collected for all forwards that played at least 60 games and average at least 6 minutes per game.
@@ -10689,8 +10705,6 @@ Joe Pavelski & 82 & 61 & 20.617 & 0.744\\
 Jarome Iginla & 82 & 67 & 20.600 & 0.817\\
 \bottomrule
 \end{tabular}
-
-\newpage
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -10852,7 +10866,7 @@ TOI & 0.16 & 0.005 & 29.191 & <0.001\\
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{3}
+\setcounter{enumi}{6}
 \tightlist
 \item
   Generate a fitted values versus residuals plot and use it to determine the appropriateness of the linearity assumption.
@@ -10875,70 +10889,253 @@ TOI & 0.16 & 0.005 & 29.191 & <0.001\\
 
 \newpage
 
-\hypertarget{simple-linear-regression}{%
-\section{Simple Linear Regression}\label{simple-linear-regression}}
+\hypertarget{multiple-regression-and-model-selection}{%
+\section{Multiple Regression and Model Selection}\label{multiple-regression-and-model-selection}}
 
-(AM, page 162, OPS vs runs scored)
+Suppose we want to build a multiple regression model with a number of predictor variables. Which predictor variables should we include in our model?
 
-\hypertarget{pythagorean-records}{%
-\subsection{Pythagorean Records}\label{pythagorean-records}}
+There are many ways to do model selection. We will focus on all
 
-(Mathletics, chapter 1, page 13)
-(Mathletics, chapter 41, page 385)
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rvest)}
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{"https://www.baseball{-}reference.com/leagues/majors/2022.shtml"}
+\NormalTok{site }\OtherTok{\textless{}{-}} \FunctionTok{read\_html}\NormalTok{(url)}
+\NormalTok{raw\_data }\OtherTok{\textless{}{-}}\NormalTok{ site }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{html\_elements}\NormalTok{(}\StringTok{"\#teams\_standard\_batting"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{html\_table}\NormalTok{()}
+\NormalTok{raw\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
 
-\hypertarget{regression-to-the-mean}{%
-\subsection{Regression to the Mean}\label{regression-to-the-mean}}
+\begin{tabular}{llllllllll}
+\toprule
+Tm & X.Bat & BatAge & R.G & G & PA & AB & R & H & X2B\\
+\midrule
+Arizona Diamondbacks & 57 & 26.5 & 4.33 & 162 & 6027 & 5351 & 702 & 1232 & 262\\
+Atlanta Braves & 53 & 27.5 & 4.87 & 162 & 6082 & 5509 & 789 & 1394 & 298\\
+Baltimore Orioles & 58 & 27.0 & 4.16 & 162 & 6049 & 5429 & 674 & 1281 & 275\\
+Boston Red Sox & 54 & 28.8 & 4.54 & 162 & 6144 & 5539 & 735 & 1427 & 352\\
+Chicago Cubs & 64 & 27.9 & 4.06 & 162 & 6072 & 5425 & 657 & 1293 & 265\\
+\bottomrule
+\end{tabular}
 
-(Rushing Yards, Batting Average, Rank in Goals)
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# convert from character to numeric}
+\NormalTok{mlb\_2022 }\OtherTok{\textless{}{-}}\NormalTok{ raw\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate\_if}\NormalTok{(is.character, as.numeric)}
 
-\hypertarget{variable-transformations}{%
-\section{Variable Transformations}\label{variable-transformations}}
+\CommentTok{\# remove some unnecessary columns}
+\NormalTok{mlb\_2022 }\OtherTok{\textless{}{-}}\NormalTok{ mlb\_2022 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Tm,}\SpecialCharTok{{-}}\NormalTok{X.Bat,}\SpecialCharTok{{-}}\NormalTok{BatAge,}\SpecialCharTok{{-}}\NormalTok{G,}\SpecialCharTok{{-}}\NormalTok{R,}\SpecialCharTok{{-}}\NormalTok{AB,}\SpecialCharTok{{-}}\NormalTok{PA,}\SpecialCharTok{{-}}\NormalTok{OPS.,}\SpecialCharTok{{-}}\NormalTok{RBI,}\SpecialCharTok{{-}}\NormalTok{IBB) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{30}\NormalTok{)}
+\NormalTok{mlb\_2022 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
 
-\hypertarget{draft-pick-values}{%
-\subsection{Draft Pick Values}\label{draft-pick-values}}
+\begin{tabular}{rrrrrrrrrr}
+\toprule
+R.G & H & X2B & X3B & HR & SB & CS & BB & SO & BA\\
+\midrule
+4.33 & 1232 & 262 & 24 & 173 & 104 & 29 & 531 & 1341 & 0.230\\
+4.87 & 1394 & 298 & 11 & 243 & 87 & 31 & 470 & 1498 & 0.253\\
+4.16 & 1281 & 275 & 25 & 171 & 95 & 31 & 476 & 1390 & 0.236\\
+4.54 & 1427 & 352 & 12 & 155 & 52 & 20 & 478 & 1373 & 0.258\\
+4.06 & 1293 & 265 & 31 & 159 & 111 & 37 & 507 & 1448 & 0.238\\
+\bottomrule
+\end{tabular}
 
-(Mathletics, chapter 26, page 222)
+\newpage
 
-\hypertarget{multiple-linear-regression}{%
-\section{Multiple Linear Regression}\label{multiple-linear-regression}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model1 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(R.G}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}\AttributeTok{data=}\NormalTok{mlb\_2022)}
+\NormalTok{model1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{p.value =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{pvalue}\NormalTok{(p.value)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }
+        \AttributeTok{caption =} \StringTok{"MR Model Estimating Runs Per Game Using Multiple Variables"}\NormalTok{,}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-\hypertarget{four-factors-and-winning}{%
-\subsection{Four Factors and Winning}\label{four-factors-and-winning}}
+\begin{table}[!h]
 
-(Mathletics, chapter 28, page 250)
+\caption{\label{tab:unnamed-chunk-251}MR Model Estimating Runs Per Game Using Multiple Variables}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+(Intercept) & 0.754 & 1.519 & 0.496 & 0.629\\
+H & 0.012 & 0.003 & 4.147 & 0.001\\
+X2B & 0.002 & 0.005 & 0.436 & 0.671\\
+X3B & 0.003 & 0.013 & 0.260 & 0.799\\
+HR & 0.006 & 0.016 & 0.387 & 0.706\\
+\addlinespace
+SB & 0.000 & 0.001 & -0.281 & 0.784\\
+CS & -0.002 & 0.003 & -0.577 & 0.574\\
+BB & 0.003 & 0.003 & 0.968 & 0.352\\
+SO & 0.000 & 0.000 & -0.303 & 0.767\\
+BA & -52.967 & 35.927 & -1.474 & 0.166\\
+\addlinespace
+OBP & 36.428 & 39.670 & 0.918 & 0.377\\
+SLG & 8.699 & 51.196 & 0.170 & 0.868\\
+OPS & -16.641 & 35.971 & -0.463 & 0.652\\
+TB & NA & NA & NA & NA\\
+GDP & -0.004 & 0.001 & -4.588 & <0.001\\
+\addlinespace
+HBP & 0.003 & 0.003 & 1.091 & 0.297\\
+SH & 0.002 & 0.002 & 1.412 & 0.183\\
+SF & 0.008 & 0.002 & 3.300 & 0.006\\
+LOB & -0.005 & 0.001 & -7.013 & <0.001\\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\hypertarget{linear-weights-in-baseball}{%
-\subsection{Linear Weights in Baseball}\label{linear-weights-in-baseball}}
+\newpage
 
-(Mathletics, chapter 3, page 18)
+\hypertarget{model-selection-using-bic}{%
+\subsection{Model Selection using BIC}\label{model-selection-using-bic}}
 
-\hypertarget{pass-air-yards-regression}{%
-\subsection{Pass Air Yards Regression}\label{pass-air-yards-regression}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(leaps)}
+\NormalTok{regsubsets.out }\OtherTok{\textless{}{-}}
+    \FunctionTok{regsubsets}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{R.G}\StringTok{\textasciigrave{}}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}
+               \AttributeTok{data =}\NormalTok{ mlb\_2022,}
+               \AttributeTok{nbest =} \DecValTok{1}\NormalTok{,}
+               \AttributeTok{nvmax =} \DecValTok{10}\NormalTok{,}
+               \AttributeTok{method =} \StringTok{"exhaustive"}\NormalTok{)}
+\NormalTok{summary.out }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(regsubsets.out)}
 
-(Mathletics, chapter 27, page 230)
+\FunctionTok{plot}\NormalTok{(summary.out}\SpecialCharTok{$}\NormalTok{bic, }\AttributeTok{xlab =} \StringTok{"Number of Variables"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"BIC"}\NormalTok{, }\AttributeTok{type =} \StringTok{"l"}\NormalTok{)}
+\NormalTok{bic\_min }\OtherTok{=} \FunctionTok{which.min}\NormalTok{(summary.out}\SpecialCharTok{$}\NormalTok{bic) }\CommentTok{\# 6}
+\FunctionTok{points}\NormalTok{(bic\_min, summary.out}\SpecialCharTok{$}\NormalTok{bic[bic\_min], }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{cex =} \DecValTok{2}\NormalTok{, }\AttributeTok{pch =} \DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-\hypertarget{epl-passing-and-scoring}{%
-\subsection{EPL Passing and Scoring}\label{epl-passing-and-scoring}}
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-252-1.pdf}
 
-(AM, page 183, 213)
+\newpage
 
-\hypertarget{hockey-ppg-vs-toi}{%
-\subsection{Hockey PPG vs TOI}\label{hockey-ppg-vs-toi}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Model with only one predictor}
+\NormalTok{summary.out}\SpecialCharTok{$}\NormalTok{which[}\DecValTok{1}\NormalTok{,]}
+\end{Highlighting}
+\end{Shaded}
 
-(AM, page 181, 187, quadratic, exponential models)
+\begin{verbatim}
+## (Intercept)           H         X2B         X3B          HR          SB 
+##        TRUE       FALSE       FALSE       FALSE       FALSE       FALSE 
+##          CS          BB          SO          BA         OBP         SLG 
+##       FALSE       FALSE       FALSE       FALSE       FALSE       FALSE 
+##         OPS         GDP         HBP          SH          SF         IBB 
+##        TRUE       FALSE       FALSE       FALSE       FALSE       FALSE 
+##         LOB 
+##       FALSE
+\end{verbatim}
 
-\hypertarget{issues-with-multiyear-data}{%
-\section{Issues with Multiyear Data}\label{issues-with-multiyear-data}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Model with lowest BIC}
+\FunctionTok{which.min}\NormalTok{(summary.out}\SpecialCharTok{$}\NormalTok{bic)}
+\end{Highlighting}
+\end{Shaded}
 
-(AM, page 191, correlated errors)
+\begin{verbatim}
+## [1] 8
+\end{verbatim}
 
-\hypertarget{interaction}{%
-\section{Interaction}\label{interaction}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{summary.out}\SpecialCharTok{$}\NormalTok{which[}\FunctionTok{which.min}\NormalTok{(summary.out}\SpecialCharTok{$}\NormalTok{bic),]}
+\end{Highlighting}
+\end{Shaded}
 
-(AM, page 222, strikeout rate vs.~movement and velocity)
+\begin{verbatim}
+## (Intercept)           H         X2B         X3B          HR          SB 
+##        TRUE        TRUE       FALSE       FALSE       FALSE       FALSE 
+##          CS          BB          SO          BA         OBP         SLG 
+##        TRUE       FALSE       FALSE        TRUE        TRUE        TRUE 
+##         OPS         GDP         HBP          SH          SF         IBB 
+##       FALSE        TRUE       FALSE       FALSE        TRUE       FALSE 
+##         LOB 
+##        TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Model with highest Adj R\^{}2}
+\FunctionTok{which.max}\NormalTok{(summary.out}\SpecialCharTok{$}\NormalTok{adjr2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{summary.out}\SpecialCharTok{$}\NormalTok{which[}\FunctionTok{which.max}\NormalTok{(summary.out}\SpecialCharTok{$}\NormalTok{adjr2),]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept)           H         X2B         X3B          HR          SB 
+##        TRUE        TRUE        TRUE       FALSE        TRUE       FALSE 
+##          CS          BB          SO          BA         OBP         SLG 
+##        TRUE       FALSE       FALSE        TRUE        TRUE       FALSE 
+##         OPS         GDP         HBP          SH          SF         IBB 
+##       FALSE        TRUE       FALSE        TRUE        TRUE       FALSE 
+##         LOB 
+##        TRUE
+\end{verbatim}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Model chosen to minimize BIC}
+\NormalTok{model2 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(R.G}\SpecialCharTok{\textasciitilde{}}\NormalTok{CS}\SpecialCharTok{+}\NormalTok{BA}\SpecialCharTok{+}\NormalTok{OBP}\SpecialCharTok{+}\NormalTok{SLG}\SpecialCharTok{+}\NormalTok{TB}\SpecialCharTok{+}\NormalTok{GDP}\SpecialCharTok{+}\NormalTok{SH}\SpecialCharTok{+}\NormalTok{SF}\SpecialCharTok{+}\NormalTok{LOB,}\AttributeTok{data=}\NormalTok{mlb\_2022)}
+\NormalTok{model2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{p.value =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{pvalue}\NormalTok{(p.value)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }
+        \AttributeTok{caption =} \StringTok{"MR Model Estimating Runs Per Game Using Multiple Variables"}\NormalTok{,}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-256}MR Model Estimating Runs Per Game Using Multiple Variables}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+(Intercept) & -0.382 & 0.420 & -0.909 & 0.374\\
+CS & -0.004 & 0.001 & -2.582 & 0.018\\
+BA & -25.454 & 2.544 & -10.004 & <0.001\\
+OBP & 47.597 & 3.190 & 14.920 & <0.001\\
+SLG & -43.279 & 4.999 & -8.658 & <0.001\\
+\addlinespace
+TB & 0.009 & 0.001 & 10.082 & <0.001\\
+GDP & -0.003 & 0.001 & -5.654 & <0.001\\
+SH & 0.003 & 0.001 & 2.540 & 0.019\\
+SF & 0.009 & 0.001 & 6.207 & <0.001\\
+LOB & -0.005 & 0.000 & -10.590 & <0.001\\
+\bottomrule
+\end{tabular}
+\end{table}
+\newpage
 
 \hypertarget{confounding-variables}{%
 \section{Confounding Variables}\label{confounding-variables}}
+
+\begin{definition}
+A \textbf{\emph{confounding variable}} is a variable that is correlated to a predictor variable and response variable that causes a spurious association.
+\end{definition}
 
 \begin{example}
 A statistician hypothesizes that an NBA team's draft position can be used to predict the number of regular-season wins for the team for the upcoming season. To investigate the relationship, they decide to estimate the following simple linear regression model:
@@ -10946,6 +11143,16 @@ A statistician hypothesizes that an NBA team's draft position can be used to pre
 \(Wins\ = \beta_0 + \beta_1(Draft\ Position) + \epsilon_i\)
 
 Using 2021-22 NBA data, the estimated intercept and slope for the model are:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Data: https://en.wikipedia.org/wiki/2021\_NBA\_draft}
+
+\NormalTok{NBA\_Data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/NBA\_Draft\_and\_Win\_Data.csv"}\NormalTok{)}
+
+\FunctionTok{lm}\NormalTok{(Wins\_2021\_2022 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Draft\_Position\_2021, }\AttributeTok{data=}\NormalTok{NBA\_Data)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{verbatim}
 ## 
@@ -10960,19 +11167,15 @@ Using 2021-22 NBA data, the estimated intercept and slope for the model are:
 Interpret the estimated slope in this model.
 \end{example}
 
-A: For every one-unit increase in draft position, the expected number of wins for the team increases by 0.6928.
-
-After looking at the results of the model and the interpretation for the slope, one might identify that having a higher draft position is associated with more wins in the following season and conclude that teams with high draft picks should trade for lower draft picks in order to have a higher expected number of games won in the following season. What is the flaw in this reasoning?
-
-\(~\)
-
-\(~\)
-
-\(~\)
-
 Recognizing that the SLR model may lead to erroneous lines of logic, the statistician decides to tackle the confounding by adding the wins for the team in the previous season to the model as a covariate. The theoretical model being estimated is now as follows:
 
 \(Wins\ = \beta_0 + \beta_1(Draft\ Position) + \beta_2(Previous\ Season\ Wins) + \epsilon_i\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{lm}\NormalTok{(Wins\_2021\_2022 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Draft\_Position\_2021 }\SpecialCharTok{+}\NormalTok{ Wins\_2020\_2021\_Scaled, }\AttributeTok{data=}\NormalTok{NBA\_Data)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{verbatim}
 ## 
@@ -10987,7 +11190,15 @@ Recognizing that the SLR model may lead to erroneous lines of logic, the statist
 
 When controlling for an NBA team's wins in the previous season, the sign for the slope coefficient for draft position flips to a negative. This suggests that for teams with the same winning percentage in the previous season, a lower draft position is associated with more wins in the following season. The results of this model, which included an important confounding variable, aligned with the conventional wisdom that lower draft positions are helpful for a team's future success.
 
-\emph{Data: \url{https://en.wikipedia.org/wiki/2021_NBA_draft}, \url{https://www.nba.com/standings?GroupBy=conf\&Season=2020-21\&Section=overall}}
+\newpage
+
+\hypertarget{interaction}{%
+\section{Interaction}\label{interaction}}
+
+(AM, page 222, strikeout rate vs.~movement and velocity)
+
+\hypertarget{confounding-variables-1}{%
+\section{Confounding Variables}\label{confounding-variables-1}}
 
 \hypertarget{logistic-regression}{%
 \section{Logistic Regression}\label{logistic-regression}}

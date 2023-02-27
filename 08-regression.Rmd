@@ -36,6 +36,8 @@ We make a few assumptions when we fit these regression models:
 
 \newpage
 
+## Simple Linear Regression
+
 :::{.example}
 Download individual MLB pitching statistics for the 2021 and 2022 seasons. Use these datasets to build simple linear regression models with 2022 season ERA as the dependent variable and 2021 season ERA and FIP as the independent variables.
 :::
@@ -94,6 +96,7 @@ grid.arrange(p1,p2,nrow=1)
 ```
 
 \newpage
+
 
 ```{r}
 # build SLR model 1: ERA22 ~ ERA21
@@ -243,7 +246,7 @@ ggplot(residuals, aes(sample = y)) +
 
 \newpage
 
-(f) Build a MR model between runs scored and OPS, BA, OBP, and OPS.
+(f) Build a MR model between runs scored and SLG, BA, OBP, and OPS.
 
 ```{r}
 # build MR model: R/G ~ OPS + BA + OBP + SLG
@@ -317,6 +320,10 @@ mlb22_war %>% ggplot(aes(x=WAR,y=Wins)) +
 ```
 \newpage
 
+## Residual Analysis
+
+It is important to check model assumptions. If assumptions are violated, then our inferences may be flawed.
+
 (d) Complete residual analysis of the SLR model.
 
 ```{r}
@@ -356,6 +363,8 @@ mlb22_war %>% filter(Team=="Colorado Rockies")
 
 \newpage
 
+## Polynomial Regression
+
 :::{.example}
 Ken Griffey Jr. was a baseball hall of fame outfielder from 1989--2009. For each of his of his career, the number of home runs per 100 at-bats is record. This data is found in `griffey_hr.csv`. (From \textit{Analytic Methods in Sports})
 :::
@@ -364,7 +373,7 @@ Ken Griffey Jr. was a baseball hall of fame outfielder from 1989--2009. For each
 
 ```{r,warning=F,message=F}
 griffey <- read_csv("data/griffey_hr.csv")
-griffey <- griffey %>% mutate(Year = Year-1988,`AB/HR` = HR) %>% select(Year,`AB/HR`)
+griffey <- griffey %>% mutate(Year = Year-1988,`HR/100AB` = HR) %>% select(Year,`HR/100AB`)
 griffey %>% kable(booktabs=T,digits=c(0,2))
 ```
 
@@ -373,7 +382,7 @@ griffey %>% kable(booktabs=T,digits=c(0,2))
 (b) Fit a SLR model between HR/AB and Year. 
 
 ```{r}
-model <- lm(`AB/HR`~Year,data=griffey)
+model <- lm(`HR/100AB`~Year,data=griffey)
 model %>% tidy() %>%
   mutate(
     p.value = scales::pvalue(p.value),
@@ -390,15 +399,15 @@ model %>% tidy() %>%
 (c) Plot the SLR model and comment on the model fit.
 
 ```{r,warning=F,message=F}
-griffey %>% ggplot(aes(x=Year,y=`AB/HR`)) +
+griffey %>% ggplot(aes(x=Year,y=`HR/100AB`)) +
   geom_point() +
   geom_smooth(method="lm") + 
   stat_regline_equation(label.x.npc = 0.3,label.y.npc = 0.6) +
   labs(title = "Home Runs Per 100 At-Bats vs. Year",
        subtitle = "Ken Griffey Jr.'s Career",
        caption = "Data: Baseball Reference, Analytic Methods in Sports", 
-       x = "Team WAR",
-       y = "Team Wins") +
+       x = "Year",
+       y = "Home Runs per 100 AB") +
   theme_classic()
 ```
 
@@ -422,14 +431,14 @@ ggplot(residuals, aes(x, y)) +
 (e) Repeat (b)-(c) using a quadratic model.
 
 ```{r}
-model_quad <- lm(`AB/HR`~Year+I(Year^2),data=griffey)
+model_quad <- lm(`HR/100AB`~Year+I(Year^2),data=griffey)
 model_quad %>% tidy() %>%
   mutate(
     p.value = scales::pvalue(p.value),
     term = c("Intercept", "Year","Year^2")
   ) %>%
   kable(booktabs=T,digits=c(3,3,3,3), 
-        caption = "SLR Model Estimating AB/HR using Year",
+        caption = "SLR Model Estimating Home Runs per 100 At-Bats using Year",
         col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
   kable_styling(latex_options = "hold_position")
 ```
@@ -437,7 +446,7 @@ model_quad %>% tidy() %>%
 \newpage
 
 ```{r}
-griffey %>% ggplot(aes(x=Year,y=`AB/HR`)) +
+griffey %>% ggplot(aes(x=Year,y=`HR/100AB`)) +
   geom_point() +
   geom_smooth(method="lm", formula = y ~ x + I(x^2)) + 
   labs(title = "Ken Griffey Jr.'s Career",
@@ -449,6 +458,10 @@ griffey %>% ggplot(aes(x=Year,y=`AB/HR`)) +
 ```
 
 \newpage
+
+## Variable Transformations
+
+Sometimes a variable transformation (either predictor or response) may be necessary to meet our model assumptions.
 
 :::{.example}
 For the 2011-2012 NHL season, data was collected for all forwards that played at least 60 games and average at least 6 minutes per game.
@@ -463,8 +476,6 @@ nhl_toi <- nhl_toi %>% column_to_rownames("Name")
 
 nhl_toi %>% slice(1:10) %>% kable(booktabs=T,digits=3)
 ```
-
-\newpage
 
 (b) Fit a SLR model with Points Per Game (PPG) as the dependent variable and Time on Ice (TOI) as the independent variable.
 
@@ -550,7 +561,7 @@ nhl_toi %>% ggplot(aes(x=TOI,y=logPPG)) +
 
 \newpage
 
-(d) Generate a fitted values versus residuals plot and use it to determine the appropriateness of the linearity assumption.
+(g) Generate a fitted values versus residuals plot and use it to determine the appropriateness of the linearity assumption.
 
 ```{r}
 # Create a data frame with the residuals
@@ -565,50 +576,131 @@ ggplot(residuals, aes(x, y)) +
 
 \newpage
 
-## Simple Linear Regression
+## Multiple Regression and Model Selection
 
-(AM, page 162, OPS vs runs scored)
+Suppose we want to build a multiple regression model with a number of predictor variables. Which predictor variables should we include in our model?
 
-### Pythagorean Records
+There are many ways to do model selection. We will focus on all 
 
-(Mathletics, chapter 1, page 13)
-(Mathletics, chapter 41, page 385)
+```{r}
+library(rvest)
+url <- "https://www.baseball-reference.com/leagues/majors/2022.shtml"
+site <- read_html(url)
+raw_data <- site %>% html_elements("#teams_standard_batting") %>% html_table()
+raw_data %>% data.frame() %>% select(1:10) %>% slice(1:5) %>% kable(booktabs=T)
+```
 
-### Regression to the Mean
+```{r,warning=F,message=F}
+# convert from character to numeric
+mlb_2022 <- raw_data %>% data.frame() %>% mutate_if(is.character, as.numeric)
 
-(Rushing Yards, Batting Average, Rank in Goals)
+# remove some unnecessary columns
+mlb_2022 <- mlb_2022 %>% select(-Tm,-X.Bat,-BatAge,-G,-R,-AB,-PA,-OPS.,-RBI,-IBB) %>% slice(1:30)
+mlb_2022 %>% slice(1:5) %>% select(1:10) %>% kable(booktabs=T)
+```
 
-## Variable Transformations
+\newpage
 
-### Draft Pick Values
+```{r}
+model1 <- lm(R.G~.,data=mlb_2022)
+model1 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value)) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "MR Model Estimating Runs Per Game Using Multiple Variables",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
 
-(Mathletics, chapter 26, page 222)
+\newpage
 
-## Multiple Linear Regression
+### Model Selection using BIC
 
-### Four Factors and Winning
+```{r}
+library(leaps)
+regsubsets.out <-
+    regsubsets(`R.G`~.,
+               data = mlb_2022,
+               nbest = 1,
+               nvmax = 10,
+               method = "exhaustive")
+summary.out <- summary(regsubsets.out)
 
-(Mathletics, chapter 28, page 250)
+plot(summary.out$bic, xlab = "Number of Variables", ylab = "BIC", type = "l")
+bic_min = which.min(summary.out$bic) # 6
+points(bic_min, summary.out$bic[bic_min], col = "red", cex = 2, pch = 20)
+```
 
-### Linear Weights in Baseball
+\newpage
 
-(Mathletics, chapter 3, page 18)
+```{r}
+# Model with only one predictor
+summary.out$which[1,]
+```
 
-### Pass Air Yards Regression
+```{r}
+# Model with lowest BIC
+which.min(summary.out$bic)
+summary.out$which[which.min(summary.out$bic),]
+```
 
-(Mathletics, chapter 27, page 230)
+```{R}
+# Model with highest Adj R^2
+which.max(summary.out$adjr2)
+summary.out$which[which.max(summary.out$adjr2),]
+```
 
-### EPL Passing and Scoring
+\newpage
 
-(AM, page 183, 213)
+```{r}
+# Model chosen to minimize BIC
+model2 <- lm(R.G~CS+BA+OBP+SLG+TB+GDP+SH+SF+LOB,data=mlb_2022)
+model2 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value)) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "MR Model Estimating Runs Per Game Using Multiple Variables",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+\newpage
 
-### Hockey PPG vs TOI
+## Confounding Variables
 
-(AM, page 181, 187, quadratic, exponential models)
+:::{.definition}
+A ***confounding variable*** is a variable that is correlated to a predictor variable and response variable that causes a spurious association.
+:::
 
-## Issues with Multiyear Data
+:::{.example}
+A statistician hypothesizes that an NBA team's draft position can be used to predict the number of regular-season wins for the team for the upcoming season. To investigate the relationship, they decide to estimate the following simple linear regression model:
 
-(AM, page 191, correlated errors)
+$Wins\ = \beta_0 + \beta_1(Draft\ Position) + \epsilon_i$
+
+Using 2021-22 NBA data, the estimated intercept and slope for the model are:
+
+```{r confounding example}
+# Data: https://en.wikipedia.org/wiki/2021_NBA_draft
+
+NBA_Data <- read.csv("data/NBA_Draft_and_Win_Data.csv")
+
+lm(Wins_2021_2022 ~ Draft_Position_2021, data=NBA_Data)
+```
+Interpret the estimated slope in this model.
+:::
+
+
+Recognizing that the SLR model may lead to erroneous lines of logic, the statistician decides to tackle the confounding by adding the wins for the team in the previous season to the model as a covariate. The theoretical model being estimated is now as follows:
+
+$Wins\ = \beta_0 + \beta_1(Draft\ Position) + \beta_2(Previous\ Season\ Wins) + \epsilon_i$
+
+```{r confounding example 2}
+lm(Wins_2021_2022 ~ Draft_Position_2021 + Wins_2020_2021_Scaled, data=NBA_Data)
+```
+
+When controlling for an NBA team's wins in the previous season, the sign for the slope coefficient for draft position flips to a negative. This suggests that for teams with the same winning percentage in the previous season, a lower draft position is associated with more wins in the following season. The results of this model, which included an important confounding variable, aligned with the conventional wisdom that lower draft positions are helpful for a team's future success. 
+
+
+\newpage
 
 ## Interaction
 
@@ -616,54 +708,6 @@ ggplot(residuals, aes(x, y)) +
 
 ## Confounding Variables
 
-:::{.example}
-
-A statistician hypothesizes that an NBA team's draft position can be used to predict the number of regular-season wins for the team for the upcoming season. To investigate the relationship, they decide to estimate the following simple linear regression model:
-
-$Wins\ = \beta_0 + \beta_1(Draft\ Position) + \epsilon_i$
-
-Using 2021-22 NBA data, the estimated intercept and slope for the model are:
-
-```{r confounding example, echo=FALSE}
-NBA_Data <- read.csv("data/NBA_Draft_and_Win_Data.csv")
-
-#Note: Here, draft position is defined as the position the team "earns" in the drafting order based on their previous season performance, lottery draw, etc. This is not the same as draft pick number(s), as those are affected by trades and other factors.
-
-lm(Wins_2021_2022 ~ Draft_Position_2021, data=NBA_Data)
-```
-
-Interpret the estimated slope in this model.
-:::
-
-A: For every one-unit increase in draft position, the expected number of wins for the team increases by 0.6928.
-
-After looking at the results of the model and the interpretation for the slope, one might identify that having a higher draft position is associated with more wins in the following season and conclude that teams with high draft picks should trade for lower draft picks in order to have a higher expected number of games won in the following season. What is the flaw in this reasoning?
-
-<!-- possible answer: Teams receive higher draft positions when they are performing  worse in the previous season. Thus, it is expected that high draft picks will go to worse teams, and one high draft pick usually doesn't completely turn a team around in one season. From a statistical perspective, this SLR model does not take into account any confounding variables. -->
-
-$~$ <!-- for whitespace -->
-
-$~$
-
-$~$
-
-Recognizing that the SLR model may lead to erroneous lines of logic, the statistician decides to tackle the confounding by adding the wins for the team in the previous season to the model as a covariate. The theoretical model being estimated is now as follows:
-
-$Wins\ = \beta_0 + \beta_1(Draft\ Position) + \beta_2(Previous\ Season\ Wins) + \epsilon_i$
-
-```{r confounding example 2, echo=FALSE}
-#Note: The 2021-22 season had an 82 game regular season, while the 2020-21 season had 72. (There hasn't been two consecutive seasons with equal numbers of GP since 2017-18, 2018-19). I considered having win percentage as the response variable, but ultimately decided to scale 2020-21 wins to an 82-game season and go from there.
-
-lm(Wins_2021_2022 ~ Draft_Position_2021 + Wins_2020_2021_Scaled, data=NBA_Data)
-```
-
-When controlling for an NBA team's wins in the previous season, the sign for the slope coefficient for draft position flips to a negative. This suggests that for teams with the same winning percentage in the previous season, a lower draft position is associated with more wins in the following season. The results of this model, which included an important confounding variable, aligned with the conventional wisdom that lower draft positions are helpful for a team's future success. 
-
-<!-- Note: I don't want to interpret the coefficients too in-depth in this second model since the two predictors are strongly correlated (high multicollinearity). The important concept here is the sign change of the draft position variable slope. -->
-
-<!-- Homework problem idea: Use these models and the predict() function in R to simulate win totals for an NBA season. Include random noise in the model by picking a residual variance sigms and adding rnorm(0, sigma) to each observation. Then check to see if the totsl number of wins is close to (82/2)*30 = 1230 and see how the variance and histogram of the simulated win totals compare to actual NBA season results. Can also test the sensitivity of the simulation to different values of residual variance. -->
-
-*Data: https://en.wikipedia.org/wiki/2021_NBA_draft, https://www.nba.com/standings?GroupBy=conf&Season=2020-21&Section=overall*
 
 ## Logistic Regression
 
