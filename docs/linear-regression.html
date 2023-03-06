@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2023-02-27" />
+<meta name="date" content="2023-03-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -361,12 +361,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.6" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables"><i class="fa fa-check"></i><b>8.6</b> Confounding Variables</a></li>
 <li class="chapter" data-level="8.7" data-path="linear-regression.html"><a href="linear-regression.html#interaction"><i class="fa fa-check"></i><b>8.7</b> Interaction</a></li>
-<li class="chapter" data-level="8.8" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables-1"><i class="fa fa-check"></i><b>8.8</b> Confounding Variables</a></li>
-<li class="chapter" data-level="8.9" data-path="linear-regression.html"><a href="linear-regression.html#logistic-regression"><i class="fa fa-check"></i><b>8.9</b> Logistic Regression</a>
+<li class="chapter" data-level="8.8" data-path="linear-regression.html"><a href="linear-regression.html#weighted-least-squares-regression"><i class="fa fa-check"></i><b>8.8</b> Weighted Least Squares Regression</a></li>
+<li class="chapter" data-level="8.9" data-path="linear-regression.html"><a href="linear-regression.html#stepwise-regression-using-cross-validation"><i class="fa fa-check"></i><b>8.9</b> Stepwise Regression using Cross-Validation</a></li>
+<li class="chapter" data-level="8.10" data-path="linear-regression.html"><a href="linear-regression.html#ridge-regression"><i class="fa fa-check"></i><b>8.10</b> Ridge Regression</a></li>
+<li class="chapter" data-level="8.11" data-path="linear-regression.html"><a href="linear-regression.html#lasso-regression"><i class="fa fa-check"></i><b>8.11</b> Lasso Regression</a></li>
+<li class="chapter" data-level="8.12" data-path="linear-regression.html"><a href="linear-regression.html#elastic-net"><i class="fa fa-check"></i><b>8.12</b> Elastic Net</a></li>
+<li class="chapter" data-level="8.13" data-path="linear-regression.html"><a href="linear-regression.html#mixed-effects-models"><i class="fa fa-check"></i><b>8.13</b> Mixed Effects Models</a></li>
+<li class="chapter" data-level="8.14" data-path="linear-regression.html"><a href="linear-regression.html#logistic-regression"><i class="fa fa-check"></i><b>8.14</b> Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="8.9.1" data-path="linear-regression.html"><a href="linear-regression.html#sack-and-interception-probability-models"><i class="fa fa-check"></i><b>8.9.1</b> Sack and Interception Probability Models</a></li>
-<li class="chapter" data-level="8.9.2" data-path="linear-regression.html"><a href="linear-regression.html#soccer-goal-logistic-model"><i class="fa fa-check"></i><b>8.9.2</b> Soccer Goal Logistic Model</a></li>
-<li class="chapter" data-level="8.9.3" data-path="linear-regression.html"><a href="linear-regression.html#field-goal-success"><i class="fa fa-check"></i><b>8.9.3</b> Field Goal Success</a></li>
+<li class="chapter" data-level="8.14.1" data-path="linear-regression.html"><a href="linear-regression.html#sack-and-interception-probability-models"><i class="fa fa-check"></i><b>8.14.1</b> Sack and Interception Probability Models</a></li>
+<li class="chapter" data-level="8.14.2" data-path="linear-regression.html"><a href="linear-regression.html#soccer-goal-logistic-model"><i class="fa fa-check"></i><b>8.14.2</b> Soccer Goal Logistic Model</a></li>
+<li class="chapter" data-level="8.14.3" data-path="linear-regression.html"><a href="linear-regression.html#field-goal-success"><i class="fa fa-check"></i><b>8.14.3</b> Field Goal Success</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>9</b> Principal Component Analysis</a></li>
@@ -4528,24 +4533,1715 @@ LOB
 </div>
 <div id="interaction" class="section level2 hasAnchor" number="8.7">
 <h2><span class="header-section-number">8.7</span> Interaction<a href="linear-regression.html#interaction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>(AM, page 222, strikeout rate vs. movement and velocity)</p>
+<p>Sometimes the relationship between an independent variable and a dependent variable depend on the value of a different independent value. In such a case, we say that the predictor variables interact and we should consider including an interaction term in our model.</p>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="linear-regression.html#cb531-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load nfl team statistics data from 2022</span></span>
+<span id="cb531-2"><a href="linear-regression.html#cb531-2" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl22.csv&quot;</span>,<span class="at">show_col_types =</span> F)</span>
+<span id="cb531-3"><a href="linear-regression.html#cb531-3" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">32</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb531-4"><a href="linear-regression.html#cb531-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PPG=</span>PF<span class="sc">/</span>G,<span class="at">RYPG=</span>Rush_Yds<span class="sc">/</span>G,<span class="at">PYPG=</span>Pass_Yds<span class="sc">/</span>G) <span class="sc">%&gt;%</span> </span>
+<span id="cb531-5"><a href="linear-regression.html#cb531-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Tm,PPG,RYPG,PYPG) <span class="sc">%&gt;%</span></span>
+<span id="cb531-6"><a href="linear-regression.html#cb531-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;Tm&quot;</span>)</span>
+<span id="cb531-7"><a href="linear-regression.html#cb531-7" aria-hidden="true" tabindex="-1"></a>nfl22 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits=</span><span class="dv">1</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+PPG
+</th>
+<th style="text-align:right;">
+RYPG
+</th>
+<th style="text-align:right;">
+PYPG
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Kansas City Chiefs
+</td>
+<td style="text-align:right;">
+29.2
+</td>
+<td style="text-align:right;">
+115.9
+</td>
+<td style="text-align:right;">
+297.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Philadelphia Eagles
+</td>
+<td style="text-align:right;">
+28.1
+</td>
+<td style="text-align:right;">
+147.6
+</td>
+<td style="text-align:right;">
+241.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dallas Cowboys
+</td>
+<td style="text-align:right;">
+27.5
+</td>
+<td style="text-align:right;">
+135.2
+</td>
+<td style="text-align:right;">
+219.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Buffalo Bills
+</td>
+<td style="text-align:right;">
+28.4
+</td>
+<td style="text-align:right;">
+139.5
+</td>
+<td style="text-align:right;">
+258.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Detroit Lions
+</td>
+<td style="text-align:right;">
+26.6
+</td>
+<td style="text-align:right;">
+128.2
+</td>
+<td style="text-align:right;">
+251.8
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="linear-regression.html#cb532-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb532-2"><a href="linear-regression.html#cb532-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>RYPG,<span class="at">y=</span>PPG)) <span class="sc">+</span> </span>
+<span id="cb532-3"><a href="linear-regression.html#cb532-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb532-4"><a href="linear-regression.html#cb532-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>,<span class="at">se=</span>F) <span class="sc">+</span></span>
+<span id="cb532-5"><a href="linear-regression.html#cb532-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Rushing Yards Per Game vs. Points Per Game&quot;</span>,</span>
+<span id="cb532-6"><a href="linear-regression.html#cb532-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Rushing Yards Per Game (RYPG)&quot;</span>,</span>
+<span id="cb532-7"><a href="linear-regression.html#cb532-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">&quot;Points Per Game&quot;</span>)</span>
+<span id="cb532-8"><a href="linear-regression.html#cb532-8" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PYPG,<span class="at">y=</span>PPG)) <span class="sc">+</span> </span>
+<span id="cb532-9"><a href="linear-regression.html#cb532-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb532-10"><a href="linear-regression.html#cb532-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>,<span class="at">se=</span>F) <span class="sc">+</span></span>
+<span id="cb532-11"><a href="linear-regression.html#cb532-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Passing Yards Per Game vs. Points Per Game&quot;</span>,</span>
+<span id="cb532-12"><a href="linear-regression.html#cb532-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Passing Yards Per Game (RYPG)&quot;</span>,</span>
+<span id="cb532-13"><a href="linear-regression.html#cb532-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">&quot;Points Per Game&quot;</span>)</span>
+<span id="cb532-14"><a href="linear-regression.html#cb532-14" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> nfl22 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>RYPG,<span class="at">y=</span>PYPG)) <span class="sc">+</span> </span>
+<span id="cb532-15"><a href="linear-regression.html#cb532-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb532-16"><a href="linear-regression.html#cb532-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>,<span class="at">se=</span>F) <span class="sc">+</span></span>
+<span id="cb532-17"><a href="linear-regression.html#cb532-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Rushing Yards Per Game vs. Passing Yards Per Game&quot;</span>,</span>
+<span id="cb532-18"><a href="linear-regression.html#cb532-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Rushing Yards Per Game (RYPG)&quot;</span>,</span>
+<span id="cb532-19"><a href="linear-regression.html#cb532-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">&quot;Passing Yards Per Game&quot;</span>)</span></code></pre></div>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="linear-regression.html#cb533-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p1,p2,p3,<span class="at">nrow=</span><span class="dv">3</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-259-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="linear-regression.html#cb534-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(PPG<span class="sc">~</span>RYPG<span class="sc">+</span>PYPG,<span class="at">data=</span>nfl22)</span>
+<span id="cb534-2"><a href="linear-regression.html#cb534-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Nicely output regression information</span></span>
+<span id="cb534-3"><a href="linear-regression.html#cb534-3" aria-hidden="true" tabindex="-1"></a>model1 <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb534-4"><a href="linear-regression.html#cb534-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb534-5"><a href="linear-regression.html#cb534-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">p.value =</span> scales<span class="sc">::</span><span class="fu">pvalue</span>(p.value),</span>
+<span id="cb534-6"><a href="linear-regression.html#cb534-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">term =</span> <span class="fu">c</span>(<span class="st">&quot;Intercept&quot;</span>,<span class="st">&quot;RYPG&quot;</span>,<span class="st">&quot;PYPG&quot;</span>)</span>
+<span id="cb534-7"><a href="linear-regression.html#cb534-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb534-8"><a href="linear-regression.html#cb534-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>), </span>
+<span id="cb534-9"><a href="linear-regression.html#cb534-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&quot;SLR Model Estimating PPG Using RYPG and PYPG&quot;</span>,</span>
+<span id="cb534-10"><a href="linear-regression.html#cb534-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Predictor&quot;</span>, <span class="st">&quot;Estimate&quot;</span>, <span class="st">&quot;Std Error&quot;</span>, <span class="st">&quot;t stat&quot;</span>, <span class="st">&quot;p-value&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb534-11"><a href="linear-regression.html#cb534-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">&quot;hold_position&quot;</span>)</span></code></pre></div>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-260">Table 8.13: </span>SLR Model Estimating PPG Using RYPG and PYPG
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Predictor
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std Error
+</th>
+<th style="text-align:right;">
+t stat
+</th>
+<th style="text-align:left;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+-15.509
+</td>
+<td style="text-align:right;">
+3.825
+</td>
+<td style="text-align:right;">
+-4.055
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RYPG
+</td>
+<td style="text-align:right;">
+0.122
+</td>
+<td style="text-align:right;">
+0.017
+</td>
+<td style="text-align:right;">
+7.280
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PYPG
+</td>
+<td style="text-align:right;">
+0.103
+</td>
+<td style="text-align:right;">
+0.010
+</td>
+<td style="text-align:right;">
+9.833
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="linear-regression.html#cb535-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(PPG<span class="sc">~</span>RYPG<span class="sc">*</span>PYPG,<span class="at">data=</span>nfl22)</span>
+<span id="cb535-2"><a href="linear-regression.html#cb535-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Nicely output regression information</span></span>
+<span id="cb535-3"><a href="linear-regression.html#cb535-3" aria-hidden="true" tabindex="-1"></a>model2 <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb535-4"><a href="linear-regression.html#cb535-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb535-5"><a href="linear-regression.html#cb535-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">p.value =</span> scales<span class="sc">::</span><span class="fu">pvalue</span>(p.value),</span>
+<span id="cb535-6"><a href="linear-regression.html#cb535-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">term =</span> <span class="fu">c</span>(<span class="st">&quot;Intercept&quot;</span>,<span class="st">&quot;RYPG&quot;</span>,<span class="st">&quot;PYPG&quot;</span>,<span class="st">&quot;RYPG:PYPG&quot;</span>)</span>
+<span id="cb535-7"><a href="linear-regression.html#cb535-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb535-8"><a href="linear-regression.html#cb535-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>), </span>
+<span id="cb535-9"><a href="linear-regression.html#cb535-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&quot;SLR Model Estimating PPG Using RYPG and PYPG&quot;</span>,</span>
+<span id="cb535-10"><a href="linear-regression.html#cb535-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Predictor&quot;</span>, <span class="st">&quot;Estimate&quot;</span>, <span class="st">&quot;Std Error&quot;</span>, <span class="st">&quot;t stat&quot;</span>, <span class="st">&quot;p-value&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb535-11"><a href="linear-regression.html#cb535-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">&quot;hold_position&quot;</span>)</span></code></pre></div>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-261">Table 8.14: </span>SLR Model Estimating PPG Using RYPG and PYPG
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Predictor
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std Error
+</th>
+<th style="text-align:right;">
+t stat
+</th>
+<th style="text-align:left;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+-7.082
+</td>
+<td style="text-align:right;">
+8.751
+</td>
+<td style="text-align:right;">
+-0.809
+</td>
+<td style="text-align:left;">
+0.425
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RYPG
+</td>
+<td style="text-align:right;">
+0.056
+</td>
+<td style="text-align:right;">
+0.064
+</td>
+<td style="text-align:right;">
+0.868
+</td>
+<td style="text-align:left;">
+0.393
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PYPG
+</td>
+<td style="text-align:right;">
+0.063
+</td>
+<td style="text-align:right;">
+0.039
+</td>
+<td style="text-align:right;">
+1.627
+</td>
+<td style="text-align:left;">
+0.115
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RYPG:PYPG
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.070
+</td>
+<td style="text-align:left;">
+0.294
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-215" class="example"><strong>Example 8.7  </strong></span>Acquire the average fastball and curveball velocities for baseball pitchers in 2022. Assess whether FBv and CBv interact when modeling K/9 (strikeouts per nine innings)</p>
 </div>
-<div id="confounding-variables-1" class="section level2 hasAnchor" number="8.8">
-<h2><span class="header-section-number">8.8</span> Confounding Variables<a href="linear-regression.html#confounding-variables-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="linear-regression.html#cb536-1" aria-hidden="true" tabindex="-1"></a>pit22 <span class="ot">&lt;-</span> <span class="fu">fg_pitch_leaders</span>(<span class="at">x=</span><span class="dv">2022</span>,<span class="at">y=</span><span class="dv">2022</span>,<span class="at">qual =</span> <span class="st">&quot;n&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb536-2"><a href="linear-regression.html#cb536-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Name,FBv,CBv,<span class="st">`</span><span class="at">K_9</span><span class="st">`</span>)</span>
+<span id="cb536-3"><a href="linear-regression.html#cb536-3" aria-hidden="true" tabindex="-1"></a>pit22 <span class="sc">%&gt;%</span> <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(FBv)) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Name
+</th>
+<th style="text-align:right;">
+FBv
+</th>
+<th style="text-align:right;">
+CBv
+</th>
+<th style="text-align:right;">
+K_9
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Jhoan Duran
+</td>
+<td style="text-align:right;">
+100.9
+</td>
+<td style="text-align:right;">
+87.8
+</td>
+<td style="text-align:right;">
+11.84
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ryan Helsley
+</td>
+<td style="text-align:right;">
+99.7
+</td>
+<td style="text-align:right;">
+80.8
+</td>
+<td style="text-align:right;">
+13.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jose Alvarado
+</td>
+<td style="text-align:right;">
+99.6
+</td>
+<td style="text-align:right;">
+86.5
+</td>
+<td style="text-align:right;">
+14.29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Aneurys Zabala
+</td>
+<td style="text-align:right;">
+99.3
+</td>
+<td style="text-align:right;">
+83.7
+</td>
+<td style="text-align:right;">
+6.75
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jacob deGrom
+</td>
+<td style="text-align:right;">
+98.9
+</td>
+<td style="text-align:right;">
+83.5
+</td>
+<td style="text-align:right;">
+14.27
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="linear-regression.html#cb537-1" aria-hidden="true" tabindex="-1"></a>pit_mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(K_9<span class="sc">~</span>FBv<span class="sc">+</span>CBv,<span class="at">data=</span>pit22)</span></code></pre></div>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-264">Table 8.15: </span>SLR Model Estimating K/9 using FBv and CBv with no interaction
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Predictor
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std Error
+</th>
+<th style="text-align:right;">
+t stat
+</th>
+<th style="text-align:left;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+-17.525
+</td>
+<td style="text-align:right;">
+2.222
+</td>
+<td style="text-align:right;">
+-7.887
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Average Fastball Velocity
+</td>
+<td style="text-align:right;">
+0.288
+</td>
+<td style="text-align:right;">
+0.042
+</td>
+<td style="text-align:right;">
+6.820
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Average Curveball Velocity
+</td>
+<td style="text-align:right;">
+-0.016
+</td>
+<td style="text-align:right;">
+0.038
+</td>
+<td style="text-align:right;">
+-0.426
+</td>
+<td style="text-align:left;">
+0.670
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="linear-regression.html#cb538-1" aria-hidden="true" tabindex="-1"></a>pit_mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(K_9<span class="sc">~</span>FBv<span class="sc">*</span>CBv,<span class="at">data=</span>pit22)</span></code></pre></div>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-266">Table 8.16: </span>SLR Model Estimating K/9 using FBv and CBv with interaction
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Predictor
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std Error
+</th>
+<th style="text-align:right;">
+t stat
+</th>
+<th style="text-align:left;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+24.902
+</td>
+<td style="text-align:right;">
+9.780
+</td>
+<td style="text-align:right;">
+2.546
+</td>
+<td style="text-align:left;">
+0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Average Fastball Velocity
+</td>
+<td style="text-align:right;">
+-0.172
+</td>
+<td style="text-align:right;">
+0.111
+</td>
+<td style="text-align:right;">
+-1.545
+</td>
+<td style="text-align:left;">
+0.123
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Average Curveball Velocity
+</td>
+<td style="text-align:right;">
+-0.744
+</td>
+<td style="text-align:right;">
+0.168
+</td>
+<td style="text-align:right;">
+-4.435
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Interaction
+</td>
+<td style="text-align:right;">
+0.008
+</td>
+<td style="text-align:right;">
+0.002
+</td>
+<td style="text-align:right;">
+4.450
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
 </div>
-<div id="logistic-regression" class="section level2 hasAnchor" number="8.9">
-<h2><span class="header-section-number">8.9</span> Logistic Regression<a href="linear-regression.html#logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="sack-and-interception-probability-models" class="section level3 hasAnchor" number="8.9.1">
-<h3><span class="header-section-number">8.9.1</span> Sack and Interception Probability Models<a href="linear-regression.html#sack-and-interception-probability-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="weighted-least-squares-regression" class="section level2 hasAnchor" number="8.8">
+<h2><span class="header-section-number">8.8</span> Weighted Least Squares Regression<a href="linear-regression.html#weighted-least-squares-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Recall from Example 8.1 where we attempted to predict ERA in 2022 from ERA and FIP from 2021. One concern in this analysis was that each pitcher pitched a different number of innings. We’d like to account for this by giving more weight to pitchers with more innings pitched. This can be accomplished by using weighted least squares regression. Weighted least squares regression is particularly used when the data exhibits non-constant variance</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-216" class="example"><strong>Example 8.8  </strong></span>Build SLR models predicting ERA22 from ERA21 with and without weights.</p>
+</div>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="linear-regression.html#cb539-1" aria-hidden="true" tabindex="-1"></a>pit21 <span class="ot">&lt;-</span> <span class="fu">bref_daily_pitcher</span>(<span class="st">&quot;2021-01-01&quot;</span>, <span class="st">&quot;2021-12-31&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb539-2"><a href="linear-regression.html#cb539-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fip_plus</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb539-3"><a href="linear-regression.html#cb539-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Name, IP, ERA, FIP) <span class="sc">%&gt;%</span></span>
+<span id="cb539-4"><a href="linear-regression.html#cb539-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(dplyr<span class="sc">::</span><span class="fu">desc</span>(IP)) <span class="sc">%&gt;%</span></span>
+<span id="cb539-5"><a href="linear-regression.html#cb539-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">IP21=</span>IP,<span class="at">ERA21=</span>ERA,<span class="at">FIP21=</span>FIP)</span>
+<span id="cb539-6"><a href="linear-regression.html#cb539-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb539-7"><a href="linear-regression.html#cb539-7" aria-hidden="true" tabindex="-1"></a>pit22 <span class="ot">&lt;-</span> <span class="fu">bref_daily_pitcher</span>(<span class="st">&quot;2022-01-01&quot;</span>, <span class="st">&quot;2022-12-31&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb539-8"><a href="linear-regression.html#cb539-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fip_plus</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb539-9"><a href="linear-regression.html#cb539-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Name, IP, ERA, FIP) <span class="sc">%&gt;%</span></span>
+<span id="cb539-10"><a href="linear-regression.html#cb539-10" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(dplyr<span class="sc">::</span><span class="fu">desc</span>(IP)) <span class="sc">%&gt;%</span></span>
+<span id="cb539-11"><a href="linear-regression.html#cb539-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">IP22=</span>IP,<span class="at">ERA22=</span>ERA,<span class="at">FIP22=</span>FIP)</span>
+<span id="cb539-12"><a href="linear-regression.html#cb539-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb539-13"><a href="linear-regression.html#cb539-13" aria-hidden="true" tabindex="-1"></a><span class="co"># merge the datasets together, remove redundant columns</span></span>
+<span id="cb539-14"><a href="linear-regression.html#cb539-14" aria-hidden="true" tabindex="-1"></a>all_pit_min0 <span class="ot">&lt;-</span> pit21 <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(pit22,<span class="at">by =</span> <span class="st">&quot;Name&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb539-15"><a href="linear-regression.html#cb539-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(IP21<span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> IP22<span class="sc">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb539-16"><a href="linear-regression.html#cb539-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb539-17"><a href="linear-regression.html#cb539-17" aria-hidden="true" tabindex="-1"></a>all_pit_min5 <span class="ot">&lt;-</span> pit21 <span class="sc">%&gt;%</span>  <span class="fu">left_join</span>(pit22,<span class="at">by =</span> <span class="st">&quot;Name&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb539-18"><a href="linear-regression.html#cb539-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(IP21<span class="sc">&gt;</span><span class="dv">5</span> <span class="sc">&amp;</span> IP22<span class="sc">&gt;</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="linear-regression.html#cb540-1" aria-hidden="true" tabindex="-1"></a>all_pit <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>ERA21,<span class="at">y=</span>ERA22,<span class="at">size=</span>IP21<span class="sc">+</span>IP22)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.2</span>,<span class="at">color=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb540-2"><a href="linear-regression.html#cb540-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>))</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-268-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="linear-regression.html#cb541-1" aria-hidden="true" tabindex="-1"></a>mod_slr <span class="ot">&lt;-</span> <span class="fu">lm</span>(ERA22<span class="sc">~</span>ERA21,<span class="at">data=</span>all_pit_min0)</span>
+<span id="cb541-2"><a href="linear-regression.html#cb541-2" aria-hidden="true" tabindex="-1"></a>mod_wls <span class="ot">&lt;-</span> <span class="fu">lm</span>(ERA22<span class="sc">~</span>ERA21,<span class="at">data=</span>all_pit_min0,<span class="at">weights =</span> IP21)</span></code></pre></div>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-270">Table 8.17: </span>SLR Model Estimating ERA2022 using ERA2021 (equal weights)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Predictor
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std Error
+</th>
+<th style="text-align:right;">
+t stat
+</th>
+<th style="text-align:left;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+4.475
+</td>
+<td style="text-align:right;">
+0.258
+</td>
+<td style="text-align:right;">
+17.359
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Earned Run Average, 2021
+</td>
+<td style="text-align:right;">
+0.019
+</td>
+<td style="text-align:right;">
+0.044
+</td>
+<td style="text-align:right;">
+0.421
+</td>
+<td style="text-align:left;">
+0.674
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-271">Table 8.18: </span>SLR Model Estimating ERA2022 using ERA2021 (weighted by IP)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Predictor
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std Error
+</th>
+<th style="text-align:right;">
+t stat
+</th>
+<th style="text-align:left;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+3.156
+</td>
+<td style="text-align:right;">
+0.324
+</td>
+<td style="text-align:right;">
+9.728
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Earned Run Average, 2021
+</td>
+<td style="text-align:right;">
+0.261
+</td>
+<td style="text-align:right;">
+0.076
+</td>
+<td style="text-align:right;">
+3.458
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="linear-regression.html#cb542-1" aria-hidden="true" tabindex="-1"></a>mod_slr <span class="ot">&lt;-</span> <span class="fu">lm</span>(ERA22<span class="sc">~</span>ERA21,<span class="at">data=</span>all_pit_min5)</span>
+<span id="cb542-2"><a href="linear-regression.html#cb542-2" aria-hidden="true" tabindex="-1"></a>mod_wls <span class="ot">&lt;-</span> <span class="fu">lm</span>(ERA22<span class="sc">~</span>ERA21,<span class="at">data=</span>all_pit_min5,<span class="at">weights =</span> IP21)</span></code></pre></div>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-273">Table 8.19: </span>SLR Model Estimating ERA2022 using ERA2021 (equal weights)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Predictor
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std Error
+</th>
+<th style="text-align:right;">
+t stat
+</th>
+<th style="text-align:left;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+3.726
+</td>
+<td style="text-align:right;">
+0.241
+</td>
+<td style="text-align:right;">
+15.438
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Earned Run Average, 2021
+</td>
+<td style="text-align:right;">
+0.135
+</td>
+<td style="text-align:right;">
+0.051
+</td>
+<td style="text-align:right;">
+2.658
+</td>
+<td style="text-align:left;">
+0.008
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-274">Table 8.20: </span>SLR Model Estimating ERA2022 using ERA2021 (weighted by IP)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Predictor
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std Error
+</th>
+<th style="text-align:right;">
+t stat
+</th>
+<th style="text-align:left;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+3.018
+</td>
+<td style="text-align:right;">
+0.283
+</td>
+<td style="text-align:right;">
+10.676
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Earned Run Average, 2021
+</td>
+<td style="text-align:right;">
+0.279
+</td>
+<td style="text-align:right;">
+0.067
+</td>
+<td style="text-align:right;">
+4.183
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="stepwise-regression-using-cross-validation" class="section level2 hasAnchor" number="8.9">
+<h2><span class="header-section-number">8.9</span> Stepwise Regression using Cross-Validation<a href="linear-regression.html#stepwise-regression-using-cross-validation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Cross-validation is a resampling method that uses different portions of the data to train and test models. It is often used when we aim to do prediction.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-217" class="example"><strong>Example 8.9  </strong></span>Using the 2022 MLB team statistics data, use cross-validation to determine a linear model with runs/game as the response and BA, OBP, SLG, and OPS as predictors. Use 10-fold cross-validation with 3 repeats.</p>
+</div>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="linear-regression.html#cb543-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Acquire the data</span></span>
+<span id="cb543-2"><a href="linear-regression.html#cb543-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb543-3"><a href="linear-regression.html#cb543-3" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://www.baseball-reference.com/leagues/majors/2022.shtml&quot;</span></span>
+<span id="cb543-4"><a href="linear-regression.html#cb543-4" aria-hidden="true" tabindex="-1"></a>site <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb543-5"><a href="linear-regression.html#cb543-5" aria-hidden="true" tabindex="-1"></a>mlb22 <span class="ot">&lt;-</span> site <span class="sc">%&gt;%</span> <span class="fu">html_elements</span>(<span class="st">&quot;#teams_standard_batting&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_table</span>()</span>
+<span id="cb543-6"><a href="linear-regression.html#cb543-6" aria-hidden="true" tabindex="-1"></a>mlb22 <span class="ot">&lt;-</span> mlb22 <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> <span class="fu">column_to_rownames</span>(<span class="st">&quot;Tm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb543-7"><a href="linear-regression.html#cb543-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">R/G</span><span class="st">`</span><span class="ot">=</span>R.G) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span>(<span class="dv">31</span><span class="sc">:</span><span class="dv">33</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="st">`</span><span class="at">R/G</span><span class="st">`</span>,BA,OBP,SLG,OPS)</span>
+<span id="cb543-8"><a href="linear-regression.html#cb543-8" aria-hidden="true" tabindex="-1"></a>mlb22 <span class="ot">&lt;-</span> <span class="fu">write_csv</span>(mlb22,<span class="st">&quot;data/mlb22.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="linear-regression.html#cb544-1" aria-hidden="true" tabindex="-1"></a>mlb22 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/mlb22.csv&quot;</span>)</span>
+<span id="cb544-2"><a href="linear-regression.html#cb544-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb544-3"><a href="linear-regression.html#cb544-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb544-4"><a href="linear-regression.html#cb544-4" aria-hidden="true" tabindex="-1"></a>mod_null <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">R/G</span><span class="st">`</span> <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data=</span>mlb22)</span>
+<span id="cb544-5"><a href="linear-regression.html#cb544-5" aria-hidden="true" tabindex="-1"></a>mod_full <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">R/G</span><span class="st">`</span> <span class="sc">~</span> ., <span class="at">data=</span>mlb22)</span>
+<span id="cb544-6"><a href="linear-regression.html#cb544-6" aria-hidden="true" tabindex="-1"></a>set_train <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method=</span><span class="st">&quot;repeatedcv&quot;</span>, <span class="at">number=</span><span class="dv">10</span>, <span class="at">repeats=</span><span class="dv">3</span>)</span>
+<span id="cb544-7"><a href="linear-regression.html#cb544-7" aria-hidden="true" tabindex="-1"></a>mod_cv <span class="ot">&lt;-</span> <span class="fu">train</span>(<span class="st">`</span><span class="at">R/G</span><span class="st">`</span> <span class="sc">~</span> ., <span class="at">data=</span>mlb22,  <span class="at">scope =</span> <span class="fu">formula</span>(mod_null),</span>
+<span id="cb544-8"><a href="linear-regression.html#cb544-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">method=</span><span class="st">&quot;lmStepAIC&quot;</span>, <span class="at">direction=</span><span class="st">&quot;both&quot;</span>, <span class="at">trace=</span><span class="cn">FALSE</span>, <span class="at">trControl=</span>set_train)</span></code></pre></div>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="linear-regression.html#cb545-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Null model</span></span>
+<span id="cb545-2"><a href="linear-regression.html#cb545-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod_null)</span></code></pre></div>
+<pre><code>## (Intercept) 
+##       4.284</code></pre>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="linear-regression.html#cb547-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Full model with all variables</span></span>
+<span id="cb547-2"><a href="linear-regression.html#cb547-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod_full)</span></code></pre></div>
+<pre><code>## (Intercept)          BA         OBP         SLG         OPS 
+##   -4.054414   -4.481930   66.032434   61.003985  -49.862273</code></pre>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="linear-regression.html#cb549-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model selected using stepwise selection with CV</span></span>
+<span id="cb549-2"><a href="linear-regression.html#cb549-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod_cv<span class="sc">$</span>finalModel)</span></code></pre></div>
+<pre><code>## (Intercept)          BA         OBP         SLG 
+##   -3.982217   -6.311483   17.489115   11.030694</code></pre>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="ridge-regression" class="section level2 hasAnchor" number="8.10">
+<h2><span class="header-section-number">8.10</span> Ridge Regression<a href="linear-regression.html#ridge-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ridge regression is a method for estimating coefficients of a multiple regression model and used particularly used when predictor variables are highly correlated.</p>
+<p>In particular, model estimates of <span class="math inline">\(\hat{\beta}_i\)</span> are calculated to minimize:</p>
+<p><span class="math inline">\(\sum_{i=1}^n (y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij})^2 + \lambda \sum_{j=1}^p \beta_j^2\)</span></p>
+<div class="example">
+<p><span id="exm:unlabeled-div-218" class="example"><strong>Example 8.10  </strong></span>NHL team statistics for the 2021-2022 season is contained in <code>nhl21-22.csv</code>. The goal is to build a ridge regression model with team points as the response and other team statistics as the predictors.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>Load the data and display in a kable table.</li>
+</ol>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="linear-regression.html#cb551-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data and output a subset of the table</span></span>
+<span id="cb551-2"><a href="linear-regression.html#cb551-2" aria-hidden="true" tabindex="-1"></a>nhl2122 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nhl21-22.csv&quot;</span>)</span>
+<span id="cb551-3"><a href="linear-regression.html#cb551-3" aria-hidden="true" tabindex="-1"></a>nhl2122<span class="sc">$</span>Team <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">*&quot;</span>, <span class="st">&quot;&quot;</span>,nhl2122<span class="sc">$</span>Team)</span>
+<span id="cb551-4"><a href="linear-regression.html#cb551-4" aria-hidden="true" tabindex="-1"></a>nhl2122 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+PTS
+</th>
+<th style="text-align:right;">
+SOS
+</th>
+<th style="text-align:right;">
+GF/G
+</th>
+<th style="text-align:right;">
+GA/G
+</th>
+<th style="text-align:right;">
+PP%
+</th>
+<th style="text-align:right;">
+PK%
+</th>
+<th style="text-align:right;">
+SH
+</th>
+<th style="text-align:right;">
+SHA
+</th>
+<th style="text-align:right;">
+PIM/G
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Florida Panthers
+</td>
+<td style="text-align:right;">
+122
+</td>
+<td style="text-align:right;">
+-0.08
+</td>
+<td style="text-align:right;">
+4.11
+</td>
+<td style="text-align:right;">
+2.95
+</td>
+<td style="text-align:right;">
+24.43
+</td>
+<td style="text-align:right;">
+79.54
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+10.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Colorado Avalanche
+</td>
+<td style="text-align:right;">
+119
+</td>
+<td style="text-align:right;">
+-0.04
+</td>
+<td style="text-align:right;">
+3.76
+</td>
+<td style="text-align:right;">
+2.83
+</td>
+<td style="text-align:right;">
+24.01
+</td>
+<td style="text-align:right;">
+79.66
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Carolina Hurricanes
+</td>
+<td style="text-align:right;">
+116
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+3.38
+</td>
+<td style="text-align:right;">
+2.44
+</td>
+<td style="text-align:right;">
+21.98
+</td>
+<td style="text-align:right;">
+88.04
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+9.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Toronto Maple Leafs
+</td>
+<td style="text-align:right;">
+115
+</td>
+<td style="text-align:right;">
+-0.06
+</td>
+<td style="text-align:right;">
+3.80
+</td>
+<td style="text-align:right;">
+3.07
+</td>
+<td style="text-align:right;">
+27.27
+</td>
+<td style="text-align:right;">
+82.05
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+8.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Minnesota Wild
+</td>
+<td style="text-align:right;">
+113
+</td>
+<td style="text-align:right;">
+-0.02
+</td>
+<td style="text-align:right;">
+3.72
+</td>
+<td style="text-align:right;">
+3.04
+</td>
+<td style="text-align:right;">
+20.54
+</td>
+<td style="text-align:right;">
+76.14
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+10.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Calgary Flames
+</td>
+<td style="text-align:right;">
+111
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+3.55
+</td>
+<td style="text-align:right;">
+2.51
+</td>
+<td style="text-align:right;">
+22.88
+</td>
+<td style="text-align:right;">
+83.20
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+9.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tampa Bay Lightning
+</td>
+<td style="text-align:right;">
+110
+</td>
+<td style="text-align:right;">
+-0.02
+</td>
+<td style="text-align:right;">
+3.48
+</td>
+<td style="text-align:right;">
+2.78
+</td>
+<td style="text-align:right;">
+23.94
+</td>
+<td style="text-align:right;">
+80.56
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+11.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+New York Rangers
+</td>
+<td style="text-align:right;">
+110
+</td>
+<td style="text-align:right;">
+-0.03
+</td>
+<td style="text-align:right;">
+3.05
+</td>
+<td style="text-align:right;">
+2.49
+</td>
+<td style="text-align:right;">
+25.23
+</td>
+<td style="text-align:right;">
+82.30
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+8.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+St. Louis Blues
+</td>
+<td style="text-align:right;">
+109
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+3.77
+</td>
+<td style="text-align:right;">
+2.91
+</td>
+<td style="text-align:right;">
+26.97
+</td>
+<td style="text-align:right;">
+84.09
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+7.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Boston Bruins
+</td>
+<td style="text-align:right;">
+107
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+3.09
+</td>
+<td style="text-align:right;">
+2.66
+</td>
+<td style="text-align:right;">
+21.19
+</td>
+<td style="text-align:right;">
+81.30
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+9.9
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Fit the optimal value for lambda.</li>
+</ol>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="linear-regression.html#cb552-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb552-2"><a href="linear-regression.html#cb552-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb552-3"><a href="linear-regression.html#cb552-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb552-4"><a href="linear-regression.html#cb552-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> nhl2122<span class="sc">$</span>PTS</span>
+<span id="cb552-5"><a href="linear-regression.html#cb552-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> nhl2122 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Team,<span class="sc">-</span>PTS) <span class="sc">%&gt;%</span> <span class="fu">scale</span>() <span class="sc">%&gt;%</span> <span class="fu">data.matrix</span>()</span>
+<span id="cb552-6"><a href="linear-regression.html#cb552-6" aria-hidden="true" tabindex="-1"></a>lambdas <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">2</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="at">by =</span> <span class="sc">-</span>.<span class="dv">1</span>)</span>
+<span id="cb552-7"><a href="linear-regression.html#cb552-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb552-8"><a href="linear-regression.html#cb552-8" aria-hidden="true" tabindex="-1"></a><span class="co"># fit the ridge regression model</span></span>
+<span id="cb552-9"><a href="linear-regression.html#cb552-9" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">lambda =</span> lambdas)</span>
+<span id="cb552-10"><a href="linear-regression.html#cb552-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb552-11"><a href="linear-regression.html#cb552-11" aria-hidden="true" tabindex="-1"></a><span class="co"># fit the ridge regression model using cross-validation</span></span>
+<span id="cb552-12"><a href="linear-regression.html#cb552-12" aria-hidden="true" tabindex="-1"></a>cv_model <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">lambda =</span> lambdas)</span>
+<span id="cb552-13"><a href="linear-regression.html#cb552-13" aria-hidden="true" tabindex="-1"></a>( best_lambda <span class="ot">&lt;-</span> cv_model<span class="sc">$</span>lambda.min )</span></code></pre></div>
+<pre><code>## [1] 1.584893</code></pre>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Plot MSE as a function of log(lambda).</li>
+</ol>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="linear-regression.html#cb554-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_model)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-282-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Create a trace plot.</li>
+</ol>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="linear-regression.html#cb555-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Trace plot</span></span>
+<span id="cb555-2"><a href="linear-regression.html#cb555-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that coefficients shrink to zero as lambda gets large</span></span>
+<span id="cb555-3"><a href="linear-regression.html#cb555-3" aria-hidden="true" tabindex="-1"></a><span class="co"># When lambda is small, we get ordinary least squares regression</span></span>
+<span id="cb555-4"><a href="linear-regression.html#cb555-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model,<span class="at">xvar=</span><span class="st">&quot;lambda&quot;</span>,<span class="at">label =</span> T)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-283-1.png" width="672" /></p>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>Find the final ridge regression model.</li>
+</ol>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="linear-regression.html#cb556-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use optimal lambda to find final ridge regression model</span></span>
+<span id="cb556-2"><a href="linear-regression.html#cb556-2" aria-hidden="true" tabindex="-1"></a>best_model <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">lambda =</span> best_lambda)</span>
+<span id="cb556-3"><a href="linear-regression.html#cb556-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(best_model)</span></code></pre></div>
+<pre><code>## 12 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                     s0
+## (Intercept) 91.0000000
+## SOS         -4.5830640
+## GF/G         7.6021591
+## GA/G        -6.6140452
+## PP%          2.1545416
+## PK%         -1.6310942
+## SH          -0.3088951
+## SHA         -0.2400908
+## PIM/G       -0.5156325
+## oPIM/G       0.5151495
+## S%           0.2863092
+## SV%          1.5397393</code></pre>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="lasso-regression" class="section level2 hasAnchor" number="8.11">
+<h2><span class="header-section-number">8.11</span> Lasso Regression<a href="linear-regression.html#lasso-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Lasso regression is a method for estimating coefficients of a multiple regression model and is especially useful for variable selection.</p>
+<p>In particular, model estimates of <span class="math inline">\(\hat{\beta}_i\)</span> are calculated to minimize:</p>
+<p><span class="math inline">\(\sum_{i=1}^n (y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij})^2 + \lambda \sum_{j=1}^p |\beta_j|\)</span></p>
+<div class="example">
+<p><span id="exm:unlabeled-div-219" class="example"><strong>Example 8.11  </strong></span>Use the NHL 2021-2022 team statistics dataset to fit a regression model using LASSO.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>Fit the optimal value for lambda.</li>
+</ol>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="linear-regression.html#cb558-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb558-2"><a href="linear-regression.html#cb558-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb558-3"><a href="linear-regression.html#cb558-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> nhl2122<span class="sc">$</span>PTS</span>
+<span id="cb558-4"><a href="linear-regression.html#cb558-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> nhl2122 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Team,<span class="sc">-</span>PTS) <span class="sc">%&gt;%</span> <span class="fu">scale</span>() <span class="sc">%&gt;%</span> <span class="fu">data.matrix</span>()</span>
+<span id="cb558-5"><a href="linear-regression.html#cb558-5" aria-hidden="true" tabindex="-1"></a>lambdas <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">2</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="at">by =</span> <span class="sc">-</span>.<span class="dv">1</span>)</span>
+<span id="cb558-6"><a href="linear-regression.html#cb558-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb558-7"><a href="linear-regression.html#cb558-7" aria-hidden="true" tabindex="-1"></a><span class="co"># fit the ridge regression model</span></span>
+<span id="cb558-8"><a href="linear-regression.html#cb558-8" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">lambda =</span> lambdas)</span>
+<span id="cb558-9"><a href="linear-regression.html#cb558-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb558-10"><a href="linear-regression.html#cb558-10" aria-hidden="true" tabindex="-1"></a><span class="co"># fit the ridge regression model using cross-validation</span></span>
+<span id="cb558-11"><a href="linear-regression.html#cb558-11" aria-hidden="true" tabindex="-1"></a>cv_model <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">lambda =</span> lambdas)</span>
+<span id="cb558-12"><a href="linear-regression.html#cb558-12" aria-hidden="true" tabindex="-1"></a>( best_lambda <span class="ot">&lt;-</span> cv_model<span class="sc">$</span>lambda.min )</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Plot MSE as a function of log(lambda).</li>
+</ol>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="linear-regression.html#cb560-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_model)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-286-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Create a trace plot.</li>
+</ol>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="linear-regression.html#cb561-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Trace plot</span></span>
+<span id="cb561-2"><a href="linear-regression.html#cb561-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that coefficients shrink to zero as lambda gets large</span></span>
+<span id="cb561-3"><a href="linear-regression.html#cb561-3" aria-hidden="true" tabindex="-1"></a><span class="co"># When lambda is small, we get ordinary least squares regression</span></span>
+<span id="cb561-4"><a href="linear-regression.html#cb561-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model,<span class="at">xvar=</span><span class="st">&quot;lambda&quot;</span>,<span class="at">label =</span> T)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/warning-1.png" width="672" /></p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Find the final lasso regression model.</li>
+</ol>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="linear-regression.html#cb562-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use optimal lambda to find final lasso regression model</span></span>
+<span id="cb562-2"><a href="linear-regression.html#cb562-2" aria-hidden="true" tabindex="-1"></a>lasso_model <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">lambda =</span> best_lambda)</span>
+<span id="cb562-3"><a href="linear-regression.html#cb562-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lasso_model)</span></code></pre></div>
+<pre><code>## 12 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                     s0
+## (Intercept) 91.0000000
+## SOS         -0.7500131
+## GF/G        10.0306214
+## GA/G        -9.1194278
+## PP%          1.2783637
+## PK%          .        
+## SH           .        
+## SHA          .        
+## PIM/G        .        
+## oPIM/G       .        
+## S%           .        
+## SV%          .</code></pre>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="elastic-net" class="section level2 hasAnchor" number="8.12">
+<h2><span class="header-section-number">8.12</span> Elastic Net<a href="linear-regression.html#elastic-net" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Elastic Net Regularization is a method for estimating coefficients of a multiple regression model by combining Ridge and LASSO Regression</p>
+<p>In particular, model estimates of <span class="math inline">\(\hat{\beta}_i\)</span> are calculated to minimize:</p>
+<p><span class="math inline">\(\sum_{i=1}^n (y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij})^2 + \lambda \cdot \left( \alpha \cdot \sum_{j=1}^p |\beta_j| + \frac{1-\alpha}{2} \sum_{j=1}^p \beta_j^2 \right)\)</span></p>
+<div class="example">
+<p><span id="exm:unlabeled-div-220" class="example"><strong>Example 8.12  </strong></span>Use the NHL 2021-2022 team statistics dataset to fit a regression model using Elastic Net and cross-validation.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>First tune the model parameters, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\lambda\)</span>.</li>
+</ol>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="linear-regression.html#cb564-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb564-2"><a href="linear-regression.html#cb564-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb564-3"><a href="linear-regression.html#cb564-3" aria-hidden="true" tabindex="-1"></a>cv5 <span class="ot">=</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;cv&quot;</span>, <span class="at">number =</span> <span class="dv">5</span>)</span>
+<span id="cb564-4"><a href="linear-regression.html#cb564-4" aria-hidden="true" tabindex="-1"></a>elnet <span class="ot">=</span> <span class="fu">train</span>(PTS<span class="sc">~</span>.<span class="sc">-</span>Team,<span class="at">data=</span>nhl2122,</span>
+<span id="cb564-5"><a href="linear-regression.html#cb564-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">metric =</span> <span class="st">&quot;RMSE&quot;</span>,</span>
+<span id="cb564-6"><a href="linear-regression.html#cb564-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">preProcess =</span> <span class="fu">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>),</span>
+<span id="cb564-7"><a href="linear-regression.html#cb564-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">tuneGrid =</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb564-8"><a href="linear-regression.html#cb564-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">.alpha =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">10</span>), </span>
+<span id="cb564-9"><a href="linear-regression.html#cb564-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.lambda =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="at">length.out =</span> <span class="dv">101</span>)),</span>
+<span id="cb564-10"><a href="linear-regression.html#cb564-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;glmnet&quot;</span>, <span class="at">trControl =</span> cv5)</span>
+<span id="cb564-11"><a href="linear-regression.html#cb564-11" aria-hidden="true" tabindex="-1"></a>elnet<span class="sc">$</span>bestTune</span></code></pre></div>
+<pre><code>##     alpha lambda
+## 931     1   1.05</code></pre>
+<div style="page-break-after: always;"></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Find the final model after tuning.</li>
+</ol>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="linear-regression.html#cb566-1" aria-hidden="true" tabindex="-1"></a>elastic_mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> elnet<span class="sc">$</span>bestTune<span class="sc">$</span>alpha, <span class="at">lambda =</span> elnet<span class="sc">$</span>bestTune<span class="sc">$</span>lambda)</span>
+<span id="cb566-2"><a href="linear-regression.html#cb566-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(elastic_mod)</span></code></pre></div>
+<pre><code>## 12 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                     s0
+## (Intercept) 91.0000000
+## SOS         -0.7821577
+## GF/G         9.9863842
+## GA/G        -9.0747940
+## PP%          1.2652996
+## PK%          .        
+## SH           .        
+## SHA          .        
+## PIM/G        .        
+## oPIM/G       .        
+## S%           .        
+## SV%          .</code></pre>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="mixed-effects-models" class="section level2 hasAnchor" number="8.13">
+<h2><span class="header-section-number">8.13</span> Mixed Effects Models<a href="linear-regression.html#mixed-effects-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="example">
+<p><span id="exm:unlabeled-div-221" class="example"><strong>Example 8.13  </strong></span>In this exercise, we will assess the relationship between the Four Factors and Win Percentage in professional basketball using team statistics from 2000-2022.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>Scrape advanced team statistics from Basketball Reference for the years 2000-2022. We are interested in the following variables: Team, Four Factors, Season.</li>
+</ol>
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="linear-regression.html#cb568-1" aria-hidden="true" tabindex="-1"></a>url_base <span class="ot">&lt;-</span> <span class="st">&quot;https://www.basketball-reference.com/leagues/NBA_&quot;</span></span>
+<span id="cb568-2"><a href="linear-regression.html#cb568-2" aria-hidden="true" tabindex="-1"></a>year <span class="ot">=</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2022</span></span>
+<span id="cb568-3"><a href="linear-regression.html#cb568-3" aria-hidden="true" tabindex="-1"></a>n_year <span class="ot">=</span> <span class="fu">length</span>(year)</span>
+<span id="cb568-4"><a href="linear-regression.html#cb568-4" aria-hidden="true" tabindex="-1"></a>url_end <span class="ot">&lt;-</span> <span class="st">&quot;.html&quot;</span></span>
+<span id="cb568-5"><a href="linear-regression.html#cb568-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb568-6"><a href="linear-regression.html#cb568-6" aria-hidden="true" tabindex="-1"></a>nba_team_data <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb568-7"><a href="linear-regression.html#cb568-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb568-8"><a href="linear-regression.html#cb568-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_year){</span>
+<span id="cb568-9"><a href="linear-regression.html#cb568-9" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="fu">paste</span>(url_base,year[i],url_end,<span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb568-10"><a href="linear-regression.html#cb568-10" aria-hidden="true" tabindex="-1"></a>  site <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb568-11"><a href="linear-regression.html#cb568-11" aria-hidden="true" tabindex="-1"></a>  temp_table <span class="ot">&lt;-</span> site <span class="sc">%&gt;%</span> <span class="fu">html_element</span>(<span class="st">&quot;#advanced-team&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_table</span>() <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>()</span>
+<span id="cb568-12"><a href="linear-regression.html#cb568-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(temp_table) <span class="ot">&lt;-</span> <span class="fu">as.character</span>(temp_table[<span class="dv">1</span>,])</span>
+<span id="cb568-13"><a href="linear-regression.html#cb568-13" aria-hidden="true" tabindex="-1"></a>  temp_table <span class="ot">&lt;-</span> temp_table[<span class="sc">-</span><span class="dv">1</span>,] <span class="sc">%&gt;%</span> </span>
+<span id="cb568-14"><a href="linear-regression.html#cb568-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">22</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb568-15"><a href="linear-regression.html#cb568-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(Team <span class="sc">!=</span> <span class="st">&quot;League Average&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb568-16"><a href="linear-regression.html#cb568-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Team =</span> <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">*&quot;</span>, <span class="st">&quot;&quot;</span>, Team))</span>
+<span id="cb568-17"><a href="linear-regression.html#cb568-17" aria-hidden="true" tabindex="-1"></a>  teams <span class="ot">&lt;-</span> temp_table <span class="sc">%&gt;%</span> <span class="fu">select</span>(Team) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>)</span>
+<span id="cb568-18"><a href="linear-regression.html#cb568-18" aria-hidden="true" tabindex="-1"></a>  temp_table[,<span class="dv">3</span><span class="sc">:</span><span class="dv">22</span>] <span class="ot">&lt;-</span> temp_table <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">22</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb568-19"><a href="linear-regression.html#cb568-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate_if</span>(is.character, as.numeric)</span>
+<span id="cb568-20"><a href="linear-regression.html#cb568-20" aria-hidden="true" tabindex="-1"></a>  temp_table <span class="ot">&lt;-</span> temp_table <span class="sc">%&gt;%</span></span>
+<span id="cb568-21"><a href="linear-regression.html#cb568-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">WinPct =</span> W<span class="sc">/</span>(W<span class="sc">+</span>L)) <span class="sc">%&gt;%</span></span>
+<span id="cb568-22"><a href="linear-regression.html#cb568-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Team,<span class="st">`</span><span class="at">WinPct</span><span class="st">`</span>,<span class="st">`</span><span class="at">eFG%</span><span class="st">`</span>,<span class="st">`</span><span class="at">TOV%</span><span class="st">`</span>,<span class="st">`</span><span class="at">ORB%</span><span class="st">`</span>,<span class="st">`</span><span class="at">FT/FGA</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb568-23"><a href="linear-regression.html#cb568-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Season=</span>year[i])</span>
+<span id="cb568-24"><a href="linear-regression.html#cb568-24" aria-hidden="true" tabindex="-1"></a>  nba_team_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(nba_team_data,temp_table)</span>
+<span id="cb568-25"><a href="linear-regression.html#cb568-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb568-26"><a href="linear-regression.html#cb568-26" aria-hidden="true" tabindex="-1"></a>nba_team_data <span class="ot">&lt;-</span> nba_team_data <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="linear-regression.html#cb569-1" aria-hidden="true" tabindex="-1"></a>nba_team_data <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+WinPct
+</th>
+<th style="text-align:right;">
+eFG%
+</th>
+<th style="text-align:right;">
+TOV%
+</th>
+<th style="text-align:right;">
+ORB%
+</th>
+<th style="text-align:right;">
+FT/FGA
+</th>
+<th style="text-align:right;">
+Season
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Los Angeles Lakers
+</td>
+<td style="text-align:right;">
+0.817
+</td>
+<td style="text-align:right;">
+0.484
+</td>
+<td style="text-align:right;">
+12.7
+</td>
+<td style="text-align:right;">
+30.6
+</td>
+<td style="text-align:right;">
+0.241
+</td>
+<td style="text-align:right;">
+2000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Portland Trail Blazers
+</td>
+<td style="text-align:right;">
+0.720
+</td>
+<td style="text-align:right;">
+0.501
+</td>
+<td style="text-align:right;">
+14.5
+</td>
+<td style="text-align:right;">
+30.3
+</td>
+<td style="text-align:right;">
+0.240
+</td>
+<td style="text-align:right;">
+2000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+San Antonio Spurs
+</td>
+<td style="text-align:right;">
+0.646
+</td>
+<td style="text-align:right;">
+0.488
+</td>
+<td style="text-align:right;">
+14.3
+</td>
+<td style="text-align:right;">
+27.8
+</td>
+<td style="text-align:right;">
+0.258
+</td>
+<td style="text-align:right;">
+2000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Phoenix Suns
+</td>
+<td style="text-align:right;">
+0.646
+</td>
+<td style="text-align:right;">
+0.491
+</td>
+<td style="text-align:right;">
+15.2
+</td>
+<td style="text-align:right;">
+29.3
+</td>
+<td style="text-align:right;">
+0.217
+</td>
+<td style="text-align:right;">
+2000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Utah Jazz
+</td>
+<td style="text-align:right;">
+0.671
+</td>
+<td style="text-align:right;">
+0.490
+</td>
+<td style="text-align:right;">
+14.3
+</td>
+<td style="text-align:right;">
+29.5
+</td>
+<td style="text-align:right;">
+0.260
+</td>
+<td style="text-align:right;">
+2000
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Inspect the correlational structure of the dataset</li>
+</ol>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="linear-regression.html#cb570-1" aria-hidden="true" tabindex="-1"></a>nba_team_data <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Team,<span class="sc">-</span>Season) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-292-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Fit a mixed effects model with team modeled as a random effect and the four factors as fixed effects.</li>
+</ol>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="linear-regression.html#cb571-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb571-2"><a href="linear-regression.html#cb571-2" aria-hidden="true" tabindex="-1"></a>nba_team_data_scaled <span class="ot">&lt;-</span> nba_team_data <span class="sc">%&gt;%</span> <span class="fu">mutate_if</span>(is.numeric,scale)</span>
+<span id="cb571-3"><a href="linear-regression.html#cb571-3" aria-hidden="true" tabindex="-1"></a>nba_model <span class="ot">&lt;-</span> <span class="fu">lmer</span>(WinPct<span class="sc">~</span>(<span class="dv">1</span><span class="sc">|</span>Team)<span class="sc">+</span><span class="st">`</span><span class="at">eFG%</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TOV%</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">ORB%</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">FT/FGA</span><span class="st">`</span>,</span>
+<span id="cb571-4"><a href="linear-regression.html#cb571-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data=</span>nba_team_data_scaled)</span>
+<span id="cb571-5"><a href="linear-regression.html#cb571-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nba_model)</span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: WinPct ~ (1 | Team) + `eFG%` + `TOV%` + `ORB%` + `FT/FGA`
+##    Data: nba_team_data_scaled
+## 
+## REML criterion at convergence: 1537.4
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -3.11982 -0.65998 -0.00056  0.65763  2.69461 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  Team     (Intercept) 0.05759  0.2400  
+##  Residual             0.50651  0.7117  
+## Number of obs: 685, groups:  Team, 36
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept) -0.01452    0.04950  -0.293
+## `eFG%`       0.67970    0.03774  18.009
+## `TOV%`      -0.25415    0.03357  -7.570
+## `ORB%`       0.43837    0.03864  11.346
+## `FT/FGA`     0.23650    0.03223   7.339
+## 
+## Correlation of Fixed Effects:
+##          (Intr) `eFG%` `TOV%` `ORB%`
+## `eFG%`    0.016                     
+## `TOV%`    0.005  0.283              
+## `ORB%`    0.007  0.531 -0.073       
+## `FT/FGA` -0.002 -0.063 -0.254 -0.321</code></pre>
+<div style="page-break-after: always;"></div>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Fit a mixed effects model with team and season modeled as random effects and the four factors as fixed effects.</li>
+</ol>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="linear-regression.html#cb573-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb573-2"><a href="linear-regression.html#cb573-2" aria-hidden="true" tabindex="-1"></a>nba_team_data_scaled <span class="ot">&lt;-</span> nba_team_data <span class="sc">%&gt;%</span> <span class="fu">mutate_if</span>(is.numeric,scale)</span>
+<span id="cb573-3"><a href="linear-regression.html#cb573-3" aria-hidden="true" tabindex="-1"></a>nba_model <span class="ot">&lt;-</span> <span class="fu">lmer</span>(WinPct<span class="sc">~</span>(<span class="dv">1</span><span class="sc">|</span>Team)<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>Season)<span class="sc">+</span><span class="st">`</span><span class="at">eFG%</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TOV%</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">ORB%</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">FT/FGA</span><span class="st">`</span>,</span>
+<span id="cb573-4"><a href="linear-regression.html#cb573-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data=</span>nba_team_data_scaled)</span>
+<span id="cb573-5"><a href="linear-regression.html#cb573-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nba_model)</span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: WinPct ~ (1 | Team) + (1 | Season) + `eFG%` + `TOV%` + `ORB%` +  
+##     `FT/FGA`
+##    Data: nba_team_data_scaled
+## 
+## REML criterion at convergence: 1353.1
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -3.09019 -0.68621 -0.01116  0.61425  2.79536 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  Team     (Intercept) 0.05333  0.2309  
+##  Season   (Intercept) 0.44107  0.6641  
+##  Residual             0.33990  0.5830  
+## Number of obs: 685, groups:  Team, 36; Season, 23
+## 
+## Fixed effects:
+##              Estimate Std. Error t value
+## (Intercept) -0.003365   0.145762  -0.023
+## `eFG%`       1.017012   0.037093  27.418
+## `TOV%`      -0.362411   0.029101 -12.454
+## `ORB%`       0.301020   0.034965   8.609
+## `FT/FGA`     0.182931   0.031299   5.845
+## 
+## Correlation of Fixed Effects:
+##          (Intr) `eFG%` `TOV%` `ORB%`
+## `eFG%`    0.007                     
+## `TOV%`    0.001  0.157              
+## `ORB%`    0.000  0.271 -0.021       
+## `FT/FGA` -0.001 -0.177 -0.212 -0.163</code></pre>
+<div style="page-break-after: always;"></div>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="logistic-regression" class="section level2 hasAnchor" number="8.14">
+<h2><span class="header-section-number">8.14</span> Logistic Regression<a href="linear-regression.html#logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="sack-and-interception-probability-models" class="section level3 hasAnchor" number="8.14.1">
+<h3><span class="header-section-number">8.14.1</span> Sack and Interception Probability Models<a href="linear-regression.html#sack-and-interception-probability-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(Mathletics, chapter 27, page 230)
 (Mathletics, chapter 1, page 13)</p>
 </div>
-<div id="soccer-goal-logistic-model" class="section level3 hasAnchor" number="8.9.2">
-<h3><span class="header-section-number">8.9.2</span> Soccer Goal Logistic Model<a href="linear-regression.html#soccer-goal-logistic-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="soccer-goal-logistic-model" class="section level3 hasAnchor" number="8.14.2">
+<h3><span class="header-section-number">8.14.2</span> Soccer Goal Logistic Model<a href="linear-regression.html#soccer-goal-logistic-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(Mathletics, chapter 39, page 354)</p>
 </div>
-<div id="field-goal-success" class="section level3 hasAnchor" number="8.9.3">
-<h3><span class="header-section-number">8.9.3</span> Field Goal Success<a href="linear-regression.html#field-goal-success" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="field-goal-success" class="section level3 hasAnchor" number="8.14.3">
+<h3><span class="header-section-number">8.14.3</span> Field Goal Success<a href="linear-regression.html#field-goal-success" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(AM, page 266)</p>
 <div style="page-break-after: always;"></div>
 </div>

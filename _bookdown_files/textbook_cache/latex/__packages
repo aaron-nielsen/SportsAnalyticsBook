@@ -35,3 +35,8 @@ forecast
 DescTools
 broom
 leaps
+lattice
+caret
+Matrix
+glmnet
+lme4

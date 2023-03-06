@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2023-02-27}
+\date{2023-03-06}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -11195,10 +11195,925 @@ When controlling for an NBA team's wins in the previous season, the sign for the
 \hypertarget{interaction}{%
 \section{Interaction}\label{interaction}}
 
-(AM, page 222, strikeout rate vs.~movement and velocity)
+Sometimes the relationship between an independent variable and a dependent variable depend on the value of a different independent value. In such a case, we say that the predictor variables interact and we should consider including an interaction term in our model.
 
-\hypertarget{confounding-variables-1}{%
-\section{Confounding Variables}\label{confounding-variables-1}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# load nfl team statistics data from 2022}
+\NormalTok{nfl22 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/nfl22.csv"}\NormalTok{,}\AttributeTok{show\_col\_types =}\NormalTok{ F)}
+\NormalTok{nfl22 }\OtherTok{\textless{}{-}}\NormalTok{ nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{32}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{PPG=}\NormalTok{PF}\SpecialCharTok{/}\NormalTok{G,}\AttributeTok{RYPG=}\NormalTok{Rush\_Yds}\SpecialCharTok{/}\NormalTok{G,}\AttributeTok{PYPG=}\NormalTok{Pass\_Yds}\SpecialCharTok{/}\NormalTok{G) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(Tm,PPG,RYPG,PYPG) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_to\_rownames}\NormalTok{(}\StringTok{"Tm"}\NormalTok{)}
+\NormalTok{nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrrr}
+\toprule
+  & PPG & RYPG & PYPG\\
+\midrule
+Kansas City Chiefs & 29.2 & 115.9 & 297.8\\
+Philadelphia Eagles & 28.1 & 147.6 & 241.5\\
+Dallas Cowboys & 27.5 & 135.2 & 219.8\\
+Buffalo Bills & 28.4 & 139.5 & 258.1\\
+Detroit Lions & 26.6 & 128.2 & 251.8\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(gridExtra)}
+\NormalTok{p1 }\OtherTok{\textless{}{-}}\NormalTok{ nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{RYPG,}\AttributeTok{y=}\NormalTok{PPG)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{,}\AttributeTok{se=}\NormalTok{F) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{"Rushing Yards Per Game vs. Points Per Game"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Rushing Yards Per Game (RYPG)"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Points Per Game"}\NormalTok{)}
+\NormalTok{p2 }\OtherTok{\textless{}{-}}\NormalTok{ nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{PYPG,}\AttributeTok{y=}\NormalTok{PPG)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{,}\AttributeTok{se=}\NormalTok{F) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{"Passing Yards Per Game vs. Points Per Game"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Passing Yards Per Game (RYPG)"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Points Per Game"}\NormalTok{)}
+\NormalTok{p3 }\OtherTok{\textless{}{-}}\NormalTok{ nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{RYPG,}\AttributeTok{y=}\NormalTok{PYPG)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{,}\AttributeTok{se=}\NormalTok{F) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{"Rushing Yards Per Game vs. Passing Yards Per Game"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Rushing Yards Per Game (RYPG)"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"Passing Yards Per Game"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\vfill
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{grid.arrange}\NormalTok{(p1,p2,p3,}\AttributeTok{nrow=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-259-1.pdf}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model1 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(PPG}\SpecialCharTok{\textasciitilde{}}\NormalTok{RYPG}\SpecialCharTok{+}\NormalTok{PYPG,}\AttributeTok{data=}\NormalTok{nfl22)}
+\CommentTok{\# Nicely output regression information}
+\NormalTok{model1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{p.value =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{pvalue}\NormalTok{(p.value),}
+    \AttributeTok{term =} \FunctionTok{c}\NormalTok{(}\StringTok{"Intercept"}\NormalTok{,}\StringTok{"RYPG"}\NormalTok{,}\StringTok{"PYPG"}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }
+        \AttributeTok{caption =} \StringTok{"SLR Model Estimating PPG Using RYPG and PYPG"}\NormalTok{,}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-260}SLR Model Estimating PPG Using RYPG and PYPG}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+Intercept & -15.509 & 3.825 & -4.055 & <0.001\\
+RYPG & 0.122 & 0.017 & 7.280 & <0.001\\
+PYPG & 0.103 & 0.010 & 9.833 & <0.001\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model2 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(PPG}\SpecialCharTok{\textasciitilde{}}\NormalTok{RYPG}\SpecialCharTok{*}\NormalTok{PYPG,}\AttributeTok{data=}\NormalTok{nfl22)}
+\CommentTok{\# Nicely output regression information}
+\NormalTok{model2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{p.value =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{pvalue}\NormalTok{(p.value),}
+    \AttributeTok{term =} \FunctionTok{c}\NormalTok{(}\StringTok{"Intercept"}\NormalTok{,}\StringTok{"RYPG"}\NormalTok{,}\StringTok{"PYPG"}\NormalTok{,}\StringTok{"RYPG:PYPG"}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }
+        \AttributeTok{caption =} \StringTok{"SLR Model Estimating PPG Using RYPG and PYPG"}\NormalTok{,}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-261}SLR Model Estimating PPG Using RYPG and PYPG}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+Intercept & -7.082 & 8.751 & -0.809 & 0.425\\
+RYPG & 0.056 & 0.064 & 0.868 & 0.393\\
+PYPG & 0.063 & 0.039 & 1.627 & 0.115\\
+RYPG:PYPG & 0.000 & 0.000 & 1.070 & 0.294\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+\begin{example}
+Acquire the average fastball and curveball velocities for baseball pitchers in 2022. Assess whether FBv and CBv interact when modeling K/9 (strikeouts per nine innings)
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pit22 }\OtherTok{\textless{}{-}} \FunctionTok{fg\_pitch\_leaders}\NormalTok{(}\AttributeTok{x=}\DecValTok{2022}\NormalTok{,}\AttributeTok{y=}\DecValTok{2022}\NormalTok{,}\AttributeTok{qual =} \StringTok{"n"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(Name,FBv,CBv,}\StringTok{\textasciigrave{}}\AttributeTok{K\_9}\StringTok{\textasciigrave{}}\NormalTok{)}
+\NormalTok{pit22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{na.omit}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(FBv)) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrrr}
+\toprule
+Name & FBv & CBv & K\_9\\
+\midrule
+Jhoan Duran & 100.9 & 87.8 & 11.84\\
+Ryan Helsley & 99.7 & 80.8 & 13.08\\
+Jose Alvarado & 99.6 & 86.5 & 14.29\\
+Aneurys Zabala & 99.3 & 83.7 & 6.75\\
+Jacob deGrom & 98.9 & 83.5 & 14.27\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pit\_mod1 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(K\_9}\SpecialCharTok{\textasciitilde{}}\NormalTok{FBv}\SpecialCharTok{+}\NormalTok{CBv,}\AttributeTok{data=}\NormalTok{pit22)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-264}SLR Model Estimating K/9 using FBv and CBv with no interaction}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+Intercept & -17.525 & 2.222 & -7.887 & <0.001\\
+Average Fastball Velocity & 0.288 & 0.042 & 6.820 & <0.001\\
+Average Curveball Velocity & -0.016 & 0.038 & -0.426 & 0.670\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pit\_mod2 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(K\_9}\SpecialCharTok{\textasciitilde{}}\NormalTok{FBv}\SpecialCharTok{*}\NormalTok{CBv,}\AttributeTok{data=}\NormalTok{pit22)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-266}SLR Model Estimating K/9 using FBv and CBv with interaction}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+Intercept & 24.902 & 9.780 & 2.546 & 0.011\\
+Average Fastball Velocity & -0.172 & 0.111 & -1.545 & 0.123\\
+Average Curveball Velocity & -0.744 & 0.168 & -4.435 & <0.001\\
+Interaction & 0.008 & 0.002 & 4.450 & <0.001\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+\hypertarget{weighted-least-squares-regression}{%
+\section{Weighted Least Squares Regression}\label{weighted-least-squares-regression}}
+
+Recall from Example 8.1 where we attempted to predict ERA in 2022 from ERA and FIP from 2021. One concern in this analysis was that each pitcher pitched a different number of innings. We'd like to account for this by giving more weight to pitchers with more innings pitched. This can be accomplished by using weighted least squares regression. Weighted least squares regression is particularly used when the data exhibits non-constant variance
+
+\begin{example}
+Build SLR models predicting ERA22 from ERA21 with and without weights.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pit21 }\OtherTok{\textless{}{-}} \FunctionTok{bref\_daily\_pitcher}\NormalTok{(}\StringTok{"2021{-}01{-}01"}\NormalTok{, }\StringTok{"2021{-}12{-}31"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{fip\_plus}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(Name, IP, ERA, FIP) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{arrange}\NormalTok{(dplyr}\SpecialCharTok{::}\FunctionTok{desc}\NormalTok{(IP)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{IP21=}\NormalTok{IP,}\AttributeTok{ERA21=}\NormalTok{ERA,}\AttributeTok{FIP21=}\NormalTok{FIP)}
+
+\NormalTok{pit22 }\OtherTok{\textless{}{-}} \FunctionTok{bref\_daily\_pitcher}\NormalTok{(}\StringTok{"2022{-}01{-}01"}\NormalTok{, }\StringTok{"2022{-}12{-}31"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{fip\_plus}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(Name, IP, ERA, FIP) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{arrange}\NormalTok{(dplyr}\SpecialCharTok{::}\FunctionTok{desc}\NormalTok{(IP)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{IP22=}\NormalTok{IP,}\AttributeTok{ERA22=}\NormalTok{ERA,}\AttributeTok{FIP22=}\NormalTok{FIP)}
+
+\CommentTok{\# merge the datasets together, remove redundant columns}
+\NormalTok{all\_pit\_min0 }\OtherTok{\textless{}{-}}\NormalTok{ pit21 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{left\_join}\NormalTok{(pit22,}\AttributeTok{by =} \StringTok{"Name"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{,}\DecValTok{8}\SpecialCharTok{:}\DecValTok{10}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(IP21}\SpecialCharTok{\textgreater{}}\DecValTok{0} \SpecialCharTok{\&}\NormalTok{ IP22}\SpecialCharTok{\textgreater{}}\DecValTok{0}\NormalTok{)}
+
+\NormalTok{all\_pit\_min5 }\OtherTok{\textless{}{-}}\NormalTok{ pit21 }\SpecialCharTok{\%\textgreater{}\%}  \FunctionTok{left\_join}\NormalTok{(pit22,}\AttributeTok{by =} \StringTok{"Name"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{,}\DecValTok{8}\SpecialCharTok{:}\DecValTok{10}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(IP21}\SpecialCharTok{\textgreater{}}\DecValTok{5} \SpecialCharTok{\&}\NormalTok{ IP22}\SpecialCharTok{\textgreater{}}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{all\_pit }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{ERA21,}\AttributeTok{y=}\NormalTok{ERA22,}\AttributeTok{size=}\NormalTok{IP21}\SpecialCharTok{+}\NormalTok{IP22)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha=}\FloatTok{0.2}\NormalTok{,}\AttributeTok{color=}\StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_size}\NormalTok{(}\AttributeTok{range =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-268-1.pdf}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod\_slr }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(ERA22}\SpecialCharTok{\textasciitilde{}}\NormalTok{ERA21,}\AttributeTok{data=}\NormalTok{all\_pit\_min0)}
+\NormalTok{mod\_wls }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(ERA22}\SpecialCharTok{\textasciitilde{}}\NormalTok{ERA21,}\AttributeTok{data=}\NormalTok{all\_pit\_min0,}\AttributeTok{weights =}\NormalTok{ IP21)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-270}SLR Model Estimating ERA2022 using ERA2021 (equal weights)}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+Intercept & 4.479 & 0.249 & 17.976 & <0.001\\
+Earned Run Average, 2021 & 0.024 & 0.044 & 0.539 & 0.590\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-271}SLR Model Estimating ERA2022 using ERA2021 (weighted by IP)}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+Intercept & 2.994 & 0.315 & 9.519 & <0.001\\
+Earned Run Average, 2021 & 0.307 & 0.073 & 4.208 & <0.001\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod\_slr }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(ERA22}\SpecialCharTok{\textasciitilde{}}\NormalTok{ERA21,}\AttributeTok{data=}\NormalTok{all\_pit\_min5)}
+\NormalTok{mod\_wls }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(ERA22}\SpecialCharTok{\textasciitilde{}}\NormalTok{ERA21,}\AttributeTok{data=}\NormalTok{all\_pit\_min5,}\AttributeTok{weights =}\NormalTok{ IP21)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-273}SLR Model Estimating ERA2022 using ERA2021 (equal weights)}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+Intercept & 3.730 & 0.231 & 16.163 & <0.001\\
+Earned Run Average, 2021 & 0.129 & 0.049 & 2.644 & 0.008\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-274}SLR Model Estimating ERA2022 using ERA2021 (weighted by IP)}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+Intercept & 3.071 & 0.268 & 11.466 & <0.001\\
+Earned Run Average, 2021 & 0.266 & 0.063 & 4.209 & <0.001\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+\hypertarget{stepwise-regression-using-cross-validation}{%
+\section{Stepwise Regression using Cross-Validation}\label{stepwise-regression-using-cross-validation}}
+
+Cross-validation is a resampling method that uses different portions of the data to train and test models. It is often used when we aim to do prediction.
+
+\begin{example}
+Using the 2022 MLB team statistics data, use cross-validation to determine a linear model with runs/game as the response and BA, OBP, SLG, and OPS as predictors. Use 10-fold cross-validation with 3 repeats.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Acquire the data}
+\FunctionTok{library}\NormalTok{(rvest)}
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{"https://www.baseball{-}reference.com/leagues/majors/2022.shtml"}
+\NormalTok{site }\OtherTok{\textless{}{-}} \FunctionTok{read\_html}\NormalTok{(url)}
+\NormalTok{mlb22 }\OtherTok{\textless{}{-}}\NormalTok{ site }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{html\_elements}\NormalTok{(}\StringTok{"\#teams\_standard\_batting"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{html\_table}\NormalTok{()}
+\NormalTok{mlb22 }\OtherTok{\textless{}{-}}\NormalTok{ mlb22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{column\_to\_rownames}\NormalTok{(}\StringTok{"Tm"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rename}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{R/G}\StringTok{\textasciigrave{}}\OtherTok{=}\NormalTok{R.G) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{(}\DecValTok{31}\SpecialCharTok{:}\DecValTok{33}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{R/G}\StringTok{\textasciigrave{}}\NormalTok{,BA,OBP,SLG,OPS)}
+\NormalTok{mlb22 }\OtherTok{\textless{}{-}} \FunctionTok{write\_csv}\NormalTok{(mlb22,}\StringTok{"data/mlb22.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mlb22 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/mlb22.csv"}\NormalTok{)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2023}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(caret)}
+\NormalTok{mod\_null }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{R/G}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\AttributeTok{data=}\NormalTok{mlb22)}
+\NormalTok{mod\_full }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{R/G}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }\AttributeTok{data=}\NormalTok{mlb22)}
+\NormalTok{set\_train }\OtherTok{\textless{}{-}} \FunctionTok{trainControl}\NormalTok{(}\AttributeTok{method=}\StringTok{"repeatedcv"}\NormalTok{, }\AttributeTok{number=}\DecValTok{10}\NormalTok{, }\AttributeTok{repeats=}\DecValTok{3}\NormalTok{)}
+\NormalTok{mod\_cv }\OtherTok{\textless{}{-}} \FunctionTok{train}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{R/G}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }\AttributeTok{data=}\NormalTok{mlb22,  }\AttributeTok{scope =} \FunctionTok{formula}\NormalTok{(mod\_null),}
+  \AttributeTok{method=}\StringTok{"lmStepAIC"}\NormalTok{, }\AttributeTok{direction=}\StringTok{"both"}\NormalTok{, }\AttributeTok{trace=}\ConstantTok{FALSE}\NormalTok{, }\AttributeTok{trControl=}\NormalTok{set\_train)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Null model}
+\FunctionTok{coef}\NormalTok{(mod\_null)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept) 
+##       4.284
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Full model with all variables}
+\FunctionTok{coef}\NormalTok{(mod\_full)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept)          BA         OBP         SLG         OPS 
+##   -4.054414   -4.481930   66.032434   61.003985  -49.862273
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Model selected using stepwise selection with CV}
+\FunctionTok{coef}\NormalTok{(mod\_cv}\SpecialCharTok{$}\NormalTok{finalModel)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept)          BA         OBP         SLG 
+##   -3.982217   -6.311483   17.489115   11.030694
+\end{verbatim}
+
+\newpage
+
+\hypertarget{ridge-regression}{%
+\section{Ridge Regression}\label{ridge-regression}}
+
+Ridge regression is a method for estimating coefficients of a multiple regression model and used particularly used when predictor variables are highly correlated.
+
+In particular, model estimates of \(\hat{\beta}_i\) are calculated to minimize:
+
+\(\sum_{i=1}^n (y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij})^2 + \lambda \sum_{j=1}^p \beta_j^2\)
+
+\begin{example}
+NHL team statistics for the 2021-2022 season is contained in \texttt{nhl21-22.csv}. The goal is to build a ridge regression model with team points as the response and other team statistics as the predictors.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Load the data and display in a kable table.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load data and output a subset of the table}
+\NormalTok{nhl2122 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/nhl21{-}22.csv"}\NormalTok{)}
+\NormalTok{nhl2122}\SpecialCharTok{$}\NormalTok{Team }\OtherTok{\textless{}{-}} \FunctionTok{gsub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{*"}\NormalTok{, }\StringTok{""}\NormalTok{,nhl2122}\SpecialCharTok{$}\NormalTok{Team)}
+\NormalTok{nhl2122 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+Team & PTS & SOS & GF/G & GA/G & PP\% & PK\% & SH & SHA & PIM/G\\
+\midrule
+Florida Panthers & 122 & -0.08 & 4.11 & 2.95 & 24.43 & 79.54 & 12 & 8 & 10.1\\
+Colorado Avalanche & 119 & -0.04 & 3.76 & 2.83 & 24.01 & 79.66 & 6 & 5 & 9.0\\
+Carolina Hurricanes & 116 & -0.05 & 3.38 & 2.44 & 21.98 & 88.04 & 4 & 3 & 9.2\\
+Toronto Maple Leafs & 115 & -0.06 & 3.80 & 3.07 & 27.27 & 82.05 & 13 & 4 & 8.6\\
+Minnesota Wild & 113 & -0.02 & 3.72 & 3.04 & 20.54 & 76.14 & 2 & 5 & 10.8\\
+\addlinespace
+Calgary Flames & 111 & -0.05 & 3.55 & 2.51 & 22.88 & 83.20 & 7 & 3 & 9.1\\
+Tampa Bay Lightning & 110 & -0.02 & 3.48 & 2.78 & 23.94 & 80.56 & 7 & 5 & 11.0\\
+New York Rangers & 110 & -0.03 & 3.05 & 2.49 & 25.23 & 82.30 & 8 & 2 & 8.2\\
+St. Louis Blues & 109 & -0.05 & 3.77 & 2.91 & 26.97 & 84.09 & 9 & 5 & 7.5\\
+Boston Bruins & 107 & -0.05 & 3.09 & 2.66 & 21.19 & 81.30 & 5 & 6 & 9.9\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Fit the optimal value for lambda.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(glmnet)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2023}\NormalTok{)}
+
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ nhl2122}\SpecialCharTok{$}\NormalTok{PTS}
+\NormalTok{x }\OtherTok{\textless{}{-}}\NormalTok{ nhl2122 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Team,}\SpecialCharTok{{-}}\NormalTok{PTS) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{scale}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{data.matrix}\NormalTok{()}
+\NormalTok{lambdas }\OtherTok{\textless{}{-}} \DecValTok{10}\SpecialCharTok{\^{}}\FunctionTok{seq}\NormalTok{(}\DecValTok{2}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\AttributeTok{by =} \SpecialCharTok{{-}}\NormalTok{.}\DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# fit the ridge regression model}
+\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{glmnet}\NormalTok{(x, y, }\AttributeTok{alpha =} \DecValTok{0}\NormalTok{, }\AttributeTok{lambda =}\NormalTok{ lambdas)}
+
+\CommentTok{\# fit the ridge regression model using cross{-}validation}
+\NormalTok{cv\_model }\OtherTok{\textless{}{-}} \FunctionTok{cv.glmnet}\NormalTok{(x, y, }\AttributeTok{alpha =} \DecValTok{0}\NormalTok{, }\AttributeTok{lambda =}\NormalTok{ lambdas)}
+\NormalTok{( best\_lambda }\OtherTok{\textless{}{-}}\NormalTok{ cv\_model}\SpecialCharTok{$}\NormalTok{lambda.min )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.584893
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Plot MSE as a function of log(lambda).
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(cv\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-282-1.pdf}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Create a trace plot.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Trace plot}
+\CommentTok{\# Note that coefficients shrink to zero as lambda gets large}
+\CommentTok{\# When lambda is small, we get ordinary least squares regression}
+\FunctionTok{plot}\NormalTok{(model,}\AttributeTok{xvar=}\StringTok{"lambda"}\NormalTok{,}\AttributeTok{label =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-283-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Find the final ridge regression model.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Use optimal lambda to find final ridge regression model}
+\NormalTok{best\_model }\OtherTok{\textless{}{-}} \FunctionTok{glmnet}\NormalTok{(x, y, }\AttributeTok{alpha =} \DecValTok{0}\NormalTok{, }\AttributeTok{lambda =}\NormalTok{ best\_lambda)}
+\FunctionTok{coef}\NormalTok{(best\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 12 x 1 sparse Matrix of class "dgCMatrix"
+##                     s0
+## (Intercept) 91.0000000
+## SOS         -4.5830640
+## GF/G         7.6021591
+## GA/G        -6.6140452
+## PP%          2.1545416
+## PK%         -1.6310942
+## SH          -0.3088951
+## SHA         -0.2400908
+## PIM/G       -0.5156325
+## oPIM/G       0.5151495
+## S%           0.2863092
+## SV%          1.5397393
+\end{verbatim}
+
+\newpage
+
+\hypertarget{lasso-regression}{%
+\section{Lasso Regression}\label{lasso-regression}}
+
+Lasso regression is a method for estimating coefficients of a multiple regression model and is especially useful for variable selection.
+
+In particular, model estimates of \(\hat{\beta}_i\) are calculated to minimize:
+
+\(\sum_{i=1}^n (y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij})^2 + \lambda \sum_{j=1}^p |\beta_j|\)
+
+\begin{example}
+Use the NHL 2021-2022 team statistics dataset to fit a regression model using LASSO.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Fit the optimal value for lambda.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2023}\NormalTok{)}
+
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ nhl2122}\SpecialCharTok{$}\NormalTok{PTS}
+\NormalTok{x }\OtherTok{\textless{}{-}}\NormalTok{ nhl2122 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Team,}\SpecialCharTok{{-}}\NormalTok{PTS) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{scale}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{data.matrix}\NormalTok{()}
+\NormalTok{lambdas }\OtherTok{\textless{}{-}} \DecValTok{10}\SpecialCharTok{\^{}}\FunctionTok{seq}\NormalTok{(}\DecValTok{2}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\AttributeTok{by =} \SpecialCharTok{{-}}\NormalTok{.}\DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# fit the ridge regression model}
+\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{glmnet}\NormalTok{(x, y, }\AttributeTok{alpha =} \DecValTok{1}\NormalTok{, }\AttributeTok{lambda =}\NormalTok{ lambdas)}
+
+\CommentTok{\# fit the ridge regression model using cross{-}validation}
+\NormalTok{cv\_model }\OtherTok{\textless{}{-}} \FunctionTok{cv.glmnet}\NormalTok{(x, y, }\AttributeTok{alpha =} \DecValTok{1}\NormalTok{, }\AttributeTok{lambda =}\NormalTok{ lambdas)}
+\NormalTok{( best\_lambda }\OtherTok{\textless{}{-}}\NormalTok{ cv\_model}\SpecialCharTok{$}\NormalTok{lambda.min )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Plot MSE as a function of log(lambda).
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(cv\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-286-1.pdf}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Create a trace plot.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Trace plot}
+\CommentTok{\# Note that coefficients shrink to zero as lambda gets large}
+\CommentTok{\# When lambda is small, we get ordinary least squares regression}
+\FunctionTok{plot}\NormalTok{(model,}\AttributeTok{xvar=}\StringTok{"lambda"}\NormalTok{,}\AttributeTok{label =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/warning-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Find the final lasso regression model.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Use optimal lambda to find final lasso regression model}
+\NormalTok{lasso\_model }\OtherTok{\textless{}{-}} \FunctionTok{glmnet}\NormalTok{(x, y, }\AttributeTok{alpha =} \DecValTok{1}\NormalTok{, }\AttributeTok{lambda =}\NormalTok{ best\_lambda)}
+\FunctionTok{coef}\NormalTok{(lasso\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 12 x 1 sparse Matrix of class "dgCMatrix"
+##                     s0
+## (Intercept) 91.0000000
+## SOS         -0.7500131
+## GF/G        10.0306214
+## GA/G        -9.1194278
+## PP%          1.2783637
+## PK%          .        
+## SH           .        
+## SHA          .        
+## PIM/G        .        
+## oPIM/G       .        
+## S%           .        
+## SV%          .
+\end{verbatim}
+
+\newpage
+
+\hypertarget{elastic-net}{%
+\section{Elastic Net}\label{elastic-net}}
+
+Elastic Net Regularization is a method for estimating coefficients of a multiple regression model by combining Ridge and LASSO Regression
+
+In particular, model estimates of \(\hat{\beta}_i\) are calculated to minimize:
+
+\(\sum_{i=1}^n (y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij})^2 + \lambda \cdot \left( \alpha \cdot \sum_{j=1}^p |\beta_j| + \frac{1-\alpha}{2} \sum_{j=1}^p \beta_j^2 \right)\)
+
+\begin{example}
+Use the NHL 2021-2022 team statistics dataset to fit a regression model using Elastic Net and cross-validation.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  First tune the model parameters, \(\alpha\) and \(\lambda\).
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2023}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(caret)}
+\NormalTok{cv5 }\OtherTok{=} \FunctionTok{trainControl}\NormalTok{(}\AttributeTok{method =} \StringTok{"cv"}\NormalTok{, }\AttributeTok{number =} \DecValTok{5}\NormalTok{)}
+\NormalTok{elnet }\OtherTok{=} \FunctionTok{train}\NormalTok{(PTS}\SpecialCharTok{\textasciitilde{}}\NormalTok{.}\SpecialCharTok{{-}}\NormalTok{Team,}\AttributeTok{data=}\NormalTok{nhl2122,}
+  \AttributeTok{metric =} \StringTok{"RMSE"}\NormalTok{,}
+  \AttributeTok{preProcess =} \FunctionTok{c}\NormalTok{(}\StringTok{"center"}\NormalTok{, }\StringTok{"scale"}\NormalTok{),}
+  \AttributeTok{tuneGrid =} \FunctionTok{expand.grid}\NormalTok{(}
+    \AttributeTok{.alpha =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{10}\NormalTok{), }
+    \AttributeTok{.lambda =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{101}\NormalTok{)),}
+  \AttributeTok{method =} \StringTok{"glmnet"}\NormalTok{, }\AttributeTok{trControl =}\NormalTok{ cv5)}
+\NormalTok{elnet}\SpecialCharTok{$}\NormalTok{bestTune}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     alpha lambda
+## 931     1   1.05
+\end{verbatim}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Find the final model after tuning.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{elastic\_mod }\OtherTok{\textless{}{-}} \FunctionTok{glmnet}\NormalTok{(x, y, }\AttributeTok{alpha =}\NormalTok{ elnet}\SpecialCharTok{$}\NormalTok{bestTune}\SpecialCharTok{$}\NormalTok{alpha, }\AttributeTok{lambda =}\NormalTok{ elnet}\SpecialCharTok{$}\NormalTok{bestTune}\SpecialCharTok{$}\NormalTok{lambda)}
+\FunctionTok{coef}\NormalTok{(elastic\_mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 12 x 1 sparse Matrix of class "dgCMatrix"
+##                     s0
+## (Intercept) 91.0000000
+## SOS         -0.7821577
+## GF/G         9.9863842
+## GA/G        -9.0747940
+## PP%          1.2652996
+## PK%          .        
+## SH           .        
+## SHA          .        
+## PIM/G        .        
+## oPIM/G       .        
+## S%           .        
+## SV%          .
+\end{verbatim}
+
+\newpage
+
+\hypertarget{mixed-effects-models}{%
+\section{Mixed Effects Models}\label{mixed-effects-models}}
+
+\begin{example}
+In this exercise, we will assess the relationship between the Four Factors and Win Percentage in professional basketball using team statistics from 2000-2022.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Scrape advanced team statistics from Basketball Reference for the years 2000-2022. We are interested in the following variables: Team, Four Factors, Season.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{url\_base }\OtherTok{\textless{}{-}} \StringTok{"https://www.basketball{-}reference.com/leagues/NBA\_"}
+\NormalTok{year }\OtherTok{=} \DecValTok{2000}\SpecialCharTok{:}\DecValTok{2022}
+\NormalTok{n\_year }\OtherTok{=} \FunctionTok{length}\NormalTok{(year)}
+\NormalTok{url\_end }\OtherTok{\textless{}{-}} \StringTok{".html"}
+\FunctionTok{library}\NormalTok{(rvest)}
+\NormalTok{nba\_team\_data }\OtherTok{\textless{}{-}} \ConstantTok{NULL}
+
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_year)\{}
+\NormalTok{  url }\OtherTok{\textless{}{-}} \FunctionTok{paste}\NormalTok{(url\_base,year[i],url\_end,}\AttributeTok{sep =} \StringTok{""}\NormalTok{)}
+\NormalTok{  site }\OtherTok{\textless{}{-}} \FunctionTok{read\_html}\NormalTok{(url)}
+\NormalTok{  temp\_table }\OtherTok{\textless{}{-}}\NormalTok{ site }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{html\_element}\NormalTok{(}\StringTok{"\#advanced{-}team"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{html\_table}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{data.frame}\NormalTok{()}
+  \FunctionTok{names}\NormalTok{(temp\_table) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(temp\_table[}\DecValTok{1}\NormalTok{,])}
+\NormalTok{  temp\_table }\OtherTok{\textless{}{-}}\NormalTok{ temp\_table[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,] }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{select}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{22}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{filter}\NormalTok{(Team }\SpecialCharTok{!=} \StringTok{"League Average"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Team =} \FunctionTok{gsub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{*"}\NormalTok{, }\StringTok{""}\NormalTok{, Team))}
+\NormalTok{  teams }\OtherTok{\textless{}{-}}\NormalTok{ temp\_table }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(Team) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{30}\NormalTok{)}
+\NormalTok{  temp\_table[,}\DecValTok{3}\SpecialCharTok{:}\DecValTok{22}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ temp\_table }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\DecValTok{3}\SpecialCharTok{:}\DecValTok{22}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate\_if}\NormalTok{(is.character, as.numeric)}
+\NormalTok{  temp\_table }\OtherTok{\textless{}{-}}\NormalTok{ temp\_table }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{WinPct =}\NormalTok{ W}\SpecialCharTok{/}\NormalTok{(W}\SpecialCharTok{+}\NormalTok{L)) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(Team,}\StringTok{\textasciigrave{}}\AttributeTok{WinPct}\StringTok{\textasciigrave{}}\NormalTok{,}\StringTok{\textasciigrave{}}\AttributeTok{eFG\%}\StringTok{\textasciigrave{}}\NormalTok{,}\StringTok{\textasciigrave{}}\AttributeTok{TOV\%}\StringTok{\textasciigrave{}}\NormalTok{,}\StringTok{\textasciigrave{}}\AttributeTok{ORB\%}\StringTok{\textasciigrave{}}\NormalTok{,}\StringTok{\textasciigrave{}}\AttributeTok{FT/FGA}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Season=}\NormalTok{year[i])}
+\NormalTok{  nba\_team\_data }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(nba\_team\_data,temp\_table)}
+\NormalTok{\}}
+\NormalTok{nba\_team\_data }\OtherTok{\textless{}{-}}\NormalTok{ nba\_team\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.data.frame}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nba\_team\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrrrrrr}
+\toprule
+Team & WinPct & eFG\% & TOV\% & ORB\% & FT/FGA & Season\\
+\midrule
+Los Angeles Lakers & 0.817 & 0.484 & 12.7 & 30.6 & 0.241 & 2000\\
+Portland Trail Blazers & 0.720 & 0.501 & 14.5 & 30.3 & 0.240 & 2000\\
+San Antonio Spurs & 0.646 & 0.488 & 14.3 & 27.8 & 0.258 & 2000\\
+Phoenix Suns & 0.646 & 0.491 & 15.2 & 29.3 & 0.217 & 2000\\
+Utah Jazz & 0.671 & 0.490 & 14.3 & 29.5 & 0.260 & 2000\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Inspect the correlational structure of the dataset
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nba\_team\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Team,}\SpecialCharTok{{-}}\NormalTok{Season) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggpairs}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-292-1.pdf}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Fit a mixed effects model with team modeled as a random effect and the four factors as fixed effects.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(lme4)}
+\NormalTok{nba\_team\_data\_scaled }\OtherTok{\textless{}{-}}\NormalTok{ nba\_team\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate\_if}\NormalTok{(is.numeric,scale)}
+\NormalTok{nba\_model }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(WinPct}\SpecialCharTok{\textasciitilde{}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{|}\NormalTok{Team)}\SpecialCharTok{+}\StringTok{\textasciigrave{}}\AttributeTok{eFG\%}\StringTok{\textasciigrave{}}\SpecialCharTok{+}\StringTok{\textasciigrave{}}\AttributeTok{TOV\%}\StringTok{\textasciigrave{}}\SpecialCharTok{+}\StringTok{\textasciigrave{}}\AttributeTok{ORB\%}\StringTok{\textasciigrave{}}\SpecialCharTok{+}\StringTok{\textasciigrave{}}\AttributeTok{FT/FGA}\StringTok{\textasciigrave{}}\NormalTok{,}
+                  \AttributeTok{data=}\NormalTok{nba\_team\_data\_scaled)}
+\FunctionTok{summary}\NormalTok{(nba\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: WinPct ~ (1 | Team) + `eFG%` + `TOV%` + `ORB%` + `FT/FGA`
+##    Data: nba_team_data_scaled
+## 
+## REML criterion at convergence: 1537.4
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -3.11982 -0.65998 -0.00056  0.65763  2.69461 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  Team     (Intercept) 0.05759  0.2400  
+##  Residual             0.50651  0.7117  
+## Number of obs: 685, groups:  Team, 36
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept) -0.01452    0.04950  -0.293
+## `eFG%`       0.67970    0.03774  18.009
+## `TOV%`      -0.25415    0.03357  -7.570
+## `ORB%`       0.43837    0.03864  11.346
+## `FT/FGA`     0.23650    0.03223   7.339
+## 
+## Correlation of Fixed Effects:
+##          (Intr) `eFG%` `TOV%` `ORB%`
+## `eFG%`    0.016                     
+## `TOV%`    0.005  0.283              
+## `ORB%`    0.007  0.531 -0.073       
+## `FT/FGA` -0.002 -0.063 -0.254 -0.321
+\end{verbatim}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Fit a mixed effects model with team and season modeled as random effects and the four factors as fixed effects.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(lme4)}
+\NormalTok{nba\_team\_data\_scaled }\OtherTok{\textless{}{-}}\NormalTok{ nba\_team\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate\_if}\NormalTok{(is.numeric,scale)}
+\NormalTok{nba\_model }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(WinPct}\SpecialCharTok{\textasciitilde{}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{|}\NormalTok{Team)}\SpecialCharTok{+}\NormalTok{(}\DecValTok{1}\SpecialCharTok{|}\NormalTok{Season)}\SpecialCharTok{+}\StringTok{\textasciigrave{}}\AttributeTok{eFG\%}\StringTok{\textasciigrave{}}\SpecialCharTok{+}\StringTok{\textasciigrave{}}\AttributeTok{TOV\%}\StringTok{\textasciigrave{}}\SpecialCharTok{+}\StringTok{\textasciigrave{}}\AttributeTok{ORB\%}\StringTok{\textasciigrave{}}\SpecialCharTok{+}\StringTok{\textasciigrave{}}\AttributeTok{FT/FGA}\StringTok{\textasciigrave{}}\NormalTok{,}
+                  \AttributeTok{data=}\NormalTok{nba\_team\_data\_scaled)}
+\FunctionTok{summary}\NormalTok{(nba\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: WinPct ~ (1 | Team) + (1 | Season) + `eFG%` + `TOV%` + `ORB%` +  
+##     `FT/FGA`
+##    Data: nba_team_data_scaled
+## 
+## REML criterion at convergence: 1353.1
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -3.09019 -0.68621 -0.01116  0.61425  2.79536 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  Team     (Intercept) 0.05333  0.2309  
+##  Season   (Intercept) 0.44107  0.6641  
+##  Residual             0.33990  0.5830  
+## Number of obs: 685, groups:  Team, 36; Season, 23
+## 
+## Fixed effects:
+##              Estimate Std. Error t value
+## (Intercept) -0.003365   0.145762  -0.023
+## `eFG%`       1.017012   0.037093  27.418
+## `TOV%`      -0.362411   0.029101 -12.454
+## `ORB%`       0.301020   0.034965   8.609
+## `FT/FGA`     0.182931   0.031299   5.845
+## 
+## Correlation of Fixed Effects:
+##          (Intr) `eFG%` `TOV%` `ORB%`
+## `eFG%`    0.007                     
+## `TOV%`    0.001  0.157              
+## `ORB%`    0.000  0.271 -0.021       
+## `FT/FGA` -0.001 -0.177 -0.212 -0.163
+\end{verbatim}
+
+\newpage
+
+\newpage
 
 \hypertarget{logistic-regression}{%
 \section{Logistic Regression}\label{logistic-regression}}
