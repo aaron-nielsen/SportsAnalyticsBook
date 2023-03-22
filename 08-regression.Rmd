@@ -784,41 +784,41 @@ Acquire the average fastball and curveball velocities for baseball pitchers in 2
 :::
 
 ```{r}
-pit22 <- fg_pitch_leaders(x=2022,y=2022,qual = "n") %>%
-  select(Name,FBv,CBv,`K_9`)
-pit22 %>% na.omit() %>% arrange(desc(FBv)) %>% slice(1:5) %>% kable(booktabs=T)
+# pit22 <- fg_pitch_leaders(x=2022,y=2022,qual = "n") %>%
+#   select(Name,FBv,CBv,`K_9`)
+# pit22 %>% na.omit() %>% arrange(desc(FBv)) %>% slice(1:5) %>% kable(booktabs=T)
 ```
 
 ```{r}
-pit_mod1 <- lm(K_9~FBv+CBv,data=pit22)
+# pit_mod1 <- lm(K_9~FBv+CBv,data=pit22)
 ```
 
 ```{r,echo=F}
-pit_mod1 %>% tidy() %>%
-  mutate(
-    p.value = scales::pvalue(p.value),
-    term = c("Intercept","Average Fastball Velocity","Average Curveball Velocity")
-  ) %>%
-  kable(booktabs=T,digits=c(3,3,3,3), 
-        caption = "SLR Model Estimating K/9 using FBv and CBv with no interaction",
-        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
-  kable_styling(latex_options = "hold_position")
+# pit_mod1 %>% tidy() %>%
+#   mutate(
+#     p.value = scales::pvalue(p.value),
+#     term = c("Intercept","Average Fastball Velocity","Average Curveball Velocity")
+#   ) %>%
+#   kable(booktabs=T,digits=c(3,3,3,3), 
+#         caption = "SLR Model Estimating K/9 using FBv and CBv with no interaction",
+#         col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+#   kable_styling(latex_options = "hold_position")
 ```
 
 ```{r}
-pit_mod2 <- lm(K_9~FBv*CBv,data=pit22)
+# pit_mod2 <- lm(K_9~FBv*CBv,data=pit22)
 ```
 
 ```{r,echo=F}
-pit_mod2 %>% tidy() %>%
-  mutate(
-    p.value = scales::pvalue(p.value),
-    term = c("Intercept","Average Fastball Velocity","Average Curveball Velocity","Interaction")
-  ) %>%
-  kable(booktabs=T,digits=c(3,3,3,3), 
-        caption = "SLR Model Estimating K/9 using FBv and CBv with interaction",
-        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
-  kable_styling(latex_options = "hold_position")
+# pit_mod2 %>% tidy() %>%
+#   mutate(
+#     p.value = scales::pvalue(p.value),
+#     term = c("Intercept","Average Fastball Velocity","Average Curveball Velocity","Interaction")
+#   ) %>%
+#   kable(booktabs=T,digits=c(3,3,3,3), 
+#         caption = "SLR Model Estimating K/9 using FBv and CBv with interaction",
+#         col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+#   kable_styling(latex_options = "hold_position")
 ```
 
 \newpage
@@ -1002,7 +1002,7 @@ set.seed(2023)
 
 y <- nhl2122$PTS
 x <- nhl2122 %>% select(-Team,-PTS) %>% scale() %>% data.matrix()
-lambdas <- 10^seq(2, -2, by = -.1)
+lambdas <- 10^seq(3, -3, by = -.1)
 
 # fit the ridge regression model
 model <- glmnet(x, y, alpha = 0, lambda = lambdas)
@@ -1027,7 +1027,7 @@ plot(cv_model)
 # Trace plot
 # Note that coefficients shrink to zero as lambda gets large
 # When lambda is small, we get ordinary least squares regression
-plot(model,xvar="lambda",label = T)
+plot(model,xvar="lambda",label = T) 
 ```
 
 (e) Find the final ridge regression model.
@@ -1084,7 +1084,7 @@ plot(cv_model)
 # Trace plot
 # Note that coefficients shrink to zero as lambda gets large
 # When lambda is small, we get ordinary least squares regression
-plot(model,xvar="lambda",label = T)
+plot(model,xvar="lambda",label = T) 
 ```
 
 (d) Find the final lasso regression model.
@@ -1136,6 +1136,39 @@ coef(elastic_mod)
 \newpage
 
 ## Mixed Effects Models
+
+\textbf{Random Factors and Random Effects} \
+
+\textbf{Fixed Factors vs Random Factors} \
+
+The term factor refers to a variable that is thought to influence the outcome of an experiment.
+A factor has levels, which refer the the specific values of that factor. For example, team
+might be a factor with 30 levels, one for each team. \
+
+
+(i) \textbf{Fixed Factors:} the specific factors that were used in the experiment, and their levels,
+are of direct interest to the researcher. Conclusions of the analysis apply to the factors
+and the specific factor levels tested. Example: is there a difference in spin rate among these four pitchers? \
+
+(ii) \textbf{Random Factor:} the levels of a random factor represent a random sample from a
+larger population of possible levels. Example: How much variability in spin rate is explained
+by year? Say there are 30 possible years of data (levels), and we would like to know if
+year makes a difference (at all). \
+
+
+\textbf{Fixed Effect vs Random Effect} \
+
+The term effect refers to a variable's coefficient, or in some cases, the difference between two
+coefficients. \
+
+(i) \textbf{Fixed Effects:} effects or coefficients associated with fixed factors (these effects are of
+direct interest) \
+(ii) \textbf{Random Effects:} effects or coefficients associated with random factors (these effects are
+NOT of direct interest; the variation among effects is of interest) \
+
+\textbf{Mixed Effects Model:} 
+
+\newpage
 
 :::{.example}
 In this exercise, we will assess the relationship between the Four Factors and Win Percentage in professional basketball using team statistics from 2000-2022. 

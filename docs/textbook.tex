@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2023-03-06}
+\date{2023-03-22}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -11330,66 +11330,23 @@ Acquire the average fastball and curveball velocities for baseball pitchers in 2
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{pit22 }\OtherTok{\textless{}{-}} \FunctionTok{fg\_pitch\_leaders}\NormalTok{(}\AttributeTok{x=}\DecValTok{2022}\NormalTok{,}\AttributeTok{y=}\DecValTok{2022}\NormalTok{,}\AttributeTok{qual =} \StringTok{"n"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(Name,FBv,CBv,}\StringTok{\textasciigrave{}}\AttributeTok{K\_9}\StringTok{\textasciigrave{}}\NormalTok{)}
-\NormalTok{pit22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{na.omit}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(FBv)) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\CommentTok{\# pit22 \textless{}{-} fg\_pitch\_leaders(x=2022,y=2022,qual = "n") \%\textgreater{}\%}
+\CommentTok{\#   select(Name,FBv,CBv,\textasciigrave{}K\_9\textasciigrave{})}
+\CommentTok{\# pit22 \%\textgreater{}\% na.omit() \%\textgreater{}\% arrange(desc(FBv)) \%\textgreater{}\% slice(1:5) \%\textgreater{}\% kable(booktabs=T)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{tabular}{lrrr}
-\toprule
-Name & FBv & CBv & K\_9\\
-\midrule
-Jhoan Duran & 100.9 & 87.8 & 11.84\\
-Ryan Helsley & 99.7 & 80.8 & 13.08\\
-Jose Alvarado & 99.6 & 86.5 & 14.29\\
-Aneurys Zabala & 99.3 & 83.7 & 6.75\\
-Jacob deGrom & 98.9 & 83.5 & 14.27\\
-\bottomrule
-\end{tabular}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{pit\_mod1 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(K\_9}\SpecialCharTok{\textasciitilde{}}\NormalTok{FBv}\SpecialCharTok{+}\NormalTok{CBv,}\AttributeTok{data=}\NormalTok{pit22)}
+\CommentTok{\# pit\_mod1 \textless{}{-} lm(K\_9\textasciitilde{}FBv+CBv,data=pit22)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{table}[!h]
-
-\caption{\label{tab:unnamed-chunk-264}SLR Model Estimating K/9 using FBv and CBv with no interaction}
-\centering
-\begin{tabular}[t]{lrrrl}
-\toprule
-Predictor & Estimate & Std Error & t stat & p-value\\
-\midrule
-Intercept & -17.525 & 2.222 & -7.887 & <0.001\\
-Average Fastball Velocity & 0.288 & 0.042 & 6.820 & <0.001\\
-Average Curveball Velocity & -0.016 & 0.038 & -0.426 & 0.670\\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{pit\_mod2 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(K\_9}\SpecialCharTok{\textasciitilde{}}\NormalTok{FBv}\SpecialCharTok{*}\NormalTok{CBv,}\AttributeTok{data=}\NormalTok{pit22)}
+\CommentTok{\# pit\_mod2 \textless{}{-} lm(K\_9\textasciitilde{}FBv*CBv,data=pit22)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{table}[!h]
-
-\caption{\label{tab:unnamed-chunk-266}SLR Model Estimating K/9 using FBv and CBv with interaction}
-\centering
-\begin{tabular}[t]{lrrrl}
-\toprule
-Predictor & Estimate & Std Error & t stat & p-value\\
-\midrule
-Intercept & 24.902 & 9.780 & 2.546 & 0.011\\
-Average Fastball Velocity & -0.172 & 0.111 & -1.545 & 0.123\\
-Average Curveball Velocity & -0.744 & 0.168 & -4.435 & <0.001\\
-Interaction & 0.008 & 0.002 & 4.450 & <0.001\\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \newpage
 
@@ -11645,7 +11602,7 @@ Boston Bruins & 107 & -0.05 & 3.09 & 2.66 & 21.19 & 81.30 & 5 & 6 & 9.9\\
 
 \NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ nhl2122}\SpecialCharTok{$}\NormalTok{PTS}
 \NormalTok{x }\OtherTok{\textless{}{-}}\NormalTok{ nhl2122 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Team,}\SpecialCharTok{{-}}\NormalTok{PTS) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{scale}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{data.matrix}\NormalTok{()}
-\NormalTok{lambdas }\OtherTok{\textless{}{-}} \DecValTok{10}\SpecialCharTok{\^{}}\FunctionTok{seq}\NormalTok{(}\DecValTok{2}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\AttributeTok{by =} \SpecialCharTok{{-}}\NormalTok{.}\DecValTok{1}\NormalTok{)}
+\NormalTok{lambdas }\OtherTok{\textless{}{-}} \DecValTok{10}\SpecialCharTok{\^{}}\FunctionTok{seq}\NormalTok{(}\DecValTok{3}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\AttributeTok{by =} \SpecialCharTok{{-}}\NormalTok{.}\DecValTok{1}\NormalTok{)}
 
 \CommentTok{\# fit the ridge regression model}
 \NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{glmnet}\NormalTok{(x, y, }\AttributeTok{alpha =} \DecValTok{0}\NormalTok{, }\AttributeTok{lambda =}\NormalTok{ lambdas)}
@@ -11691,7 +11648,7 @@ Boston Bruins & 107 & -0.05 & 3.09 & 2.66 & 21.19 & 81.30 & 5 & 6 & 9.9\\
 \CommentTok{\# Trace plot}
 \CommentTok{\# Note that coefficients shrink to zero as lambda gets large}
 \CommentTok{\# When lambda is small, we get ordinary least squares regression}
-\FunctionTok{plot}\NormalTok{(model,}\AttributeTok{xvar=}\StringTok{"lambda"}\NormalTok{,}\AttributeTok{label =}\NormalTok{ T)}
+\FunctionTok{plot}\NormalTok{(model,}\AttributeTok{xvar=}\StringTok{"lambda"}\NormalTok{,}\AttributeTok{label =}\NormalTok{ T) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -11804,7 +11761,7 @@ Use the NHL 2021-2022 team statistics dataset to fit a regression model using LA
 \CommentTok{\# Trace plot}
 \CommentTok{\# Note that coefficients shrink to zero as lambda gets large}
 \CommentTok{\# When lambda is small, we get ordinary least squares regression}
-\FunctionTok{plot}\NormalTok{(model,}\AttributeTok{xvar=}\StringTok{"lambda"}\NormalTok{,}\AttributeTok{label =}\NormalTok{ T)}
+\FunctionTok{plot}\NormalTok{(model,}\AttributeTok{xvar=}\StringTok{"lambda"}\NormalTok{,}\AttributeTok{label =}\NormalTok{ T) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -11924,6 +11881,47 @@ Use the NHL 2021-2022 team statistics dataset to fit a regression model using El
 
 \hypertarget{mixed-effects-models}{%
 \section{Mixed Effects Models}\label{mixed-effects-models}}
+
+\textbf{Random Factors and Random Effects}\\
+
+\textbf{Fixed Factors vs Random Factors}\\
+
+The term factor refers to a variable that is thought to influence the outcome of an experiment.
+A factor has levels, which refer the the specific values of that factor. For example, team
+might be a factor with 30 levels, one for each team.\\
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  \textbf{Fixed Factors:} the specific factors that were used in the experiment, and their levels,
+  are of direct interest to the researcher. Conclusions of the analysis apply to the factors
+  and the specific factor levels tested. Example: is there a difference in spin rate among these four pitchers?\\
+\item
+  \textbf{Random Factor:} the levels of a random factor represent a random sample from a
+  larger population of possible levels. Example: How much variability in spin rate is explained
+  by year? Say there are 30 possible years of data (levels), and we would like to know if
+  year makes a difference (at all).\\
+\end{enumerate}
+
+\textbf{Fixed Effect vs Random Effect}\\
+
+The term effect refers to a variable's coefficient, or in some cases, the difference between two
+coefficients.\\
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\tightlist
+\item
+  \textbf{Fixed Effects:} effects or coefficients associated with fixed factors (these effects are of
+  direct interest)\\
+\item
+  \textbf{Random Effects:} effects or coefficients associated with random factors (these effects are
+  NOT of direct interest; the variation among effects is of interest)\\
+\end{enumerate}
+
+\textbf{Mixed Effects Model:}
+
+\newpage
 
 \begin{example}
 In this exercise, we will assess the relationship between the Four Factors and Win Percentage in professional basketball using team statistics from 2000-2022.
@@ -12110,8 +12108,6 @@ Utah Jazz & 0.671 & 0.490 & 14.3 & 29.5 & 0.260 & 2000\\
 ## `ORB%`    0.000  0.271 -0.021       
 ## `FT/FGA` -0.001 -0.177 -0.212 -0.163
 \end{verbatim}
-
-\newpage
 
 \newpage
 

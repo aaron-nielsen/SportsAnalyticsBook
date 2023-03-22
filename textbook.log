@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  6 MAR 2023 00:22
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  22 MAR 2023 12:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2808,59 +2808,104 @@ f)
 [306]
 File: textbook_files/figure-latex/warning-1.pdf Graphic file (type pdf)
 <use textbook_files/figure-latex/warning-1.pdf>
-[307] [308] [309] [310]
+[307] [308] [309]
+Underfull \hbox (badness 10000) in paragraph at lines 11885--11886
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11887--11888
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11889--11892
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11896--11900
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11900--11904
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11906--11907
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11908--11910
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11915--11918
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11918--11920
+
+ []
+
+[310] [311]
 File: textbook_files/figure-latex/unnamed-chunk-292-1.pdf Graphic file (type pd
 f)
 <use textbook_files/figure-latex/unnamed-chunk-292-1.pdf>
-[311] [312] [313] [314]
-Chapter 9.
-[315
-
-] [316
+[312] [313] [314] [315] [316
 
 ]
-Chapter 10.
+Chapter 9.
 [317] [318
 
 ]
-Chapter 11.
+Chapter 10.
 [319] [320
 
 ]
-Chapter 12.
+Chapter 11.
 [321] [322
 
 ]
-Chapter 13.
+Chapter 12.
 [323] [324
 
 ]
-Chapter 14.
+Chapter 13.
 [325] [326
 
 ]
-Chapter 15.
+Chapter 14.
 [327] [328
 
 ]
-Chapter 16.
+Chapter 15.
 [329] [330
 
 ]
-Chapter 17.
+Chapter 16.
 [331] [332
+
+]
+Chapter 17.
+[333] [334
 
 ]
 Chapter 18.
 No file textbook.bbl.
-[333] (./textbook.aux) ) 
+[335] (./textbook.aux) ) 
 Here is how much of TeX's memory you used:
- 23440 strings out of 476179
- 462400 string characters out of 5809544
- 914615 words of memory out of 5000000
- 43687 multiletter control sequences out of 15000+600000
+ 23438 strings out of 476179
+ 462354 string characters out of 5809544
+ 914436 words of memory out of 5000000
+ 43685 multiletter control sequences out of 15000+600000
  475878 words of font info for 90 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  86i,10n,121p,1131b,516s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on textbook.pdf (333 pages).
+Output written on textbook.pdf (335 pages).
