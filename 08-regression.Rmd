@@ -1078,7 +1078,7 @@ plot(cv_model)
 
 \newpage
 
-(c) Create a trace plot.
+(c) Create a trace plot. 
 
 ```{r,message=F,warning}
 # Trace plot
