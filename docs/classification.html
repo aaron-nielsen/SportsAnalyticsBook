@@ -23,15 +23,15 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2023-03-22" />
+<meta name="date" content="2023-03-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="clustering.html"/>
-<link rel="next" href="nonparametric-methods.html"/>
+<link rel="prev" href="logistic-regression.html"/>
+<link rel="next" href="clustering.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -328,62 +328,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="measures-of-association.html"><a href="measures-of-association.html#pythagorean-record"><i class="fa fa-check"></i><b>6.5</b> Pythagorean Record</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="data-acquisition.html"><a href="data-acquisition.html"><i class="fa fa-check"></i><b>7</b> Data Acquisition</a>
+<li class="chapter" data-level="7" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>7</b> Linear Regression</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="data-acquisition.html"><a href="data-acquisition.html#tabular-data-from-sports-reference"><i class="fa fa-check"></i><b>7.1</b> Tabular Data From Sports Reference</a></li>
-<li class="chapter" data-level="7.2" data-path="data-acquisition.html"><a href="data-acquisition.html#downloading-datasets-from-internet"><i class="fa fa-check"></i><b>7.2</b> Downloading Datasets From Internet</a></li>
-<li class="chapter" data-level="7.3" data-path="data-acquisition.html"><a href="data-acquisition.html#importing-data-using-r-libraries"><i class="fa fa-check"></i><b>7.3</b> Importing Data Using R Libraries</a>
+<li class="chapter" data-level="7.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>7.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="7.2" data-path="linear-regression.html"><a href="linear-regression.html#residual-analysis"><i class="fa fa-check"></i><b>7.2</b> Residual Analysis</a></li>
+<li class="chapter" data-level="7.3" data-path="linear-regression.html"><a href="linear-regression.html#polynomial-regression"><i class="fa fa-check"></i><b>7.3</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="7.4" data-path="linear-regression.html"><a href="linear-regression.html#variable-transformations"><i class="fa fa-check"></i><b>7.4</b> Variable Transformations</a></li>
+<li class="chapter" data-level="7.5" data-path="linear-regression.html"><a href="linear-regression.html#multiple-regression-and-model-selection"><i class="fa fa-check"></i><b>7.5</b> Multiple Regression and Model Selection</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="data-acquisition.html"><a href="data-acquisition.html#baseballr-package"><i class="fa fa-check"></i><b>7.3.1</b> BaseballR package</a></li>
-<li class="chapter" data-level="7.3.2" data-path="data-acquisition.html"><a href="data-acquisition.html#nflfastr-package"><i class="fa fa-check"></i><b>7.3.2</b> nflfastR package</a></li>
-<li class="chapter" data-level="7.3.3" data-path="data-acquisition.html"><a href="data-acquisition.html#hoopr-package"><i class="fa fa-check"></i><b>7.3.3</b> hoopR package</a></li>
-<li class="chapter" data-level="7.3.4" data-path="data-acquisition.html"><a href="data-acquisition.html#hockeyr-package"><i class="fa fa-check"></i><b>7.3.4</b> hockeyR package</a></li>
-<li class="chapter" data-level="7.3.5" data-path="data-acquisition.html"><a href="data-acquisition.html#worldfootballr"><i class="fa fa-check"></i><b>7.3.5</b> worldfootballR</a></li>
+<li class="chapter" data-level="7.5.1" data-path="linear-regression.html"><a href="linear-regression.html#model-selection-using-bic"><i class="fa fa-check"></i><b>7.5.1</b> Model Selection using BIC</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="data-acquisition.html"><a href="data-acquisition.html#data-scraping"><i class="fa fa-check"></i><b>7.4</b> Data Scraping</a>
-<ul>
-<li class="chapter" data-level="7.4.1" data-path="data-acquisition.html"><a href="data-acquisition.html#general-tips"><i class="fa fa-check"></i><b>7.4.1</b> General Tips</a></li>
-<li class="chapter" data-level="7.4.2" data-path="data-acquisition.html"><a href="data-acquisition.html#introduction-to-html"><i class="fa fa-check"></i><b>7.4.2</b> Introduction to HTML</a></li>
-<li class="chapter" data-level="7.4.3" data-path="data-acquisition.html"><a href="data-acquisition.html#rvest-package"><i class="fa fa-check"></i><b>7.4.3</b> rvest Package</a></li>
-<li class="chapter" data-level="7.4.4" data-path="data-acquisition.html"><a href="data-acquisition.html#css-gadget-selector"><i class="fa fa-check"></i><b>7.4.4</b> CSS Gadget Selector</a></li>
-<li class="chapter" data-level="7.4.5" data-path="data-acquisition.html"><a href="data-acquisition.html#scraping-examples"><i class="fa fa-check"></i><b>7.4.5</b> Scraping Examples</a></li>
+<li class="chapter" data-level="7.6" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables"><i class="fa fa-check"></i><b>7.6</b> Confounding Variables</a></li>
+<li class="chapter" data-level="7.7" data-path="linear-regression.html"><a href="linear-regression.html#interaction"><i class="fa fa-check"></i><b>7.7</b> Interaction</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="data-acquisition.html"><a href="data-acquisition.html"><i class="fa fa-check"></i><b>8</b> Data Acquisition</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="data-acquisition.html"><a href="data-acquisition.html#tabular-data-from-sports-reference"><i class="fa fa-check"></i><b>8.1</b> Tabular Data From Sports Reference</a></li>
+<li class="chapter" data-level="8.2" data-path="data-acquisition.html"><a href="data-acquisition.html#downloading-datasets-from-internet"><i class="fa fa-check"></i><b>8.2</b> Downloading Datasets From Internet</a></li>
+<li class="chapter" data-level="8.3" data-path="data-acquisition.html"><a href="data-acquisition.html#importing-data-using-r-libraries"><i class="fa fa-check"></i><b>8.3</b> Importing Data Using R Libraries</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="data-acquisition.html"><a href="data-acquisition.html#baseballr-package"><i class="fa fa-check"></i><b>8.3.1</b> BaseballR package</a></li>
+<li class="chapter" data-level="8.3.2" data-path="data-acquisition.html"><a href="data-acquisition.html#nflfastr-package"><i class="fa fa-check"></i><b>8.3.2</b> nflfastR package</a></li>
+<li class="chapter" data-level="8.3.3" data-path="data-acquisition.html"><a href="data-acquisition.html#hoopr-package"><i class="fa fa-check"></i><b>8.3.3</b> hoopR package</a></li>
+<li class="chapter" data-level="8.3.4" data-path="data-acquisition.html"><a href="data-acquisition.html#hockeyr-package"><i class="fa fa-check"></i><b>8.3.4</b> hockeyR package</a></li>
+<li class="chapter" data-level="8.3.5" data-path="data-acquisition.html"><a href="data-acquisition.html#worldfootballr"><i class="fa fa-check"></i><b>8.3.5</b> worldfootballR</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>8</b> Linear Regression</a>
+<li class="chapter" data-level="8.4" data-path="data-acquisition.html"><a href="data-acquisition.html#data-scraping"><i class="fa fa-check"></i><b>8.4</b> Data Scraping</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>8.1</b> Simple Linear Regression</a></li>
-<li class="chapter" data-level="8.2" data-path="linear-regression.html"><a href="linear-regression.html#residual-analysis"><i class="fa fa-check"></i><b>8.2</b> Residual Analysis</a></li>
-<li class="chapter" data-level="8.3" data-path="linear-regression.html"><a href="linear-regression.html#polynomial-regression"><i class="fa fa-check"></i><b>8.3</b> Polynomial Regression</a></li>
-<li class="chapter" data-level="8.4" data-path="linear-regression.html"><a href="linear-regression.html#variable-transformations"><i class="fa fa-check"></i><b>8.4</b> Variable Transformations</a></li>
-<li class="chapter" data-level="8.5" data-path="linear-regression.html"><a href="linear-regression.html#multiple-regression-and-model-selection"><i class="fa fa-check"></i><b>8.5</b> Multiple Regression and Model Selection</a>
-<ul>
-<li class="chapter" data-level="8.5.1" data-path="linear-regression.html"><a href="linear-regression.html#model-selection-using-bic"><i class="fa fa-check"></i><b>8.5.1</b> Model Selection using BIC</a></li>
-</ul></li>
-<li class="chapter" data-level="8.6" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables"><i class="fa fa-check"></i><b>8.6</b> Confounding Variables</a></li>
-<li class="chapter" data-level="8.7" data-path="linear-regression.html"><a href="linear-regression.html#interaction"><i class="fa fa-check"></i><b>8.7</b> Interaction</a></li>
-<li class="chapter" data-level="8.8" data-path="linear-regression.html"><a href="linear-regression.html#weighted-least-squares-regression"><i class="fa fa-check"></i><b>8.8</b> Weighted Least Squares Regression</a></li>
-<li class="chapter" data-level="8.9" data-path="linear-regression.html"><a href="linear-regression.html#stepwise-regression-using-cross-validation"><i class="fa fa-check"></i><b>8.9</b> Stepwise Regression using Cross-Validation</a></li>
-<li class="chapter" data-level="8.10" data-path="linear-regression.html"><a href="linear-regression.html#ridge-regression"><i class="fa fa-check"></i><b>8.10</b> Ridge Regression</a></li>
-<li class="chapter" data-level="8.11" data-path="linear-regression.html"><a href="linear-regression.html#lasso-regression"><i class="fa fa-check"></i><b>8.11</b> Lasso Regression</a></li>
-<li class="chapter" data-level="8.12" data-path="linear-regression.html"><a href="linear-regression.html#elastic-net"><i class="fa fa-check"></i><b>8.12</b> Elastic Net</a></li>
-<li class="chapter" data-level="8.13" data-path="linear-regression.html"><a href="linear-regression.html#mixed-effects-models"><i class="fa fa-check"></i><b>8.13</b> Mixed Effects Models</a></li>
-<li class="chapter" data-level="8.14" data-path="linear-regression.html"><a href="linear-regression.html#logistic-regression"><i class="fa fa-check"></i><b>8.14</b> Logistic Regression</a>
-<ul>
-<li class="chapter" data-level="8.14.1" data-path="linear-regression.html"><a href="linear-regression.html#sack-and-interception-probability-models"><i class="fa fa-check"></i><b>8.14.1</b> Sack and Interception Probability Models</a></li>
-<li class="chapter" data-level="8.14.2" data-path="linear-regression.html"><a href="linear-regression.html#soccer-goal-logistic-model"><i class="fa fa-check"></i><b>8.14.2</b> Soccer Goal Logistic Model</a></li>
-<li class="chapter" data-level="8.14.3" data-path="linear-regression.html"><a href="linear-regression.html#field-goal-success"><i class="fa fa-check"></i><b>8.14.3</b> Field Goal Success</a></li>
+<li class="chapter" data-level="8.4.1" data-path="data-acquisition.html"><a href="data-acquisition.html#general-tips"><i class="fa fa-check"></i><b>8.4.1</b> General Tips</a></li>
+<li class="chapter" data-level="8.4.2" data-path="data-acquisition.html"><a href="data-acquisition.html#introduction-to-html"><i class="fa fa-check"></i><b>8.4.2</b> Introduction to HTML</a></li>
+<li class="chapter" data-level="8.4.3" data-path="data-acquisition.html"><a href="data-acquisition.html#rvest-package"><i class="fa fa-check"></i><b>8.4.3</b> rvest Package</a></li>
+<li class="chapter" data-level="8.4.4" data-path="data-acquisition.html"><a href="data-acquisition.html#css-gadget-selector"><i class="fa fa-check"></i><b>8.4.4</b> CSS Gadget Selector</a></li>
+<li class="chapter" data-level="8.4.5" data-path="data-acquisition.html"><a href="data-acquisition.html#scraping-examples"><i class="fa fa-check"></i><b>8.4.5</b> Scraping Examples</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>9</b> Principal Component Analysis</a></li>
-<li class="chapter" data-level="10" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>10</b> Clustering</a></li>
-<li class="chapter" data-level="11" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>11</b> Classification</a></li>
-<li class="chapter" data-level="12" data-path="nonparametric-methods.html"><a href="nonparametric-methods.html"><i class="fa fa-check"></i><b>12</b> Nonparametric Methods</a></li>
-<li class="chapter" data-level="13" data-path="sports-drafts.html"><a href="sports-drafts.html"><i class="fa fa-check"></i><b>13</b> Sports Drafts</a></li>
-<li class="chapter" data-level="14" data-path="baseball-1.html"><a href="baseball-1.html"><i class="fa fa-check"></i><b>14</b> Baseball</a></li>
-<li class="chapter" data-level="15" data-path="football-1.html"><a href="football-1.html"><i class="fa fa-check"></i><b>15</b> Football</a></li>
-<li class="chapter" data-level="16" data-path="basketball-1.html"><a href="basketball-1.html"><i class="fa fa-check"></i><b>16</b> Basketball</a></li>
-<li class="chapter" data-level="17" data-path="hockey-1.html"><a href="hockey-1.html"><i class="fa fa-check"></i><b>17</b> Hockey</a></li>
-<li class="chapter" data-level="18" data-path="soccer-1.html"><a href="soccer-1.html"><i class="fa fa-check"></i><b>18</b> Soccer</a></li>
+<li class="chapter" data-level="9" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html"><i class="fa fa-check"></i><b>9</b> Advanced Regression Methods</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#weighted-least-squares-regression"><i class="fa fa-check"></i><b>9.1</b> Weighted Least Squares Regression</a></li>
+<li class="chapter" data-level="9.2" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#stepwise-regression-using-cross-validation"><i class="fa fa-check"></i><b>9.2</b> Stepwise Regression using Cross-Validation</a></li>
+<li class="chapter" data-level="9.3" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#ridge-regression"><i class="fa fa-check"></i><b>9.3</b> Ridge Regression</a></li>
+<li class="chapter" data-level="9.4" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#lasso-regression"><i class="fa fa-check"></i><b>9.4</b> Lasso Regression</a></li>
+<li class="chapter" data-level="9.5" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#elastic-net"><i class="fa fa-check"></i><b>9.5</b> Elastic Net</a></li>
+<li class="chapter" data-level="9.6" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#mixed-effects-models"><i class="fa fa-check"></i><b>9.6</b> Mixed Effects Models</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="10.0.1" data-path="logistic-regression.html"><a href="logistic-regression.html#nfl-spread-and-winning"><i class="fa fa-check"></i><b>10.0.1</b> NFL Spread and Winning</a></li>
+<li class="chapter" data-level="10.0.2" data-path="logistic-regression.html"><a href="logistic-regression.html#field-goal-success"><i class="fa fa-check"></i><b>10.0.2</b> Field Goal Success</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>11</b> Classification</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="classification.html"><a href="classification.html#classification-using-logistic-regression"><i class="fa fa-check"></i><b>11.1</b> Classification Using Logistic Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>12</b> Clustering</a></li>
+<li class="chapter" data-level="13" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>13</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="14" data-path="nonparametric-methods.html"><a href="nonparametric-methods.html"><i class="fa fa-check"></i><b>14</b> Nonparametric Methods</a></li>
+<li class="chapter" data-level="15" data-path="sports-drafts.html"><a href="sports-drafts.html"><i class="fa fa-check"></i><b>15</b> Sports Drafts</a></li>
+<li class="chapter" data-level="16" data-path="baseball-1.html"><a href="baseball-1.html"><i class="fa fa-check"></i><b>16</b> Baseball</a></li>
+<li class="chapter" data-level="17" data-path="football-1.html"><a href="football-1.html"><i class="fa fa-check"></i><b>17</b> Football</a></li>
+<li class="chapter" data-level="18" data-path="basketball-1.html"><a href="basketball-1.html"><i class="fa fa-check"></i><b>18</b> Basketball</a></li>
+<li class="chapter" data-level="19" data-path="hockey-1.html"><a href="hockey-1.html"><i class="fa fa-check"></i><b>19</b> Hockey</a></li>
+<li class="chapter" data-level="20" data-path="soccer-1.html"><a href="soccer-1.html"><i class="fa fa-check"></i><b>20</b> Soccer</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -407,14 +412,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="classification" class="section level1 hasAnchor" number="11">
 <h1><span class="header-section-number">Chapter 11</span> Classification<a href="classification.html#classification" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="classification-using-logistic-regression" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Classification Using Logistic Regression<a href="classification.html#classification-using-logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div style="page-break-after: always;"></div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="clustering.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="nonparametric-methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="logistic-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="clustering.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -445,7 +454,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/aaron-nielsen/SportsAnalyticsBook/edit/master/08-regression.Rmd",
+"link": "https://github.com/aaron-nielsen/SportsAnalyticsBook/edit/master/11-classification.Rmd",
 "text": "Edit"
 },
 "history": {

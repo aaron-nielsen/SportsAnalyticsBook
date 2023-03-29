@@ -40,3 +40,4 @@ caret
 Matrix
 glmnet
 lme4
+lubridate

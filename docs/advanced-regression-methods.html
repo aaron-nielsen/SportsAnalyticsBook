@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Advanced Regression Methods | Sports Analytics</title>
+  <meta name="description" content="Chapter 9 Advanced Regression Methods | Sports Analytics Notes" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Advanced Regression Methods | Sports Analytics" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+  <meta property="og:description" content="Chapter 9 Advanced Regression Methods | Sports Analytics Notes" />
+  <meta name="github-repo" content="aaron-nielsen.github.io/SportsAnalyticsBook/" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Advanced Regression Methods | Sports Analytics" />
+  
+  <meta name="twitter:description" content="Chapter 9 Advanced Regression Methods | Sports Analytics Notes" />
+  <meta name="twitter:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+
+<meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
+
+
+<meta name="date" content="2023-03-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="data-acquisition.html"/>
+<link rel="next" href="logistic-regression.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/style.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/lesson.css" type="text/css" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Sports Analytics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i>Preliminaries</a>
+<ul>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#getting-started-with-r"><i class="fa fa-check"></i>Getting Started With R</a>
+<ul>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#installing-r"><i class="fa fa-check"></i>Installing R</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#some-r-basics"><i class="fa fa-check"></i>Some R Basics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#which-sports"><i class="fa fa-check"></i>Which Sports?</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#challenges"><i class="fa fa-check"></i>Challenges</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#ethical-concerns"><i class="fa fa-check"></i>Ethical Concerns</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>1</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>1.1</b> Descriptive Statistics</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#definitions"><i class="fa fa-check"></i><b>1.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="1.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>1.1.2</b> Descriptive Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#visualizations"><i class="fa fa-check"></i><b>1.2</b> Visualizations</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#histograms"><i class="fa fa-check"></i><b>1.2.1</b> Histograms</a></li>
+<li class="chapter" data-level="1.2.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#bar-plots"><i class="fa fa-check"></i><b>1.2.2</b> Bar Plots</a></li>
+<li class="chapter" data-level="1.2.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plots"><i class="fa fa-check"></i><b>1.2.3</b> Scatter Plots</a></li>
+<li class="chapter" data-level="1.2.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#kable-tables"><i class="fa fa-check"></i><b>1.2.4</b> Kable Tables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#baseball"><i class="fa fa-check"></i><b>1.3</b> Baseball</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#hitting-statistics"><i class="fa fa-check"></i><b>1.3.1</b> Hitting Statistics</a></li>
+<li class="chapter" data-level="1.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#pitching-statistics"><i class="fa fa-check"></i><b>1.3.2</b> Pitching Statistics</a></li>
+<li class="chapter" data-level="1.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#wins-above-replacement"><i class="fa fa-check"></i><b>1.3.3</b> Wins Above Replacement</a></li>
+<li class="chapter" data-level="1.3.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#calculating-hitting-statistics"><i class="fa fa-check"></i><b>1.3.4</b> Calculating Hitting Statistics</a></li>
+<li class="chapter" data-level="1.3.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#evaluating-pitching-statistics"><i class="fa fa-check"></i><b>1.3.5</b> Evaluating Pitching Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#football"><i class="fa fa-check"></i><b>1.4</b> Football</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-football-statistics"><i class="fa fa-check"></i><b>1.4.1</b> Basic Football Statistics</a></li>
+<li class="chapter" data-level="1.4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-football-statistics"><i class="fa fa-check"></i><b>1.4.2</b> Advanced Football Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basketball"><i class="fa fa-check"></i><b>1.5</b> Basketball</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-basketball-statistics"><i class="fa fa-check"></i><b>1.5.1</b> Basic Basketball Statistics</a></li>
+<li class="chapter" data-level="1.5.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-basketball-statistics"><i class="fa fa-check"></i><b>1.5.2</b> Advanced Basketball Statistics</a></li>
+<li class="chapter" data-level="1.5.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#four-factors"><i class="fa fa-check"></i><b>1.5.3</b> Four Factors</a></li>
+<li class="chapter" data-level="1.5.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#shot-charts"><i class="fa fa-check"></i><b>1.5.4</b> Shot Charts</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#hockey"><i class="fa fa-check"></i><b>1.6</b> Hockey</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-hockey-statistics"><i class="fa fa-check"></i><b>1.6.1</b> Basic Hockey Statistics</a></li>
+<li class="chapter" data-level="1.6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-hockey-statistics"><i class="fa fa-check"></i><b>1.6.2</b> Advanced Hockey Statistics</a></li>
+<li class="chapter" data-level="1.6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#actual-vs.-expected-goals"><i class="fa fa-check"></i><b>1.6.3</b> Actual vs. Expected Goals</a></li>
+<li class="chapter" data-level="1.6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#goalie-statistics"><i class="fa fa-check"></i><b>1.6.4</b> Goalie Statistics</a></li>
+<li class="chapter" data-level="1.6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#correlation-plots"><i class="fa fa-check"></i><b>1.6.5</b> Correlation Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#volleyball"><i class="fa fa-check"></i><b>1.7</b> Volleyball</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-volleyball-statistics"><i class="fa fa-check"></i><b>1.7.1</b> Basic Volleyball Statistics</a></li>
+<li class="chapter" data-level="1.7.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plot"><i class="fa fa-check"></i><b>1.7.2</b> Scatter Plot</a></li>
+<li class="chapter" data-level="1.7.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#box-plot"><i class="fa fa-check"></i><b>1.7.3</b> Box Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#soccer"><i class="fa fa-check"></i><b>1.8</b> Soccer</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-soccer-statistics"><i class="fa fa-check"></i><b>1.8.1</b> Basic Soccer Statistics</a></li>
+<li class="chapter" data-level="1.8.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-soccer-statistics"><i class="fa fa-check"></i><b>1.8.2</b> Advanced Soccer Statistics</a></li>
+<li class="chapter" data-level="1.8.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#bar-plot"><i class="fa fa-check"></i><b>1.8.3</b> Bar Plot</a></li>
+<li class="chapter" data-level="1.8.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plot-1"><i class="fa fa-check"></i><b>1.8.4</b> Scatter Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>2</b> Probability</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#definitions-1"><i class="fa fa-check"></i><b>2.1</b> Definitions</a></li>
+<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#set-theory"><i class="fa fa-check"></i><b>2.2</b> Set Theory</a></li>
+<li class="chapter" data-level="2.3" data-path="probability.html"><a href="probability.html#axioms-properties-and-laws"><i class="fa fa-check"></i><b>2.3</b> Axioms, Properties, and Laws</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="probability.html"><a href="probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>2.3.1</b> Axioms of Probability</a></li>
+<li class="chapter" data-level="2.3.2" data-path="probability.html"><a href="probability.html#properties-of-probability"><i class="fa fa-check"></i><b>2.3.2</b> Properties of Probability</a></li>
+<li class="chapter" data-level="2.3.3" data-path="probability.html"><a href="probability.html#laws-of-probability"><i class="fa fa-check"></i><b>2.3.3</b> Laws of Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="probability.html"><a href="probability.html#combinatorics"><i class="fa fa-check"></i><b>2.4</b> Combinatorics</a></li>
+<li class="chapter" data-level="2.5" data-path="probability.html"><a href="probability.html#random-variables"><i class="fa fa-check"></i><b>2.5</b> Random Variables</a></li>
+<li class="chapter" data-level="2.6" data-path="probability.html"><a href="probability.html#common-random-variables"><i class="fa fa-check"></i><b>2.6</b> Common Random Variables</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="probability.html"><a href="probability.html#binomial-rvs"><i class="fa fa-check"></i><b>2.6.1</b> Binomial RVs</a></li>
+<li class="chapter" data-level="2.6.2" data-path="probability.html"><a href="probability.html#geometric-rvs"><i class="fa fa-check"></i><b>2.6.2</b> Geometric RVs</a></li>
+<li class="chapter" data-level="2.6.3" data-path="probability.html"><a href="probability.html#poisson-rvs"><i class="fa fa-check"></i><b>2.6.3</b> Poisson RVs</a></li>
+<li class="chapter" data-level="2.6.4" data-path="probability.html"><a href="probability.html#negative-binomial-rvs"><i class="fa fa-check"></i><b>2.6.4</b> Negative Binomial RVs</a></li>
+<li class="chapter" data-level="2.6.5" data-path="probability.html"><a href="probability.html#normal-rvs"><i class="fa fa-check"></i><b>2.6.5</b> Normal RVs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="probability.html"><a href="probability.html#win-probability-models"><i class="fa fa-check"></i><b>2.7</b> Win Probability Models</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="probability.html"><a href="probability.html#estimating-pregame-win-probability"><i class="fa fa-check"></i><b>2.7.1</b> Estimating Pregame Win Probability</a></li>
+<li class="chapter" data-level="2.7.2" data-path="probability.html"><a href="probability.html#estimating-in-game-win-probability"><i class="fa fa-check"></i><b>2.7.2</b> Estimating In-Game Win Probability</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="odds-and-bets.html"><a href="odds-and-bets.html"><i class="fa fa-check"></i><b>3</b> Odds and Bets</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="odds-and-bets.html"><a href="odds-and-bets.html#odds"><i class="fa fa-check"></i><b>3.1</b> Odds</a></li>
+<li class="chapter" data-level="3.2" data-path="odds-and-bets.html"><a href="odds-and-bets.html#gambling-odds"><i class="fa fa-check"></i><b>3.2</b> Gambling Odds</a></li>
+<li class="chapter" data-level="3.3" data-path="odds-and-bets.html"><a href="odds-and-bets.html#types-of-bets"><i class="fa fa-check"></i><b>3.3</b> Types of Bets</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html"><i class="fa fa-check"></i><b>4</b> Monte Carlo Simulation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#basics"><i class="fa fa-check"></i><b>4.1</b> Basics</a></li>
+<li class="chapter" data-level="4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#estimating-probabilities"><i class="fa fa-check"></i><b>4.2</b> Estimating Probabilities</a></li>
+<li class="chapter" data-level="4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-streaks"><i class="fa fa-check"></i><b>4.3</b> Simulating Streaks</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#winning-streak-simulation"><i class="fa fa-check"></i><b>4.3.1</b> Winning Streak Simulation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#hitting-streak-simulation"><i class="fa fa-check"></i><b>4.3.2</b> Hitting Streak Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gambling-simulations"><i class="fa fa-check"></i><b>4.4</b> Gambling Simulations</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#martingale-system"><i class="fa fa-check"></i><b>4.4.1</b> Martingale System</a></li>
+<li class="chapter" data-level="4.4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gamblers-ruin"><i class="fa fa-check"></i><b>4.4.2</b> Gambler’s Ruin</a></li>
+<li class="chapter" data-level="4.4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-a-winning-system"><i class="fa fa-check"></i><b>4.4.3</b> Simulating a Winning System</a></li>
+<li class="chapter" data-level="4.4.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#using-the-kelly-growth-criterion"><i class="fa fa-check"></i><b>4.4.4</b> Using the Kelly Growth Criterion</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-censored-data"><i class="fa fa-check"></i><b>4.5</b> Simulating Censored Data</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#tony-gwynn-1994-batting-average-simulation"><i class="fa fa-check"></i><b>4.5.1</b> Tony Gwynn 1994 Batting Average Simulation</a></li>
+<li class="chapter" data-level="4.5.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#matt-williams-1994-home-run-simulation"><i class="fa fa-check"></i><b>4.5.2</b> Matt Williams 1994 Home Run Simulation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="inferential-statistics.html"><a href="inferential-statistics.html"><i class="fa fa-check"></i><b>5</b> Inferential Statistics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#defining-a-population"><i class="fa fa-check"></i><b>5.1</b> Defining a Population</a></li>
+<li class="chapter" data-level="5.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#statistical-inference"><i class="fa fa-check"></i><b>5.2</b> Statistical Inference</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-intervals"><i class="fa fa-check"></i><b>5.2.1</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="5.2.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hypothesis-tests"><i class="fa fa-check"></i><b>5.2.2</b> Hypothesis Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#inference-for-population-mean"><i class="fa fa-check"></i><b>5.3</b> Inference for Population Mean</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-population-mean"><i class="fa fa-check"></i><b>5.3.1</b> Confidence Interval for Population Mean</a></li>
+<li class="chapter" data-level="5.3.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hypothesis-test-for-population-mean"><i class="fa fa-check"></i><b>5.3.2</b> Hypothesis Test for Population Mean</a></li>
+<li class="chapter" data-level="5.3.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-difference-in-means"><i class="fa fa-check"></i><b>5.3.3</b> Test for Difference in Means</a></li>
+<li class="chapter" data-level="5.3.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-difference-in-means"><i class="fa fa-check"></i><b>5.3.4</b> Confidence Interval for Difference in Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#inference-for-population-proportion"><i class="fa fa-check"></i><b>5.4</b> Inference for Population Proportion</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-population-proportion"><i class="fa fa-check"></i><b>5.4.1</b> Confidence Interval for Population Proportion</a></li>
+<li class="chapter" data-level="5.4.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-population-proportion"><i class="fa fa-check"></i><b>5.4.2</b> Test for Population Proportion</a></li>
+<li class="chapter" data-level="5.4.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.4.3</b> Confidence Interval for Difference in Proportions</a></li>
+<li class="chapter" data-level="5.4.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.4.4</b> Test for Difference in Proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#bootstrap"><i class="fa fa-check"></i><b>5.5</b> Bootstrap</a></li>
+<li class="chapter" data-level="5.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#margin-of-error-calcuations"><i class="fa fa-check"></i><b>5.6</b> Margin of Error Calcuations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-for-probabilities"><i class="fa fa-check"></i><b>5.6.1</b> MOE for Probabilities</a></li>
+<li class="chapter" data-level="5.6.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-for-averages"><i class="fa fa-check"></i><b>5.6.2</b> MOE for Averages</a></li>
+<li class="chapter" data-level="5.6.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-estimation-using-simulation"><i class="fa fa-check"></i><b>5.6.3</b> MOE estimation using simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="inferential-statistics.html"><a href="inferential-statistics.html#one-sample-and-two-sample-t-tests-and-confidence-intervals"><i class="fa fa-check"></i><b>5.7</b> One Sample and Two Sample t-tests and confidence intervals</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hockey-faceoffs"><i class="fa fa-check"></i><b>5.7.1</b> Hockey Faceoffs</a></li>
+<li class="chapter" data-level="5.7.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hockey-penalty-scoring"><i class="fa fa-check"></i><b>5.7.2</b> Hockey Penalty Scoring</a></li>
+<li class="chapter" data-level="5.7.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#nfl-overtime-winners"><i class="fa fa-check"></i><b>5.7.3</b> NFL Overtime Winners</a></li>
+<li class="chapter" data-level="5.7.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#icing-the-kicker"><i class="fa fa-check"></i><b>5.7.4</b> Icing the Kicker</a></li>
+<li class="chapter" data-level="5.7.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#example-football-one-vs.-two-point-conversion"><i class="fa fa-check"></i><b>5.7.5</b> Example: Football One vs. Two Point Conversion</a></li>
+<li class="chapter" data-level="5.7.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#two-sample-tests"><i class="fa fa-check"></i><b>5.7.6</b> Two Sample Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="inferential-statistics.html"><a href="inferential-statistics.html#permutation-tests"><i class="fa fa-check"></i><b>5.8</b> Permutation Tests</a></li>
+<li class="chapter" data-level="5.9" data-path="inferential-statistics.html"><a href="inferential-statistics.html#bootstrap-1"><i class="fa fa-check"></i><b>5.9</b> Bootstrap</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="measures-of-association.html"><a href="measures-of-association.html"><i class="fa fa-check"></i><b>6</b> Measures of Association</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="measures-of-association.html"><a href="measures-of-association.html#pearson-correlation-coefficient"><i class="fa fa-check"></i><b>6.1</b> Pearson Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="measures-of-association.html"><a href="measures-of-association.html#partial-correlation-and-confounding-variables"><i class="fa fa-check"></i><b>6.1.1</b> Partial Correlation and Confounding Variables</a></li>
+<li class="chapter" data-level="6.1.2" data-path="measures-of-association.html"><a href="measures-of-association.html#properties-of-the-linear-correlation-coefficient"><i class="fa fa-check"></i><b>6.1.2</b> Properties of the Linear Correlation Coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="measures-of-association.html"><a href="measures-of-association.html#association-of-categorical-variables"><i class="fa fa-check"></i><b>6.2</b> Association of Categorical Variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="measures-of-association.html"><a href="measures-of-association.html#odds-ratios"><i class="fa fa-check"></i><b>6.2.1</b> Odds Ratios</a></li>
+<li class="chapter" data-level="6.2.2" data-path="measures-of-association.html"><a href="measures-of-association.html#yules-q"><i class="fa fa-check"></i><b>6.2.2</b> Yule’s Q</a></li>
+<li class="chapter" data-level="6.2.3" data-path="measures-of-association.html"><a href="measures-of-association.html#chi-squared-test-of-independence"><i class="fa fa-check"></i><b>6.2.3</b> Chi-Squared Test of Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="measures-of-association.html"><a href="measures-of-association.html#rank-correlation"><i class="fa fa-check"></i><b>6.3</b> Rank Correlation</a></li>
+<li class="chapter" data-level="6.4" data-path="measures-of-association.html"><a href="measures-of-association.html#serial-correlation"><i class="fa fa-check"></i><b>6.4</b> Serial Correlation</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="measures-of-association.html"><a href="measures-of-association.html#autocorrelation"><i class="fa fa-check"></i><b>6.4.1</b> Autocorrelation</a></li>
+<li class="chapter" data-level="6.4.2" data-path="measures-of-association.html"><a href="measures-of-association.html#run-lengths"><i class="fa fa-check"></i><b>6.4.2</b> Run Lengths</a></li>
+<li class="chapter" data-level="6.4.3" data-path="measures-of-association.html"><a href="measures-of-association.html#wald-wolfowitz-runs-test"><i class="fa fa-check"></i><b>6.4.3</b> Wald-Wolfowitz Runs Test</a></li>
+<li class="chapter" data-level="6.4.4" data-path="measures-of-association.html"><a href="measures-of-association.html#hot-hand"><i class="fa fa-check"></i><b>6.4.4</b> Hot Hand</a></li>
+<li class="chapter" data-level="6.4.5" data-path="measures-of-association.html"><a href="measures-of-association.html#streakiness-in-sports"><i class="fa fa-check"></i><b>6.4.5</b> Streakiness in Sports</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="measures-of-association.html"><a href="measures-of-association.html#pythagorean-record"><i class="fa fa-check"></i><b>6.5</b> Pythagorean Record</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>7</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>7.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="7.2" data-path="linear-regression.html"><a href="linear-regression.html#residual-analysis"><i class="fa fa-check"></i><b>7.2</b> Residual Analysis</a></li>
+<li class="chapter" data-level="7.3" data-path="linear-regression.html"><a href="linear-regression.html#polynomial-regression"><i class="fa fa-check"></i><b>7.3</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="7.4" data-path="linear-regression.html"><a href="linear-regression.html#variable-transformations"><i class="fa fa-check"></i><b>7.4</b> Variable Transformations</a></li>
+<li class="chapter" data-level="7.5" data-path="linear-regression.html"><a href="linear-regression.html#multiple-regression-and-model-selection"><i class="fa fa-check"></i><b>7.5</b> Multiple Regression and Model Selection</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="linear-regression.html"><a href="linear-regression.html#model-selection-using-bic"><i class="fa fa-check"></i><b>7.5.1</b> Model Selection using BIC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables"><i class="fa fa-check"></i><b>7.6</b> Confounding Variables</a></li>
+<li class="chapter" data-level="7.7" data-path="linear-regression.html"><a href="linear-regression.html#interaction"><i class="fa fa-check"></i><b>7.7</b> Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="data-acquisition.html"><a href="data-acquisition.html"><i class="fa fa-check"></i><b>8</b> Data Acquisition</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="data-acquisition.html"><a href="data-acquisition.html#tabular-data-from-sports-reference"><i class="fa fa-check"></i><b>8.1</b> Tabular Data From Sports Reference</a></li>
+<li class="chapter" data-level="8.2" data-path="data-acquisition.html"><a href="data-acquisition.html#downloading-datasets-from-internet"><i class="fa fa-check"></i><b>8.2</b> Downloading Datasets From Internet</a></li>
+<li class="chapter" data-level="8.3" data-path="data-acquisition.html"><a href="data-acquisition.html#importing-data-using-r-libraries"><i class="fa fa-check"></i><b>8.3</b> Importing Data Using R Libraries</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="data-acquisition.html"><a href="data-acquisition.html#baseballr-package"><i class="fa fa-check"></i><b>8.3.1</b> BaseballR package</a></li>
+<li class="chapter" data-level="8.3.2" data-path="data-acquisition.html"><a href="data-acquisition.html#nflfastr-package"><i class="fa fa-check"></i><b>8.3.2</b> nflfastR package</a></li>
+<li class="chapter" data-level="8.3.3" data-path="data-acquisition.html"><a href="data-acquisition.html#hoopr-package"><i class="fa fa-check"></i><b>8.3.3</b> hoopR package</a></li>
+<li class="chapter" data-level="8.3.4" data-path="data-acquisition.html"><a href="data-acquisition.html#hockeyr-package"><i class="fa fa-check"></i><b>8.3.4</b> hockeyR package</a></li>
+<li class="chapter" data-level="8.3.5" data-path="data-acquisition.html"><a href="data-acquisition.html#worldfootballr"><i class="fa fa-check"></i><b>8.3.5</b> worldfootballR</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="data-acquisition.html"><a href="data-acquisition.html#data-scraping"><i class="fa fa-check"></i><b>8.4</b> Data Scraping</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="data-acquisition.html"><a href="data-acquisition.html#general-tips"><i class="fa fa-check"></i><b>8.4.1</b> General Tips</a></li>
+<li class="chapter" data-level="8.4.2" data-path="data-acquisition.html"><a href="data-acquisition.html#introduction-to-html"><i class="fa fa-check"></i><b>8.4.2</b> Introduction to HTML</a></li>
+<li class="chapter" data-level="8.4.3" data-path="data-acquisition.html"><a href="data-acquisition.html#rvest-package"><i class="fa fa-check"></i><b>8.4.3</b> rvest Package</a></li>
+<li class="chapter" data-level="8.4.4" data-path="data-acquisition.html"><a href="data-acquisition.html#css-gadget-selector"><i class="fa fa-check"></i><b>8.4.4</b> CSS Gadget Selector</a></li>
+<li class="chapter" data-level="8.4.5" data-path="data-acquisition.html"><a href="data-acquisition.html#scraping-examples"><i class="fa fa-check"></i><b>8.4.5</b> Scraping Examples</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html"><i class="fa fa-check"></i><b>9</b> Advanced Regression Methods</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#weighted-least-squares-regression"><i class="fa fa-check"></i><b>9.1</b> Weighted Least Squares Regression</a></li>
+<li class="chapter" data-level="9.2" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#stepwise-regression-using-cross-validation"><i class="fa fa-check"></i><b>9.2</b> Stepwise Regression using Cross-Validation</a></li>
+<li class="chapter" data-level="9.3" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#ridge-regression"><i class="fa fa-check"></i><b>9.3</b> Ridge Regression</a></li>
+<li class="chapter" data-level="9.4" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#lasso-regression"><i class="fa fa-check"></i><b>9.4</b> Lasso Regression</a></li>
+<li class="chapter" data-level="9.5" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#elastic-net"><i class="fa fa-check"></i><b>9.5</b> Elastic Net</a></li>
+<li class="chapter" data-level="9.6" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#mixed-effects-models"><i class="fa fa-check"></i><b>9.6</b> Mixed Effects Models</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="10.0.1" data-path="logistic-regression.html"><a href="logistic-regression.html#nfl-spread-and-winning"><i class="fa fa-check"></i><b>10.0.1</b> NFL Spread and Winning</a></li>
+<li class="chapter" data-level="10.0.2" data-path="logistic-regression.html"><a href="logistic-regression.html#field-goal-success"><i class="fa fa-check"></i><b>10.0.2</b> Field Goal Success</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>11</b> Classification</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="classification.html"><a href="classification.html#classification-using-logistic-regression"><i class="fa fa-check"></i><b>11.1</b> Classification Using Logistic Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>12</b> Clustering</a></li>
+<li class="chapter" data-level="13" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>13</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="14" data-path="nonparametric-methods.html"><a href="nonparametric-methods.html"><i class="fa fa-check"></i><b>14</b> Nonparametric Methods</a></li>
+<li class="chapter" data-level="15" data-path="sports-drafts.html"><a href="sports-drafts.html"><i class="fa fa-check"></i><b>15</b> Sports Drafts</a></li>
+<li class="chapter" data-level="16" data-path="baseball-1.html"><a href="baseball-1.html"><i class="fa fa-check"></i><b>16</b> Baseball</a></li>
+<li class="chapter" data-level="17" data-path="football-1.html"><a href="football-1.html"><i class="fa fa-check"></i><b>17</b> Football</a></li>
+<li class="chapter" data-level="18" data-path="basketball-1.html"><a href="basketball-1.html"><i class="fa fa-check"></i><b>18</b> Basketball</a></li>
+<li class="chapter" data-level="19" data-path="hockey-1.html"><a href="hockey-1.html"><i class="fa fa-check"></i><b>19</b> Hockey</a></li>
+<li class="chapter" data-level="20" data-path="soccer-1.html"><a href="soccer-1.html"><i class="fa fa-check"></i><b>20</b> Soccer</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Sports Analytics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="advanced-regression-methods" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Advanced Regression Methods<a href="advanced-regression-methods.html#advanced-regression-methods" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="weighted-least-squares-regression" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Weighted Least Squares Regression<a href="advanced-regression-methods.html#weighted-least-squares-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Recall from Example 8.1 where we attempted to predict ERA in 2022 from ERA and FIP from 2021. One concern in this analysis was that each pitcher pitched a different number of innings. We’d like to account for this by giving more weight to pitchers with more innings pitched. This can be accomplished by using weighted least squares regression. Weighted least squares regression is particularly used when the data exhibits non-constant variance</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-216" class="example"><strong>Example 9.1  </strong></span>Build SLR models predicting ERA22 from ERA21 with and without weights.</p>
+</div>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="advanced-regression-methods.html#cb540-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download individual pitching data for 2021 and 2022 seasons</span></span>
+<span id="cb540-2"><a href="advanced-regression-methods.html#cb540-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb540-3"><a href="advanced-regression-methods.html#cb540-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb540-4"><a href="advanced-regression-methods.html#cb540-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(baseballr)</span>
+<span id="cb540-5"><a href="advanced-regression-methods.html#cb540-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb540-6"><a href="advanced-regression-methods.html#cb540-6" aria-hidden="true" tabindex="-1"></a>pit21 <span class="ot">&lt;-</span> <span class="fu">bref_daily_pitcher</span>(<span class="st">&quot;2021-01-01&quot;</span>, <span class="st">&quot;2021-12-31&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb540-7"><a href="advanced-regression-methods.html#cb540-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fip_plus</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb540-8"><a href="advanced-regression-methods.html#cb540-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Name, IP, ERA, FIP) <span class="sc">%&gt;%</span></span>
+<span id="cb540-9"><a href="advanced-regression-methods.html#cb540-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(dplyr<span class="sc">::</span><span class="fu">desc</span>(IP)) <span class="sc">%&gt;%</span></span>
+<span id="cb540-10"><a href="advanced-regression-methods.html#cb540-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">IP21=</span>IP,<span class="at">ERA21=</span>ERA,<span class="at">FIP21=</span>FIP)</span>
+<span id="cb540-11"><a href="advanced-regression-methods.html#cb540-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb540-12"><a href="advanced-regression-methods.html#cb540-12" aria-hidden="true" tabindex="-1"></a>pit22 <span class="ot">&lt;-</span> <span class="fu">bref_daily_pitcher</span>(<span class="st">&quot;2022-01-01&quot;</span>, <span class="st">&quot;2022-12-31&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb540-13"><a href="advanced-regression-methods.html#cb540-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fip_plus</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb540-14"><a href="advanced-regression-methods.html#cb540-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Name, IP, ERA, FIP) <span class="sc">%&gt;%</span></span>
+<span id="cb540-15"><a href="advanced-regression-methods.html#cb540-15" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(dplyr<span class="sc">::</span><span class="fu">desc</span>(IP)) <span class="sc">%&gt;%</span></span>
+<span id="cb540-16"><a href="advanced-regression-methods.html#cb540-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">IP22=</span>IP,<span class="at">ERA22=</span>ERA,<span class="at">FIP22=</span>FIP)</span>
+<span id="cb540-17"><a href="advanced-regression-methods.html#cb540-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb540-18"><a href="advanced-regression-methods.html#cb540-18" aria-hidden="true" tabindex="-1"></a><span class="co"># merge the datasets together, remove redundant columns</span></span>
+<span id="cb540-19"><a href="advanced-regression-methods.html#cb540-19" aria-hidden="true" tabindex="-1"></a>all_pit <span class="ot">&lt;-</span> pit21 <span class="sc">%&gt;%</span> </span>
+<span id="cb540-20"><a href="advanced-regression-methods.html#cb540-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(pit22,<span class="at">by =</span> <span class="st">&quot;Name&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb540-21"><a href="advanced-regression-methods.html#cb540-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb540-22"><a href="advanced-regression-methods.html#cb540-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(IP21<span class="sc">&gt;</span><span class="dv">5</span> <span class="sc">&amp;</span> IP22 <span class="sc">&gt;</span> <span class="dv">5</span>)</span>
+<span id="cb540-23"><a href="advanced-regression-methods.html#cb540-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb540-24"><a href="advanced-regression-methods.html#cb540-24" aria-hidden="true" tabindex="-1"></a><span class="co"># merge the datasets together, remove redundant columns</span></span>
+<span id="cb540-25"><a href="advanced-regression-methods.html#cb540-25" aria-hidden="true" tabindex="-1"></a>all_pit_min0 <span class="ot">&lt;-</span> pit21 <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(pit22,<span class="at">by =</span> <span class="st">&quot;Name&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb540-26"><a href="advanced-regression-methods.html#cb540-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(IP21<span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> IP22<span class="sc">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb540-27"><a href="advanced-regression-methods.html#cb540-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb540-28"><a href="advanced-regression-methods.html#cb540-28" aria-hidden="true" tabindex="-1"></a>all_pit_min5 <span class="ot">&lt;-</span> pit21 <span class="sc">%&gt;%</span>  <span class="fu">left_join</span>(pit22,<span class="at">by =</span> <span class="st">&quot;Name&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb540-29"><a href="advanced-regression-methods.html#cb540-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(IP21<span class="sc">&gt;</span><span class="dv">5</span> <span class="sc">&amp;</span> IP22<span class="sc">&gt;</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="advanced-regression-methods.html#cb541-1" aria-hidden="true" tabindex="-1"></a>all_pit <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>ERA21,<span class="at">y=</span>ERA22,<span class="at">size=</span>IP21<span class="sc">+</span>IP22)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.2</span>,<span class="at">color=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb541-2"><a href="advanced-regression-methods.html#cb541-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>))</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-269-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="advanced-regression-methods.html#cb542-1" aria-hidden="true" tabindex="-1"></a>mod_slr <span class="ot">&lt;-</span> <span class="fu">lm</span>(ERA22<span class="sc">~</span>ERA21,<span class="at">data=</span>all_pit_min0)</span>
+<span id="cb542-2"><a href="advanced-regression-methods.html#cb542-2" aria-hidden="true" tabindex="-1"></a>mod_wls <span class="ot">&lt;-</span> <span class="fu">lm</span>(ERA22<span class="sc">~</span>ERA21,<span class="at">data=</span>all_pit_min0,<span class="at">weights =</span> IP21)</span></code></pre></div>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-271">Table 9.1: </span>SLR Model Estimating ERA2022 using ERA2021 (equal weights)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Predictor
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std Error
+</th>
+<th style="text-align:right;">
+t stat
+</th>
+<th style="text-align:left;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+4.484
+</td>
+<td style="text-align:right;">
+0.258
+</td>
+<td style="text-align:right;">
+17.393
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Earned Run Average, 2021
+</td>
+<td style="text-align:right;">
+0.017
+</td>
+<td style="text-align:right;">
+0.044
+</td>
+<td style="text-align:right;">
+0.381
+</td>
+<td style="text-align:left;">
+0.703
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-272">Table 9.2: </span>SLR Model Estimating ERA2022 using ERA2021 (weighted by IP)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Predictor
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std Error
+</th>
+<th style="text-align:right;">
+t stat
+</th>
+<th style="text-align:left;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+3.154
+</td>
+<td style="text-align:right;">
+0.326
+</td>
+<td style="text-align:right;">
+9.688
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Earned Run Average, 2021
+</td>
+<td style="text-align:right;">
+0.264
+</td>
+<td style="text-align:right;">
+0.076
+</td>
+<td style="text-align:right;">
+3.490
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="advanced-regression-methods.html#cb543-1" aria-hidden="true" tabindex="-1"></a>mod_slr <span class="ot">&lt;-</span> <span class="fu">lm</span>(ERA22<span class="sc">~</span>ERA21,<span class="at">data=</span>all_pit_min5)</span>
+<span id="cb543-2"><a href="advanced-regression-methods.html#cb543-2" aria-hidden="true" tabindex="-1"></a>mod_wls <span class="ot">&lt;-</span> <span class="fu">lm</span>(ERA22<span class="sc">~</span>ERA21,<span class="at">data=</span>all_pit_min5,<span class="at">weights =</span> IP21)</span></code></pre></div>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-274">Table 9.3: </span>SLR Model Estimating ERA2022 using ERA2021 (equal weights)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Predictor
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std Error
+</th>
+<th style="text-align:right;">
+t stat
+</th>
+<th style="text-align:left;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+3.730
+</td>
+<td style="text-align:right;">
+0.242
+</td>
+<td style="text-align:right;">
+15.433
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Earned Run Average, 2021
+</td>
+<td style="text-align:right;">
+0.136
+</td>
+<td style="text-align:right;">
+0.051
+</td>
+<td style="text-align:right;">
+2.669
+</td>
+<td style="text-align:left;">
+0.008
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-275">Table 9.4: </span>SLR Model Estimating ERA2022 using ERA2021 (weighted by IP)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Predictor
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std Error
+</th>
+<th style="text-align:right;">
+t stat
+</th>
+<th style="text-align:left;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+3.010
+</td>
+<td style="text-align:right;">
+0.284
+</td>
+<td style="text-align:right;">
+10.601
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Earned Run Average, 2021
+</td>
+<td style="text-align:right;">
+0.284
+</td>
+<td style="text-align:right;">
+0.067
+</td>
+<td style="text-align:right;">
+4.241
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="stepwise-regression-using-cross-validation" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Stepwise Regression using Cross-Validation<a href="advanced-regression-methods.html#stepwise-regression-using-cross-validation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Cross-validation is a resampling method that uses different portions of the data to train and test models. It is often used when we aim to do prediction.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-217" class="example"><strong>Example 9.2  </strong></span>Using the 2022 MLB team statistics data, use cross-validation to determine a linear model with runs/game as the response and BA, OBP, SLG, and OPS as predictors. Use 10-fold cross-validation with 3 repeats.</p>
+</div>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="advanced-regression-methods.html#cb544-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Acquire the data</span></span>
+<span id="cb544-2"><a href="advanced-regression-methods.html#cb544-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb544-3"><a href="advanced-regression-methods.html#cb544-3" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://www.baseball-reference.com/leagues/majors/2022.shtml&quot;</span></span>
+<span id="cb544-4"><a href="advanced-regression-methods.html#cb544-4" aria-hidden="true" tabindex="-1"></a>site <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb544-5"><a href="advanced-regression-methods.html#cb544-5" aria-hidden="true" tabindex="-1"></a>mlb22 <span class="ot">&lt;-</span> site <span class="sc">%&gt;%</span> <span class="fu">html_elements</span>(<span class="st">&quot;#teams_standard_batting&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_table</span>()</span>
+<span id="cb544-6"><a href="advanced-regression-methods.html#cb544-6" aria-hidden="true" tabindex="-1"></a>mlb22 <span class="ot">&lt;-</span> mlb22 <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> <span class="fu">column_to_rownames</span>(<span class="st">&quot;Tm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb544-7"><a href="advanced-regression-methods.html#cb544-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">R/G</span><span class="st">`</span><span class="ot">=</span>R.G) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span>(<span class="dv">31</span><span class="sc">:</span><span class="dv">33</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="st">`</span><span class="at">R/G</span><span class="st">`</span>,BA,OBP,SLG,OPS)</span>
+<span id="cb544-8"><a href="advanced-regression-methods.html#cb544-8" aria-hidden="true" tabindex="-1"></a>mlb22 <span class="ot">&lt;-</span> <span class="fu">write_csv</span>(mlb22,<span class="st">&quot;data/mlb22.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="advanced-regression-methods.html#cb545-1" aria-hidden="true" tabindex="-1"></a>mlb22 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/mlb22.csv&quot;</span>)</span>
+<span id="cb545-2"><a href="advanced-regression-methods.html#cb545-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb545-3"><a href="advanced-regression-methods.html#cb545-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb545-4"><a href="advanced-regression-methods.html#cb545-4" aria-hidden="true" tabindex="-1"></a>mod_null <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">R/G</span><span class="st">`</span> <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data=</span>mlb22)</span>
+<span id="cb545-5"><a href="advanced-regression-methods.html#cb545-5" aria-hidden="true" tabindex="-1"></a>mod_full <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">R/G</span><span class="st">`</span> <span class="sc">~</span> ., <span class="at">data=</span>mlb22)</span>
+<span id="cb545-6"><a href="advanced-regression-methods.html#cb545-6" aria-hidden="true" tabindex="-1"></a>set_train <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method=</span><span class="st">&quot;repeatedcv&quot;</span>, <span class="at">number=</span><span class="dv">10</span>, <span class="at">repeats=</span><span class="dv">3</span>)</span>
+<span id="cb545-7"><a href="advanced-regression-methods.html#cb545-7" aria-hidden="true" tabindex="-1"></a>mod_cv <span class="ot">&lt;-</span> <span class="fu">train</span>(<span class="st">`</span><span class="at">R/G</span><span class="st">`</span> <span class="sc">~</span> ., <span class="at">data=</span>mlb22,  <span class="at">scope =</span> <span class="fu">formula</span>(mod_null),</span>
+<span id="cb545-8"><a href="advanced-regression-methods.html#cb545-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">method=</span><span class="st">&quot;lmStepAIC&quot;</span>, <span class="at">direction=</span><span class="st">&quot;both&quot;</span>, <span class="at">trace=</span><span class="cn">FALSE</span>, <span class="at">trControl=</span>set_train)</span></code></pre></div>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="advanced-regression-methods.html#cb546-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Null model</span></span>
+<span id="cb546-2"><a href="advanced-regression-methods.html#cb546-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod_null)</span></code></pre></div>
+<pre><code>## (Intercept) 
+##       4.284</code></pre>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="advanced-regression-methods.html#cb548-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Full model with all variables</span></span>
+<span id="cb548-2"><a href="advanced-regression-methods.html#cb548-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod_full)</span></code></pre></div>
+<pre><code>## (Intercept)          BA         OBP         SLG         OPS 
+##   -4.054414   -4.481930   66.032434   61.003985  -49.862273</code></pre>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="advanced-regression-methods.html#cb550-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model selected using stepwise selection with CV</span></span>
+<span id="cb550-2"><a href="advanced-regression-methods.html#cb550-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod_cv<span class="sc">$</span>finalModel)</span></code></pre></div>
+<pre><code>## (Intercept)          BA         OBP         SLG 
+##   -3.982217   -6.311483   17.489115   11.030694</code></pre>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="ridge-regression" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Ridge Regression<a href="advanced-regression-methods.html#ridge-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ridge regression is a method for estimating coefficients of a multiple regression model and used particularly used when predictor variables are highly correlated.</p>
+<p>In particular, model estimates of <span class="math inline">\(\hat{\beta}_i\)</span> are calculated to minimize:</p>
+<p><span class="math inline">\(\sum_{i=1}^n (y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij})^2 + \lambda \sum_{j=1}^p \beta_j^2\)</span></p>
+<div class="example">
+<p><span id="exm:unlabeled-div-218" class="example"><strong>Example 9.3  </strong></span>NHL team statistics for the 2021-2022 season is contained in <code>nhl21-22.csv</code>. The goal is to build a ridge regression model with team points as the response and other team statistics as the predictors.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>Load the data and display in a kable table.</li>
+</ol>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="advanced-regression-methods.html#cb552-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data and output a subset of the table</span></span>
+<span id="cb552-2"><a href="advanced-regression-methods.html#cb552-2" aria-hidden="true" tabindex="-1"></a>nhl2122 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nhl21-22.csv&quot;</span>)</span>
+<span id="cb552-3"><a href="advanced-regression-methods.html#cb552-3" aria-hidden="true" tabindex="-1"></a>nhl2122<span class="sc">$</span>Team <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">*&quot;</span>, <span class="st">&quot;&quot;</span>,nhl2122<span class="sc">$</span>Team)</span>
+<span id="cb552-4"><a href="advanced-regression-methods.html#cb552-4" aria-hidden="true" tabindex="-1"></a>nhl2122 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+PTS
+</th>
+<th style="text-align:right;">
+SOS
+</th>
+<th style="text-align:right;">
+GF/G
+</th>
+<th style="text-align:right;">
+GA/G
+</th>
+<th style="text-align:right;">
+PP%
+</th>
+<th style="text-align:right;">
+PK%
+</th>
+<th style="text-align:right;">
+SH
+</th>
+<th style="text-align:right;">
+SHA
+</th>
+<th style="text-align:right;">
+PIM/G
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Florida Panthers
+</td>
+<td style="text-align:right;">
+122
+</td>
+<td style="text-align:right;">
+-0.08
+</td>
+<td style="text-align:right;">
+4.11
+</td>
+<td style="text-align:right;">
+2.95
+</td>
+<td style="text-align:right;">
+24.43
+</td>
+<td style="text-align:right;">
+79.54
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+10.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Colorado Avalanche
+</td>
+<td style="text-align:right;">
+119
+</td>
+<td style="text-align:right;">
+-0.04
+</td>
+<td style="text-align:right;">
+3.76
+</td>
+<td style="text-align:right;">
+2.83
+</td>
+<td style="text-align:right;">
+24.01
+</td>
+<td style="text-align:right;">
+79.66
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Carolina Hurricanes
+</td>
+<td style="text-align:right;">
+116
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+3.38
+</td>
+<td style="text-align:right;">
+2.44
+</td>
+<td style="text-align:right;">
+21.98
+</td>
+<td style="text-align:right;">
+88.04
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+9.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Toronto Maple Leafs
+</td>
+<td style="text-align:right;">
+115
+</td>
+<td style="text-align:right;">
+-0.06
+</td>
+<td style="text-align:right;">
+3.80
+</td>
+<td style="text-align:right;">
+3.07
+</td>
+<td style="text-align:right;">
+27.27
+</td>
+<td style="text-align:right;">
+82.05
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+8.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Minnesota Wild
+</td>
+<td style="text-align:right;">
+113
+</td>
+<td style="text-align:right;">
+-0.02
+</td>
+<td style="text-align:right;">
+3.72
+</td>
+<td style="text-align:right;">
+3.04
+</td>
+<td style="text-align:right;">
+20.54
+</td>
+<td style="text-align:right;">
+76.14
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+10.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Calgary Flames
+</td>
+<td style="text-align:right;">
+111
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+3.55
+</td>
+<td style="text-align:right;">
+2.51
+</td>
+<td style="text-align:right;">
+22.88
+</td>
+<td style="text-align:right;">
+83.20
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+9.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tampa Bay Lightning
+</td>
+<td style="text-align:right;">
+110
+</td>
+<td style="text-align:right;">
+-0.02
+</td>
+<td style="text-align:right;">
+3.48
+</td>
+<td style="text-align:right;">
+2.78
+</td>
+<td style="text-align:right;">
+23.94
+</td>
+<td style="text-align:right;">
+80.56
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+11.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+New York Rangers
+</td>
+<td style="text-align:right;">
+110
+</td>
+<td style="text-align:right;">
+-0.03
+</td>
+<td style="text-align:right;">
+3.05
+</td>
+<td style="text-align:right;">
+2.49
+</td>
+<td style="text-align:right;">
+25.23
+</td>
+<td style="text-align:right;">
+82.30
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+8.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+St. Louis Blues
+</td>
+<td style="text-align:right;">
+109
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+3.77
+</td>
+<td style="text-align:right;">
+2.91
+</td>
+<td style="text-align:right;">
+26.97
+</td>
+<td style="text-align:right;">
+84.09
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+7.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Boston Bruins
+</td>
+<td style="text-align:right;">
+107
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+3.09
+</td>
+<td style="text-align:right;">
+2.66
+</td>
+<td style="text-align:right;">
+21.19
+</td>
+<td style="text-align:right;">
+81.30
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+9.9
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Fit the optimal value for lambda.</li>
+</ol>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="advanced-regression-methods.html#cb553-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb553-2"><a href="advanced-regression-methods.html#cb553-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb553-3"><a href="advanced-regression-methods.html#cb553-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb553-4"><a href="advanced-regression-methods.html#cb553-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> nhl2122<span class="sc">$</span>PTS</span>
+<span id="cb553-5"><a href="advanced-regression-methods.html#cb553-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> nhl2122 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Team,<span class="sc">-</span>PTS) <span class="sc">%&gt;%</span> <span class="fu">scale</span>() <span class="sc">%&gt;%</span> <span class="fu">data.matrix</span>()</span>
+<span id="cb553-6"><a href="advanced-regression-methods.html#cb553-6" aria-hidden="true" tabindex="-1"></a>lambdas <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">3</span>, <span class="sc">-</span><span class="dv">3</span>, <span class="at">by =</span> <span class="sc">-</span>.<span class="dv">1</span>)</span>
+<span id="cb553-7"><a href="advanced-regression-methods.html#cb553-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb553-8"><a href="advanced-regression-methods.html#cb553-8" aria-hidden="true" tabindex="-1"></a><span class="co"># fit the ridge regression model</span></span>
+<span id="cb553-9"><a href="advanced-regression-methods.html#cb553-9" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">lambda =</span> lambdas)</span>
+<span id="cb553-10"><a href="advanced-regression-methods.html#cb553-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb553-11"><a href="advanced-regression-methods.html#cb553-11" aria-hidden="true" tabindex="-1"></a><span class="co"># fit the ridge regression model using cross-validation</span></span>
+<span id="cb553-12"><a href="advanced-regression-methods.html#cb553-12" aria-hidden="true" tabindex="-1"></a>cv_model <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">lambda =</span> lambdas)</span>
+<span id="cb553-13"><a href="advanced-regression-methods.html#cb553-13" aria-hidden="true" tabindex="-1"></a>( best_lambda <span class="ot">&lt;-</span> cv_model<span class="sc">$</span>lambda.min )</span></code></pre></div>
+<pre><code>## [1] 1.584893</code></pre>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Plot MSE as a function of log(lambda).</li>
+</ol>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="advanced-regression-methods.html#cb555-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_model)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-283-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Create a trace plot.</li>
+</ol>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="advanced-regression-methods.html#cb556-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Trace plot</span></span>
+<span id="cb556-2"><a href="advanced-regression-methods.html#cb556-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that coefficients shrink to zero as lambda gets large</span></span>
+<span id="cb556-3"><a href="advanced-regression-methods.html#cb556-3" aria-hidden="true" tabindex="-1"></a><span class="co"># When lambda is small, we get ordinary least squares regression</span></span>
+<span id="cb556-4"><a href="advanced-regression-methods.html#cb556-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model,<span class="at">xvar=</span><span class="st">&quot;lambda&quot;</span>,<span class="at">label =</span> T) </span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-284-1.png" width="672" /></p>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>Find the final ridge regression model.</li>
+</ol>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="advanced-regression-methods.html#cb557-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use optimal lambda to find final ridge regression model</span></span>
+<span id="cb557-2"><a href="advanced-regression-methods.html#cb557-2" aria-hidden="true" tabindex="-1"></a>best_model <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">lambda =</span> best_lambda)</span>
+<span id="cb557-3"><a href="advanced-regression-methods.html#cb557-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(best_model)</span></code></pre></div>
+<pre><code>## 12 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                     s0
+## (Intercept) 91.0000000
+## SOS         -4.5830640
+## GF/G         7.6021591
+## GA/G        -6.6140452
+## PP%          2.1545416
+## PK%         -1.6310942
+## SH          -0.3088951
+## SHA         -0.2400908
+## PIM/G       -0.5156325
+## oPIM/G       0.5151495
+## S%           0.2863092
+## SV%          1.5397393</code></pre>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="lasso-regression" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Lasso Regression<a href="advanced-regression-methods.html#lasso-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Lasso regression is a method for estimating coefficients of a multiple regression model and is especially useful for variable selection.</p>
+<p>In particular, model estimates of <span class="math inline">\(\hat{\beta}_i\)</span> are calculated to minimize:</p>
+<p><span class="math inline">\(\sum_{i=1}^n (y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij})^2 + \lambda \sum_{j=1}^p |\beta_j|\)</span></p>
+<div class="example">
+<p><span id="exm:unlabeled-div-219" class="example"><strong>Example 9.4  </strong></span>Use the NHL 2021-2022 team statistics dataset to fit a regression model using LASSO.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>Fit the optimal value for lambda.</li>
+</ol>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="advanced-regression-methods.html#cb559-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb559-2"><a href="advanced-regression-methods.html#cb559-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb559-3"><a href="advanced-regression-methods.html#cb559-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> nhl2122<span class="sc">$</span>PTS</span>
+<span id="cb559-4"><a href="advanced-regression-methods.html#cb559-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> nhl2122 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Team,<span class="sc">-</span>PTS) <span class="sc">%&gt;%</span> <span class="fu">scale</span>() <span class="sc">%&gt;%</span> <span class="fu">data.matrix</span>()</span>
+<span id="cb559-5"><a href="advanced-regression-methods.html#cb559-5" aria-hidden="true" tabindex="-1"></a>lambdas <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">2</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="at">by =</span> <span class="sc">-</span>.<span class="dv">1</span>)</span>
+<span id="cb559-6"><a href="advanced-regression-methods.html#cb559-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb559-7"><a href="advanced-regression-methods.html#cb559-7" aria-hidden="true" tabindex="-1"></a><span class="co"># fit the ridge regression model</span></span>
+<span id="cb559-8"><a href="advanced-regression-methods.html#cb559-8" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">lambda =</span> lambdas)</span>
+<span id="cb559-9"><a href="advanced-regression-methods.html#cb559-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb559-10"><a href="advanced-regression-methods.html#cb559-10" aria-hidden="true" tabindex="-1"></a><span class="co"># fit the ridge regression model using cross-validation</span></span>
+<span id="cb559-11"><a href="advanced-regression-methods.html#cb559-11" aria-hidden="true" tabindex="-1"></a>cv_model <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">lambda =</span> lambdas)</span>
+<span id="cb559-12"><a href="advanced-regression-methods.html#cb559-12" aria-hidden="true" tabindex="-1"></a>( best_lambda <span class="ot">&lt;-</span> cv_model<span class="sc">$</span>lambda.min )</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Plot MSE as a function of log(lambda).</li>
+</ol>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="advanced-regression-methods.html#cb561-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_model)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-287-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Create a trace plot.</li>
+</ol>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="advanced-regression-methods.html#cb562-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Trace plot</span></span>
+<span id="cb562-2"><a href="advanced-regression-methods.html#cb562-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that coefficients shrink to zero as lambda gets large</span></span>
+<span id="cb562-3"><a href="advanced-regression-methods.html#cb562-3" aria-hidden="true" tabindex="-1"></a><span class="co"># When lambda is small, we get ordinary least squares regression</span></span>
+<span id="cb562-4"><a href="advanced-regression-methods.html#cb562-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model,<span class="at">xvar=</span><span class="st">&quot;lambda&quot;</span>,<span class="at">label =</span> T) </span></code></pre></div>
+<p><img src="textbook_files/figure-html/warning-1.png" width="672" /></p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Find the final lasso regression model.</li>
+</ol>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="advanced-regression-methods.html#cb563-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use optimal lambda to find final lasso regression model</span></span>
+<span id="cb563-2"><a href="advanced-regression-methods.html#cb563-2" aria-hidden="true" tabindex="-1"></a>lasso_model <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">lambda =</span> best_lambda)</span>
+<span id="cb563-3"><a href="advanced-regression-methods.html#cb563-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lasso_model)</span></code></pre></div>
+<pre><code>## 12 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                     s0
+## (Intercept) 91.0000000
+## SOS         -0.7500131
+## GF/G        10.0306214
+## GA/G        -9.1194278
+## PP%          1.2783637
+## PK%          .        
+## SH           .        
+## SHA          .        
+## PIM/G        .        
+## oPIM/G       .        
+## S%           .        
+## SV%          .</code></pre>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="elastic-net" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> Elastic Net<a href="advanced-regression-methods.html#elastic-net" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Elastic Net Regularization is a method for estimating coefficients of a multiple regression model by combining Ridge and LASSO Regression</p>
+<p>In particular, model estimates of <span class="math inline">\(\hat{\beta}_i\)</span> are calculated to minimize:</p>
+<p><span class="math inline">\(\sum_{i=1}^n (y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij})^2 + \lambda \cdot \left( \alpha \cdot \sum_{j=1}^p |\beta_j| + \frac{1-\alpha}{2} \sum_{j=1}^p \beta_j^2 \right)\)</span></p>
+<div class="example">
+<p><span id="exm:unlabeled-div-220" class="example"><strong>Example 9.5  </strong></span>Use the NHL 2021-2022 team statistics dataset to fit a regression model using Elastic Net and cross-validation.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>First tune the model parameters, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\lambda\)</span>.</li>
+</ol>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="advanced-regression-methods.html#cb565-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb565-2"><a href="advanced-regression-methods.html#cb565-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb565-3"><a href="advanced-regression-methods.html#cb565-3" aria-hidden="true" tabindex="-1"></a>cv5 <span class="ot">=</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;cv&quot;</span>, <span class="at">number =</span> <span class="dv">5</span>)</span>
+<span id="cb565-4"><a href="advanced-regression-methods.html#cb565-4" aria-hidden="true" tabindex="-1"></a>elnet <span class="ot">=</span> <span class="fu">train</span>(PTS<span class="sc">~</span>.<span class="sc">-</span>Team,<span class="at">data=</span>nhl2122,</span>
+<span id="cb565-5"><a href="advanced-regression-methods.html#cb565-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">metric =</span> <span class="st">&quot;RMSE&quot;</span>,</span>
+<span id="cb565-6"><a href="advanced-regression-methods.html#cb565-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">preProcess =</span> <span class="fu">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>),</span>
+<span id="cb565-7"><a href="advanced-regression-methods.html#cb565-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">tuneGrid =</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb565-8"><a href="advanced-regression-methods.html#cb565-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">.alpha =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">10</span>), </span>
+<span id="cb565-9"><a href="advanced-regression-methods.html#cb565-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.lambda =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="at">length.out =</span> <span class="dv">101</span>)),</span>
+<span id="cb565-10"><a href="advanced-regression-methods.html#cb565-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;glmnet&quot;</span>, <span class="at">trControl =</span> cv5)</span>
+<span id="cb565-11"><a href="advanced-regression-methods.html#cb565-11" aria-hidden="true" tabindex="-1"></a>elnet<span class="sc">$</span>bestTune</span></code></pre></div>
+<pre><code>##     alpha lambda
+## 931     1   1.05</code></pre>
+<div style="page-break-after: always;"></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Find the final model after tuning.</li>
+</ol>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="advanced-regression-methods.html#cb567-1" aria-hidden="true" tabindex="-1"></a>elastic_mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> elnet<span class="sc">$</span>bestTune<span class="sc">$</span>alpha, <span class="at">lambda =</span> elnet<span class="sc">$</span>bestTune<span class="sc">$</span>lambda)</span>
+<span id="cb567-2"><a href="advanced-regression-methods.html#cb567-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(elastic_mod)</span></code></pre></div>
+<pre><code>## 12 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                     s0
+## (Intercept) 91.0000000
+## SOS         -0.7821577
+## GF/G         9.9863842
+## GA/G        -9.0747940
+## PP%          1.2652996
+## PK%          .        
+## SH           .        
+## SHA          .        
+## PIM/G        .        
+## oPIM/G       .        
+## S%           .        
+## SV%          .</code></pre>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="mixed-effects-models" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> Mixed Effects Models<a href="advanced-regression-methods.html#mixed-effects-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Mixed effects regression models allow us to model model predictor variables as fixed or random factors.</p>
+<p></p>
+<p>The term factor refers to a variable that is thought to influence the outcome of an experiment.
+A factor has levels, which refer the the specific values of that factor. For example, team
+might be a factor with 32 levels, one for each team.</p>
+<ol style="list-style-type: lower-roman">
+<li><p> the specific factors that were used in the experiment, and their levels,
+are of direct interest to the researcher. Conclusions of the analysis apply to the factors
+and the specific factor levels tested. Example: Are the basketball predictive of team winning percentage?</p></li>
+<li><p> the levels of a random factor represent a random sample from a
+larger population of possible levels. Example: How much variability in win percentage is explained
+by team? Say there are 32 possible teams of data (levels), and we would like to account for the variability associated with team, however, we aren’t interested in estimating the effect of team, just the variability associated with team.</p></li>
+</ol>
+<p></p>
+<p>The term effect refers to a variable’s coefficient, or in some cases, the difference between two
+coefficients.</p>
+<ol style="list-style-type: lower-roman">
+<li><p> effects or coefficients associated with fixed factors (these effects are of
+direct interest)</p></li>
+<li><p> effects or coefficients associated with random factors (these effects are
+NOT of direct interest; the variation among effects is of interest)</p></li>
+</ol>
+<p><br />
+</p>
+<p></p>
+<p>For more information about the Four Factors, see:</p>
+<p><a href="https://www.basketball-reference.com/about/factors.html">https://www.basketball-reference.com/about/factors.html</a></p>
+<p>The following video playlist also discusses advanced basketball analytics:</p>
+<p><a href="https://www.youtube.com/playlist?list=PLtzZl14BrKjTJZdubjNEY5jU0fGOiy51x">https://www.youtube.com/playlist?list=PLtzZl14BrKjTJZdubjNEY5jU0fGOiy51x</a></p>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-221" class="example"><strong>Example 9.6  </strong></span>In this exercise, we will assess the relationship between the Four Factors and Win Percentage in professional basketball using team statistics from 2000-2022.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>Scrape advanced team statistics from Basketball Reference for the years 2000-2022. We are interested in the following variables: Team, Four Factors, Season.</li>
+</ol>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="advanced-regression-methods.html#cb569-1" aria-hidden="true" tabindex="-1"></a>url_base <span class="ot">&lt;-</span> <span class="st">&quot;https://www.basketball-reference.com/leagues/NBA_&quot;</span></span>
+<span id="cb569-2"><a href="advanced-regression-methods.html#cb569-2" aria-hidden="true" tabindex="-1"></a>year <span class="ot">=</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2022</span></span>
+<span id="cb569-3"><a href="advanced-regression-methods.html#cb569-3" aria-hidden="true" tabindex="-1"></a>n_year <span class="ot">=</span> <span class="fu">length</span>(year)</span>
+<span id="cb569-4"><a href="advanced-regression-methods.html#cb569-4" aria-hidden="true" tabindex="-1"></a>url_end <span class="ot">&lt;-</span> <span class="st">&quot;.html&quot;</span></span>
+<span id="cb569-5"><a href="advanced-regression-methods.html#cb569-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb569-6"><a href="advanced-regression-methods.html#cb569-6" aria-hidden="true" tabindex="-1"></a>nba_team_data <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb569-7"><a href="advanced-regression-methods.html#cb569-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb569-8"><a href="advanced-regression-methods.html#cb569-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_year){</span>
+<span id="cb569-9"><a href="advanced-regression-methods.html#cb569-9" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="fu">paste</span>(url_base,year[i],url_end,<span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb569-10"><a href="advanced-regression-methods.html#cb569-10" aria-hidden="true" tabindex="-1"></a>  site <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb569-11"><a href="advanced-regression-methods.html#cb569-11" aria-hidden="true" tabindex="-1"></a>  temp_table <span class="ot">&lt;-</span> site <span class="sc">%&gt;%</span> <span class="fu">html_element</span>(<span class="st">&quot;#advanced-team&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_table</span>() <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>()</span>
+<span id="cb569-12"><a href="advanced-regression-methods.html#cb569-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(temp_table) <span class="ot">&lt;-</span> <span class="fu">as.character</span>(temp_table[<span class="dv">1</span>,])</span>
+<span id="cb569-13"><a href="advanced-regression-methods.html#cb569-13" aria-hidden="true" tabindex="-1"></a>  temp_table <span class="ot">&lt;-</span> temp_table[<span class="sc">-</span><span class="dv">1</span>,] <span class="sc">%&gt;%</span> </span>
+<span id="cb569-14"><a href="advanced-regression-methods.html#cb569-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">22</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb569-15"><a href="advanced-regression-methods.html#cb569-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(Team <span class="sc">!=</span> <span class="st">&quot;League Average&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb569-16"><a href="advanced-regression-methods.html#cb569-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Team =</span> <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">*&quot;</span>, <span class="st">&quot;&quot;</span>, Team))</span>
+<span id="cb569-17"><a href="advanced-regression-methods.html#cb569-17" aria-hidden="true" tabindex="-1"></a>  teams <span class="ot">&lt;-</span> temp_table <span class="sc">%&gt;%</span> <span class="fu">select</span>(Team) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>)</span>
+<span id="cb569-18"><a href="advanced-regression-methods.html#cb569-18" aria-hidden="true" tabindex="-1"></a>  temp_table[,<span class="dv">3</span><span class="sc">:</span><span class="dv">22</span>] <span class="ot">&lt;-</span> temp_table <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">22</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb569-19"><a href="advanced-regression-methods.html#cb569-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate_if</span>(is.character, as.numeric)</span>
+<span id="cb569-20"><a href="advanced-regression-methods.html#cb569-20" aria-hidden="true" tabindex="-1"></a>  temp_table <span class="ot">&lt;-</span> temp_table <span class="sc">%&gt;%</span></span>
+<span id="cb569-21"><a href="advanced-regression-methods.html#cb569-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">WinPct =</span> W<span class="sc">/</span>(W<span class="sc">+</span>L)) <span class="sc">%&gt;%</span></span>
+<span id="cb569-22"><a href="advanced-regression-methods.html#cb569-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Team,<span class="st">`</span><span class="at">WinPct</span><span class="st">`</span>,<span class="st">`</span><span class="at">eFG%</span><span class="st">`</span>,<span class="st">`</span><span class="at">TOV%</span><span class="st">`</span>,<span class="st">`</span><span class="at">ORB%</span><span class="st">`</span>,<span class="st">`</span><span class="at">FT/FGA</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb569-23"><a href="advanced-regression-methods.html#cb569-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Season=</span>year[i])</span>
+<span id="cb569-24"><a href="advanced-regression-methods.html#cb569-24" aria-hidden="true" tabindex="-1"></a>  nba_team_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(nba_team_data,temp_table)</span>
+<span id="cb569-25"><a href="advanced-regression-methods.html#cb569-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb569-26"><a href="advanced-regression-methods.html#cb569-26" aria-hidden="true" tabindex="-1"></a>nba_team_data <span class="ot">&lt;-</span> nba_team_data <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="advanced-regression-methods.html#cb570-1" aria-hidden="true" tabindex="-1"></a>nba_team_data <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+WinPct
+</th>
+<th style="text-align:right;">
+eFG%
+</th>
+<th style="text-align:right;">
+TOV%
+</th>
+<th style="text-align:right;">
+ORB%
+</th>
+<th style="text-align:right;">
+FT/FGA
+</th>
+<th style="text-align:right;">
+Season
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Los Angeles Lakers
+</td>
+<td style="text-align:right;">
+0.817
+</td>
+<td style="text-align:right;">
+0.484
+</td>
+<td style="text-align:right;">
+12.7
+</td>
+<td style="text-align:right;">
+30.6
+</td>
+<td style="text-align:right;">
+0.241
+</td>
+<td style="text-align:right;">
+2000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Portland Trail Blazers
+</td>
+<td style="text-align:right;">
+0.720
+</td>
+<td style="text-align:right;">
+0.501
+</td>
+<td style="text-align:right;">
+14.5
+</td>
+<td style="text-align:right;">
+30.3
+</td>
+<td style="text-align:right;">
+0.240
+</td>
+<td style="text-align:right;">
+2000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+San Antonio Spurs
+</td>
+<td style="text-align:right;">
+0.646
+</td>
+<td style="text-align:right;">
+0.488
+</td>
+<td style="text-align:right;">
+14.3
+</td>
+<td style="text-align:right;">
+27.8
+</td>
+<td style="text-align:right;">
+0.258
+</td>
+<td style="text-align:right;">
+2000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Phoenix Suns
+</td>
+<td style="text-align:right;">
+0.646
+</td>
+<td style="text-align:right;">
+0.491
+</td>
+<td style="text-align:right;">
+15.2
+</td>
+<td style="text-align:right;">
+29.3
+</td>
+<td style="text-align:right;">
+0.217
+</td>
+<td style="text-align:right;">
+2000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Utah Jazz
+</td>
+<td style="text-align:right;">
+0.671
+</td>
+<td style="text-align:right;">
+0.490
+</td>
+<td style="text-align:right;">
+14.3
+</td>
+<td style="text-align:right;">
+29.5
+</td>
+<td style="text-align:right;">
+0.260
+</td>
+<td style="text-align:right;">
+2000
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Inspect the correlational structure of the dataset</li>
+</ol>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="advanced-regression-methods.html#cb571-1" aria-hidden="true" tabindex="-1"></a>nba_team_data <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Team,<span class="sc">-</span>Season) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-293-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Fit a mixed effects model with team modeled as a random effect and the four factors as fixed effects.</li>
+</ol>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="advanced-regression-methods.html#cb572-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb572-2"><a href="advanced-regression-methods.html#cb572-2" aria-hidden="true" tabindex="-1"></a>nba_team_data_scaled <span class="ot">&lt;-</span> nba_team_data <span class="sc">%&gt;%</span> <span class="fu">mutate_if</span>(is.numeric,scale)</span>
+<span id="cb572-3"><a href="advanced-regression-methods.html#cb572-3" aria-hidden="true" tabindex="-1"></a>nba_model <span class="ot">&lt;-</span> <span class="fu">lmer</span>(WinPct<span class="sc">~</span>(<span class="dv">1</span><span class="sc">|</span>Team)<span class="sc">+</span><span class="st">`</span><span class="at">eFG%</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TOV%</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">ORB%</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">FT/FGA</span><span class="st">`</span>,</span>
+<span id="cb572-4"><a href="advanced-regression-methods.html#cb572-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data=</span>nba_team_data_scaled)</span>
+<span id="cb572-5"><a href="advanced-regression-methods.html#cb572-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nba_model)</span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: WinPct ~ (1 | Team) + `eFG%` + `TOV%` + `ORB%` + `FT/FGA`
+##    Data: nba_team_data_scaled
+## 
+## REML criterion at convergence: 1537.4
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -3.11982 -0.65998 -0.00056  0.65763  2.69461 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  Team     (Intercept) 0.05759  0.2400  
+##  Residual             0.50651  0.7117  
+## Number of obs: 685, groups:  Team, 36
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept) -0.01452    0.04950  -0.293
+## `eFG%`       0.67970    0.03774  18.009
+## `TOV%`      -0.25415    0.03357  -7.570
+## `ORB%`       0.43837    0.03864  11.346
+## `FT/FGA`     0.23650    0.03223   7.339
+## 
+## Correlation of Fixed Effects:
+##          (Intr) `eFG%` `TOV%` `ORB%`
+## `eFG%`    0.016                     
+## `TOV%`    0.005  0.283              
+## `ORB%`    0.007  0.531 -0.073       
+## `FT/FGA` -0.002 -0.063 -0.254 -0.321</code></pre>
+<div style="page-break-after: always;"></div>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Fit a mixed effects model with team and season modeled as random effects and the four factors as fixed effects.</li>
+</ol>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="advanced-regression-methods.html#cb574-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb574-2"><a href="advanced-regression-methods.html#cb574-2" aria-hidden="true" tabindex="-1"></a>nba_team_data_scaled <span class="ot">&lt;-</span> nba_team_data <span class="sc">%&gt;%</span> <span class="fu">mutate_if</span>(is.numeric,scale)</span>
+<span id="cb574-3"><a href="advanced-regression-methods.html#cb574-3" aria-hidden="true" tabindex="-1"></a>nba_model <span class="ot">&lt;-</span> <span class="fu">lmer</span>(WinPct<span class="sc">~</span>(<span class="dv">1</span><span class="sc">|</span>Team)<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>Season)<span class="sc">+</span><span class="st">`</span><span class="at">eFG%</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TOV%</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">ORB%</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">FT/FGA</span><span class="st">`</span>,</span>
+<span id="cb574-4"><a href="advanced-regression-methods.html#cb574-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data=</span>nba_team_data_scaled)</span>
+<span id="cb574-5"><a href="advanced-regression-methods.html#cb574-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nba_model)</span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: WinPct ~ (1 | Team) + (1 | Season) + `eFG%` + `TOV%` + `ORB%` +  
+##     `FT/FGA`
+##    Data: nba_team_data_scaled
+## 
+## REML criterion at convergence: 1353.1
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -3.09019 -0.68621 -0.01116  0.61425  2.79536 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  Team     (Intercept) 0.05333  0.2309  
+##  Season   (Intercept) 0.44107  0.6641  
+##  Residual             0.33990  0.5830  
+## Number of obs: 685, groups:  Team, 36; Season, 23
+## 
+## Fixed effects:
+##              Estimate Std. Error t value
+## (Intercept) -0.003365   0.145762  -0.023
+## `eFG%`       1.017012   0.037093  27.418
+## `TOV%`      -0.362411   0.029101 -12.454
+## `ORB%`       0.301020   0.034965   8.609
+## `FT/FGA`     0.182931   0.031299   5.845
+## 
+## Correlation of Fixed Effects:
+##          (Intr) `eFG%` `TOV%` `ORB%`
+## `eFG%`    0.007                     
+## `TOV%`    0.001  0.157              
+## `ORB%`    0.000  0.271 -0.021       
+## `FT/FGA` -0.001 -0.177 -0.212 -0.163</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-acquisition.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="logistic-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/aaron-nielsen/SportsAnalyticsBook/edit/master/09-advanced-regression.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["textbook.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

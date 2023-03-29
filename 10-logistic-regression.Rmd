@@ -1,0 +1,206 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r, echo=F, message=F,warning=F}
+library(tidyverse)
+library(kableExtra)
+knitr::opts_chunk$set(tidy=FALSE,message=F,warning=F)
+
+# kable table global setup
+kt <- function(data) {
+  knitr::kable(data, digits=3, align=c('l','c','c','c','c','c','c','c','c')) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+}
+```
+
+
+# Logistic Regression
+
+### NFL Spread and Winning
+
+```{r}
+# Data from Kaggle:
+# https://www.kaggle.com/datasets/tobycrabtree/nfl-scores-and-betting-data
+nfl_spread <- read_csv("data/nfl_spread_history.csv",show_col_types = F)
+names(nfl_spread)
+nfl_spread %>% slice(1:5) %>% select(1,5,6,7,8,10)
+```
+
+\newpage
+
+```{r}
+# adjust date format
+nfl_spread$schedule_date <- as.Date(nfl_spread$schedule_date, "%m/%d/%Y")
+
+# select games since 2000 and grab variables of interest
+nfl_spread <- nfl_spread %>% 
+  filter(schedule_date > "2000-01-01") %>%
+  select(team_home,score_home,team_away,score_away,
+         team_favorite_id,spread_favorite)
+
+teams <- read.csv("data/nfl_teams.csv")
+teams <- teams %>% filter(team_division != "")
+team_names <- teams$team_name 
+team_ids <- teams$team_id 
+team_df <- data.frame(favorite_team = team_names, team_favorite_id = team_ids)
+team_df %>% slice(1:5) %>% kable(booktabs=T)
+```
+
+\newpage
+
+```{r}
+nfl_spread <- nfl_spread %>% 
+  inner_join(team_df,by="team_favorite_id",multiple="all")
+
+nfl_spread <- nfl_spread %>% 
+  mutate(home_diff = score_home - score_away,
+         winning_team = ifelse(score_home > score_away,team_home,team_away),
+         favorite_win = ifelse(favorite_team == winning_team,1,0),
+         home_spread = ifelse(team_home==favorite_team,spread_favorite,-spread_favorite),
+         home_win = ifelse(team_home == winning_team,1,0),
+         home_won = ifelse(home_win == 1,home_spread,NA),
+         home_lost = ifelse(home_win == 0,home_spread,NA))
+nfl_spread %>% 
+  slice(1:5) %>% 
+  select(team_home,team_away,score_home,score_away,home_spread,home_win) %>% 
+  kable(booktabs=T)
+```
+
+\newpage
+
+```{r,message=F}
+nfl_spread %>% ggplot(aes(x=home_spread,y=home_win)) +
+  geom_smooth(method = "glm", 
+    method.args = list(family = "binomial")) + 
+  geom_rug(aes(x = home_won), sides = "t", alpha = 0.1) +
+  geom_rug(aes(x = home_lost), sides = "b", alpha = 0.1)
+```
+
+\newpage
+
+```{r}
+mod <- glm(home_win~home_spread,data=nfl_spread,family="binomial")
+summary(mod)
+```
+
+```{r}
+predict(mod,newdata=data.frame(home_spread = c(-10,-5,0,5,10)),type="response")
+```
+
+\newpage
+
+### Field Goal Success
+
+```{r}
+# Example outlined at:
+# http://rstudio-pubs-static.s3.amazonaws.com/264999_c04ec6882e474eb9ab5f3feb3e62e40d.html#nfl-field-goals-attempted-fga-dataset
+nfl_fg <- read_csv("data/nfl2008_fga.csv",show_col_types = F)
+names(nfl_fg)
+nfl_fg %>% slice_head(n=10) %>% select(1:10) %>% kable(booktabs=T)
+```
+
+\newpage
+
+```{r}
+nfl_fg <- nfl_fg %>% mutate(Result = ifelse(GOOD==1,"Made","Missed"))
+nfl_fg %>% ggplot(aes(x=distance,y=GOOD)) + geom_point() + geom_jitter(height = 0.05)
+```
+
+\newpage
+
+```{r,message=F}
+nfl_fg %>% ggplot(aes(distance)) + geom_histogram() + facet_grid(~Result)
+```
+
+\newpage
+
+```{r,message=F}
+nfl_fg <- read_csv("data/nfl2008_fga.csv",show_col_types = F)
+names(nfl_fg) <- tolower(names(nfl_fg))
+names(nfl_fg) <- str_replace(names(nfl_fg), "team", "_team")
+names(nfl_fg) <- str_replace(names(nfl_fg), "score", "_score")
+# rename some other variables
+nfl_fg <- nfl_fg %>% 
+  dplyr::rename(game_date = gamedate, 
+         to_go = togo, 
+         yd_line = ydline, 
+         home_kick = homekick, 
+         time_rem = timerem)
+nfl_fg <- nfl_fg %>% 
+  dplyr::rename(kick_score_diff = kickdiff, 
+         min_rem = min, 
+         sec_rem = sec, 
+         def_team = def,
+         made = good)
+
+library(lubridate)
+nfl_fg$game_date <- ymd(nfl_fg$game_date)
+kicker_list <- nfl_fg %>% 
+  group_by(name, kicker, kick_team) %>% 
+  summarise(n = n(), made = mean(made)) %>% 
+  arrange(name)
+kicker_list %>% data.frame() %>% slice_head(n=10) %>% kable(booktabs=T)
+```
+
+\newpage
+
+```{r,message=F}
+# fix duplicate names and their IDs
+index <- which(nfl_fg$name == "S.Hauschka" & nfl_fg$kicker == 3)
+nfl_fg[["kicker"]][[index]] <- 4
+index <- which(nfl_fg$name == "J.Brown" & nfl_fg$kicker == 34)
+nfl_fg[["kicker"]][[index]] <- 35
+index <- which(nfl_fg$kicker == 9 & nfl_fg$name == "D.Rayner")
+nfl_fg[["kicker"]][[index]] <- 38
+index <- which(nfl_fg$kicker == 26 & nfl_fg$name == "M.Nugent")
+nfl_fg[["kicker"]][[index]] <- 39
+
+kicker_list <- nfl_fg %>% 
+  group_by(name, kicker, kick_team) %>% 
+  summarise(n = n(), made = mean(made)) %>% 
+  arrange(name)
+kicker_list %>% data.frame() %>% slice_head(n=10) %>% kable(booktabs=T)
+```
+
+\newpage
+
+```{r,message=F}
+# dataframe of kickers with less than 5 attempts
+temp <- nfl_fg %>% 
+  group_by(name, kicker) %>% 
+  summarise(n = n(), made = mean(made)) %>% 
+  filter(n < 5)
+# list of names of kickers with less than 5 attempts
+names = temp$name
+# filter dataset to not include the kickers with less than 5 attempts
+for (n in names) {
+  nfl_fg <- nfl_fg %>% filter(name != n)
+}
+temp <- nfl_fg %>% 
+  group_by(name) %>% 
+  summarise(n= n(), made_pct = mean(made)) %>% 
+  arrange(desc(made_pct), desc(n)) %>% 
+  mutate(kicker_rank = rank(desc(made_pct), ties.method = "first")) %>% 
+  arrange(kicker_rank)
+temp %>% slice(1:10) %>% kable(booktabs=T)
+temp <- temp %>% 
+  select(name, kicker_rank)
+nfl_fg <- left_join(nfl_fg, temp, by = "name")
+nfl_fg$name <- NULL
+nfl_fg$kicker <- NULL
+```
+
+\newpage
+
+```{r}
+fg_mod <- glm(made ~ distance, data = nfl_fg, family = "binomial")
+summary(fg_mod)
+```
+
+\newpage
+
+```{r}
+fg_mod2 <- glm(made ~ distance+kicker_rank, data = nfl_fg, family = "binomial")
+summary(fg_mod2)
+```

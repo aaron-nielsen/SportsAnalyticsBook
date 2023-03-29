@@ -233,17 +233,17 @@ Use the `baseballr` packges to obtain the batting leaderboards for MLB in 2022. 
 
 ```{r,cache=T}
 # Scrape data from Fangraphs
-bat22 <- fg_batter_leaders(x = 2022, y = 2022)
-
-# Select relevant columns
-bat22 = bat22 %>% 
-  select(Name,Team,OPS,WPA,wRC,WAR)
-
-# Arrange by leaders in WAR and print to a Kable table
-bat22 %>% 
-  arrange(desc(WAR)) %>% 
-  slice(1:10) %>% 
-  kable(booktabs=T)
+# bat22 <- fg_batter_leaders(x = 2022, y = 2022)
+# 
+# # Select relevant columns
+# bat22 = bat22 %>% 
+#   select(Name,Team,OPS,WPA,wRC,WAR)
+# 
+# # Arrange by leaders in WAR and print to a Kable table
+# bat22 %>% 
+#   arrange(desc(WAR)) %>% 
+#   slice(1:10) %>% 
+#   kable(booktabs=T)
 ```
 
 \newpage
@@ -305,10 +305,12 @@ ohtani_cleaned_data <- ohtani_data %>%
 colors <- brewer.pal(n = 6, name = "Dark2")
 pitch_colors <- c("4-Seam Fastball" = colors[1],
                   "Sinker" = colors[2],
-                  "Cutter" = colors[3],
-                  "Curveball" = colors[4],
-                  "Slider" = colors[5],
-                  "Split-Finger" = colors[6])
+                  "Curveball" = colors[3],
+                  "Slow Curve" = colors[4],
+                  "Cutter" = colors[5],
+                  "Slider" = colors[6],
+                  "Sweeper" = colors[7],
+                  "Split-Finger" = colors[8])
 
 ( ohtani_pitch_types <- unique(ohtani_cleaned_data$pitch_name) )
 ```
@@ -390,12 +392,12 @@ fast_scraper_schedules(2022) %>%
 
 ```{r,message=F,warning=F,cache=T}
 # Scrape data for the specific game and display play-by-play data
-fast_scraper("2022_03_SF_DEN") %>%
-  clean_pbp() %>%
-  select(desc, play_type, ep, epa, home_wp) %>%
-  head(10) %>%
-  kable(booktabs=T,digits = 3) %>%
-  column_spec(1, width = "3.5in")
+# fast_scraper("2022_03_SF_DEN") %>%
+#   clean_pbp() %>%
+#   select(desc, play_type, ep, epa, home_wp) %>%
+#   head(10) %>%
+#   kable(booktabs=T,digits = 3) %>%
+#   column_spec(1, width = "3.5in")
 ```
 
 \newpage
