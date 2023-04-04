@@ -165,8 +165,10 @@
 \contentsline {section}{\numberline {9.5}Elastic Net}{308}{section.9.5}%
 \contentsline {section}{\numberline {9.6}Mixed Effects Models}{310}{section.9.6}%
 \contentsline {chapter}{\numberline {10}Logistic Regression}{315}{chapter.10}%
-\contentsline {subsection}{\numberline {10.0.1}NFL Spread and Winning}{315}{subsection.10.0.1}%
-\contentsline {subsection}{\numberline {10.0.2}Field Goal Success}{320}{subsection.10.0.2}%
+\contentsline {section}{\numberline {10.1}Logistic Regression Model}{315}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Example: NFL Spread and Winning}{316}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Multiple Logistic Regression}{321}{section.10.3}%
+\contentsline {section}{\numberline {10.4}Example: Field Goal Success}{321}{section.10.4}%
 \contentsline {chapter}{\numberline {11}Classification}{329}{chapter.11}%
 \contentsline {section}{\numberline {11.1}Classification Using Logistic Regression}{329}{section.11.1}%
 \contentsline {chapter}{\numberline {12}Clustering}{331}{chapter.12}%

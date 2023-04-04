@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  29 MAR 2023 13:59
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  3 APR 2023 14:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2523,7 +2523,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 8557--8559
 
  []
 
-[221] [222]
+[221]
+Overfull \hbox (139.61235pt too wide) in paragraph at lines 8602--8602
+[]\TU/lmtt/m/n/10.95 ## Warning in left_join(., pit22, by = "Name"): Each row i
+n []x[] is expected to match at most 1 row in []y[].[] 
+ []
+
+[222]
 File: textbook_files/figure-latex/unnamed-chunk-185-1.pdf Graphic file (type pd
 f)
 <use textbook_files/figure-latex/unnamed-chunk-185-1.pdf>
@@ -2651,7 +2657,7 @@ File: textbook_files/figure-latex/unnamed-chunk-255-1.pdf Graphic file (type pd
 f)
 <use textbook_files/figure-latex/unnamed-chunk-255-1.pdf>
 [283]
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 10764--10764
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 10780--10780
 []\TU/lmtt/m/n/10.95 Quarter=[]period_display_value,[]Points=[]score_value,[]Cl
 ock=[]clock_display_value) 
  []
@@ -2665,7 +2671,7 @@ File: textbook_files/figure-latex/unnamed-chunk-259-1.pdf Graphic file (type pd
 f)
 <use textbook_files/figure-latex/unnamed-chunk-259-1.pdf>
 [287]
-Overfull \hbox (47.62636pt too wide) in paragraph at lines 10886--10909
+Overfull \hbox (47.62636pt too wide) in paragraph at lines 10910--10933
 [][] 
  []
 
@@ -2685,55 +2691,55 @@ File: images/wilson-scrape.png Graphic file (type bmp)
 File: images/wilson-scrape2.png Graphic file (type bmp)
 <images/wilson-scrape2.png>
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 11143--11143
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 11167--11167
 []\TU/lmtt/m/n/10.95 ##   Year  Tm      Age     G    GS    MP    FG   FGA []FG%
 []  []3P[] []3PA[]  []3P%[]  []2P[][] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 11143--11143
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 11167--11167
 []\TU/lmtt/m/n/10.95 ##   <chr> <chr> <int> <int> <int> <dbl> <dbl> <dbl> <dbl>
  <dbl> <dbl>  <dbl> <dbl>[] 
  []
 
 [294]
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 11143--11143
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 11167--11167
 []\TU/lmtt/m/n/10.95 ## 1 2018  "LVA"    21    33    33  30.6   7.4  16.1 0.462
    0     0   NA       7.4[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 11143--11143
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 11167--11167
 []\TU/lmtt/m/n/10.95 ## 2 2019  "LVA"    22    26    25  28.5   6.1  12.7 0.479
    0     0    0       6.1[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 11143--11143
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 11167--11167
 []\TU/lmtt/m/n/10.95 ## 3 2020  "LVA"    23    22    22  31.7   7.5  15.7 0.48 
    0     0   NA       7.5[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 11143--11143
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 11167--11167
 []\TU/lmtt/m/n/10.95 ## 4 2021  "LVA"    24    32    32  31.9   6.5  14.6 0.444
    0     0    1       6.4[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 11143--11143
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 11167--11167
 []\TU/lmtt/m/n/10.95 ## 5 2022  "LVA"    25    36    36  30     7.2  14.4 0.501
    0.9   2.3  0.373   6.4[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 11143--11143
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 11167--11167
 []\TU/lmtt/m/n/10.95 ## 6 Care~ ""       NA   149   148  30.5   7    14.7 0.473
    0.2   0.6  0.376   6.7[] 
  []
 
 
-Overfull \hbox (1.64238pt too wide) in paragraph at lines 11143--11143
+Overfull \hbox (1.64238pt too wide) in paragraph at lines 11167--11167
 []\TU/lmtt/m/n/10.95 ## # ... with 15 more variables: []2PA[] <dbl>, []2P%[] <d
 bl>, []eFG%[] <dbl>, FT <dbl>,[] 
  []
@@ -2741,7 +2747,7 @@ bl>, []eFG%[] <dbl>, FT <dbl>,[]
 [295] [296] [297] [298]
 Chapter 9.
 
-Overfull \vbox (3.22458pt too high) detected at line 11315
+Overfull \vbox (3.22458pt too high) detected at line 11348
  []
 
 [299
@@ -2766,7 +2772,7 @@ f)
 File: textbook_files/figure-latex/warning-1.pdf Graphic file (type pdf)
 <use textbook_files/figure-latex/warning-1.pdf>
 [307] [308] [309]
-Underfull \hbox (badness 10000) in paragraph at lines 11852--11853
+Underfull \hbox (badness 10000) in paragraph at lines 11885--11886
 
  []
 
@@ -2777,77 +2783,96 @@ f)
 [312] [313] [314]
 Chapter 10.
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 12094--12094
+Underfull \hbox (badness 10000) in paragraph at lines 12108--12109
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12112--12113
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12119--12120
+
+ []
+
+[315
+
+]
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 12162--12162
 []\TU/lmtt/m/n/10.95 ##   schedule_date team_home          score_home score_awa
 y team_away       sprea~1[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 12094--12094
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 12162--12162
 []\TU/lmtt/m/n/10.95 ##   <chr>         <chr>                   <dbl>      <dbl
 > <chr>             <dbl>[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 12094--12094
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 12162--12162
 []\TU/lmtt/m/n/10.95 ## 1 9/2/1966      Miami Dolphins             14         2
 3 Oakland Raiders      NA[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 12094--12094
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 12162--12162
 []\TU/lmtt/m/n/10.95 ## 2 9/3/1966      Houston Oilers             45          
 7 Denver Broncos       NA[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 12094--12094
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 12162--12162
 []\TU/lmtt/m/n/10.95 ## 3 9/4/1966      San Diego Chargers         27          
 7 Buffalo Bills        NA[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 12094--12094
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 12162--12162
 []\TU/lmtt/m/n/10.95 ## 4 9/9/1966      Miami Dolphins             14         1
 9 New York Jets        NA[] 
  []
 
 
-Overfull \hbox (7.39113pt too wide) in paragraph at lines 12094--12094
+Overfull \hbox (7.39113pt too wide) in paragraph at lines 12162--12162
 []\TU/lmtt/m/n/10.95 ## 5 9/10/1966     Green Bay Packers          24          
 3 Baltimore Colts      NA[] 
  []
 
-[315
-
-] [316]
-Overfull \hbox (30.49936pt too wide) in paragraph at lines 12152--12163
+[316] [317]
+Overfull \hbox (30.49936pt too wide) in paragraph at lines 12220--12231
 [][] 
  []
 
-[317]
+[318]
 File: textbook_files/figure-latex/unnamed-chunk-300-1.pdf Graphic file (type pd
 f)
 <use textbook_files/figure-latex/unnamed-chunk-300-1.pdf>
-[318] [319]
-Overfull \hbox (254.5873pt too wide) in paragraph at lines 12231--12231
-\TU/lmtt/m/it/10.95 http://rstudio-pubs-static.s3.amazonaws.com/264999_c04ec688
-2e474eb9ab5f3feb3e62e40d.html#nfl-field-goals-attempted-fga-dataset[]|  
+[319] [320]
+Underfull \hbox (badness 10000) in paragraph at lines 12308--12309
+
  []
 
-[320]
+
+Underfull \hbox (badness 10000) in paragraph at lines 12312--12313
+
+ []
+
+[321]
 File: textbook_files/figure-latex/unnamed-chunk-304-1.pdf Graphic file (type pd
 f)
 <use textbook_files/figure-latex/unnamed-chunk-304-1.pdf>
-[321]
+[322]
 File: textbook_files/figure-latex/unnamed-chunk-305-1.pdf Graphic file (type pd
 f)
 <use textbook_files/figure-latex/unnamed-chunk-305-1.pdf>
-[322] [323] [324] [325] [326] [327] [328
-
-]
+[323] [324] [325] [326] [327] [328]
 Chapter 11.
-[329] [330
+[329
+
+] [330
 
 ]
 Chapter 12.
@@ -2886,10 +2911,10 @@ Chapter 20.
 No file textbook.bbl.
 [347] (./textbook.aux) ) 
 Here is how much of TeX's memory you used:
- 23465 strings out of 476179
- 463684 string characters out of 5809544
- 915459 words of memory out of 5000000
- 43709 multiletter control sequences out of 15000+600000
+ 23471 strings out of 476179
+ 463781 string characters out of 5809544
+ 914578 words of memory out of 5000000
+ 43715 multiletter control sequences out of 15000+600000
  475878 words of font info for 90 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  86i,10n,121p,1131b,516s stack positions out of 10000i,1000n,20000p,200000b,200000s

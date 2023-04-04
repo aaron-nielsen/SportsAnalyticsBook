@@ -434,6 +434,7 @@ nba_team_data %>% slice(1:5) %>% kable(booktabs=T,digits=3)
 (b) Inspect the correlational structure of the dataset
 
 ```{r,message=F,warning=F}
+library(GGally)
 nba_team_data %>% select(-Team,-Season) %>% ggpairs()
 ```
 

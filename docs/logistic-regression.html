@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2023-03-29" />
+<meta name="date" content="2023-04-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,8 +373,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="10.0.1" data-path="logistic-regression.html"><a href="logistic-regression.html#nfl-spread-and-winning"><i class="fa fa-check"></i><b>10.0.1</b> NFL Spread and Winning</a></li>
-<li class="chapter" data-level="10.0.2" data-path="logistic-regression.html"><a href="logistic-regression.html#field-goal-success"><i class="fa fa-check"></i><b>10.0.2</b> Field Goal Success</a></li>
+<li class="chapter" data-level="10.1" data-path="logistic-regression.html"><a href="logistic-regression.html#logistic-regression-model"><i class="fa fa-check"></i><b>10.1</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="10.2" data-path="logistic-regression.html"><a href="logistic-regression.html#example-nfl-spread-and-winning"><i class="fa fa-check"></i><b>10.2</b> Example: NFL Spread and Winning</a></li>
+<li class="chapter" data-level="10.3" data-path="logistic-regression.html"><a href="logistic-regression.html#multiple-logistic-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple Logistic Regression</a></li>
+<li class="chapter" data-level="10.4" data-path="logistic-regression.html"><a href="logistic-regression.html#example-field-goal-success"><i class="fa fa-check"></i><b>10.4</b> Example: Field Goal Success</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>11</b> Classification</a>
 <ul>
@@ -412,8 +414,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="logistic-regression" class="section level1 hasAnchor" number="10">
 <h1><span class="header-section-number">Chapter 10</span> Logistic Regression<a href="logistic-regression.html#logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="nfl-spread-and-winning" class="section level3 hasAnchor" number="10.0.1">
-<h3><span class="header-section-number">10.0.1</span> NFL Spread and Winning<a href="logistic-regression.html#nfl-spread-and-winning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the previous regression examples, we have considered cases where the response variable is a continuous random variable. There are many cases in sports analytics where the response may be a binary or categorical variable. In such cases, logistic regression is likely a more appropriate model.</p>
+<p>Let <span class="math inline">\(\pi_i\)</span> be the probability be that the response variable, <span class="math inline">\(Y_i\)</span>, is equal to 1 and <span class="math inline">\(1-\pi_i\)</span> is the probability that <span class="math inline">\(Y_i\)</span> is equal to 0.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-222" class="definition"><strong>Definition 10.1  </strong></span>The <strong><em>log-odds</em></strong> (or <strong><em>logit</em></strong>) of a probability <span class="math inline">\(p\)</span> is defined by:</p>
+<p><span class="math inline">\(logit(p) = log.odds(p) = log\left(\frac{p}{1-p}\right)\)</span></p>
+</div>
+<div id="logistic-regression-model" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Logistic Regression Model<a href="logistic-regression.html#logistic-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Logistic regression allows us to model the logit as a linear function of the predictor variables.</p>
+<p>For example, a simple logistic regression model is defined by:</p>
+<p><span class="math inline">\(logit(p) = log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 x\)</span><br />
+</p>
+<p>We also have:</p>
+<p><span class="math inline">\(E[Y_i] = \pi_i = \frac{exp(\beta_0+\beta_1X_i)}{1+exp(\beta_0+\beta_1X_i)}\)</span><br />
+</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-223" class="definition"><strong>Definition 10.2  </strong></span>The <strong><em>odds ratio</em></strong> of event <span class="math inline">\(X_1\)</span> relative to event <span class="math inline">\(X_2\)</span> is defined by:</p>
+<p><span class="math inline">\(\hat{OR} = \frac{odds_2}{odds_1} = \exp{\hat{\beta}_1}\)</span></p>
+<p>The odds ratio represents the change in odds for a one-unit increase in <span class="math inline">\(X\)</span>.<br />
+</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="example-nfl-spread-and-winning" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Example: NFL Spread and Winning<a href="logistic-regression.html#example-nfl-spread-and-winning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="logistic-regression.html#cb576-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data from Kaggle:</span></span>
 <span id="cb576-2"><a href="logistic-regression.html#cb576-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.kaggle.com/datasets/tobycrabtree/nfl-scores-and-betting-data</span></span>
 <span id="cb576-3"><a href="logistic-regression.html#cb576-3" aria-hidden="true" tabindex="-1"></a>nfl_spread <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl_spread_history.csv&quot;</span>,<span class="at">show_col_types =</span> F)</span>
@@ -678,22 +703,41 @@ San Diego Chargers
 ## AIC: 8348.1
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
-<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="logistic-regression.html#cb585-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">home_spread =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>,<span class="sc">-</span><span class="dv">5</span>,<span class="dv">0</span>,<span class="dv">5</span>,<span class="dv">10</span>)),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span></code></pre></div>
-<pre><code>##         1         2         3         4         5 
-## 0.7768932 0.6613590 0.5227493 0.3805448 0.2562536</code></pre>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="logistic-regression.html#cb585-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">home_spread =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>,<span class="sc">-</span><span class="dv">5</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">10</span>)),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<pre><code>##         1         2         3         4         5         6         7 
+## 0.7768932 0.6613590 0.5514965 0.5227493 0.4938505 0.3805448 0.2562536</code></pre>
+<ol style="list-style-type: lower-alpha">
+<li><p>Write the estimated logistic regression equation. </p></li>
+<li><p>Determine and interpret the change in log-odds for a one-unit increase in home_spread. </p></li>
+<li><p>Estimate the probability that the home team wins given they are 5 point favorites.  </p></li>
+</ol>
 <div style="page-break-after: always;"></div>
 </div>
-<div id="field-goal-success" class="section level3 hasAnchor" number="10.0.2">
-<h3><span class="header-section-number">10.0.2</span> Field Goal Success<a href="logistic-regression.html#field-goal-success" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="multiple-logistic-regression" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Multiple Logistic Regression<a href="logistic-regression.html#multiple-logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can extend the framework of the simple logistic regression model to include multiple predictor variables. In this case, we have the following multiple logistic regression model.</p>
+<p><span class="math inline">\(logit(p) = log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 x_1 + \ldots + \beta_p x_p\)</span><br />
+</p>
+<p>We also have:</p>
+<p><span class="math inline">\(E[Y_i] = \pi_i = \frac{exp(\beta_0+\beta_1X_i+\ldots + \beta_pX_p)}{1+exp(\beta_0+\beta_1X_i+\ldots + \beta_pX_p)}\)</span><br />
+</p>
+</div>
+<div id="example-field-goal-success" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> Example: Field Goal Success<a href="logistic-regression.html#example-field-goal-success" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="logistic-regression.html#cb587-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example outlined at:</span></span>
-<span id="cb587-2"><a href="logistic-regression.html#cb587-2" aria-hidden="true" tabindex="-1"></a><span class="co"># http://rstudio-pubs-static.s3.amazonaws.com/264999_c04ec6882e474eb9ab5f3feb3e62e40d.html#nfl-field-goals-attempted-fga-dataset</span></span>
-<span id="cb587-3"><a href="logistic-regression.html#cb587-3" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl2008_fga.csv&quot;</span>,<span class="at">show_col_types =</span> F)</span>
-<span id="cb587-4"><a href="logistic-regression.html#cb587-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(nfl_fg)</span></code></pre></div>
+<span id="cb587-2"><a href="logistic-regression.html#cb587-2" aria-hidden="true" tabindex="-1"></a><span class="co"># http://rstudio-pubs-static.s3.amazonaws.com/</span></span>
+<span id="cb587-3"><a href="logistic-regression.html#cb587-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 264999_c04ec6882e474eb9ab5f3feb3e62e40d.html</span></span>
+<span id="cb587-4"><a href="logistic-regression.html#cb587-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb587-5"><a href="logistic-regression.html#cb587-5" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl2008_fga.csv&quot;</span>,<span class="at">show_col_types =</span> F)</span>
+<span id="cb587-6"><a href="logistic-regression.html#cb587-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(nfl_fg)</span></code></pre></div>
 <pre><code>##  [1] &quot;GameDate&quot; &quot;AwayTeam&quot; &quot;HomeTeam&quot; &quot;qtr&quot;      &quot;min&quot;      &quot;sec&quot;     
 ##  [7] &quot;kickteam&quot; &quot;def&quot;      &quot;down&quot;     &quot;togo&quot;     &quot;kicker&quot;   &quot;ydline&quot;  
 ## [13] &quot;name&quot;     &quot;distance&quot; &quot;homekick&quot; &quot;kickdiff&quot; &quot;timerem&quot;  &quot;offscore&quot;
 ## [19] &quot;defscore&quot; &quot;season&quot;   &quot;GOOD&quot;     &quot;Missed&quot;   &quot;Blocked&quot;</code></pre>
-<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="logistic-regression.html#cb589-1" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="logistic-regression.html#cb589-1" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb589-2"><a href="logistic-regression.html#cb589-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb589-3"><a href="logistic-regression.html#cb589-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb589-4"><a href="logistic-regression.html#cb589-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1053,38 +1097,45 @@ ARI
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="logistic-regression.html#cb590-1" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Result =</span> <span class="fu">ifelse</span>(GOOD<span class="sc">==</span><span class="dv">1</span>,<span class="st">&quot;Made&quot;</span>,<span class="st">&quot;Missed&quot;</span>))</span>
-<span id="cb590-2"><a href="logistic-regression.html#cb590-2" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>distance,<span class="at">y=</span>GOOD)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="fl">0.05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="logistic-regression.html#cb590-1" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb590-2"><a href="logistic-regression.html#cb590-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Result =</span> <span class="fu">ifelse</span>(GOOD<span class="sc">==</span><span class="dv">1</span>,<span class="st">&quot;Made&quot;</span>,<span class="st">&quot;Missed&quot;</span>))</span>
+<span id="cb590-3"><a href="logistic-regression.html#cb590-3" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb590-4"><a href="logistic-regression.html#cb590-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>distance,<span class="at">y=</span>GOOD)) <span class="sc">+</span> </span>
+<span id="cb590-5"><a href="logistic-regression.html#cb590-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb590-6"><a href="logistic-regression.html#cb590-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;glm&quot;</span>, </span>
+<span id="cb590-7"><a href="logistic-regression.html#cb590-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)) <span class="sc">+</span>  </span>
+<span id="cb590-8"><a href="logistic-regression.html#cb590-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="textbook_files/figure-html/unnamed-chunk-304-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="logistic-regression.html#cb591-1" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(distance)) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>Result)</span></code></pre></div>
+<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="logistic-regression.html#cb592-1" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(distance)) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>Result)</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-305-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="logistic-regression.html#cb592-1" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl2008_fga.csv&quot;</span>,<span class="at">show_col_types =</span> F)</span>
-<span id="cb592-2"><a href="logistic-regression.html#cb592-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(nfl_fg) <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">names</span>(nfl_fg))</span>
-<span id="cb592-3"><a href="logistic-regression.html#cb592-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(nfl_fg) <span class="ot">&lt;-</span> <span class="fu">str_replace</span>(<span class="fu">names</span>(nfl_fg), <span class="st">&quot;team&quot;</span>, <span class="st">&quot;_team&quot;</span>)</span>
-<span id="cb592-4"><a href="logistic-regression.html#cb592-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(nfl_fg) <span class="ot">&lt;-</span> <span class="fu">str_replace</span>(<span class="fu">names</span>(nfl_fg), <span class="st">&quot;score&quot;</span>, <span class="st">&quot;_score&quot;</span>)</span>
-<span id="cb592-5"><a href="logistic-regression.html#cb592-5" aria-hidden="true" tabindex="-1"></a><span class="co"># rename some other variables</span></span>
-<span id="cb592-6"><a href="logistic-regression.html#cb592-6" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
-<span id="cb592-7"><a href="logistic-regression.html#cb592-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">game_date =</span> gamedate, </span>
-<span id="cb592-8"><a href="logistic-regression.html#cb592-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">to_go =</span> togo, </span>
-<span id="cb592-9"><a href="logistic-regression.html#cb592-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">yd_line =</span> ydline, </span>
-<span id="cb592-10"><a href="logistic-regression.html#cb592-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">home_kick =</span> homekick, </span>
-<span id="cb592-11"><a href="logistic-regression.html#cb592-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">time_rem =</span> timerem)</span>
-<span id="cb592-12"><a href="logistic-regression.html#cb592-12" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
-<span id="cb592-13"><a href="logistic-regression.html#cb592-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">kick_score_diff =</span> kickdiff, </span>
-<span id="cb592-14"><a href="logistic-regression.html#cb592-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">min_rem =</span> min, </span>
-<span id="cb592-15"><a href="logistic-regression.html#cb592-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">sec_rem =</span> sec, </span>
-<span id="cb592-16"><a href="logistic-regression.html#cb592-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">def_team =</span> def,</span>
-<span id="cb592-17"><a href="logistic-regression.html#cb592-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">made =</span> good)</span>
-<span id="cb592-18"><a href="logistic-regression.html#cb592-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb592-19"><a href="logistic-regression.html#cb592-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb592-20"><a href="logistic-regression.html#cb592-20" aria-hidden="true" tabindex="-1"></a>nfl_fg<span class="sc">$</span>game_date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(nfl_fg<span class="sc">$</span>game_date)</span>
-<span id="cb592-21"><a href="logistic-regression.html#cb592-21" aria-hidden="true" tabindex="-1"></a>kicker_list <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
-<span id="cb592-22"><a href="logistic-regression.html#cb592-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name, kicker, kick_team) <span class="sc">%&gt;%</span> </span>
-<span id="cb592-23"><a href="logistic-regression.html#cb592-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">made =</span> <span class="fu">mean</span>(made)) <span class="sc">%&gt;%</span> </span>
-<span id="cb592-24"><a href="logistic-regression.html#cb592-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(name)</span>
-<span id="cb592-25"><a href="logistic-regression.html#cb592-25" aria-hidden="true" tabindex="-1"></a>kicker_list <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="logistic-regression.html#cb593-1" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl2008_fga.csv&quot;</span>,<span class="at">show_col_types =</span> F)</span>
+<span id="cb593-2"><a href="logistic-regression.html#cb593-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(nfl_fg) <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">names</span>(nfl_fg))</span>
+<span id="cb593-3"><a href="logistic-regression.html#cb593-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(nfl_fg) <span class="ot">&lt;-</span> <span class="fu">str_replace</span>(<span class="fu">names</span>(nfl_fg), <span class="st">&quot;team&quot;</span>, <span class="st">&quot;_team&quot;</span>)</span>
+<span id="cb593-4"><a href="logistic-regression.html#cb593-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(nfl_fg) <span class="ot">&lt;-</span> <span class="fu">str_replace</span>(<span class="fu">names</span>(nfl_fg), <span class="st">&quot;score&quot;</span>, <span class="st">&quot;_score&quot;</span>)</span>
+<span id="cb593-5"><a href="logistic-regression.html#cb593-5" aria-hidden="true" tabindex="-1"></a><span class="co"># rename some other variables</span></span>
+<span id="cb593-6"><a href="logistic-regression.html#cb593-6" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb593-7"><a href="logistic-regression.html#cb593-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">game_date =</span> gamedate, </span>
+<span id="cb593-8"><a href="logistic-regression.html#cb593-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">to_go =</span> togo, </span>
+<span id="cb593-9"><a href="logistic-regression.html#cb593-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">yd_line =</span> ydline, </span>
+<span id="cb593-10"><a href="logistic-regression.html#cb593-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">home_kick =</span> homekick, </span>
+<span id="cb593-11"><a href="logistic-regression.html#cb593-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">time_rem =</span> timerem)</span>
+<span id="cb593-12"><a href="logistic-regression.html#cb593-12" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb593-13"><a href="logistic-regression.html#cb593-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">kick_score_diff =</span> kickdiff, </span>
+<span id="cb593-14"><a href="logistic-regression.html#cb593-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">min_rem =</span> min, </span>
+<span id="cb593-15"><a href="logistic-regression.html#cb593-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">sec_rem =</span> sec, </span>
+<span id="cb593-16"><a href="logistic-regression.html#cb593-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">def_team =</span> def,</span>
+<span id="cb593-17"><a href="logistic-regression.html#cb593-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">made =</span> good)</span>
+<span id="cb593-18"><a href="logistic-regression.html#cb593-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb593-19"><a href="logistic-regression.html#cb593-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb593-20"><a href="logistic-regression.html#cb593-20" aria-hidden="true" tabindex="-1"></a>nfl_fg<span class="sc">$</span>game_date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(nfl_fg<span class="sc">$</span>game_date)</span>
+<span id="cb593-21"><a href="logistic-regression.html#cb593-21" aria-hidden="true" tabindex="-1"></a>kicker_list <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb593-22"><a href="logistic-regression.html#cb593-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name, kicker, kick_team) <span class="sc">%&gt;%</span> </span>
+<span id="cb593-23"><a href="logistic-regression.html#cb593-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">made =</span> <span class="fu">mean</span>(made)) <span class="sc">%&gt;%</span> </span>
+<span id="cb593-24"><a href="logistic-regression.html#cb593-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(name)</span>
+<span id="cb593-25"><a href="logistic-regression.html#cb593-25" aria-hidden="true" tabindex="-1"></a>kicker_list <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1279,21 +1330,21 @@ ATL
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="logistic-regression.html#cb593-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fix duplicate names and their IDs</span></span>
-<span id="cb593-2"><a href="logistic-regression.html#cb593-2" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">which</span>(nfl_fg<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;S.Hauschka&quot;</span> <span class="sc">&amp;</span> nfl_fg<span class="sc">$</span>kicker <span class="sc">==</span> <span class="dv">3</span>)</span>
-<span id="cb593-3"><a href="logistic-regression.html#cb593-3" aria-hidden="true" tabindex="-1"></a>nfl_fg[[<span class="st">&quot;kicker&quot;</span>]][[index]] <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb593-4"><a href="logistic-regression.html#cb593-4" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">which</span>(nfl_fg<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;J.Brown&quot;</span> <span class="sc">&amp;</span> nfl_fg<span class="sc">$</span>kicker <span class="sc">==</span> <span class="dv">34</span>)</span>
-<span id="cb593-5"><a href="logistic-regression.html#cb593-5" aria-hidden="true" tabindex="-1"></a>nfl_fg[[<span class="st">&quot;kicker&quot;</span>]][[index]] <span class="ot">&lt;-</span> <span class="dv">35</span></span>
-<span id="cb593-6"><a href="logistic-regression.html#cb593-6" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">which</span>(nfl_fg<span class="sc">$</span>kicker <span class="sc">==</span> <span class="dv">9</span> <span class="sc">&amp;</span> nfl_fg<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;D.Rayner&quot;</span>)</span>
-<span id="cb593-7"><a href="logistic-regression.html#cb593-7" aria-hidden="true" tabindex="-1"></a>nfl_fg[[<span class="st">&quot;kicker&quot;</span>]][[index]] <span class="ot">&lt;-</span> <span class="dv">38</span></span>
-<span id="cb593-8"><a href="logistic-regression.html#cb593-8" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">which</span>(nfl_fg<span class="sc">$</span>kicker <span class="sc">==</span> <span class="dv">26</span> <span class="sc">&amp;</span> nfl_fg<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;M.Nugent&quot;</span>)</span>
-<span id="cb593-9"><a href="logistic-regression.html#cb593-9" aria-hidden="true" tabindex="-1"></a>nfl_fg[[<span class="st">&quot;kicker&quot;</span>]][[index]] <span class="ot">&lt;-</span> <span class="dv">39</span></span>
-<span id="cb593-10"><a href="logistic-regression.html#cb593-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb593-11"><a href="logistic-regression.html#cb593-11" aria-hidden="true" tabindex="-1"></a>kicker_list <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
-<span id="cb593-12"><a href="logistic-regression.html#cb593-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name, kicker, kick_team) <span class="sc">%&gt;%</span> </span>
-<span id="cb593-13"><a href="logistic-regression.html#cb593-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">made =</span> <span class="fu">mean</span>(made)) <span class="sc">%&gt;%</span> </span>
-<span id="cb593-14"><a href="logistic-regression.html#cb593-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(name)</span>
-<span id="cb593-15"><a href="logistic-regression.html#cb593-15" aria-hidden="true" tabindex="-1"></a>kicker_list <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="logistic-regression.html#cb594-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fix duplicate names and their IDs</span></span>
+<span id="cb594-2"><a href="logistic-regression.html#cb594-2" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">which</span>(nfl_fg<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;S.Hauschka&quot;</span> <span class="sc">&amp;</span> nfl_fg<span class="sc">$</span>kicker <span class="sc">==</span> <span class="dv">3</span>)</span>
+<span id="cb594-3"><a href="logistic-regression.html#cb594-3" aria-hidden="true" tabindex="-1"></a>nfl_fg[[<span class="st">&quot;kicker&quot;</span>]][[index]] <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb594-4"><a href="logistic-regression.html#cb594-4" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">which</span>(nfl_fg<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;J.Brown&quot;</span> <span class="sc">&amp;</span> nfl_fg<span class="sc">$</span>kicker <span class="sc">==</span> <span class="dv">34</span>)</span>
+<span id="cb594-5"><a href="logistic-regression.html#cb594-5" aria-hidden="true" tabindex="-1"></a>nfl_fg[[<span class="st">&quot;kicker&quot;</span>]][[index]] <span class="ot">&lt;-</span> <span class="dv">35</span></span>
+<span id="cb594-6"><a href="logistic-regression.html#cb594-6" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">which</span>(nfl_fg<span class="sc">$</span>kicker <span class="sc">==</span> <span class="dv">9</span> <span class="sc">&amp;</span> nfl_fg<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;D.Rayner&quot;</span>)</span>
+<span id="cb594-7"><a href="logistic-regression.html#cb594-7" aria-hidden="true" tabindex="-1"></a>nfl_fg[[<span class="st">&quot;kicker&quot;</span>]][[index]] <span class="ot">&lt;-</span> <span class="dv">38</span></span>
+<span id="cb594-8"><a href="logistic-regression.html#cb594-8" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">which</span>(nfl_fg<span class="sc">$</span>kicker <span class="sc">==</span> <span class="dv">26</span> <span class="sc">&amp;</span> nfl_fg<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;M.Nugent&quot;</span>)</span>
+<span id="cb594-9"><a href="logistic-regression.html#cb594-9" aria-hidden="true" tabindex="-1"></a>nfl_fg[[<span class="st">&quot;kicker&quot;</span>]][[index]] <span class="ot">&lt;-</span> <span class="dv">39</span></span>
+<span id="cb594-10"><a href="logistic-regression.html#cb594-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb594-11"><a href="logistic-regression.html#cb594-11" aria-hidden="true" tabindex="-1"></a>kicker_list <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb594-12"><a href="logistic-regression.html#cb594-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name, kicker, kick_team) <span class="sc">%&gt;%</span> </span>
+<span id="cb594-13"><a href="logistic-regression.html#cb594-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">made =</span> <span class="fu">mean</span>(made)) <span class="sc">%&gt;%</span> </span>
+<span id="cb594-14"><a href="logistic-regression.html#cb594-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(name)</span>
+<span id="cb594-15"><a href="logistic-regression.html#cb594-15" aria-hidden="true" tabindex="-1"></a>kicker_list <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1488,24 +1539,24 @@ NYJ
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="logistic-regression.html#cb594-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dataframe of kickers with less than 5 attempts</span></span>
-<span id="cb594-2"><a href="logistic-regression.html#cb594-2" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
-<span id="cb594-3"><a href="logistic-regression.html#cb594-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name, kicker) <span class="sc">%&gt;%</span> </span>
-<span id="cb594-4"><a href="logistic-regression.html#cb594-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">made =</span> <span class="fu">mean</span>(made)) <span class="sc">%&gt;%</span> </span>
-<span id="cb594-5"><a href="logistic-regression.html#cb594-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&lt;</span> <span class="dv">5</span>)</span>
-<span id="cb594-6"><a href="logistic-regression.html#cb594-6" aria-hidden="true" tabindex="-1"></a><span class="co"># list of names of kickers with less than 5 attempts</span></span>
-<span id="cb594-7"><a href="logistic-regression.html#cb594-7" aria-hidden="true" tabindex="-1"></a>names <span class="ot">=</span> temp<span class="sc">$</span>name</span>
-<span id="cb594-8"><a href="logistic-regression.html#cb594-8" aria-hidden="true" tabindex="-1"></a><span class="co"># filter dataset to not include the kickers with less than 5 attempts</span></span>
-<span id="cb594-9"><a href="logistic-regression.html#cb594-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> names) {</span>
-<span id="cb594-10"><a href="logistic-regression.html#cb594-10" aria-hidden="true" tabindex="-1"></a>  nfl_fg <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> <span class="fu">filter</span>(name <span class="sc">!=</span> n)</span>
-<span id="cb594-11"><a href="logistic-regression.html#cb594-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb594-12"><a href="logistic-regression.html#cb594-12" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
-<span id="cb594-13"><a href="logistic-regression.html#cb594-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
-<span id="cb594-14"><a href="logistic-regression.html#cb594-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n=</span> <span class="fu">n</span>(), <span class="at">made_pct =</span> <span class="fu">mean</span>(made)) <span class="sc">%&gt;%</span> </span>
-<span id="cb594-15"><a href="logistic-regression.html#cb594-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(made_pct), <span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span> </span>
-<span id="cb594-16"><a href="logistic-regression.html#cb594-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">kicker_rank =</span> <span class="fu">rank</span>(<span class="fu">desc</span>(made_pct), <span class="at">ties.method =</span> <span class="st">&quot;first&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb594-17"><a href="logistic-regression.html#cb594-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(kicker_rank)</span>
-<span id="cb594-18"><a href="logistic-regression.html#cb594-18" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="logistic-regression.html#cb595-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dataframe of kickers with less than 5 attempts</span></span>
+<span id="cb595-2"><a href="logistic-regression.html#cb595-2" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb595-3"><a href="logistic-regression.html#cb595-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name, kicker) <span class="sc">%&gt;%</span> </span>
+<span id="cb595-4"><a href="logistic-regression.html#cb595-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">made =</span> <span class="fu">mean</span>(made)) <span class="sc">%&gt;%</span> </span>
+<span id="cb595-5"><a href="logistic-regression.html#cb595-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&lt;</span> <span class="dv">5</span>)</span>
+<span id="cb595-6"><a href="logistic-regression.html#cb595-6" aria-hidden="true" tabindex="-1"></a><span class="co"># list of names of kickers with less than 5 attempts</span></span>
+<span id="cb595-7"><a href="logistic-regression.html#cb595-7" aria-hidden="true" tabindex="-1"></a>names <span class="ot">=</span> temp<span class="sc">$</span>name</span>
+<span id="cb595-8"><a href="logistic-regression.html#cb595-8" aria-hidden="true" tabindex="-1"></a><span class="co"># filter dataset to not include the kickers with less than 5 attempts</span></span>
+<span id="cb595-9"><a href="logistic-regression.html#cb595-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> names) {</span>
+<span id="cb595-10"><a href="logistic-regression.html#cb595-10" aria-hidden="true" tabindex="-1"></a>  nfl_fg <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> <span class="fu">filter</span>(name <span class="sc">!=</span> n)</span>
+<span id="cb595-11"><a href="logistic-regression.html#cb595-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb595-12"><a href="logistic-regression.html#cb595-12" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb595-13"><a href="logistic-regression.html#cb595-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
+<span id="cb595-14"><a href="logistic-regression.html#cb595-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n=</span> <span class="fu">n</span>(), <span class="at">made_pct =</span> <span class="fu">mean</span>(made)) <span class="sc">%&gt;%</span> </span>
+<span id="cb595-15"><a href="logistic-regression.html#cb595-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(made_pct), <span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb595-16"><a href="logistic-regression.html#cb595-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">kicker_rank =</span> <span class="fu">rank</span>(<span class="fu">desc</span>(made_pct), <span class="at">ties.method =</span> <span class="st">&quot;first&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb595-17"><a href="logistic-regression.html#cb595-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(kicker_rank)</span>
+<span id="cb595-18"><a href="logistic-regression.html#cb595-18" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1666,14 +1717,14 @@ J.Kasay
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="logistic-regression.html#cb595-1" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> temp <span class="sc">%&gt;%</span> </span>
-<span id="cb595-2"><a href="logistic-regression.html#cb595-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, kicker_rank)</span>
-<span id="cb595-3"><a href="logistic-regression.html#cb595-3" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> <span class="fu">left_join</span>(nfl_fg, temp, <span class="at">by =</span> <span class="st">&quot;name&quot;</span>)</span>
-<span id="cb595-4"><a href="logistic-regression.html#cb595-4" aria-hidden="true" tabindex="-1"></a>nfl_fg<span class="sc">$</span>name <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb595-5"><a href="logistic-regression.html#cb595-5" aria-hidden="true" tabindex="-1"></a>nfl_fg<span class="sc">$</span>kicker <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="logistic-regression.html#cb596-1" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> temp <span class="sc">%&gt;%</span> </span>
+<span id="cb596-2"><a href="logistic-regression.html#cb596-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, kicker_rank)</span>
+<span id="cb596-3"><a href="logistic-regression.html#cb596-3" aria-hidden="true" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> <span class="fu">left_join</span>(nfl_fg, temp, <span class="at">by =</span> <span class="st">&quot;name&quot;</span>)</span>
+<span id="cb596-4"><a href="logistic-regression.html#cb596-4" aria-hidden="true" tabindex="-1"></a>nfl_fg<span class="sc">$</span>name <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb596-5"><a href="logistic-regression.html#cb596-5" aria-hidden="true" tabindex="-1"></a>nfl_fg<span class="sc">$</span>kicker <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code></pre></div>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="logistic-regression.html#cb596-1" aria-hidden="true" tabindex="-1"></a>fg_mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(made <span class="sc">~</span> distance, <span class="at">data =</span> nfl_fg, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
-<span id="cb596-2"><a href="logistic-regression.html#cb596-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fg_mod)</span></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="logistic-regression.html#cb597-1" aria-hidden="true" tabindex="-1"></a>fg_mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(made <span class="sc">~</span> distance, <span class="at">data =</span> nfl_fg, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb597-2"><a href="logistic-regression.html#cb597-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fg_mod)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = made ~ distance, family = &quot;binomial&quot;, data = nfl_fg)
@@ -1696,9 +1747,12 @@ J.Kasay
 ## AIC: 675.21
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="logistic-regression.html#cb599-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fg_mod,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">distance =</span> <span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">60</span>,<span class="dv">70</span>)),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<pre><code>##         1         2         3         4         5 
+## 0.9607681 0.8763128 0.6720984 0.3722482 0.1464325</code></pre>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="logistic-regression.html#cb598-1" aria-hidden="true" tabindex="-1"></a>fg_mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(made <span class="sc">~</span> distance<span class="sc">+</span>kicker_rank, <span class="at">data =</span> nfl_fg, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
-<span id="cb598-2"><a href="logistic-regression.html#cb598-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fg_mod2)</span></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="logistic-regression.html#cb601-1" aria-hidden="true" tabindex="-1"></a>fg_mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(made <span class="sc">~</span> distance<span class="sc">+</span>kicker_rank, <span class="at">data =</span> nfl_fg, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb601-2"><a href="logistic-regression.html#cb601-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fg_mod2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = made ~ distance + kicker_rank, family = &quot;binomial&quot;, 
@@ -1723,6 +1777,15 @@ J.Kasay
 ## AIC: 650.77
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="logistic-regression.html#cb603-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fg_mod2,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">distance =</span> <span class="dv">50</span>,<span class="at">kicker_rank=</span><span class="dv">1</span>),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<pre><code>##         1 
+## 0.8492647</code></pre>
+<ol style="list-style-type: lower-alpha">
+<li><p>Write the estimated logistic regression equation. </p></li>
+<li><p>Determine and interpret the change in log-odds for a one-unit increase in distance while holding kicker rank constant. </p></li>
+<li><p>Determine and interpret the change in log-odds for a one-unit increase in kicker rank while holding distance constant. </p></li>
+<li><p>Estimate the probability that a field goal is good given that it was from 50 yards and was kicked by the top ranked kicker.  </p></li>
+</ol>
 
 </div>
 </div>

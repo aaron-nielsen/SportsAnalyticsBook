@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2023-03-29}
+\date{2023-04-03}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -8591,7 +8591,18 @@ Download individual MLB pitching statistics for the 2021 and 2022 seasons. Use t
   \FunctionTok{left\_join}\NormalTok{(pit22,}\AttributeTok{by =} \StringTok{"Name"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{,}\DecValTok{8}\SpecialCharTok{:}\DecValTok{10}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(IP21}\SpecialCharTok{\textgreater{}}\DecValTok{5} \SpecialCharTok{\&}\NormalTok{ IP22 }\SpecialCharTok{\textgreater{}} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## Warning in left_join(., pit22, by = "Name"): Each row in `x` is expected to match at most 1 row in `y`.
+## i Row 8 of `x` matches multiple rows.
+## i If multiple matches are expected, set `multiple = "all"` to silence this
+##   warning.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{all\_pit }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
 \end{Highlighting}
 \end{Shaded}
@@ -8606,11 +8617,11 @@ Adam Wainwright & 206.1 & 3.05 & 3.62 & 191.2 & 3.71 & 3.65\\
 Sandy Alcantara & 205.2 & 3.19 & 3.39 & 228.2 & 2.28 & 2.97\\
 Robbie Ray & 193.1 & 2.84 & 3.69 & 189.0 & 3.71 & 4.16\\
 \addlinespace
+José Berríos & 192.0 & 3.52 & 3.47 & 172.0 & 5.23 & 4.55\\
 Kevin Gausman & 192.0 & 2.81 & 2.99 & 174.2 & 3.35 & 2.38\\
 Luis Castillo & 187.2 & 3.98 & 3.69 & 150.1 & 2.99 & 3.07\\
 Frankie Montas & 187.0 & 3.37 & 3.36 & 144.1 & 4.05 & 3.72\\
-Charlie Morton & 185.2 & 3.34 & 3.16 & 172.0 & 4.34 & 4.26\\
-Nathan Eovaldi & 182.1 & 3.75 & 2.76 & 109.1 & 3.87 & 4.30\\
+Julio Urías & 185.2 & 2.96 & 3.08 & 175.0 & 2.16 & 3.71\\
 \bottomrule
 \end{tabular}
 
@@ -8668,18 +8679,18 @@ Nathan Eovaldi & 182.1 & 3.75 & 2.76 & 109.1 & 3.87 & 4.30\\
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -4.5318 -1.1936 -0.3656  0.7973 19.4036 
+## -4.4503 -1.1708 -0.3321  0.8072 19.4281 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  3.72975    0.24168  15.433  < 2e-16 ***
-## ERA21        0.13571    0.05085   2.669  0.00787 ** 
+## (Intercept)  3.72994    0.23077  16.163  < 2e-16 ***
+## ERA21        0.12896    0.04878   2.644  0.00845 ** 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 2.148 on 473 degrees of freedom
-## Multiple R-squared:  0.01484,    Adjusted R-squared:  0.01275 
-## F-statistic: 7.123 on 1 and 473 DF,  p-value: 0.007873
+## Residual standard error: 2.106 on 517 degrees of freedom
+## Multiple R-squared:  0.01334,    Adjusted R-squared:  0.01143 
+## F-statistic: 6.989 on 1 and 517 DF,  p-value: 0.008449
 \end{verbatim}
 
 \begin{Shaded}
@@ -8706,8 +8717,8 @@ Nathan Eovaldi & 182.1 & 3.75 & 2.76 & 109.1 & 3.87 & 4.30\\
 \toprule
 Predictor & Estimate & Std Error & t stat & p-value\\
 \midrule
-Intercept & 3.730 & 0.242 & 15.433 & <0.001\\
-ERA21 & 0.136 & 0.051 & 2.669 & 0.008\\
+Intercept & 3.730 & 0.231 & 16.163 & <0.001\\
+ERA21 & 0.129 & 0.049 & 2.644 & 0.008\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -8740,8 +8751,8 @@ ERA21 & 0.136 & 0.051 & 2.669 & 0.008\\
 \toprule
 Predictor & Estimate & Std Error & t stat & p-value\\
 \midrule
-Intercept & 3.248 & 0.310 & 10.484 & <0.001\\
-FIP21 & 0.250 & 0.069 & 3.645 & <0.001\\
+Intercept & 3.273 & 0.295 & 11.097 & <0.001\\
+FIP21 & 0.238 & 0.066 & 3.626 & <0.001\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -8772,9 +8783,9 @@ FIP21 & 0.250 & 0.069 & 3.645 & <0.001\\
 \toprule
 Predictor & Estimate & Std Error & t stat & p-value\\
 \midrule
-Intercept & 3.247 & 0.310 & 10.466 & <0.001\\
-ERA21 & 0.005 & 0.073 & 0.068 & 0.946\\
-FIP21 & 0.245 & 0.100 & 2.462 & 0.014\\
+Intercept & 3.272 & 0.295 & 11.080 & <0.001\\
+ERA21 & 0.002 & 0.071 & 0.028 & 0.977\\
+FIP21 & 0.236 & 0.096 & 2.463 & 0.014\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -8809,7 +8820,7 @@ Our goal is to investigate the relationship between MLB team OPS and runs per ga
 \toprule
   & X.Bat & BatAge & R/G & G & PA & AB & R & H\\
 \midrule
-Arizona Diamondbacks & 57 & 26.5 & 4.33 & 162 & 6213 & 5351 & 702 & 1232\\
+Arizona Diamondbacks & 57 & 26.5 & 4.33 & 162 & 6027 & 5351 & 702 & 1232\\
 Atlanta Braves & 53 & 27.5 & 4.87 & 162 & 6082 & 5509 & 789 & 1394\\
 Baltimore Orioles & 58 & 27.0 & 4.16 & 162 & 6049 & 5429 & 674 & 1281\\
 Boston Red Sox & 54 & 28.8 & 4.54 & 162 & 6144 & 5539 & 735 & 1427\\
@@ -8817,7 +8828,7 @@ Chicago Cubs & 64 & 27.9 & 4.06 & 162 & 6072 & 5425 & 657 & 1293\\
 \addlinespace
 Chicago White Sox & 44 & 29.3 & 4.23 & 162 & 6123 & 5611 & 686 & 1435\\
 Cincinnati Reds & 66 & 29.4 & 4.00 & 162 & 5978 & 5380 & 648 & 1264\\
-Cleveland Guardians & 50 & 25.9 & 4.31 & 162 & 6290 & 5558 & 698 & 1410\\
+Cleveland Guardians & 50 & 25.9 & 4.31 & 162 & 6163 & 5558 & 698 & 1410\\
 Colorado Rockies & 43 & 29.1 & 4.31 & 162 & 6105 & 5540 & 698 & 1408\\
 Detroit Tigers & 53 & 27.9 & 3.44 & 162 & 5870 & 5378 & 557 & 1240\\
 \addlinespace
@@ -8842,7 +8853,7 @@ San Francisco Giants & 66 & 30.0 & 4.42 & 162 & 6117 & 5392 & 716 & 1261\\
 St. Louis Cardinals & 51 & 28.8 & 4.77 & 162 & 6165 & 5496 & 772 & 1386\\
 Tampa Bay Rays & 61 & 27.0 & 4.11 & 162 & 6008 & 5412 & 666 & 1294\\
 Texas Rangers & 55 & 28.0 & 4.36 & 162 & 6029 & 5478 & 707 & 1308\\
-Toronto Blue Jays & 51 & 27.1 & 4.78 & 162 & 6259 & 5555 & 775 & 1464\\
+Toronto Blue Jays & 51 & 27.1 & 4.78 & 162 & 6158 & 5555 & 775 & 1464\\
 Washington Nationals & 55 & 28.7 & 3.72 & 162 & 5998 & 5434 & 603 & 1351\\
 \bottomrule
 \end{tabular}
@@ -9686,7 +9697,7 @@ There are many ways to do model selection. We will focus on all
 \toprule
 Tm & X.Bat & BatAge & R.G & G & PA & AB & R & H & X2B\\
 \midrule
-Arizona Diamondbacks & 57 & 26.5 & 4.33 & 162 & 6213 & 5351 & 702 & 1232 & 262\\
+Arizona Diamondbacks & 57 & 26.5 & 4.33 & 162 & 6027 & 5351 & 702 & 1232 & 262\\
 Atlanta Braves & 53 & 27.5 & 4.87 & 162 & 6082 & 5509 & 789 & 1394 & 298\\
 Baltimore Orioles & 58 & 27.0 & 4.16 & 162 & 6049 & 5429 & 674 & 1281 & 275\\
 Boston Red Sox & 54 & 28.8 & 4.54 & 162 & 6144 & 5539 & 735 & 1427 & 352\\
@@ -9782,6 +9793,11 @@ LOB & -0.005 & 0.001 & -7.056 & <0.001\\
                \AttributeTok{method =} \StringTok{"exhaustive"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## Warning in leaps.setup(x, y, wt = wt, nbest = nbest, nvmax = nvmax, force.in =
+## force.in, : 1 linear dependencies found
+\end{verbatim}
 
 \begin{verbatim}
 ## Reordering variables and trying again:
@@ -10837,6 +10853,10 @@ Period & Seconds Remaining & Home Win Pct & Play ID\\
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## Scraping Data for Game: 1 of 1
+\end{verbatim}
+
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-258-1.pdf}
 \newpage
 
@@ -10845,6 +10865,10 @@ Period & Seconds Remaining & Home Win Pct & Play ID\\
 \FunctionTok{game\_flow}\NormalTok{(}\AttributeTok{game\_id =} \DecValTok{401482835}\NormalTok{, }\AttributeTok{home\_col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{away\_col =} \StringTok{"forestgreen"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## Scraping Data for Game: 1 of 1
+\end{verbatim}
 
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-259-1.pdf}
 
@@ -11198,29 +11222,29 @@ Link: \url{http://www.espn.com/nba/hollinger/statistics}
 \toprule
 RK & PLAYER & PER\\
 \midrule
-1 & Nikola Jokic, DEN & 32.01\\
-2 & Joel Embiid, PHI & 31.74\\
-3 & Luka Doncic, DAL & 29.40\\
-4 & Giannis Antetokounmpo, MIL & 28.89\\
-5 & Anthony Davis, LAL & 27.56\\
+1 & Nikola Jokic, DEN & 32.23\\
+2 & Joel Embiid, PHI & 31.47\\
+3 & Giannis Antetokounmpo, MIL & 29.44\\
+4 & Luka Doncic, DAL & 29.13\\
+5 & Anthony Davis, LAL & 28.60\\
 \addlinespace
-6 & Jimmy Butler, MIA & 27.54\\
-7 & Shai Gilgeous-Alexander, OKC & 27.49\\
-8 & Damian Lillard, POR & 27.01\\
-9 & Kevin Durant, BKN/PHX & 26.62\\
-10 & Zion Williamson, NO & 25.43\\
+6 & Shai Gilgeous-Alexander, OKC & 27.61\\
+7 & Jimmy Butler, MIA & 27.45\\
+8 & Damian Lillard, POR & 27.10\\
+9 & Kevin Durant, BKN/PHX & 26.68\\
+10 & Zion Williamson, NO & 25.30\\
 \addlinespace
-11 & Stephen Curry, GS & 24.47\\
-12 & Ja Morant, MEM & 24.21\\
-13 & Kawhi Leonard, LAC & 24.17\\
-14 & LeBron James, LAL & 24.16\\
-15 & Tyrese Haliburton, IND & 23.76\\
+11 & Kawhi Leonard, LAC & 24.18\\
+12 & LeBron James, LAL & 24.14\\
+13 & Stephen Curry, GS & 24.11\\
+14 & Jayson Tatum, BOS & 23.91\\
+15 & Tyrese Haliburton, IND & 23.86\\
 \addlinespace
-16 & Jayson Tatum, BOS & 23.54\\
-17 & Kristaps Porzingis, WSH & 23.43\\
-18 & Domantas Sabonis, SAC & 23.40\\
-19 & Donovan Mitchell, CLE & 22.81\\
-20 & Clint Capela, ATL & 22.59\\
+16 & Ja Morant, MEM & 23.62\\
+17 & Domantas Sabonis, SAC & 23.57\\
+18 & Kristaps Porzingis, WSH & 23.37\\
+19 & Donovan Mitchell, CLE & 22.99\\
+20 & Kyrie Irving, BKN/DAL & 22.70\\
 \bottomrule
 \end{tabular}
 
@@ -11242,6 +11266,15 @@ Link: \url{https://www.ussoccer.com/uswnt-stats/2022}
   \FunctionTok{data.frame}\NormalTok{()}
 \FunctionTok{colnames}\NormalTok{(uswnt\_df) }\OtherTok{=}\NormalTok{ uswnt\_df[}\DecValTok{1}\NormalTok{,]}
 \NormalTok{uswnt\_df}\SpecialCharTok{$}\NormalTok{Goals }\OtherTok{\textless{}{-}} \FunctionTok{as.integer}\NormalTok{(uswnt\_df}\SpecialCharTok{$}\NormalTok{Goals)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: NAs introduced by coercion
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{uswnt\_df }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{slice}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}\SpecialCharTok{{-}}\FunctionTok{n}\NormalTok{(),}\SpecialCharTok{{-}}\NormalTok{(}\FunctionTok{n}\NormalTok{()}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(Goals)) }\SpecialCharTok{\%\textgreater{}\%} 
@@ -11340,8 +11373,8 @@ Build SLR models predicting ERA22 from ERA21 with and without weights.
 \toprule
 Predictor & Estimate & Std Error & t stat & p-value\\
 \midrule
-Intercept & 4.484 & 0.258 & 17.393 & <0.001\\
-Earned Run Average, 2021 & 0.017 & 0.044 & 0.381 & 0.703\\
+Intercept & 4.479 & 0.249 & 17.976 & <0.001\\
+Earned Run Average, 2021 & 0.024 & 0.044 & 0.539 & 0.590\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -11354,8 +11387,8 @@ Earned Run Average, 2021 & 0.017 & 0.044 & 0.381 & 0.703\\
 \toprule
 Predictor & Estimate & Std Error & t stat & p-value\\
 \midrule
-Intercept & 3.154 & 0.326 & 9.688 & <0.001\\
-Earned Run Average, 2021 & 0.264 & 0.076 & 3.490 & <0.001\\
+Intercept & 2.994 & 0.315 & 9.519 & <0.001\\
+Earned Run Average, 2021 & 0.307 & 0.073 & 4.208 & <0.001\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -11375,8 +11408,8 @@ Earned Run Average, 2021 & 0.264 & 0.076 & 3.490 & <0.001\\
 \toprule
 Predictor & Estimate & Std Error & t stat & p-value\\
 \midrule
-Intercept & 3.730 & 0.242 & 15.433 & <0.001\\
-Earned Run Average, 2021 & 0.136 & 0.051 & 2.669 & 0.008\\
+Intercept & 3.730 & 0.231 & 16.163 & <0.001\\
+Earned Run Average, 2021 & 0.129 & 0.049 & 2.644 & 0.008\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -11389,8 +11422,8 @@ Earned Run Average, 2021 & 0.136 & 0.051 & 2.669 & 0.008\\
 \toprule
 Predictor & Estimate & Std Error & t stat & p-value\\
 \midrule
-Intercept & 3.010 & 0.284 & 10.601 & <0.001\\
-Earned Run Average, 2021 & 0.284 & 0.067 & 4.241 & <0.001\\
+Intercept & 3.071 & 0.268 & 11.466 & <0.001\\
+Earned Run Average, 2021 & 0.266 & 0.063 & 4.209 & <0.001\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -11937,6 +11970,7 @@ Utah Jazz & 0.671 & 0.490 & 14.3 & 29.5 & 0.260 & 2000\\
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(GGally)}
 \NormalTok{nba\_team\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Team,}\SpecialCharTok{{-}}\NormalTok{Season) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggpairs}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -12054,8 +12088,42 @@ Utah Jazz & 0.671 & 0.490 & 14.3 & 29.5 & 0.260 & 2000\\
 \hypertarget{logistic-regression}{%
 \chapter{Logistic Regression}\label{logistic-regression}}
 
-\hypertarget{nfl-spread-and-winning}{%
-\subsection{NFL Spread and Winning}\label{nfl-spread-and-winning}}
+In the previous regression examples, we have considered cases where the response variable is a continuous random variable. There are many cases in sports analytics where the response may be a binary or categorical variable. In such cases, logistic regression is likely a more appropriate model.
+
+Let \(\pi_i\) be the probability be that the response variable, \(Y_i\), is equal to 1 and \(1-\pi_i\) is the probability that \(Y_i\) is equal to 0.
+
+\begin{definition}
+The \textbf{\emph{log-odds}} (or \textbf{\emph{logit}}) of a probability \(p\) is defined by:
+
+\(logit(p) = log.odds(p) = log\left(\frac{p}{1-p}\right)\)
+\end{definition}
+
+\hypertarget{logistic-regression-model}{%
+\section{Logistic Regression Model}\label{logistic-regression-model}}
+
+Logistic regression allows us to model the logit as a linear function of the predictor variables.
+
+For example, a simple logistic regression model is defined by:
+
+\(logit(p) = log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 x\)\\
+
+We also have:
+
+\(E[Y_i] = \pi_i = \frac{exp(\beta_0+\beta_1X_i)}{1+exp(\beta_0+\beta_1X_i)}\)\\
+
+\begin{definition}
+The \textbf{\emph{odds ratio}} of event \(X_1\) relative to event \(X_2\) is defined by:
+
+\(\hat{OR} = \frac{odds_2}{odds_1} = \exp{\hat{\beta}_1}\)
+
+The odds ratio represents the change in odds for a one-unit increase in \(X\).\\
+
+\end{definition}
+
+\newpage
+
+\hypertarget{example-nfl-spread-and-winning}{%
+\section{Example: NFL Spread and Winning}\label{example-nfl-spread-and-winning}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -12211,24 +12279,47 @@ Denver Broncos & San Diego Chargers & 6 & 12 & -7.0 & 0\\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{predict}\NormalTok{(mod,}\AttributeTok{newdata=}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{home\_spread =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{)),}\AttributeTok{type=}\StringTok{"response"}\NormalTok{)}
+\FunctionTok{predict}\NormalTok{(mod,}\AttributeTok{newdata=}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{home\_spread =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{)),}\AttributeTok{type=}\StringTok{"response"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##         1         2         3         4         5 
-## 0.7768932 0.6613590 0.5227493 0.3805448 0.2562536
+##         1         2         3         4         5         6         7 
+## 0.7768932 0.6613590 0.5514965 0.5227493 0.4938505 0.3805448 0.2562536
 \end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  Write the estimated logistic regression equation.~\vfill
+\item
+  Determine and interpret the change in log-odds for a one-unit increase in home\_spread.~\vfill
+\item
+  Estimate the probability that the home team wins given they are 5 point favorites. ~\vfill
+\end{enumerate}
 
 \newpage
 
-\hypertarget{field-goal-success}{%
-\subsection{Field Goal Success}\label{field-goal-success}}
+\hypertarget{multiple-logistic-regression}{%
+\section{Multiple Logistic Regression}\label{multiple-logistic-regression}}
+
+We can extend the framework of the simple logistic regression model to include multiple predictor variables. In this case, we have the following multiple logistic regression model.
+
+\(logit(p) = log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 x_1 + \ldots + \beta_p x_p\)\\
+
+We also have:
+
+\(E[Y_i] = \pi_i = \frac{exp(\beta_0+\beta_1X_i+\ldots + \beta_pX_p)}{1+exp(\beta_0+\beta_1X_i+\ldots + \beta_pX_p)}\)\\
+
+\hypertarget{example-field-goal-success}{%
+\section{Example: Field Goal Success}\label{example-field-goal-success}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Example outlined at:}
-\CommentTok{\# http://rstudio{-}pubs{-}static.s3.amazonaws.com/264999\_c04ec6882e474eb9ab5f3feb3e62e40d.html\#nfl{-}field{-}goals{-}attempted{-}fga{-}dataset}
+\CommentTok{\# http://rstudio{-}pubs{-}static.s3.amazonaws.com/}
+\CommentTok{\# 264999\_c04ec6882e474eb9ab5f3feb3e62e40d.html}
+
 \NormalTok{nfl\_fg }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/nfl2008\_fga.csv"}\NormalTok{,}\AttributeTok{show\_col\_types =}\NormalTok{ F)}
 \FunctionTok{names}\NormalTok{(nfl\_fg)}
 \end{Highlighting}
@@ -12243,7 +12334,10 @@ Denver Broncos & San Diego Chargers & 6 & 12 & -7.0 & 0\\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{nfl\_fg }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n=}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\NormalTok{nfl\_fg }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n=}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12269,10 +12363,20 @@ GameDate & AwayTeam & HomeTeam & qtr & min & sec & kickteam & def & down & togo\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{nfl\_fg }\OtherTok{\textless{}{-}}\NormalTok{ nfl\_fg }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Result =} \FunctionTok{ifelse}\NormalTok{(GOOD}\SpecialCharTok{==}\DecValTok{1}\NormalTok{,}\StringTok{"Made"}\NormalTok{,}\StringTok{"Missed"}\NormalTok{))}
-\NormalTok{nfl\_fg }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{distance,}\AttributeTok{y=}\NormalTok{GOOD)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{height =} \FloatTok{0.05}\NormalTok{)}
+\NormalTok{nfl\_fg }\OtherTok{\textless{}{-}}\NormalTok{ nfl\_fg }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Result =} \FunctionTok{ifelse}\NormalTok{(GOOD}\SpecialCharTok{==}\DecValTok{1}\NormalTok{,}\StringTok{"Made"}\NormalTok{,}\StringTok{"Missed"}\NormalTok{))}
+\NormalTok{nfl\_fg }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{distance,}\AttributeTok{y=}\NormalTok{GOOD)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"glm"}\NormalTok{, }
+    \AttributeTok{method.args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{family =} \StringTok{"binomial"}\NormalTok{)) }\SpecialCharTok{+}  
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{height =} \FloatTok{0.05}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
 
 \includegraphics{textbook_files/figure-latex/unnamed-chunk-304-1.pdf}
 
@@ -12463,6 +12567,17 @@ J.Kasay & 31 & 0.9032258 & 10\\
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{predict}\NormalTok{(fg\_mod,}\AttributeTok{newdata=}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{distance =} \FunctionTok{c}\NormalTok{(}\DecValTok{30}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DecValTok{50}\NormalTok{,}\DecValTok{60}\NormalTok{,}\DecValTok{70}\NormalTok{)),}\AttributeTok{type=}\StringTok{"response"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         1         2         3         4         5 
+## 0.9607681 0.8763128 0.6720984 0.3722482 0.1464325
+\end{verbatim}
+
 \newpage
 
 \begin{Shaded}
@@ -12498,6 +12613,29 @@ J.Kasay & 31 & 0.9032258 & 10\\
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{predict}\NormalTok{(fg\_mod2,}\AttributeTok{newdata=}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{distance =} \DecValTok{50}\NormalTok{,}\AttributeTok{kicker\_rank=}\DecValTok{1}\NormalTok{),}\AttributeTok{type=}\StringTok{"response"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         1 
+## 0.8492647
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  Write the estimated logistic regression equation.~\vfill
+\item
+  Determine and interpret the change in log-odds for a one-unit increase in distance while holding kicker rank constant.~\vfill
+\item
+  Determine and interpret the change in log-odds for a one-unit increase in kicker rank while holding distance constant.~\vfill
+\item
+  Estimate the probability that a field goal is good given that it was from 50 yards and was kicked by the top ranked kicker. ~\vfill
+\end{enumerate}
 
 \hypertarget{classification}{%
 \chapter{Classification}\label{classification}}

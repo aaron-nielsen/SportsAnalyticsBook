@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2023-03-29" />
+<meta name="date" content="2023-04-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,8 +373,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="10.0.1" data-path="logistic-regression.html"><a href="logistic-regression.html#nfl-spread-and-winning"><i class="fa fa-check"></i><b>10.0.1</b> NFL Spread and Winning</a></li>
-<li class="chapter" data-level="10.0.2" data-path="logistic-regression.html"><a href="logistic-regression.html#field-goal-success"><i class="fa fa-check"></i><b>10.0.2</b> Field Goal Success</a></li>
+<li class="chapter" data-level="10.1" data-path="logistic-regression.html"><a href="logistic-regression.html#logistic-regression-model"><i class="fa fa-check"></i><b>10.1</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="10.2" data-path="logistic-regression.html"><a href="logistic-regression.html#example-nfl-spread-and-winning"><i class="fa fa-check"></i><b>10.2</b> Example: NFL Spread and Winning</a></li>
+<li class="chapter" data-level="10.3" data-path="logistic-regression.html"><a href="logistic-regression.html#multiple-logistic-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple Logistic Regression</a></li>
+<li class="chapter" data-level="10.4" data-path="logistic-regression.html"><a href="logistic-regression.html#example-field-goal-success"><i class="fa fa-check"></i><b>10.4</b> Example: Field Goal Success</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>11</b> Classification</a>
 <ul>
@@ -482,13 +484,13 @@ p-value
 Intercept
 </td>
 <td style="text-align:right;">
-4.484
+4.479
 </td>
 <td style="text-align:right;">
-0.258
+0.249
 </td>
 <td style="text-align:right;">
-17.393
+17.976
 </td>
 <td style="text-align:left;">
 &lt;0.001
@@ -499,16 +501,16 @@ Intercept
 Earned Run Average, 2021
 </td>
 <td style="text-align:right;">
-0.017
+0.024
 </td>
 <td style="text-align:right;">
 0.044
 </td>
 <td style="text-align:right;">
-0.381
+0.539
 </td>
 <td style="text-align:left;">
-0.703
+0.590
 </td>
 </tr>
 </tbody>
@@ -542,13 +544,13 @@ p-value
 Intercept
 </td>
 <td style="text-align:right;">
-3.154
+2.994
 </td>
 <td style="text-align:right;">
-0.326
+0.315
 </td>
 <td style="text-align:right;">
-9.688
+9.519
 </td>
 <td style="text-align:left;">
 &lt;0.001
@@ -559,13 +561,13 @@ Intercept
 Earned Run Average, 2021
 </td>
 <td style="text-align:right;">
-0.264
+0.307
 </td>
 <td style="text-align:right;">
-0.076
+0.073
 </td>
 <td style="text-align:right;">
-3.490
+4.208
 </td>
 <td style="text-align:left;">
 &lt;0.001
@@ -607,10 +609,10 @@ Intercept
 3.730
 </td>
 <td style="text-align:right;">
-0.242
+0.231
 </td>
 <td style="text-align:right;">
-15.433
+16.163
 </td>
 <td style="text-align:left;">
 &lt;0.001
@@ -621,13 +623,13 @@ Intercept
 Earned Run Average, 2021
 </td>
 <td style="text-align:right;">
-0.136
+0.129
 </td>
 <td style="text-align:right;">
-0.051
+0.049
 </td>
 <td style="text-align:right;">
-2.669
+2.644
 </td>
 <td style="text-align:left;">
 0.008
@@ -664,13 +666,13 @@ p-value
 Intercept
 </td>
 <td style="text-align:right;">
-3.010
+3.071
 </td>
 <td style="text-align:right;">
-0.284
+0.268
 </td>
 <td style="text-align:right;">
-10.601
+11.466
 </td>
 <td style="text-align:left;">
 &lt;0.001
@@ -681,13 +683,13 @@ Intercept
 Earned Run Average, 2021
 </td>
 <td style="text-align:right;">
-0.284
+0.266
 </td>
 <td style="text-align:right;">
-0.067
+0.063
 </td>
 <td style="text-align:right;">
-4.241
+4.209
 </td>
 <td style="text-align:left;">
 &lt;0.001
@@ -1479,7 +1481,8 @@ Utah Jazz
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Inspect the correlational structure of the dataset</li>
 </ol>
-<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="advanced-regression-methods.html#cb571-1" aria-hidden="true" tabindex="-1"></a>nba_team_data <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Team,<span class="sc">-</span>Season) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="advanced-regression-methods.html#cb571-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb571-2"><a href="advanced-regression-methods.html#cb571-2" aria-hidden="true" tabindex="-1"></a>nba_team_data <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Team,<span class="sc">-</span>Season) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
 <p><img src="textbook_files/figure-html/unnamed-chunk-293-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 <ol start="3" style="list-style-type: lower-alpha">

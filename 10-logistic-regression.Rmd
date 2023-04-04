@@ -17,7 +17,39 @@ kt <- function(data) {
 
 # Logistic Regression
 
-### NFL Spread and Winning
+In the previous regression examples, we have considered cases where the response variable is a continuous random variable. There are many cases in sports analytics where the response may be a binary or categorical variable. In such cases, logistic regression is likely a more appropriate model.
+
+Let $\pi_i$ be the probability be that the response variable, $Y_i$, is equal to 1 and $1-\pi_i$ is the probability that $Y_i$ is equal to 0.
+
+:::{.definition}
+The ***log-odds*** (or ***logit***) of a probability $p$ is defined by:
+
+$logit(p) = log.odds(p) = log\left(\frac{p}{1-p}\right)$
+:::
+
+## Logistic Regression Model
+
+Logistic regression allows us to model the logit as a linear function of the predictor variables.
+
+For example, a simple logistic regression model is defined by:
+
+$logit(p) = log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 x$ \
+
+We also have:
+
+$E[Y_i] = \pi_i = \frac{exp(\beta_0+\beta_1X_i)}{1+exp(\beta_0+\beta_1X_i)}$ \
+
+:::{.definition}
+The ***odds ratio*** of event $X_1$ relative to event $X_2$ is defined by:
+
+$\hat{OR} = \frac{odds_2}{odds_1} = \exp{\hat{\beta}_1}$
+
+The odds ratio represents the change in odds for a one-unit increase in $X$. \
+:::
+
+\newpage
+
+## Example: NFL Spread and Winning
 
 ```{r}
 # Data from Kaggle:
@@ -85,26 +117,55 @@ summary(mod)
 ```
 
 ```{r}
-predict(mod,newdata=data.frame(home_spread = c(-10,-5,0,5,10)),type="response")
+predict(mod,newdata=data.frame(home_spread = c(-10,-5,-1,0,1,5,10)),type="response")
 ```
+
+(a) Write the estimated logistic regression equation.\ \vfill
+
+(b) Determine and interpret the change in log-odds for a one-unit increase in home_spread.\ \vfill
+
+(c) Estimate the probability that the home team wins given they are 5 point favorites. \ \vfill
 
 \newpage
 
-### Field Goal Success
+## Multiple Logistic Regression
+
+We can extend the framework of the simple logistic regression model to include multiple predictor variables. In this case, we have the following multiple logistic regression model.
+
+$logit(p) = log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 x_1 + \ldots + \beta_p x_p$ \
+
+We also have:
+
+$E[Y_i] = \pi_i = \frac{exp(\beta_0+\beta_1X_i+\ldots + \beta_pX_p)}{1+exp(\beta_0+\beta_1X_i+\ldots + \beta_pX_p)}$ \
+
+
+## Example: Field Goal Success
 
 ```{r}
 # Example outlined at:
-# http://rstudio-pubs-static.s3.amazonaws.com/264999_c04ec6882e474eb9ab5f3feb3e62e40d.html#nfl-field-goals-attempted-fga-dataset
+# http://rstudio-pubs-static.s3.amazonaws.com/
+# 264999_c04ec6882e474eb9ab5f3feb3e62e40d.html
+
 nfl_fg <- read_csv("data/nfl2008_fga.csv",show_col_types = F)
 names(nfl_fg)
-nfl_fg %>% slice_head(n=10) %>% select(1:10) %>% kable(booktabs=T)
+
+nfl_fg %>% 
+  slice_head(n=10) %>% 
+  select(1:10) %>% 
+  kable(booktabs=T)
 ```
 
 \newpage
 
 ```{r}
-nfl_fg <- nfl_fg %>% mutate(Result = ifelse(GOOD==1,"Made","Missed"))
-nfl_fg %>% ggplot(aes(x=distance,y=GOOD)) + geom_point() + geom_jitter(height = 0.05)
+nfl_fg <- nfl_fg %>% 
+  mutate(Result = ifelse(GOOD==1,"Made","Missed"))
+nfl_fg %>% 
+  ggplot(aes(x=distance,y=GOOD)) + 
+  geom_point() +
+  geom_smooth(method = "glm", 
+    method.args = list(family = "binomial")) +  
+  geom_jitter(height = 0.05)
 ```
 
 \newpage
@@ -198,9 +259,27 @@ fg_mod <- glm(made ~ distance, data = nfl_fg, family = "binomial")
 summary(fg_mod)
 ```
 
+```{r}
+predict(fg_mod,newdata=data.frame(distance = c(30,40,50,60,70)),type="response")
+```
+
+
+
 \newpage
 
 ```{r}
 fg_mod2 <- glm(made ~ distance+kicker_rank, data = nfl_fg, family = "binomial")
 summary(fg_mod2)
 ```
+
+```{r}
+predict(fg_mod2,newdata=data.frame(distance = 50,kicker_rank=1),type="response")
+```
+
+(a) Write the estimated logistic regression equation.\ \vfill
+
+(b) Determine and interpret the change in log-odds for a one-unit increase in distance while holding kicker rank constant.\ \vfill
+
+(c) Determine and interpret the change in log-odds for a one-unit increase in kicker rank while holding distance constant.\ \vfill
+
+(d) Estimate the probability that a field goal is good given that it was from 50 yards and was kicked by the top ranked kicker. \ \vfill
