@@ -42,7 +42,7 @@ $E[Y_i] = \pi_i = \frac{exp(\beta_0+\beta_1X_i)}{1+exp(\beta_0+\beta_1X_i)}$ \
 :::{.definition}
 The ***odds ratio*** of event $X_1$ relative to event $X_2$ is defined by:
 
-$\hat{OR} = \frac{odds_2}{odds_1} = \exp{\hat{\beta}_1}$
+$\hat{OR} = \frac{odds_1}{odds_2} = \exp{\hat{\beta}_1}$
 
 The odds ratio represents the change in odds for a one-unit increase in $X$. \
 :::

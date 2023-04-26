@@ -170,13 +170,18 @@
 \contentsline {section}{\numberline {10.3}Multiple Logistic Regression}{321}{section.10.3}%
 \contentsline {section}{\numberline {10.4}Example: Field Goal Success}{321}{section.10.4}%
 \contentsline {chapter}{\numberline {11}Classification}{329}{chapter.11}%
-\contentsline {section}{\numberline {11.1}Classification Using Logistic Regression}{329}{section.11.1}%
-\contentsline {chapter}{\numberline {12}Clustering}{331}{chapter.12}%
-\contentsline {chapter}{\numberline {13}Principal Component Analysis}{333}{chapter.13}%
-\contentsline {chapter}{\numberline {14}Nonparametric Methods}{335}{chapter.14}%
-\contentsline {chapter}{\numberline {15}Sports Drafts}{337}{chapter.15}%
-\contentsline {chapter}{\numberline {16}Baseball}{339}{chapter.16}%
-\contentsline {chapter}{\numberline {17}Football}{341}{chapter.17}%
-\contentsline {chapter}{\numberline {18}Basketball}{343}{chapter.18}%
-\contentsline {chapter}{\numberline {19}Hockey}{345}{chapter.19}%
-\contentsline {chapter}{\numberline {20}Soccer}{347}{chapter.20}%
+\contentsline {section}{\numberline {11.1}Fundamentals}{329}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Evaluation Metrics}{329}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Classification Using Logistic Regression}{330}{section.11.3}%
+\contentsline {chapter}{\numberline {12}Sports Drafts}{341}{chapter.12}%
+\contentsline {section}{\numberline {12.1}NFL Draft}{341}{section.12.1}%
+\contentsline {section}{\numberline {12.2}Draft Pick Value Chart}{342}{section.12.2}%
+\contentsline {section}{\numberline {12.3}NFL Combine}{343}{section.12.3}%
+\contentsline {chapter}{\numberline {13}Clustering}{349}{chapter.13}%
+\contentsline {chapter}{\numberline {14}Principal Component Analysis}{351}{chapter.14}%
+\contentsline {chapter}{\numberline {15}Nonparametric Methods}{353}{chapter.15}%
+\contentsline {chapter}{\numberline {16}Baseball}{355}{chapter.16}%
+\contentsline {chapter}{\numberline {17}Football}{357}{chapter.17}%
+\contentsline {chapter}{\numberline {18}Basketball}{359}{chapter.18}%
+\contentsline {chapter}{\numberline {19}Hockey}{361}{chapter.19}%
+\contentsline {chapter}{\numberline {20}Soccer}{363}{chapter.20}%

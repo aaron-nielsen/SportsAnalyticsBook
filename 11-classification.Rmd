@@ -6,6 +6,7 @@ output:
 ```{r, echo=F, message=F,warning=F}
 library(tidyverse)
 library(kableExtra)
+library(knitr)
 knitr::opts_chunk$set(tidy=FALSE,message=F,warning=F)
 
 # kable table global setup
@@ -17,24 +18,210 @@ kt <- function(data) {
 
 # Classification
 
-## Classification Using Logistic Regression
+## Fundamentals
+
+Statistical classification deals with determining or predicting the labels for binary (or categorical, more generally) data. In other words, we are hoping to find a set of rules that allows us to classify new data points into the most likely category.
+
+In a binary classification problem, we will have two categories (e.g., 0 and 1). We can evaluate the quality of a classification algorithm by looking at correct and incorrect classifications. In other words, how many true and false positives exist and how many true and false negatives exist. For simplicity, we will define these values as: TP, FP, TN, FN.
+
+\vfill
+
+## Evaluation Metrics
+
+There are many ways to evaluate the quality of a statistical classification method:
+\begin{itemize}
+\item Accuracy rate = $\frac{TP+TN}{TP+TN+FP+FN}$
+
+\item Precision = $\frac{TP}{TP+FP}$
+
+\item Sensitivity = $\frac{TP}{TP+FN}$
+
+\item Specificity = $\frac{TN}{TN+FP}$
+
+\item F1 score = $2 \cdot \frac{Precision \cdot Sensitivity}{Precision + Sensitivity}$
+
+\item AUC/ROC (area under curve for receiver operator characteristic)
+\end{itemize}
+
+\underline{Note:} Oftentimes, a dataset is split into a training set and a testing set (e.g., 80/20 train/test). We train the model on the first set of data and evaluate the model on the test data.
 
 \newpage
 
-# Clustering
+## Classification Using Logistic Regression
 
-# Principal Component Analysis
+We can use logistic regression for classification as well as inference. We can use our estimated logistic regression equation to find the fitted values for each of our data points and if these fitted values are greater than some threshold, we classify the individual as ``1" and if less than some threshold, we classify the individual as ``0".
 
-# Nonparametric Methods
+:::{.example}
+Using the NFL game log results and Vegas spreads dataset, make an 80/20 split of the data, fit the logistic model, and compare the results from setting the threshold to 0.4, 0.5, and 0.6.
+:::
 
-# Sports Drafts
+(a) Load and clean the data. Only use games starting in 2000.
 
-# Baseball
+```{r}
+# Data from Kaggle:
+# https://www.kaggle.com/datasets/tobycrabtree/nfl-scores-and-betting-data
+# Load data
+nfl_spread <- read_csv("data/nfl_spread_history.csv",show_col_types = F)
+nfl_spread$schedule_date <- as.Date(nfl_spread$schedule_date, "%m/%d/%Y")
 
-# Football
+# data cleaning and wrangling
+# select games since 2000 and grab variables of interest
+nfl_spread <- nfl_spread %>% 
+  filter(schedule_date > "2000-01-01") %>%
+  select(team_home,score_home,team_away,score_away,
+         team_favorite_id,spread_favorite)
 
-# Basketball
+teams <- read.csv("data/nfl_teams.csv")
+teams <- teams %>% filter(team_division != "")
+team_names <- teams$team_name 
+team_ids <- teams$team_id 
+team_df <- data.frame(favorite_team = team_names, team_favorite_id = team_ids)
 
-# Hockey
+nfl_spread <- nfl_spread %>% 
+  inner_join(team_df,by="team_favorite_id",multiple="all")
 
-# Soccer
+nfl_spread <- nfl_spread %>% 
+  mutate(home_diff = score_home - score_away,
+         winning_team = ifelse(score_home > score_away,team_home,team_away),
+         favorite_win = ifelse(favorite_team == winning_team,1,0),
+         home_spread = ifelse(team_home==favorite_team,spread_favorite,-spread_favorite),
+         home_win = ifelse(team_home == winning_team,1,0),
+         home_won = ifelse(home_win == 1,home_spread,NA),
+         home_lost = ifelse(home_win == 0,home_spread,NA))
+```
+
+\newpage
+
+(b) Split the data into 80% training data and 20% testing data. Plot the estimated logistic equation using the testing data.
+
+```{r,message=F}
+set.seed(2023)
+n_games <- length(nfl_spread$home_spread)
+rand_idx <- sample(1:n_games,size = n_games*0.8,replace = F)
+nfl_spread_train <- nfl_spread[rand_idx,]
+nfl_spread_test <- nfl_spread[-rand_idx,]
+```
+
+```{r,message=F}
+nfl_spread_train %>% ggplot(aes(x=home_spread,y=home_win)) +
+  geom_smooth(method = "glm", 
+    method.args = list(family = "binomial")) + 
+  geom_rug(aes(x = home_won), sides = "t", alpha = 0.1) +
+  geom_rug(aes(x = home_lost), sides = "b", alpha = 0.1)
+```
+
+\newpage
+
+(c) Fit the logistic model using the testing data.
+
+```{r}
+mod <- glm(home_win~home_spread,data=nfl_spread_train,family="binomial")
+
+library(broom)
+mod %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "Home Spread")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "Logistic Model Estimating Win Using Home Spread",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+(d) Use the trained logistic model to predict on the testing set using a threshold of 0.5.
+
+```{r}
+# Predict test data using logistic model trained on the training data
+# use a threshold of 0.5
+pred_win_prob <- predict(mod,nfl_spread_test,type="response")
+pred_win_05 <- ifelse(pred_win_prob>0.5,1,0)
+table("Predicted"=pred_win_05,"Truth"=nfl_spread_test$home_win)
+```
+
+(e) By hand, calculate accuracy rate, precision, sensitivity, specificity, and F1 score.
+
+\vfill
+
+\newpage
+
+(f) Plot the ROC curve and determine the AUC.
+
+```{r,message=F}
+library(pROC)
+rocobj <- roc(nfl_spread_test$home_win, pred_win_05)
+auc <- round(auc(nfl_spread_test$home_win,pred_win_05),3)
+ggroc(rocobj, colour = 'steelblue', size = 2) +
+  ggtitle(paste0('ROC Curve ', '(AUC = ', auc, ')'))
+```
+
+\newpage
+
+(g) Create a confusion matrix. Verify the values in (e).
+
+```{r,message=F}
+library(caret)
+confusionMatrix(data=factor(pred_win_05),
+                reference=factor(nfl_spread_test$home_win),
+                mode="everything",
+                positive="1")
+```
+
+\newpage
+
+```{r,message=F}
+# Plot the confusion matrix
+library(cvms)
+library(rsvg)
+library(ggimage)
+cfm <- table("Truth"=nfl_spread_test$home_win,"Predicted"=pred_win_05) %>%
+  as_tibble()
+plot_confusion_matrix(cfm,target_col = "Truth",
+                      prediction_col = "Predicted",
+                      counts_col = "n")
+```
+\newpage
+
+(h) Repeat (f) and (g) for a threshold of 0.4.
+
+```{r,message=F}
+pred_win_04 <- ifelse(pred_win_prob>0.4,1,0)
+rocobj <- roc(nfl_spread_test$home_win, pred_win_04)
+auc <- round(auc(nfl_spread_test$home_win,pred_win_04),3)
+ggroc(rocobj, colour = 'steelblue', size = 2) +
+  ggtitle(paste0('ROC Curve ', '(AUC = ', auc, ')'))
+```
+
+\newpage
+
+```{r,message=F}
+confusionMatrix(data=factor(pred_win_04),
+                reference=factor(nfl_spread_test$home_win),
+                mode="everything",
+                positive="1")
+```
+
+\newpage
+
+(i) Repeat (f) and (g) for a threshold of 0.6.
+
+```{r,message=F}
+pred_win_06 <- ifelse(pred_win_prob>0.6,1,0)
+rocobj <- roc(nfl_spread_test$home_win, pred_win_06)
+auc <- round(auc(nfl_spread_test$home_win,pred_win_06),3)
+ggroc(rocobj, colour = 'steelblue', size = 2) +
+  ggtitle(paste0('ROC Curve ', '(AUC = ', auc, ')'))
+```
+
+\newpage
+
+```{r,message=F}
+confusionMatrix(data=factor(pred_win_06),
+                reference=factor(nfl_spread_test$home_win),
+                mode="everything",
+                positive="1")
+```
+
+\newpage
+
+(j) Which threshold (0.4,0.5,0.6) is preferred for each of the metrics?

@@ -41,3 +41,7 @@ Matrix
 glmnet
 lme4
 lubridate
+pROC
+cvms
+rsvg
+ggimage

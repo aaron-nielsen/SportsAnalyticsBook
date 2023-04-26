@@ -135,7 +135,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2023-04-03}
+\date{2023-04-19}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -12114,7 +12114,7 @@ We also have:
 \begin{definition}
 The \textbf{\emph{odds ratio}} of event \(X_1\) relative to event \(X_2\) is defined by:
 
-\(\hat{OR} = \frac{odds_2}{odds_1} = \exp{\hat{\beta}_1}\)
+\(\hat{OR} = \frac{odds_1}{odds_2} = \exp{\hat{\beta}_1}\)
 
 The odds ratio represents the change in odds for a one-unit increase in \(X\).\\
 
@@ -12640,8 +12640,792 @@ J.Kasay & 31 & 0.9032258 & 10\\
 \hypertarget{classification}{%
 \chapter{Classification}\label{classification}}
 
+\hypertarget{fundamentals}{%
+\section{Fundamentals}\label{fundamentals}}
+
+Statistical classification deals with determining or predicting the labels for binary (or categorical, more generally) data. In other words, we are hoping to find a set of rules that allows us to classify new data points into the most likely category.
+
+In a binary classification problem, we will have two categories (e.g., 0 and 1). We can evaluate the quality of a classification algorithm by looking at correct and incorrect classifications. In other words, how many true and false positives exist and how many true and false negatives exist. For simplicity, we will define these values as: TP, FP, TN, FN.
+
+\vfill
+
+\hypertarget{evaluation-metrics}{%
+\section{Evaluation Metrics}\label{evaluation-metrics}}
+
+There are many ways to evaluate the quality of a statistical classification method:
+
+\begin{itemize}
+\item Accuracy rate = $\frac{TP+TN}{TP+TN+FP+FN}$
+
+\item Precision = $\frac{TP}{TP+FP}$
+
+\item Sensitivity = $\frac{TP}{TP+FN}$
+
+\item Specificity = $\frac{TN}{TN+FP}$
+
+\item F1 score = $2 \cdot \frac{Precision \cdot Sensitivity}{Precision + Sensitivity}$
+
+\item AUC/ROC (area under curve for receiver operator characteristic)
+\end{itemize}
+
+\underline{Note:} Oftentimes, a dataset is split into a training set and a testing set (e.g., 80/20 train/test). We train the model on the first set of data and evaluate the model on the test data.
+
+\newpage
+
 \hypertarget{classification-using-logistic-regression}{%
 \section{Classification Using Logistic Regression}\label{classification-using-logistic-regression}}
+
+We can use logistic regression for classification as well as inference. We can use our estimated logistic regression equation to find the fitted values for each of our data points and if these fitted values are greater than some threshold, we classify the individual as \texttt{1"\ and\ if\ less\ than\ some\ threshold,\ we\ classify\ the\ individual\ as}0''.
+
+\begin{example}
+Using the NFL game log results and Vegas spreads dataset, make an 80/20 split of the data, fit the logistic model, and compare the results from setting the threshold to 0.4, 0.5, and 0.6.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Load and clean the data. Only use games starting in 2000.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Data from Kaggle:}
+\CommentTok{\# https://www.kaggle.com/datasets/tobycrabtree/nfl{-}scores{-}and{-}betting{-}data}
+\CommentTok{\# Load data}
+\NormalTok{nfl\_spread }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/nfl\_spread\_history.csv"}\NormalTok{,}\AttributeTok{show\_col\_types =}\NormalTok{ F)}
+\NormalTok{nfl\_spread}\SpecialCharTok{$}\NormalTok{schedule\_date }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(nfl\_spread}\SpecialCharTok{$}\NormalTok{schedule\_date, }\StringTok{"\%m/\%d/\%Y"}\NormalTok{)}
+
+\CommentTok{\# data cleaning and wrangling}
+\CommentTok{\# select games since 2000 and grab variables of interest}
+\NormalTok{nfl\_spread }\OtherTok{\textless{}{-}}\NormalTok{ nfl\_spread }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(schedule\_date }\SpecialCharTok{\textgreater{}} \StringTok{"2000{-}01{-}01"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(team\_home,score\_home,team\_away,score\_away,}
+\NormalTok{         team\_favorite\_id,spread\_favorite)}
+
+\NormalTok{teams }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/nfl\_teams.csv"}\NormalTok{)}
+\NormalTok{teams }\OtherTok{\textless{}{-}}\NormalTok{ teams }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(team\_division }\SpecialCharTok{!=} \StringTok{""}\NormalTok{)}
+\NormalTok{team\_names }\OtherTok{\textless{}{-}}\NormalTok{ teams}\SpecialCharTok{$}\NormalTok{team\_name }
+\NormalTok{team\_ids }\OtherTok{\textless{}{-}}\NormalTok{ teams}\SpecialCharTok{$}\NormalTok{team\_id }
+\NormalTok{team\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{favorite\_team =}\NormalTok{ team\_names, }\AttributeTok{team\_favorite\_id =}\NormalTok{ team\_ids)}
+
+\NormalTok{nfl\_spread }\OtherTok{\textless{}{-}}\NormalTok{ nfl\_spread }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{inner\_join}\NormalTok{(team\_df,}\AttributeTok{by=}\StringTok{"team\_favorite\_id"}\NormalTok{,}\AttributeTok{multiple=}\StringTok{"all"}\NormalTok{)}
+
+\NormalTok{nfl\_spread }\OtherTok{\textless{}{-}}\NormalTok{ nfl\_spread }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{home\_diff =}\NormalTok{ score\_home }\SpecialCharTok{{-}}\NormalTok{ score\_away,}
+         \AttributeTok{winning\_team =} \FunctionTok{ifelse}\NormalTok{(score\_home }\SpecialCharTok{\textgreater{}}\NormalTok{ score\_away,team\_home,team\_away),}
+         \AttributeTok{favorite\_win =} \FunctionTok{ifelse}\NormalTok{(favorite\_team }\SpecialCharTok{==}\NormalTok{ winning\_team,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{),}
+         \AttributeTok{home\_spread =} \FunctionTok{ifelse}\NormalTok{(team\_home}\SpecialCharTok{==}\NormalTok{favorite\_team,spread\_favorite,}\SpecialCharTok{{-}}\NormalTok{spread\_favorite),}
+         \AttributeTok{home\_win =} \FunctionTok{ifelse}\NormalTok{(team\_home }\SpecialCharTok{==}\NormalTok{ winning\_team,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{),}
+         \AttributeTok{home\_won =} \FunctionTok{ifelse}\NormalTok{(home\_win }\SpecialCharTok{==} \DecValTok{1}\NormalTok{,home\_spread,}\ConstantTok{NA}\NormalTok{),}
+         \AttributeTok{home\_lost =} \FunctionTok{ifelse}\NormalTok{(home\_win }\SpecialCharTok{==} \DecValTok{0}\NormalTok{,home\_spread,}\ConstantTok{NA}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Split the data into 80\% training data and 20\% testing data. Plot the estimated logistic equation using the testing data.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2023}\NormalTok{)}
+\NormalTok{n\_games }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(nfl\_spread}\SpecialCharTok{$}\NormalTok{home\_spread)}
+\NormalTok{rand\_idx }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_games,}\AttributeTok{size =}\NormalTok{ n\_games}\SpecialCharTok{*}\FloatTok{0.8}\NormalTok{,}\AttributeTok{replace =}\NormalTok{ F)}
+\NormalTok{nfl\_spread\_train }\OtherTok{\textless{}{-}}\NormalTok{ nfl\_spread[rand\_idx,]}
+\NormalTok{nfl\_spread\_test }\OtherTok{\textless{}{-}}\NormalTok{ nfl\_spread[}\SpecialCharTok{{-}}\NormalTok{rand\_idx,]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl\_spread\_train }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{home\_spread,}\AttributeTok{y=}\NormalTok{home\_win)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"glm"}\NormalTok{, }
+    \AttributeTok{method.args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{family =} \StringTok{"binomial"}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_rug}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ home\_won), }\AttributeTok{sides =} \StringTok{"t"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_rug}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ home\_lost), }\AttributeTok{sides =} \StringTok{"b"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-316-1.pdf}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Fit the logistic model using the testing data.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(home\_win}\SpecialCharTok{\textasciitilde{}}\NormalTok{home\_spread,}\AttributeTok{data=}\NormalTok{nfl\_spread\_train,}\AttributeTok{family=}\StringTok{"binomial"}\NormalTok{)}
+
+\FunctionTok{library}\NormalTok{(broom)}
+\NormalTok{mod }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{p.value =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{pvalue}\NormalTok{(p.value),}
+    \AttributeTok{term =} \FunctionTok{c}\NormalTok{(}\StringTok{"Intercept"}\NormalTok{, }\StringTok{"Home Spread"}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }
+        \AttributeTok{caption =} \StringTok{"Logistic Model Estimating Win Using Home Spread"}\NormalTok{,}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Predictor"}\NormalTok{, }\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Std Error"}\NormalTok{, }\StringTok{"t stat"}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-317}Logistic Model Estimating Win Using Home Spread}
+\centering
+\begin{tabular}[t]{lrrrl}
+\toprule
+Predictor & Estimate & Std Error & t stat & p-value\\
+\midrule
+Intercept & 0.066 & 0.030 & 2.193 & 0.028\\
+Home Spread & -0.118 & 0.005 & -22.738 & <0.001\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Use the trained logistic model to predict on the testing set using a threshold of 0.5.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Predict test data using logistic model trained on the training data}
+\CommentTok{\# use a threshold of 0.5}
+\NormalTok{pred\_win\_prob }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(mod,nfl\_spread\_test,}\AttributeTok{type=}\StringTok{"response"}\NormalTok{)}
+\NormalTok{pred\_win\_05 }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(pred\_win\_prob}\SpecialCharTok{\textgreater{}}\FloatTok{0.5}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\FunctionTok{table}\NormalTok{(}\StringTok{"Predicted"}\OtherTok{=}\NormalTok{pred\_win\_05,}\StringTok{"Truth"}\OtherTok{=}\NormalTok{nfl\_spread\_test}\SpecialCharTok{$}\NormalTok{home\_win)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          Truth
+## Predicted   0   1
+##         0 291 212
+##         1 255 565
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  By hand, calculate accuracy rate, precision, sensitivity, specificity, and F1 score.
+\end{enumerate}
+
+\vfill
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Plot the ROC curve and determine the AUC.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(pROC)}
+\NormalTok{rocobj }\OtherTok{\textless{}{-}} \FunctionTok{roc}\NormalTok{(nfl\_spread\_test}\SpecialCharTok{$}\NormalTok{home\_win, pred\_win\_05)}
+\NormalTok{auc }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{auc}\NormalTok{(nfl\_spread\_test}\SpecialCharTok{$}\NormalTok{home\_win,pred\_win\_05),}\DecValTok{3}\NormalTok{)}
+\FunctionTok{ggroc}\NormalTok{(rocobj, }\AttributeTok{colour =} \StringTok{\textquotesingle{}steelblue\textquotesingle{}}\NormalTok{, }\AttributeTok{size =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}ROC Curve \textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}(AUC = \textquotesingle{}}\NormalTok{, auc, }\StringTok{\textquotesingle{})\textquotesingle{}}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-319-1.pdf}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Create a confusion matrix. Verify the values in (e).
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(caret)}
+\FunctionTok{confusionMatrix}\NormalTok{(}\AttributeTok{data=}\FunctionTok{factor}\NormalTok{(pred\_win\_05),}
+                \AttributeTok{reference=}\FunctionTok{factor}\NormalTok{(nfl\_spread\_test}\SpecialCharTok{$}\NormalTok{home\_win),}
+                \AttributeTok{mode=}\StringTok{"everything"}\NormalTok{,}
+                \AttributeTok{positive=}\StringTok{"1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction   0   1
+##          0 291 212
+##          1 255 565
+##                                           
+##                Accuracy : 0.647           
+##                  95% CI : (0.6206, 0.6728)
+##     No Information Rate : 0.5873          
+##     P-Value [Acc > NIR] : 4.954e-06       
+##                                           
+##                   Kappa : 0.2632          
+##                                           
+##  Mcnemar's Test P-Value : 0.05195         
+##                                           
+##             Sensitivity : 0.7272          
+##             Specificity : 0.5330          
+##          Pos Pred Value : 0.6890          
+##          Neg Pred Value : 0.5785          
+##               Precision : 0.6890          
+##                  Recall : 0.7272          
+##                      F1 : 0.7076          
+##              Prevalence : 0.5873          
+##          Detection Rate : 0.4271          
+##    Detection Prevalence : 0.6198          
+##       Balanced Accuracy : 0.6301          
+##                                           
+##        'Positive' Class : 1               
+## 
+\end{verbatim}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Plot the confusion matrix}
+\FunctionTok{library}\NormalTok{(cvms)}
+\FunctionTok{library}\NormalTok{(rsvg)}
+\FunctionTok{library}\NormalTok{(ggimage)}
+\NormalTok{cfm }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\StringTok{"Truth"}\OtherTok{=}\NormalTok{nfl\_spread\_test}\SpecialCharTok{$}\NormalTok{home\_win,}\StringTok{"Predicted"}\OtherTok{=}\NormalTok{pred\_win\_05) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{as\_tibble}\NormalTok{()}
+\FunctionTok{plot\_confusion\_matrix}\NormalTok{(cfm,}\AttributeTok{target\_col =} \StringTok{"Truth"}\NormalTok{,}
+                      \AttributeTok{prediction\_col =} \StringTok{"Predicted"}\NormalTok{,}
+                      \AttributeTok{counts\_col =} \StringTok{"n"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-321-1.pdf}
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{7}
+\tightlist
+\item
+  Repeat (f) and (g) for a threshold of 0.4.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred\_win\_04 }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(pred\_win\_prob}\SpecialCharTok{\textgreater{}}\FloatTok{0.4}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\NormalTok{rocobj }\OtherTok{\textless{}{-}} \FunctionTok{roc}\NormalTok{(nfl\_spread\_test}\SpecialCharTok{$}\NormalTok{home\_win, pred\_win\_04)}
+\NormalTok{auc }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{auc}\NormalTok{(nfl\_spread\_test}\SpecialCharTok{$}\NormalTok{home\_win,pred\_win\_04),}\DecValTok{3}\NormalTok{)}
+\FunctionTok{ggroc}\NormalTok{(rocobj, }\AttributeTok{colour =} \StringTok{\textquotesingle{}steelblue\textquotesingle{}}\NormalTok{, }\AttributeTok{size =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}ROC Curve \textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}(AUC = \textquotesingle{}}\NormalTok{, auc, }\StringTok{\textquotesingle{})\textquotesingle{}}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-322-1.pdf}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{confusionMatrix}\NormalTok{(}\AttributeTok{data=}\FunctionTok{factor}\NormalTok{(pred\_win\_04),}
+                \AttributeTok{reference=}\FunctionTok{factor}\NormalTok{(nfl\_spread\_test}\SpecialCharTok{$}\NormalTok{home\_win),}
+                \AttributeTok{mode=}\StringTok{"everything"}\NormalTok{,}
+                \AttributeTok{positive=}\StringTok{"1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction   0   1
+##          0 134  80
+##          1 412 697
+##                                           
+##                Accuracy : 0.6281          
+##                  95% CI : (0.6014, 0.6542)
+##     No Information Rate : 0.5873          
+##     P-Value [Acc > NIR] : 0.00134         
+##                                           
+##                   Kappa : 0.1566          
+##                                           
+##  Mcnemar's Test P-Value : < 2e-16         
+##                                           
+##             Sensitivity : 0.8970          
+##             Specificity : 0.2454          
+##          Pos Pred Value : 0.6285          
+##          Neg Pred Value : 0.6262          
+##               Precision : 0.6285          
+##                  Recall : 0.8970          
+##                      F1 : 0.7391          
+##              Prevalence : 0.5873          
+##          Detection Rate : 0.5268          
+##    Detection Prevalence : 0.8382          
+##       Balanced Accuracy : 0.5712          
+##                                           
+##        'Positive' Class : 1               
+## 
+\end{verbatim}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\tightlist
+\item
+  Repeat (f) and (g) for a threshold of 0.6.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred\_win\_06 }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(pred\_win\_prob}\SpecialCharTok{\textgreater{}}\FloatTok{0.6}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\NormalTok{rocobj }\OtherTok{\textless{}{-}} \FunctionTok{roc}\NormalTok{(nfl\_spread\_test}\SpecialCharTok{$}\NormalTok{home\_win, pred\_win\_06)}
+\NormalTok{auc }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{auc}\NormalTok{(nfl\_spread\_test}\SpecialCharTok{$}\NormalTok{home\_win,pred\_win\_06),}\DecValTok{3}\NormalTok{)}
+\FunctionTok{ggroc}\NormalTok{(rocobj, }\AttributeTok{colour =} \StringTok{\textquotesingle{}steelblue\textquotesingle{}}\NormalTok{, }\AttributeTok{size =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}ROC Curve \textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}(AUC = \textquotesingle{}}\NormalTok{, auc, }\StringTok{\textquotesingle{})\textquotesingle{}}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-324-1.pdf}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{confusionMatrix}\NormalTok{(}\AttributeTok{data=}\FunctionTok{factor}\NormalTok{(pred\_win\_06),}
+                \AttributeTok{reference=}\FunctionTok{factor}\NormalTok{(nfl\_spread\_test}\SpecialCharTok{$}\NormalTok{home\_win),}
+                \AttributeTok{mode=}\StringTok{"everything"}\NormalTok{,}
+                \AttributeTok{positive=}\StringTok{"1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction   0   1
+##          0 134  80
+##          1 412 697
+##                                           
+##                Accuracy : 0.6281          
+##                  95% CI : (0.6014, 0.6542)
+##     No Information Rate : 0.5873          
+##     P-Value [Acc > NIR] : 0.00134         
+##                                           
+##                   Kappa : 0.1566          
+##                                           
+##  Mcnemar's Test P-Value : < 2e-16         
+##                                           
+##             Sensitivity : 0.8970          
+##             Specificity : 0.2454          
+##          Pos Pred Value : 0.6285          
+##          Neg Pred Value : 0.6262          
+##               Precision : 0.6285          
+##                  Recall : 0.8970          
+##                      F1 : 0.7391          
+##              Prevalence : 0.5873          
+##          Detection Rate : 0.5268          
+##    Detection Prevalence : 0.8382          
+##       Balanced Accuracy : 0.5712          
+##                                           
+##        'Positive' Class : 1               
+## 
+\end{verbatim}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{9}
+\tightlist
+\item
+  Which threshold (0.4,0.5,0.6) is preferred for each of the metrics?
+\end{enumerate}
+
+\hypertarget{sports-drafts}{%
+\chapter{Sports Drafts}\label{sports-drafts}}
+
+\hypertarget{nfl-draft}{%
+\section{NFL Draft}\label{nfl-draft}}
+
+\textbf{Details about the NFL Draft}
+
+\begin{itemize}
+\tightlist
+\item
+  Seven rounds, one pick per team per round (generally)
+\item
+  Can trade draft picks (including future draft picks)
+\item
+  Draft order is based on previous year's win-loss record
+\item
+  This year's draft: Thursday, April 27, 6pm MDT
+\end{itemize}
+
+\textbf{YouTube video: Evolution of the NFL Draft:}\\
+\url{https://youtu.be/Uin_eoSXzmY}
+
+\newpage
+
+\hypertarget{draft-pick-value-chart}{%
+\section{Draft Pick Value Chart}\label{draft-pick-value-chart}}
+
+The draft pick value chart was developed by the Dallas Cowboys in the late 80s.
+
+\textbf{YouTube video: The Value Chart That Changed The Way NFL Teams Draft:}\\
+\url{https://youtu.be/U2FEjzqtgWY}
+
+\textbf{YouTube video: How To Better Understand NFL Draft Trade}\\
+\url{https://youtu.be/oBF2iUa0oeo}
+
+\begin{figure}
+\centering
+\includegraphics{images/draftvalue.jpeg}
+\caption{Draft Pick Value Chart}
+\end{figure}
+
+\newpage
+
+\hypertarget{nfl-combine}{%
+\section{NFL Combine}\label{nfl-combine}}
+
+\textbf{YouTube video: NFL 101: The Combine}\\
+\url{https://youtu.be/62YWPRII_YY}
+
+\textbf{Note:} The following analysis and dataset are provided in \emph{Sports Analytics in Practice with R} by Ted Kwartler (2022)\\
+
+\begin{example}
+NFL Combine results for 2000-2020 are provided in \texttt{nfl\_combine\_2000\_2000.csv}. This exercise will explore some characteristics of this dataset.
+\end{example}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Load the data and look at the first five entries.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{combine }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/nfl\_combine\_2000\_2020.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 6829 Columns: 14
+## -- Column specification -------------------------------------
+## Delimiter: ","
+## chr  (3): Player, Pos, Team
+## dbl (11): Ht, Wt, Forty, Vertical, BenchReps, BroadJump, Cone, Shuttle, Year...
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(combine)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "Player"    "Pos"       "Ht"        "Wt"        "Forty"     "Vertical" 
+##  [7] "BenchReps" "BroadJump" "Cone"      "Shuttle"   "Year"      "Team"     
+## [13] "Round"     "Pick"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{combine }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n=}\DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{8}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{llrrrrrr}
+\toprule
+Player & Pos & Ht & Wt & Forty & Vertical & BenchReps & BroadJump\\
+\midrule
+John Abraham & OLB & 76 & 252 & 4.55 & NA & NA & NA\\
+Shaun Alexander & RB & 72 & 218 & 4.58 & NA & NA & NA\\
+Darnell Alford & OT & 76 & 334 & 5.56 & 25 & 23 & 94\\
+Kyle Allamon & TE & 74 & 253 & 4.97 & 29 & NA & 104\\
+Rashard Anderson & CB & 74 & 206 & 4.55 & 34 & NA & 123\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{combine }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n=}\DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{(}\DecValTok{3}\SpecialCharTok{:}\DecValTok{8}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{llrrrlrr}
+\toprule
+Player & Pos & Cone & Shuttle & Year & Team & Round & Pick\\
+\midrule
+John Abraham & OLB & NA & NA & 2000 & New York Jets & 1 & 13\\
+Shaun Alexander & RB & NA & NA & 2000 & Seattle Seahawks & 1 & 19\\
+Darnell Alford & OT & 8.48 & 4.98 & 2000 & Kansas City Chiefs & 6 & 188\\
+Kyle Allamon & TE & 7.29 & 4.49 & 2000 & NA & NA & NA\\
+Rashard Anderson & CB & 7.18 & 4.15 & 2000 & Carolina Panthers & 1 & 23\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Create a table that displays the number of players drafted and not drafted by position.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{combine}\SpecialCharTok{$}\NormalTok{Drafted }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(combine}\SpecialCharTok{$}\NormalTok{Round),}\StringTok{"No"}\NormalTok{,}\StringTok{"Yes"}\NormalTok{)}
+\NormalTok{drafted\_table }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame.matrix}\NormalTok{(}\FunctionTok{table}\NormalTok{(combine}\SpecialCharTok{$}\NormalTok{Pos,combine}\SpecialCharTok{$}\NormalTok{Drafted))}
+\NormalTok{drafted\_table}\SpecialCharTok{$}\NormalTok{Pos }\OtherTok{\textless{}{-}} \FunctionTok{rownames}\NormalTok{(drafted\_table)}
+\FunctionTok{colnames}\NormalTok{(drafted\_table) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"NotDrafted"}\NormalTok{,}\StringTok{"Drafted"}\NormalTok{,}\StringTok{"Pos"}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(drafted\_table) }\OtherTok{\textless{}{-}} \ConstantTok{NULL}
+\NormalTok{drafted\_table }\OtherTok{\textless{}{-}}\NormalTok{ drafted\_table }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{relocate}\NormalTok{(}\StringTok{"Pos"}\NormalTok{,}\AttributeTok{.before =} \StringTok{"NotDrafted"}\NormalTok{)}
+\NormalTok{drafted\_table }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrr}
+\toprule
+Pos & NotDrafted & Drafted\\
+\midrule
+C & 79 & 96\\
+CB & 270 & 424\\
+DB & 2 & 0\\
+DE & 175 & 325\\
+DL & 47 & 0\\
+\addlinespace
+DT & 164 & 316\\
+EDG & 22 & 0\\
+EDGE & 23 & 0\\
+FB & 52 & 66\\
+FS & 80 & 149\\
+\addlinespace
+G & 14 & 0\\
+ILB & 105 & 171\\
+K & 66 & 25\\
+LB & 77 & 0\\
+LS & 18 & 5\\
+\addlinespace
+NT & 3 & 0\\
+OG & 174 & 203\\
+OL & 60 & 0\\
+OLB & 121 & 303\\
+OT & 174 & 294\\
+\addlinespace
+P & 100 & 30\\
+QB & 190 & 194\\
+RB & 295 & 302\\
+S & 82 & 0\\
+SS & 74 & 139\\
+\addlinespace
+TE & 173 & 205\\
+WR & 451 & 491\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Remove rows for generic positions that didn't have any draftees.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{drafted\_table }\OtherTok{\textless{}{-}}\NormalTok{ drafted\_table }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Drafted }\SpecialCharTok{\textgreater{}} \DecValTok{0} \SpecialCharTok{\&}\NormalTok{ NotDrafted }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{)}
+\NormalTok{drafted\_table }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrr}
+\toprule
+Pos & NotDrafted & Drafted\\
+\midrule
+C & 79 & 96\\
+CB & 270 & 424\\
+DE & 175 & 325\\
+DT & 164 & 316\\
+FB & 52 & 66\\
+\addlinespace
+FS & 80 & 149\\
+ILB & 105 & 171\\
+K & 66 & 25\\
+LS & 18 & 5\\
+OG & 174 & 203\\
+\addlinespace
+OLB & 121 & 303\\
+OT & 174 & 294\\
+P & 100 & 30\\
+QB & 190 & 194\\
+RB & 295 & 302\\
+\addlinespace
+SS & 74 & 139\\
+TE & 173 & 205\\
+WR & 451 & 491\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Create a stacked bar plot to display the number of drafted and not drafted players by position.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{long\_drafted }\OtherTok{\textless{}{-}} \FunctionTok{pivot\_longer}\NormalTok{(drafted\_table,}\AttributeTok{cols=}\SpecialCharTok{{-}}\NormalTok{Pos)}
+\NormalTok{long\_drafted}\SpecialCharTok{$}\NormalTok{Pos }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(long\_drafted}\SpecialCharTok{$}\NormalTok{Pos)}
+\FunctionTok{ggplot}\NormalTok{(long\_drafted, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Pos,}\AttributeTok{y=}\NormalTok{value,}\AttributeTok{fill=}\NormalTok{name)) }\SpecialCharTok{+} \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Draft Breakdown by Position"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{scale\_fill\_discrete}\NormalTok{(}\AttributeTok{name =} \StringTok{"Draft Status"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-331-1.pdf}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Calculate the average 40-yard dash for the following positions broken down by drafted status: QB, RB, WR, OT, P.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{forty }\OtherTok{\textless{}{-}} \FunctionTok{aggregate}\NormalTok{(Forty}\SpecialCharTok{\textasciitilde{}}\NormalTok{Pos}\SpecialCharTok{+}\NormalTok{Drafted,}\AttributeTok{data=}\NormalTok{combine,}\AttributeTok{FUN=}\StringTok{"mean"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(Pos }\SpecialCharTok{==} \StringTok{"QB"} \SpecialCharTok{|}\NormalTok{ Pos }\SpecialCharTok{==} \StringTok{"RB"} \SpecialCharTok{|}\NormalTok{ Pos }\SpecialCharTok{==} \StringTok{"WR"} \SpecialCharTok{|}\NormalTok{ Pos }\SpecialCharTok{==} \StringTok{"OT"} \SpecialCharTok{|}\NormalTok{ Pos }\SpecialCharTok{==} \StringTok{"P"}\NormalTok{)}
+\NormalTok{forty }\OtherTok{\textless{}{-}}\NormalTok{ forty[}\FunctionTok{order}\NormalTok{(forty}\SpecialCharTok{$}\NormalTok{Pos),]}
+\FunctionTok{rownames}\NormalTok{(forty) }\OtherTok{=} \ConstantTok{NULL}
+\NormalTok{forty }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{linesep=}\StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{llr}
+\toprule
+Pos & Drafted & Forty\\
+\midrule
+OT & No & 5.344337\\
+OT & Yes & 5.213471\\
+P & No & 5.045570\\
+P & Yes & 4.918077\\
+QB & No & 5.005241\\
+QB & Yes & 4.810579\\
+RB & No & 4.725660\\
+RB & Yes & 4.520633\\
+WR & No & 4.796757\\
+WR & Yes & 4.479156\\
+\bottomrule
+\end{tabular}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Plot the data in the previous table using ggplot and a facet for drafted status.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(forty, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Pos, }\AttributeTok{y=}\NormalTok{Forty))}\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{\textquotesingle{}identity\textquotesingle{}}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Drafted,  }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Position"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Average 40{-}Yard Dash"}\NormalTok{,}\AttributeTok{title=}\StringTok{"Average 40{-}Yard Dash by Position and Drafted Status"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-333-1.pdf}
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Subset the quarterbacks and output the first ten observations to a kable table.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{qb }\OtherTok{\textless{}{-}}\NormalTok{ combine }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Pos }\SpecialCharTok{==} \StringTok{"QB"}\NormalTok{)}
+\NormalTok{qb }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{,}\DecValTok{8}\SpecialCharTok{:}\DecValTok{10}\NormalTok{,}\DecValTok{15}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n=}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{linesep=}\StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{llrrrrrrrl}
+\toprule
+Player & Pos & Ht & Wt & Forty & Vertical & BroadJump & Cone & Shuttle & Drafted\\
+\midrule
+Tom Brady & QB & 76 & 211 & 5.28 & 24.5 & 99 & 7.20 & 4.38 & Yes\\
+Travis Brown-01 & QB & 75 & 218 & 5.01 & 29.0 & 101 & 7.54 & 4.87 & No\\
+Marc Bulger & QB & 74 & 208 & 4.97 & NA & 100 & 7.46 & 4.34 & Yes\\
+Bill Burke & QB & 76 & 206 & 5.03 & 28.5 & 107 & 7.46 & 4.42 & No\\
+Giovanni Carmazzi & QB & 75 & 224 & 4.74 & 36.5 & 119 & 6.94 & 4.23 & No\\
+Chris Chaloupka & QB & 74 & 216 & 4.96 & NA & NA & NA & NA & No\\
+Kevin Feterik & QB & 71 & 207 & 4.92 & 31.0 & 106 & 7.30 & 4.45 & No\\
+Joe Hamilton & QB & 70 & 192 & 4.81 & NA & 106 & NA & NA & Yes\\
+Todd Husak & QB & 75 & 216 & 5.20 & 27.5 & 99 & 7.17 & 4.41 & Yes\\
+Jarious Jackson & QB & 72 & 226 & 4.68 & NA & 109 & NA & NA & Yes\\
+\bottomrule
+\end{tabular}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{7}
+\tightlist
+\item
+  For the quarterbacks subset, investigate the relationship between the quantitative variables.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(GGally)}
+\NormalTok{qb }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggpairs}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-335-1.pdf}
 
 \newpage
 
@@ -12653,9 +13437,6 @@ J.Kasay & 31 & 0.9032258 & 10\\
 
 \hypertarget{nonparametric-methods}{%
 \chapter{Nonparametric Methods}\label{nonparametric-methods}}
-
-\hypertarget{sports-drafts}{%
-\chapter{Sports Drafts}\label{sports-drafts}}
 
 \hypertarget{baseball-1}{%
 \chapter{Baseball}\label{baseball-1}}
