@@ -78,7 +78,7 @@ For the following examples, convert between probability and odds.
 
 \vfill
 
-(b) Suppose that the odds that the Rockies win the World Series in 2025 is 100:1. What is the probability in favor? \
+(b) Suppose that the odds against that the Rockies win the World Series in 2025 is 100:1. What is the probability in favor? \
 
 \vfill
 
@@ -104,7 +104,7 @@ Gambling odds are a bit different that odds in a probability context. Gambling o
 :::{.definition}
 The ***implied probability***, $\tilde{p}$, of a wager is the probability that corresponds to the odds of the wager.
 
-\[\tilde{p} = \frac{Odds}{Odds+1}\]
+\[\tilde{p} = \frac{Odds}{Odds+1}, \text{where } \tilde{p} = \text{implied probability}\]
 :::
 
 :::{.definition}
@@ -122,11 +122,21 @@ The ***implied probability***, $\tilde{p}$, of a wager is the probability that c
 ## Types of Bets
 
 :::{.definition}
-A ***moneyline bet*** are common bets in American sports. When the moneyline is positive, the figure tells what the winning payout would be on a \$100 bet. When the moneyline is negative, the figure tells what wager is required for a winning payout of \$100.
+A *moneyline bet*, a common bet in American sports, refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds. 
+
+When the moneyline is positive, the figure tells what the winning payout would be on a \$100 bet. 
+
+\[\tilde{p} = \frac{100}{ML_{POS}+100}\]
+
+When the moneyline is negative, the figure tells what wager is required for a winning payout of \$100.
+
+\[\tilde{p} = \frac{-ML_{NEG}}{-ML_{NEG}+100}\]
+
 :::
 
+
 :::{.example}
-For the following scenarios, assume a wager of \$100. Calculate the payout for a winning bet.
+For the following scenarios, assume a wager of \$100. Calculate the payout for a winning bet and the implied probability of that bet.
 :::
 
 (a) Fractional odds of 4/1 \
@@ -219,58 +229,66 @@ The ***house advantage*** (or ***hold percentage***) is the percentage of money 
 \[House \, Advantage = 100 \cdot \sum_{i=1}^n \tilde{p}_i - 100\]
 :::
 
-\newpage
-
 :::{.example}
-Suppose that a bookmaker is offering a moneyline wager on the Broncos at -105 and a moneyline wager on the Raiders at -120. Calculate the bookmakers expected winnings based on the following amounts of total bets.
+What is the house advantage in the previous example?
 :::
-
-(a) \$500 wagered on the Broncos, \$500 wagered on the Raiders \
 \
 \
 \
 \vfill
 
-(b) \$250 wagered on the Broncos, \$750 wagered on the Raiders \
-\
-\
-\
-\vfill
+<!-- \newpage -->
 
-(c) \$750 wagered on the Broncos, \$250 wagered on the Raiders \
-\
-\
-\
-\vfill
+<!-- :::{.example} -->
+<!-- Suppose that a bookmaker is offering a moneyline wager on the Broncos at -105 and a moneyline wager on the Raiders at -120. Calculate the bookmakers expected winnings based on the following amounts of total bets. -->
+<!-- ::: -->
 
-(d) \$0 wagered on the Broncos, \$1000 wagered on the Raiders \
-\
-\
-\
-\vfill
+<!-- (a) \$500 wagered on the Broncos, \$500 wagered on the Raiders \ -->
+<!-- \ -->
+<!-- \ -->
+<!-- \ -->
+<!-- \vfill -->
 
-(e) \$1000 wagered on the Broncos, \$0 wagered on the Raiders \
-\
-\
-\
-\vfill
+<!-- (b) \$250 wagered on the Broncos, \$750 wagered on the Raiders \ -->
+<!-- \ -->
+<!-- \ -->
+<!-- \ -->
+<!-- \vfill -->
 
-(f) What is the house advantage? \
-\
-\
-\
-\vfill
+<!-- (c) \$750 wagered on the Broncos, \$250 wagered on the Raiders \ -->
+<!-- \ -->
+<!-- \ -->
+<!-- \ -->
+<!-- \vfill -->
+
+<!-- (d) \$0 wagered on the Broncos, \$1000 wagered on the Raiders \ -->
+<!-- \ -->
+<!-- \ -->
+<!-- \ -->
+<!-- \vfill -->
+
+<!-- (e) \$1000 wagered on the Broncos, \$0 wagered on the Raiders \ -->
+<!-- \ -->
+<!-- \ -->
+<!-- \ -->
+<!-- \vfill -->
+
+<!-- (f) What is the house advantage? \ -->
+<!-- \ -->
+<!-- \ -->
+<!-- \ -->
+<!-- \vfill -->
 
 \newpage
 
-:::{.example}
+:::{.definition}
 A ***point spread bet*** is a bet based on the projected margin of victory that can result in a win, loss, or push.
 
-For example, if a sportsbook offers Rockies -1.5 against the Cubs and you bet on the Rockies, if the Rockies win by 2 or more runs, you win and if the Rockies win by 1 run or lose, then you lose.
+For example, if a sports book offers Rockies -1.5 against the Cubs and you bet on the Rockies, if the Rockies win by 2 or more runs, you win and if the Rockies win by 1 run or lose, then you lose.
 :::
 
 :::{.example}
-Suppose a sportsbook offers Broncos +14 against the Raiders at -110 (they also offer Raiders -14 at -110) and you have \$20 to wager. Calculate the payout for the following scenarios.
+Suppose a sports book offers Broncos +14 against the Raiders at -110 (they also offer Raiders -14 at -110) and you have \$20 to wager. Calculate the payout for the following scenarios.
 :::
 
 (a) You bet \$20 on the Broncos and the final score is Broncos 21 Raiders 20. What is your payout? \
@@ -291,7 +309,7 @@ Suppose a sportsbook offers Broncos +14 against the Raiders at -110 (they also o
 \
 \vfill
 
-:::{.example}
+:::{.definition}
 A ***parlay bet*** is a combination of multiple bets where the winnings from a winning bet are placed on other bets. All bets must be win for the parlay bet to pay out.
 :::
 
@@ -301,25 +319,25 @@ A ***parlay bet*** is a combination of multiple bets where the winnings from a w
 Suppose that CSU is a three point favorite (-3) against CU in a women's basketball game and the over/under on total number of points is 97. Assume that the price of bets is -110.
 :::
 
-(a) Suppose you place two bets, CSU -3 and Over 97, and the outcome of the game is CSU 60 CU 40. What is your payout? \
+(a) Suppose you place two \$20 bets bets, CSU -3 and Over 97, and the outcome of the game is CSU 60 CU 40. What is your payout? \
 \
 \
 \
 \vfill
 
-(b) Suppose you place a parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 60 CU 40. What is your payout? \
+(b) Suppose you place a \$40 parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 60 CU 40. What is your payout? \
 \
 \
 \
 \vfill
 
-(c) Suppose you place two bets, CSU -3 and Over 97, and the outcome of the game is CSU 44 CU 40. What is your payout? \
+(c) Suppose you place two \$20 bets, CSU -3 and Over 97, and the outcome of the game is CSU 44 CU 40. What is your payout? \
 \
 \
 \
 \vfill
 
-(d) Suppose you place a parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 44 CU 40. What is your payout? \
+(d) Suppose you place a \$40 parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 44 CU 40. What is your payout? \
 \
 \
 \
@@ -328,7 +346,7 @@ Suppose that CSU is a three point favorite (-3) against CU in a women's basketba
 
 
 
-*Reference:* \
-https://www.wikihow.com/Calculate-Odds
+<!-- *Reference:* \ -->
+<!-- https://www.wikihow.com/Calculate-Odds -->
 
-**Class Reading:** Chapters 44 in the *Mathletics* by Wayne Winston
+<!-- **Class Reading:** Chapters 44 in the *Mathletics* by Wayne Winston -->

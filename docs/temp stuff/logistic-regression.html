@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 Logistic Regression | Sports Analytics</title>
+  <meta name="description" content="Chapter 10 Logistic Regression | Sports Analytics Notes" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 Logistic Regression | Sports Analytics" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+  <meta property="og:description" content="Chapter 10 Logistic Regression | Sports Analytics Notes" />
+  <meta name="github-repo" content="aaron-nielsen.github.io/SportsAnalyticsBook/" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 Logistic Regression | Sports Analytics" />
+  
+  <meta name="twitter:description" content="Chapter 10 Logistic Regression | Sports Analytics Notes" />
+  <meta name="twitter:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+
+<meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
+
+
+<meta name="date" content="2023-08-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="advanced-regression-methods.html"/>
+<link rel="next" href="classification.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/style.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/lesson.css" type="text/css" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Sports Analytics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i>Preliminaries</a>
+<ul>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#getting-started-with-r"><i class="fa fa-check"></i>Getting Started With R</a>
+<ul>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#installing-r"><i class="fa fa-check"></i>Installing R</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#some-r-basics"><i class="fa fa-check"></i>Some R Basics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#course-goals"><i class="fa fa-check"></i>Course Goals</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#which-sports"><i class="fa fa-check"></i>Which Sports?</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#challenges"><i class="fa fa-check"></i>Challenges</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#ethical-concerns"><i class="fa fa-check"></i>Ethical Concerns</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>1</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>1.1</b> Descriptive Statistics</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#definitions"><i class="fa fa-check"></i><b>1.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="1.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>1.1.2</b> Descriptive Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#visualizations"><i class="fa fa-check"></i><b>1.2</b> Visualizations</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#histograms"><i class="fa fa-check"></i><b>1.2.1</b> Histograms</a></li>
+<li class="chapter" data-level="1.2.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#bar-plots"><i class="fa fa-check"></i><b>1.2.2</b> Bar Plots</a></li>
+<li class="chapter" data-level="1.2.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plots"><i class="fa fa-check"></i><b>1.2.3</b> Scatter Plots</a></li>
+<li class="chapter" data-level="1.2.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#kable-tables"><i class="fa fa-check"></i><b>1.2.4</b> Kable Tables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#baseball"><i class="fa fa-check"></i><b>1.3</b> Baseball</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#hitting-statistics"><i class="fa fa-check"></i><b>1.3.1</b> Hitting Statistics</a></li>
+<li class="chapter" data-level="1.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#pitching-statistics"><i class="fa fa-check"></i><b>1.3.2</b> Pitching Statistics</a></li>
+<li class="chapter" data-level="1.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#wins-above-replacement"><i class="fa fa-check"></i><b>1.3.3</b> Wins Above Replacement</a></li>
+<li class="chapter" data-level="1.3.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#calculating-hitting-statistics"><i class="fa fa-check"></i><b>1.3.4</b> Calculating Hitting Statistics</a></li>
+<li class="chapter" data-level="1.3.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#evaluating-pitching-statistics"><i class="fa fa-check"></i><b>1.3.5</b> Evaluating Pitching Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#football"><i class="fa fa-check"></i><b>1.4</b> Football</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-football-statistics"><i class="fa fa-check"></i><b>1.4.1</b> Basic Football Statistics</a></li>
+<li class="chapter" data-level="1.4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-football-statistics"><i class="fa fa-check"></i><b>1.4.2</b> Advanced Football Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basketball"><i class="fa fa-check"></i><b>1.5</b> Basketball</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-basketball-statistics"><i class="fa fa-check"></i><b>1.5.1</b> Basic Basketball Statistics</a></li>
+<li class="chapter" data-level="1.5.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-basketball-statistics"><i class="fa fa-check"></i><b>1.5.2</b> Advanced Basketball Statistics</a></li>
+<li class="chapter" data-level="1.5.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#four-factors"><i class="fa fa-check"></i><b>1.5.3</b> Four Factors</a></li>
+<li class="chapter" data-level="1.5.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#shot-charts"><i class="fa fa-check"></i><b>1.5.4</b> Shot Charts</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#hockey"><i class="fa fa-check"></i><b>1.6</b> Hockey</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-hockey-statistics"><i class="fa fa-check"></i><b>1.6.1</b> Basic Hockey Statistics</a></li>
+<li class="chapter" data-level="1.6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-hockey-statistics"><i class="fa fa-check"></i><b>1.6.2</b> Advanced Hockey Statistics</a></li>
+<li class="chapter" data-level="1.6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#actual-vs.-expected-goals"><i class="fa fa-check"></i><b>1.6.3</b> Actual vs. Expected Goals</a></li>
+<li class="chapter" data-level="1.6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#goalie-statistics"><i class="fa fa-check"></i><b>1.6.4</b> Goalie Statistics</a></li>
+<li class="chapter" data-level="1.6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#correlation-plots"><i class="fa fa-check"></i><b>1.6.5</b> Correlation Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#volleyball"><i class="fa fa-check"></i><b>1.7</b> Volleyball</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-volleyball-statistics"><i class="fa fa-check"></i><b>1.7.1</b> Basic Volleyball Statistics</a></li>
+<li class="chapter" data-level="1.7.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plot"><i class="fa fa-check"></i><b>1.7.2</b> Scatter Plot</a></li>
+<li class="chapter" data-level="1.7.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#box-plot"><i class="fa fa-check"></i><b>1.7.3</b> Box Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#soccer"><i class="fa fa-check"></i><b>1.8</b> Soccer</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-soccer-statistics"><i class="fa fa-check"></i><b>1.8.1</b> Basic Soccer Statistics</a></li>
+<li class="chapter" data-level="1.8.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-soccer-statistics"><i class="fa fa-check"></i><b>1.8.2</b> Advanced Soccer Statistics</a></li>
+<li class="chapter" data-level="1.8.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#bar-plot"><i class="fa fa-check"></i><b>1.8.3</b> Bar Plot</a></li>
+<li class="chapter" data-level="1.8.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plot-1"><i class="fa fa-check"></i><b>1.8.4</b> Scatter Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>2</b> Probability</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#definitions-1"><i class="fa fa-check"></i><b>2.1</b> Definitions</a></li>
+<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#set-theory"><i class="fa fa-check"></i><b>2.2</b> Set Theory</a></li>
+<li class="chapter" data-level="2.3" data-path="probability.html"><a href="probability.html#axioms-properties-and-laws"><i class="fa fa-check"></i><b>2.3</b> Axioms, Properties, and Laws</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="probability.html"><a href="probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>2.3.1</b> Axioms of Probability</a></li>
+<li class="chapter" data-level="2.3.2" data-path="probability.html"><a href="probability.html#properties-of-probability"><i class="fa fa-check"></i><b>2.3.2</b> Properties of Probability</a></li>
+<li class="chapter" data-level="2.3.3" data-path="probability.html"><a href="probability.html#laws-of-probability"><i class="fa fa-check"></i><b>2.3.3</b> Laws of Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="probability.html"><a href="probability.html#combinatorics"><i class="fa fa-check"></i><b>2.4</b> Combinatorics</a></li>
+<li class="chapter" data-level="2.5" data-path="probability.html"><a href="probability.html#random-variables"><i class="fa fa-check"></i><b>2.5</b> Random Variables</a></li>
+<li class="chapter" data-level="2.6" data-path="probability.html"><a href="probability.html#common-random-variables"><i class="fa fa-check"></i><b>2.6</b> Common Random Variables</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="probability.html"><a href="probability.html#binomial-rvs"><i class="fa fa-check"></i><b>2.6.1</b> Binomial RVs</a></li>
+<li class="chapter" data-level="2.6.2" data-path="probability.html"><a href="probability.html#geometric-rvs"><i class="fa fa-check"></i><b>2.6.2</b> Geometric RVs</a></li>
+<li class="chapter" data-level="2.6.3" data-path="probability.html"><a href="probability.html#poisson-rvs"><i class="fa fa-check"></i><b>2.6.3</b> Poisson RVs</a></li>
+<li class="chapter" data-level="2.6.4" data-path="probability.html"><a href="probability.html#negative-binomial-rvs"><i class="fa fa-check"></i><b>2.6.4</b> Negative Binomial RVs</a></li>
+<li class="chapter" data-level="2.6.5" data-path="probability.html"><a href="probability.html#normal-rvs"><i class="fa fa-check"></i><b>2.6.5</b> Normal RVs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="probability.html"><a href="probability.html#win-probability-models"><i class="fa fa-check"></i><b>2.7</b> Win Probability Models</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="probability.html"><a href="probability.html#estimating-pregame-win-probability"><i class="fa fa-check"></i><b>2.7.1</b> Estimating Pregame Win Probability</a></li>
+<li class="chapter" data-level="2.7.2" data-path="probability.html"><a href="probability.html#estimating-in-game-win-probability"><i class="fa fa-check"></i><b>2.7.2</b> Estimating In-Game Win Probability</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="odds-and-bets.html"><a href="odds-and-bets.html"><i class="fa fa-check"></i><b>3</b> Odds and Bets</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="odds-and-bets.html"><a href="odds-and-bets.html#odds"><i class="fa fa-check"></i><b>3.1</b> Odds</a></li>
+<li class="chapter" data-level="3.2" data-path="odds-and-bets.html"><a href="odds-and-bets.html#gambling-odds"><i class="fa fa-check"></i><b>3.2</b> Gambling Odds</a></li>
+<li class="chapter" data-level="3.3" data-path="odds-and-bets.html"><a href="odds-and-bets.html#types-of-bets"><i class="fa fa-check"></i><b>3.3</b> Types of Bets</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html"><i class="fa fa-check"></i><b>4</b> Monte Carlo Simulation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#basics"><i class="fa fa-check"></i><b>4.1</b> Basics</a></li>
+<li class="chapter" data-level="4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#estimating-probabilities"><i class="fa fa-check"></i><b>4.2</b> Estimating Probabilities</a></li>
+<li class="chapter" data-level="4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-streaks"><i class="fa fa-check"></i><b>4.3</b> Simulating Streaks</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#winning-streak-simulation"><i class="fa fa-check"></i><b>4.3.1</b> Winning Streak Simulation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#hitting-streak-simulation"><i class="fa fa-check"></i><b>4.3.2</b> Hitting Streak Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gambling-simulations"><i class="fa fa-check"></i><b>4.4</b> Gambling Simulations</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#martingale-system"><i class="fa fa-check"></i><b>4.4.1</b> Martingale System</a></li>
+<li class="chapter" data-level="4.4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gamblers-ruin"><i class="fa fa-check"></i><b>4.4.2</b> Gambler’s Ruin</a></li>
+<li class="chapter" data-level="4.4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-a-winning-system"><i class="fa fa-check"></i><b>4.4.3</b> Simulating a Winning System</a></li>
+<li class="chapter" data-level="4.4.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#using-the-kelly-growth-criterion"><i class="fa fa-check"></i><b>4.4.4</b> Using the Kelly Growth Criterion</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-censored-data"><i class="fa fa-check"></i><b>4.5</b> Simulating Censored Data</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#tony-gwynn-1994-batting-average-simulation"><i class="fa fa-check"></i><b>4.5.1</b> Tony Gwynn 1994 Batting Average Simulation</a></li>
+<li class="chapter" data-level="4.5.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#matt-williams-1994-home-run-simulation"><i class="fa fa-check"></i><b>4.5.2</b> Matt Williams 1994 Home Run Simulation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="inferential-statistics.html"><a href="inferential-statistics.html"><i class="fa fa-check"></i><b>5</b> Inferential Statistics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#defining-a-population"><i class="fa fa-check"></i><b>5.1</b> Defining a Population</a></li>
+<li class="chapter" data-level="5.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#statistical-inference"><i class="fa fa-check"></i><b>5.2</b> Statistical Inference</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-intervals"><i class="fa fa-check"></i><b>5.2.1</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="5.2.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hypothesis-tests"><i class="fa fa-check"></i><b>5.2.2</b> Hypothesis Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#inference-for-population-mean"><i class="fa fa-check"></i><b>5.3</b> Inference for Population Mean</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-population-mean"><i class="fa fa-check"></i><b>5.3.1</b> Confidence Interval for Population Mean</a></li>
+<li class="chapter" data-level="5.3.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hypothesis-test-for-population-mean"><i class="fa fa-check"></i><b>5.3.2</b> Hypothesis Test for Population Mean</a></li>
+<li class="chapter" data-level="5.3.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-difference-in-means"><i class="fa fa-check"></i><b>5.3.3</b> Test for Difference in Means</a></li>
+<li class="chapter" data-level="5.3.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-difference-in-means"><i class="fa fa-check"></i><b>5.3.4</b> Confidence Interval for Difference in Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#inference-for-population-proportion"><i class="fa fa-check"></i><b>5.4</b> Inference for Population Proportion</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-population-proportion"><i class="fa fa-check"></i><b>5.4.1</b> Confidence Interval for Population Proportion</a></li>
+<li class="chapter" data-level="5.4.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-population-proportion"><i class="fa fa-check"></i><b>5.4.2</b> Test for Population Proportion</a></li>
+<li class="chapter" data-level="5.4.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.4.3</b> Confidence Interval for Difference in Proportions</a></li>
+<li class="chapter" data-level="5.4.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.4.4</b> Test for Difference in Proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#bootstrap"><i class="fa fa-check"></i><b>5.5</b> Bootstrap</a></li>
+<li class="chapter" data-level="5.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#margin-of-error-calcuations"><i class="fa fa-check"></i><b>5.6</b> Margin of Error Calcuations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-for-probabilities"><i class="fa fa-check"></i><b>5.6.1</b> MOE for Probabilities</a></li>
+<li class="chapter" data-level="5.6.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-for-averages"><i class="fa fa-check"></i><b>5.6.2</b> MOE for Averages</a></li>
+<li class="chapter" data-level="5.6.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-estimation-using-simulation"><i class="fa fa-check"></i><b>5.6.3</b> MOE estimation using simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="inferential-statistics.html"><a href="inferential-statistics.html#one-sample-and-two-sample-t-tests-and-confidence-intervals"><i class="fa fa-check"></i><b>5.7</b> One Sample and Two Sample t-tests and confidence intervals</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hockey-faceoffs"><i class="fa fa-check"></i><b>5.7.1</b> Hockey Faceoffs</a></li>
+<li class="chapter" data-level="5.7.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hockey-penalty-scoring"><i class="fa fa-check"></i><b>5.7.2</b> Hockey Penalty Scoring</a></li>
+<li class="chapter" data-level="5.7.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#nfl-overtime-winners"><i class="fa fa-check"></i><b>5.7.3</b> NFL Overtime Winners</a></li>
+<li class="chapter" data-level="5.7.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#icing-the-kicker"><i class="fa fa-check"></i><b>5.7.4</b> Icing the Kicker</a></li>
+<li class="chapter" data-level="5.7.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#example-football-one-vs.-two-point-conversion"><i class="fa fa-check"></i><b>5.7.5</b> Example: Football One vs. Two Point Conversion</a></li>
+<li class="chapter" data-level="5.7.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#two-sample-tests"><i class="fa fa-check"></i><b>5.7.6</b> Two Sample Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="inferential-statistics.html"><a href="inferential-statistics.html#permutation-tests"><i class="fa fa-check"></i><b>5.8</b> Permutation Tests</a></li>
+<li class="chapter" data-level="5.9" data-path="inferential-statistics.html"><a href="inferential-statistics.html#bootstrap-1"><i class="fa fa-check"></i><b>5.9</b> Bootstrap</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="measures-of-association.html"><a href="measures-of-association.html"><i class="fa fa-check"></i><b>6</b> Measures of Association</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="measures-of-association.html"><a href="measures-of-association.html#pearson-correlation-coefficient"><i class="fa fa-check"></i><b>6.1</b> Pearson Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="measures-of-association.html"><a href="measures-of-association.html#partial-correlation-and-confounding-variables"><i class="fa fa-check"></i><b>6.1.1</b> Partial Correlation and Confounding Variables</a></li>
+<li class="chapter" data-level="6.1.2" data-path="measures-of-association.html"><a href="measures-of-association.html#properties-of-the-linear-correlation-coefficient"><i class="fa fa-check"></i><b>6.1.2</b> Properties of the Linear Correlation Coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="measures-of-association.html"><a href="measures-of-association.html#association-of-categorical-variables"><i class="fa fa-check"></i><b>6.2</b> Association of Categorical Variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="measures-of-association.html"><a href="measures-of-association.html#odds-ratios"><i class="fa fa-check"></i><b>6.2.1</b> Odds Ratios</a></li>
+<li class="chapter" data-level="6.2.2" data-path="measures-of-association.html"><a href="measures-of-association.html#yules-q"><i class="fa fa-check"></i><b>6.2.2</b> Yule’s Q</a></li>
+<li class="chapter" data-level="6.2.3" data-path="measures-of-association.html"><a href="measures-of-association.html#chi-squared-test-of-independence"><i class="fa fa-check"></i><b>6.2.3</b> Chi-Squared Test of Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="measures-of-association.html"><a href="measures-of-association.html#rank-correlation"><i class="fa fa-check"></i><b>6.3</b> Rank Correlation</a></li>
+<li class="chapter" data-level="6.4" data-path="measures-of-association.html"><a href="measures-of-association.html#serial-correlation"><i class="fa fa-check"></i><b>6.4</b> Serial Correlation</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="measures-of-association.html"><a href="measures-of-association.html#autocorrelation"><i class="fa fa-check"></i><b>6.4.1</b> Autocorrelation</a></li>
+<li class="chapter" data-level="6.4.2" data-path="measures-of-association.html"><a href="measures-of-association.html#run-lengths"><i class="fa fa-check"></i><b>6.4.2</b> Run Lengths</a></li>
+<li class="chapter" data-level="6.4.3" data-path="measures-of-association.html"><a href="measures-of-association.html#wald-wolfowitz-runs-test"><i class="fa fa-check"></i><b>6.4.3</b> Wald-Wolfowitz Runs Test</a></li>
+<li class="chapter" data-level="6.4.4" data-path="measures-of-association.html"><a href="measures-of-association.html#hot-hand"><i class="fa fa-check"></i><b>6.4.4</b> Hot Hand</a></li>
+<li class="chapter" data-level="6.4.5" data-path="measures-of-association.html"><a href="measures-of-association.html#streakiness-in-sports"><i class="fa fa-check"></i><b>6.4.5</b> Streakiness in Sports</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="measures-of-association.html"><a href="measures-of-association.html#pythagorean-record"><i class="fa fa-check"></i><b>6.5</b> Pythagorean Record</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>7</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>7.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="7.2" data-path="linear-regression.html"><a href="linear-regression.html#residual-analysis"><i class="fa fa-check"></i><b>7.2</b> Residual Analysis</a></li>
+<li class="chapter" data-level="7.3" data-path="linear-regression.html"><a href="linear-regression.html#polynomial-regression"><i class="fa fa-check"></i><b>7.3</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="7.4" data-path="linear-regression.html"><a href="linear-regression.html#variable-transformations"><i class="fa fa-check"></i><b>7.4</b> Variable Transformations</a></li>
+<li class="chapter" data-level="7.5" data-path="linear-regression.html"><a href="linear-regression.html#multiple-regression-and-model-selection"><i class="fa fa-check"></i><b>7.5</b> Multiple Regression and Model Selection</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="linear-regression.html"><a href="linear-regression.html#model-selection-using-bic"><i class="fa fa-check"></i><b>7.5.1</b> Model Selection using BIC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables"><i class="fa fa-check"></i><b>7.6</b> Confounding Variables</a></li>
+<li class="chapter" data-level="7.7" data-path="linear-regression.html"><a href="linear-regression.html#interaction"><i class="fa fa-check"></i><b>7.7</b> Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="data-acquisition.html"><a href="data-acquisition.html"><i class="fa fa-check"></i><b>8</b> Data Acquisition</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="data-acquisition.html"><a href="data-acquisition.html#tabular-data-from-sports-reference"><i class="fa fa-check"></i><b>8.1</b> Tabular Data From Sports Reference</a></li>
+<li class="chapter" data-level="8.2" data-path="data-acquisition.html"><a href="data-acquisition.html#downloading-datasets-from-internet"><i class="fa fa-check"></i><b>8.2</b> Downloading Datasets From Internet</a></li>
+<li class="chapter" data-level="8.3" data-path="data-acquisition.html"><a href="data-acquisition.html#importing-data-using-r-libraries"><i class="fa fa-check"></i><b>8.3</b> Importing Data Using R Libraries</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="data-acquisition.html"><a href="data-acquisition.html#baseballr-package"><i class="fa fa-check"></i><b>8.3.1</b> BaseballR package</a></li>
+<li class="chapter" data-level="8.3.2" data-path="data-acquisition.html"><a href="data-acquisition.html#nflfastr-package"><i class="fa fa-check"></i><b>8.3.2</b> nflfastR package</a></li>
+<li class="chapter" data-level="8.3.3" data-path="data-acquisition.html"><a href="data-acquisition.html#hoopr-package"><i class="fa fa-check"></i><b>8.3.3</b> hoopR package</a></li>
+<li class="chapter" data-level="8.3.4" data-path="data-acquisition.html"><a href="data-acquisition.html#hockeyr-package"><i class="fa fa-check"></i><b>8.3.4</b> hockeyR package</a></li>
+<li class="chapter" data-level="8.3.5" data-path="data-acquisition.html"><a href="data-acquisition.html#worldfootballr"><i class="fa fa-check"></i><b>8.3.5</b> worldfootballR</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="data-acquisition.html"><a href="data-acquisition.html#data-scraping"><i class="fa fa-check"></i><b>8.4</b> Data Scraping</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="data-acquisition.html"><a href="data-acquisition.html#general-tips"><i class="fa fa-check"></i><b>8.4.1</b> General Tips</a></li>
+<li class="chapter" data-level="8.4.2" data-path="data-acquisition.html"><a href="data-acquisition.html#introduction-to-html"><i class="fa fa-check"></i><b>8.4.2</b> Introduction to HTML</a></li>
+<li class="chapter" data-level="8.4.3" data-path="data-acquisition.html"><a href="data-acquisition.html#rvest-package"><i class="fa fa-check"></i><b>8.4.3</b> rvest Package</a></li>
+<li class="chapter" data-level="8.4.4" data-path="data-acquisition.html"><a href="data-acquisition.html#css-gadget-selector"><i class="fa fa-check"></i><b>8.4.4</b> CSS Gadget Selector</a></li>
+<li class="chapter" data-level="8.4.5" data-path="data-acquisition.html"><a href="data-acquisition.html#scraping-examples"><i class="fa fa-check"></i><b>8.4.5</b> Scraping Examples</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html"><i class="fa fa-check"></i><b>9</b> Advanced Regression Methods</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#weighted-least-squares-regression"><i class="fa fa-check"></i><b>9.1</b> Weighted Least Squares Regression</a></li>
+<li class="chapter" data-level="9.2" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#stepwise-regression-using-cross-validation"><i class="fa fa-check"></i><b>9.2</b> Stepwise Regression using Cross-Validation</a></li>
+<li class="chapter" data-level="9.3" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#ridge-regression"><i class="fa fa-check"></i><b>9.3</b> Ridge Regression</a></li>
+<li class="chapter" data-level="9.4" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#lasso-regression"><i class="fa fa-check"></i><b>9.4</b> Lasso Regression</a></li>
+<li class="chapter" data-level="9.5" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#elastic-net"><i class="fa fa-check"></i><b>9.5</b> Elastic Net</a></li>
+<li class="chapter" data-level="9.6" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#mixed-effects-models"><i class="fa fa-check"></i><b>9.6</b> Mixed Effects Models</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="logistic-regression.html"><a href="logistic-regression.html#logistic-regression-model"><i class="fa fa-check"></i><b>10.1</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="10.2" data-path="logistic-regression.html"><a href="logistic-regression.html#example-nfl-spread-and-winning"><i class="fa fa-check"></i><b>10.2</b> Example: NFL Spread and Winning</a></li>
+<li class="chapter" data-level="10.3" data-path="logistic-regression.html"><a href="logistic-regression.html#multiple-logistic-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple Logistic Regression</a></li>
+<li class="chapter" data-level="10.4" data-path="logistic-regression.html"><a href="logistic-regression.html#example-field-goal-success"><i class="fa fa-check"></i><b>10.4</b> Example: Field Goal Success</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>11</b> Classification</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="classification.html"><a href="classification.html#fundamentals"><i class="fa fa-check"></i><b>11.1</b> Fundamentals</a></li>
+<li class="chapter" data-level="11.2" data-path="classification.html"><a href="classification.html#evaluation-metrics"><i class="fa fa-check"></i><b>11.2</b> Evaluation Metrics</a></li>
+<li class="chapter" data-level="11.3" data-path="classification.html"><a href="classification.html#classification-using-logistic-regression"><i class="fa fa-check"></i><b>11.3</b> Classification Using Logistic Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="sports-drafts.html"><a href="sports-drafts.html"><i class="fa fa-check"></i><b>12</b> Sports Drafts</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="sports-drafts.html"><a href="sports-drafts.html#nfl-draft"><i class="fa fa-check"></i><b>12.1</b> NFL Draft</a></li>
+<li class="chapter" data-level="12.2" data-path="sports-drafts.html"><a href="sports-drafts.html#draft-pick-value-chart"><i class="fa fa-check"></i><b>12.2</b> Draft Pick Value Chart</a></li>
+<li class="chapter" data-level="12.3" data-path="sports-drafts.html"><a href="sports-drafts.html#nfl-combine"><i class="fa fa-check"></i><b>12.3</b> NFL Combine</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>13</b> Clustering</a></li>
+<li class="chapter" data-level="14" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>14</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="15" data-path="nonparametric-methods.html"><a href="nonparametric-methods.html"><i class="fa fa-check"></i><b>15</b> Nonparametric Methods</a></li>
+<li class="chapter" data-level="16" data-path="baseball-1.html"><a href="baseball-1.html"><i class="fa fa-check"></i><b>16</b> Baseball</a></li>
+<li class="chapter" data-level="17" data-path="football-1.html"><a href="football-1.html"><i class="fa fa-check"></i><b>17</b> Football</a></li>
+<li class="chapter" data-level="18" data-path="basketball-1.html"><a href="basketball-1.html"><i class="fa fa-check"></i><b>18</b> Basketball</a></li>
+<li class="chapter" data-level="19" data-path="hockey-1.html"><a href="hockey-1.html"><i class="fa fa-check"></i><b>19</b> Hockey</a></li>
+<li class="chapter" data-level="20" data-path="soccer-1.html"><a href="soccer-1.html"><i class="fa fa-check"></i><b>20</b> Soccer</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Sports Analytics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="logistic-regression" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Chapter 10</span> Logistic Regression<a href="logistic-regression.html#logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In the previous regression examples, we have considered cases where the response variable is a continuous random variable. There are many cases in sports analytics where the response may be a binary or categorical variable. In such cases, logistic regression is likely a more appropriate model.</p>
+<p>Let <span class="math inline">\(\pi_i\)</span> be the probability be that the response variable, <span class="math inline">\(Y_i\)</span>, is equal to 1 and <span class="math inline">\(1-\pi_i\)</span> is the probability that <span class="math inline">\(Y_i\)</span> is equal to 0.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-221" class="definition"><strong>Definition 10.1  </strong></span>The <strong><em>log-odds</em></strong> (or <strong><em>logit</em></strong>) of a probability <span class="math inline">\(p\)</span> is defined by:</p>
+<p><span class="math inline">\(logit(p) = log.odds(p) = log\left(\frac{p}{1-p}\right)\)</span></p>
+</div>
+<div id="logistic-regression-model" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Logistic Regression Model<a href="logistic-regression.html#logistic-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Logistic regression allows us to model the logit as a linear function of the predictor variables.</p>
+<p>For example, a simple logistic regression model is defined by:</p>
+<p><span class="math inline">\(logit(p) = log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 x\)</span><br />
+</p>
+<p>We also have:</p>
+<p><span class="math inline">\(E[Y_i] = \pi_i = \frac{exp(\beta_0+\beta_1X_i)}{1+exp(\beta_0+\beta_1X_i)}\)</span><br />
+</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-222" class="definition"><strong>Definition 10.2  </strong></span>The <strong><em>odds ratio</em></strong> of event <span class="math inline">\(X_1\)</span> relative to event <span class="math inline">\(X_2\)</span> is defined by:</p>
+<p><span class="math inline">\(\hat{OR} = \frac{odds_1}{odds_2} = \exp{\hat{\beta}_1}\)</span></p>
+<p>The odds ratio represents the change in odds for a one-unit increase in <span class="math inline">\(X\)</span>.<br />
+</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="example-nfl-spread-and-winning" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Example: NFL Spread and Winning<a href="logistic-regression.html#example-nfl-spread-and-winning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="logistic-regression.html#cb567-1" tabindex="-1"></a><span class="co"># Data from Kaggle:</span></span>
+<span id="cb567-2"><a href="logistic-regression.html#cb567-2" tabindex="-1"></a><span class="co"># https://www.kaggle.com/datasets/tobycrabtree/nfl-scores-and-betting-data</span></span>
+<span id="cb567-3"><a href="logistic-regression.html#cb567-3" tabindex="-1"></a>nfl_spread <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl_spread_history.csv&quot;</span>,<span class="at">show_col_types =</span> F)</span>
+<span id="cb567-4"><a href="logistic-regression.html#cb567-4" tabindex="-1"></a><span class="fu">names</span>(nfl_spread)</span></code></pre></div>
+<pre><code>##  [1] &quot;schedule_date&quot;       &quot;schedule_season&quot;     &quot;schedule_week&quot;      
+##  [4] &quot;schedule_playoff&quot;    &quot;team_home&quot;           &quot;score_home&quot;         
+##  [7] &quot;score_away&quot;          &quot;team_away&quot;           &quot;team_favorite_id&quot;   
+## [10] &quot;spread_favorite&quot;     &quot;over_under_line&quot;     &quot;stadium&quot;            
+## [13] &quot;stadium_neutral&quot;     &quot;weather_temperature&quot; &quot;weather_wind_mph&quot;   
+## [16] &quot;weather_humidity&quot;    &quot;weather_detail&quot;</code></pre>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="logistic-regression.html#cb569-1" tabindex="-1"></a>nfl_spread <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 6
+##   schedule_date team_home          score_home score_away team_away       sprea…¹
+##   &lt;chr&gt;         &lt;chr&gt;                   &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;
+## 1 9/2/1966      Miami Dolphins             14         23 Oakland Raiders      NA
+## 2 9/3/1966      Houston Oilers             45          7 Denver Broncos       NA
+## 3 9/4/1966      San Diego Chargers         27          7 Buffalo Bills        NA
+## 4 9/9/1966      Miami Dolphins             14         19 New York Jets        NA
+## 5 9/10/1966     Green Bay Packers          24          3 Baltimore Colts      NA
+## # … with abbreviated variable name ¹​spread_favorite</code></pre>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="logistic-regression.html#cb571-1" tabindex="-1"></a><span class="co"># adjust date format</span></span>
+<span id="cb571-2"><a href="logistic-regression.html#cb571-2" tabindex="-1"></a>nfl_spread<span class="sc">$</span>schedule_date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(nfl_spread<span class="sc">$</span>schedule_date, <span class="st">&quot;%m/%d/%Y&quot;</span>)</span>
+<span id="cb571-3"><a href="logistic-regression.html#cb571-3" tabindex="-1"></a></span>
+<span id="cb571-4"><a href="logistic-regression.html#cb571-4" tabindex="-1"></a><span class="co"># select games since 2000 and grab variables of interest</span></span>
+<span id="cb571-5"><a href="logistic-regression.html#cb571-5" tabindex="-1"></a>nfl_spread <span class="ot">&lt;-</span> nfl_spread <span class="sc">%&gt;%</span> </span>
+<span id="cb571-6"><a href="logistic-regression.html#cb571-6" tabindex="-1"></a>  <span class="fu">filter</span>(schedule_date <span class="sc">&gt;</span> <span class="st">&quot;2000-01-01&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb571-7"><a href="logistic-regression.html#cb571-7" tabindex="-1"></a>  <span class="fu">select</span>(team_home,score_home,team_away,score_away,</span>
+<span id="cb571-8"><a href="logistic-regression.html#cb571-8" tabindex="-1"></a>         team_favorite_id,spread_favorite)</span>
+<span id="cb571-9"><a href="logistic-regression.html#cb571-9" tabindex="-1"></a></span>
+<span id="cb571-10"><a href="logistic-regression.html#cb571-10" tabindex="-1"></a>teams <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/nfl_teams.csv&quot;</span>)</span>
+<span id="cb571-11"><a href="logistic-regression.html#cb571-11" tabindex="-1"></a>teams <span class="ot">&lt;-</span> teams <span class="sc">%&gt;%</span> <span class="fu">filter</span>(team_division <span class="sc">!=</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb571-12"><a href="logistic-regression.html#cb571-12" tabindex="-1"></a>team_names <span class="ot">&lt;-</span> teams<span class="sc">$</span>team_name </span>
+<span id="cb571-13"><a href="logistic-regression.html#cb571-13" tabindex="-1"></a>team_ids <span class="ot">&lt;-</span> teams<span class="sc">$</span>team_id </span>
+<span id="cb571-14"><a href="logistic-regression.html#cb571-14" tabindex="-1"></a>team_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">favorite_team =</span> team_names, <span class="at">team_favorite_id =</span> team_ids)</span>
+<span id="cb571-15"><a href="logistic-regression.html#cb571-15" tabindex="-1"></a>team_df <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+favorite_team
+</th>
+<th style="text-align:left;">
+team_favorite_id
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Arizona Cardinals
+</td>
+<td style="text-align:left;">
+ARI
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Atlanta Falcons
+</td>
+<td style="text-align:left;">
+ATL
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Baltimore Ravens
+</td>
+<td style="text-align:left;">
+BAL
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Buffalo Bills
+</td>
+<td style="text-align:left;">
+BUF
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Carolina Panthers
+</td>
+<td style="text-align:left;">
+CAR
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="logistic-regression.html#cb572-1" tabindex="-1"></a>nfl_spread <span class="ot">&lt;-</span> nfl_spread <span class="sc">%&gt;%</span> </span>
+<span id="cb572-2"><a href="logistic-regression.html#cb572-2" tabindex="-1"></a>  <span class="fu">inner_join</span>(team_df,<span class="at">by=</span><span class="st">&quot;team_favorite_id&quot;</span>,<span class="at">multiple=</span><span class="st">&quot;all&quot;</span>)</span>
+<span id="cb572-3"><a href="logistic-regression.html#cb572-3" tabindex="-1"></a></span>
+<span id="cb572-4"><a href="logistic-regression.html#cb572-4" tabindex="-1"></a>nfl_spread <span class="ot">&lt;-</span> nfl_spread <span class="sc">%&gt;%</span> </span>
+<span id="cb572-5"><a href="logistic-regression.html#cb572-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">home_diff =</span> score_home <span class="sc">-</span> score_away,</span>
+<span id="cb572-6"><a href="logistic-regression.html#cb572-6" tabindex="-1"></a>         <span class="at">winning_team =</span> <span class="fu">ifelse</span>(score_home <span class="sc">&gt;</span> score_away,team_home,team_away),</span>
+<span id="cb572-7"><a href="logistic-regression.html#cb572-7" tabindex="-1"></a>         <span class="at">favorite_win =</span> <span class="fu">ifelse</span>(favorite_team <span class="sc">==</span> winning_team,<span class="dv">1</span>,<span class="dv">0</span>),</span>
+<span id="cb572-8"><a href="logistic-regression.html#cb572-8" tabindex="-1"></a>         <span class="at">home_spread =</span> <span class="fu">ifelse</span>(team_home<span class="sc">==</span>favorite_team,spread_favorite,<span class="sc">-</span>spread_favorite),</span>
+<span id="cb572-9"><a href="logistic-regression.html#cb572-9" tabindex="-1"></a>         <span class="at">home_win =</span> <span class="fu">ifelse</span>(team_home <span class="sc">==</span> winning_team,<span class="dv">1</span>,<span class="dv">0</span>),</span>
+<span id="cb572-10"><a href="logistic-regression.html#cb572-10" tabindex="-1"></a>         <span class="at">home_won =</span> <span class="fu">ifelse</span>(home_win <span class="sc">==</span> <span class="dv">1</span>,home_spread,<span class="cn">NA</span>),</span>
+<span id="cb572-11"><a href="logistic-regression.html#cb572-11" tabindex="-1"></a>         <span class="at">home_lost =</span> <span class="fu">ifelse</span>(home_win <span class="sc">==</span> <span class="dv">0</span>,home_spread,<span class="cn">NA</span>))</span>
+<span id="cb572-12"><a href="logistic-regression.html#cb572-12" tabindex="-1"></a>nfl_spread <span class="sc">%&gt;%</span> </span>
+<span id="cb572-13"><a href="logistic-regression.html#cb572-13" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb572-14"><a href="logistic-regression.html#cb572-14" tabindex="-1"></a>  <span class="fu">select</span>(team_home,team_away,score_home,score_away,home_spread,home_win) <span class="sc">%&gt;%</span> </span>
+<span id="cb572-15"><a href="logistic-regression.html#cb572-15" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+team_home
+</th>
+<th style="text-align:left;">
+team_away
+</th>
+<th style="text-align:right;">
+score_home
+</th>
+<th style="text-align:right;">
+score_away
+</th>
+<th style="text-align:right;">
+home_spread
+</th>
+<th style="text-align:right;">
+home_win
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Buffalo Bills
+</td>
+<td style="text-align:left;">
+Indianapolis Colts
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Carolina Panthers
+</td>
+<td style="text-align:left;">
+New Orleans Saints
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+-8.5
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Chicago Bears
+</td>
+<td style="text-align:left;">
+Tampa Bay Buccaneers
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+3.5
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dallas Cowboys
+</td>
+<td style="text-align:left;">
+New York Giants
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+-6.5
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Denver Broncos
+</td>
+<td style="text-align:left;">
+San Diego Chargers
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+-7.0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="logistic-regression.html#cb573-1" tabindex="-1"></a>nfl_spread <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>home_spread,<span class="at">y=</span>home_win)) <span class="sc">+</span></span>
+<span id="cb573-2"><a href="logistic-regression.html#cb573-2" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;glm&quot;</span>, </span>
+<span id="cb573-3"><a href="logistic-regression.html#cb573-3" tabindex="-1"></a>    <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb573-4"><a href="logistic-regression.html#cb573-4" tabindex="-1"></a>  <span class="fu">geom_rug</span>(<span class="fu">aes</span>(<span class="at">x =</span> home_won), <span class="at">sides =</span> <span class="st">&quot;t&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb573-5"><a href="logistic-regression.html#cb573-5" tabindex="-1"></a>  <span class="fu">geom_rug</span>(<span class="fu">aes</span>(<span class="at">x =</span> home_lost), <span class="at">sides =</span> <span class="st">&quot;b&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-298-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="logistic-regression.html#cb574-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(home_win<span class="sc">~</span>home_spread,<span class="at">data=</span>nfl_spread,<span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb574-2"><a href="logistic-regression.html#cb574-2" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = home_win ~ home_spread, family = &quot;binomial&quot;, data = nfl_spread)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.0869  -1.0708   0.7106   0.9979   2.0586  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  0.091060   0.026781    3.40 0.000673 ***
+## home_spread -0.115659   0.004612  -25.08  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 9066.2  on 6614  degrees of freedom
+## Residual deviance: 8344.1  on 6613  degrees of freedom
+## AIC: 8348.1
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="logistic-regression.html#cb576-1" tabindex="-1"></a><span class="fu">predict</span>(mod,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">home_spread =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>,<span class="sc">-</span><span class="dv">5</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">10</span>)),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<pre><code>##         1         2         3         4         5         6         7 
+## 0.7768932 0.6613590 0.5514965 0.5227493 0.4938505 0.3805448 0.2562536</code></pre>
+<ol style="list-style-type: lower-alpha">
+<li><p>Write the estimated logistic regression equation. </p></li>
+<li><p>Determine and interpret the change in log-odds for a one-unit increase in home_spread. </p></li>
+<li><p>Estimate the probability that the home team wins given they are 5 point favorites.  </p></li>
+</ol>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="multiple-logistic-regression" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Multiple Logistic Regression<a href="logistic-regression.html#multiple-logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can extend the framework of the simple logistic regression model to include multiple predictor variables. In this case, we have the following multiple logistic regression model.</p>
+<p><span class="math inline">\(logit(p) = log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 x_1 + \ldots + \beta_p x_p\)</span><br />
+</p>
+<p>We also have:</p>
+<p><span class="math inline">\(E[Y_i] = \pi_i = \frac{exp(\beta_0+\beta_1X_i+\ldots + \beta_pX_p)}{1+exp(\beta_0+\beta_1X_i+\ldots + \beta_pX_p)}\)</span><br />
+</p>
+</div>
+<div id="example-field-goal-success" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> Example: Field Goal Success<a href="logistic-regression.html#example-field-goal-success" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="logistic-regression.html#cb578-1" tabindex="-1"></a><span class="co"># Example outlined at:</span></span>
+<span id="cb578-2"><a href="logistic-regression.html#cb578-2" tabindex="-1"></a><span class="co"># http://rstudio-pubs-static.s3.amazonaws.com/</span></span>
+<span id="cb578-3"><a href="logistic-regression.html#cb578-3" tabindex="-1"></a><span class="co"># 264999_c04ec6882e474eb9ab5f3feb3e62e40d.html</span></span>
+<span id="cb578-4"><a href="logistic-regression.html#cb578-4" tabindex="-1"></a></span>
+<span id="cb578-5"><a href="logistic-regression.html#cb578-5" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl2008_fga.csv&quot;</span>,<span class="at">show_col_types =</span> F)</span>
+<span id="cb578-6"><a href="logistic-regression.html#cb578-6" tabindex="-1"></a><span class="fu">names</span>(nfl_fg)</span></code></pre></div>
+<pre><code>##  [1] &quot;GameDate&quot; &quot;AwayTeam&quot; &quot;HomeTeam&quot; &quot;qtr&quot;      &quot;min&quot;      &quot;sec&quot;     
+##  [7] &quot;kickteam&quot; &quot;def&quot;      &quot;down&quot;     &quot;togo&quot;     &quot;kicker&quot;   &quot;ydline&quot;  
+## [13] &quot;name&quot;     &quot;distance&quot; &quot;homekick&quot; &quot;kickdiff&quot; &quot;timerem&quot;  &quot;offscore&quot;
+## [19] &quot;defscore&quot; &quot;season&quot;   &quot;GOOD&quot;     &quot;Missed&quot;   &quot;Blocked&quot;</code></pre>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="logistic-regression.html#cb580-1" tabindex="-1"></a>nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb580-2"><a href="logistic-regression.html#cb580-2" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb580-3"><a href="logistic-regression.html#cb580-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb580-4"><a href="logistic-regression.html#cb580-4" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+GameDate
+</th>
+<th style="text-align:left;">
+AwayTeam
+</th>
+<th style="text-align:left;">
+HomeTeam
+</th>
+<th style="text-align:right;">
+qtr
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+sec
+</th>
+<th style="text-align:left;">
+kickteam
+</th>
+<th style="text-align:left;">
+def
+</th>
+<th style="text-align:right;">
+down
+</th>
+<th style="text-align:right;">
+togo
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+20081130
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:left;">
+CLE
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:left;">
+CLE
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20081005
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:left;">
+HOU
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:left;">
+HOU
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20081228
+</td>
+<td style="text-align:left;">
+TEN
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:left;">
+TEN
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20081012
+</td>
+<td style="text-align:left;">
+BAL
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+42
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:left;">
+BAL
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20080907
+</td>
+<td style="text-align:left;">
+CHI
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:left;">
+CHI
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+21
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20081116
+</td>
+<td style="text-align:left;">
+HOU
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:left;">
+HOU
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20081123
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:left;">
+SD
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:left;">
+SD
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20081207
+</td>
+<td style="text-align:left;">
+KC
+</td>
+<td style="text-align:left;">
+DEN
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:left;">
+KC
+</td>
+<td style="text-align:left;">
+DEN
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20081130
+</td>
+<td style="text-align:left;">
+KC
+</td>
+<td style="text-align:left;">
+OAK
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+KC
+</td>
+<td style="text-align:left;">
+OAK
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20090118
+</td>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:left;">
+ARI
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:left;">
+ARI
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="logistic-regression.html#cb581-1" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb581-2"><a href="logistic-regression.html#cb581-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Result =</span> <span class="fu">ifelse</span>(GOOD<span class="sc">==</span><span class="dv">1</span>,<span class="st">&quot;Made&quot;</span>,<span class="st">&quot;Missed&quot;</span>))</span>
+<span id="cb581-3"><a href="logistic-regression.html#cb581-3" tabindex="-1"></a>nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb581-4"><a href="logistic-regression.html#cb581-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>distance,<span class="at">y=</span>GOOD)) <span class="sc">+</span> </span>
+<span id="cb581-5"><a href="logistic-regression.html#cb581-5" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb581-6"><a href="logistic-regression.html#cb581-6" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;glm&quot;</span>, </span>
+<span id="cb581-7"><a href="logistic-regression.html#cb581-7" tabindex="-1"></a>    <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)) <span class="sc">+</span>  </span>
+<span id="cb581-8"><a href="logistic-regression.html#cb581-8" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="textbook_files/figure-html/unnamed-chunk-302-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="logistic-regression.html#cb583-1" tabindex="-1"></a>nfl_fg <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(distance)) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>Result)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-303-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="logistic-regression.html#cb584-1" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl2008_fga.csv&quot;</span>,<span class="at">show_col_types =</span> F)</span>
+<span id="cb584-2"><a href="logistic-regression.html#cb584-2" tabindex="-1"></a><span class="fu">names</span>(nfl_fg) <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">names</span>(nfl_fg))</span>
+<span id="cb584-3"><a href="logistic-regression.html#cb584-3" tabindex="-1"></a><span class="fu">names</span>(nfl_fg) <span class="ot">&lt;-</span> <span class="fu">str_replace</span>(<span class="fu">names</span>(nfl_fg), <span class="st">&quot;team&quot;</span>, <span class="st">&quot;_team&quot;</span>)</span>
+<span id="cb584-4"><a href="logistic-regression.html#cb584-4" tabindex="-1"></a><span class="fu">names</span>(nfl_fg) <span class="ot">&lt;-</span> <span class="fu">str_replace</span>(<span class="fu">names</span>(nfl_fg), <span class="st">&quot;score&quot;</span>, <span class="st">&quot;_score&quot;</span>)</span>
+<span id="cb584-5"><a href="logistic-regression.html#cb584-5" tabindex="-1"></a><span class="co"># rename some other variables</span></span>
+<span id="cb584-6"><a href="logistic-regression.html#cb584-6" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb584-7"><a href="logistic-regression.html#cb584-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">game_date =</span> gamedate, </span>
+<span id="cb584-8"><a href="logistic-regression.html#cb584-8" tabindex="-1"></a>         <span class="at">to_go =</span> togo, </span>
+<span id="cb584-9"><a href="logistic-regression.html#cb584-9" tabindex="-1"></a>         <span class="at">yd_line =</span> ydline, </span>
+<span id="cb584-10"><a href="logistic-regression.html#cb584-10" tabindex="-1"></a>         <span class="at">home_kick =</span> homekick, </span>
+<span id="cb584-11"><a href="logistic-regression.html#cb584-11" tabindex="-1"></a>         <span class="at">time_rem =</span> timerem)</span>
+<span id="cb584-12"><a href="logistic-regression.html#cb584-12" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb584-13"><a href="logistic-regression.html#cb584-13" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">kick_score_diff =</span> kickdiff, </span>
+<span id="cb584-14"><a href="logistic-regression.html#cb584-14" tabindex="-1"></a>         <span class="at">min_rem =</span> min, </span>
+<span id="cb584-15"><a href="logistic-regression.html#cb584-15" tabindex="-1"></a>         <span class="at">sec_rem =</span> sec, </span>
+<span id="cb584-16"><a href="logistic-regression.html#cb584-16" tabindex="-1"></a>         <span class="at">def_team =</span> def,</span>
+<span id="cb584-17"><a href="logistic-regression.html#cb584-17" tabindex="-1"></a>         <span class="at">made =</span> good)</span>
+<span id="cb584-18"><a href="logistic-regression.html#cb584-18" tabindex="-1"></a></span>
+<span id="cb584-19"><a href="logistic-regression.html#cb584-19" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb584-20"><a href="logistic-regression.html#cb584-20" tabindex="-1"></a>nfl_fg<span class="sc">$</span>game_date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(nfl_fg<span class="sc">$</span>game_date)</span>
+<span id="cb584-21"><a href="logistic-regression.html#cb584-21" tabindex="-1"></a>kicker_list <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb584-22"><a href="logistic-regression.html#cb584-22" tabindex="-1"></a>  <span class="fu">group_by</span>(name, kicker, kick_team) <span class="sc">%&gt;%</span> </span>
+<span id="cb584-23"><a href="logistic-regression.html#cb584-23" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">made =</span> <span class="fu">mean</span>(made)) <span class="sc">%&gt;%</span> </span>
+<span id="cb584-24"><a href="logistic-regression.html#cb584-24" tabindex="-1"></a>  <span class="fu">arrange</span>(name)</span>
+<span id="cb584-25"><a href="logistic-regression.html#cb584-25" tabindex="-1"></a>kicker_list <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:right;">
+kicker
+</th>
+<th style="text-align:left;">
+kick_team
+</th>
+<th style="text-align:right;">
+n
+</th>
+<th style="text-align:right;">
+made
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A.Vinatieri
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+0.8461538
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C.Barth
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:left;">
+KC
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+0.8333333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D.Akers
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+0.9000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D.Carpenter
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:left;">
+MIA
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+0.8846154
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D.Rayner
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+CIN
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+G.Hartley
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+1.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J.Brown
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:left;">
+STL
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J.Brown
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:left;">
+STL
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+0.8857143
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J.Carney
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:left;">
+NYG
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+0.9302326
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J.Elam
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+ATL
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+0.9375000
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="logistic-regression.html#cb585-1" tabindex="-1"></a><span class="co"># fix duplicate names and their IDs</span></span>
+<span id="cb585-2"><a href="logistic-regression.html#cb585-2" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">which</span>(nfl_fg<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;S.Hauschka&quot;</span> <span class="sc">&amp;</span> nfl_fg<span class="sc">$</span>kicker <span class="sc">==</span> <span class="dv">3</span>)</span>
+<span id="cb585-3"><a href="logistic-regression.html#cb585-3" tabindex="-1"></a>nfl_fg[[<span class="st">&quot;kicker&quot;</span>]][[index]] <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb585-4"><a href="logistic-regression.html#cb585-4" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">which</span>(nfl_fg<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;J.Brown&quot;</span> <span class="sc">&amp;</span> nfl_fg<span class="sc">$</span>kicker <span class="sc">==</span> <span class="dv">34</span>)</span>
+<span id="cb585-5"><a href="logistic-regression.html#cb585-5" tabindex="-1"></a>nfl_fg[[<span class="st">&quot;kicker&quot;</span>]][[index]] <span class="ot">&lt;-</span> <span class="dv">35</span></span>
+<span id="cb585-6"><a href="logistic-regression.html#cb585-6" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">which</span>(nfl_fg<span class="sc">$</span>kicker <span class="sc">==</span> <span class="dv">9</span> <span class="sc">&amp;</span> nfl_fg<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;D.Rayner&quot;</span>)</span>
+<span id="cb585-7"><a href="logistic-regression.html#cb585-7" tabindex="-1"></a>nfl_fg[[<span class="st">&quot;kicker&quot;</span>]][[index]] <span class="ot">&lt;-</span> <span class="dv">38</span></span>
+<span id="cb585-8"><a href="logistic-regression.html#cb585-8" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">which</span>(nfl_fg<span class="sc">$</span>kicker <span class="sc">==</span> <span class="dv">26</span> <span class="sc">&amp;</span> nfl_fg<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;M.Nugent&quot;</span>)</span>
+<span id="cb585-9"><a href="logistic-regression.html#cb585-9" tabindex="-1"></a>nfl_fg[[<span class="st">&quot;kicker&quot;</span>]][[index]] <span class="ot">&lt;-</span> <span class="dv">39</span></span>
+<span id="cb585-10"><a href="logistic-regression.html#cb585-10" tabindex="-1"></a></span>
+<span id="cb585-11"><a href="logistic-regression.html#cb585-11" tabindex="-1"></a>kicker_list <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb585-12"><a href="logistic-regression.html#cb585-12" tabindex="-1"></a>  <span class="fu">group_by</span>(name, kicker, kick_team) <span class="sc">%&gt;%</span> </span>
+<span id="cb585-13"><a href="logistic-regression.html#cb585-13" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">made =</span> <span class="fu">mean</span>(made)) <span class="sc">%&gt;%</span> </span>
+<span id="cb585-14"><a href="logistic-regression.html#cb585-14" tabindex="-1"></a>  <span class="fu">arrange</span>(name)</span>
+<span id="cb585-15"><a href="logistic-regression.html#cb585-15" tabindex="-1"></a>kicker_list <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:right;">
+kicker
+</th>
+<th style="text-align:left;">
+kick_team
+</th>
+<th style="text-align:right;">
+n
+</th>
+<th style="text-align:right;">
+made
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A.Vinatieri
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+0.8461538
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C.Barth
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:left;">
+KC
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+0.8333333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D.Akers
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+0.9000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D.Carpenter
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:left;">
+MIA
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+0.8846154
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D.Rayner
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:left;">
+CIN
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+G.Hartley
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+1.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J.Brown
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:left;">
+STL
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+0.8611111
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J.Carney
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:left;">
+NYG
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+0.9302326
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J.Elam
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+ATL
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+0.9375000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J.Feely
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:left;">
+NYJ
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+0.8571429
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="logistic-regression.html#cb586-1" tabindex="-1"></a><span class="co"># dataframe of kickers with less than 5 attempts</span></span>
+<span id="cb586-2"><a href="logistic-regression.html#cb586-2" tabindex="-1"></a>temp <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb586-3"><a href="logistic-regression.html#cb586-3" tabindex="-1"></a>  <span class="fu">group_by</span>(name, kicker) <span class="sc">%&gt;%</span> </span>
+<span id="cb586-4"><a href="logistic-regression.html#cb586-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">made =</span> <span class="fu">mean</span>(made)) <span class="sc">%&gt;%</span> </span>
+<span id="cb586-5"><a href="logistic-regression.html#cb586-5" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&lt;</span> <span class="dv">5</span>)</span>
+<span id="cb586-6"><a href="logistic-regression.html#cb586-6" tabindex="-1"></a><span class="co"># list of names of kickers with less than 5 attempts</span></span>
+<span id="cb586-7"><a href="logistic-regression.html#cb586-7" tabindex="-1"></a>names <span class="ot">=</span> temp<span class="sc">$</span>name</span>
+<span id="cb586-8"><a href="logistic-regression.html#cb586-8" tabindex="-1"></a><span class="co"># filter dataset to not include the kickers with less than 5 attempts</span></span>
+<span id="cb586-9"><a href="logistic-regression.html#cb586-9" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> names) {</span>
+<span id="cb586-10"><a href="logistic-regression.html#cb586-10" tabindex="-1"></a>  nfl_fg <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> <span class="fu">filter</span>(name <span class="sc">!=</span> n)</span>
+<span id="cb586-11"><a href="logistic-regression.html#cb586-11" tabindex="-1"></a>}</span>
+<span id="cb586-12"><a href="logistic-regression.html#cb586-12" tabindex="-1"></a>temp <span class="ot">&lt;-</span> nfl_fg <span class="sc">%&gt;%</span> </span>
+<span id="cb586-13"><a href="logistic-regression.html#cb586-13" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
+<span id="cb586-14"><a href="logistic-regression.html#cb586-14" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n=</span> <span class="fu">n</span>(), <span class="at">made_pct =</span> <span class="fu">mean</span>(made)) <span class="sc">%&gt;%</span> </span>
+<span id="cb586-15"><a href="logistic-regression.html#cb586-15" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(made_pct), <span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb586-16"><a href="logistic-regression.html#cb586-16" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">kicker_rank =</span> <span class="fu">rank</span>(<span class="fu">desc</span>(made_pct), <span class="at">ties.method =</span> <span class="st">&quot;first&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb586-17"><a href="logistic-regression.html#cb586-17" tabindex="-1"></a>  <span class="fu">arrange</span>(kicker_rank)</span>
+<span id="cb586-18"><a href="logistic-regression.html#cb586-18" tabindex="-1"></a>temp <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:right;">
+n
+</th>
+<th style="text-align:right;">
+made_pct
+</th>
+<th style="text-align:right;">
+kicker_rank
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+J.Hanson
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+1.0000000
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+G.Hartley
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+1.0000000
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R.Gould
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+0.9655172
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J.Elam
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+0.9375000
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J.Carney
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+0.9302326
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+N.Folk
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+0.9130435
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+N.Kaeding
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+0.9117647
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R.Longwell
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+0.9117647
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+K.Brown
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+0.9090909
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J.Kasay
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+0.9032258
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="logistic-regression.html#cb587-1" tabindex="-1"></a>temp <span class="ot">&lt;-</span> temp <span class="sc">%&gt;%</span> </span>
+<span id="cb587-2"><a href="logistic-regression.html#cb587-2" tabindex="-1"></a>  <span class="fu">select</span>(name, kicker_rank)</span>
+<span id="cb587-3"><a href="logistic-regression.html#cb587-3" tabindex="-1"></a>nfl_fg <span class="ot">&lt;-</span> <span class="fu">left_join</span>(nfl_fg, temp, <span class="at">by =</span> <span class="st">&quot;name&quot;</span>)</span>
+<span id="cb587-4"><a href="logistic-regression.html#cb587-4" tabindex="-1"></a>nfl_fg<span class="sc">$</span>name <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb587-5"><a href="logistic-regression.html#cb587-5" tabindex="-1"></a>nfl_fg<span class="sc">$</span>kicker <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code></pre></div>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="logistic-regression.html#cb588-1" tabindex="-1"></a>fg_mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(made <span class="sc">~</span> distance, <span class="at">data =</span> nfl_fg, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb588-2"><a href="logistic-regression.html#cb588-2" tabindex="-1"></a><span class="fu">summary</span>(fg_mod)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = made ~ distance, family = &quot;binomial&quot;, data = nfl_fg)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.9834   0.1960   0.3393   0.5766   1.2420  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   6.9191     0.5599  12.358   &lt;2e-16 ***
+## distance     -0.1240     0.0126  -9.842   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 803.90  on 1029  degrees of freedom
+## Residual deviance: 671.21  on 1028  degrees of freedom
+## AIC: 675.21
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="logistic-regression.html#cb590-1" tabindex="-1"></a><span class="fu">predict</span>(fg_mod,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">distance =</span> <span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">60</span>,<span class="dv">70</span>)),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<pre><code>##         1         2         3         4         5 
+## 0.9607681 0.8763128 0.6720984 0.3722482 0.1464325</code></pre>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="logistic-regression.html#cb592-1" tabindex="-1"></a>fg_mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(made <span class="sc">~</span> distance<span class="sc">+</span>kicker_rank, <span class="at">data =</span> nfl_fg, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb592-2"><a href="logistic-regression.html#cb592-2" tabindex="-1"></a><span class="fu">summary</span>(fg_mod2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = made ~ distance + kicker_rank, family = &quot;binomial&quot;, 
+##     data = nfl_fg)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.9083   0.1780   0.3124   0.5354   1.4893  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  7.90455    0.61550  12.842  &lt; 2e-16 ***
+## distance    -0.12238    0.01278  -9.577  &lt; 2e-16 ***
+## kicker_rank -0.05646    0.01132  -4.988 6.11e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 803.90  on 1029  degrees of freedom
+## Residual deviance: 644.77  on 1027  degrees of freedom
+## AIC: 650.77
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="logistic-regression.html#cb594-1" tabindex="-1"></a><span class="fu">predict</span>(fg_mod2,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">distance =</span> <span class="dv">50</span>,<span class="at">kicker_rank=</span><span class="dv">1</span>),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<pre><code>##         1 
+## 0.8492647</code></pre>
+<ol style="list-style-type: lower-alpha">
+<li><p>Write the estimated logistic regression equation. </p></li>
+<li><p>Determine and interpret the change in log-odds for a one-unit increase in distance while holding kicker rank constant. </p></li>
+<li><p>Determine and interpret the change in log-odds for a one-unit increase in kicker rank while holding distance constant. </p></li>
+<li><p>Estimate the probability that a field goal is good given that it was from 50 yards and was kicked by the top ranked kicker.  </p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="advanced-regression-methods.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="classification.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/aaron-nielsen/SportsAnalyticsBook/edit/master/10-logistic-regression.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["textbook.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 Sports Drafts | Sports Analytics</title>
+  <meta name="description" content="Chapter 12 Sports Drafts | Sports Analytics Notes" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 Sports Drafts | Sports Analytics" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+  <meta property="og:description" content="Chapter 12 Sports Drafts | Sports Analytics Notes" />
+  <meta name="github-repo" content="aaron-nielsen.github.io/SportsAnalyticsBook/" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Sports Drafts | Sports Analytics" />
+  
+  <meta name="twitter:description" content="Chapter 12 Sports Drafts | Sports Analytics Notes" />
+  <meta name="twitter:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+
+<meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
+
+
+<meta name="date" content="2023-08-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="classification.html"/>
+<link rel="next" href="clustering.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/style.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/lesson.css" type="text/css" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Sports Analytics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i>Preliminaries</a>
+<ul>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#getting-started-with-r"><i class="fa fa-check"></i>Getting Started With R</a>
+<ul>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#installing-r"><i class="fa fa-check"></i>Installing R</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#some-r-basics"><i class="fa fa-check"></i>Some R Basics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#course-goals"><i class="fa fa-check"></i>Course Goals</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#which-sports"><i class="fa fa-check"></i>Which Sports?</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#challenges"><i class="fa fa-check"></i>Challenges</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#ethical-concerns"><i class="fa fa-check"></i>Ethical Concerns</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>1</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>1.1</b> Descriptive Statistics</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#definitions"><i class="fa fa-check"></i><b>1.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="1.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>1.1.2</b> Descriptive Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#visualizations"><i class="fa fa-check"></i><b>1.2</b> Visualizations</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#histograms"><i class="fa fa-check"></i><b>1.2.1</b> Histograms</a></li>
+<li class="chapter" data-level="1.2.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#bar-plots"><i class="fa fa-check"></i><b>1.2.2</b> Bar Plots</a></li>
+<li class="chapter" data-level="1.2.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plots"><i class="fa fa-check"></i><b>1.2.3</b> Scatter Plots</a></li>
+<li class="chapter" data-level="1.2.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#kable-tables"><i class="fa fa-check"></i><b>1.2.4</b> Kable Tables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#baseball"><i class="fa fa-check"></i><b>1.3</b> Baseball</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#hitting-statistics"><i class="fa fa-check"></i><b>1.3.1</b> Hitting Statistics</a></li>
+<li class="chapter" data-level="1.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#pitching-statistics"><i class="fa fa-check"></i><b>1.3.2</b> Pitching Statistics</a></li>
+<li class="chapter" data-level="1.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#wins-above-replacement"><i class="fa fa-check"></i><b>1.3.3</b> Wins Above Replacement</a></li>
+<li class="chapter" data-level="1.3.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#calculating-hitting-statistics"><i class="fa fa-check"></i><b>1.3.4</b> Calculating Hitting Statistics</a></li>
+<li class="chapter" data-level="1.3.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#evaluating-pitching-statistics"><i class="fa fa-check"></i><b>1.3.5</b> Evaluating Pitching Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#football"><i class="fa fa-check"></i><b>1.4</b> Football</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-football-statistics"><i class="fa fa-check"></i><b>1.4.1</b> Basic Football Statistics</a></li>
+<li class="chapter" data-level="1.4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-football-statistics"><i class="fa fa-check"></i><b>1.4.2</b> Advanced Football Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basketball"><i class="fa fa-check"></i><b>1.5</b> Basketball</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-basketball-statistics"><i class="fa fa-check"></i><b>1.5.1</b> Basic Basketball Statistics</a></li>
+<li class="chapter" data-level="1.5.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-basketball-statistics"><i class="fa fa-check"></i><b>1.5.2</b> Advanced Basketball Statistics</a></li>
+<li class="chapter" data-level="1.5.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#four-factors"><i class="fa fa-check"></i><b>1.5.3</b> Four Factors</a></li>
+<li class="chapter" data-level="1.5.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#shot-charts"><i class="fa fa-check"></i><b>1.5.4</b> Shot Charts</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#hockey"><i class="fa fa-check"></i><b>1.6</b> Hockey</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-hockey-statistics"><i class="fa fa-check"></i><b>1.6.1</b> Basic Hockey Statistics</a></li>
+<li class="chapter" data-level="1.6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-hockey-statistics"><i class="fa fa-check"></i><b>1.6.2</b> Advanced Hockey Statistics</a></li>
+<li class="chapter" data-level="1.6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#actual-vs.-expected-goals"><i class="fa fa-check"></i><b>1.6.3</b> Actual vs. Expected Goals</a></li>
+<li class="chapter" data-level="1.6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#goalie-statistics"><i class="fa fa-check"></i><b>1.6.4</b> Goalie Statistics</a></li>
+<li class="chapter" data-level="1.6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#correlation-plots"><i class="fa fa-check"></i><b>1.6.5</b> Correlation Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#volleyball"><i class="fa fa-check"></i><b>1.7</b> Volleyball</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-volleyball-statistics"><i class="fa fa-check"></i><b>1.7.1</b> Basic Volleyball Statistics</a></li>
+<li class="chapter" data-level="1.7.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plot"><i class="fa fa-check"></i><b>1.7.2</b> Scatter Plot</a></li>
+<li class="chapter" data-level="1.7.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#box-plot"><i class="fa fa-check"></i><b>1.7.3</b> Box Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#soccer"><i class="fa fa-check"></i><b>1.8</b> Soccer</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-soccer-statistics"><i class="fa fa-check"></i><b>1.8.1</b> Basic Soccer Statistics</a></li>
+<li class="chapter" data-level="1.8.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-soccer-statistics"><i class="fa fa-check"></i><b>1.8.2</b> Advanced Soccer Statistics</a></li>
+<li class="chapter" data-level="1.8.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#bar-plot"><i class="fa fa-check"></i><b>1.8.3</b> Bar Plot</a></li>
+<li class="chapter" data-level="1.8.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plot-1"><i class="fa fa-check"></i><b>1.8.4</b> Scatter Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>2</b> Probability</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#definitions-1"><i class="fa fa-check"></i><b>2.1</b> Definitions</a></li>
+<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#set-theory"><i class="fa fa-check"></i><b>2.2</b> Set Theory</a></li>
+<li class="chapter" data-level="2.3" data-path="probability.html"><a href="probability.html#axioms-properties-and-laws"><i class="fa fa-check"></i><b>2.3</b> Axioms, Properties, and Laws</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="probability.html"><a href="probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>2.3.1</b> Axioms of Probability</a></li>
+<li class="chapter" data-level="2.3.2" data-path="probability.html"><a href="probability.html#properties-of-probability"><i class="fa fa-check"></i><b>2.3.2</b> Properties of Probability</a></li>
+<li class="chapter" data-level="2.3.3" data-path="probability.html"><a href="probability.html#laws-of-probability"><i class="fa fa-check"></i><b>2.3.3</b> Laws of Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="probability.html"><a href="probability.html#combinatorics"><i class="fa fa-check"></i><b>2.4</b> Combinatorics</a></li>
+<li class="chapter" data-level="2.5" data-path="probability.html"><a href="probability.html#random-variables"><i class="fa fa-check"></i><b>2.5</b> Random Variables</a></li>
+<li class="chapter" data-level="2.6" data-path="probability.html"><a href="probability.html#common-random-variables"><i class="fa fa-check"></i><b>2.6</b> Common Random Variables</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="probability.html"><a href="probability.html#binomial-rvs"><i class="fa fa-check"></i><b>2.6.1</b> Binomial RVs</a></li>
+<li class="chapter" data-level="2.6.2" data-path="probability.html"><a href="probability.html#geometric-rvs"><i class="fa fa-check"></i><b>2.6.2</b> Geometric RVs</a></li>
+<li class="chapter" data-level="2.6.3" data-path="probability.html"><a href="probability.html#poisson-rvs"><i class="fa fa-check"></i><b>2.6.3</b> Poisson RVs</a></li>
+<li class="chapter" data-level="2.6.4" data-path="probability.html"><a href="probability.html#negative-binomial-rvs"><i class="fa fa-check"></i><b>2.6.4</b> Negative Binomial RVs</a></li>
+<li class="chapter" data-level="2.6.5" data-path="probability.html"><a href="probability.html#normal-rvs"><i class="fa fa-check"></i><b>2.6.5</b> Normal RVs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="probability.html"><a href="probability.html#win-probability-models"><i class="fa fa-check"></i><b>2.7</b> Win Probability Models</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="probability.html"><a href="probability.html#estimating-pregame-win-probability"><i class="fa fa-check"></i><b>2.7.1</b> Estimating Pregame Win Probability</a></li>
+<li class="chapter" data-level="2.7.2" data-path="probability.html"><a href="probability.html#estimating-in-game-win-probability"><i class="fa fa-check"></i><b>2.7.2</b> Estimating In-Game Win Probability</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="odds-and-bets.html"><a href="odds-and-bets.html"><i class="fa fa-check"></i><b>3</b> Odds and Bets</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="odds-and-bets.html"><a href="odds-and-bets.html#odds"><i class="fa fa-check"></i><b>3.1</b> Odds</a></li>
+<li class="chapter" data-level="3.2" data-path="odds-and-bets.html"><a href="odds-and-bets.html#gambling-odds"><i class="fa fa-check"></i><b>3.2</b> Gambling Odds</a></li>
+<li class="chapter" data-level="3.3" data-path="odds-and-bets.html"><a href="odds-and-bets.html#types-of-bets"><i class="fa fa-check"></i><b>3.3</b> Types of Bets</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html"><i class="fa fa-check"></i><b>4</b> Monte Carlo Simulation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#basics"><i class="fa fa-check"></i><b>4.1</b> Basics</a></li>
+<li class="chapter" data-level="4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#estimating-probabilities"><i class="fa fa-check"></i><b>4.2</b> Estimating Probabilities</a></li>
+<li class="chapter" data-level="4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-streaks"><i class="fa fa-check"></i><b>4.3</b> Simulating Streaks</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#winning-streak-simulation"><i class="fa fa-check"></i><b>4.3.1</b> Winning Streak Simulation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#hitting-streak-simulation"><i class="fa fa-check"></i><b>4.3.2</b> Hitting Streak Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gambling-simulations"><i class="fa fa-check"></i><b>4.4</b> Gambling Simulations</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#martingale-system"><i class="fa fa-check"></i><b>4.4.1</b> Martingale System</a></li>
+<li class="chapter" data-level="4.4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gamblers-ruin"><i class="fa fa-check"></i><b>4.4.2</b> Gambler’s Ruin</a></li>
+<li class="chapter" data-level="4.4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-a-winning-system"><i class="fa fa-check"></i><b>4.4.3</b> Simulating a Winning System</a></li>
+<li class="chapter" data-level="4.4.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#using-the-kelly-growth-criterion"><i class="fa fa-check"></i><b>4.4.4</b> Using the Kelly Growth Criterion</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-censored-data"><i class="fa fa-check"></i><b>4.5</b> Simulating Censored Data</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#tony-gwynn-1994-batting-average-simulation"><i class="fa fa-check"></i><b>4.5.1</b> Tony Gwynn 1994 Batting Average Simulation</a></li>
+<li class="chapter" data-level="4.5.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#matt-williams-1994-home-run-simulation"><i class="fa fa-check"></i><b>4.5.2</b> Matt Williams 1994 Home Run Simulation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="inferential-statistics.html"><a href="inferential-statistics.html"><i class="fa fa-check"></i><b>5</b> Inferential Statistics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#defining-a-population"><i class="fa fa-check"></i><b>5.1</b> Defining a Population</a></li>
+<li class="chapter" data-level="5.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#statistical-inference"><i class="fa fa-check"></i><b>5.2</b> Statistical Inference</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-intervals"><i class="fa fa-check"></i><b>5.2.1</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="5.2.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hypothesis-tests"><i class="fa fa-check"></i><b>5.2.2</b> Hypothesis Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#inference-for-population-mean"><i class="fa fa-check"></i><b>5.3</b> Inference for Population Mean</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-population-mean"><i class="fa fa-check"></i><b>5.3.1</b> Confidence Interval for Population Mean</a></li>
+<li class="chapter" data-level="5.3.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hypothesis-test-for-population-mean"><i class="fa fa-check"></i><b>5.3.2</b> Hypothesis Test for Population Mean</a></li>
+<li class="chapter" data-level="5.3.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-difference-in-means"><i class="fa fa-check"></i><b>5.3.3</b> Test for Difference in Means</a></li>
+<li class="chapter" data-level="5.3.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-difference-in-means"><i class="fa fa-check"></i><b>5.3.4</b> Confidence Interval for Difference in Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#inference-for-population-proportion"><i class="fa fa-check"></i><b>5.4</b> Inference for Population Proportion</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-population-proportion"><i class="fa fa-check"></i><b>5.4.1</b> Confidence Interval for Population Proportion</a></li>
+<li class="chapter" data-level="5.4.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-population-proportion"><i class="fa fa-check"></i><b>5.4.2</b> Test for Population Proportion</a></li>
+<li class="chapter" data-level="5.4.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.4.3</b> Confidence Interval for Difference in Proportions</a></li>
+<li class="chapter" data-level="5.4.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.4.4</b> Test for Difference in Proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#bootstrap"><i class="fa fa-check"></i><b>5.5</b> Bootstrap</a></li>
+<li class="chapter" data-level="5.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#margin-of-error-calcuations"><i class="fa fa-check"></i><b>5.6</b> Margin of Error Calcuations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-for-probabilities"><i class="fa fa-check"></i><b>5.6.1</b> MOE for Probabilities</a></li>
+<li class="chapter" data-level="5.6.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-for-averages"><i class="fa fa-check"></i><b>5.6.2</b> MOE for Averages</a></li>
+<li class="chapter" data-level="5.6.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-estimation-using-simulation"><i class="fa fa-check"></i><b>5.6.3</b> MOE estimation using simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="inferential-statistics.html"><a href="inferential-statistics.html#one-sample-and-two-sample-t-tests-and-confidence-intervals"><i class="fa fa-check"></i><b>5.7</b> One Sample and Two Sample t-tests and confidence intervals</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hockey-faceoffs"><i class="fa fa-check"></i><b>5.7.1</b> Hockey Faceoffs</a></li>
+<li class="chapter" data-level="5.7.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hockey-penalty-scoring"><i class="fa fa-check"></i><b>5.7.2</b> Hockey Penalty Scoring</a></li>
+<li class="chapter" data-level="5.7.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#nfl-overtime-winners"><i class="fa fa-check"></i><b>5.7.3</b> NFL Overtime Winners</a></li>
+<li class="chapter" data-level="5.7.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#icing-the-kicker"><i class="fa fa-check"></i><b>5.7.4</b> Icing the Kicker</a></li>
+<li class="chapter" data-level="5.7.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#example-football-one-vs.-two-point-conversion"><i class="fa fa-check"></i><b>5.7.5</b> Example: Football One vs. Two Point Conversion</a></li>
+<li class="chapter" data-level="5.7.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#two-sample-tests"><i class="fa fa-check"></i><b>5.7.6</b> Two Sample Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="inferential-statistics.html"><a href="inferential-statistics.html#permutation-tests"><i class="fa fa-check"></i><b>5.8</b> Permutation Tests</a></li>
+<li class="chapter" data-level="5.9" data-path="inferential-statistics.html"><a href="inferential-statistics.html#bootstrap-1"><i class="fa fa-check"></i><b>5.9</b> Bootstrap</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="measures-of-association.html"><a href="measures-of-association.html"><i class="fa fa-check"></i><b>6</b> Measures of Association</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="measures-of-association.html"><a href="measures-of-association.html#pearson-correlation-coefficient"><i class="fa fa-check"></i><b>6.1</b> Pearson Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="measures-of-association.html"><a href="measures-of-association.html#partial-correlation-and-confounding-variables"><i class="fa fa-check"></i><b>6.1.1</b> Partial Correlation and Confounding Variables</a></li>
+<li class="chapter" data-level="6.1.2" data-path="measures-of-association.html"><a href="measures-of-association.html#properties-of-the-linear-correlation-coefficient"><i class="fa fa-check"></i><b>6.1.2</b> Properties of the Linear Correlation Coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="measures-of-association.html"><a href="measures-of-association.html#association-of-categorical-variables"><i class="fa fa-check"></i><b>6.2</b> Association of Categorical Variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="measures-of-association.html"><a href="measures-of-association.html#odds-ratios"><i class="fa fa-check"></i><b>6.2.1</b> Odds Ratios</a></li>
+<li class="chapter" data-level="6.2.2" data-path="measures-of-association.html"><a href="measures-of-association.html#yules-q"><i class="fa fa-check"></i><b>6.2.2</b> Yule’s Q</a></li>
+<li class="chapter" data-level="6.2.3" data-path="measures-of-association.html"><a href="measures-of-association.html#chi-squared-test-of-independence"><i class="fa fa-check"></i><b>6.2.3</b> Chi-Squared Test of Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="measures-of-association.html"><a href="measures-of-association.html#rank-correlation"><i class="fa fa-check"></i><b>6.3</b> Rank Correlation</a></li>
+<li class="chapter" data-level="6.4" data-path="measures-of-association.html"><a href="measures-of-association.html#serial-correlation"><i class="fa fa-check"></i><b>6.4</b> Serial Correlation</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="measures-of-association.html"><a href="measures-of-association.html#autocorrelation"><i class="fa fa-check"></i><b>6.4.1</b> Autocorrelation</a></li>
+<li class="chapter" data-level="6.4.2" data-path="measures-of-association.html"><a href="measures-of-association.html#run-lengths"><i class="fa fa-check"></i><b>6.4.2</b> Run Lengths</a></li>
+<li class="chapter" data-level="6.4.3" data-path="measures-of-association.html"><a href="measures-of-association.html#wald-wolfowitz-runs-test"><i class="fa fa-check"></i><b>6.4.3</b> Wald-Wolfowitz Runs Test</a></li>
+<li class="chapter" data-level="6.4.4" data-path="measures-of-association.html"><a href="measures-of-association.html#hot-hand"><i class="fa fa-check"></i><b>6.4.4</b> Hot Hand</a></li>
+<li class="chapter" data-level="6.4.5" data-path="measures-of-association.html"><a href="measures-of-association.html#streakiness-in-sports"><i class="fa fa-check"></i><b>6.4.5</b> Streakiness in Sports</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="measures-of-association.html"><a href="measures-of-association.html#pythagorean-record"><i class="fa fa-check"></i><b>6.5</b> Pythagorean Record</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>7</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>7.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="7.2" data-path="linear-regression.html"><a href="linear-regression.html#residual-analysis"><i class="fa fa-check"></i><b>7.2</b> Residual Analysis</a></li>
+<li class="chapter" data-level="7.3" data-path="linear-regression.html"><a href="linear-regression.html#polynomial-regression"><i class="fa fa-check"></i><b>7.3</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="7.4" data-path="linear-regression.html"><a href="linear-regression.html#variable-transformations"><i class="fa fa-check"></i><b>7.4</b> Variable Transformations</a></li>
+<li class="chapter" data-level="7.5" data-path="linear-regression.html"><a href="linear-regression.html#multiple-regression-and-model-selection"><i class="fa fa-check"></i><b>7.5</b> Multiple Regression and Model Selection</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="linear-regression.html"><a href="linear-regression.html#model-selection-using-bic"><i class="fa fa-check"></i><b>7.5.1</b> Model Selection using BIC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables"><i class="fa fa-check"></i><b>7.6</b> Confounding Variables</a></li>
+<li class="chapter" data-level="7.7" data-path="linear-regression.html"><a href="linear-regression.html#interaction"><i class="fa fa-check"></i><b>7.7</b> Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="data-acquisition.html"><a href="data-acquisition.html"><i class="fa fa-check"></i><b>8</b> Data Acquisition</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="data-acquisition.html"><a href="data-acquisition.html#tabular-data-from-sports-reference"><i class="fa fa-check"></i><b>8.1</b> Tabular Data From Sports Reference</a></li>
+<li class="chapter" data-level="8.2" data-path="data-acquisition.html"><a href="data-acquisition.html#downloading-datasets-from-internet"><i class="fa fa-check"></i><b>8.2</b> Downloading Datasets From Internet</a></li>
+<li class="chapter" data-level="8.3" data-path="data-acquisition.html"><a href="data-acquisition.html#importing-data-using-r-libraries"><i class="fa fa-check"></i><b>8.3</b> Importing Data Using R Libraries</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="data-acquisition.html"><a href="data-acquisition.html#baseballr-package"><i class="fa fa-check"></i><b>8.3.1</b> BaseballR package</a></li>
+<li class="chapter" data-level="8.3.2" data-path="data-acquisition.html"><a href="data-acquisition.html#nflfastr-package"><i class="fa fa-check"></i><b>8.3.2</b> nflfastR package</a></li>
+<li class="chapter" data-level="8.3.3" data-path="data-acquisition.html"><a href="data-acquisition.html#hoopr-package"><i class="fa fa-check"></i><b>8.3.3</b> hoopR package</a></li>
+<li class="chapter" data-level="8.3.4" data-path="data-acquisition.html"><a href="data-acquisition.html#hockeyr-package"><i class="fa fa-check"></i><b>8.3.4</b> hockeyR package</a></li>
+<li class="chapter" data-level="8.3.5" data-path="data-acquisition.html"><a href="data-acquisition.html#worldfootballr"><i class="fa fa-check"></i><b>8.3.5</b> worldfootballR</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="data-acquisition.html"><a href="data-acquisition.html#data-scraping"><i class="fa fa-check"></i><b>8.4</b> Data Scraping</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="data-acquisition.html"><a href="data-acquisition.html#general-tips"><i class="fa fa-check"></i><b>8.4.1</b> General Tips</a></li>
+<li class="chapter" data-level="8.4.2" data-path="data-acquisition.html"><a href="data-acquisition.html#introduction-to-html"><i class="fa fa-check"></i><b>8.4.2</b> Introduction to HTML</a></li>
+<li class="chapter" data-level="8.4.3" data-path="data-acquisition.html"><a href="data-acquisition.html#rvest-package"><i class="fa fa-check"></i><b>8.4.3</b> rvest Package</a></li>
+<li class="chapter" data-level="8.4.4" data-path="data-acquisition.html"><a href="data-acquisition.html#css-gadget-selector"><i class="fa fa-check"></i><b>8.4.4</b> CSS Gadget Selector</a></li>
+<li class="chapter" data-level="8.4.5" data-path="data-acquisition.html"><a href="data-acquisition.html#scraping-examples"><i class="fa fa-check"></i><b>8.4.5</b> Scraping Examples</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html"><i class="fa fa-check"></i><b>9</b> Advanced Regression Methods</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#weighted-least-squares-regression"><i class="fa fa-check"></i><b>9.1</b> Weighted Least Squares Regression</a></li>
+<li class="chapter" data-level="9.2" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#stepwise-regression-using-cross-validation"><i class="fa fa-check"></i><b>9.2</b> Stepwise Regression using Cross-Validation</a></li>
+<li class="chapter" data-level="9.3" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#ridge-regression"><i class="fa fa-check"></i><b>9.3</b> Ridge Regression</a></li>
+<li class="chapter" data-level="9.4" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#lasso-regression"><i class="fa fa-check"></i><b>9.4</b> Lasso Regression</a></li>
+<li class="chapter" data-level="9.5" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#elastic-net"><i class="fa fa-check"></i><b>9.5</b> Elastic Net</a></li>
+<li class="chapter" data-level="9.6" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#mixed-effects-models"><i class="fa fa-check"></i><b>9.6</b> Mixed Effects Models</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="logistic-regression.html"><a href="logistic-regression.html#logistic-regression-model"><i class="fa fa-check"></i><b>10.1</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="10.2" data-path="logistic-regression.html"><a href="logistic-regression.html#example-nfl-spread-and-winning"><i class="fa fa-check"></i><b>10.2</b> Example: NFL Spread and Winning</a></li>
+<li class="chapter" data-level="10.3" data-path="logistic-regression.html"><a href="logistic-regression.html#multiple-logistic-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple Logistic Regression</a></li>
+<li class="chapter" data-level="10.4" data-path="logistic-regression.html"><a href="logistic-regression.html#example-field-goal-success"><i class="fa fa-check"></i><b>10.4</b> Example: Field Goal Success</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>11</b> Classification</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="classification.html"><a href="classification.html#fundamentals"><i class="fa fa-check"></i><b>11.1</b> Fundamentals</a></li>
+<li class="chapter" data-level="11.2" data-path="classification.html"><a href="classification.html#evaluation-metrics"><i class="fa fa-check"></i><b>11.2</b> Evaluation Metrics</a></li>
+<li class="chapter" data-level="11.3" data-path="classification.html"><a href="classification.html#classification-using-logistic-regression"><i class="fa fa-check"></i><b>11.3</b> Classification Using Logistic Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="sports-drafts.html"><a href="sports-drafts.html"><i class="fa fa-check"></i><b>12</b> Sports Drafts</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="sports-drafts.html"><a href="sports-drafts.html#nfl-draft"><i class="fa fa-check"></i><b>12.1</b> NFL Draft</a></li>
+<li class="chapter" data-level="12.2" data-path="sports-drafts.html"><a href="sports-drafts.html#draft-pick-value-chart"><i class="fa fa-check"></i><b>12.2</b> Draft Pick Value Chart</a></li>
+<li class="chapter" data-level="12.3" data-path="sports-drafts.html"><a href="sports-drafts.html#nfl-combine"><i class="fa fa-check"></i><b>12.3</b> NFL Combine</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>13</b> Clustering</a></li>
+<li class="chapter" data-level="14" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>14</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="15" data-path="nonparametric-methods.html"><a href="nonparametric-methods.html"><i class="fa fa-check"></i><b>15</b> Nonparametric Methods</a></li>
+<li class="chapter" data-level="16" data-path="baseball-1.html"><a href="baseball-1.html"><i class="fa fa-check"></i><b>16</b> Baseball</a></li>
+<li class="chapter" data-level="17" data-path="football-1.html"><a href="football-1.html"><i class="fa fa-check"></i><b>17</b> Football</a></li>
+<li class="chapter" data-level="18" data-path="basketball-1.html"><a href="basketball-1.html"><i class="fa fa-check"></i><b>18</b> Basketball</a></li>
+<li class="chapter" data-level="19" data-path="hockey-1.html"><a href="hockey-1.html"><i class="fa fa-check"></i><b>19</b> Hockey</a></li>
+<li class="chapter" data-level="20" data-path="soccer-1.html"><a href="soccer-1.html"><i class="fa fa-check"></i><b>20</b> Soccer</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Sports Analytics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sports-drafts" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Sports Drafts<a href="sports-drafts.html#sports-drafts" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="nfl-draft" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> NFL Draft<a href="sports-drafts.html#nfl-draft" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Details about the NFL Draft</strong></p>
+<ul>
+<li>Seven rounds, one pick per team per round (generally)</li>
+<li>Can trade draft picks (including future draft picks)</li>
+<li>Draft order is based on previous year’s win-loss record</li>
+<li>This year’s draft: Thursday, April 27, 6pm MDT</li>
+</ul>
+<p><strong>YouTube video: Evolution of the NFL Draft:</strong><br />
+<a href="https://youtu.be/Uin_eoSXzmY" class="uri">https://youtu.be/Uin_eoSXzmY</a></p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="draft-pick-value-chart" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> Draft Pick Value Chart<a href="sports-drafts.html#draft-pick-value-chart" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The draft pick value chart was developed by the Dallas Cowboys in the late 80s.</p>
+<p><strong>YouTube video: The Value Chart That Changed The Way NFL Teams Draft:</strong><br />
+<a href="https://youtu.be/U2FEjzqtgWY" class="uri">https://youtu.be/U2FEjzqtgWY</a></p>
+<p><strong>YouTube video: How To Better Understand NFL Draft Trade</strong><br />
+<a href="https://youtu.be/oBF2iUa0oeo" class="uri">https://youtu.be/oBF2iUa0oeo</a></p>
+<div class="float">
+<img src="images/draftvalue.jpeg" alt="Draft Pick Value Chart" />
+<div class="figcaption">Draft Pick Value Chart</div>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="nfl-combine" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> NFL Combine<a href="sports-drafts.html#nfl-combine" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>YouTube video: NFL 101: The Combine</strong><br />
+<a href="https://youtu.be/62YWPRII_YY" class="uri">https://youtu.be/62YWPRII_YY</a></p>
+<p><strong>Note:</strong> The following analysis and dataset are provided in <em>Sports Analytics in Practice with R</em> by Ted Kwartler (2022)<br />
+</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-224" class="example"><strong>Example 12.1  </strong></span>NFL Combine results for 2000-2020 are provided in <code>nfl_combine_2000_2000.csv</code>. This exercise will explore some characteristics of this dataset.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>Load the data and look at the first five entries.</li>
+</ol>
+<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="sports-drafts.html#cb612-1" tabindex="-1"></a>combine <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nfl_combine_2000_2020.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 6829 Columns: 14
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr  (3): Player, Pos, Team
+## dbl (11): Ht, Wt, Forty, Vertical, BenchReps, BroadJump, Cone, Shuttle, Year...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="sports-drafts.html#cb614-1" tabindex="-1"></a><span class="fu">names</span>(combine)</span></code></pre></div>
+<pre><code>##  [1] &quot;Player&quot;    &quot;Pos&quot;       &quot;Ht&quot;        &quot;Wt&quot;        &quot;Forty&quot;     &quot;Vertical&quot; 
+##  [7] &quot;BenchReps&quot; &quot;BroadJump&quot; &quot;Cone&quot;      &quot;Shuttle&quot;   &quot;Year&quot;      &quot;Team&quot;     
+## [13] &quot;Round&quot;     &quot;Pick&quot;</code></pre>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="sports-drafts.html#cb616-1" tabindex="-1"></a>combine <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Player
+</th>
+<th style="text-align:left;">
+Pos
+</th>
+<th style="text-align:right;">
+Ht
+</th>
+<th style="text-align:right;">
+Wt
+</th>
+<th style="text-align:right;">
+Forty
+</th>
+<th style="text-align:right;">
+Vertical
+</th>
+<th style="text-align:right;">
+BenchReps
+</th>
+<th style="text-align:right;">
+BroadJump
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+John Abraham
+</td>
+<td style="text-align:left;">
+OLB
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+252
+</td>
+<td style="text-align:right;">
+4.55
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Shaun Alexander
+</td>
+<td style="text-align:left;">
+RB
+</td>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+218
+</td>
+<td style="text-align:right;">
+4.58
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Darnell Alford
+</td>
+<td style="text-align:left;">
+OT
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+334
+</td>
+<td style="text-align:right;">
+5.56
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+94
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kyle Allamon
+</td>
+<td style="text-align:left;">
+TE
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+253
+</td>
+<td style="text-align:right;">
+4.97
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+104
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rashard Anderson
+</td>
+<td style="text-align:left;">
+CB
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+206
+</td>
+<td style="text-align:right;">
+4.55
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+123
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="sports-drafts.html#cb617-1" tabindex="-1"></a>combine <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">8</span>)) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Player
+</th>
+<th style="text-align:left;">
+Pos
+</th>
+<th style="text-align:right;">
+Cone
+</th>
+<th style="text-align:right;">
+Shuttle
+</th>
+<th style="text-align:right;">
+Year
+</th>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+Round
+</th>
+<th style="text-align:right;">
+Pick
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+John Abraham
+</td>
+<td style="text-align:left;">
+OLB
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+New York Jets
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Shaun Alexander
+</td>
+<td style="text-align:left;">
+RB
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+Seattle Seahawks
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Darnell Alford
+</td>
+<td style="text-align:left;">
+OT
+</td>
+<td style="text-align:right;">
+8.48
+</td>
+<td style="text-align:right;">
+4.98
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+Kansas City Chiefs
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+188
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kyle Allamon
+</td>
+<td style="text-align:left;">
+TE
+</td>
+<td style="text-align:right;">
+7.29
+</td>
+<td style="text-align:right;">
+4.49
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rashard Anderson
+</td>
+<td style="text-align:left;">
+CB
+</td>
+<td style="text-align:right;">
+7.18
+</td>
+<td style="text-align:right;">
+4.15
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+Carolina Panthers
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+23
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Create a table that displays the number of players drafted and not drafted by position.</li>
+</ol>
+<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="sports-drafts.html#cb618-1" tabindex="-1"></a>combine<span class="sc">$</span>Drafted <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(combine<span class="sc">$</span>Round),<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
+<span id="cb618-2"><a href="sports-drafts.html#cb618-2" tabindex="-1"></a>drafted_table <span class="ot">&lt;-</span> <span class="fu">as.data.frame.matrix</span>(<span class="fu">table</span>(combine<span class="sc">$</span>Pos,combine<span class="sc">$</span>Drafted))</span>
+<span id="cb618-3"><a href="sports-drafts.html#cb618-3" tabindex="-1"></a>drafted_table<span class="sc">$</span>Pos <span class="ot">&lt;-</span> <span class="fu">rownames</span>(drafted_table)</span>
+<span id="cb618-4"><a href="sports-drafts.html#cb618-4" tabindex="-1"></a><span class="fu">colnames</span>(drafted_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;NotDrafted&quot;</span>,<span class="st">&quot;Drafted&quot;</span>,<span class="st">&quot;Pos&quot;</span>)</span>
+<span id="cb618-5"><a href="sports-drafts.html#cb618-5" tabindex="-1"></a><span class="fu">rownames</span>(drafted_table) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb618-6"><a href="sports-drafts.html#cb618-6" tabindex="-1"></a>drafted_table <span class="ot">&lt;-</span> drafted_table <span class="sc">%&gt;%</span> <span class="fu">relocate</span>(<span class="st">&quot;Pos&quot;</span>,<span class="at">.before =</span> <span class="st">&quot;NotDrafted&quot;</span>)</span>
+<span id="cb618-7"><a href="sports-drafts.html#cb618-7" tabindex="-1"></a>drafted_table <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Pos
+</th>
+<th style="text-align:right;">
+NotDrafted
+</th>
+<th style="text-align:right;">
+Drafted
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:right;">
+79
+</td>
+<td style="text-align:right;">
+96
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CB
+</td>
+<td style="text-align:right;">
+270
+</td>
+<td style="text-align:right;">
+424
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DB
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DE
+</td>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+325
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DL
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DT
+</td>
+<td style="text-align:right;">
+164
+</td>
+<td style="text-align:right;">
+316
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EDG
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EDGE
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FB
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+66
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FS
+</td>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+149
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+G
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ILB
+</td>
+<td style="text-align:right;">
+105
+</td>
+<td style="text-align:right;">
+171
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+K
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LB
+</td>
+<td style="text-align:right;">
+77
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LS
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NT
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OG
+</td>
+<td style="text-align:right;">
+174
+</td>
+<td style="text-align:right;">
+203
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OL
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OLB
+</td>
+<td style="text-align:right;">
+121
+</td>
+<td style="text-align:right;">
+303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OT
+</td>
+<td style="text-align:right;">
+174
+</td>
+<td style="text-align:right;">
+294
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+P
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+QB
+</td>
+<td style="text-align:right;">
+190
+</td>
+<td style="text-align:right;">
+194
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RB
+</td>
+<td style="text-align:right;">
+295
+</td>
+<td style="text-align:right;">
+302
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SS
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+139
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TE
+</td>
+<td style="text-align:right;">
+173
+</td>
+<td style="text-align:right;">
+205
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WR
+</td>
+<td style="text-align:right;">
+451
+</td>
+<td style="text-align:right;">
+491
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Remove rows for generic positions that didn’t have any draftees.</li>
+</ol>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="sports-drafts.html#cb619-1" tabindex="-1"></a>drafted_table <span class="ot">&lt;-</span> drafted_table <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Drafted <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> NotDrafted <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb619-2"><a href="sports-drafts.html#cb619-2" tabindex="-1"></a>drafted_table <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Pos
+</th>
+<th style="text-align:right;">
+NotDrafted
+</th>
+<th style="text-align:right;">
+Drafted
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:right;">
+79
+</td>
+<td style="text-align:right;">
+96
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CB
+</td>
+<td style="text-align:right;">
+270
+</td>
+<td style="text-align:right;">
+424
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DE
+</td>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+325
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DT
+</td>
+<td style="text-align:right;">
+164
+</td>
+<td style="text-align:right;">
+316
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FB
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+66
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FS
+</td>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+149
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ILB
+</td>
+<td style="text-align:right;">
+105
+</td>
+<td style="text-align:right;">
+171
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+K
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LS
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OG
+</td>
+<td style="text-align:right;">
+174
+</td>
+<td style="text-align:right;">
+203
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OLB
+</td>
+<td style="text-align:right;">
+121
+</td>
+<td style="text-align:right;">
+303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OT
+</td>
+<td style="text-align:right;">
+174
+</td>
+<td style="text-align:right;">
+294
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+P
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+QB
+</td>
+<td style="text-align:right;">
+190
+</td>
+<td style="text-align:right;">
+194
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RB
+</td>
+<td style="text-align:right;">
+295
+</td>
+<td style="text-align:right;">
+302
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SS
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+139
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TE
+</td>
+<td style="text-align:right;">
+173
+</td>
+<td style="text-align:right;">
+205
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WR
+</td>
+<td style="text-align:right;">
+451
+</td>
+<td style="text-align:right;">
+491
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Create a stacked bar plot to display the number of drafted and not drafted players by position.</li>
+</ol>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="sports-drafts.html#cb620-1" tabindex="-1"></a>long_drafted <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(drafted_table,<span class="at">cols=</span><span class="sc">-</span>Pos)</span>
+<span id="cb620-2"><a href="sports-drafts.html#cb620-2" tabindex="-1"></a>long_drafted<span class="sc">$</span>Pos <span class="ot">&lt;-</span> <span class="fu">factor</span>(long_drafted<span class="sc">$</span>Pos)</span>
+<span id="cb620-3"><a href="sports-drafts.html#cb620-3" tabindex="-1"></a><span class="fu">ggplot</span>(long_drafted, <span class="fu">aes</span>(<span class="at">x=</span>Pos,<span class="at">y=</span>value,<span class="at">fill=</span>name)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb620-4"><a href="sports-drafts.html#cb620-4" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Draft Breakdown by Position&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb620-5"><a href="sports-drafts.html#cb620-5" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Draft Status&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-329-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>Calculate the average 40-yard dash for the following positions broken down by drafted status: QB, RB, WR, OT, P.</li>
+</ol>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="sports-drafts.html#cb621-1" tabindex="-1"></a>forty <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Forty<span class="sc">~</span>Pos<span class="sc">+</span>Drafted,<span class="at">data=</span>combine,<span class="at">FUN=</span><span class="st">&quot;mean&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb621-2"><a href="sports-drafts.html#cb621-2" tabindex="-1"></a>  <span class="fu">filter</span>(Pos <span class="sc">==</span> <span class="st">&quot;QB&quot;</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">&quot;RB&quot;</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">&quot;WR&quot;</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">&quot;OT&quot;</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">&quot;P&quot;</span>)</span>
+<span id="cb621-3"><a href="sports-drafts.html#cb621-3" tabindex="-1"></a>forty <span class="ot">&lt;-</span> forty[<span class="fu">order</span>(forty<span class="sc">$</span>Pos),]</span>
+<span id="cb621-4"><a href="sports-drafts.html#cb621-4" tabindex="-1"></a><span class="fu">rownames</span>(forty) <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb621-5"><a href="sports-drafts.html#cb621-5" tabindex="-1"></a>forty <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">linesep=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Pos
+</th>
+<th style="text-align:left;">
+Drafted
+</th>
+<th style="text-align:right;">
+Forty
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+OT
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+5.344337
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OT
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+5.213471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+P
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+5.045570
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+P
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+4.918077
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+QB
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+5.005241
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+QB
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+4.810579
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RB
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+4.725660
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RB
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+4.520633
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WR
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+4.796757
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WR
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+4.479156
+</td>
+</tr>
+</tbody>
+</table>
+<ol start="6" style="list-style-type: lower-alpha">
+<li>Plot the data in the previous table using ggplot and a facet for drafted status.</li>
+</ol>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="sports-drafts.html#cb622-1" tabindex="-1"></a><span class="fu">ggplot</span>(forty, <span class="fu">aes</span>(<span class="at">x=</span>Pos, <span class="at">y=</span>Forty))<span class="sc">+</span></span>
+<span id="cb622-2"><a href="sports-drafts.html#cb622-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&#39;identity&#39;</span>)<span class="sc">+</span></span>
+<span id="cb622-3"><a href="sports-drafts.html#cb622-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Drafted,  <span class="at">ncol=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb622-4"><a href="sports-drafts.html#cb622-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Position&quot;</span>,<span class="at">y=</span><span class="st">&quot;Average 40-Yard Dash&quot;</span>,<span class="at">title=</span><span class="st">&quot;Average 40-Yard Dash by Position and Drafted Status&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-331-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<ol start="7" style="list-style-type: lower-alpha">
+<li>Subset the quarterbacks and output the first ten observations to a kable table.</li>
+</ol>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="sports-drafts.html#cb623-1" tabindex="-1"></a>qb <span class="ot">&lt;-</span> combine <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Pos <span class="sc">==</span> <span class="st">&quot;QB&quot;</span>)</span>
+<span id="cb623-2"><a href="sports-drafts.html#cb623-2" tabindex="-1"></a>qb <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,<span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>,<span class="dv">15</span>) <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">linesep=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Player
+</th>
+<th style="text-align:left;">
+Pos
+</th>
+<th style="text-align:right;">
+Ht
+</th>
+<th style="text-align:right;">
+Wt
+</th>
+<th style="text-align:right;">
+Forty
+</th>
+<th style="text-align:right;">
+Vertical
+</th>
+<th style="text-align:right;">
+BroadJump
+</th>
+<th style="text-align:right;">
+Cone
+</th>
+<th style="text-align:right;">
+Shuttle
+</th>
+<th style="text-align:left;">
+Drafted
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Tom Brady
+</td>
+<td style="text-align:left;">
+QB
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+211
+</td>
+<td style="text-align:right;">
+5.28
+</td>
+<td style="text-align:right;">
+24.5
+</td>
+<td style="text-align:right;">
+99
+</td>
+<td style="text-align:right;">
+7.20
+</td>
+<td style="text-align:right;">
+4.38
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Travis Brown-01
+</td>
+<td style="text-align:left;">
+QB
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+218
+</td>
+<td style="text-align:right;">
+5.01
+</td>
+<td style="text-align:right;">
+29.0
+</td>
+<td style="text-align:right;">
+101
+</td>
+<td style="text-align:right;">
+7.54
+</td>
+<td style="text-align:right;">
+4.87
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Marc Bulger
+</td>
+<td style="text-align:left;">
+QB
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+208
+</td>
+<td style="text-align:right;">
+4.97
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+7.46
+</td>
+<td style="text-align:right;">
+4.34
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bill Burke
+</td>
+<td style="text-align:left;">
+QB
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+206
+</td>
+<td style="text-align:right;">
+5.03
+</td>
+<td style="text-align:right;">
+28.5
+</td>
+<td style="text-align:right;">
+107
+</td>
+<td style="text-align:right;">
+7.46
+</td>
+<td style="text-align:right;">
+4.42
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Giovanni Carmazzi
+</td>
+<td style="text-align:left;">
+QB
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+224
+</td>
+<td style="text-align:right;">
+4.74
+</td>
+<td style="text-align:right;">
+36.5
+</td>
+<td style="text-align:right;">
+119
+</td>
+<td style="text-align:right;">
+6.94
+</td>
+<td style="text-align:right;">
+4.23
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Chris Chaloupka
+</td>
+<td style="text-align:left;">
+QB
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+216
+</td>
+<td style="text-align:right;">
+4.96
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kevin Feterik
+</td>
+<td style="text-align:left;">
+QB
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+207
+</td>
+<td style="text-align:right;">
+4.92
+</td>
+<td style="text-align:right;">
+31.0
+</td>
+<td style="text-align:right;">
+106
+</td>
+<td style="text-align:right;">
+7.30
+</td>
+<td style="text-align:right;">
+4.45
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Joe Hamilton
+</td>
+<td style="text-align:left;">
+QB
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+192
+</td>
+<td style="text-align:right;">
+4.81
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+106
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Todd Husak
+</td>
+<td style="text-align:left;">
+QB
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+216
+</td>
+<td style="text-align:right;">
+5.20
+</td>
+<td style="text-align:right;">
+27.5
+</td>
+<td style="text-align:right;">
+99
+</td>
+<td style="text-align:right;">
+7.17
+</td>
+<td style="text-align:right;">
+4.41
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jarious Jackson
+</td>
+<td style="text-align:left;">
+QB
+</td>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+226
+</td>
+<td style="text-align:right;">
+4.68
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+109
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+</tbody>
+</table>
+<ol start="8" style="list-style-type: lower-alpha">
+<li>For the quarterbacks subset, investigate the relationship between the quantitative variables.</li>
+</ol>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="sports-drafts.html#cb624-1" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb624-2"><a href="sports-drafts.html#cb624-2" tabindex="-1"></a>qb <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-333-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="classification.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="clustering.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/aaron-nielsen/SportsAnalyticsBook/edit/master/12-draft.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["textbook.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

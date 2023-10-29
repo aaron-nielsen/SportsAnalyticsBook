@@ -165,6 +165,40 @@ for(i in 1:n.sims){
 
 One way to simulate data is to make assumptions about the distributions of the underlying data. The random variables given in the last chapter are possible candidates.
 
+\newpage
+
+:::{.example}
+Suppose a hockey player takes five shots and the xG associated with these shots are: 0.1, 0.1, 0.9, 0.5, 0.4. Use simulation to estimate the probability mass function counting the number of goals. Assume all shots are independent.
+:::
+
+```{r}
+set.seed(2020)
+xG <- c(0.1,0.1,0.9,0.5,0.4)
+( unif_sample <- runif(5) )
+( unif_sample < xG )
+( sum(unif_sample < xG) )
+```
+
+\vfill
+\newpage
+
+```{r}
+n.sims <- 10000
+sim_goals <- rep(0,n.sims)
+for( i in 1:n.sims ){
+  sim_goals[i] <- sum( runif(5) < xG )
+}
+
+mean(sim_goals)
+
+sim_goals %>% data.frame %>% ggplot(aes(sim_goals)) + 
+  geom_bar() + 
+  labs(x="Simulated Goals", y="Count",title = "Number of Simulated Goals from Five Shots")
+```
+\vfill
+
+\newpage
+
 
 ## Estimating Probabilities
 
@@ -395,16 +429,16 @@ As seen above, DiMaggio had a 56-game hitting streak. An impossible feat to matc
 ```{r,message=F}
 library(gridExtra)
 
-p1 <- dimaggio %>% 
-  ggplot(aes(x=PA)) + 
-  geom_bar() + 
-  scale_x_continuous(breaks=0:10) + 
+p1 <- dimaggio %>%
+  ggplot(aes(x=PA)) +
+  geom_bar() +
+  scale_x_continuous(breaks=0:10) +
   ggtitle("DiMaggio Plate Appearances Per Game, 1941") +
   xlab("Plate Appearances")
-p2 <- dimaggio %>% 
-  ggplot(aes(x=AB)) + 
-  geom_bar() + 
-  scale_x_continuous(breaks=0:10) + 
+p2 <- dimaggio %>%
+  ggplot(aes(x=AB)) +
+  geom_bar() +
+  scale_x_continuous(breaks=0:10) +
   ggtitle("DiMaggio At-Bats Per Game, 1941") +
   xlab("At-Bats")
 
@@ -417,18 +451,11 @@ grid.arrange(p1, p2, ncol = 1)
 (b) Create a frequency and percentage frequency table for plate appearances and at-bats.
 
 ```{r,message=F}
-library(janitor)
-table.pa = tabyl(dimaggio,PA) %>% 
-  adorn_totals("row") %>%
-  adorn_pct_formatting(digits = 1)
-names(table.pa) = c("Plate Appearances", "Frequency", "Percent")
-table.pa %>% kt()
+table.pa <- table(dimaggio$PA)
+table.pa %>% kable(booktabs=T,col.names=c("Plate App.","Freq."),align = c("c","c"))
 
-table.ab = tabyl(dimaggio,AB) %>% 
-  adorn_totals("row") %>%
-  adorn_pct_formatting(digits = 1)
-names(table.ab) = c("At-Bats", "Frequency", "Percent")
-table.ab %>% kt()
+table.ab <- table(dimaggio$AB)
+table.ab %>% kable(booktabs=T,col.names=c("At-Bats","Freq."),align = c("c","c"))
 ```
 
 \vfill
@@ -439,10 +466,10 @@ table.ab %>% kt()
 There are many ways to do this. Let's use the *empirical probability mass function* of his per game plate appearances to simulate the number of plate appearances that he gets in his 139 games.
 
 ```{r}
-pa <- tabyl(dimaggio,PA) %>% select(1,2)
-pa <- pa %>% 
-  as.data.frame() %>%
-  mutate(Prob=n/139)
+pa <- data.frame(table.pa)
+names(pa) <- c("PA","Freq")
+pa$PA <- as.numeric(as.character(pa$PA))
+pa <- pa %>% mutate(Prob=Freq/139)
 pa %>% kt()
 
 # One simulated season of per game plate appearances
@@ -473,10 +500,10 @@ for( i in 1: n.sims){
 # table of longest streaks during simulated seasons
 table(longest.streak)
 
-longest.streak %>% 
-  as.data.frame() %>% 
-  ggplot(aes(x=longest.streak)) + 
-  geom_histogram(binwidth=2) +
+longest.streak %>%
+  as.data.frame() %>%
+  ggplot(aes(x=longest.streak)) +
+  geom_histogram(color="white",binwidth=2) +
   ggtitle("Longest Hitting Streak for 10,000 Simulated DiMaggio 1941 Seasons") +
   xlab("Max Hitting Streak in a Simulation Season")
 
@@ -486,7 +513,7 @@ longest.streak %>%
 (mean(longest.streak>=56))
 ```
 
-Running the simulation above with `set.seed(2022)` and `n.sims=10000`, we get $P(Streak \geq 66) = 3 \cdot 10^{-4}$. There were three simulated hitting streaks of at least 56 games.
+Running the simulation above with `set.seed(2022)` and `n.sims=10000`, we get $P(Streak \geq 56) = 3 \cdot 10^{-4}$. There were three simulated hitting streaks of at least 56 games.
 
 If we run the simulation again with `set.seed(2022)` but increase `n.sims=100000`, we get $P(Streak \geq 66) = \frac{10}{100000} = 10^{-4}$. In other words, we estimate the probability that DiMaggio gets a hitting streak of at least 56 games in 100000 simulated seasons is about 1-in-10000.
 
@@ -535,10 +562,10 @@ for( i in 1: n.sims){
   longest.streak[i] <- max(streaks$lengths[streaks$values==1])
 }
 
-longest.streak %>% 
-  as.data.frame() %>% 
-  ggplot(aes(x=longest.streak)) + 
-  geom_histogram(binwidth=2) +
+longest.streak %>%
+  as.data.frame() %>%
+  ggplot(aes(x=longest.streak)) +
+  geom_histogram(color="white",binwidth=2) +
   ggtitle("Longest Hitting Streak for 100,000 Simulated DiMaggio 1941 Seasons") +
   xlab("Max Hitting Streak in a Simulation Season")
 
@@ -552,7 +579,7 @@ Using this simulation method with reordering, there is an estimated probability 
 
 Other authors have used different simulation and mathematical methods for estimating the rarity of Dimaggio's 56 game hitting streak.
 
-Billie et al (2010) used an at-bat rather than plate appearance simulation and estimated the likelihood as 1-in-5000. 
+Billie et al (2010) used an at-bat rather than plate appearance simulation and estimated the likelihood as 1-in-5000.
 
 Rothman et al (2010) estimated the likelihood as 1-in-10000.
 
@@ -582,10 +609,10 @@ for( i in 1: n.sims){
   longest.streak[i] <- max(streaks$lengths[streaks$values==1])
 }
 
-longest.streak %>% 
-  as.data.frame() %>% 
-  ggplot(aes(x=longest.streak)) + 
-  geom_histogram(binwidth=2) +
+longest.streak %>%
+  as.data.frame() %>%
+  ggplot(aes(x=longest.streak)) +
+  geom_histogram(color="white",binwidth=2) +
   ggtitle("Longest Hitting Streak for 10,000 Simulated Seasons (0.300 AVG hitter)") +
   xlab("Max Hitting Streak in a Simulation Season")
 
@@ -618,10 +645,10 @@ for( i in 1: n.sims){
   longest.streak[i] <- max(streaks$lengths[streaks$values==1])
 }
 
-longest.streak %>% 
-  as.data.frame() %>% 
-  ggplot(aes(x=longest.streak)) + 
-  geom_histogram(binwidth=2) +
+longest.streak %>%
+  as.data.frame() %>%
+  ggplot(aes(x=longest.streak)) +
+  geom_histogram(color="white",binwidth=2) +
   ggtitle("Longest Hitting Streak for 10,000 Simulated Seasons (0.400 AVG hitter)") +
   xlab("Max Hitting Streak in a Simulation Season")
 ```
@@ -637,14 +664,14 @@ longest.streak %>%
 
 ## Gambling Simulations
 
-Simulation can be very helpful and useful in evaluating betting systems in (sports) gambling. 
+Simulation can be very helpful and useful in evaluating betting systems in (sports) gambling.
 
 ### Martingale System
 
-One such famous betting system is called a martingale system. Under this system, the bettor makes an initial wager. If they lose, they make the same wager. If they lose again, they follow a *double or nothing* procedure. This means that the bettor will continue betting the amount they have lost until they eventually win and get back even. What is wrong with this system?
+One such famous betting system is called a martingale system. Under this system, the bettor makes an initial wager. If they lose, they follow a *double or nothing* procedure. This means that the bettor will keep doubling their wager until they eventually win and then they quit. Under this system, the player is guaranteed to win. What is wrong with this system?
 
 :::{.example}
-Suppose you are betting on sports matches on the spread where there is no house advantage, so all bets are 1:1 and each team is equally likely to win. You begin by wagering \$1 and you lose the initial bet (call it *Bet Zero*). You decide to employee the martingale system. Calculate the expected number of bets that you would have to make to break even. Also, create a histogram for the the biggest deficits in the simulations.
+Suppose you are betting on sports matches on the spread where there is no house advantage, so all bets are 1:1 and each team is equally likely to win. You begin by wagering \$1. If you lose, you bet again with double your previous wager. You continue until you win a bet. Calculate the expected number of bets that you would have to make until you win. Also, create a histogram for the the biggest deficits in the simulations.
 :::
 
 ```{r bets1,cache=TRUE}
@@ -655,7 +682,7 @@ max.deficit <- rep(NA,n.sims)
 
 for( i in 1:n.sims ){
   bets <- 1
-  
+
   while( 1 ){
     if( runif(1) < 0.5 ){
       bets <- bets + 1
@@ -669,28 +696,30 @@ for( i in 1:n.sims ){
 mean(sim.bets)
 max(sim.bets)
 
-sim.bets %>% as.data.frame() %>% 
-  ggplot(aes(x=sim.bets)) + 
-  geom_histogram(breaks=0:15) +
-  ggtitle("Simulated Number of Money Bets to Break Even") + 
+sim.bets %>% as.data.frame() %>%
+  ggplot(aes(x=sim.bets)) +
+  geom_bar() +
+  scale_x_discrete(limits=factor(1:15)) +
+  ggtitle("Simulated Number of Money Bets Until First Win") +
   xlab("Number of Bets")
 ```
 
-On average, two bets were needed to be placed after *Bet Zero* to break even.
+On average, two bets were needed to be placed to obtain the first win.
 
 \newpage
 
-In two simulations (out of 10,000 total simulations), 12 bets were needed to be made to break even after the initial failed bet, *Bet Zero*. The first bet after *Bet Zero* was for \$1. The second failed bet was from \$2. The twelfth bet was for $\$2^{11} = \$2048$. If your total bankroll was \$1000, you wouldn't have been even able to make the twelfth bet to break even. The weakness of the martingale system is that you are only guaranteed (with probability 1) to break even if you have an infinite bankroll.
+In two simulations (out of 10,000 total simulations), 13 bets were needed to get a win. The first bet was for \$1. The second failed bet was from \$2. The thirteenth bet was for $\$2^{12} = \$4096$. If your total bankroll was \$1000, you wouldn't have been even able to make the thirteenth bet to break even. The weakness of the martingale system is that you are only guaranteed (with probability 1) to win only if you have an infinite bankroll.
 
 The distribution in this example should look familiar. It is the geometric distribution. Let's plot the probability mass function for a Geometric(0.5) random variable and calculate the probability that 12 or more bets are required to break even.
 
 ```{r}
-ggplot(transform(data.frame(x=c(0:15)), y=dgeom(x, prob = 0.5)), aes(x, y)) + 
+ggplot(transform(data.frame(x=c(1:15)), y=dgeom(0:14, prob = 0.5)), aes(x, y)) +
   geom_bar(stat="identity") +
+  scale_x_discrete(limits=factor(1:15)) +
   ggtitle("Probability mass function of Geometric(0.5) random variable") +
   labs(x="Value", y="Frequency", )
 
-# recall that R counts the number of failures before a success, 
+# recall that R counts the number of failures before a success,
 # so we will be looking for at least 11 failures
 pgeom(q=11,prob=0.5,lower.tail=F)
 ```
@@ -740,10 +769,10 @@ mean.ending.bankroll <- mean(bankroll.end)
 max.ending.bankroll <- max(bankroll.end)
 data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
 
-bankroll.end %>% as.data.frame() %>% 
-  ggplot(aes(x=bankroll.end)) + 
-  geom_histogram(binwidth=100) +
-  ggtitle("Simulated Bankroll (starting at $1000) after 10 bets") + 
+bankroll.end %>% as.data.frame() %>%
+  ggplot(aes(x=bankroll.end)) +
+  geom_histogram(color="white",binwidth=100) +
+  ggtitle("Simulated Bankroll (starting at $1000) after 10 bets") +
   xlab("Bankroll after 10 bets")
 ```
 
@@ -780,11 +809,11 @@ mean1 <- mean(bankroll.end1)
 max1 <- max(bankroll.end1)
 # data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
 
-p1 <- bankroll.end1 %>% as.data.frame() %>% 
-  ggplot(aes(x=bankroll.end1)) + 
-  geom_histogram(binwidth=100) +
+p1 <- bankroll.end1 %>% as.data.frame() %>%
+  ggplot(aes(x=bankroll.end1)) +
+  geom_histogram(color="white",binwidth=100) +
   scale_x_continuous(limits = c(-100,2000)) +
-  ggtitle("Simulated Bankrollss after 10 bets") + 
+  ggtitle("Simulated Bankrollss after 10 bets") +
   xlab("Simulated Bankrolls")
 ```
 
@@ -819,11 +848,11 @@ mean2 <- mean(bankroll.end2)
 max2 <- max(bankroll.end2)
 # data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
 
-p2 <- bankroll.end2 %>% as.data.frame() %>% 
-  ggplot(aes(x=bankroll.end2)) + 
-  geom_histogram(binwidth=100) +
+p2 <- bankroll.end2 %>% as.data.frame() %>%
+  ggplot(aes(x=bankroll.end2)) +
+  geom_histogram(color="white",binwidth=100) +
   scale_x_continuous(limits = c(-100,2000)) +
-  ggtitle("Simulated Bankrolls after 100 bets") + 
+  ggtitle("Simulated Bankrolls after 100 bets") +
   xlab("Simulated Bankrolls")
 ```
 
@@ -858,11 +887,11 @@ mean3 <- mean(bankroll.end3)
 max3 <- max(bankroll.end3)
 # data.frame(mean.ending.bankroll,max.ending.bankroll) %>% kt()
 
-p3 <- bankroll.end3 %>% as.data.frame() %>% 
-  ggplot(aes(x=bankroll.end3)) + 
-  geom_histogram(binwidth=100) +
+p3 <- bankroll.end3 %>% as.data.frame() %>%
+  ggplot(aes(x=bankroll.end3)) +
+  geom_histogram(color="white",binwidth=100) +
   scale_x_continuous(limits = c(-100,2000)) +
-  ggtitle("Simulated Bankrolls after 1000 bets") + 
+  ggtitle("Simulated Bankrolls after 1000 bets") +
   xlab("Simulated Bankrolls")
 ```
 
@@ -925,10 +954,10 @@ median.bankroll <- median(bankroll.end)
 prob.zero <- mean(bankroll.end <= 20)
 data.frame(prob.zero,mean.bankroll,median.bankroll,max.bankroll) %>% kt()
 
-bankroll.end %>% as.data.frame() %>% 
-  ggplot(aes(x=bankroll.end)) + 
-  geom_histogram(binwidth=100) +
-  ggtitle("Simulated Bankroll (starting at $1000) after 1000 bets") + 
+bankroll.end %>% as.data.frame() %>%
+  ggplot(aes(x=bankroll.end)) +
+  geom_histogram(color="white",binwidth=100) +
+  ggtitle("Simulated Bankroll (starting at $1000) after 1000 bets") +
   xlab("Bankroll after 1000 bets")
 ```
 
@@ -937,7 +966,7 @@ bankroll.end %>% as.data.frame() %>%
 ### Using the Kelly Growth Criterion
 
 :::{.example}
-Suppose your betting system allows you pick winners on the spread 55\% of the time. If you are betting at -110, then your probability exceeds the implied probability of 52.4\% and this system is not guaranteed to be an eventual loser. 
+Suppose your betting system allows you pick winners on the spread 55\% of the time. If you are betting at -110, then your probability exceeds the implied probability of 52.4\% and this system is not guaranteed to be an eventual loser.
 
 The Kelly Growth Criterion is a formula for an optimal size of a bet when the expected returns are known. The formula is as follows:
 
@@ -983,10 +1012,10 @@ median.bankroll <- median(bankroll.end)
 prob.zero <- mean(bankroll.end <= 20)
 data.frame(f,prob.zero,mean.bankroll,median.bankroll,max.bankroll) %>% kt()
 
-bankroll.end %>% as.data.frame() %>% 
-  ggplot(aes(x=log10(bankroll.end))) + 
-  geom_histogram(bins=30) +
-  ggtitle("Simulated Bankroll (starting at $1000) after 1000 bets") + 
+bankroll.end %>% as.data.frame() %>%
+  ggplot(aes(x=log10(bankroll.end))) +
+  geom_histogram(color="white",bins=30) +
+  ggtitle("Simulated Bankroll (starting at $1000) after 1000 bets") +
   xlab("Log10 Bankroll after 1000 bets")
 ```
 
@@ -1146,7 +1175,7 @@ In 1994, major league baseball players went on strike and the season ended prema
 
 There are two individual statistics are particularly of interest.
 
-1) Tony Gwynn of the San Diego Padres was batting 0.394 when the strike occurred. The last time that a player hit 0.400 in a season was 1941 for MLB (Ted Williams, 0.406) and 1948 for the Negro League (Artie Wilson, 0.435). 
+1) Tony Gwynn of the San Diego Padres was batting 0.394 when the strike occurred. The last time that a player hit 0.400 in a season was 1941 for MLB (Ted Williams, 0.406) and 1948 for the Negro League (Artie Wilson, 0.435).
 
 2) Matt Williams of the San Francisco Giants had 43 home runs when the strike occurred. At the time, the single season home run record was 61 by Roger Maris of the New York Yankees in 1961.
 

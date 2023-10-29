@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Preliminaries | Sports Analytics</title>
+  <meta name="description" content="Preliminaries | Sports Analytics Notes" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Preliminaries | Sports Analytics" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+  <meta property="og:description" content="Preliminaries | Sports Analytics Notes" />
+  <meta name="github-repo" content="aaron-nielsen.github.io/SportsAnalyticsBook/" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Preliminaries | Sports Analytics" />
+  
+  <meta name="twitter:description" content="Preliminaries | Sports Analytics Notes" />
+  <meta name="twitter:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+
+<meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
+
+
+<meta name="date" content="2023-08-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="index.html"/>
+<link rel="next" href="exploratory-data-analysis.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/style.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/lesson.css" type="text/css" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Sports Analytics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i>Preliminaries</a>
+<ul>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#getting-started-with-r"><i class="fa fa-check"></i>Getting Started With R</a>
+<ul>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#installing-r"><i class="fa fa-check"></i>Installing R</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#some-r-basics"><i class="fa fa-check"></i>Some R Basics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#course-goals"><i class="fa fa-check"></i>Course Goals</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#which-sports"><i class="fa fa-check"></i>Which Sports?</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#challenges"><i class="fa fa-check"></i>Challenges</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#ethical-concerns"><i class="fa fa-check"></i>Ethical Concerns</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>1</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>1.1</b> Descriptive Statistics</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#definitions"><i class="fa fa-check"></i><b>1.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="1.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>1.1.2</b> Descriptive Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#visualizations"><i class="fa fa-check"></i><b>1.2</b> Visualizations</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#histograms"><i class="fa fa-check"></i><b>1.2.1</b> Histograms</a></li>
+<li class="chapter" data-level="1.2.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#bar-plots"><i class="fa fa-check"></i><b>1.2.2</b> Bar Plots</a></li>
+<li class="chapter" data-level="1.2.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plots"><i class="fa fa-check"></i><b>1.2.3</b> Scatter Plots</a></li>
+<li class="chapter" data-level="1.2.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#kable-tables"><i class="fa fa-check"></i><b>1.2.4</b> Kable Tables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#baseball"><i class="fa fa-check"></i><b>1.3</b> Baseball</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#hitting-statistics"><i class="fa fa-check"></i><b>1.3.1</b> Hitting Statistics</a></li>
+<li class="chapter" data-level="1.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#pitching-statistics"><i class="fa fa-check"></i><b>1.3.2</b> Pitching Statistics</a></li>
+<li class="chapter" data-level="1.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#wins-above-replacement"><i class="fa fa-check"></i><b>1.3.3</b> Wins Above Replacement</a></li>
+<li class="chapter" data-level="1.3.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#calculating-hitting-statistics"><i class="fa fa-check"></i><b>1.3.4</b> Calculating Hitting Statistics</a></li>
+<li class="chapter" data-level="1.3.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#evaluating-pitching-statistics"><i class="fa fa-check"></i><b>1.3.5</b> Evaluating Pitching Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#football"><i class="fa fa-check"></i><b>1.4</b> Football</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-football-statistics"><i class="fa fa-check"></i><b>1.4.1</b> Basic Football Statistics</a></li>
+<li class="chapter" data-level="1.4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-football-statistics"><i class="fa fa-check"></i><b>1.4.2</b> Advanced Football Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basketball"><i class="fa fa-check"></i><b>1.5</b> Basketball</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-basketball-statistics"><i class="fa fa-check"></i><b>1.5.1</b> Basic Basketball Statistics</a></li>
+<li class="chapter" data-level="1.5.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-basketball-statistics"><i class="fa fa-check"></i><b>1.5.2</b> Advanced Basketball Statistics</a></li>
+<li class="chapter" data-level="1.5.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#four-factors"><i class="fa fa-check"></i><b>1.5.3</b> Four Factors</a></li>
+<li class="chapter" data-level="1.5.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#shot-charts"><i class="fa fa-check"></i><b>1.5.4</b> Shot Charts</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#hockey"><i class="fa fa-check"></i><b>1.6</b> Hockey</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-hockey-statistics"><i class="fa fa-check"></i><b>1.6.1</b> Basic Hockey Statistics</a></li>
+<li class="chapter" data-level="1.6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-hockey-statistics"><i class="fa fa-check"></i><b>1.6.2</b> Advanced Hockey Statistics</a></li>
+<li class="chapter" data-level="1.6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#actual-vs.-expected-goals"><i class="fa fa-check"></i><b>1.6.3</b> Actual vs. Expected Goals</a></li>
+<li class="chapter" data-level="1.6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#goalie-statistics"><i class="fa fa-check"></i><b>1.6.4</b> Goalie Statistics</a></li>
+<li class="chapter" data-level="1.6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#correlation-plots"><i class="fa fa-check"></i><b>1.6.5</b> Correlation Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#volleyball"><i class="fa fa-check"></i><b>1.7</b> Volleyball</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-volleyball-statistics"><i class="fa fa-check"></i><b>1.7.1</b> Basic Volleyball Statistics</a></li>
+<li class="chapter" data-level="1.7.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plot"><i class="fa fa-check"></i><b>1.7.2</b> Scatter Plot</a></li>
+<li class="chapter" data-level="1.7.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#box-plot"><i class="fa fa-check"></i><b>1.7.3</b> Box Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#soccer"><i class="fa fa-check"></i><b>1.8</b> Soccer</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-soccer-statistics"><i class="fa fa-check"></i><b>1.8.1</b> Basic Soccer Statistics</a></li>
+<li class="chapter" data-level="1.8.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-soccer-statistics"><i class="fa fa-check"></i><b>1.8.2</b> Advanced Soccer Statistics</a></li>
+<li class="chapter" data-level="1.8.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#bar-plot"><i class="fa fa-check"></i><b>1.8.3</b> Bar Plot</a></li>
+<li class="chapter" data-level="1.8.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plot-1"><i class="fa fa-check"></i><b>1.8.4</b> Scatter Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>2</b> Probability</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#definitions-1"><i class="fa fa-check"></i><b>2.1</b> Definitions</a></li>
+<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#set-theory"><i class="fa fa-check"></i><b>2.2</b> Set Theory</a></li>
+<li class="chapter" data-level="2.3" data-path="probability.html"><a href="probability.html#axioms-properties-and-laws"><i class="fa fa-check"></i><b>2.3</b> Axioms, Properties, and Laws</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="probability.html"><a href="probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>2.3.1</b> Axioms of Probability</a></li>
+<li class="chapter" data-level="2.3.2" data-path="probability.html"><a href="probability.html#properties-of-probability"><i class="fa fa-check"></i><b>2.3.2</b> Properties of Probability</a></li>
+<li class="chapter" data-level="2.3.3" data-path="probability.html"><a href="probability.html#laws-of-probability"><i class="fa fa-check"></i><b>2.3.3</b> Laws of Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="probability.html"><a href="probability.html#combinatorics"><i class="fa fa-check"></i><b>2.4</b> Combinatorics</a></li>
+<li class="chapter" data-level="2.5" data-path="probability.html"><a href="probability.html#random-variables"><i class="fa fa-check"></i><b>2.5</b> Random Variables</a></li>
+<li class="chapter" data-level="2.6" data-path="probability.html"><a href="probability.html#common-random-variables"><i class="fa fa-check"></i><b>2.6</b> Common Random Variables</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="probability.html"><a href="probability.html#binomial-rvs"><i class="fa fa-check"></i><b>2.6.1</b> Binomial RVs</a></li>
+<li class="chapter" data-level="2.6.2" data-path="probability.html"><a href="probability.html#geometric-rvs"><i class="fa fa-check"></i><b>2.6.2</b> Geometric RVs</a></li>
+<li class="chapter" data-level="2.6.3" data-path="probability.html"><a href="probability.html#poisson-rvs"><i class="fa fa-check"></i><b>2.6.3</b> Poisson RVs</a></li>
+<li class="chapter" data-level="2.6.4" data-path="probability.html"><a href="probability.html#negative-binomial-rvs"><i class="fa fa-check"></i><b>2.6.4</b> Negative Binomial RVs</a></li>
+<li class="chapter" data-level="2.6.5" data-path="probability.html"><a href="probability.html#normal-rvs"><i class="fa fa-check"></i><b>2.6.5</b> Normal RVs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="probability.html"><a href="probability.html#win-probability-models"><i class="fa fa-check"></i><b>2.7</b> Win Probability Models</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="probability.html"><a href="probability.html#estimating-pregame-win-probability"><i class="fa fa-check"></i><b>2.7.1</b> Estimating Pregame Win Probability</a></li>
+<li class="chapter" data-level="2.7.2" data-path="probability.html"><a href="probability.html#estimating-in-game-win-probability"><i class="fa fa-check"></i><b>2.7.2</b> Estimating In-Game Win Probability</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="odds-and-bets.html"><a href="odds-and-bets.html"><i class="fa fa-check"></i><b>3</b> Odds and Bets</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="odds-and-bets.html"><a href="odds-and-bets.html#odds"><i class="fa fa-check"></i><b>3.1</b> Odds</a></li>
+<li class="chapter" data-level="3.2" data-path="odds-and-bets.html"><a href="odds-and-bets.html#gambling-odds"><i class="fa fa-check"></i><b>3.2</b> Gambling Odds</a></li>
+<li class="chapter" data-level="3.3" data-path="odds-and-bets.html"><a href="odds-and-bets.html#types-of-bets"><i class="fa fa-check"></i><b>3.3</b> Types of Bets</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html"><i class="fa fa-check"></i><b>4</b> Monte Carlo Simulation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#basics"><i class="fa fa-check"></i><b>4.1</b> Basics</a></li>
+<li class="chapter" data-level="4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#estimating-probabilities"><i class="fa fa-check"></i><b>4.2</b> Estimating Probabilities</a></li>
+<li class="chapter" data-level="4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-streaks"><i class="fa fa-check"></i><b>4.3</b> Simulating Streaks</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#winning-streak-simulation"><i class="fa fa-check"></i><b>4.3.1</b> Winning Streak Simulation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#hitting-streak-simulation"><i class="fa fa-check"></i><b>4.3.2</b> Hitting Streak Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gambling-simulations"><i class="fa fa-check"></i><b>4.4</b> Gambling Simulations</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#martingale-system"><i class="fa fa-check"></i><b>4.4.1</b> Martingale System</a></li>
+<li class="chapter" data-level="4.4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gamblers-ruin"><i class="fa fa-check"></i><b>4.4.2</b> Gambler’s Ruin</a></li>
+<li class="chapter" data-level="4.4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-a-winning-system"><i class="fa fa-check"></i><b>4.4.3</b> Simulating a Winning System</a></li>
+<li class="chapter" data-level="4.4.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#using-the-kelly-growth-criterion"><i class="fa fa-check"></i><b>4.4.4</b> Using the Kelly Growth Criterion</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-censored-data"><i class="fa fa-check"></i><b>4.5</b> Simulating Censored Data</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#tony-gwynn-1994-batting-average-simulation"><i class="fa fa-check"></i><b>4.5.1</b> Tony Gwynn 1994 Batting Average Simulation</a></li>
+<li class="chapter" data-level="4.5.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#matt-williams-1994-home-run-simulation"><i class="fa fa-check"></i><b>4.5.2</b> Matt Williams 1994 Home Run Simulation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="inferential-statistics.html"><a href="inferential-statistics.html"><i class="fa fa-check"></i><b>5</b> Inferential Statistics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#defining-a-population"><i class="fa fa-check"></i><b>5.1</b> Defining a Population</a></li>
+<li class="chapter" data-level="5.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#statistical-inference"><i class="fa fa-check"></i><b>5.2</b> Statistical Inference</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-intervals"><i class="fa fa-check"></i><b>5.2.1</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="5.2.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hypothesis-tests"><i class="fa fa-check"></i><b>5.2.2</b> Hypothesis Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#inference-for-population-mean"><i class="fa fa-check"></i><b>5.3</b> Inference for Population Mean</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-population-mean"><i class="fa fa-check"></i><b>5.3.1</b> Confidence Interval for Population Mean</a></li>
+<li class="chapter" data-level="5.3.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hypothesis-test-for-population-mean"><i class="fa fa-check"></i><b>5.3.2</b> Hypothesis Test for Population Mean</a></li>
+<li class="chapter" data-level="5.3.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-difference-in-means"><i class="fa fa-check"></i><b>5.3.3</b> Test for Difference in Means</a></li>
+<li class="chapter" data-level="5.3.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-difference-in-means"><i class="fa fa-check"></i><b>5.3.4</b> Confidence Interval for Difference in Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#inference-for-population-proportion"><i class="fa fa-check"></i><b>5.4</b> Inference for Population Proportion</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-population-proportion"><i class="fa fa-check"></i><b>5.4.1</b> Confidence Interval for Population Proportion</a></li>
+<li class="chapter" data-level="5.4.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-population-proportion"><i class="fa fa-check"></i><b>5.4.2</b> Test for Population Proportion</a></li>
+<li class="chapter" data-level="5.4.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.4.3</b> Confidence Interval for Difference in Proportions</a></li>
+<li class="chapter" data-level="5.4.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.4.4</b> Test for Difference in Proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#bootstrap"><i class="fa fa-check"></i><b>5.5</b> Bootstrap</a></li>
+<li class="chapter" data-level="5.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#margin-of-error-calcuations"><i class="fa fa-check"></i><b>5.6</b> Margin of Error Calcuations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-for-probabilities"><i class="fa fa-check"></i><b>5.6.1</b> MOE for Probabilities</a></li>
+<li class="chapter" data-level="5.6.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-for-averages"><i class="fa fa-check"></i><b>5.6.2</b> MOE for Averages</a></li>
+<li class="chapter" data-level="5.6.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-estimation-using-simulation"><i class="fa fa-check"></i><b>5.6.3</b> MOE estimation using simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="inferential-statistics.html"><a href="inferential-statistics.html#one-sample-and-two-sample-t-tests-and-confidence-intervals"><i class="fa fa-check"></i><b>5.7</b> One Sample and Two Sample t-tests and confidence intervals</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hockey-faceoffs"><i class="fa fa-check"></i><b>5.7.1</b> Hockey Faceoffs</a></li>
+<li class="chapter" data-level="5.7.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hockey-penalty-scoring"><i class="fa fa-check"></i><b>5.7.2</b> Hockey Penalty Scoring</a></li>
+<li class="chapter" data-level="5.7.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#nfl-overtime-winners"><i class="fa fa-check"></i><b>5.7.3</b> NFL Overtime Winners</a></li>
+<li class="chapter" data-level="5.7.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#icing-the-kicker"><i class="fa fa-check"></i><b>5.7.4</b> Icing the Kicker</a></li>
+<li class="chapter" data-level="5.7.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#example-football-one-vs.-two-point-conversion"><i class="fa fa-check"></i><b>5.7.5</b> Example: Football One vs. Two Point Conversion</a></li>
+<li class="chapter" data-level="5.7.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#two-sample-tests"><i class="fa fa-check"></i><b>5.7.6</b> Two Sample Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="inferential-statistics.html"><a href="inferential-statistics.html#permutation-tests"><i class="fa fa-check"></i><b>5.8</b> Permutation Tests</a></li>
+<li class="chapter" data-level="5.9" data-path="inferential-statistics.html"><a href="inferential-statistics.html#bootstrap-1"><i class="fa fa-check"></i><b>5.9</b> Bootstrap</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="measures-of-association.html"><a href="measures-of-association.html"><i class="fa fa-check"></i><b>6</b> Measures of Association</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="measures-of-association.html"><a href="measures-of-association.html#pearson-correlation-coefficient"><i class="fa fa-check"></i><b>6.1</b> Pearson Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="measures-of-association.html"><a href="measures-of-association.html#partial-correlation-and-confounding-variables"><i class="fa fa-check"></i><b>6.1.1</b> Partial Correlation and Confounding Variables</a></li>
+<li class="chapter" data-level="6.1.2" data-path="measures-of-association.html"><a href="measures-of-association.html#properties-of-the-linear-correlation-coefficient"><i class="fa fa-check"></i><b>6.1.2</b> Properties of the Linear Correlation Coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="measures-of-association.html"><a href="measures-of-association.html#association-of-categorical-variables"><i class="fa fa-check"></i><b>6.2</b> Association of Categorical Variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="measures-of-association.html"><a href="measures-of-association.html#odds-ratios"><i class="fa fa-check"></i><b>6.2.1</b> Odds Ratios</a></li>
+<li class="chapter" data-level="6.2.2" data-path="measures-of-association.html"><a href="measures-of-association.html#yules-q"><i class="fa fa-check"></i><b>6.2.2</b> Yule’s Q</a></li>
+<li class="chapter" data-level="6.2.3" data-path="measures-of-association.html"><a href="measures-of-association.html#chi-squared-test-of-independence"><i class="fa fa-check"></i><b>6.2.3</b> Chi-Squared Test of Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="measures-of-association.html"><a href="measures-of-association.html#rank-correlation"><i class="fa fa-check"></i><b>6.3</b> Rank Correlation</a></li>
+<li class="chapter" data-level="6.4" data-path="measures-of-association.html"><a href="measures-of-association.html#serial-correlation"><i class="fa fa-check"></i><b>6.4</b> Serial Correlation</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="measures-of-association.html"><a href="measures-of-association.html#autocorrelation"><i class="fa fa-check"></i><b>6.4.1</b> Autocorrelation</a></li>
+<li class="chapter" data-level="6.4.2" data-path="measures-of-association.html"><a href="measures-of-association.html#run-lengths"><i class="fa fa-check"></i><b>6.4.2</b> Run Lengths</a></li>
+<li class="chapter" data-level="6.4.3" data-path="measures-of-association.html"><a href="measures-of-association.html#wald-wolfowitz-runs-test"><i class="fa fa-check"></i><b>6.4.3</b> Wald-Wolfowitz Runs Test</a></li>
+<li class="chapter" data-level="6.4.4" data-path="measures-of-association.html"><a href="measures-of-association.html#hot-hand"><i class="fa fa-check"></i><b>6.4.4</b> Hot Hand</a></li>
+<li class="chapter" data-level="6.4.5" data-path="measures-of-association.html"><a href="measures-of-association.html#streakiness-in-sports"><i class="fa fa-check"></i><b>6.4.5</b> Streakiness in Sports</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="measures-of-association.html"><a href="measures-of-association.html#pythagorean-record"><i class="fa fa-check"></i><b>6.5</b> Pythagorean Record</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>7</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>7.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="7.2" data-path="linear-regression.html"><a href="linear-regression.html#residual-analysis"><i class="fa fa-check"></i><b>7.2</b> Residual Analysis</a></li>
+<li class="chapter" data-level="7.3" data-path="linear-regression.html"><a href="linear-regression.html#polynomial-regression"><i class="fa fa-check"></i><b>7.3</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="7.4" data-path="linear-regression.html"><a href="linear-regression.html#variable-transformations"><i class="fa fa-check"></i><b>7.4</b> Variable Transformations</a></li>
+<li class="chapter" data-level="7.5" data-path="linear-regression.html"><a href="linear-regression.html#multiple-regression-and-model-selection"><i class="fa fa-check"></i><b>7.5</b> Multiple Regression and Model Selection</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="linear-regression.html"><a href="linear-regression.html#model-selection-using-bic"><i class="fa fa-check"></i><b>7.5.1</b> Model Selection using BIC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables"><i class="fa fa-check"></i><b>7.6</b> Confounding Variables</a></li>
+<li class="chapter" data-level="7.7" data-path="linear-regression.html"><a href="linear-regression.html#interaction"><i class="fa fa-check"></i><b>7.7</b> Interaction</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Sports Analytics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="preliminaries" class="section level1 unnumbered hasAnchor">
+<h1>Preliminaries<a href="preliminaries.html#preliminaries" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="getting-started-with-r" class="section level2 unnumbered hasAnchor">
+<h2>Getting Started With R<a href="preliminaries.html#getting-started-with-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="installing-r" class="section level3 unnumbered hasAnchor">
+<h3>Installing R<a href="preliminaries.html#installing-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For this class, you will be using R Studio to complete statistical analyses on your computer.</p>
+<p>To begin using R Studio, you will need to install “R” first and then install “R Studio” on your computer.</p>
+<p><strong><em>Step 1: Download R</em></strong><br />
+(a) Visit <a href="https://www.r-project.org/">https://www.r-project.org/</a><br />
+(b) Click <strong>CRAN</strong> under <strong>Download</strong>
+(c) Select any of the mirrors<br />
+(d) Click the appropriate link for your type of system (Mac, Windows, Linux)<br />
+(e) Download R on this next page.<br />
+(For Windows, this will say <strong>install R for the first time</strong>. For Mac, this will be under <strong>Latest release</strong> and will be something like <strong>R-4.1.0.pkg</strong> – the numbers may differ depending on the most recent version)<br />
+(f) Install R on your computer<br />
+</p>
+<p><strong><em>Step 2: Download R Studio</em></strong><br />
+(a) Visit <a href="https://www.rstudio.com/products/rstudio/download/#download">https://www.rstudio.com/products/rstudio/download/#download</a><br />
+(b) Click to download<br />
+(c) Install R Studio on your computer<br />
+</p>
+<div style="page-break-after: always;"></div>
+<p><strong><em>Step 3: Verify R Studio is working</em></strong><br />
+(a) Open R Studio<br />
+(b) Let’s enter a small dataset and calculate the average to make sure everything is working correctly.<br />
+(c) In the console, type in the following dataset of Sammy Sosa’s season home run totals from 1998–2002:<br />
+</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="preliminaries.html#cb1-1" tabindex="-1"></a>sosa.HR <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">66</span>,<span class="dv">63</span>,<span class="dv">50</span>,<span class="dv">64</span>,<span class="dv">49</span>)</span></code></pre></div>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>In the console, calculate the average season home run total for Sammy Sosa between 1998–2002:<br />
+</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="preliminaries.html#cb2-1" tabindex="-1"></a><span class="fu">mean</span>(sosa.HR)</span></code></pre></div>
+<pre><code>## [1] 58.4</code></pre>
+<p>(e) Did you find Slammin’ Sammy’s average home run total from 1998–2002 was 58.4? If so, you should be set up correctly!</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="some-r-basics" class="section level3 unnumbered hasAnchor">
+<h3>Some R Basics<a href="preliminaries.html#some-r-basics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For the following examples, let’s consider Peyton Manning’s career with the Denver Broncos. In his four seasons with the Broncos, Manning’s passing yard totals were: 4659, 5477, 4727, 2249. Let’s enter this data into R. To enter a vector of data, use the <strong>c()</strong> function.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="preliminaries.html#cb4-1" tabindex="-1"></a>peyton <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4659</span>, <span class="dv">5477</span>, <span class="dv">4727</span>, <span class="dv">2249</span>)</span></code></pre></div>
+<p>To look at the data you just put in the variable <em>peyton</em>, type <em>peyton</em> into the console and press enter.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="preliminaries.html#cb5-1" tabindex="-1"></a>peyton</span></code></pre></div>
+<pre><code>## [1] 4659 5477 4727 2249</code></pre>
+<p>Some basic function for calculating summary statistics include <strong>summary</strong>, <strong>mean()</strong>, <strong>median()</strong>, <strong>var()</strong>, and <strong>sd()</strong>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="preliminaries.html#cb7-1" tabindex="-1"></a><span class="fu">summary</span>(peyton)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    2249    4056    4693    4278    4914    5477</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="preliminaries.html#cb9-1" tabindex="-1"></a><span class="fu">mean</span>(peyton)</span></code></pre></div>
+<pre><code>## [1] 4278</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="preliminaries.html#cb11-1" tabindex="-1"></a><span class="fu">sd</span>(peyton)</span></code></pre></div>
+<pre><code>## [1] 1402.522</code></pre>
+<p>R allows you to install additional packages (collections of functions) that aren’t offered in the base version of R. To install a package, use <strong>install.packages(<name_of_package>)</strong> and to load a package, use <strong>library(<name_of_package>)</strong>.</p>
+<p>One package that we will use frequently is <strong>tidyverse</strong>. This package includes several other packages and functions such as <strong>ggplot</strong> (plotting function), <strong>dplyr</strong> (data manipulation package), and <strong>stringr</strong> (string manipulation package).</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="preliminaries.html#cb13-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
+<span id="cb13-2"><a href="preliminaries.html#cb13-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<p>You will also need to know how to load datasets from files. For this class, we will typically provide data files is .csv format.</p>
+<div style="page-break-after: always;"></div>
+<p>Here is how to load a file:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="preliminaries.html#cb14-1" tabindex="-1"></a><span class="co"># load readr package and load example dataset</span></span>
+<span id="cb14-2"><a href="preliminaries.html#cb14-2" tabindex="-1"></a>NFL_2021_Team_Passing <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/NFL_2021_Team_Passing.csv&quot;</span>)</span>
+<span id="cb14-3"><a href="preliminaries.html#cb14-3" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="preliminaries.html#cb14-4" tabindex="-1"></a><span class="co"># we can look at the header (first few entries) using &quot;head()&quot;</span></span>
+<span id="cb14-5"><a href="preliminaries.html#cb14-5" tabindex="-1"></a><span class="fu">head</span>(NFL_2021_Team_Passing)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 25
+##      Rk Tm             G   Cmp   Att `Cmp%`   Yds    TD `TD%`   Int `Int%`   Lng
+##   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+## 1     1 Tampa Bay…    17   492   731   67.3  5229    43   5.9    12    1.6    62
+## 2     2 Los Angel…    17   443   674   65.7  4800    38   5.6    15    2.2    72
+## 3     3 Dallas Co…    17   444   647   68.6  4800    40   6.2    11    1.7    73
+## 4     4 Kansas Ci…    17   448   675   66.4  4791    37   5.5    13    1.9    75
+## 5     5 Los Angel…    17   406   607   66.9  4642    41   6.8    18    3      79
+## 6     6 Las Vegas…    17   429   628   68.3  4567    23   3.7    14    2.2    61
+## # … with 13 more variables: `Y/A` &lt;dbl&gt;, `AY/A` &lt;dbl&gt;, `Y/C` &lt;dbl&gt;,
+## #   `Y/G` &lt;dbl&gt;, Rate &lt;dbl&gt;, Sk &lt;dbl&gt;, SKYds &lt;dbl&gt;, `Sk%` &lt;dbl&gt;, `NY/A` &lt;dbl&gt;,
+## #   `ANY/A` &lt;dbl&gt;, `4QC` &lt;dbl&gt;, GWD &lt;dbl&gt;, EXP &lt;dbl&gt;</code></pre>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div id="course-goals" class="section level2 unnumbered hasAnchor">
+<h2>Course Goals<a href="preliminaries.html#course-goals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Our course goals include:</p>
+</div>
+<div id="which-sports" class="section level2 unnumbered hasAnchor">
+<h2>Which Sports?<a href="preliminaries.html#which-sports" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We will be working with data from the following sports:</p>
+<p>You can optionally investigate data from other sports for your projects such as:</p>
+</div>
+<div id="challenges" class="section level2 unnumbered hasAnchor">
+<h2>Challenges<a href="preliminaries.html#challenges" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>What kind of challenges could we encounter dealing with sports data?</p>
+</div>
+<div id="ethical-concerns" class="section level2 unnumbered hasAnchor">
+<h2>Ethical Concerns<a href="preliminaries.html#ethical-concerns" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>What kinds of ethical concerns should we consider when dealing with sports data?</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exploratory-data-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/aaron-nielsen/SportsAnalyticsBook/edit/master/00-preliminaries.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["textbook.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

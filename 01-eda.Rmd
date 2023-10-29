@@ -12,6 +12,7 @@ library(kableExtra)
 # Set so that long lines in R will be wrapped:
 knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=FALSE)
 knitr::opts_chunk$set(cache=TRUE)
+add.space = 0
 
 # kable table global setup
 kt <- function(data) {
@@ -391,7 +392,7 @@ NFL_2021_Team_Passing %>%
   geom_bar(stat="identity") + 
   labs(x="Team", y="Team Passing Yards", 
        title="NFL Team Passing Yards, 2021") +
-  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))
+  theme(axis.text.x = element_text(angle = 45, hjust=1))
 ```
 
 `r if(add.space){"<br><br><br><br><br><br><br>"}`
@@ -488,7 +489,7 @@ NFL_2021_Team_Passing %>%
 
 ```{r scatter4}
 NFL_2021_Team_Passing$Abbr <- 
-  c("TB","LAC","DAL","KC","LAR","LV","CIN","GB","BUF","AZ","MN","SF",
+  c("TB","LAC","DAL","KC","LAR","LV","CIN","GB","BUF","ARI","MIN","SF",
     "BAL","NE","PIT","ATL","MIA","DET","DEN","NYJ","WAS","JAC","SEA",
     "TEN","PHI","IND","CLE","HOU","CAR","CHI","NYG","NO")
 
@@ -498,9 +499,23 @@ NFL_2021_Team_Passing %>%
   scale_x_continuous(limits=c(2750,5250)) +
   labs(x="Team Passing Yards",y="Team Passing Touchdowns",
        title="NFL Team Passing Yards, 2021") +
-  geom_text_repel(box.padding = 0.3) 
+  geom_text_repel(box.padding = 0.2) 
 ```
 :::
+
+\newpage
+
+```{r}
+# install.packages("nflplotR")
+library(nflplotR)
+
+NFL_2021_Team_Passing %>%
+  ggplot(aes(x=Yds,y=TD)) +
+  scale_x_continuous(limits=c(2750,5250)) +
+  nflplotR::geom_nfl_logos(aes(team_abbr = Abbr), width = 0.04, alpha = 0.7) +
+  labs(x="Team Passing Yards",y="Team Passing Touchdowns",
+       title="NFL Team Passing Yards, 2021")
+```
 
 \newpage
 
@@ -537,7 +552,7 @@ If you are going to use kable tables frequently in a document, you can write a s
 ```{r,eval=FALSE}
 # kable table global setup
 kt <- function(data) {
-  knitr::kable(data, digits=3,linesep='',booktabs=TRUE) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+  knitr::kable(data, digits=3,linesep='',booktabs=TRUE) %>% kable_styling(latex_options='HOLD_position', full_width = F, position = "center")
 }
 ```
 

@@ -1,0 +1,824 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r, echo=F, message=F,warning=F}
+library(knitr)
+library(tidyverse)
+library(kableExtra)
+knitr::opts_chunk$set(tidy=FALSE,message=F,warning=F)
+
+# kable table global setup
+kt <- function(data) {
+  knitr::kable(data, digits=3, align=c('l','c','c','c','c','c','c','c','c')) %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+}
+```
+
+# Linear Regression  
+
+Linear regression is a statistical method for modeling a quantitative variable as a function of one or more quantitative variables. This method determines a "line of best fit" by minimizing the sum of squared errors.
+
+:::{.definition}
+A ***simple linear regression model***, $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x$, between a dependent variable $y$ and an independent variable $x$ is found by minimizing $SSE=\sum(y_i-\hat{\beta}_0-\hat{\beta}_1x)^2$, where: \
+
+$\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}$ \hspace{0.1in}  $\hat{\beta}_1 = \frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{\sum(x_i-\bar{x})^2}$ \
+:::
+
+:::{.definition}
+A ***multiple linear regression model***, $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_1 + \ldots \hat{\beta}_p x_p$, between a dependent variable $y$ and an independent variables $x_1, x_2, \ldots, x_p$ is found by minimizing $SSE=\sum(y_i-\hat{\beta}_0-\hat{\beta}_1x_1-\hat{\beta}_2x_2- \ldots - -\hat{\beta}_px_p)^2$ \
+:::
+
+We make a few assumptions when we fit these regression models:
+
+1. The response variable can be modeled as a linear combination of the predictor variables (linearity in the parameters). \
+2. The errors are independent normal random variables. \
+3. We seek to minimize the sum of squared errors, SSE.
+
+\newpage
+
+## Simple Linear Regression
+
+:::{.example}
+Download individual MLB pitching statistics for the 2021 and 2022 seasons. Use these datasets to build simple linear regression models with 2022 season ERA as the dependent variable and 2021 season ERA and FIP as the independent variables.
+:::
+
+```{r}
+# Download individual pitching data for 2021 and 2022 seasons
+library(tidyverse)
+library(baseballr)
+
+pit21 <- bref_daily_pitcher("2021-01-01", "2021-12-31") %>% 
+  fip_plus() %>% 
+  dplyr::select(Name, IP, ERA, FIP) %>%
+  dplyr::arrange(dplyr::desc(IP)) %>%
+  mutate(IP21=IP,ERA21=ERA,FIP21=FIP)
+
+pit22 <- bref_daily_pitcher("2022-01-01", "2022-12-31") %>% 
+  fip_plus() %>% 
+  dplyr::select(Name, IP, ERA, FIP) %>%
+  dplyr::arrange(dplyr::desc(IP)) %>%
+  mutate(IP22=IP,ERA22=ERA,FIP22=FIP)
+
+# merge the datasets together, remove redundant columns
+all_pit <- pit21 %>% 
+  left_join(pit22,by = "Name") %>% 
+  select(-c(2:4,8:10)) %>%
+  filter(IP21>5 & IP22 > 5)
+
+all_pit %>% slice(1:10) %>% kable(booktabs=T)
+```
+
+\newpage
+
+```{r,message=F,warning=F}
+# look at correlation between pitching stats in 2021 and 2022
+library(GGally)
+all_pit %>% select(ERA21,ERA22,FIP21,FIP22) %>% ggpairs()
+```
+
+\newpage
+
+```{r,cache=T,warning=F,message=F}
+# build scatterplots of ERA22 vs ERA21 and ERA22 vs FIP21
+library(gridExtra)
+p1 <- all_pit %>% ggplot(aes(x=ERA21,y=ERA22)) +
+  geom_point() +
+  geom_smooth(method="lm") +
+  scale_x_continuous(limits=c(0,10)) +
+  scale_y_continuous(limits=c(0,10))
+
+p2 <- all_pit %>% ggplot(aes(x=FIP21,y=ERA22)) +
+  geom_point() +
+  geom_smooth(method="lm") +
+  scale_x_continuous(limits=c(0,10)) +
+  scale_y_continuous(limits=c(0,10))
+grid.arrange(p1,p2,nrow=1)
+```
+
+\newpage
+
+
+```{r}
+# build SLR model 1: ERA22 ~ ERA21
+model1 <- lm(ERA22~ERA21,data=all_pit)
+
+# sloppy output
+summary(model1)
+```
+
+```{r}
+library(broom)
+# format the output nicely in a kable table
+model1 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "ERA21")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating ERA22 Using ERA21",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+```{r}
+# build SLR model 2: ERA22 ~ FIP21
+model2 <- lm(ERA22~FIP21,data=all_pit)
+
+# Nicely output regression information
+model2 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "FIP21")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating ERA22 Using FIP21",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+```{r}
+# build MR model: ERA22 ~ ERA21 + FIP21
+model3 <- lm(ERA22~ERA21+FIP21,data=all_pit)
+
+# Nicely output regression information
+model3 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept","ERA21","FIP21")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating ERA22 Using FIP21",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+:::{.example}
+Our goal is to investigate the relationship between MLB team OPS and runs per game. 
+:::
+
+(a) Download MLB team offensive statistics for the 2022 season using `rvest`.
+
+```{r,cache=T}
+# scrape the data and output as a kable table
+library(rvest)
+url <- "https://www.baseball-reference.com/leagues/majors/2022.shtml"
+site <- read_html(url)
+mlb22 <- site %>% html_elements("#teams_standard_batting") %>% html_table()
+mlb22 <- mlb22 %>% data.frame() %>% column_to_rownames("Tm") %>%
+  dplyr::rename(`R/G`=R.G) %>% slice(-(31:33))
+mlb22 %>% select(1:8) %>% kable(booktabs=T)
+```
+
+\newpage
+
+(b) Examine the correlation structure between R/G, BA, OBP, SLG, and OPS.
+
+```{r}
+mlb22_off <- mlb22 %>% select(`R/G`,BA,OBP,SLG,OPS) %>% data.frame() %>% mutate_all(as.numeric)
+mlb22_off %>% ggpairs()
+```
+
+\newpage
+
+(c) Build a SLR model between runs scored and OPS. 
+
+```{r}
+# build SLR model: R/G ~ OPS
+model1 <- lm(R.G~OPS,data=mlb22_off)
+
+# Nicely output regression information
+model1 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "OPS")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating Runs Per Game Using Team OPS",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+(d) Plot a scatterplot of R/G and OPS along with the SLR line of best fit and confidence intervals.
+
+```{r,warning=F,message=F}
+mlb22_off %>% ggplot(aes(x=OPS,y=R.G)) + geom_point() +
+  geom_smooth(method=lm , fill="gray", color="steelblue", se=TRUE) +
+  labs(title = "Runs Per Game vs. OPS",
+       subtitle = "2022 MLB Season | Teams",
+       caption = "Data: Baseball Reference", 
+       x = "On-Base Plus Slugging (OPS)",
+       y = "Runs Per Game (R/G)") +
+  theme_bw()
+```
+
+\newpage
+
+
+
+(e) Use residual analysis to assess the model assumptions in the SLR model.
+
+```{r}
+# Create a data frame with the residuals
+residuals <- data.frame(x = fitted(model1), y = residuals(model1))
+
+# Create a residual plot using ggplot2
+ggplot(residuals, aes(x, y)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Fitted values", y = "Residuals", title = "Residual plot")
+```
+
+\newpage
+
+```{r}
+# Create a QQ-plot of the residuals using ggplot2
+ggplot(residuals, aes(sample = y)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Theoretical Quantiles", y = "Sample Quantiles", title = "QQ-plot of Residuals")
+```
+
+\newpage
+
+(f) Build a MR model between runs scored and SLG, BA, OBP, and OPS.
+
+```{r}
+# build MR model: R/G ~ OPS + BA + OBP + SLG
+model2 <- lm(R.G~OPS+BA+OBP+SLG,data=mlb22_off)
+
+# Nicely output regression information
+model2 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "OPS","BA","OBP","SLG")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "MR Model Estimating Runs Per Game Using Team OPS, BA, OBP, SLG",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+
+
+:::{.example}
+Data for the MLB 2022 season including team WAR (wins above replacement) and team wins are contained in `mlb_2022_team_war.csv`. 
+:::
+
+(a) Output this data as a kable table.
+
+```{r,warning=F,message=F}
+mlb22_war <- read_csv("data/mlb_2022_team_war.csv")
+
+mlb22_war <- mlb22_war %>% rename(Wins=`Team Wins`,WAR=`Team WAR`)
+mlb22_war %>% kable(booktabs=T)
+```
+
+\newpage
+
+(b) Fit a simple linear regression model with team wins as the dependent variable and team WAR as the independent variable.
+
+```{r}
+# build SLR model: Team Wins ~ Team WAR
+model <- lm(Wins~WAR,data=mlb22_war)
+
+# Nicely output regression information
+model %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "Team WAR")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating Team Wins Using Team WAR",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+(c) Plot a scatterplot along with the line of best fit.
+
+```{r,warning=F,message=F}
+library(ggpubr)
+mlb22_war %>% ggplot(aes(x=WAR,y=Wins)) +
+  geom_point() +
+  geom_smooth(method="lm") + 
+  stat_regline_equation(label.x.npc = 0.3,label.y.npc = 0.6) +
+  labs(title = "Team Wins vs. Team WAR",
+       subtitle = "2022 MLB Season | Teams",
+       caption = "Data: Baseball Reference", 
+       x = "Team WAR",
+       y = "Team Wins") +
+  theme_classic()
+```
+\newpage
+
+## Residual Analysis
+
+It is important to check model assumptions. If assumptions are violated, then our inferences may be flawed.
+
+(d) Complete residual analysis of the SLR model.
+
+```{r}
+# Create a data frame with the residuals
+residuals <- data.frame(x = fitted(model), y = residuals(model))
+
+# Create a residual plot using ggplot2
+ggplot(residuals, aes(x, y)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Fitted values", y = "Residuals", title = "Residual plot")
+```
+
+\newpage
+
+```{r}
+# Create a QQ-plot of the residuals using ggplot2
+ggplot(residuals, aes(sample = y)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Theoretical Quantiles", y = "Sample Quantiles", title = "QQ-plot of Residuals")
+```
+
+\newpage
+
+
+(e) In 2022, the Colorado Rockies were 68-94 and accumulated a total of 21.2 team wins above replacement (WAR). Estimate the Rockies team wins from their team WAR and compare this to their actual win total.
+
+```{r}
+mlb22_war <- mlb22_war %>%
+  mutate(xWins = predict(model,data.frame(WAR=mlb22_war$WAR)))
+
+( xWins <- predict(model,data.frame(WAR=21.2)) )
+
+mlb22_war %>% filter(Team=="Colorado Rockies")
+```
+
+\newpage
+
+## Polynomial Regression
+
+:::{.example}
+Ken Griffey Jr. was a baseball hall of fame outfielder from 1989--2009. For each of his of his career, the number of home runs per 100 at-bats is record. This data is found in `griffey_hr.csv`. (From \textit{Analytic Methods in Sports})
+:::
+
+(a) Output this dataset to a kable table.
+
+```{r,warning=F,message=F}
+griffey <- read_csv("data/griffey_hr.csv")
+griffey <- griffey %>% mutate(Year = Year-1988,`HR/100AB` = HR) %>% select(Year,`HR/100AB`)
+griffey %>% kable(booktabs=T,digits=c(0,2))
+```
+
+\newpage
+
+(b) Fit a SLR model between HR/AB and Year. 
+
+```{r}
+model <- lm(`HR/100AB`~Year,data=griffey)
+model %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "Year")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating HR/100AB using Year",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+(c) Plot the SLR model and comment on the model fit.
+
+```{r,warning=F,message=F}
+griffey %>% ggplot(aes(x=Year,y=`HR/100AB`)) +
+  geom_point() +
+  geom_smooth(method="lm") + 
+  stat_regline_equation(label.x.npc = 0.3,label.y.npc = 0.6) +
+  labs(title = "Home Runs Per 100 At-Bats vs. Year",
+       subtitle = "Ken Griffey Jr.'s Career",
+       caption = "Data: Baseball Reference, Analytic Methods in Sports", 
+       x = "Year",
+       y = "Home Runs per 100 AB") +
+  theme_classic()
+```
+
+\newpage
+
+(d) Plot the residuals as a function of fitted values for the SLR model. Is the linearity assumption appropriate?
+
+```{r}
+# Create a data frame with the residuals
+residuals <- data.frame(x = fitted(model), y = residuals(model))
+
+# Create a residual plot using ggplot2
+ggplot(residuals, aes(x, y)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Fitted values", y = "Residuals", title = "Residual plot")
+```
+
+\newpage
+
+(e) Repeat (b)-(c) using a quadratic model.
+
+```{r}
+model_quad <- lm(`HR/100AB`~Year+I(Year^2),data=griffey)
+model_quad %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "Year","Year^2")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating Home Runs per 100 At-Bats using Year",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+```{r}
+griffey %>% ggplot(aes(x=Year,y=`HR/100AB`)) +
+  geom_point() +
+  geom_smooth(method="lm", formula = y ~ x + I(x^2)) + 
+  labs(title = "Ken Griffey Jr.'s Career",
+       subtitle = "Home Runs Per 100 At-Bats vs. Year",
+       caption = "Data: Baseball Reference, Analytic Methods in Sports", 
+       x = "Year",
+       y = "Home Runs Per 100 At-Bats") +
+  theme_minimal()
+```
+
+\newpage
+
+## Variable Transformations
+
+Sometimes a variable transformation (either predictor or response) may be necessary to meet our model assumptions.
+
+:::{.example}
+For the 2011-2012 NHL season, data was collected for all forwards that played at least 60 games and average at least 6 minutes per game.
+:::
+
+(a) Create a kable table with the first ten entries.
+
+```{r,warning=F,message=F}
+nhl_toi <- read_csv("data/nhl_toi_11-12.csv")
+nhl_toi <- nhl_toi %>% mutate(PPG = P/GP)
+nhl_toi <- nhl_toi %>% column_to_rownames("Name")
+
+nhl_toi %>% slice(1:10) %>% kable(booktabs=T,digits=3)
+```
+
+(b) Fit a SLR model with Points Per Game (PPG) as the dependent variable and Time on Ice (TOI) as the independent variable.
+
+```{r}
+model <- lm(PPG~TOI,data=nhl_toi)
+model %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "TOI")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating Points Per Game Using Time on Ice",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+(c) Plot the SLR model and assess the quality of the model.
+
+```{r,message=F,warning=F}
+nhl_toi %>% ggplot(aes(x=TOI,y=PPG)) +
+  geom_point() +
+  geom_smooth(method="lm") + 
+  stat_regline_equation(label.x.npc = 0.3,label.y.npc = 0.6) +
+  labs(title = "Points Per Game vs. Time on Ice",
+       subtitle = "NHL Forwards | 2011-2012 Season",
+       caption = "Data: Analytic Methods in Sports", 
+       x = "Time on Ice (TOI)",
+       y = "Points Per Game (PPG)") +
+  theme_light()
+```
+
+\newpage
+
+(d) Generate a fitted values versus residuals plot and use it to determine the appropriateness of the linearity assumption.
+
+```{r}
+# Create a data frame with the residuals
+residuals <- data.frame(x = fitted(model), y = residuals(model))
+
+# Create a residual plot using ggplot2
+ggplot(residuals, aes(x, y)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Fitted values", y = "Residuals", title = "Residual plot")
+```
+\newpage
+
+(e) Log-transform PPG and refit the SLR model.
+
+```{r}
+nhl_toi <- nhl_toi %>% mutate(logPPG = log(PPG))
+model <- lm(logPPG~TOI,data=nhl_toi)
+model %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept", "TOI")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating Log Points Per Game Using Time on Ice",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+(f) Plot the log-transformed model. Does the model seem appropriate?
+
+```{r,warning=F,message=F}
+nhl_toi %>% ggplot(aes(x=TOI,y=logPPG)) +
+  geom_point() +
+  geom_smooth(method="lm",se=F) + 
+  labs(title = "Log Points Per Game vs. Time on Ice",
+       subtitle = "NHL Forwards | 2011-2012 Season",
+       caption = "Analytic Methods in Sports", 
+       x = "Time on Ice (TOI)",
+       y = "Points Per Game (logPPG)") +
+  theme_classic2() +
+  coord_trans(y = "exp")  +
+  scale_y_continuous(breaks=-3:1)
+```
+
+\newpage
+
+(g) Generate a fitted values versus residuals plot and use it to determine the appropriateness of the linearity assumption.
+
+```{r}
+# Create a data frame with the residuals
+residuals <- data.frame(x = fitted(model), y = residuals(model))
+
+# Create a residual plot using ggplot2
+ggplot(residuals, aes(x, y)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Fitted values", y = "Residuals", title = "Residual plot")
+```
+
+\newpage
+
+## Multiple Regression and Model Selection
+
+Suppose we want to build a multiple regression model with a number of predictor variables. Which predictor variables should we include in our model?
+
+There are many ways to do model selection. We will focus on all subsets.
+
+```{r}
+library(rvest)
+url <- "https://www.baseball-reference.com/leagues/majors/2022.shtml"
+site <- read_html(url)
+raw_data <- site %>% html_elements("#teams_standard_batting") %>% html_table()
+raw_data %>% data.frame() %>% select(1:10) %>% slice(1:5) %>% kable(booktabs=T)
+```
+
+```{r,warning=F,message=F}
+# convert from character to numeric
+mlb_2022 <- raw_data %>% data.frame() %>% mutate_if(is.character, as.numeric)
+
+# remove some unnecessary columns
+mlb_2022 <- mlb_2022 %>% select(-Tm,-X.Bat,-BatAge,-G,-R,-AB,-PA,-OPS.,-RBI,-IBB) %>% slice(1:30)
+mlb_2022 %>% slice(1:5) %>% select(1:10) %>% kable(booktabs=T)
+```
+
+\newpage
+
+```{r}
+model1 <- lm(R.G~.,data=mlb_2022)
+model1 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value)) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "MR Model Estimating Runs Per Game Using Multiple Variables",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+### Model Selection using BIC
+
+```{r}
+library(leaps)
+regsubsets.out <-
+    regsubsets(`R.G`~.,
+               data = mlb_2022,
+               nbest = 1,
+               nvmax = 10,
+               method = "exhaustive")
+summary.out <- summary(regsubsets.out)
+
+plot(summary.out$bic, xlab = "Number of Variables", ylab = "BIC", type = "l")
+bic_min = which.min(summary.out$bic) # 6
+points(bic_min, summary.out$bic[bic_min], col = "red", cex = 2, pch = 20)
+```
+
+\newpage
+
+```{r}
+# Model with only one predictor
+summary.out$which[1,]
+```
+
+```{r}
+# Model with lowest BIC
+which.min(summary.out$bic)
+summary.out$which[which.min(summary.out$bic),]
+```
+
+```{R}
+# Model with highest Adj R^2
+which.max(summary.out$adjr2)
+summary.out$which[which.max(summary.out$adjr2),]
+```
+
+\newpage
+
+```{r}
+# Model chosen to minimize BIC
+model2 <- lm(R.G~CS+BA+OBP+SLG+TB+GDP+SH+SF+LOB,data=mlb_2022)
+model2 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value)) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "MR Model Estimating Runs Per Game Using Multiple Variables",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+\newpage
+
+## Confounding Variables
+
+:::{.definition}
+A ***confounding variable*** is a variable that is correlated to a predictor variable and response variable that causes a spurious association.
+:::
+
+:::{.example}
+A statistician hypothesizes that an NBA team's draft position can be used to predict the number of regular-season wins for the team for the upcoming season. To investigate the relationship, they decide to estimate the following simple linear regression model:
+
+$Wins\ = \beta_0 + \beta_1(Draft\ Position) + \epsilon_i$
+
+Using 2021-22 NBA data, the estimated intercept and slope for the model are:
+
+```{r confounding example}
+# Data: https://en.wikipedia.org/wiki/2021_NBA_draft
+
+NBA_Data <- read.csv("data/NBA_Draft_and_Win_Data.csv")
+
+lm(Wins_2021_2022 ~ Draft_Position_2021, data=NBA_Data)
+```
+Interpret the estimated slope in this model.
+:::
+
+
+Recognizing that the SLR model may lead to erroneous lines of logic, the statistician decides to tackle the confounding by adding the wins for the team in the previous season to the model as a covariate. The theoretical model being estimated is now as follows:
+
+$Wins\ = \beta_0 + \beta_1(Draft\ Position) + \beta_2(Previous\ Season\ Wins) + \epsilon_i$
+
+```{r confounding example 2}
+lm(Wins_2021_2022 ~ Draft_Position_2021 + Wins_2020_2021_Scaled, data=NBA_Data)
+```
+
+When controlling for an NBA team's wins in the previous season, the sign for the slope coefficient for draft position flips to a negative. This suggests that for teams with the same winning percentage in the previous season, a lower draft position is associated with more wins in the following season. The results of this model, which included an important confounding variable, aligned with the conventional wisdom that lower draft positions are helpful for a team's future success. 
+
+
+\newpage
+
+## Interaction
+
+Sometimes the relationship between an independent variable and a dependent variable depend on the value of a different independent value. In such a case, we say that the predictor variables interact and we should consider including an interaction term in our model.
+
+```{r}
+# load nfl team statistics data from 2022
+nfl22 <- read_csv("data/nfl22.csv",show_col_types = F)
+nfl22 <- nfl22 %>% slice(1:32) %>%
+  mutate(PPG=PF/G,RYPG=Rush_Yds/G,PYPG=Pass_Yds/G) %>% 
+  select(Tm,PPG,RYPG,PYPG) %>%
+  column_to_rownames("Tm")
+nfl22 %>% slice(1:5) %>% kable(booktabs=T,digits=1)
+```
+
+
+```{r}
+library(gridExtra)
+p1 <- nfl22 %>% ggplot(aes(x=RYPG,y=PPG)) + 
+  geom_point() +
+  geom_smooth(method="lm",se=F) +
+  labs(title="Rushing Yards Per Game vs. Points Per Game",
+       x="Rushing Yards Per Game (RYPG)",
+       y="Points Per Game")
+p2 <- nfl22 %>% ggplot(aes(x=PYPG,y=PPG)) + 
+  geom_point() +
+  geom_smooth(method="lm",se=F) +
+  labs(title="Passing Yards Per Game vs. Points Per Game",
+       x="Passing Yards Per Game (RYPG)",
+       y="Points Per Game")
+p3 <- nfl22 %>% ggplot(aes(x=RYPG,y=PYPG)) + 
+  geom_point() +
+  geom_smooth(method="lm",se=F) +
+  labs(title="Rushing Yards Per Game vs. Passing Yards Per Game",
+       x="Rushing Yards Per Game (RYPG)",
+       y="Passing Yards Per Game")
+```
+
+\vfill
+
+\newpage
+
+```{r,warning=F,message=F,fig.height=8}
+grid.arrange(p1,p2,p3,nrow=3)
+```
+
+\newpage
+
+```{r}
+model1 <- lm(PPG~RYPG+PYPG,data=nfl22)
+# Nicely output regression information
+model1 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept","RYPG","PYPG")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating PPG Using RYPG and PYPG",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+```{r}
+model2 <- lm(PPG~RYPG*PYPG,data=nfl22)
+# Nicely output regression information
+model2 %>% tidy() %>%
+  mutate(
+    p.value = scales::pvalue(p.value),
+    term = c("Intercept","RYPG","PYPG","RYPG:PYPG")
+  ) %>%
+  kable(booktabs=T,digits=c(3,3,3,3), 
+        caption = "SLR Model Estimating PPG Using RYPG and PYPG",
+        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+\newpage
+
+:::{.example}
+Acquire the average fastball and curveball velocities for baseball pitchers in 2022. Assess whether FBv and CBv interact when modeling K/9 (strikeouts per nine innings)
+:::
+
+```{r}
+# pit22 <- fg_pitch_leaders(x=2022,y=2022,qual = "n") %>%
+#   select(Name,FBv,CBv,`K_9`)
+# pit22 %>% na.omit() %>% arrange(desc(FBv)) %>% slice(1:5) %>% kable(booktabs=T)
+```
+
+```{r}
+# pit_mod1 <- lm(K_9~FBv+CBv,data=pit22)
+```
+
+```{r,echo=F}
+# pit_mod1 %>% tidy() %>%
+#   mutate(
+#     p.value = scales::pvalue(p.value),
+#     term = c("Intercept","Average Fastball Velocity","Average Curveball Velocity")
+#   ) %>%
+#   kable(booktabs=T,digits=c(3,3,3,3), 
+#         caption = "SLR Model Estimating K/9 using FBv and CBv with no interaction",
+#         col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+#   kable_styling(latex_options = "hold_position")
+```
+
+```{r}
+# pit_mod2 <- lm(K_9~FBv*CBv,data=pit22)
+```
+
+```{r,echo=F}
+# pit_mod2 %>% tidy() %>%
+#   mutate(
+#     p.value = scales::pvalue(p.value),
+#     term = c("Intercept","Average Fastball Velocity","Average Curveball Velocity","Interaction")
+#   ) %>%
+#   kable(booktabs=T,digits=c(3,3,3,3), 
+#         caption = "SLR Model Estimating K/9 using FBv and CBv with interaction",
+#         col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
+#   kable_styling(latex_options = "hold_position")
+```
+

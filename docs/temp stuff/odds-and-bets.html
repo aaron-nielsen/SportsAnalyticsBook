@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Odds and Bets | Sports Analytics</title>
+  <meta name="description" content="Chapter 3 Odds and Bets | Sports Analytics Notes" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Odds and Bets | Sports Analytics" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+  <meta property="og:description" content="Chapter 3 Odds and Bets | Sports Analytics Notes" />
+  <meta name="github-repo" content="aaron-nielsen.github.io/SportsAnalyticsBook/" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Odds and Bets | Sports Analytics" />
+  
+  <meta name="twitter:description" content="Chapter 3 Odds and Bets | Sports Analytics Notes" />
+  <meta name="twitter:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+
+<meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
+
+
+<meta name="date" content="2023-08-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="probability.html"/>
+<link rel="next" href="monte-carlo-simulation.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/style.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/lesson.css" type="text/css" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Sports Analytics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i>Preliminaries</a>
+<ul>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#getting-started-with-r"><i class="fa fa-check"></i>Getting Started With R</a>
+<ul>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#installing-r"><i class="fa fa-check"></i>Installing R</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#some-r-basics"><i class="fa fa-check"></i>Some R Basics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#course-goals"><i class="fa fa-check"></i>Course Goals</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#which-sports"><i class="fa fa-check"></i>Which Sports?</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#challenges"><i class="fa fa-check"></i>Challenges</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#ethical-concerns"><i class="fa fa-check"></i>Ethical Concerns</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>1</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>1.1</b> Descriptive Statistics</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#definitions"><i class="fa fa-check"></i><b>1.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="1.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>1.1.2</b> Descriptive Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#visualizations"><i class="fa fa-check"></i><b>1.2</b> Visualizations</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#histograms"><i class="fa fa-check"></i><b>1.2.1</b> Histograms</a></li>
+<li class="chapter" data-level="1.2.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#bar-plots"><i class="fa fa-check"></i><b>1.2.2</b> Bar Plots</a></li>
+<li class="chapter" data-level="1.2.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plots"><i class="fa fa-check"></i><b>1.2.3</b> Scatter Plots</a></li>
+<li class="chapter" data-level="1.2.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#kable-tables"><i class="fa fa-check"></i><b>1.2.4</b> Kable Tables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#baseball"><i class="fa fa-check"></i><b>1.3</b> Baseball</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#hitting-statistics"><i class="fa fa-check"></i><b>1.3.1</b> Hitting Statistics</a></li>
+<li class="chapter" data-level="1.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#pitching-statistics"><i class="fa fa-check"></i><b>1.3.2</b> Pitching Statistics</a></li>
+<li class="chapter" data-level="1.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#wins-above-replacement"><i class="fa fa-check"></i><b>1.3.3</b> Wins Above Replacement</a></li>
+<li class="chapter" data-level="1.3.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#calculating-hitting-statistics"><i class="fa fa-check"></i><b>1.3.4</b> Calculating Hitting Statistics</a></li>
+<li class="chapter" data-level="1.3.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#evaluating-pitching-statistics"><i class="fa fa-check"></i><b>1.3.5</b> Evaluating Pitching Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#football"><i class="fa fa-check"></i><b>1.4</b> Football</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-football-statistics"><i class="fa fa-check"></i><b>1.4.1</b> Basic Football Statistics</a></li>
+<li class="chapter" data-level="1.4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-football-statistics"><i class="fa fa-check"></i><b>1.4.2</b> Advanced Football Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basketball"><i class="fa fa-check"></i><b>1.5</b> Basketball</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-basketball-statistics"><i class="fa fa-check"></i><b>1.5.1</b> Basic Basketball Statistics</a></li>
+<li class="chapter" data-level="1.5.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-basketball-statistics"><i class="fa fa-check"></i><b>1.5.2</b> Advanced Basketball Statistics</a></li>
+<li class="chapter" data-level="1.5.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#four-factors"><i class="fa fa-check"></i><b>1.5.3</b> Four Factors</a></li>
+<li class="chapter" data-level="1.5.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#shot-charts"><i class="fa fa-check"></i><b>1.5.4</b> Shot Charts</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#hockey"><i class="fa fa-check"></i><b>1.6</b> Hockey</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-hockey-statistics"><i class="fa fa-check"></i><b>1.6.1</b> Basic Hockey Statistics</a></li>
+<li class="chapter" data-level="1.6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-hockey-statistics"><i class="fa fa-check"></i><b>1.6.2</b> Advanced Hockey Statistics</a></li>
+<li class="chapter" data-level="1.6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#actual-vs.-expected-goals"><i class="fa fa-check"></i><b>1.6.3</b> Actual vs. Expected Goals</a></li>
+<li class="chapter" data-level="1.6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#goalie-statistics"><i class="fa fa-check"></i><b>1.6.4</b> Goalie Statistics</a></li>
+<li class="chapter" data-level="1.6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#correlation-plots"><i class="fa fa-check"></i><b>1.6.5</b> Correlation Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#volleyball"><i class="fa fa-check"></i><b>1.7</b> Volleyball</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-volleyball-statistics"><i class="fa fa-check"></i><b>1.7.1</b> Basic Volleyball Statistics</a></li>
+<li class="chapter" data-level="1.7.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plot"><i class="fa fa-check"></i><b>1.7.2</b> Scatter Plot</a></li>
+<li class="chapter" data-level="1.7.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#box-plot"><i class="fa fa-check"></i><b>1.7.3</b> Box Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#soccer"><i class="fa fa-check"></i><b>1.8</b> Soccer</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-soccer-statistics"><i class="fa fa-check"></i><b>1.8.1</b> Basic Soccer Statistics</a></li>
+<li class="chapter" data-level="1.8.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-soccer-statistics"><i class="fa fa-check"></i><b>1.8.2</b> Advanced Soccer Statistics</a></li>
+<li class="chapter" data-level="1.8.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#bar-plot"><i class="fa fa-check"></i><b>1.8.3</b> Bar Plot</a></li>
+<li class="chapter" data-level="1.8.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plot-1"><i class="fa fa-check"></i><b>1.8.4</b> Scatter Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>2</b> Probability</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#definitions-1"><i class="fa fa-check"></i><b>2.1</b> Definitions</a></li>
+<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#set-theory"><i class="fa fa-check"></i><b>2.2</b> Set Theory</a></li>
+<li class="chapter" data-level="2.3" data-path="probability.html"><a href="probability.html#axioms-properties-and-laws"><i class="fa fa-check"></i><b>2.3</b> Axioms, Properties, and Laws</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="probability.html"><a href="probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>2.3.1</b> Axioms of Probability</a></li>
+<li class="chapter" data-level="2.3.2" data-path="probability.html"><a href="probability.html#properties-of-probability"><i class="fa fa-check"></i><b>2.3.2</b> Properties of Probability</a></li>
+<li class="chapter" data-level="2.3.3" data-path="probability.html"><a href="probability.html#laws-of-probability"><i class="fa fa-check"></i><b>2.3.3</b> Laws of Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="probability.html"><a href="probability.html#combinatorics"><i class="fa fa-check"></i><b>2.4</b> Combinatorics</a></li>
+<li class="chapter" data-level="2.5" data-path="probability.html"><a href="probability.html#random-variables"><i class="fa fa-check"></i><b>2.5</b> Random Variables</a></li>
+<li class="chapter" data-level="2.6" data-path="probability.html"><a href="probability.html#common-random-variables"><i class="fa fa-check"></i><b>2.6</b> Common Random Variables</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="probability.html"><a href="probability.html#binomial-rvs"><i class="fa fa-check"></i><b>2.6.1</b> Binomial RVs</a></li>
+<li class="chapter" data-level="2.6.2" data-path="probability.html"><a href="probability.html#geometric-rvs"><i class="fa fa-check"></i><b>2.6.2</b> Geometric RVs</a></li>
+<li class="chapter" data-level="2.6.3" data-path="probability.html"><a href="probability.html#poisson-rvs"><i class="fa fa-check"></i><b>2.6.3</b> Poisson RVs</a></li>
+<li class="chapter" data-level="2.6.4" data-path="probability.html"><a href="probability.html#negative-binomial-rvs"><i class="fa fa-check"></i><b>2.6.4</b> Negative Binomial RVs</a></li>
+<li class="chapter" data-level="2.6.5" data-path="probability.html"><a href="probability.html#normal-rvs"><i class="fa fa-check"></i><b>2.6.5</b> Normal RVs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="probability.html"><a href="probability.html#win-probability-models"><i class="fa fa-check"></i><b>2.7</b> Win Probability Models</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="probability.html"><a href="probability.html#estimating-pregame-win-probability"><i class="fa fa-check"></i><b>2.7.1</b> Estimating Pregame Win Probability</a></li>
+<li class="chapter" data-level="2.7.2" data-path="probability.html"><a href="probability.html#estimating-in-game-win-probability"><i class="fa fa-check"></i><b>2.7.2</b> Estimating In-Game Win Probability</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="odds-and-bets.html"><a href="odds-and-bets.html"><i class="fa fa-check"></i><b>3</b> Odds and Bets</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="odds-and-bets.html"><a href="odds-and-bets.html#odds"><i class="fa fa-check"></i><b>3.1</b> Odds</a></li>
+<li class="chapter" data-level="3.2" data-path="odds-and-bets.html"><a href="odds-and-bets.html#gambling-odds"><i class="fa fa-check"></i><b>3.2</b> Gambling Odds</a></li>
+<li class="chapter" data-level="3.3" data-path="odds-and-bets.html"><a href="odds-and-bets.html#types-of-bets"><i class="fa fa-check"></i><b>3.3</b> Types of Bets</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html"><i class="fa fa-check"></i><b>4</b> Monte Carlo Simulation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#basics"><i class="fa fa-check"></i><b>4.1</b> Basics</a></li>
+<li class="chapter" data-level="4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#estimating-probabilities"><i class="fa fa-check"></i><b>4.2</b> Estimating Probabilities</a></li>
+<li class="chapter" data-level="4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-streaks"><i class="fa fa-check"></i><b>4.3</b> Simulating Streaks</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#winning-streak-simulation"><i class="fa fa-check"></i><b>4.3.1</b> Winning Streak Simulation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#hitting-streak-simulation"><i class="fa fa-check"></i><b>4.3.2</b> Hitting Streak Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gambling-simulations"><i class="fa fa-check"></i><b>4.4</b> Gambling Simulations</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#martingale-system"><i class="fa fa-check"></i><b>4.4.1</b> Martingale System</a></li>
+<li class="chapter" data-level="4.4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gamblers-ruin"><i class="fa fa-check"></i><b>4.4.2</b> Gambler’s Ruin</a></li>
+<li class="chapter" data-level="4.4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-a-winning-system"><i class="fa fa-check"></i><b>4.4.3</b> Simulating a Winning System</a></li>
+<li class="chapter" data-level="4.4.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#using-the-kelly-growth-criterion"><i class="fa fa-check"></i><b>4.4.4</b> Using the Kelly Growth Criterion</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-censored-data"><i class="fa fa-check"></i><b>4.5</b> Simulating Censored Data</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#tony-gwynn-1994-batting-average-simulation"><i class="fa fa-check"></i><b>4.5.1</b> Tony Gwynn 1994 Batting Average Simulation</a></li>
+<li class="chapter" data-level="4.5.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#matt-williams-1994-home-run-simulation"><i class="fa fa-check"></i><b>4.5.2</b> Matt Williams 1994 Home Run Simulation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="inferential-statistics.html"><a href="inferential-statistics.html"><i class="fa fa-check"></i><b>5</b> Inferential Statistics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#defining-a-population"><i class="fa fa-check"></i><b>5.1</b> Defining a Population</a></li>
+<li class="chapter" data-level="5.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#statistical-inference"><i class="fa fa-check"></i><b>5.2</b> Statistical Inference</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-intervals"><i class="fa fa-check"></i><b>5.2.1</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="5.2.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hypothesis-tests"><i class="fa fa-check"></i><b>5.2.2</b> Hypothesis Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#inference-for-population-mean"><i class="fa fa-check"></i><b>5.3</b> Inference for Population Mean</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-population-mean"><i class="fa fa-check"></i><b>5.3.1</b> Confidence Interval for Population Mean</a></li>
+<li class="chapter" data-level="5.3.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hypothesis-test-for-population-mean"><i class="fa fa-check"></i><b>5.3.2</b> Hypothesis Test for Population Mean</a></li>
+<li class="chapter" data-level="5.3.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-difference-in-means"><i class="fa fa-check"></i><b>5.3.3</b> Test for Difference in Means</a></li>
+<li class="chapter" data-level="5.3.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-difference-in-means"><i class="fa fa-check"></i><b>5.3.4</b> Confidence Interval for Difference in Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#inference-for-population-proportion"><i class="fa fa-check"></i><b>5.4</b> Inference for Population Proportion</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-population-proportion"><i class="fa fa-check"></i><b>5.4.1</b> Confidence Interval for Population Proportion</a></li>
+<li class="chapter" data-level="5.4.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-population-proportion"><i class="fa fa-check"></i><b>5.4.2</b> Test for Population Proportion</a></li>
+<li class="chapter" data-level="5.4.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.4.3</b> Confidence Interval for Difference in Proportions</a></li>
+<li class="chapter" data-level="5.4.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.4.4</b> Test for Difference in Proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#bootstrap"><i class="fa fa-check"></i><b>5.5</b> Bootstrap</a></li>
+<li class="chapter" data-level="5.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#margin-of-error-calcuations"><i class="fa fa-check"></i><b>5.6</b> Margin of Error Calcuations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-for-probabilities"><i class="fa fa-check"></i><b>5.6.1</b> MOE for Probabilities</a></li>
+<li class="chapter" data-level="5.6.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-for-averages"><i class="fa fa-check"></i><b>5.6.2</b> MOE for Averages</a></li>
+<li class="chapter" data-level="5.6.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-estimation-using-simulation"><i class="fa fa-check"></i><b>5.6.3</b> MOE estimation using simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="inferential-statistics.html"><a href="inferential-statistics.html#one-sample-and-two-sample-t-tests-and-confidence-intervals"><i class="fa fa-check"></i><b>5.7</b> One Sample and Two Sample t-tests and confidence intervals</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hockey-faceoffs"><i class="fa fa-check"></i><b>5.7.1</b> Hockey Faceoffs</a></li>
+<li class="chapter" data-level="5.7.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hockey-penalty-scoring"><i class="fa fa-check"></i><b>5.7.2</b> Hockey Penalty Scoring</a></li>
+<li class="chapter" data-level="5.7.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#nfl-overtime-winners"><i class="fa fa-check"></i><b>5.7.3</b> NFL Overtime Winners</a></li>
+<li class="chapter" data-level="5.7.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#icing-the-kicker"><i class="fa fa-check"></i><b>5.7.4</b> Icing the Kicker</a></li>
+<li class="chapter" data-level="5.7.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#example-football-one-vs.-two-point-conversion"><i class="fa fa-check"></i><b>5.7.5</b> Example: Football One vs. Two Point Conversion</a></li>
+<li class="chapter" data-level="5.7.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#two-sample-tests"><i class="fa fa-check"></i><b>5.7.6</b> Two Sample Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="inferential-statistics.html"><a href="inferential-statistics.html#permutation-tests"><i class="fa fa-check"></i><b>5.8</b> Permutation Tests</a></li>
+<li class="chapter" data-level="5.9" data-path="inferential-statistics.html"><a href="inferential-statistics.html#bootstrap-1"><i class="fa fa-check"></i><b>5.9</b> Bootstrap</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="measures-of-association.html"><a href="measures-of-association.html"><i class="fa fa-check"></i><b>6</b> Measures of Association</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="measures-of-association.html"><a href="measures-of-association.html#pearson-correlation-coefficient"><i class="fa fa-check"></i><b>6.1</b> Pearson Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="measures-of-association.html"><a href="measures-of-association.html#partial-correlation-and-confounding-variables"><i class="fa fa-check"></i><b>6.1.1</b> Partial Correlation and Confounding Variables</a></li>
+<li class="chapter" data-level="6.1.2" data-path="measures-of-association.html"><a href="measures-of-association.html#properties-of-the-linear-correlation-coefficient"><i class="fa fa-check"></i><b>6.1.2</b> Properties of the Linear Correlation Coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="measures-of-association.html"><a href="measures-of-association.html#association-of-categorical-variables"><i class="fa fa-check"></i><b>6.2</b> Association of Categorical Variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="measures-of-association.html"><a href="measures-of-association.html#odds-ratios"><i class="fa fa-check"></i><b>6.2.1</b> Odds Ratios</a></li>
+<li class="chapter" data-level="6.2.2" data-path="measures-of-association.html"><a href="measures-of-association.html#yules-q"><i class="fa fa-check"></i><b>6.2.2</b> Yule’s Q</a></li>
+<li class="chapter" data-level="6.2.3" data-path="measures-of-association.html"><a href="measures-of-association.html#chi-squared-test-of-independence"><i class="fa fa-check"></i><b>6.2.3</b> Chi-Squared Test of Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="measures-of-association.html"><a href="measures-of-association.html#rank-correlation"><i class="fa fa-check"></i><b>6.3</b> Rank Correlation</a></li>
+<li class="chapter" data-level="6.4" data-path="measures-of-association.html"><a href="measures-of-association.html#serial-correlation"><i class="fa fa-check"></i><b>6.4</b> Serial Correlation</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="measures-of-association.html"><a href="measures-of-association.html#autocorrelation"><i class="fa fa-check"></i><b>6.4.1</b> Autocorrelation</a></li>
+<li class="chapter" data-level="6.4.2" data-path="measures-of-association.html"><a href="measures-of-association.html#run-lengths"><i class="fa fa-check"></i><b>6.4.2</b> Run Lengths</a></li>
+<li class="chapter" data-level="6.4.3" data-path="measures-of-association.html"><a href="measures-of-association.html#wald-wolfowitz-runs-test"><i class="fa fa-check"></i><b>6.4.3</b> Wald-Wolfowitz Runs Test</a></li>
+<li class="chapter" data-level="6.4.4" data-path="measures-of-association.html"><a href="measures-of-association.html#hot-hand"><i class="fa fa-check"></i><b>6.4.4</b> Hot Hand</a></li>
+<li class="chapter" data-level="6.4.5" data-path="measures-of-association.html"><a href="measures-of-association.html#streakiness-in-sports"><i class="fa fa-check"></i><b>6.4.5</b> Streakiness in Sports</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="measures-of-association.html"><a href="measures-of-association.html#pythagorean-record"><i class="fa fa-check"></i><b>6.5</b> Pythagorean Record</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>7</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>7.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="7.2" data-path="linear-regression.html"><a href="linear-regression.html#residual-analysis"><i class="fa fa-check"></i><b>7.2</b> Residual Analysis</a></li>
+<li class="chapter" data-level="7.3" data-path="linear-regression.html"><a href="linear-regression.html#polynomial-regression"><i class="fa fa-check"></i><b>7.3</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="7.4" data-path="linear-regression.html"><a href="linear-regression.html#variable-transformations"><i class="fa fa-check"></i><b>7.4</b> Variable Transformations</a></li>
+<li class="chapter" data-level="7.5" data-path="linear-regression.html"><a href="linear-regression.html#multiple-regression-and-model-selection"><i class="fa fa-check"></i><b>7.5</b> Multiple Regression and Model Selection</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="linear-regression.html"><a href="linear-regression.html#model-selection-using-bic"><i class="fa fa-check"></i><b>7.5.1</b> Model Selection using BIC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables"><i class="fa fa-check"></i><b>7.6</b> Confounding Variables</a></li>
+<li class="chapter" data-level="7.7" data-path="linear-regression.html"><a href="linear-regression.html#interaction"><i class="fa fa-check"></i><b>7.7</b> Interaction</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Sports Analytics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="odds-and-bets" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Odds and Bets<a href="odds-and-bets.html#odds-and-bets" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Sports Betting in USA</strong></p>
+<p>In 2018, the United States Supreme Court overturned a 1992 federal law that banned commercial sports betting in most states. For more about this ruling, see this New York Times article: <a href="https://www.nytimes.com/2018/05/14/us/politics/supreme-court-sports-betting-new-jersey.html" class="uri">https://www.nytimes.com/2018/05/14/us/politics/supreme-court-sports-betting-new-jersey.html</a></p>
+<p>In Colorado, you must be at least 21 years old to gamble including betting on sports games.</p>
+<p><strong>Gambling Addiction</strong></p>
+<p>Gambling addiction, compulsive gambling, or gambling disorder is a serious impulse-control disorder. Here is a link to the Mayo Clinic’s discussion of compulsive gambling: <a href="https://www.mayoclinic.org/diseases-conditions/compulsive-gambling/symptoms-causes/syc-20355178" class="uri">https://www.mayoclinic.org/diseases-conditions/compulsive-gambling/symptoms-causes/syc-20355178</a></p>
+<p>Gambling is <strong><em>not</em></strong> encouraged and can lead to numerous problems. If you choose to gamble on sports, don’t bet beyond your means and seek help if you worry that you may be suffering from gambling addiction.</p>
+<div style="page-break-after: always;"></div>
+<div id="odds" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Odds<a href="odds-and-bets.html#odds" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the previous chapter, we quantified uncertainty using probabilities (numbers between 0 and 1) and percentages (numbers between 0 and 100). We can also quantify uncertainty using <strong>odds</strong>.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-108" class="definition"><strong>Definition 3.1  </strong></span>The <strong><em>odds</em></strong> (in favor) of an outcome <span class="math inline">\(A\)</span> is the probability of <span class="math inline">\(A\)</span> divided by the probability of <span class="math inline">\(A^C\)</span>.</p>
+<p><span class="math display">\[Odds = \frac{p}{1-p}\]</span></p>
+</div>
+<p><strong>Note:</strong> We may also be given the <strong>odds against</strong> a particular outcome. In this case, we have <span class="math inline">\(Odds Against = \frac{1-p}{p}\)</span>.<br />
+</p>
+<p><strong>Some Common Odds:</strong></p>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Odds
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:right;">
+q
+</th>
+<th style="text-align:left;">
+Odds
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:right;">
+q
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+0:1
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:left;">
+1:0
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1:1
+</td>
+<td style="text-align:right;">
+0.500
+</td>
+<td style="text-align:right;">
+0.500
+</td>
+<td style="text-align:left;">
+1:1
+</td>
+<td style="text-align:right;">
+0.500
+</td>
+<td style="text-align:right;">
+0.500
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2:1
+</td>
+<td style="text-align:right;">
+0.667
+</td>
+<td style="text-align:right;">
+0.333
+</td>
+<td style="text-align:left;">
+1:2
+</td>
+<td style="text-align:right;">
+0.333
+</td>
+<td style="text-align:right;">
+0.667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3:1
+</td>
+<td style="text-align:right;">
+0.750
+</td>
+<td style="text-align:right;">
+0.250
+</td>
+<td style="text-align:left;">
+1:3
+</td>
+<td style="text-align:right;">
+0.250
+</td>
+<td style="text-align:right;">
+0.750
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4:1
+</td>
+<td style="text-align:right;">
+0.800
+</td>
+<td style="text-align:right;">
+0.200
+</td>
+<td style="text-align:left;">
+1:4
+</td>
+<td style="text-align:right;">
+0.200
+</td>
+<td style="text-align:right;">
+0.800
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5:1
+</td>
+<td style="text-align:right;">
+0.833
+</td>
+<td style="text-align:right;">
+0.167
+</td>
+<td style="text-align:left;">
+1:5
+</td>
+<td style="text-align:right;">
+0.167
+</td>
+<td style="text-align:right;">
+0.833
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10:1
+</td>
+<td style="text-align:right;">
+0.909
+</td>
+<td style="text-align:right;">
+0.091
+</td>
+<td style="text-align:left;">
+1:10
+</td>
+<td style="text-align:right;">
+0.091
+</td>
+<td style="text-align:right;">
+0.909
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+100:1
+</td>
+<td style="text-align:right;">
+0.990
+</td>
+<td style="text-align:right;">
+0.010
+</td>
+<td style="text-align:left;">
+1:100
+</td>
+<td style="text-align:right;">
+0.010
+</td>
+<td style="text-align:right;">
+0.990
+</td>
+</tr>
+</tbody>
+</table>
+<p>In the following table, the odds of an outcome along with the probability of the outcome, <em>p</em>, and the probability of the outcome’s complement, <em>q=1-p</em> are given.</p>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-109" class="example"><strong>Example 3.1  </strong></span>For the following examples, convert between probability and odds.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>Suppose that the probability that the Cubs win the 2025 World Series is 0.03. What are the odds in favor?<br />
+</li>
+</ol>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Suppose that the odds that the Rockies win the World Series in 2025 is 100:1. What is the probability in favor?<br />
+</li>
+</ol>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Suppose there is a 1% chance that CSU wins a national championship in any sport in the next decade. What are the probability and the odds against CSU winning a national championship in the next decade?<br />
+</li>
+</ol>
+<div class="example">
+<p><span id="exm:unlabeled-div-110" class="example"><strong>Example 3.2  </strong></span>Suppose that there are three finalists in an Olympic competition. It is estimated that Athlete A has a 50% chance of winning, Athlete B has a 40% chance of winning, and Player C has a 10% chance of winning. Calculate the odds against each of the athletes winning the competition.</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="gambling-odds" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Gambling Odds<a href="odds-and-bets.html#gambling-odds" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Here’s a helpful resource on calculating gambling odds:<br />
+<a href="https://www.actionnetwork.com/education/decimal-odds" class="uri">https://www.actionnetwork.com/education/decimal-odds</a></p>
+<p>Gambling odds are a bit different that odds in a probability context. Gambling odds tell the amount that the bookmaker will pay out for a winning bet. For example, if a bookmaker is offering “10:1” that the Rockies win the next World Series, the bookmaker will pay out 10x the original wager plus the original wager if the Rockies win the World Series and the bookmaker will keep the original bet if the Rockies fail to win the World Series.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-111" class="definition"><strong>Definition 3.2  </strong></span>The <strong><em>implied probability</em></strong>, <span class="math inline">\(\tilde{p}\)</span>, of a wager is the probability that corresponds to the odds of the wager.</p>
+<p><span class="math display">\[\tilde{p} = \frac{Odds}{Odds+1}\]</span></p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-112" class="definition"><strong>Definition 3.3  </strong></span><strong><em>Fractional odds</em></strong> are common in horse racing and quote the net total that will be paid out to the bettor, should he or she win, relative to the stake. The numerator and denominator of fractional odds are always positive integers. For example, a $100 wager on a “5:1” bet would result in a payout of <span class="math inline">\(5 \cdot \$100 + \$100 = \$600\)</span> if the wager is correct and a payout of $0 if the wager is incorrect.</p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-113" class="definition"><strong>Definition 3.4  </strong></span><strong><em>Decimal Odds</em></strong> represent the multiplier of a winning bet and is calculated by taking the inverse of the implied probability. For instance, if you bet $100 with decimal odds of 1.8, your payout is $180 ($100 wager + $80 winnings).</p>
+<p><span class="math display">\[Decimal \, Odds = [\tilde{p}]^{-1}\]</span></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="types-of-bets" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Types of Bets<a href="odds-and-bets.html#types-of-bets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="definition">
+<p><span id="def:unlabeled-div-114" class="definition"><strong>Definition 3.5  </strong></span>A <strong><em>moneyline bet</em></strong> are common bets in American sports. When the moneyline is positive, the figure tells what the winning payout would be on a $100 bet. When the moneyline is negative, the figure tells what wager is required for a winning payout of $100.</p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-115" class="example"><strong>Example 3.3  </strong></span>For the following scenarios, assume a wager of $100. Calculate the payout for a winning bet.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>Fractional odds of 4/1<br />
+</li>
+</ol>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Moneyline +400<br />
+</li>
+</ol>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Moneyline -300<br />
+</li>
+</ol>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Decimal Odds of 1.5<br />
+</li>
+</ol>
+<div style="page-break-after: always;"></div>
+<div class="definition">
+<p><span id="def:unlabeled-div-116" class="definition"><strong>Definition 3.6  </strong></span>A <em>moneyline bet</em> refers to the odds of a straight-up outcome on a game without consideration of a point spread. Typically, favorites will have negative moneyline odds and underdogs will have a positive moneyline odds.</p>
+<p>If ML is negative:
+<span class="math display">\[\tilde{p} = \frac{-ML_{NEG}}{-ML_{NEG}+100}\]</span></p>
+<p>If ML is positive:
+<span class="math display">\[\tilde{p} = \frac{100}{ML_{POS}+100}\]</span></p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-117" class="example"><strong>Example 3.4  </strong></span>Calculate the implied probabilities for the following examples.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li><p>Fractional odds of 4/1<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>Moneyline -125<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>Moneyline +125<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>Decimal Odds of 1.5<br />
+<br />
+<br />
+<br />
+</p></li>
+</ol>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-118" class="example"><strong>Example 3.5  </strong></span>Suppose that for an upcoming NFL game, a moneyline wager on the Broncos is -105 and a moneyline wager on the Raiders is -120.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li><p>Calculate the implied probabilities of the two possible outcomes. (Note that sometime ties are an optional wager. Other times, ties will result in a push, that is, no winner.)<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>What is the sum of the implied probabilities?<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>Does the result from (b) violate the axioms of probability? If so, why?<br />
+<br />
+<br />
+<br />
+</p></li>
+</ol>
+<p><strong>Note:</strong> The goal of bookmaking is to make money, so there will be almost certainly be a house advantage. This means that the sum of the implied probabilities will be greater than 1.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-119" class="definition"><strong>Definition 3.7  </strong></span>The <strong><em>house advantage</em></strong> (or <strong><em>hold percentage</em></strong>) is the percentage of money that sportsbooks keep for every dollar earned.</p>
+<p><span class="math display">\[House \, Advantage = 100 \cdot \sum_{i=1}^n \tilde{p}_i - 100\]</span></p>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-120" class="example"><strong>Example 3.6  </strong></span>Suppose that a bookmaker is offering a moneyline wager on the Broncos at -105 and a moneyline wager on the Raiders at -120. Calculate the bookmakers expected winnings based on the following amounts of total bets.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li><p>$500 wagered on the Broncos, $500 wagered on the Raiders<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>$250 wagered on the Broncos, $750 wagered on the Raiders<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>$750 wagered on the Broncos, $250 wagered on the Raiders<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>$0 wagered on the Broncos, $1000 wagered on the Raiders<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>$1000 wagered on the Broncos, $0 wagered on the Raiders<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>What is the house advantage?<br />
+<br />
+<br />
+<br />
+</p></li>
+</ol>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-121" class="example"><strong>Example 3.7  </strong></span>A <strong><em>point spread bet</em></strong> is a bet based on the projected margin of victory that can result in a win, loss, or push.</p>
+<p>For example, if a sportsbook offers Rockies -1.5 against the Cubs and you bet on the Rockies, if the Rockies win by 2 or more runs, you win and if the Rockies win by 1 run or lose, then you lose.</p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-122" class="example"><strong>Example 3.8  </strong></span>Suppose a sportsbook offers Broncos +14 against the Raiders at -110 (they also offer Raiders -14 at -110) and you have $20 to wager. Calculate the payout for the following scenarios.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li><p>You bet $20 on the Broncos and the final score is Broncos 21 Raiders 20. What is your payout?<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>You bet $20 on the Raiders and the final score is Broncos 21 Raiders 20. What is your payout?<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>You bet $10 on the Broncos and $10 on the Raiders and the final score is Broncos 21 Raiders 20. What is your payout?<br />
+<br />
+<br />
+<br />
+</p></li>
+</ol>
+<div class="example">
+<p><span id="exm:unlabeled-div-123" class="example"><strong>Example 3.9  </strong></span>A <strong><em>parlay bet</em></strong> is a combination of multiple bets where the winnings from a winning bet are placed on other bets. All bets must be win for the parlay bet to pay out.</p>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-124" class="example"><strong>Example 3.10  </strong></span>Suppose that CSU is a three point favorite (-3) against CU in a women’s basketball game and the over/under on total number of points is 97. Assume that the price of bets is -110.</p>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li><p>Suppose you place two bets, CSU -3 and Over 97, and the outcome of the game is CSU 60 CU 40. What is your payout?<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>Suppose you place a parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 60 CU 40. What is your payout?<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>Suppose you place two bets, CSU -3 and Over 97, and the outcome of the game is CSU 44 CU 40. What is your payout?<br />
+<br />
+<br />
+<br />
+</p></li>
+<li><p>Suppose you place a parlay bet on CSU -3 and Over 97 and the outcome of the game is CSU 44 CU 40. What is your payout?<br />
+<br />
+<br />
+<br />
+</p></li>
+</ol>
+<p><em>Reference:</em><br />
+<a href="https://www.wikihow.com/Calculate-Odds" class="uri">https://www.wikihow.com/Calculate-Odds</a></p>
+<p><strong>Class Reading:</strong> Chapters 44 in the <em>Mathletics</em> by Wayne Winston</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="probability.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="monte-carlo-simulation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/aaron-nielsen/SportsAnalyticsBook/edit/master/03-odds-bets.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["textbook.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -116,10 +116,19 @@ head(NFL_2021_Team_Passing)
 
 \newpage
 
+## Course Goals {-}
+
+Our course goals include:
+
+\vfill
 
 ## Which Sports? {-}
 
-Which sports will we be analyzing in this class?
+We will be working with data from the following sports:
+
+\vfill
+
+You can optionally investigate data from other sports for your projects such as:
 
 \vfill
 

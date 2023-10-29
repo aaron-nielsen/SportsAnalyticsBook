@@ -21,7 +21,7 @@ kt <- function(data) {
 
 # Probability
 
-## Definitions
+## Definitions and Set Theory
 
 :::{.definition}
 An ***experiment*** is any activity or process whose outcome is subject to uncertainty.
@@ -58,7 +58,6 @@ Give some examples of continuous random variables in sports.
 
 \newpage
 
-## Set Theory 
 
 For the following examples, suppose that we are interested in the batting outcomes of a plate appearance in baseball.
 
@@ -197,9 +196,8 @@ In 2001, Barry Bonds broke the single season home run record with 73 home runs. 
 \
 \vfill
 
-*For the following examples, assume that one of Bonds' plate appearances is chosen at random.* \
 
-(c) What is the probability that Bonds reached base via a hit, walk, or hit by pitch? (This is his on-base average/percentage.) \
+(c) Suppose a plate appearance is chosen at random. What is the probability that Bonds reached base via a hit, walk, or hit by pitch? (This is his on-base average/percentage.) \
 \
 \
 \
@@ -211,17 +209,6 @@ In 2001, Barry Bonds broke the single season home run record with 73 home runs. 
 \
 \vfill
 
-(e) Calculate $P\left(HBP \cup Walk\right)$ \
-\
-\
-\
-\vfill
-
-(f) Calculate $P\left(HBP^c \cap Walk^c\right)$ \
-\
-\
-\
-\vfill
 
 \newpage
 
@@ -233,105 +220,113 @@ Let $A$ and $B$ be two events such that $P(B)>0$. Then the ***conditional probab
 $P(A|B) = \frac{P(A \cap B)}{P(B)}$
 :::
 
-:::{ .example}
-In 1998, Sammy Sosa hit 66 home runs in 722 plate appearances, the third highest single season homework total ever. During June 1998, Sosa 20 home runs in 121 plate appearances. Suppose a randomly selected plate appearance is selected. Calculate the following probabilities.
+:::{.example}
+The following contingency table summarizes complete games by league during the 2012 MLB season. Use the contingency table to answer the following questions regarding probability. \
 :::
 
-(a) $P(HR)$ \
+```{r,echo=F}
+League <- c(rep(0,2592),rep(1,2268))
+Complete <- rep(0,4860)
+Complete[1:59] = 1
+Complete[2593:(2593+68)]=1
+mlb_corr <- data.frame(League,Complete)
+mlb_corr_table <- table(mlb_corr)
+rownames(mlb_corr_table) = c("NL","AL")
+colnames(mlb_corr_table) = c("No","Yes")
+mlb_corr_table <- mlb_corr_table[,c(2,1)]
+mlb_corr_table %>% kable(booktabs=T,digits = 3)
+```
 
+\
+\
+
+(a) $P(\text{Complete Game})$ \
+\vfill
+
+(b) $P(\text{Complete Game | NL})$ \
+\vfill
+
+(c) $P(\text{Complete Game | AL})$ \
+\vfill
+
+(d) $P(\text{Complete Game } \cup \text{AL})$ \
+\vfill
+
+(e) $P(\text{Complete Game } \cap \text{AL})$ \
 \vfill
 
 
-(b) $P(HR \cap June)$ \
-
-\vfill
-
-(c) $P(June)$ \
-
-\vfill
-
-(d) $P(HR|June)$ \
-
-\vfill
-
-(e) $P(June|HR)$ \
-
-\vfill
-
-(f) $P(HR|June^c)$ \
-
-\vfill
 
 \newpage
 
 
-:::{.theorem name="Multiplication Rule"}
-For any two events $A$ and $B$, $P(A \cap B) = P(B|A) \cdot P(A)$.
-:::
+<!-- :::{.theorem name="Multiplication Rule"} -->
+<!-- For any two events $A$ and $B$, $P(A \cap B) = P(B|A) \cdot P(A)$. -->
+<!-- ::: -->
 
-:::{.example}
-Calculate the probability that a randomly selected plate appearance from Sosa's 1998 season is a home run in June.
-:::
+<!-- :::{.example} -->
+<!-- Calculate the probability that a randomly selected plate appearance from Sosa's 1998 season is a home run in June. -->
+<!-- ::: -->
 
-\vfill
-
-
-
-
-:::{.definition}
-Events $A_1, A_2, \ldots, A_n$ are said to form a ***partition*** of a sample space $\Omega$ if both: \
-(i) $A_i \cap A_j = \emptyset$ ($i \neq j$) \
-(ii) $\cup_{i=1}^n A_i = \Omega$ \
-:::
-
-
-:::{.theorem name="Law of Total Probability"}
-Suppose events $A_1, A_2, \ldots, A_n$ form a partition of $\Omega$, then:
-$P(B) = P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + \ldots P(B|A_n)P(A_n)$
-:::
-
-:::{.example}
-What is one possible way to partition Sosa's plate appearances in 1998?
-:::
-
-\vfill
+<!-- \vfill -->
 
 
 
-:::{.theorem name="Bayes Theorem: simple version"}
-Suppose events $B$ and $C$ form a partition of $\Omega$, then:
-$P(B|A) = \frac{P(B \cap A)}{P(A)} = \frac{P(A|B)P(B)}{P(A|B)P(B)+P(A|C)P(C)}$
-:::
 
-:::{.theorem name="Bayes Theorem"}
-Suppose events $B_1, B_2, \ldots, B_n$ form a partition of $\Omega$, then:
-$P(B_k|A) = \frac{P(B_k \cap A)}{P(A)} = \frac{P(A|B_k)P(B_k)}{P(A|B_1)P(B_1)+P(A|B_2)P(B_2) + \ldots + P(A|B_n)P(B_n)}$
-:::
-
-:::{.example}
-Given that Sosa hit a home run in 1998, what is the probability that he hit it in June?
-:::
-
-\vfill
-
-\newpage
+<!-- :::{.definition} -->
+<!-- Events $A_1, A_2, \ldots, A_n$ are said to form a ***partition*** of a sample space $\Omega$ if both: \ -->
+<!-- (i) $A_i \cap A_j = \emptyset$ ($i \neq j$) \ -->
+<!-- (ii) $\cup_{i=1}^n A_i = \Omega$ \ -->
+<!-- ::: -->
 
 
-:::{.example}
-Over the course of a season, a hockey player scored a goal 30% of the time during a home game, and 18%. Assume all games are either home or away. Use this information to answer the following questions.
-:::
+<!-- :::{.theorem name="Law of Total Probability"} -->
+<!-- Suppose events $A_1, A_2, \ldots, A_n$ form a partition of $\Omega$, then: -->
+<!-- $P(B) = P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + \ldots P(B|A_n)P(A_n)$ -->
+<!-- ::: -->
 
-(a) What is the probability the player scored a goal in any game if there were an equal number of home and away games? \
+<!-- :::{.example} -->
+<!-- What is one possible way to partition Sosa's plate appearances in 1998? -->
+<!-- ::: -->
 
-\vfill
+<!-- \vfill -->
 
-(b) What is the probability the player scored a goal in any game if there were twice as many home games as away games? \
 
-\vfill
 
-(c) What is the probability the player scored a goal in any game if the ratio of home games to away games is 2:3? \
+<!-- :::{.theorem name="Bayes Theorem: simple version"} -->
+<!-- Suppose events $B$ and $C$ form a partition of $\Omega$, then: -->
+<!-- $P(B|A) = \frac{P(B \cap A)}{P(A)} = \frac{P(A|B)P(B)}{P(A|B)P(B)+P(A|C)P(C)}$ -->
+<!-- ::: -->
 
-\vfill
+<!-- :::{.theorem name="Bayes Theorem"} -->
+<!-- Suppose events $B_1, B_2, \ldots, B_n$ form a partition of $\Omega$, then: -->
+<!-- $P(B_k|A) = \frac{P(B_k \cap A)}{P(A)} = \frac{P(A|B_k)P(B_k)}{P(A|B_1)P(B_1)+P(A|B_2)P(B_2) + \ldots + P(A|B_n)P(B_n)}$ -->
+<!-- ::: -->
+
+<!-- :::{.example} -->
+<!-- Given that Sosa hit a home run in 1998, what is the probability that he hit it in June? -->
+<!-- ::: -->
+
+<!-- \vfill -->
+
+<!-- \newpage -->
+
+
+<!-- :::{.example} -->
+<!-- Over the course of a season, a hockey player scored a goal 30% of the time during a home game, and 18%. Assume all games are either home or away. Use this information to answer the following questions. -->
+<!-- ::: -->
+
+<!-- (a) What is the probability the player scored a goal in any game if there were an equal number of home and away games? \ -->
+
+<!-- \vfill -->
+
+<!-- (b) What is the probability the player scored a goal in any game if there were twice as many home games as away games? \ -->
+
+<!-- \vfill -->
+
+<!-- (c) What is the probability the player scored a goal in any game if the ratio of home games to away games is 2:3? \ -->
+
+<!-- \vfill -->
 
 
 \newpage
@@ -444,10 +439,17 @@ df %>% kt()
 
 \vfill
 
-What is the probability that the Rockies win zero games? What is the probability that the Rockies win at least two games? Why might the independence assumption be false?
+(a) What is the probability that the Rockies win zero games?\
+\vfill
+
+(b) What is the probability that the Rockies win at least two games?\
+\vfill
+
+(c) Why might the independence assumption be false?\
+\vfill
 :::
 
-\vfill
+\newpage
 
 We may be interested in describing the center or average value of our random variable. We can do this with the following definitions.
 
@@ -468,14 +470,6 @@ Sometimes, it makes sense to calculate the expected value of a function of a ran
 
 (ii) $E[h(X)] = \int_{x \in \Omega} h(x) \cdot f(x) dx$ (for continuous random variables) 
 
-
-:::{.example}
-For the Rockies/Cubs four game series example, calculate $E[X]$ and $E[X^2]$.
-:::
-
-\vfill
-
-\newpage
 
 
 The spread or variability associated with a random variable can be calculated using expected values as well.
@@ -506,13 +500,9 @@ $SD(X) = \sigma = \sqrt{Var(X)} = \sqrt{E[X^2]-(E[X])^2}$
 :::
 
 :::{.example}
-For the Rockies/Cubs four game series example, calculate $Var(X)$.
+For the Rockies/Cubs four game series example, calculate $E[X]$, $E[X^2]$, and $Var(X)$.
 :::
 
-\vfill
-\vfill
-\vfill
-\vfill
 \vfill
 
 \newpage
@@ -574,11 +564,7 @@ What do you conclude from the four QQ plots?
 
 ## Common Random Variables
 
-There are several families of random variables that show up frequently in applications. Some of these random variables include:
-- Binomial
-- Geometric
-- Poisson
-- Normal
+There are several families of random variables that show up frequently in applications. Some of these random variables include: Binomial, Geometric, Poisson, Normal 
 
 ### Binomial RVs
 
@@ -598,31 +584,34 @@ The Cubs and Rockies are playing a 4-game series. The Rockies have a 0.65 probab
 \
 \
 \
+\vfill
 
 (b) The Rockies win exactly 2 games.\
 \
 \
 \
+\vfill
 
-(c) The Cubs win at least 2 games.\
-\
-\
-\
 
-(d) The series ends in a sweep. \
+(c) The series ends in a sweep. \
 \
 \
 \
+\vfill
 
-(e) The expected number of wins for the Rockies.\
+(d) The expected number of wins for the Rockies.\
 \
 \
 \
+\vfill
 
-(f) The variance and standard deviations of wins for the Rockies.\
+(e) The variance and standard deviations of wins for the Rockies.\
 \
 \
 \
+\vfill
+
+\newpage
 
 :::{.example}
 Complete 10,000 simulations of the four game series between the Rockies and Cubs. For the number of Rockies wins, calculate the sample mean and sample variance and compare these to the population values. Also, plot a histogram of the sample data.
@@ -637,30 +626,32 @@ rockies_wins_df <- data.frame(Wins=rockies_wins)
 rockies_wins_df %>% ggplot(aes(Wins)) + geom_histogram(binwidth = 1,color = "black", fill = "purple")
 ```
 
+\vfill
+
 \newpage
 
-#### Binomial Coefficient Symmetry
+<!-- #### Binomial Coefficient Symmetry -->
 
-Playoff series for a certain sports league are played as a best-of-seven series, with one team hosting four games and the opposing team hosing three. An executive for the league wishes to know the number of ways the home and away games can be assigned. (One such combination is A-A-B-B-A-B-A, the format used by the NBA and NHL for their best-of-seven series.) What is the total number of combinations?\
-\
-\
-\
+<!-- Playoff series for a certain sports league are played as a best-of-seven series, with one team hosting four games and the opposing team hosing three. An executive for the league wishes to know the number of ways the home and away games can be assigned. (One such combination is A-A-B-B-A-B-A, the format used by the NBA and NHL for their best-of-seven series.) What is the total number of combinations?\ -->
+<!-- \ -->
+<!-- \ -->
+<!-- \ -->
 
-However, instead of thinking about the number of ways to assign the games to the team that gets four home games, what if we thought about the number of ways to assign games to the team that gets three home games?
+<!-- However, instead of thinking about the number of ways to assign the games to the team that gets four home games, what if we thought about the number of ways to assign games to the team that gets three home games? -->
 
-That would be $\binom{7}{3}$. We can use the `choose` command in R to find this quantity.
+<!-- That would be $\binom{7}{3}$. We can use the `choose` command in R to find this quantity. -->
 
-```{r}
-choose(7,3)
-```
+<!-- ```{r} -->
+<!-- choose(7,3) -->
+<!-- ``` -->
 
-It turns out that this binomial coefficient is also equal to 35.
+<!-- It turns out that this binomial coefficient is also equal to 35. -->
 
-Theorem: $\binom{n}{k} = \binom{n}{n-k}$
+<!-- Theorem: $\binom{n}{k} = \binom{n}{n-k}$ -->
 
-$\binom{n}{k} = \frac{n!}{k!\ \cdot\ (n-k)!}$
+<!-- $\binom{n}{k} = \frac{n!}{k!\ \cdot\ (n-k)!}$ -->
 
-$\binom{n}{n-k} = \frac{n!}{(n-k)!\ \cdot\ (n-(n-k))!} = \frac{n!}{(n-k)!\ \cdot\ k!} = \binom{n}{k}$
+<!-- $\binom{n}{n-k} = \frac{n!}{(n-k)!\ \cdot\ (n-(n-k))!} = \frac{n!}{(n-k)!\ \cdot\ k!} = \binom{n}{k}$ -->
 
 \newpage
 
@@ -683,18 +674,32 @@ Suppose the number of shots needed by a hockey team in order to score their firs
 \
 \
 \
+\vfill
 
 (b) What is the probability that it takes less than 3 shots to score the first goal? \
 \
 \
 \
+\vfill
 
 (c) What is the probability that it takes more than 3 shots to score the first goal? \
 \
 \
 \
+\vfill
+
+(d) What is the expected number of shots to score the first goal? \
+\
+\
+\
+\vfill
+
+
+
+\newpage
 
 **Caution:** Some references parameterize the Geometric distribution based on the number of failures before the first success, rather than the trial on which the first success occurs. This changes the PMF, mean, and variance, so be careful.
+
 
 Let's simulate the number of shot attempts required to score the first goal (Geometric($p=1/10$)) from the previous example.
 
@@ -712,6 +717,8 @@ head(first_success, 20)
 (mean_success <- mean(first_success))
 ```
 The mean of this sample of variables is `r mean_success`, which is close to the expected mean of $\frac{1}{p} = 10$.
+
+\newpage
 
 Let's plot the sample distribution of shots required to score a goal from the simulation as well.
 
@@ -1023,13 +1030,14 @@ See [https://blogs.fangraphs.com/scouting-explained-the-20-80-scouting-scale/](h
 \
 \vfill
 
+\newpage
+
 (c) Suppose a Rockies prospect is said to be in the top 10\% of all baseball players in terms of their speed. What approximate speed grade would correspond to the player? \
 \
 \
 \
 \vfill
-
-\newpage
+x
 
 (d) Suppose a Rockies prospect is said to be in the bottom 20\% of all baseball players in terms of their hit ability. What approximate hit grade would correspond to the player? \
 \
@@ -1055,22 +1063,22 @@ e <- pnorm(q=70,mean=50,sd=10) - pnorm(q=30,mean=50,sd=10); e
 
 \newpage
 
-:::{.example}
-Player X has a projected mean WAR of 3 with standard deviation of 2 and player Y has a projected mean WAR of 1.5 with a standard deviation of 3. Assume projected WAR is normally distributed. What is the probability that Player X outperforms Player Y?
+<!-- :::{.example} -->
+<!-- Player X has a projected mean WAR of 3 with standard deviation of 2 and player Y has a projected mean WAR of 1.5 with a standard deviation of 3. Assume projected WAR is normally distributed. What is the probability that Player X outperforms Player Y? -->
 
-Link to WAR explanation: https://www.mlb.com/glossary/advanced-stats/wins-above-replacement
-:::
+<!-- Link to WAR explanation: https://www.mlb.com/glossary/advanced-stats/wins-above-replacement -->
+<!-- ::: -->
 
-We want $P(X>Y)$ or $P(X-Y>0)$ \
+<!-- We want $P(X>Y)$ or $P(X-Y>0)$ \ -->
 
-\vfill
+<!-- \vfill -->
 
-```{r}
-# Calculate probability Z<=0
-p <- pnorm(0,1.5,sqrt(5),lower.tail = F); p
-```
+<!-- ```{r} -->
+<!-- # Calculate probability Z<=0 -->
+<!-- p <- pnorm(0,1.5,sqrt(5),lower.tail = F); p -->
+<!-- ``` -->
 
-\vfill
+<!-- \vfill -->
 
 \newpage
 
@@ -1092,19 +1100,13 @@ Sketch the distribution of the final margin of victory for an NFL team that is f
 
 ```{r,fig.height=2}
 library(ggplot2)
-library(gridExtra)
+# library(gridExtra)
 
 
 final_margin_full <- ggplot(data.frame(x = c(-21, 42)), aes(x = x)) +
         stat_function(fun = dnorm, args = list(mean = 7, sd = 13.45)) + 
-  xlab("Final Margin (for favorite)") + ggtitle("Full Distribution")
-
-final_margin_zoom <- ggplot(data.frame(x = c(-3, 10)), aes(x = x)) +
-        stat_function(fun = dnorm, args = list(mean = 7, sd = 13.45)) + 
-  xlab("Final Margin (for favorite)") + ggtitle("Zoomed Distribution") + 
-  scale_x_continuous(breaks=seq(-2, 10, 1))
-
-grid.arrange(final_margin_full, final_margin_zoom, ncol=2)
+  xlab("Final Margin (for favorite)") + ggtitle("Score Distribution")
+final_margin_full
 ```
 
 \newpage
@@ -1123,14 +1125,8 @@ x_max1 <- 5.5 + 6.5
 
 final_margin_full <- ggplot(data.frame(x = c(x_min,x_max)), aes(x = x)) +
         stat_function(fun = dnorm, args = list(mean = 5.5, sd = 13.45)) + 
-  xlab("Final Margin (for favorite)") + ggtitle("Full Distribution")
-
-final_margin_zoom <- ggplot(data.frame(x = c(x_min1, x_max1)), aes(x = x)) +
-        stat_function(fun = dnorm, args = list(mean = 5.5, sd = 13.45)) + 
-  xlab("Final Margin (for favorite)") + ggtitle("Zoomed Distribution") + 
-  scale_x_continuous(breaks=seq(x_min1, x_max1, 1))
-
-grid.arrange(final_margin_full, final_margin_zoom, ncol=2)
+  xlab("Final Margin (for favorite)") + ggtitle("Score Distribution")
+final_margin_full
 ```
 
 \vfill

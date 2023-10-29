@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Inferential Statistics | Sports Analytics</title>
+  <meta name="description" content="Chapter 5 Inferential Statistics | Sports Analytics Notes" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Inferential Statistics | Sports Analytics" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+  <meta property="og:description" content="Chapter 5 Inferential Statistics | Sports Analytics Notes" />
+  <meta name="github-repo" content="aaron-nielsen.github.io/SportsAnalyticsBook/" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Inferential Statistics | Sports Analytics" />
+  
+  <meta name="twitter:description" content="Chapter 5 Inferential Statistics | Sports Analytics Notes" />
+  <meta name="twitter:image" content="https://aaron-nielsen.github.io/SportsAnalyticsBook/images/csu.png" />
+
+<meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
+
+
+<meta name="date" content="2023-08-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="monte-carlo-simulation.html"/>
+<link rel="next" href="measures-of-association.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/style.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/lesson.css" type="text/css" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Sports Analytics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i>Preliminaries</a>
+<ul>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#getting-started-with-r"><i class="fa fa-check"></i>Getting Started With R</a>
+<ul>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#installing-r"><i class="fa fa-check"></i>Installing R</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#some-r-basics"><i class="fa fa-check"></i>Some R Basics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#course-goals"><i class="fa fa-check"></i>Course Goals</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#which-sports"><i class="fa fa-check"></i>Which Sports?</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#challenges"><i class="fa fa-check"></i>Challenges</a></li>
+<li class="chapter" data-level="" data-path="preliminaries.html"><a href="preliminaries.html#ethical-concerns"><i class="fa fa-check"></i>Ethical Concerns</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>1</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>1.1</b> Descriptive Statistics</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#definitions"><i class="fa fa-check"></i><b>1.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="1.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>1.1.2</b> Descriptive Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#visualizations"><i class="fa fa-check"></i><b>1.2</b> Visualizations</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#histograms"><i class="fa fa-check"></i><b>1.2.1</b> Histograms</a></li>
+<li class="chapter" data-level="1.2.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#bar-plots"><i class="fa fa-check"></i><b>1.2.2</b> Bar Plots</a></li>
+<li class="chapter" data-level="1.2.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plots"><i class="fa fa-check"></i><b>1.2.3</b> Scatter Plots</a></li>
+<li class="chapter" data-level="1.2.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#kable-tables"><i class="fa fa-check"></i><b>1.2.4</b> Kable Tables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#baseball"><i class="fa fa-check"></i><b>1.3</b> Baseball</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#hitting-statistics"><i class="fa fa-check"></i><b>1.3.1</b> Hitting Statistics</a></li>
+<li class="chapter" data-level="1.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#pitching-statistics"><i class="fa fa-check"></i><b>1.3.2</b> Pitching Statistics</a></li>
+<li class="chapter" data-level="1.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#wins-above-replacement"><i class="fa fa-check"></i><b>1.3.3</b> Wins Above Replacement</a></li>
+<li class="chapter" data-level="1.3.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#calculating-hitting-statistics"><i class="fa fa-check"></i><b>1.3.4</b> Calculating Hitting Statistics</a></li>
+<li class="chapter" data-level="1.3.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#evaluating-pitching-statistics"><i class="fa fa-check"></i><b>1.3.5</b> Evaluating Pitching Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#football"><i class="fa fa-check"></i><b>1.4</b> Football</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-football-statistics"><i class="fa fa-check"></i><b>1.4.1</b> Basic Football Statistics</a></li>
+<li class="chapter" data-level="1.4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-football-statistics"><i class="fa fa-check"></i><b>1.4.2</b> Advanced Football Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basketball"><i class="fa fa-check"></i><b>1.5</b> Basketball</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-basketball-statistics"><i class="fa fa-check"></i><b>1.5.1</b> Basic Basketball Statistics</a></li>
+<li class="chapter" data-level="1.5.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-basketball-statistics"><i class="fa fa-check"></i><b>1.5.2</b> Advanced Basketball Statistics</a></li>
+<li class="chapter" data-level="1.5.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#four-factors"><i class="fa fa-check"></i><b>1.5.3</b> Four Factors</a></li>
+<li class="chapter" data-level="1.5.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#shot-charts"><i class="fa fa-check"></i><b>1.5.4</b> Shot Charts</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#hockey"><i class="fa fa-check"></i><b>1.6</b> Hockey</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-hockey-statistics"><i class="fa fa-check"></i><b>1.6.1</b> Basic Hockey Statistics</a></li>
+<li class="chapter" data-level="1.6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-hockey-statistics"><i class="fa fa-check"></i><b>1.6.2</b> Advanced Hockey Statistics</a></li>
+<li class="chapter" data-level="1.6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#actual-vs.-expected-goals"><i class="fa fa-check"></i><b>1.6.3</b> Actual vs. Expected Goals</a></li>
+<li class="chapter" data-level="1.6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#goalie-statistics"><i class="fa fa-check"></i><b>1.6.4</b> Goalie Statistics</a></li>
+<li class="chapter" data-level="1.6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#correlation-plots"><i class="fa fa-check"></i><b>1.6.5</b> Correlation Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#volleyball"><i class="fa fa-check"></i><b>1.7</b> Volleyball</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-volleyball-statistics"><i class="fa fa-check"></i><b>1.7.1</b> Basic Volleyball Statistics</a></li>
+<li class="chapter" data-level="1.7.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plot"><i class="fa fa-check"></i><b>1.7.2</b> Scatter Plot</a></li>
+<li class="chapter" data-level="1.7.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#box-plot"><i class="fa fa-check"></i><b>1.7.3</b> Box Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#soccer"><i class="fa fa-check"></i><b>1.8</b> Soccer</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-soccer-statistics"><i class="fa fa-check"></i><b>1.8.1</b> Basic Soccer Statistics</a></li>
+<li class="chapter" data-level="1.8.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#advanced-soccer-statistics"><i class="fa fa-check"></i><b>1.8.2</b> Advanced Soccer Statistics</a></li>
+<li class="chapter" data-level="1.8.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#bar-plot"><i class="fa fa-check"></i><b>1.8.3</b> Bar Plot</a></li>
+<li class="chapter" data-level="1.8.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#scatter-plot-1"><i class="fa fa-check"></i><b>1.8.4</b> Scatter Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>2</b> Probability</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#definitions-1"><i class="fa fa-check"></i><b>2.1</b> Definitions</a></li>
+<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#set-theory"><i class="fa fa-check"></i><b>2.2</b> Set Theory</a></li>
+<li class="chapter" data-level="2.3" data-path="probability.html"><a href="probability.html#axioms-properties-and-laws"><i class="fa fa-check"></i><b>2.3</b> Axioms, Properties, and Laws</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="probability.html"><a href="probability.html#axioms-of-probability"><i class="fa fa-check"></i><b>2.3.1</b> Axioms of Probability</a></li>
+<li class="chapter" data-level="2.3.2" data-path="probability.html"><a href="probability.html#properties-of-probability"><i class="fa fa-check"></i><b>2.3.2</b> Properties of Probability</a></li>
+<li class="chapter" data-level="2.3.3" data-path="probability.html"><a href="probability.html#laws-of-probability"><i class="fa fa-check"></i><b>2.3.3</b> Laws of Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="probability.html"><a href="probability.html#combinatorics"><i class="fa fa-check"></i><b>2.4</b> Combinatorics</a></li>
+<li class="chapter" data-level="2.5" data-path="probability.html"><a href="probability.html#random-variables"><i class="fa fa-check"></i><b>2.5</b> Random Variables</a></li>
+<li class="chapter" data-level="2.6" data-path="probability.html"><a href="probability.html#common-random-variables"><i class="fa fa-check"></i><b>2.6</b> Common Random Variables</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="probability.html"><a href="probability.html#binomial-rvs"><i class="fa fa-check"></i><b>2.6.1</b> Binomial RVs</a></li>
+<li class="chapter" data-level="2.6.2" data-path="probability.html"><a href="probability.html#geometric-rvs"><i class="fa fa-check"></i><b>2.6.2</b> Geometric RVs</a></li>
+<li class="chapter" data-level="2.6.3" data-path="probability.html"><a href="probability.html#poisson-rvs"><i class="fa fa-check"></i><b>2.6.3</b> Poisson RVs</a></li>
+<li class="chapter" data-level="2.6.4" data-path="probability.html"><a href="probability.html#negative-binomial-rvs"><i class="fa fa-check"></i><b>2.6.4</b> Negative Binomial RVs</a></li>
+<li class="chapter" data-level="2.6.5" data-path="probability.html"><a href="probability.html#normal-rvs"><i class="fa fa-check"></i><b>2.6.5</b> Normal RVs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="probability.html"><a href="probability.html#win-probability-models"><i class="fa fa-check"></i><b>2.7</b> Win Probability Models</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="probability.html"><a href="probability.html#estimating-pregame-win-probability"><i class="fa fa-check"></i><b>2.7.1</b> Estimating Pregame Win Probability</a></li>
+<li class="chapter" data-level="2.7.2" data-path="probability.html"><a href="probability.html#estimating-in-game-win-probability"><i class="fa fa-check"></i><b>2.7.2</b> Estimating In-Game Win Probability</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="odds-and-bets.html"><a href="odds-and-bets.html"><i class="fa fa-check"></i><b>3</b> Odds and Bets</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="odds-and-bets.html"><a href="odds-and-bets.html#odds"><i class="fa fa-check"></i><b>3.1</b> Odds</a></li>
+<li class="chapter" data-level="3.2" data-path="odds-and-bets.html"><a href="odds-and-bets.html#gambling-odds"><i class="fa fa-check"></i><b>3.2</b> Gambling Odds</a></li>
+<li class="chapter" data-level="3.3" data-path="odds-and-bets.html"><a href="odds-and-bets.html#types-of-bets"><i class="fa fa-check"></i><b>3.3</b> Types of Bets</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html"><i class="fa fa-check"></i><b>4</b> Monte Carlo Simulation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#basics"><i class="fa fa-check"></i><b>4.1</b> Basics</a></li>
+<li class="chapter" data-level="4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#estimating-probabilities"><i class="fa fa-check"></i><b>4.2</b> Estimating Probabilities</a></li>
+<li class="chapter" data-level="4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-streaks"><i class="fa fa-check"></i><b>4.3</b> Simulating Streaks</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#winning-streak-simulation"><i class="fa fa-check"></i><b>4.3.1</b> Winning Streak Simulation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#hitting-streak-simulation"><i class="fa fa-check"></i><b>4.3.2</b> Hitting Streak Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gambling-simulations"><i class="fa fa-check"></i><b>4.4</b> Gambling Simulations</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#martingale-system"><i class="fa fa-check"></i><b>4.4.1</b> Martingale System</a></li>
+<li class="chapter" data-level="4.4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#gamblers-ruin"><i class="fa fa-check"></i><b>4.4.2</b> Gambler’s Ruin</a></li>
+<li class="chapter" data-level="4.4.3" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-a-winning-system"><i class="fa fa-check"></i><b>4.4.3</b> Simulating a Winning System</a></li>
+<li class="chapter" data-level="4.4.4" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#using-the-kelly-growth-criterion"><i class="fa fa-check"></i><b>4.4.4</b> Using the Kelly Growth Criterion</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#simulating-censored-data"><i class="fa fa-check"></i><b>4.5</b> Simulating Censored Data</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#tony-gwynn-1994-batting-average-simulation"><i class="fa fa-check"></i><b>4.5.1</b> Tony Gwynn 1994 Batting Average Simulation</a></li>
+<li class="chapter" data-level="4.5.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html#matt-williams-1994-home-run-simulation"><i class="fa fa-check"></i><b>4.5.2</b> Matt Williams 1994 Home Run Simulation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="inferential-statistics.html"><a href="inferential-statistics.html"><i class="fa fa-check"></i><b>5</b> Inferential Statistics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#defining-a-population"><i class="fa fa-check"></i><b>5.1</b> Defining a Population</a></li>
+<li class="chapter" data-level="5.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#statistical-inference"><i class="fa fa-check"></i><b>5.2</b> Statistical Inference</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-intervals"><i class="fa fa-check"></i><b>5.2.1</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="5.2.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hypothesis-tests"><i class="fa fa-check"></i><b>5.2.2</b> Hypothesis Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#inference-for-population-mean"><i class="fa fa-check"></i><b>5.3</b> Inference for Population Mean</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-population-mean"><i class="fa fa-check"></i><b>5.3.1</b> Confidence Interval for Population Mean</a></li>
+<li class="chapter" data-level="5.3.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hypothesis-test-for-population-mean"><i class="fa fa-check"></i><b>5.3.2</b> Hypothesis Test for Population Mean</a></li>
+<li class="chapter" data-level="5.3.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-difference-in-means"><i class="fa fa-check"></i><b>5.3.3</b> Test for Difference in Means</a></li>
+<li class="chapter" data-level="5.3.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-difference-in-means"><i class="fa fa-check"></i><b>5.3.4</b> Confidence Interval for Difference in Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#inference-for-population-proportion"><i class="fa fa-check"></i><b>5.4</b> Inference for Population Proportion</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-population-proportion"><i class="fa fa-check"></i><b>5.4.1</b> Confidence Interval for Population Proportion</a></li>
+<li class="chapter" data-level="5.4.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-population-proportion"><i class="fa fa-check"></i><b>5.4.2</b> Test for Population Proportion</a></li>
+<li class="chapter" data-level="5.4.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#confidence-interval-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.4.3</b> Confidence Interval for Difference in Proportions</a></li>
+<li class="chapter" data-level="5.4.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#test-for-difference-in-proportions"><i class="fa fa-check"></i><b>5.4.4</b> Test for Difference in Proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#bootstrap"><i class="fa fa-check"></i><b>5.5</b> Bootstrap</a></li>
+<li class="chapter" data-level="5.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#margin-of-error-calcuations"><i class="fa fa-check"></i><b>5.6</b> Margin of Error Calcuations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-for-probabilities"><i class="fa fa-check"></i><b>5.6.1</b> MOE for Probabilities</a></li>
+<li class="chapter" data-level="5.6.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-for-averages"><i class="fa fa-check"></i><b>5.6.2</b> MOE for Averages</a></li>
+<li class="chapter" data-level="5.6.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#moe-estimation-using-simulation"><i class="fa fa-check"></i><b>5.6.3</b> MOE estimation using simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="inferential-statistics.html"><a href="inferential-statistics.html#one-sample-and-two-sample-t-tests-and-confidence-intervals"><i class="fa fa-check"></i><b>5.7</b> One Sample and Two Sample t-tests and confidence intervals</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hockey-faceoffs"><i class="fa fa-check"></i><b>5.7.1</b> Hockey Faceoffs</a></li>
+<li class="chapter" data-level="5.7.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#hockey-penalty-scoring"><i class="fa fa-check"></i><b>5.7.2</b> Hockey Penalty Scoring</a></li>
+<li class="chapter" data-level="5.7.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#nfl-overtime-winners"><i class="fa fa-check"></i><b>5.7.3</b> NFL Overtime Winners</a></li>
+<li class="chapter" data-level="5.7.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#icing-the-kicker"><i class="fa fa-check"></i><b>5.7.4</b> Icing the Kicker</a></li>
+<li class="chapter" data-level="5.7.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#example-football-one-vs.-two-point-conversion"><i class="fa fa-check"></i><b>5.7.5</b> Example: Football One vs. Two Point Conversion</a></li>
+<li class="chapter" data-level="5.7.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#two-sample-tests"><i class="fa fa-check"></i><b>5.7.6</b> Two Sample Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="inferential-statistics.html"><a href="inferential-statistics.html#permutation-tests"><i class="fa fa-check"></i><b>5.8</b> Permutation Tests</a></li>
+<li class="chapter" data-level="5.9" data-path="inferential-statistics.html"><a href="inferential-statistics.html#bootstrap-1"><i class="fa fa-check"></i><b>5.9</b> Bootstrap</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="measures-of-association.html"><a href="measures-of-association.html"><i class="fa fa-check"></i><b>6</b> Measures of Association</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="measures-of-association.html"><a href="measures-of-association.html#pearson-correlation-coefficient"><i class="fa fa-check"></i><b>6.1</b> Pearson Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="measures-of-association.html"><a href="measures-of-association.html#partial-correlation-and-confounding-variables"><i class="fa fa-check"></i><b>6.1.1</b> Partial Correlation and Confounding Variables</a></li>
+<li class="chapter" data-level="6.1.2" data-path="measures-of-association.html"><a href="measures-of-association.html#properties-of-the-linear-correlation-coefficient"><i class="fa fa-check"></i><b>6.1.2</b> Properties of the Linear Correlation Coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="measures-of-association.html"><a href="measures-of-association.html#association-of-categorical-variables"><i class="fa fa-check"></i><b>6.2</b> Association of Categorical Variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="measures-of-association.html"><a href="measures-of-association.html#odds-ratios"><i class="fa fa-check"></i><b>6.2.1</b> Odds Ratios</a></li>
+<li class="chapter" data-level="6.2.2" data-path="measures-of-association.html"><a href="measures-of-association.html#yules-q"><i class="fa fa-check"></i><b>6.2.2</b> Yule’s Q</a></li>
+<li class="chapter" data-level="6.2.3" data-path="measures-of-association.html"><a href="measures-of-association.html#chi-squared-test-of-independence"><i class="fa fa-check"></i><b>6.2.3</b> Chi-Squared Test of Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="measures-of-association.html"><a href="measures-of-association.html#rank-correlation"><i class="fa fa-check"></i><b>6.3</b> Rank Correlation</a></li>
+<li class="chapter" data-level="6.4" data-path="measures-of-association.html"><a href="measures-of-association.html#serial-correlation"><i class="fa fa-check"></i><b>6.4</b> Serial Correlation</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="measures-of-association.html"><a href="measures-of-association.html#autocorrelation"><i class="fa fa-check"></i><b>6.4.1</b> Autocorrelation</a></li>
+<li class="chapter" data-level="6.4.2" data-path="measures-of-association.html"><a href="measures-of-association.html#run-lengths"><i class="fa fa-check"></i><b>6.4.2</b> Run Lengths</a></li>
+<li class="chapter" data-level="6.4.3" data-path="measures-of-association.html"><a href="measures-of-association.html#wald-wolfowitz-runs-test"><i class="fa fa-check"></i><b>6.4.3</b> Wald-Wolfowitz Runs Test</a></li>
+<li class="chapter" data-level="6.4.4" data-path="measures-of-association.html"><a href="measures-of-association.html#hot-hand"><i class="fa fa-check"></i><b>6.4.4</b> Hot Hand</a></li>
+<li class="chapter" data-level="6.4.5" data-path="measures-of-association.html"><a href="measures-of-association.html#streakiness-in-sports"><i class="fa fa-check"></i><b>6.4.5</b> Streakiness in Sports</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="measures-of-association.html"><a href="measures-of-association.html#pythagorean-record"><i class="fa fa-check"></i><b>6.5</b> Pythagorean Record</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>7</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>7.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="7.2" data-path="linear-regression.html"><a href="linear-regression.html#residual-analysis"><i class="fa fa-check"></i><b>7.2</b> Residual Analysis</a></li>
+<li class="chapter" data-level="7.3" data-path="linear-regression.html"><a href="linear-regression.html#polynomial-regression"><i class="fa fa-check"></i><b>7.3</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="7.4" data-path="linear-regression.html"><a href="linear-regression.html#variable-transformations"><i class="fa fa-check"></i><b>7.4</b> Variable Transformations</a></li>
+<li class="chapter" data-level="7.5" data-path="linear-regression.html"><a href="linear-regression.html#multiple-regression-and-model-selection"><i class="fa fa-check"></i><b>7.5</b> Multiple Regression and Model Selection</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="linear-regression.html"><a href="linear-regression.html#model-selection-using-bic"><i class="fa fa-check"></i><b>7.5.1</b> Model Selection using BIC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="linear-regression.html"><a href="linear-regression.html#confounding-variables"><i class="fa fa-check"></i><b>7.6</b> Confounding Variables</a></li>
+<li class="chapter" data-level="7.7" data-path="linear-regression.html"><a href="linear-regression.html#interaction"><i class="fa fa-check"></i><b>7.7</b> Interaction</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Sports Analytics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="inferential-statistics" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Inferential Statistics<a href="inferential-statistics.html#inferential-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="defining-a-population" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Defining a Population<a href="inferential-statistics.html#defining-a-population" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For team and individual statistics in sports, we often split data up by the seasons. For statistical inference, we need to define what the population is and what the sample is. It is acceptable to define a season as the population and a subset of the season as a sample, but this is usually not exactly what we want to do.</p>
+<p>Instead, we often think of a season as a random sample from a theoretical population of all possible seasons. In the same manner, we can think of individual games are a random sample from a theoretical population of all possible games.</p>
+</div>
+<div id="statistical-inference" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Statistical Inference<a href="inferential-statistics.html#statistical-inference" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="definition">
+<p><span id="def:unlabeled-div-139" class="definition"><strong>Definition 5.1  </strong></span><em>Statistical Inference</em> is the process of inferring properties of a population by use of sample data.</p>
+</div>
+<p>For statistical inference, we need a point estimator and a measure of uncertainty. We will focus on statistical inference for population means and population proportions.</p>
+<p>We will examine two methods of Statistical Inference:</p>
+<ol style="list-style-type: decimal">
+<li>Confidence Intervals</li>
+<li>Hypothesis Tests</li>
+</ol>
+<p>For sports data, we often want to infer properties of a player’s (or team’s) underlying ability on a game or season level.</p>
+<div style="page-break-after: always;"></div>
+<div id="confidence-intervals" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Confidence Intervals<a href="inferential-statistics.html#confidence-intervals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="definition">
+<p><span id="def:unlabeled-div-140" class="definition"><strong>Definition 5.2  </strong></span>A <strong>confidence interval</strong> gives a range of plausible values for a population parameter. Confidence intervals can be one-sided or two-sided.</p>
+</div>
+<p><strong>Different Types of Confidence Intervals</strong></p>
+<p>There are three different types of hypothesis tests.</p>
+<ol style="list-style-type: decimal">
+<li><p>Left-tailed confidence interval  </p></li>
+<li><p>Right-tailed confidence interval  </p></li>
+<li><p>Two-tailed confidence interval  </p></li>
+</ol>
+<p><strong>How to Interpret a confidence interval</strong></p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="hypothesis-tests" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Hypothesis Tests<a href="inferential-statistics.html#hypothesis-tests" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The goal of a hypothesis test is to test competing claims about a population parameter. In other words, we want to determine if the sample data are consistent with the null hypothesis which is our initial assumption regarding the population parameter of interest.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-141" class="definition"><strong>Definition 5.3  </strong></span>The <em>null hypothesis</em>, denoted <span class="math inline">\(H_0\)</span>, is the claim that is initially assumed to be true.</p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-142" class="definition"><strong>Definition 5.4  </strong></span>The <em>alternative hypothesis</em>, denoted <span class="math inline">\(H_a\)</span>, is the assertion contradictory to <span class="math inline">\(H_0\)</span> (“the opposite of <span class="math inline">\(H_0\)</span>”).</p>
+</div>
+<p>The null hypothesis will be rejected in favor of the alternative hypothesis if the sample evidence suggests that <span class="math inline">\(H_0\)</span> is false.</p>
+<p>The two possible conclusions of a hypothesis test are <em>Reject <span class="math inline">\(H_0\)</span></em> or <em>Fail to Reject <span class="math inline">\(H_0\)</span></em>.</p>
+<p><strong>Rules for formulating hypotheses</strong></p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(H_0\)</span> contains “=”<br />
+</li>
+<li><span class="math inline">\(H_a\)</span> contains <span class="math inline">\(\neq\)</span>, <span class="math inline">\(&gt;\)</span>, <span class="math inline">\(&lt;\)</span><br />
+</li>
+<li>Usually, the claim we are attempting to show is more plausible is <span class="math inline">\(H_a\)</span></li>
+</ol>
+<p><strong>Different Types of Hypothesis Tests</strong></p>
+<p>There are three different types of hypothesis tests.</p>
+<ol style="list-style-type: decimal">
+<li><p>Left-tailed test  </p></li>
+<li><p>Right-tailed test  </p></li>
+<li><p>Two-tailed test  </p></li>
+</ol>
+<p><strong>Errors in Hypothesis Testing</strong></p>
+<p>After collecting a sample, we will decide which hypothesis is supported by the data.</p>
+<p>Since we don’t know the true parameter value, there is a chance we will make an error.</p>
+<p><em>Two Types of Errors in Hypothesis Testing</em></p>
+<ol style="list-style-type: decimal">
+<li>Type I error (<span class="math inline">\(\alpha\)</span>): Reject <span class="math inline">\(H_0\)</span> when <span class="math inline">\(H_0\)</span> is true.<br />
+</li>
+<li>Type II error (<span class="math inline">\(\beta\)</span>): Fail to reject <span class="math inline">\(H_0\)</span> when <span class="math inline">\(H_0\)</span> is false.</li>
+</ol>
+<p><em>Note:</em> <span class="math inline">\(\alpha\)</span> is also called the level of significance for a test.</p>
+<div style="page-break-after: always;"></div>
+<p><strong>Six Steps for Hypothesis Testing</strong></p>
+<p><em>Different textbooks will give a different number of steps or outline on how to complete a hypothesis test. For our class, stick to the following method.</em></p>
+<p><strong>Step 1:</strong> State the hypotheses.<br />
+</p>
+<p><strong>Step 2:</strong> Determine the level of significance.<br />
+</p>
+<p><strong>Step 3:</strong> Compute a test statistic.<br />
+</p>
+<p><strong>Step 4:</strong> Calculate a p-value.<br />
+</p>
+<p><strong>Step 5:</strong> Make a statistical decision.<br />
+</p>
+<p><strong>Step 6:</strong> Interpret the statistical decision (in the context of the problem).<br />
+</p>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div id="inference-for-population-mean" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Inference for Population Mean<a href="inferential-statistics.html#inference-for-population-mean" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-143" class="theorem"><strong>Theorem 5.1  </strong></span>A random sample from an infinite population with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span> has the following properties:</p>
+<p><span class="math inline">\(E[\bar{X}] = \mu\)</span></p>
+<p><span class="math inline">\(Var(\bar{X}) = \frac{\sigma^2}{n}\)</span></p>
+<p><span class="math inline">\(\hat{SE}(\bar{X}) = \frac{s}{\sqrt{n}}\)</span></p>
+</div>
+<div id="confidence-interval-for-population-mean" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Confidence Interval for Population Mean<a href="inferential-statistics.html#confidence-interval-for-population-mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="definition">
+<p><span id="def:unlabeled-div-144" class="definition"><strong>Definition 5.5  </strong></span>The confidence interval for a population mean <span class="math inline">\(\mu\)</span> with sample mean <span class="math inline">\(\bar{x}\)</span> and sample variance <span class="math inline">\(s^2\)</span> is given by:</p>
+<p><span class="math inline">\(\bar{x} \pm t_{c.v.}\frac{s}{\sqrt{n}}, \, df=n-1\)</span>,</p>
+<p>where <span class="math inline">\(t_{c.v.}\)</span> denotes the critical value for a t-distribution with <span class="math inline">\(df=n-1\)</span> degrees of freedom for the required confidence level.</p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-145" class="example"><strong>Example 5.1  </strong></span>In Michael Jordan’s third season, 1986–1987, he had a career best with an average of 37.1 points per game (standard deviation: 9.92) while playing an average of 40.0 minutes per game over 82 games. Data for Jordan’s 1986–1987 season are given in <code>jordan86-87.csv</code>.</p>
+<p>Video highlights from Michael Jordan’s 1986–1987 season:<br />
+<a href="https://www.youtube.com/watch?v=cWSrUhhR3DA" class="uri">https://www.youtube.com/watch?v=cWSrUhhR3DA</a></p>
+<p>Let <span class="math inline">\(\mu\)</span> be the true point scoring ability of Michael Jordan during his 1986–1987 season. Create a 95% two-sided confidence interval for <span class="math inline">\(\mu\)</span>.</p>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="inferential-statistics.html#cb281-1" tabindex="-1"></a>jordan86_87 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/jordan86-87.csv&quot;</span>)</span>
+<span id="cb281-2"><a href="inferential-statistics.html#cb281-2" tabindex="-1"></a></span>
+<span id="cb281-3"><a href="inferential-statistics.html#cb281-3" tabindex="-1"></a>jordan86_87 <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(</span>
+<span id="cb281-4"><a href="inferential-statistics.html#cb281-4" tabindex="-1"></a>  <span class="at">Games =</span> <span class="fu">n</span>(), </span>
+<span id="cb281-5"><a href="inferential-statistics.html#cb281-5" tabindex="-1"></a>  <span class="st">`</span><span class="at">Points Mean</span><span class="st">`</span><span class="ot">=</span> <span class="fu">mean</span>(PTS),</span>
+<span id="cb281-6"><a href="inferential-statistics.html#cb281-6" tabindex="-1"></a>  <span class="st">`</span><span class="at">Points SD</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sd</span>(PTS),</span>
+<span id="cb281-7"><a href="inferential-statistics.html#cb281-7" tabindex="-1"></a>  <span class="st">`</span><span class="at">Minutes Mean</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(MP),</span>
+<span id="cb281-8"><a href="inferential-statistics.html#cb281-8" tabindex="-1"></a>  <span class="st">`</span><span class="at">Minutes SD</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sd</span>(MP)) <span class="sc">%&gt;%</span> </span>
+<span id="cb281-9"><a href="inferential-statistics.html#cb281-9" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+Games
+</th>
+<th style="text-align:right;">
+Points Mean
+</th>
+<th style="text-align:right;">
+Points SD
+</th>
+<th style="text-align:right;">
+Minutes Mean
+</th>
+<th style="text-align:right;">
+Minutes SD
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+37.09
+</td>
+<td style="text-align:right;">
+9.92
+</td>
+<td style="text-align:right;">
+40.01
+</td>
+<td style="text-align:right;">
+4.44
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="inferential-statistics.html#cb282-1" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
+<span id="cb282-2"><a href="inferential-statistics.html#cb282-2" tabindex="-1"></a>jordan86_87 <span class="sc">%&gt;%</span> <span class="fu">t_test</span>(<span class="at">response=</span>PTS,<span class="at">conf_int =</span> <span class="fl">0.95</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb282-3"><a href="inferential-statistics.html#cb282-3" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+t_df
+</th>
+<th style="text-align:right;">
+p_value
+</th>
+<th style="text-align:left;">
+alternative
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+lower_ci
+</th>
+<th style="text-align:right;">
+upper_ci
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+33.84
+</td>
+<td style="text-align:right;">
+81
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+two.sided
+</td>
+<td style="text-align:right;">
+37.09
+</td>
+<td style="text-align:right;">
+34.9
+</td>
+<td style="text-align:right;">
+39.27
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="hypothesis-test-for-population-mean" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Hypothesis Test for Population Mean<a href="inferential-statistics.html#hypothesis-test-for-population-mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="definition">
+<p><span id="def:unlabeled-div-146" class="definition"><strong>Definition 5.6  </strong></span>The test statistic for a population mean <span class="math inline">\(\mu\)</span> with sample mean <span class="math inline">\(\bar{x}\)</span> and sample variance <span class="math inline">\(s^2\)</span> is given by:</p>
+<p><span class="math inline">\(t_{test} = \frac{\bar{x}-\mu}{s/\sqrt{n}} \sim t_{n-1}\)</span></p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-147" class="example"><strong>Example 5.2  </strong></span>Wilt Chamberlain is considered one of the greatest of all-time in basketball and he had a career year in the 1961–1962 season. Data for Chamberlain’s 1961–1962 season are given in <code>wilt61-62.csv</code>.</p>
+<p>On March 2, 1962, Wilt Chamberlain scored 100 points in a single game. He also averaged 50.4 points per game (standard deviation: 12.0 points) while playing an average of 48.5 minutes per game over 80 games.</p>
+<p>Background videos on Wilt Chamberlain:<br />
+<a href="https://www.youtube.com/watch?v=LxMeEzhvNRs" class="uri">https://www.youtube.com/watch?v=LxMeEzhvNRs</a><br />
+<a href="https://www.youtube.com/watch?v=1WsCtyLGg1w" class="uri">https://www.youtube.com/watch?v=1WsCtyLGg1w</a></p>
+<p>Let <span class="math inline">\(\mu\)</span> be Wilt’s true point scoring ability in 1961–1962. Test the claim that <span class="math inline">\(\mu &gt; 50\)</span> PPG at <span class="math inline">\(\alpha=0.10\)</span>.</p>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="inferential-statistics.html#cb283-1" tabindex="-1"></a>wilt61_62 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/wilt61-62.csv&quot;</span>)</span>
+<span id="cb283-2"><a href="inferential-statistics.html#cb283-2" tabindex="-1"></a></span>
+<span id="cb283-3"><a href="inferential-statistics.html#cb283-3" tabindex="-1"></a>wilt61_62 <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(</span>
+<span id="cb283-4"><a href="inferential-statistics.html#cb283-4" tabindex="-1"></a>  <span class="at">Games =</span> <span class="fu">n</span>(), </span>
+<span id="cb283-5"><a href="inferential-statistics.html#cb283-5" tabindex="-1"></a>  <span class="st">`</span><span class="at">Points Mean</span><span class="st">`</span><span class="ot">=</span> <span class="fu">mean</span>(PTS),</span>
+<span id="cb283-6"><a href="inferential-statistics.html#cb283-6" tabindex="-1"></a>  <span class="st">`</span><span class="at">Points SD</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sd</span>(PTS),</span>
+<span id="cb283-7"><a href="inferential-statistics.html#cb283-7" tabindex="-1"></a>  <span class="st">`</span><span class="at">Minutes Mean</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(MP),</span>
+<span id="cb283-8"><a href="inferential-statistics.html#cb283-8" tabindex="-1"></a>  <span class="st">`</span><span class="at">Minutes SD</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sd</span>(MP)) <span class="sc">%&gt;%</span> </span>
+<span id="cb283-9"><a href="inferential-statistics.html#cb283-9" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+Games
+</th>
+<th style="text-align:right;">
+Points Mean
+</th>
+<th style="text-align:right;">
+Points SD
+</th>
+<th style="text-align:right;">
+Minutes Mean
+</th>
+<th style="text-align:right;">
+Minutes SD
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+50.36
+</td>
+<td style="text-align:right;">
+11.99
+</td>
+<td style="text-align:right;">
+48.52
+</td>
+<td style="text-align:right;">
+2.5
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="inferential-statistics.html#cb284-1" tabindex="-1"></a>wilt61_62 <span class="sc">%&gt;%</span> <span class="fu">t_test</span>(<span class="at">response=</span>PTS,<span class="at">mu=</span><span class="dv">50</span>,<span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb284-2"><a href="inferential-statistics.html#cb284-2" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+t_df
+</th>
+<th style="text-align:right;">
+p_value
+</th>
+<th style="text-align:left;">
+alternative
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+lower_ci
+</th>
+<th style="text-align:right;">
+upper_ci
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+79
+</td>
+<td style="text-align:right;">
+0.39
+</td>
+<td style="text-align:left;">
+greater
+</td>
+<td style="text-align:right;">
+50.36
+</td>
+<td style="text-align:right;">
+48.13
+</td>
+<td style="text-align:right;">
+Inf
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="test-for-difference-in-means" class="section level3 hasAnchor" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> Test for Difference in Means<a href="inferential-statistics.html#test-for-difference-in-means" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-148" class="theorem"><strong>Theorem 5.2  </strong></span>The test statistic for a difference in population means <span class="math inline">\(\mu_1 - \mu_2\)</span> is given by:</p>
+<p><span class="math inline">\(t_{test} = \frac{\bar{x}_1 -\bar{x}_2 - D_0}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}} \sim t_{\nu}\)</span></p>
+<p>where <span class="math inline">\(\nu = \frac{\big(s_1^2/n_1 + s_2^2/n_2\big)^2}{(s_1^2/n_1)^2/(n_1-1) + (s_2^2/n_2)^2/(n_2-1)}\)</span></p>
+</div>
+</div>
+<div id="confidence-interval-for-difference-in-means" class="section level3 hasAnchor" number="5.3.4">
+<h3><span class="header-section-number">5.3.4</span> Confidence Interval for Difference in Means<a href="inferential-statistics.html#confidence-interval-for-difference-in-means" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-149" class="theorem"><strong>Theorem 5.3  </strong></span>The confidence interval for a difference in population means <span class="math inline">\(\mu_1 - \mu_2\)</span> is given by:</p>
+<p><span class="math inline">\((\bar{x}_1 - \bar{x}_2) \pm t_{c.v.} \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}\)</span></p>
+<p>where <span class="math inline">\(t_{c.v.}\)</span> denotes the critical value for a t-distribution with <span class="math inline">\(df=\nu\)</span> degrees of freedom for the required confidence level and <span class="math inline">\(\nu = \frac{\big(s_1^2/n_1 + s_2^2/n_2\big)^2}{(s_1^2/n_1)^2/(n_1-1) + (s_2^2/n_2)^2/(n_2-1)}\)</span></p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-150" class="example"><strong>Example 5.3  </strong></span>NBA statistics are often given as a rate statistic per 36 minutes to account for differences in playing time. Compare points per game (PPG) and points per 36 minutes (PP36) on a season level for Jordan’s 1986–1987 season and Chamberlain’s 1961–1962 season.</p>
+</div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="inferential-statistics.html#cb285-1" tabindex="-1"></a>wilt_pp36 <span class="ot">&lt;-</span> <span class="fu">sum</span>(wilt61_62<span class="sc">$</span>PTS)<span class="sc">/</span><span class="fu">sum</span>(wilt61_62<span class="sc">$</span>MP)<span class="sc">*</span><span class="dv">36</span></span>
+<span id="cb285-2"><a href="inferential-statistics.html#cb285-2" tabindex="-1"></a>jordan_pp36 <span class="ot">&lt;-</span> <span class="fu">sum</span>(jordan86_87<span class="sc">$</span>PTS)<span class="sc">/</span><span class="fu">sum</span>(jordan86_87<span class="sc">$</span>MP)<span class="sc">*</span><span class="dv">36</span></span>
+<span id="cb285-3"><a href="inferential-statistics.html#cb285-3" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="st">`</span><span class="at">Wilt PPG</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(wilt61_62<span class="sc">$</span>PTS), </span>
+<span id="cb285-4"><a href="inferential-statistics.html#cb285-4" tabindex="-1"></a>           <span class="st">`</span><span class="at">Jordan PPG</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(jordan86_87<span class="sc">$</span>PTS), </span>
+<span id="cb285-5"><a href="inferential-statistics.html#cb285-5" tabindex="-1"></a>           <span class="st">`</span><span class="at">Wilt PP36</span><span class="st">`</span> <span class="ot">=</span> wilt_pp36,  </span>
+<span id="cb285-6"><a href="inferential-statistics.html#cb285-6" tabindex="-1"></a>           <span class="st">`</span><span class="at">Jordan PP36</span><span class="st">`</span> <span class="ot">=</span> jordan_pp36)  <span class="sc">%&gt;%</span> </span>
+<span id="cb285-7"><a href="inferential-statistics.html#cb285-7" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+Wilt.PPG
+</th>
+<th style="text-align:right;">
+Jordan.PPG
+</th>
+<th style="text-align:right;">
+Wilt.PP36
+</th>
+<th style="text-align:right;">
+Jordan.PP36
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+50.36
+</td>
+<td style="text-align:right;">
+37.09
+</td>
+<td style="text-align:right;">
+37.36
+</td>
+<td style="text-align:right;">
+33.37
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="example">
+<p><span id="exm:unlabeled-div-151" class="example"><strong>Example 5.4  </strong></span>Calculate PP36 on a game-by-game basis for Jordan and Chamberlain. Create a 99% confidence interval for the difference in PP36 and make a statistical decision as to if there is a difference.</p>
+</div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="inferential-statistics.html#cb286-1" tabindex="-1"></a>jordan86_87<span class="sc">$</span>PP36 <span class="ot">&lt;-</span> jordan86_87<span class="sc">$</span>PTS<span class="sc">/</span>jordan86_87<span class="sc">$</span>MP<span class="sc">*</span><span class="dv">36</span></span>
+<span id="cb286-2"><a href="inferential-statistics.html#cb286-2" tabindex="-1"></a>wilt61_62<span class="sc">$</span>PP36 <span class="ot">&lt;-</span> wilt61_62<span class="sc">$</span>PTS<span class="sc">/</span>wilt61_62<span class="sc">$</span>MP<span class="sc">*</span><span class="dv">36</span></span>
+<span id="cb286-3"><a href="inferential-statistics.html#cb286-3" tabindex="-1"></a>jordan_wilt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">PP36=</span><span class="fu">c</span>(jordan86_87<span class="sc">$</span>PP36,wilt61_62<span class="sc">$</span>PP36),</span>
+<span id="cb286-4"><a href="inferential-statistics.html#cb286-4" tabindex="-1"></a>                          <span class="at">Player=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;MJ&quot;</span>,<span class="dv">82</span>),<span class="fu">rep</span>(<span class="st">&quot;WC&quot;</span>,<span class="dv">80</span>)))</span>
+<span id="cb286-5"><a href="inferential-statistics.html#cb286-5" tabindex="-1"></a>jordan_wilt <span class="sc">%&gt;%</span> <span class="fu">t_test</span>(<span class="at">formula=</span>PP36<span class="sc">~</span>Player,</span>
+<span id="cb286-6"><a href="inferential-statistics.html#cb286-6" tabindex="-1"></a>                       <span class="at">order=</span><span class="fu">c</span>(<span class="st">&quot;WC&quot;</span>,<span class="st">&quot;MJ&quot;</span>),<span class="at">conf_level =</span> <span class="fl">0.99</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb286-7"><a href="inferential-statistics.html#cb286-7" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+t_df
+</th>
+<th style="text-align:right;">
+p_value
+</th>
+<th style="text-align:left;">
+alternative
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+lower_ci
+</th>
+<th style="text-align:right;">
+upper_ci
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2.84
+</td>
+<td style="text-align:right;">
+159.96
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:left;">
+two.sided
+</td>
+<td style="text-align:right;">
+3.87
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+<td style="text-align:right;">
+7.42
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div id="inference-for-population-proportion" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Inference for Population Proportion<a href="inferential-statistics.html#inference-for-population-proportion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-152" class="theorem"><strong>Theorem 5.4  </strong></span>A random sample of size <span class="math inline">\(n\)</span> from an infinite population with mean <span class="math inline">\(\pi\)</span> has the following properties:</p>
+<p><span class="math inline">\(E[\hat{p}] = \pi\)</span></p>
+<p><span class="math inline">\(Var(\hat{p}) = \frac{\pi(1-\pi)}{n}\)</span></p>
+<p><span class="math inline">\(\hat{SE}(\hat{p}) = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\)</span></p>
+</div>
+<div id="confidence-interval-for-population-proportion" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Confidence Interval for Population Proportion<a href="inferential-statistics.html#confidence-interval-for-population-proportion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-153" class="theorem"><strong>Theorem 5.5  </strong></span>The confidence interval for a population proportion <span class="math inline">\(\pi\)</span> with sample proportion <span class="math inline">\(\hat{p}\)</span> and sample size <span class="math inline">\(n\)</span> is given by:</p>
+<p><span class="math inline">\(\hat{p} \pm z_{c.v.}\sqrt{\frac{p(1-p)}{n}}\)</span></p>
+<p>where <span class="math inline">\(z_{c.v.}\)</span> denotes the critical value for a z-distribution for the required confidence level.</p>
+</div>
+</div>
+<div id="test-for-population-proportion" class="section level3 hasAnchor" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Test for Population Proportion<a href="inferential-statistics.html#test-for-population-proportion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-154" class="theorem"><strong>Theorem 5.6  </strong></span>The test statistic for a population proportion <span class="math inline">\(\pi\)</span> is given by:</p>
+<p><span class="math inline">\(z_{test} = \frac{\hat{p}-\pi}{\sqrt{\frac{\pi(1-\pi)}{n}}} \sim \mathcal{N}(0,1)\)</span></p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-155" class="example"><strong>Example 5.5  </strong></span>From <em>Mathletics</em> (Section 4.8): Since interleague play began in 1997, there was a suspicion that American League teams had a slight advantage since they had a full-time designate hitter on their roster. The designated hitter was approved for National League play in 2022. From 1997 until 2013, American League teams played the National League teams in 4,264 interleague games. American League teams won 2,235 of the games (52.4% winning percentage). We want to test if the true winning percentage of American League teams exceeded 50% at a significance level of 0.01.</p>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="inferential-statistics.html#cb287-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">4264</span></span>
+<span id="cb287-2"><a href="inferential-statistics.html#cb287-2" tabindex="-1"></a>al <span class="ot">&lt;-</span> <span class="dv">2235</span></span>
+<span id="cb287-3"><a href="inferential-statistics.html#cb287-3" tabindex="-1"></a>nl <span class="ot">&lt;-</span> n <span class="sc">-</span> al</span>
+<span id="cb287-4"><a href="inferential-statistics.html#cb287-4" tabindex="-1"></a>phat <span class="ot">&lt;-</span> al<span class="sc">/</span>n</span>
+<span id="cb287-5"><a href="inferential-statistics.html#cb287-5" tabindex="-1"></a></span>
+<span id="cb287-6"><a href="inferential-statistics.html#cb287-6" tabindex="-1"></a><span class="co"># Calculate the CI manually</span></span>
+<span id="cb287-7"><a href="inferential-statistics.html#cb287-7" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(phat<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>phat)<span class="sc">/</span>n)</span>
+<span id="cb287-8"><a href="inferential-statistics.html#cb287-8" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.99</span>)</span>
+<span id="cb287-9"><a href="inferential-statistics.html#cb287-9" tabindex="-1"></a>moe <span class="ot">&lt;-</span> z<span class="sc">*</span>se</span>
+<span id="cb287-10"><a href="inferential-statistics.html#cb287-10" tabindex="-1"></a>bound <span class="ot">&lt;-</span> phat<span class="sc">-</span>moe; bound</span></code></pre></div>
+<pre><code>## [1] 0.5063636</code></pre>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="inferential-statistics.html#cb289-1" tabindex="-1"></a><span class="co"># Calculate test statistic and p-value manually</span></span>
+<span id="cb289-2"><a href="inferential-statistics.html#cb289-2" tabindex="-1"></a>z_test <span class="ot">&lt;-</span> (phat<span class="fl">-0.5</span>)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fl">0.5</span><span class="sc">*</span><span class="fl">0.5</span><span class="sc">/</span>n)</span>
+<span id="cb289-3"><a href="inferential-statistics.html#cb289-3" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(z_test,<span class="at">lower.tail =</span> F)</span>
+<span id="cb289-4"><a href="inferential-statistics.html#cb289-4" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="st">`</span><span class="at">Test Stat</span><span class="st">`</span> <span class="ot">=</span> z_test, <span class="st">`</span><span class="at">P-value</span><span class="st">`</span> <span class="ot">=</span> p_value)  <span class="sc">%&gt;%</span> </span>
+<span id="cb289-5"><a href="inferential-statistics.html#cb289-5" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+Test.Stat
+</th>
+<th style="text-align:right;">
+P.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+3.1547
+</td>
+<td style="text-align:right;">
+8e-04
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="inferential-statistics.html#cb290-1" tabindex="-1"></a><span class="co"># Use binomial test</span></span>
+<span id="cb290-2"><a href="inferential-statistics.html#cb290-2" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x=</span>al,<span class="at">n=</span>n,<span class="at">p=</span><span class="fl">0.5</span>,<span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>,<span class="at">conf.level =</span> <span class="fl">0.99</span>)</span></code></pre></div>
+<pre><code>## 
+##  Exact binomial test
+## 
+## data:  al and n
+## number of successes = 2235, number of trials = 4264, p-value =
+## 0.0008449
+## alternative hypothesis: true probability of success is greater than 0.5
+## 99 percent confidence interval:
+##  0.5062306 1.0000000
+## sample estimates:
+## probability of success 
+##              0.5241557</code></pre>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="inferential-statistics.html#cb292-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Winner =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>,al),<span class="fu">rep</span>(<span class="dv">0</span>,nl)))</span>
+<span id="cb292-2"><a href="inferential-statistics.html#cb292-2" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">t_test</span>(<span class="at">response=</span>Winner,<span class="at">mu=</span><span class="fl">0.5</span>,<span class="at">conf_level =</span> <span class="fl">0.99</span>,<span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 7
+##   statistic  t_df  p_value alternative estimate lower_ci upper_ci
+##       &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1      3.16  4263 0.000800 greater        0.524    0.506      Inf</code></pre>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="confidence-interval-for-difference-in-proportions" class="section level3 hasAnchor" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Confidence Interval for Difference in Proportions<a href="inferential-statistics.html#confidence-interval-for-difference-in-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-156" class="theorem"><strong>Theorem 5.7  </strong></span>The confidence interval for a difference in population proportions <span class="math inline">\(\pi_1 - \pi_2\)</span> is given by:</p>
+<p><span class="math inline">\((\hat{p}_1 - \hat{p}_2) \pm z_{c.v.}\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1}+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}\)</span></p>
+<p>where <span class="math inline">\(z_{c.v.}\)</span> denotes the critical value for a z-distribution for the required confidence level.</p>
+</div>
+</div>
+<div id="test-for-difference-in-proportions" class="section level3 hasAnchor" number="5.4.4">
+<h3><span class="header-section-number">5.4.4</span> Test for Difference in Proportions<a href="inferential-statistics.html#test-for-difference-in-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-157" class="theorem"><strong>Theorem 5.8  </strong></span>The test statistic for a difference in population proportions <span class="math inline">\(\pi_1 - \pi_2\)</span> is given by:</p>
+<p><span class="math inline">\(z_{test} = \frac{\hat{p}_1 - \hat{p}_2 - D_0}{\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1}+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}} \sim \mathcal{N}(0,1)\)</span></p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-158" class="example"><strong>Example 5.6  </strong></span>Football coaches often try to “ice the kicker” before a late field goal attempt.<br />
+</p>
+<p>Paul Dalen did some analysis for icing the kicker on the collegiate level:<br />
+</p>
+<p><a href="https://www.footballstudyhall.com/2018/11/24/18110091/is-icing-the-kicker-really-a-thing" class="uri">https://www.footballstudyhall.com/2018/11/24/18110091/is-icing-the-kicker-really-a-thing</a></p>
+<p>From his dataset that includes data from 2017–2018, we have the following:</p>
+<p>For field goal attempts that were 36–45 yards, iced kickers made 41 out of 66 attempts and non-iced kickers made 195 out of 287 attempts. Is there evidence of a difference in proportions of iced and non-iced kickers? Test the hypothesis at <span class="math inline">\(\alpha=0.05\)</span> and create a 95% confidence interval for the difference.</p>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="inferential-statistics.html#cb294-1" tabindex="-1"></a><span class="co"># Iced Kickers</span></span>
+<span id="cb294-2"><a href="inferential-statistics.html#cb294-2" tabindex="-1"></a>n.ice <span class="ot">&lt;-</span> <span class="dv">66</span></span>
+<span id="cb294-3"><a href="inferential-statistics.html#cb294-3" tabindex="-1"></a>x.ice <span class="ot">&lt;-</span> <span class="dv">41</span></span>
+<span id="cb294-4"><a href="inferential-statistics.html#cb294-4" tabindex="-1"></a>phat.ice <span class="ot">&lt;-</span> x.ice<span class="sc">/</span>n.ice</span>
+<span id="cb294-5"><a href="inferential-statistics.html#cb294-5" tabindex="-1"></a></span>
+<span id="cb294-6"><a href="inferential-statistics.html#cb294-6" tabindex="-1"></a><span class="co"># Non-iced Kickers</span></span>
+<span id="cb294-7"><a href="inferential-statistics.html#cb294-7" tabindex="-1"></a>n.nice <span class="ot">&lt;-</span> <span class="dv">287</span></span>
+<span id="cb294-8"><a href="inferential-statistics.html#cb294-8" tabindex="-1"></a>x.nice <span class="ot">&lt;-</span> <span class="dv">195</span></span>
+<span id="cb294-9"><a href="inferential-statistics.html#cb294-9" tabindex="-1"></a>phat.nice <span class="ot">&lt;-</span> x.nice<span class="sc">/</span>n.nice</span>
+<span id="cb294-10"><a href="inferential-statistics.html#cb294-10" tabindex="-1"></a></span>
+<span id="cb294-11"><a href="inferential-statistics.html#cb294-11" tabindex="-1"></a><span class="co"># Calculate the 95% CI manually</span></span>
+<span id="cb294-12"><a href="inferential-statistics.html#cb294-12" tabindex="-1"></a>diff <span class="ot">&lt;-</span> phat.ice <span class="sc">-</span> phat.nice</span>
+<span id="cb294-13"><a href="inferential-statistics.html#cb294-13" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(phat.ice<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>phat.ice)<span class="sc">/</span>n.ice <span class="sc">+</span> phat.nice<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>phat.nice)<span class="sc">/</span>n.nice)</span>
+<span id="cb294-14"><a href="inferential-statistics.html#cb294-14" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span>
+<span id="cb294-15"><a href="inferential-statistics.html#cb294-15" tabindex="-1"></a>moe <span class="ot">&lt;-</span> z<span class="sc">*</span>se</span>
+<span id="cb294-16"><a href="inferential-statistics.html#cb294-16" tabindex="-1"></a>(bounds <span class="ot">&lt;-</span> <span class="fu">c</span>(diff<span class="sc">-</span>moe,diff<span class="sc">+</span>moe))</span></code></pre></div>
+<pre><code>## [1] -0.1871143  0.0706535</code></pre>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="inferential-statistics.html#cb296-1" tabindex="-1"></a><span class="co"># Calculate the z-test and p-value manually</span></span>
+<span id="cb296-2"><a href="inferential-statistics.html#cb296-2" tabindex="-1"></a>z_test <span class="ot">&lt;-</span> diff<span class="sc">/</span>se</span>
+<span id="cb296-3"><a href="inferential-statistics.html#cb296-3" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pnorm</span>(z_test)</span>
+<span id="cb296-4"><a href="inferential-statistics.html#cb296-4" tabindex="-1"></a></span>
+<span id="cb296-5"><a href="inferential-statistics.html#cb296-5" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="st">`</span><span class="at">P(Make|Ice)</span><span class="st">`</span> <span class="ot">=</span> phat.ice, <span class="st">`</span><span class="at">P(Make|No Ice)</span><span class="st">`</span><span class="ot">=</span> phat.nice,</span>
+<span id="cb296-6"><a href="inferential-statistics.html#cb296-6" tabindex="-1"></a>           <span class="st">`</span><span class="at">Test Stat</span><span class="st">`</span> <span class="ot">=</span> z_test, <span class="st">`</span><span class="at">P-value</span><span class="st">`</span> <span class="ot">=</span> p_value)  <span class="sc">%&gt;%</span> </span>
+<span id="cb296-7"><a href="inferential-statistics.html#cb296-7" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+P.Make.Ice.
+</th>
+<th style="text-align:right;">
+P.Make.No.Ice.
+</th>
+<th style="text-align:right;">
+Test.Stat
+</th>
+<th style="text-align:right;">
+P.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.6212
+</td>
+<td style="text-align:right;">
+0.6794
+</td>
+<td style="text-align:right;">
+-0.8855
+</td>
+<td style="text-align:right;">
+0.3759
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div id="bootstrap" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Bootstrap<a href="inferential-statistics.html#bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Bootstrapping</strong> is a resampling method with replacement that can be used to estimate margins of error, create confidence intervals, or complete statistical testing. It is particularly useful when distributional assumptions may be in doubt for standard inferential methods.</p>
+<p>A <strong>bootstrap sample</strong> is created by sampling with replacement from known sample data, calculating the statistic of interest, and then analyzing the results from all of the bootstrap samples.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-159" class="example"><strong>Example 5.7  </strong></span>Example from <em>Analytic Methods in Sports</em> (Section 4.5): In 2012, Baltimore Ravens quarterback Joe Flacco passed for 3,817 yards and had a passer rating of 87.7. We would like to build a confidence interval for Flacco’s passer rating using bootstrapping.</p>
+</div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="inferential-statistics.html#cb297-1" tabindex="-1"></a><span class="co"># Load data</span></span>
+<span id="cb297-2"><a href="inferential-statistics.html#cb297-2" tabindex="-1"></a>flacco2012 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/flacco2012.csv&quot;</span>,<span class="at">show_col_types =</span> F)</span>
+<span id="cb297-3"><a href="inferential-statistics.html#cb297-3" tabindex="-1"></a></span>
+<span id="cb297-4"><a href="inferential-statistics.html#cb297-4" tabindex="-1"></a><span class="co"># Build Kable Table for data</span></span>
+<span id="cb297-5"><a href="inferential-statistics.html#cb297-5" tabindex="-1"></a>flacco2012  <span class="sc">%&gt;%</span> </span>
+<span id="cb297-6"><a href="inferential-statistics.html#cb297-6" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">booktabs=</span>T,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Game
+</th>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:left;">
+Opp
+</th>
+<th style="text-align:right;">
+Cmp
+</th>
+<th style="text-align:right;">
+Att
+</th>
+<th style="text-align:right;">
+Yds
+</th>
+<th style="text-align:right;">
+TD
+</th>
+<th style="text-align:right;">
+Int
+</th>
+<th style="text-align:right;">
+Rate
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+9/10/12
+</td>
+<td style="text-align:left;">
+CIN
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+299
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+128.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+9/16/12
+</td>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+42
+</td>
+<td style="text-align:right;">
+232
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+66.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+9/23/12
+</td>
+<td style="text-align:left;">
+NWE
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+382
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+117.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+9/27/12
+</td>
+<td style="text-align:left;">
+CLE
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+356
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+83.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+10/7/12
+</td>
+<td style="text-align:left;">
+KAN
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+187
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+55.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+10/14/12
+</td>
+<td style="text-align:left;">
+DAL
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+234
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+106.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:left;">
+10/21/12
+</td>
+<td style="text-align:left;">
+HOU
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+147
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+45.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:left;">
+11/4/12
+</td>
+<td style="text-align:left;">
+CLE
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+153
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+94.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9
+</td>
+<td style="text-align:left;">
+11/11/12
+</td>
+<td style="text-align:left;">
+OAK
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+341
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+115.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:left;">
+11/18/12
+</td>
+<td style="text-align:left;">
+PIT
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+164
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+75.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:left;">
+11/25/12
+</td>
+<td style="text-align:left;">
+SDG
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+355
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+86.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+12
+</td>
+<td style="text-align:left;">
+12/2/12
+</td>
+<td style="text-align:left;">
+PIT
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+188
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+61.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:left;">
+12/9/12
+</td>
+<td style="text-align:left;">
+WAS
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+182
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+121.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+14
+</td>
+<td style="text-align:left;">
+12/16/12
+</td>
+<td style="text-align:left;">
+DEN
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+254
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+76.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+15
+</td>
+<td style="text-align:left;">
+12/23/12
+</td>
+<td style="text-align:left;">
+NYG
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+309
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+114.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:left;">
+12/30/12
+</td>
+<td style="text-align:left;">
+CIN
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+61.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ALL
+</td>
+<td style="text-align:left;">
+16 Games
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+317
+</td>
+<td style="text-align:right;">
+531
+</td>
+<td style="text-align:right;">
+3817
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+87.7
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="inferential-statistics.html#cb298-1" tabindex="-1"></a><span class="co"># Function to calculate passer rating</span></span>
+<span id="cb298-2"><a href="inferential-statistics.html#cb298-2" tabindex="-1"></a>rating <span class="ot">&lt;-</span> <span class="cf">function</span>(QB,ind){</span>
+<span id="cb298-3"><a href="inferential-statistics.html#cb298-3" tabindex="-1"></a>  dat <span class="ot">&lt;-</span> QB[ind,]</span>
+<span id="cb298-4"><a href="inferential-statistics.html#cb298-4" tabindex="-1"></a>  att <span class="ot">&lt;-</span> <span class="fu">sum</span>(dat<span class="sc">$</span>Att)</span>
+<span id="cb298-5"><a href="inferential-statistics.html#cb298-5" tabindex="-1"></a>  ypa <span class="ot">&lt;-</span> <span class="fu">sum</span>(dat<span class="sc">$</span>Yds)<span class="sc">/</span>att</span>
+<span id="cb298-6"><a href="inferential-statistics.html#cb298-6" tabindex="-1"></a>  ipa <span class="ot">&lt;-</span> <span class="fu">sum</span>(dat<span class="sc">$</span>Int)<span class="sc">/</span>att</span>
+<span id="cb298-7"><a href="inferential-statistics.html#cb298-7" tabindex="-1"></a>  cpa <span class="ot">&lt;-</span> <span class="fu">sum</span>(dat<span class="sc">$</span>Cmp)<span class="sc">/</span>att</span>
+<span id="cb298-8"><a href="inferential-statistics.html#cb298-8" tabindex="-1"></a>  tdpa <span class="ot">&lt;-</span> <span class="fu">sum</span>(dat<span class="sc">$</span>TD)<span class="sc">/</span>att</span>
+<span id="cb298-9"><a href="inferential-statistics.html#cb298-9" tabindex="-1"></a>  Y <span class="ot">&lt;-</span> <span class="fl">0.25</span> <span class="sc">*</span> (ypa <span class="sc">-</span> <span class="dv">3</span>)</span>
+<span id="cb298-10"><a href="inferential-statistics.html#cb298-10" tabindex="-1"></a>  T <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="sc">*</span> tdpa</span>
+<span id="cb298-11"><a href="inferential-statistics.html#cb298-11" tabindex="-1"></a>  I <span class="ot">&lt;-</span> <span class="fl">2.375</span> <span class="sc">-</span> <span class="dv">25</span><span class="sc">*</span>ipa</span>
+<span id="cb298-12"><a href="inferential-statistics.html#cb298-12" tabindex="-1"></a>  C <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">*</span> (cpa<span class="fl">-0.3</span>)</span>
+<span id="cb298-13"><a href="inferential-statistics.html#cb298-13" tabindex="-1"></a>  <span class="dv">100</span><span class="sc">*</span>(C<span class="sc">+</span>Y<span class="sc">+</span>T<span class="sc">+</span>I)<span class="sc">/</span><span class="dv">6</span></span>
+<span id="cb298-14"><a href="inferential-statistics.html#cb298-14" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="inferential-statistics.html#cb299-1" tabindex="-1"></a><span class="co"># Remove season total row</span></span>
+<span id="cb299-2"><a href="inferential-statistics.html#cb299-2" tabindex="-1"></a>flacco2012 <span class="ot">&lt;-</span> flacco2012 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>)</span>
+<span id="cb299-3"><a href="inferential-statistics.html#cb299-3" tabindex="-1"></a><span class="fu">rating</span>(flacco2012,<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>)</span></code></pre></div>
+<pre><code>## [1] 87.74718</code></pre>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="inferential-statistics.html#cb301-1" tabindex="-1"></a><span class="co"># Manually find bootstrap distribution and statistics</span></span>
+<span id="cb301-2"><a href="inferential-statistics.html#cb301-2" tabindex="-1"></a>n.sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb301-3"><a href="inferential-statistics.html#cb301-3" tabindex="-1"></a>ratings <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>,<span class="dv">10000</span>)</span>
+<span id="cb301-4"><a href="inferential-statistics.html#cb301-4" tabindex="-1"></a></span>
+<span id="cb301-5"><a href="inferential-statistics.html#cb301-5" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.sims){</span>
+<span id="cb301-6"><a href="inferential-statistics.html#cb301-6" tabindex="-1"></a>  temp.ind <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>,<span class="dv">16</span>,<span class="at">replace=</span>T)</span>
+<span id="cb301-7"><a href="inferential-statistics.html#cb301-7" tabindex="-1"></a>  ratings[i] <span class="ot">&lt;-</span> <span class="fu">rating</span>(flacco2012,temp.ind)</span>
+<span id="cb301-8"><a href="inferential-statistics.html#cb301-8" tabindex="-1"></a>}</span>
+<span id="cb301-9"><a href="inferential-statistics.html#cb301-9" tabindex="-1"></a></span>
+<span id="cb301-10"><a href="inferential-statistics.html#cb301-10" tabindex="-1"></a>ratings <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb301-11"><a href="inferential-statistics.html#cb301-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>.)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb301-12"><a href="inferential-statistics.html#cb301-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Passer Rating&quot;</span>,<span class="at">y=</span><span class="st">&quot;Count&quot;</span>,</span>
+<span id="cb301-13"><a href="inferential-statistics.html#cb301-13" tabindex="-1"></a>       <span class="at">title=</span><span class="st">&quot;Bootstrap Distribution for Flacco&#39;s QB Rating&quot;</span>)</span></code></pre></div>
+<p><img src="textbook_files/figure-html/unnamed-chunk-128-1.png" width="672" /></p>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="inferential-statistics.html#cb302-1" tabindex="-1"></a><span class="co"># Bootstrap statistics</span></span>
+<span id="cb302-2"><a href="inferential-statistics.html#cb302-2" tabindex="-1"></a>(mean.pr <span class="ot">&lt;-</span> <span class="fu">mean</span>(ratings))</span></code></pre></div>
+<pre><code>## [1] 87.89389</code></pre>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="inferential-statistics.html#cb304-1" tabindex="-1"></a>(se.pr <span class="ot">&lt;-</span> <span class="fu">sd</span>(ratings))</span></code></pre></div>
+<pre><code>## [1] 6.482204</code></pre>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="inferential-statistics.html#cb306-1" tabindex="-1"></a><span class="co"># Approximate CI for Passer Rating using MOE</span></span>
+<span id="cb306-2"><a href="inferential-statistics.html#cb306-2" tabindex="-1"></a>moe.pr <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> se.pr</span>
+<span id="cb306-3"><a href="inferential-statistics.html#cb306-3" tabindex="-1"></a>(bounds.pr <span class="ot">&lt;-</span> <span class="fu">c</span>(mean.pr<span class="sc">-</span>moe.pr,mean.pr<span class="sc">+</span>moe.pr))</span></code></pre></div>
+<pre><code>## [1]  75.1890 100.5988</code></pre>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="inferential-statistics.html#cb308-1" tabindex="-1"></a><span class="co"># Approximate CI using middle 95%</span></span>
+<span id="cb308-2"><a href="inferential-statistics.html#cb308-2" tabindex="-1"></a><span class="fu">quantile</span>(ratings,<span class="fu">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</span></code></pre></div>
+<pre><code>##      2.5%     97.5% 
+##  75.38335 100.68129</code></pre>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="inferential-statistics.html#cb310-1" tabindex="-1"></a><span class="co"># Bootstrap using &quot;boot&quot; package</span></span>
+<span id="cb310-2"><a href="inferential-statistics.html#cb310-2" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
+<span id="cb310-3"><a href="inferential-statistics.html#cb310-3" tabindex="-1"></a>(boot.pr <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="at">data=</span>flacco2012,<span class="at">statistic=</span>rating,<span class="at">R=</span><span class="dv">10000</span>))</span></code></pre></div>
+<pre><code>## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = flacco2012, statistic = rating, R = 10000)
+## 
+## 
+## Bootstrap Statistics :
+##     original    bias    std. error
+## t1* 87.74718 0.1468445    6.364337</code></pre>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="inferential-statistics.html#cb312-1" tabindex="-1"></a><span class="fu">boot.ci</span>(<span class="at">boot.out =</span> boot.pr,<span class="at">type=</span><span class="st">&quot;perc&quot;</span>)</span></code></pre></div>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 10000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = boot.pr, type = &quot;perc&quot;)
+## 
+## Intervals : 
+## Level     Percentile     
+## 95%   ( 75.43, 100.58 )  
+## Calculations and Intervals on Original Scale</code></pre>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="margin-of-error-calcuations" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> Margin of Error Calcuations<a href="inferential-statistics.html#margin-of-error-calcuations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="moe-for-probabilities" class="section level3 hasAnchor" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> MOE for Probabilities<a href="inferential-statistics.html#moe-for-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>(Shooting percentages, batting averages, save percentage)</p>
+</div>
+<div id="moe-for-averages" class="section level3 hasAnchor" number="5.6.2">
+<h3><span class="header-section-number">5.6.2</span> MOE for Averages<a href="inferential-statistics.html#moe-for-averages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>(PPG, Digs per game, Passer Rating–using bootstrap)</p>
+</div>
+<div id="moe-estimation-using-simulation" class="section level3 hasAnchor" number="5.6.3">
+<h3><span class="header-section-number">5.6.3</span> MOE estimation using simulation<a href="inferential-statistics.html#moe-estimation-using-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>(Durant scoring, AM, page 98)</p>
+</div>
+</div>
+<div id="one-sample-and-two-sample-t-tests-and-confidence-intervals" class="section level2 hasAnchor" number="5.7">
+<h2><span class="header-section-number">5.7</span> One Sample and Two Sample t-tests and confidence intervals<a href="inferential-statistics.html#one-sample-and-two-sample-t-tests-and-confidence-intervals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="hockey-faceoffs" class="section level3 hasAnchor" number="5.7.1">
+<h3><span class="header-section-number">5.7.1</span> Hockey Faceoffs<a href="inferential-statistics.html#hockey-faceoffs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>(Mathletics, chapter 40 page 383)</p>
+</div>
+<div id="hockey-penalty-scoring" class="section level3 hasAnchor" number="5.7.2">
+<h3><span class="header-section-number">5.7.2</span> Hockey Penalty Scoring<a href="inferential-statistics.html#hockey-penalty-scoring" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>(Mathletics, chapter 40, page 13)</p>
+</div>
+<div id="nfl-overtime-winners" class="section level3 hasAnchor" number="5.7.3">
+<h3><span class="header-section-number">5.7.3</span> NFL Overtime Winners<a href="inferential-statistics.html#nfl-overtime-winners" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>(Scorecasting, page 192)
+(Mathletics, chapter 25, page 211)</p>
+</div>
+<div id="icing-the-kicker" class="section level3 hasAnchor" number="5.7.4">
+<h3><span class="header-section-number">5.7.4</span> Icing the Kicker<a href="inferential-statistics.html#icing-the-kicker" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>(Scorecasting, page 211)</p>
+</div>
+<div id="example-football-one-vs.-two-point-conversion" class="section level3 hasAnchor" number="5.7.5">
+<h3><span class="header-section-number">5.7.5</span> Example: Football One vs. Two Point Conversion<a href="inferential-statistics.html#example-football-one-vs.-two-point-conversion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>(Mathletics, chapter 23, page 194) – discussion of “the chart”</p>
+</div>
+<div id="two-sample-tests" class="section level3 hasAnchor" number="5.7.6">
+<h3><span class="header-section-number">5.7.6</span> Two Sample Tests<a href="inferential-statistics.html#two-sample-tests" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>(NBA Players, AM, page 103)</p>
+<p>(Comparing NL and AL, page 106)</p>
+</div>
+</div>
+<div id="permutation-tests" class="section level2 hasAnchor" number="5.8">
+<h2><span class="header-section-number">5.8</span> Permutation Tests<a href="inferential-statistics.html#permutation-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="bootstrap-1" class="section level2 hasAnchor" number="5.9">
+<h2><span class="header-section-number">5.9</span> Bootstrap<a href="inferential-statistics.html#bootstrap-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="inferential-statistics.html#cb314-1" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
+<span id="cb314-2"><a href="inferential-statistics.html#cb314-2" tabindex="-1"></a>observed_statistic <span class="ot">&lt;-</span> wilt61_62 <span class="sc">%&gt;%</span></span>
+<span id="cb314-3"><a href="inferential-statistics.html#cb314-3" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> PTS) <span class="sc">%&gt;%</span></span>
+<span id="cb314-4"><a href="inferential-statistics.html#cb314-4" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">&quot;mean&quot;</span>)</span>
+<span id="cb314-5"><a href="inferential-statistics.html#cb314-5" tabindex="-1"></a></span>
+<span id="cb314-6"><a href="inferential-statistics.html#cb314-6" tabindex="-1"></a>null_dist_1_sample <span class="ot">&lt;-</span> wilt61_62 <span class="sc">%&gt;%</span></span>
+<span id="cb314-7"><a href="inferential-statistics.html#cb314-7" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> PTS) <span class="sc">%&gt;%</span></span>
+<span id="cb314-8"><a href="inferential-statistics.html#cb314-8" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">&quot;point&quot;</span>, <span class="at">mu =</span> <span class="dv">50</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb314-9"><a href="inferential-statistics.html#cb314-9" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">&quot;bootstrap&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb314-10"><a href="inferential-statistics.html#cb314-10" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">&quot;mean&quot;</span>)</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="monte-carlo-simulation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="measures-of-association.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/aaron-nielsen/SportsAnalyticsBook/edit/master/05-inference.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["textbook.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
