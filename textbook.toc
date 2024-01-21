@@ -87,3 +87,34 @@
 \contentsline {section}{\numberline {4.5}Simulating Censored Data}{158}{section.4.5}%
 \contentsline {subsection}{\numberline {4.5.1}Tony Gwynn 1994 Batting Average Simulation}{158}{subsection.4.5.1}%
 \contentsline {subsection}{\numberline {4.5.2}Matt Williams 1994 Home Run Simulation}{159}{subsection.4.5.2}%
+\contentsline {chapter}{\numberline {5}Data Acquisition}{161}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Tabular Data From Sports Reference}{161}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Downloading Datasets From Internet}{168}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Importing Data Using R Libraries}{173}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}BaseballR package}{173}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}nflfastR package}{177}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}hoopR package}{180}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}hockeyR package}{185}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.5}worldfootballR}{188}{subsection.5.3.5}%
+\contentsline {section}{\numberline {5.4}Data Scraping}{189}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}General Tips}{189}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Introduction to HTML}{189}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}rvest Package}{190}{subsection.5.4.3}%
+\contentsline {subsection}{\numberline {5.4.4}CSS Gadget Selector}{190}{subsection.5.4.4}%
+\contentsline {subsection}{\numberline {5.4.5}Scraping Examples}{191}{subsection.5.4.5}%
+\contentsline {chapter}{\numberline {6}Measures of Association}{197}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Pearson Correlation Coefficient}{197}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Partial Correlation and Confounding Variables}{206}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Properties of the Linear Correlation Coefficient}{207}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Association of Categorical Variables}{208}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Odds Ratios}{210}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Yule's Q}{211}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Chi-Squared Test of Independence}{213}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Rank Correlation}{216}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Serial Correlation}{219}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Autocorrelation}{219}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Run Lengths}{224}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Wald-Wolfowitz Runs Test}{227}{subsection.6.4.3}%
+\contentsline {subsection}{\numberline {6.4.4}Hot Hand}{229}{subsection.6.4.4}%
+\contentsline {subsection}{\numberline {6.4.5}Streakiness in Sports}{229}{subsection.6.4.5}%
+\contentsline {section}{\numberline {6.5}Pythagorean Record}{230}{section.6.5}%

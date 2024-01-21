@@ -138,7 +138,7 @@
 
 \title{Sports Analytics}
 \author{Aaron Nielsen, Department of Statistics, Colorado State University}
-\date{2023-10-29}
+\date{2024-01-21}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -5957,6 +5957,2744 @@ Williams was expected to have about 197 more plate appearances in the remainder 
 \end{verbatim}
 
 For more discussion on this issue, see: \url{https://www.mlb.com/news/matt-williams-1994-home-run-chase}
+
+\hypertarget{data-acquisition}{%
+\chapter{Data Acquisition}\label{data-acquisition}}
+
+There are many ways to acquire sports data to analyze in R. These include:
+
+\begin{itemize}
+\tightlist
+\item
+  Manually typing data into a spreadsheet
+\item
+  Downloading pre-formatted tabular data from \href{https://www.sports-reference.com/}{(https://www.sports-reference.com/)}
+\item
+  Downloading datasets from various internet sources
+\item
+  Importing data using R libraries
+\item
+  Scraping data from internet websites
+\end{itemize}
+
+This chapter will explore these various methods of acquiring data and will also review data visualization and summaries. We will typically use \texttt{ggplot} for visualization and \texttt{kable} for data tables. \href{http://r-graph-gallery.com/}{The R Graph Gallery (http://r-graph-gallery.com/)} is a nice resource for visualizations using \texttt{ggplot}.
+
+\hypertarget{tabular-data-from-sports-reference}{%
+\section{Tabular Data From Sports Reference}\label{tabular-data-from-sports-reference}}
+
+All tabular data on \href{https://www.sports-reference.com/}{Sports Reference (https://www.sports-reference.com/)} can be easily downloaded though a little bit of data wrangling and cleaning is required to prepare the data.
+
+Once you have navigated to the page that you want to download data from, click \textbf{Share \& Export}, and select \textbf{Get table as CSV (for Excel)}. This will generate comma-separated data that you can copy and paste into your favorite text editor.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth,height=\textheight]{images/sports-ref-csv.png}
+\caption{Get table in CSV format}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{images/sports-ref-csv2.png}
+\caption{Copy data and save as .csv}
+\end{figure}
+
+\newpage
+
+\begin{example}
+Acquire the \textbf{Scoring Regular Season} dataset for the Colorado Avalanche 2021--2022 season.
+
+This data is located on this webpage:
+\url{https://www.hockey-reference.com/teams/COL/2022.html}.
+
+Once the data has been collected, using data wrangling and cleaning methods to transform the dataset into an easier to use format. Use this dataset to explore the relationship between goals, assists, OPS (offensive point shares), and DPS (defensive point shares).
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load data after collection}
+\NormalTok{avs21 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/avs21.csv"}\NormalTok{)}
+
+\CommentTok{\# Take a look at the first five rows and first five columns}
+\NormalTok{avs21 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n=}\DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lllll}
+\toprule
+...1 & ...2 & ...3 & ...4 & ...5\\
+\midrule
+Rk & Player & Age & Pos & GP\\
+1 & Mikko Rantanen & 25 & RW & 75\\
+2 & Nathan MacKinnon & 26 & C & 65\\
+3 & Nazem Kadri & 31 & C & 71\\
+4 & Cale Makar & 23 & D & 77\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Remove unnecessary first row during loading}
+\NormalTok{avs21 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/avs21.csv"}\NormalTok{,}\AttributeTok{skip =} \DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# Select columns of interest}
+\NormalTok{avs21 }\OtherTok{\textless{}{-}}\NormalTok{ avs21 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(Player,G,A,OPS)}
+
+\CommentTok{\# Take a look at the first five rows}
+\NormalTok{avs21 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n=}\DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrrr}
+\toprule
+Player & G & A & OPS\\
+\midrule
+Mikko Rantanen & 36 & 56 & 7.9\\
+Nathan MacKinnon & 32 & 56 & 7.7\\
+Nazem Kadri & 28 & 59 & 7.2\\
+Cale Makar & 28 & 58 & 8.5\\
+Andre Burakovsky & 22 & 39 & 4.3\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Make sure to eliminate any extra rows like "Team Totals"}
+\NormalTok{avs21 }\OtherTok{\textless{}{-}}\NormalTok{ avs21 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{n}\NormalTok{()}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# Let\textquotesingle{}s also remove all players that did not have a goal and an assist}
+\NormalTok{avs21 }\OtherTok{\textless{}{-}}\NormalTok{ avs21 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(G}\SpecialCharTok{\textgreater{}}\DecValTok{0} \SpecialCharTok{\&}\NormalTok{ A }\SpecialCharTok{\textgreater{}}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{\emph{Histogram}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{avs21 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{G)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{2}\NormalTok{,}\AttributeTok{color=}\StringTok{"white"}\NormalTok{,}\AttributeTok{fill=}\StringTok{"steelblue"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Goals"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Count"}\NormalTok{,}\AttributeTok{title=}\StringTok{"Colorado Avalanche Player Goal Counts, 2021{-}2022 season"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-117-1.pdf}
+
+\newpage
+
+\textbf{\emph{Density plot}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{avs21 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{OPS)) }\SpecialCharTok{+} \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{fill=}\StringTok{"\#6F263D"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Offensive Point Shares (OPS)"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Density"}\NormalTok{,}\AttributeTok{title=}\StringTok{"Colorado Avalanche Player OPS Density, 2021{-}2022 season"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-118-1.pdf}
+
+\newpage
+
+\textbf{\emph{Scatterplot with Linear Fit}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{avs21 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{G,}\AttributeTok{y=}\NormalTok{OPS)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\NormalTok{lm , }\AttributeTok{fill=}\StringTok{"steelblue"}\NormalTok{, }\AttributeTok{color=}\StringTok{"\#6F263D"}\NormalTok{, }\AttributeTok{se=}\ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Goals"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Offensive Point Shares (OPS)"}\NormalTok{,}\AttributeTok{title=}\StringTok{"Colorado Avalanche Player Goals and OPS, 2021{-}2022 season"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-119-1.pdf}
+
+\newpage
+
+\textbf{\emph{Scatterplot with LOESS Smoother}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{avs21 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{A,}\AttributeTok{y=}\NormalTok{OPS)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha=}\FloatTok{0.8}\NormalTok{,}\AttributeTok{color=}\StringTok{"steelblue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\NormalTok{loess, }\AttributeTok{color=}\StringTok{"\#6F263D"}\NormalTok{, }\AttributeTok{se=}\ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Assists"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Offensive Point Shares (DPS)"}\NormalTok{,}\AttributeTok{title=}\StringTok{"Colorado Avalanche Player OPS and DPS, 2021{-}2022 season"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-120-1.pdf}
+
+\newpage
+
+\textbf{\emph{Correlation Matrix Plot}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(GGally)}
+\NormalTok{avs21 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Player) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggpairs}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-121-1.pdf}
+
+\newpage
+
+\hypertarget{downloading-datasets-from-internet}{%
+\section{Downloading Datasets From Internet}\label{downloading-datasets-from-internet}}
+
+We can directly download datasets from the internet if we have a valid url to the datset.
+
+\begin{example}
+Game-by-game data for the CSU volleyball team is available at: \url{https://aaron-nielsen.github.io/csu_volleyball.csv}
+
+Download this data and create some visualizations.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load data from URL}
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{"https://aaron{-}nielsen.github.io/csu\_volleyball.csv"}
+\NormalTok{csu\_vb }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(url,}\AttributeTok{show\_col\_types =}\NormalTok{ F)}
+
+\CommentTok{\# Look at first ten rows and columns}
+\NormalTok{csu\_vb }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lllrrrrrrr}
+\toprule
+Date & Opponent & W/L & SP & K & E & TA & PCT & AST & SA\\
+\midrule
+8/25/17 & Duke & L & 5 & 66 & 28 & 179 & 0.212 & 64 & 5\\
+8/26/17 & Central Florida & W & 4 & 56 & 18 & 126 & 0.302 & 52 & 7\\
+8/29/17 & Northern Colorado & W & 3 & 39 & 8 & 77 & 0.403 & 38 & 5\\
+9/1/17 & vs TCU & W & 5 & 62 & 20 & 149 & 0.282 & 59 & 6\\
+9/1/17 & vs UNC Asheville & W & 3 & 41 & 7 & 80 & 0.425 & 39 & 8\\
+\addlinespace
+9/2/17 & at Florida State & W & 3 & 48 & 12 & 95 & 0.379 & 45 & 6\\
+9/8/17 & Ball State & W & 4 & 59 & 24 & 145 & 0.241 & 56 & 6\\
+9/8/17 & Michigan & W & 3 & 48 & 8 & 101 & 0.396 & 46 & 3\\
+9/10/17 & Idaho State & W & 3 & 46 & 11 & 92 & 0.380 & 46 & 4\\
+9/15/17 & UAlbany & W & 3 & 41 & 7 & 73 & 0.466 & 36 & 5\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\textbf{\emph{Correlogram}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Example adapted from: http://r{-}graph{-}gallery.com/97{-}correlation{-}ellipses.html}
+\CommentTok{\# Libraries}
+\FunctionTok{library}\NormalTok{(ellipse)}
+\FunctionTok{library}\NormalTok{(RColorBrewer)}
+
+\CommentTok{\# Use of the mtcars data proposed by R}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ csu\_vb }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{cor}\NormalTok{()}
+
+\CommentTok{\# Build a Pannel of 100 colors with Rcolor Brewer}
+\NormalTok{my\_colors }\OtherTok{\textless{}{-}} \FunctionTok{brewer.pal}\NormalTok{(}\DecValTok{5}\NormalTok{, }\StringTok{"Spectral"}\NormalTok{)}
+\NormalTok{my\_colors }\OtherTok{\textless{}{-}} \FunctionTok{colorRampPalette}\NormalTok{(my\_colors)(}\DecValTok{100}\NormalTok{)}
+
+\CommentTok{\# Order the correlation matrix}
+\NormalTok{ord }\OtherTok{\textless{}{-}} \FunctionTok{order}\NormalTok{(data[}\DecValTok{1}\NormalTok{, ])}
+\NormalTok{data\_ord }\OtherTok{\textless{}{-}}\NormalTok{ data[ord, ord]}
+\FunctionTok{plotcorr}\NormalTok{(data\_ord, }\AttributeTok{col=}\NormalTok{my\_colors[data\_ord}\SpecialCharTok{*}\DecValTok{50}\SpecialCharTok{+}\DecValTok{50}\NormalTok{], }\AttributeTok{mar=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-123-1.pdf}
+
+\newpage
+
+\textbf{\emph{Correlation Matrix Plot}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{csu\_vb }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggcorr}\NormalTok{(}\AttributeTok{method =} \FunctionTok{c}\NormalTok{(}\StringTok{"everything"}\NormalTok{, }\StringTok{"pearson"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-124-1.pdf}
+
+\newpage
+
+\textbf{\emph{Boxplot}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{csu\_vb }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\StringTok{\textasciigrave{}}\AttributeTok{W/L}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{y=}\NormalTok{PCT, }\AttributeTok{fill=}\StringTok{\textasciigrave{}}\AttributeTok{W/L}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{alpha=}\FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position=}\StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Match Result"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Hitting Percentage"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\StringTok{"W"}\NormalTok{, }\StringTok{"L"}\NormalTok{),}\AttributeTok{labels=}\FunctionTok{c}\NormalTok{(}\StringTok{"Wins"}\NormalTok{,}\StringTok{"Losses"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-125-1.pdf}
+
+\newpage
+
+\textbf{\emph{Violin Plot}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{csu\_vb }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\StringTok{\textasciigrave{}}\AttributeTok{W/L}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{y=}\NormalTok{PCT, }\AttributeTok{fill=}\StringTok{\textasciigrave{}}\AttributeTok{W/L}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Match Result"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Hitting Percentage"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\StringTok{"W"}\NormalTok{, }\StringTok{"L"}\NormalTok{),}\AttributeTok{labels=}\FunctionTok{c}\NormalTok{(}\StringTok{"Wins"}\NormalTok{,}\StringTok{"Losses"}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position=}\StringTok{"none"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-126-1.pdf}
+
+\newpage
+
+\hypertarget{importing-data-using-r-libraries}{%
+\section{Importing Data Using R Libraries}\label{importing-data-using-r-libraries}}
+
+\hypertarget{baseballr-package}{%
+\subsection{BaseballR package}\label{baseballr-package}}
+
+The \texttt{baseballr} package allows for scraping data from Baseball Reference, Fangraphs, and Baseball Savant.
+
+For more information, visit: \url{https://billpetti.github.io/baseballr/}
+
+\begin{example}
+Use the \texttt{baseballr} package to obtain game results for the Colorado Rockies in 2022. Create a Kable Table of the first 20 games.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(baseballr)}
+
+\CommentTok{\# Scrape data from Baseball Reference}
+\NormalTok{rox22 }\OtherTok{\textless{}{-}} \FunctionTok{bref\_team\_results}\NormalTok{(}\StringTok{"COL"}\NormalTok{, }\DecValTok{2022}\NormalTok{)}
+
+\CommentTok{\# Select relevant columns and display first 20 games}
+\NormalTok{rox22 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(Date,H\_A,Opp,Result,R,RA,Time,Attendance) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{20}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{llllrrlr}
+\toprule
+Date & H\_A & Opp & Result & R & RA & Time & Attendance\\
+\midrule
+Friday, Apr 8 & H & LAD & L & 3 & 5 & 3:09 & 48627\\
+Saturday, Apr 9 & H & LAD & W & 3 & 2 & 2:48 & 48087\\
+Sunday, Apr 10 & H & LAD & W & 9 & 4 & 3:13 & 40825\\
+Monday, Apr 11 & A & TEX & W & 6 & 4 & 4:01 & 35052\\
+Tuesday, Apr 12 & A & TEX & W & 4 & 1 & 3:09 & 15862\\
+\addlinespace
+Thursday, Apr 14 & H & CHC & L & 2 & 5 & 3:02 & 24444\\
+Friday, Apr 15 & H & CHC & W & 6 & 5 & 3:26 & 35450\\
+Saturday, Apr 16 & H & CHC & W & 9 & 6 & 2:58 & 37476\\
+Sunday, Apr 17 & H & CHC & L & 4 & 6 & 3:19 & 36391\\
+Monday, Apr 18 & H & PHI & W & 4 & 1 & 2:53 & 20403\\
+\addlinespace
+Tuesday, Apr 19 & H & PHI & W & 6 & 5 & 3:02 & 23800\\
+Wednesday, Apr 20 & H & PHI & L & 6 & 9 & 3:09 & 21490\\
+Saturday, Apr 23 (1) & A & DET & L & 0 & 13 & 3:02 & 37566\\
+Saturday, Apr 23 (2) & A & DET & W & 3 & 2 & 2:47 & 28635\\
+Sunday, Apr 24 & A & DET & W & 6 & 2 & 2:55 & 20088\\
+\addlinespace
+Monday, Apr 25 & A & PHI & L & 2 & 8 & 3:09 & 20130\\
+Tuesday, Apr 26 & A & PHI & L & 3 & 10 & 3:19 & 22300\\
+Wednesday, Apr 27 & A & PHI & L & 3 & 7 & 3:20 & 20127\\
+Thursday, Apr 28 & A & PHI & L & 1 & 7 & 3:08 & 20098\\
+Friday, Apr 29 & H & CIN & W & 10 & 4 & 3:25 & 30206\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\newpage
+
+This is a useful website for obtaining and visualizing StatCast pitch data:\\
+\url{https://billpetti.github.io/baseballr/articles/using_statcast_pitch_data.html}
+
+\begin{example}
+Obtain Shohei Ohtani's pitch data for the 2022 season. Plot the horizontal and vertical break of the pitches. Also, investigate his fastball velocity by inning.
+
+More about Ohtani's pitching repertoire: \url{https://youtu.be/7nZBlYIqEww}
+
+More about types of pitches: \url{https://youtu.be/1FTFWzcgjHE}
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(RColorBrewer)}
+\CommentTok{\# This follows the example at: }
+\CommentTok{\# https://billpetti.github.io/baseballr/articles/using\_statcast\_pitch\_data.html}
+
+\CommentTok{\# ohtani\_id \textless{}{-} baseballr::playerid\_lookup(last\_name = "Ohtani", first\_name = "Shohei") \%\textgreater{}\% }
+\CommentTok{\#   pull(mlbam\_id)}
+
+\CommentTok{\# can get player id for mlbam at: https://razzball.com/mlbamids/}
+\NormalTok{ohtani\_id }\OtherTok{\textless{}{-}} \StringTok{"660271"}
+\NormalTok{ohtani\_data }\OtherTok{\textless{}{-}}\NormalTok{ baseballr}\SpecialCharTok{::}\FunctionTok{statcast\_search\_pitchers}\NormalTok{(}\AttributeTok{start\_date =} \StringTok{"2022{-}03{-}01"}\NormalTok{,}
+                                                   \AttributeTok{end\_date =} \StringTok{"2022{-}12{-}01"}\NormalTok{,}
+                                                   \AttributeTok{pitcherid =} \StringTok{"660271"}\NormalTok{)}
+\NormalTok{ohtani\_cleaned\_data }\OtherTok{\textless{}{-}}\NormalTok{ ohtani\_data }\SpecialCharTok{\%\textgreater{}\%} 
+  \CommentTok{\# Only keep rows with pitch movement readings}
+  \CommentTok{\# and during the regular season}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(pfx\_x), }\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(pfx\_z),}
+\NormalTok{         game\_type }\SpecialCharTok{==} \StringTok{"R"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{pfx\_x\_in\_pv =} \SpecialCharTok{{-}}\DecValTok{12}\SpecialCharTok{*}\NormalTok{pfx\_x,}
+         \AttributeTok{pfx\_z\_in =} \DecValTok{12}\SpecialCharTok{*}\NormalTok{pfx\_z)}
+
+\NormalTok{colors }\OtherTok{\textless{}{-}} \FunctionTok{brewer.pal}\NormalTok{(}\AttributeTok{n =} \DecValTok{6}\NormalTok{, }\AttributeTok{name =} \StringTok{"Dark2"}\NormalTok{)}
+\NormalTok{pitch\_colors }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"4{-}Seam Fastball"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{1}\NormalTok{],}
+                  \StringTok{"Sinker"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{2}\NormalTok{],}
+                  \StringTok{"Curveball"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{3}\NormalTok{],}
+                  \StringTok{"Slow Curve"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{4}\NormalTok{],}
+                  \StringTok{"Cutter"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{5}\NormalTok{],}
+                  \StringTok{"Slider"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{6}\NormalTok{],}
+                  \StringTok{"Sweeper"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{7}\NormalTok{],}
+                  \StringTok{"Split{-}Finger"} \OtherTok{=}\NormalTok{ colors[}\DecValTok{8}\NormalTok{])}
+
+\NormalTok{( ohtani\_pitch\_types }\OtherTok{\textless{}{-}} \FunctionTok{unique}\NormalTok{(ohtani\_cleaned\_data}\SpecialCharTok{$}\NormalTok{pitch\_name) )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Sweeper"         "Curveball"       "Sinker"          "Cutter"         
+## [5] "Slider"          "4-Seam Fastball" "Split-Finger"    "Slow Curve"
+\end{verbatim}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ohtani\_cleaned\_data }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ pfx\_x\_in\_pv, }\AttributeTok{y =}\NormalTok{ pfx\_z\_in, }\AttributeTok{color =}\NormalTok{ pitch\_name)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ pitch\_colors,}
+                     \AttributeTok{limits =}\NormalTok{ ohtani\_pitch\_types) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{25}\NormalTok{,}\DecValTok{25}\NormalTok{),}
+                     \AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{20}\NormalTok{,}\DecValTok{20}\NormalTok{, }\DecValTok{5}\NormalTok{),}
+                     \AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{number\_format}\NormalTok{(}\AttributeTok{suffix =} \StringTok{"}\SpecialCharTok{\textbackslash{}"}\StringTok{"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{25}\NormalTok{,}\DecValTok{25}\NormalTok{),}
+                     \AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{20}\NormalTok{,}\DecValTok{20}\NormalTok{, }\DecValTok{5}\NormalTok{),}
+                     \AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{number\_format}\NormalTok{(}\AttributeTok{suffix =} \StringTok{"}\SpecialCharTok{\textbackslash{}"}\StringTok{"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{coord\_equal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Shohei Ohtani Pitch Movement"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"2022 MLB Season | Pitcher\textquotesingle{}s POV"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"Data: Baseball Savant via baseballr"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Horizontal Break"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Induced Vertical Break"}\NormalTok{,}
+       \AttributeTok{color =} \StringTok{"Pitch Name"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/r-1.pdf}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Group pitches by inning}
+\NormalTok{ohtani\_velo\_by\_inning }\OtherTok{\textless{}{-}}\NormalTok{ ohtani\_cleaned\_data }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(pitch\_name }\SpecialCharTok{==} \StringTok{"4{-}Seam Fastball"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(inning, pitch\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{average\_velo =} \FunctionTok{mean}\NormalTok{(release\_speed, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+
+\CommentTok{\# Plot average fastball speed by inning}
+\NormalTok{ohtani\_velo\_by\_inning }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ inning, }\AttributeTok{y =}\NormalTok{ average\_velo, }\AttributeTok{color =}\NormalTok{ pitch\_name)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{linewidth =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{3}\NormalTok{, }\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ pitch\_colors) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{9}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{90}\NormalTok{, }\DecValTok{100}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Shohei Ohtani 4{-}Seam Fastball Velo By Inning"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"2022 MLB Season"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"Data: Baseball Savant via baseballr"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Inning"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Average Velo"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-129-1.pdf}
+
+\newpage
+
+\hypertarget{nflfastr-package}{%
+\subsection{nflfastR package}\label{nflfastr-package}}
+
+The \texttt{nflfastR} package is a helpful package for obtaining play-by-play and roster data for NFL games.
+
+For more details, see: \url{https://www.nflfastr.com/articles/nflfastR.html}
+
+For a quick explanation of expected points added, see: \url{https://youtu.be/qo7-zeJEVzs}
+
+\begin{example}
+Use the \texttt{nflfastR} package to obtain the play-by-play data for the Denver Broncos home game against the San Francisco 49ers during the 2022 season.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(nflfastR)}
+\FunctionTok{library}\NormalTok{(gsisdecoder)}
+\CommentTok{\# First find the game ID by searching Broncos home games in 2022}
+\FunctionTok{fast\_scraper\_schedules}\NormalTok{(}\DecValTok{2022}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(home\_team}\SpecialCharTok{==}\StringTok{"DEN"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(game\_id,gameday,away\_team,home\_team) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{llll}
+\toprule
+game\_id & gameday & away\_team & home\_team\\
+\midrule
+2022\_02\_HOU\_DEN & 2022-09-18 & HOU & DEN\\
+2022\_03\_SF\_DEN & 2022-09-25 & SF & DEN\\
+2022\_05\_IND\_DEN & 2022-10-06 & IND & DEN\\
+2022\_07\_NYJ\_DEN & 2022-10-23 & NYJ & DEN\\
+2022\_11\_LV\_DEN & 2022-11-20 & LV & DEN\\
+\addlinespace
+2022\_14\_KC\_DEN & 2022-12-11 & KC & DEN\\
+2022\_15\_ARI\_DEN & 2022-12-18 & ARI & DEN\\
+2022\_18\_LAC\_DEN & 2023-01-08 & LAC & DEN\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Scrape play{-}by{-}play data for 2023}
+\CommentTok{\# Example from Football Analytics with Python and R (Eager and Erickson)}
+\FunctionTok{library}\NormalTok{(nflfastR)}
+\NormalTok{pbp }\OtherTok{\textless{}{-}}\NormalTok{ nflfastR}\SpecialCharTok{::}\FunctionTok{load\_pbp}\NormalTok{(}\DecValTok{2023}\NormalTok{)}
+\NormalTok{pbp\_run }\OtherTok{\textless{}{-}}\NormalTok{ pbp }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(rush }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\&} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(rusher\_id)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{rushing\_yards =} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(rushing\_yards),}\DecValTok{0}\NormalTok{,rushing\_yards))}
+\FunctionTok{ggplot}\NormalTok{(pbp\_run,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{ydstogo,}\AttributeTok{y=}\NormalTok{rushing\_yards)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Yards To Go"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Rushing Yards"}\NormalTok{,}\AttributeTok{title=}\StringTok{"Rushing Yards vs. Yards To Go, NFL 2023"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-131-1.pdf}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Plot 2023 Team EPA/play}
+\FunctionTok{library}\NormalTok{(nflplotR)}
+\CommentTok{\# Example from: https://www.nflfastr.com/articles/nflfastR.html}
+\NormalTok{pbp }\OtherTok{\textless{}{-}}\NormalTok{ nflfastR}\SpecialCharTok{::}\FunctionTok{load\_pbp}\NormalTok{(}\DecValTok{2023}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(season\_type }\SpecialCharTok{==} \StringTok{"REG"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(posteam) }\SpecialCharTok{\&}\NormalTok{ (rush }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{|}\NormalTok{ pass }\SpecialCharTok{==} \DecValTok{1}\NormalTok{))}
+\NormalTok{offense }\OtherTok{\textless{}{-}}\NormalTok{ pbp }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(}\AttributeTok{team =}\NormalTok{ posteam) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{off\_epa =} \FunctionTok{mean}\NormalTok{(epa, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+\NormalTok{defense }\OtherTok{\textless{}{-}}\NormalTok{ pbp }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(}\AttributeTok{team =}\NormalTok{ defteam) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{def\_epa =} \FunctionTok{mean}\NormalTok{(epa, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+\NormalTok{offense }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{inner\_join}\NormalTok{(defense, }\AttributeTok{by =} \StringTok{"team"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ off\_epa, }\AttributeTok{y =}\NormalTok{ def\_epa)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{slope =} \SpecialCharTok{{-}}\FloatTok{1.5}\NormalTok{, }\AttributeTok{intercept =} \FunctionTok{c}\NormalTok{(.}\DecValTok{4}\NormalTok{, .}\DecValTok{3}\NormalTok{, .}\DecValTok{2}\NormalTok{, .}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{2}\NormalTok{, }\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{3}\NormalTok{), }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_mean\_lines}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{h\_var =}\NormalTok{ off\_epa, }\AttributeTok{v\_var =}\NormalTok{ def\_epa)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_nfl\_logos}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{team\_abbr =}\NormalTok{ team), }\AttributeTok{width =} \FloatTok{0.07}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Offense EPA/play"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Defense EPA/play"}\NormalTok{, }\AttributeTok{caption =} \StringTok{"Data: @nflfastR"}\NormalTok{,}
+    \AttributeTok{title =} \StringTok{"2022 NFL Offensive and Defensive EPA per Play"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{( }\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{, }\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{) ) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_reverse}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-132-1.pdf}
+
+\newpage
+
+\hypertarget{hoopr-package}{%
+\subsection{hoopR package}\label{hoopr-package}}
+
+The \texttt{hoopR} allows for one to access data related to professional and college basketball.
+
+\begin{example}
+Using the \texttt{hoopR} package, obtain the play-by-play data for the Denver Nuggets vs.~Philadelphia 76ers game on January 28, 2023.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(hoopR)}
+\CommentTok{\# https://www.espn.com/nba/game/\_/gameId/401468896}
+\NormalTok{hoopR}\SpecialCharTok{::}\FunctionTok{espn\_nba\_pbp}\NormalTok{(}\AttributeTok{game\_id =} \DecValTok{401468896}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Description}\StringTok{\textasciigrave{}}\OtherTok{=}\NormalTok{text,}\StringTok{\textasciigrave{}}\AttributeTok{Play Type}\StringTok{\textasciigrave{}}\OtherTok{=}\NormalTok{type\_text,}
+         \AttributeTok{Quarter=}\NormalTok{period\_display\_value,}\AttributeTok{Points=}\NormalTok{score\_value,}\AttributeTok{Clock=}\NormalTok{clock\_display\_value) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{15}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{width =} \StringTok{"3in"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{2}\NormalTok{, }\AttributeTok{width =} \StringTok{"1in"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{>{\raggedright\arraybackslash}p{3in}>{\raggedright\arraybackslash}p{1in}lrl}
+\toprule
+Description & Play Type & Quarter & Points & Clock\\
+\midrule
+Nikola Jokic vs. Joel Embiid (Jamal Murray gains possession) & Jumpball & 1st Quarter & 0 & 12:00\\
+Nikola Jokic misses 11-foot jumper & Jump Shot & 1st Quarter & 0 & 11:45\\
+James Harden defensive rebound & Defensive Rebound & 1st Quarter & 0 & 11:41\\
+Joel Embiid makes 6-foot two point shot (James Harden assists) & Driving Floating Bank Jump Shot & 1st Quarter & 2 & 11:35\\
+Nikola Jokic shooting foul & Shooting Foul & 1st Quarter & 0 & 11:35\\
+\addlinespace
+Joel Embiid misses free throw 1 of 1 & Free Throw - 1 of 1 & 1st Quarter & 0 & 11:35\\
+Michael Porter Jr. defensive rebound & Defensive Rebound & 1st Quarter & 0 & 11:32\\
+Michael Porter Jr. makes 27-foot three point jumper (Kentavious Caldwell-Pope assists) & Jump Shot & 1st Quarter & 3 & 11:20\\
+Tobias Harris misses 26-foot three point jumper & Jump Shot & 1st Quarter & 0 & 10:58\\
+Kentavious Caldwell-Pope defensive rebound & Defensive Rebound & 1st Quarter & 0 & 10:55\\
+\addlinespace
+Nikola Jokic makes finger roll layup (Jamal Murray assists) & Finger Roll Layup & 1st Quarter & 2 & 10:48\\
+Joel Embiid makes driving layup (James Harden assists) & Driving Layup Shot & 1st Quarter & 2 & 10:37\\
+Aaron Gordon makes 16-foot pullup jump shot & Pullup Jump Shot & 1st Quarter & 2 & 10:25\\
+Joel Embiid makes 14-foot pullup jump shot & Pullup Jump Shot & 1st Quarter & 2 & 10:12\\
+Joel Embiid shooting foul & Shooting Foul & 1st Quarter & 0 & 9:59\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nba\_pbp }\OtherTok{\textless{}{-}} \FunctionTok{load\_nba\_pbp}\NormalTok{(}\DecValTok{2018}\NormalTok{)}
+\NormalTok{jokic\_shots }\OtherTok{=}\NormalTok{ nba\_pbp }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(shooting\_play }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{grepl}\NormalTok{(}\StringTok{"Jokic"}\NormalTok{, text))}
+\NormalTok{jokic\_shots }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(text) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- ESPN NBA Play-by-Play from hoopR data repository ------------- hoopR 1.8.0 --
+\end{verbatim}
+
+\begin{verbatim}
+## i Data updated: 2023-04-03 15:04:16 MDT
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 6 x 1
+##   text                                                               
+##   <chr>                                                              
+## 1 Nikola Jokic misses 25-foot three point jumper                     
+## 2 Nikola Jokic makes jumper (Jamal Murray assists)                   
+## 3 Nikola Jokic misses 22-foot jumper                                 
+## 4 Nikola Jokic misses layup                                          
+## 5 Will Barton makes 23-foot three point jumper (Nikola Jokic assists)
+## 6 Nikola Jokic makes 3-foot layup (Will Barton assists)
+\end{verbatim}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{jokic\_data }\OtherTok{=} \FunctionTok{filter}\NormalTok{(jokic\_shots, athlete\_id\_1 }\SpecialCharTok{==} \DecValTok{3112335}\NormalTok{, shooting\_play }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{jokic\_data}\SpecialCharTok{$}\NormalTok{xx }\OtherTok{\textless{}{-}}\NormalTok{ jokic\_data}\SpecialCharTok{$}\NormalTok{coordinate\_x\_raw }\SpecialCharTok{{-}} \DecValTok{25} \CommentTok{\#transformation}
+\NormalTok{jokic\_data}\SpecialCharTok{$}\NormalTok{yy }\OtherTok{\textless{}{-}}\NormalTok{ jokic\_data}\SpecialCharTok{$}\NormalTok{coordinate\_y\_raw }\SpecialCharTok{{-}} \FloatTok{41.75} \CommentTok{\#transformation}
+
+\FunctionTok{library}\NormalTok{(}\StringTok{"BasketballAnalyzeR"}\NormalTok{)}
+\NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ jokic\_data }\SpecialCharTok{\%\textgreater{}\%}
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{xx, }\AttributeTok{y =}\NormalTok{ yy)) }\SpecialCharTok{+}
+\FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+\FunctionTok{coord\_equal}\NormalTok{() }\SpecialCharTok{+}
+\FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+\FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{""}\NormalTok{, }\AttributeTok{y =} \StringTok{""}\NormalTok{, }\AttributeTok{title =} \StringTok{"Jokic Shot Attempt Chart 2017{-}18"}\NormalTok{)}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{drawNBAcourt}\NormalTok{(p, }\AttributeTok{size =} \FloatTok{0.5}\NormalTok{)}
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-135-1.pdf}
+
+\newpage
+
+\begin{example}
+Obtain win probability as a function of game time for Colorado State vs.~Boise State men's basketball on January 28, 2023.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Get ID from ESPN game URL: https://www.espn.com/mens{-}college{-}basketball/game/\_/gameId/401482835}
+\FunctionTok{library}\NormalTok{(hoopR)}
+\NormalTok{hoopR}\SpecialCharTok{::}\FunctionTok{espn\_mbb\_wp}\NormalTok{(}\AttributeTok{game\_id =} \DecValTok{401597306}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\AttributeTok{Period=}\NormalTok{period,}\StringTok{\textasciigrave{}}\AttributeTok{Seconds Remaining}\StringTok{\textasciigrave{}}\OtherTok{=}\NormalTok{game\_seconds\_left,}\StringTok{\textasciigrave{}}\AttributeTok{Home Win Pct}\StringTok{\textasciigrave{}}\OtherTok{=}\NormalTok{home\_win\_percentage,}\StringTok{\textasciigrave{}}\AttributeTok{Play ID}\StringTok{\textasciigrave{}}\OtherTok{=}\NormalTok{play\_id) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{rrrl}
+\toprule
+Period & Seconds Remaining & Home Win Pct & Play ID\\
+\midrule
+1 & 2378 & 0.712 & 401597306101806101\\
+1 & 2375 & 0.717 & 401597306101806401\\
+1 & 2357 & 0.700 & 401597306101808201\\
+1 & 2353 & 0.695 & 401597306101808601\\
+1 & 2346 & 0.710 & 401597306101809301\\
+\addlinespace
+1 & 2341 & 0.694 & 401597306101809801\\
+1 & 2341 & 0.710 & 401597306101809802\\
+1 & 2340 & 0.715 & 401597306101809901\\
+1 & 2337 & 0.694 & 401597306101814201\\
+1 & 2319 & 0.708 & 401597306101816001\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{csu\_game }\OtherTok{\textless{}{-}}\NormalTok{ hoopR}\SpecialCharTok{::}\FunctionTok{espn\_mbb\_wp}\NormalTok{(}\AttributeTok{game\_id =} \DecValTok{401597306}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\AttributeTok{Period=}\NormalTok{period,}\StringTok{\textasciigrave{}}\AttributeTok{Seconds Remaining}\StringTok{\textasciigrave{}}\OtherTok{=}\NormalTok{game\_seconds\_left,}\StringTok{\textasciigrave{}}\AttributeTok{Home Win Pct}\StringTok{\textasciigrave{}}\OtherTok{=}\NormalTok{home\_win\_percentage,}\StringTok{\textasciigrave{}}\AttributeTok{Play ID}\StringTok{\textasciigrave{}}\OtherTok{=}\NormalTok{play\_id) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Time Played}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{2400}\SpecialCharTok{{-}}\StringTok{\textasciigrave{}}\AttributeTok{Seconds Remaining}\StringTok{\textasciigrave{}}\NormalTok{)}
+\NormalTok{csu\_game }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\StringTok{\textasciigrave{}}\AttributeTok{Time Played}\StringTok{\textasciigrave{}}\NormalTok{,}\AttributeTok{y=}\StringTok{\textasciigrave{}}\AttributeTok{Home Win Pct}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-137-1.pdf}
+
+\newpage
+
+\hypertarget{hockeyr-package}{%
+\subsection{hockeyR package}\label{hockeyr-package}}
+
+The \texttt{hockeyR} packages allows you to obtain data from NHL.com and Hockey Reference. The \texttt{sportyR} package is useful for plotting spatial data on various playing fields/courts.
+
+\begin{example}
+Create a shot plot for the Colorado Avalanche vs.~St.~Louis Blues on January 28, 2023.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Example adapted from: https://hockeyr.netlify.app/}
+\CommentTok{\# devtools::install\_github("danmorse314/hockeyR")}
+\FunctionTok{library}\NormalTok{(hockeyR)}
+\FunctionTok{library}\NormalTok{(sportyR)}
+
+\NormalTok{pbp }\OtherTok{\textless{}{-}}\NormalTok{ hockeyR}\SpecialCharTok{::}\FunctionTok{load\_pbp}\NormalTok{(}\StringTok{\textquotesingle{}2022{-}2023\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# get single game}
+\NormalTok{game }\OtherTok{\textless{}{-}}\NormalTok{ pbp }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(game\_date }\SpecialCharTok{==} \StringTok{"2023{-}01{-}28"} \SpecialCharTok{\&}\NormalTok{ home\_abbreviation }\SpecialCharTok{==} \StringTok{"COL"}\NormalTok{)}
+\NormalTok{game }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\AttributeTok{Date=}\NormalTok{game\_date,}\AttributeTok{Period=}\NormalTok{period,}\AttributeTok{Time=}\NormalTok{period\_time\_remaining,}\AttributeTok{Event=}\NormalTok{event,}
+         \AttributeTok{Description=}\NormalTok{description) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{15}\NormalTok{)  }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrlll}
+\toprule
+Date & Period & Time & Event & Description\\
+\midrule
+2023-01-28 & 1 & 20:00 & Game Scheduled & Game Scheduled\\
+2023-01-28 & 1 & 20:00 & Faceoff & J.T. Compher faceoff won against Noel Acciari\\
+2023-01-28 & 1 & 19:47 & Stoppage & Icing\\
+2023-01-28 & 1 & 19:47 & Faceoff & J.T. Compher faceoff won against Noel Acciari\\
+2023-01-28 & 1 & 19:35 & Takeaway & Takeaway by Matt Nieto\\
+\addlinespace
+2023-01-28 & 1 & 19:09 & Shot & Torey Krug Wrist Shot saved by Alexandar Georgiev\\
+2023-01-28 & 1 & 19:09 & Stoppage & Goalie Stopped\\
+2023-01-28 & 1 & 19:09 & Faceoff & Nathan MacKinnon faceoff won against Brayden Schenn\\
+2023-01-28 & 1 & 18:39 & Shot & Evan Rodrigues Wrist Shot saved by Jordan Binnington\\
+2023-01-28 & 1 & 18:07 & Hit & Andreas Englund hit Logan Brown\\
+\addlinespace
+2023-01-28 & 1 & 17:30 & Shot & Denis Malgin Wrist Shot saved by Jordan Binnington\\
+2023-01-28 & 1 & 17:21 & Blocked Shot & Samuel Girard shot blocked shot by Niko Mikkola\\
+2023-01-28 & 1 & 16:46 & Hit & Noel Acciari hit Erik Johnson\\
+2023-01-28 & 1 & 16:35 & Missed Shot & Noel Acciari Wide of Net Alexandar Georgiev\\
+2023-01-28 & 1 & 16:25 & Shot & Matt Nieto Wrist Shot saved by Jordan Binnington\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# grab team logos \& colors}
+\NormalTok{team\_logos }\OtherTok{\textless{}{-}}\NormalTok{ hockeyR}\SpecialCharTok{::}\NormalTok{team\_logos\_colors }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(team\_abbr }\SpecialCharTok{==} \FunctionTok{unique}\NormalTok{(game}\SpecialCharTok{$}\NormalTok{home\_abbreviation) }\SpecialCharTok{|}\NormalTok{ team\_abbr }\SpecialCharTok{==} \FunctionTok{unique}\NormalTok{(game}\SpecialCharTok{$}\NormalTok{away\_abbreviation)) }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# add in dummy variables to put logos on the ice}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{x =} \FunctionTok{ifelse}\NormalTok{(full\_team\_name }\SpecialCharTok{==} \FunctionTok{unique}\NormalTok{(game}\SpecialCharTok{$}\NormalTok{home\_name), }\DecValTok{50}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{50}\NormalTok{),}
+         \AttributeTok{y =} \DecValTok{0}\NormalTok{)}
+
+\CommentTok{\# add transparency to logo}
+\NormalTok{transparent }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(img) \{}
+\NormalTok{  magick}\SpecialCharTok{::}\FunctionTok{image\_fx}\NormalTok{(img, }\AttributeTok{expression =} \StringTok{"0.3*a"}\NormalTok{, }\AttributeTok{channel =} \StringTok{"alpha"}\NormalTok{)}
+\NormalTok{\}}
+
+\CommentTok{\# get only shot events}
+\NormalTok{fenwick\_events }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"MISSED\_SHOT"}\NormalTok{,}\StringTok{"SHOT"}\NormalTok{,}\StringTok{"GOAL"}\NormalTok{)}
+
+\NormalTok{shots }\OtherTok{\textless{}{-}}\NormalTok{ game }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(event\_type }\SpecialCharTok{\%in\%}\NormalTok{ fenwick\_events) }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# adding team colors}
+  \FunctionTok{left\_join}\NormalTok{(team\_logos, }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"event\_team\_abbr"} \OtherTok{=} \StringTok{"team\_abbr"}\NormalTok{))}
+
+\CommentTok{\# create shot plot}
+\FunctionTok{geom\_hockey}\NormalTok{(}\StringTok{"nhl"}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{  ggimage}\SpecialCharTok{::}\FunctionTok{geom\_image}\NormalTok{(}
+    \AttributeTok{data =}\NormalTok{ team\_logos,}
+    \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y, }\AttributeTok{image =}\NormalTok{ team\_logo\_espn),}
+    \AttributeTok{image\_fun =}\NormalTok{ transparent, }\AttributeTok{size =} \FloatTok{0.22}\NormalTok{, }\AttributeTok{asp =} \FloatTok{2.35}
+\NormalTok{    ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}
+    \AttributeTok{data =}\NormalTok{ shots,}
+    \FunctionTok{aes}\NormalTok{(x\_fixed, y\_fixed),}
+    \AttributeTok{size =} \DecValTok{3}\NormalTok{,}
+    \AttributeTok{color =}\NormalTok{ shots}\SpecialCharTok{$}\NormalTok{team\_color1,}
+    \AttributeTok{shape =} \FunctionTok{ifelse}\NormalTok{(shots}\SpecialCharTok{$}\NormalTok{event\_type }\SpecialCharTok{==} \StringTok{"GOAL"}\NormalTok{, }\DecValTok{19}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{    ) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =}\NormalTok{ glue}\SpecialCharTok{::}\FunctionTok{glue}\NormalTok{(}\StringTok{"\{unique(game$away\_name)\} @ \{unique(game$home\_name)\}"}\NormalTok{),}
+    \AttributeTok{subtitle =}\NormalTok{ glue}\SpecialCharTok{::}\FunctionTok{glue}\NormalTok{(}
+    \StringTok{"\{unique(game$game\_date)\}}\SpecialCharTok{\textbackslash{}n}
+\StringTok{    \{unique(shots$away\_abbreviation)\} \{unique(shots$away\_final)\} {-} \{unique(shots$home\_final)\} \{unique(shots$home\_abbreviation)\}"}
+\NormalTok{    ),}
+    \AttributeTok{caption =} \StringTok{"data from hockeyR | plot made with sportyR"}
+\NormalTok{    ) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{),}
+    \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{),}
+    \AttributeTok{plot.caption =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =}\NormalTok{ .}\DecValTok{9}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-140-1.pdf}
+
+\newpage
+
+\hypertarget{worldfootballr}{%
+\subsection{worldfootballR}\label{worldfootballr}}
+
+The \texttt{worldfootballR} package allows one to access data from FBRef, Understat, and other soccer websites.
+
+\begin{example}
+Download the match summaries for all US Women's National Team (USWNT) in the 2019 World Cup. Display this information in a kable table.
+
+For more on xG, see: \url{https://youtu.be/zSaeaFcm1SY}
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(worldfootballR)}
+
+\CommentTok{\# USWNT 2019 World Cup results}
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{"https://fbref.com/en/squads/1c912aa0/2019/United{-}States{-}Women{-}Stats"}
+\NormalTok{uswnt19 }\OtherTok{\textless{}{-}} \FunctionTok{get\_team\_match\_results}\NormalTok{(url)}
+\NormalTok{uswnt19 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Comp }\SpecialCharTok{==} \StringTok{"World Cup"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Day,}\SpecialCharTok{{-}}\NormalTok{Time,}\SpecialCharTok{{-}}\NormalTok{Comp,}\SpecialCharTok{{-}}\NormalTok{Team\_Url,}\SpecialCharTok{{-}}\NormalTok{Captain,}\SpecialCharTok{{-}}\NormalTok{Formation,}
+         \SpecialCharTok{{-}}\NormalTok{Referee,}\SpecialCharTok{{-}}\NormalTok{Notes,}\SpecialCharTok{{-}}\NormalTok{Attendance,}\SpecialCharTok{{-}}\NormalTok{Venue,}\SpecialCharTok{{-}}\NormalTok{Team) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{llllllrrr}
+\toprule
+Date & Round & Result & GF & GA & Opponent & xG & xGA & Poss\\
+\midrule
+2019-06-11 & Group stage & W & 13 & 0 & Thailand & 7.1 & 0.1 & 72\\
+2019-06-16 & Group stage & W & 3 & 0 & Chile & 3.7 & 0.0 & 71\\
+2019-06-20 & Group stage & W & 2 & 0 & Sweden & 2.1 & 0.4 & 61\\
+2019-06-24 & Round of 16 & W & 2 & 1 & Spain & 2.4 & 0.2 & 55\\
+2019-06-28 & Quarter-finals & W & 2 & 1 & France & 1.1 & 1.6 & 40\\
+\addlinespace
+2019-07-02 & Semi-finals & W & 2 & 1 & England & 0.9 & 1.7 & 43\\
+2019-07-07 & Final & W & 2 & 0 & Netherlands & 3.0 & 0.2 & 53\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\hypertarget{data-scraping}{%
+\section{Data Scraping}\label{data-scraping}}
+
+Acquiring data from internet websites can be completed by using data scraping methods. In essence, this allows your computer to extract data from websites. There are a handful of techniques that we will use to accomplish some basic scraping tasks.
+
+\hypertarget{general-tips}{%
+\subsection{General Tips}\label{general-tips}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \emph{Brainstorm}: Ask yourself what data you need and were to find it. If you pull from different sources, do you have a unique identifier between the sources?
+\item
+  \emph{Start small}: View your scraping project as a war, winning it with small battles. If you want to scrape sports statistics for the NFL, consider how to scrape these statistics for one team.
+\item
+  \emph{Hyperlinks are your friend}: Lead to websites with more detailed information and/or serve as the unique identifier between different data sources?
+\item
+  \emph{Data is everywhere}: Text color, font, or highlighting may serve as valuable data that you need. If these features exist on the webpage, then they exist within the HTML code which generated the document.
+\item
+  \emph{Ready your search engine}: When you are undoubtably stuck and have a question, it's likely the answer is already on
+  \href{https://stackoverflow.com/}{StackOverflow (https://stackoverflow.com/)}
+\item
+  \emph{Careful how quickly you scrape from a website}: If you attempt to scrape from a website too frequently, you may get a temporary (or even permanent) IP ban. You can view a website's rules for scraping by looking at the \texttt{robots.txt} file on the website of interest. For example, see: \url{https://www.basketball-reference.com/robots.txt}
+\end{enumerate}
+
+\hypertarget{introduction-to-html}{%
+\subsection{Introduction to HTML}\label{introduction-to-html}}
+
+All contents that are displayed on a web page are structured through HTML with the help of HTML
+elements. HTML elements consist of a tag and contents. The tag defines how the web browser should format and display the content.
+
+Aptly, the content is what should be displayed.
+
+Attributes are optional parameters which provide additional information about the element in which the attribute is included. The type of attribute is the attribute name , whereas the quantity assigned to the attribute is the attribute value.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{images/html.png}
+\caption{HTML element structure}
+\end{figure}
+
+\newpage
+
+\hypertarget{rvest-package}{%
+\subsection{rvest Package}\label{rvest-package}}
+
+The \texttt{rvest} (pronounced ``harvest'') package in R is one of the best options for scraping data directly into R.
+
+This is part of the tidyverse ecosystem in R. Allows users to scrape (or harvest) data from webpages.
+
+Common use functions from the package include:\\
+- read\_html(): read HTML from a webpage\\
+- html\_elements(): returns a subset of elements with specified characteristics\\
+- html\_text(): returns the content of all elements\\
+- html\_attr(): returns attribute values for all elements with specified attribute\\
+- html\_table(): returns a list of all HTML tables
+
+A working knowledge of css and/or xpath is helpful.
+
+\hypertarget{css-gadget-selector}{%
+\subsection{CSS Gadget Selector}\label{css-gadget-selector}}
+
+All web pages are composed of HTML elements, but some elements are incredibly complex. They often are
+nested inside of other elements or rely on other elements from another document.
+
+A selector gadget allows you to determine what css selector you need to extract the information you desire. These JavaScript bookmark lets determine where the information you desire belongs in the HTML code.
+
+You can download the most popular selector gadget here which also has a \href{https://chrome.google.com/webstore/detail/selectorgadget/mhjhnkcfbdhnjickkkdbjoemdmbfginb?hl=en}{Google Chrome extension available (shorturl.at/nrFJP)}.
+
+Probably more than half the time, these gadgets prove less than helpful which is why I suggest perusing the HTML file on your own with the Inspect feature in Google Chrome.
+
+\newpage
+
+\hypertarget{scraping-examples}{%
+\subsection{Scraping Examples}\label{scraping-examples}}
+
+Many R packages exist to scrape data from the Sports Reference websites, however, we can also scrape the data ourselves without too much trouble.
+
+\begin{example}
+Scrape A'ja Wilson's per game statistics on Basketball Reference and output the data into a kable table. Use the selector gadget to find the correct
+
+Link: \url{https://www.basketball-reference.com/wnba/players/w/wilsoa01w.html}
+\end{example}
+
+We want to get this data into R:
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{images/wilson-scrape.png}
+\caption{HTML element structure}
+\end{figure}
+
+We can use the Selector Gadget to identify the html tag for this table.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{images/wilson-scrape2.png}
+\caption{Using the selector gadget}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rvest)}
+\FunctionTok{library}\NormalTok{(kableExtra)}
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{"https://www.basketball{-}reference.com/wnba/players/w/wilsoa01w.html"}
+
+\CommentTok{\# Be careful to not run this function too quickly or you may be IP banned}
+\NormalTok{wilson }\OtherTok{\textless{}{-}} \FunctionTok{read\_html}\NormalTok{(url)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Grab the node of interest and format the output as a html\_table(). }
+\CommentTok{\# This is now a list}
+\NormalTok{wilson }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{html\_elements}\NormalTok{(}\StringTok{"\#per\_game0"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{html\_table}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## # A tibble: 6 x 28
+##   Year  Tm      Age     G    GS    MP    FG   FGA `FG%`  `3P` `3PA`  `3P%`  `2P`
+##   <chr> <chr> <int> <int> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl> <dbl>
+## 1 2018  "LVA"    21    33    33  30.6   7.4  16.1 0.462   0     0   NA       7.4
+## 2 2019  "LVA"    22    26    25  28.5   6.1  12.7 0.479   0     0    0       6.1
+## 3 2020  "LVA"    23    22    22  31.7   7.5  15.7 0.48    0     0   NA       7.5
+## 4 2021  "LVA"    24    32    32  31.9   6.5  14.6 0.444   0     0    1       6.4
+## 5 2022  "LVA"    25    36    36  30     7.2  14.4 0.501   0.9   2.3  0.373   6.4
+## 6 Care~ ""       NA   149   148  30.5   7    14.7 0.473   0.2   0.6  0.376   6.7
+## # ... with 15 more variables: `2PA` <dbl>, `2P%` <dbl>, `eFG%` <dbl>, FT <dbl>,
+## #   FTA <dbl>, `FT%` <dbl>, ORB <dbl>, DRB <dbl>, TRB <dbl>, AST <dbl>,
+## #   STL <dbl>, BLK <dbl>, TOV <dbl>, PF <dbl>, PTS <dbl>
+\end{verbatim}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# We can convert the list to a data frame to allow us to use dplyr functions}
+\CommentTok{\# like select}
+\CommentTok{\# Output the first ten columns}
+\NormalTok{wilson }\OtherTok{\textless{}{-}} \FunctionTok{read\_html}\NormalTok{(url)}
+\NormalTok{wilson }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{html\_elements}\NormalTok{(}\StringTok{"\#per\_game0"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{html\_table}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{llrrrrrrrr}
+\toprule
+Year & Tm & Age & G & GS & MP & FG & FGA & FG. & X3P\\
+\midrule
+2018 & LVA & 21 & 33 & 33 & 30.6 & 7.4 & 16.1 & 0.462 & 0.0\\
+2019 & LVA & 22 & 26 & 25 & 28.5 & 6.1 & 12.7 & 0.479 & 0.0\\
+2020 & LVA & 23 & 22 & 22 & 31.7 & 7.5 & 15.7 & 0.480 & 0.0\\
+2021 & LVA & 24 & 32 & 32 & 31.9 & 6.5 & 14.6 & 0.444 & 0.0\\
+2022 & LVA & 25 & 36 & 36 & 30.0 & 7.2 & 14.4 & 0.501 & 0.9\\
+\addlinespace
+2023 & LVA & 26 & 40 & 40 & 30.7 & 8.4 & 15.0 & 0.557 & 0.2\\
+Career &  & NA & 189 & 188 & 30.6 & 7.3 & 14.8 & 0.491 & 0.2\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{example}
+Player efficiency rating (PER) is an advanced basketball statistic that attempts to quantify a player's overall contribution.
+
+Scrape the data from the following site and build a kable table with the top 20 players in terms of PER.
+
+Link: \url{http://www.espn.com/nba/hollinger/statistics}
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{"http://www.espn.com/nba/hollinger/statistics"}
+\NormalTok{hollinger }\OtherTok{\textless{}{-}} \FunctionTok{read\_html}\NormalTok{(url)}
+\NormalTok{holl\_df }\OtherTok{\textless{}{-}}\NormalTok{ hollinger }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{html\_elements}\NormalTok{(}\StringTok{"div.mod{-}content"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ .[}\DecValTok{2}\NormalTok{] }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{html\_table}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{data.frame}\NormalTok{()}
+\FunctionTok{colnames}\NormalTok{(holl\_df) }\OtherTok{=}\NormalTok{ holl\_df[}\DecValTok{2}\NormalTok{,]}
+\NormalTok{holl\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{13}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{24}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{35}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{46}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{20}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(RK,PLAYER,PER) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lll}
+\toprule
+RK & PLAYER & PER\\
+\midrule
+1 & Joel Embiid, PHI & 34.89\\
+2 & Nikola Jokic, DEN & 31.86\\
+3 & Shai Gilgeous-Alexander, OKC & 30.52\\
+4 & Giannis Antetokounmpo, MIL & 29.55\\
+5 & Luka Doncic, DAL & 27.71\\
+\addlinespace
+6 & Tyrese Haliburton, IND & 26.67\\
+7 & Anthony Davis, LAL & 26.16\\
+8 & Kevin Durant, PHX & 23.89\\
+9 & Andre Drummond, CHI & 23.56\\
+ & Lauri Markkanen, UTAH & 23.56\\
+\addlinespace
+11 & Kawhi Leonard, LAC & 23.21\\
+12 & Domantas Sabonis, SAC & 23.18\\
+13 & Donovan Mitchell, CLE & 23.09\\
+14 & LeBron James, LAL & 23.08\\
+15 & Kyrie Irving, DAL & 22.70\\
+\addlinespace
+16 & Mark Williams, CHA & 22.66\\
+17 & Alperen Sengun, HOU & 22.65\\
+18 & Zion Williamson, NO & 22.55\\
+19 & Devin Booker, PHX & 22.49\\
+20 & Jarrett Allen, CLE & 22.16\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{example}
+Obtain the top ten leaders for goals on the US Women's National Team and output as a kable table.
+
+Link: \url{https://www.ussoccer.com/uswnt-stats/2022}
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{"https://www.ussoccer.com/uswnt{-}stats/2022"}
+\NormalTok{uswnt }\OtherTok{\textless{}{-}} \FunctionTok{read\_html}\NormalTok{(url)}
+\NormalTok{uswnt\_df }\OtherTok{\textless{}{-}}\NormalTok{ uswnt }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{html\_elements}\NormalTok{(}\StringTok{"\#some\_table\_id"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ .[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{html\_table}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{data.frame}\NormalTok{()}
+\FunctionTok{colnames}\NormalTok{(uswnt\_df) }\OtherTok{=}\NormalTok{ uswnt\_df[}\DecValTok{1}\NormalTok{,]}
+\NormalTok{uswnt\_df}\SpecialCharTok{$}\NormalTok{Goals }\OtherTok{\textless{}{-}} \FunctionTok{as.integer}\NormalTok{(uswnt\_df}\SpecialCharTok{$}\NormalTok{Goals)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: NAs introduced by coercion
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{uswnt\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}\SpecialCharTok{{-}}\FunctionTok{n}\NormalTok{(),}\SpecialCharTok{{-}}\NormalTok{(}\FunctionTok{n}\NormalTok{()}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(Goals)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{llllllllllr}
+\toprule
+Name & Pos. & GP & GS & Min & G & A & Y & R & Career Caps & Goals\\
+\midrule
+Morgan, Alex & F & 10 & 9 & 783 & 4 & 1 & 0 &  & 200 & 119\\
+Rapinoe, Megan & F & 10 & 3 & 364 & 1 & 2 & 2 &  & 197 & 63\\
+Horan, Lindsey & M & 14 & 14 & 979 & 1 & 0 & 1 &  & 122 & 26\\
+Pugh, Mallory & F & 15 & 13 & 1030 & 7 & 7 & 0 &  & 82 & 25\\
+Dunn, Crystal & D & 3 & 0 & 85 & 0 & 0 & 0 &  & 126 & 24\\
+\addlinespace
+Lavelle, Rose & M & 16 & 15 & 1107 & 4 & 6 & 2 &  & 84 & 22\\
+Williams, Lynn & F & 2 & 0 & 56 & 0 & 0 & 0 &  & 47 & 14\\
+Smith, Sophia & F & 17 & 17 & 1192 & 11 & 1 & 0 &  & 27 & 12\\
+Gautrat, Morgan & M & 1 & 1 & 45 & 0 & 0 & 0 &  & 88 & 8\\
+Macario, Catarina & M & 5 & 5 & 342 & 5 & 1 & 1 &  & 17 & 8\\
+\bottomrule
+\end{tabular}
+
+\hypertarget{measures-of-association}{%
+\chapter{Measures of Association}\label{measures-of-association}}
+
+This chapter will examine various measures of association betweeen two or more variables. A popular measure of association is Pearson's Correlation Coefficient for two continuous, quantitative variables. Other measures of association are more appropriate for other types of data like qualitative data.
+
+\hypertarget{pearson-correlation-coefficient}{%
+\section{Pearson Correlation Coefficient}\label{pearson-correlation-coefficient}}
+
+\begin{definition}
+The \textbf{\emph{Pearson correlation coefficient}} (also known as \textbf{\emph{Pearson's R}} or \textbf{\emph{correlation coefficient}}) is a measure of linear relationship between two quantitative variables.
+
+For two random variables, \(X\) and \(Y\), the Pearson correlation coefficient, \(\rho\), is:
+
+\(\rho = \frac{Cov(X,Y)}{\sigma_X \sigma_Y}\)
+
+For two sets of sample data, \(\{x_1,x_2,\ldots,x_n\}\) and \(\{y_1,y_2,\ldots,y_n\}\), the Pearson correlation coefficient is:
+
+\(r_{xy} = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^n(x_i-\bar{x})^2}\sqrt{\sum_{i=1}^n(y_i-\bar{y})^2}}\)
+\end{definition}
+
+\begin{example}
+Download pitching data for individual pitchers in the 2022 MLB season. Investigate the correlation between common pitching statistics.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(knitr)}
+\FunctionTok{library}\NormalTok{(baseballr)}
+\NormalTok{mlb22\_all }\OtherTok{\textless{}{-}} \FunctionTok{bref\_daily\_pitcher}\NormalTok{(}\StringTok{"2022{-}01{-}01"}\NormalTok{, }\StringTok{"2022{-}12{-}31"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{fip\_plus}\NormalTok{()}
+\NormalTok{mlb22\_pitch }\OtherTok{\textless{}{-}}\NormalTok{ mlb22\_all }\SpecialCharTok{\%\textgreater{}\%}  
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(Name, IP, SO, uBB, HR, ERA, FIP) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{arrange}\NormalTok{(dplyr}\SpecialCharTok{::}\FunctionTok{desc}\NormalTok{(IP))}
+
+\NormalTok{mlb22\_pitch }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{head}\NormalTok{(}\AttributeTok{n=}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrrrrrr}
+\toprule
+Name & IP & SO & uBB & HR & ERA & FIP\\
+\midrule
+Sandy Alcántara & 228.2 & 207 & 49 & 16 & 2.28 & 2.97\\
+Aaron Nola & 205.0 & 235 & 28 & 19 & 3.25 & 2.57\\
+Miles Mikolas & 202.1 & 153 & 39 & 25 & 3.29 & 3.87\\
+Corbin Burnes & 202.0 & 243 & 51 & 23 & 2.94 & 3.14\\
+Framber Valdez & 201.1 & 194 & 67 & 11 & 2.82 & 3.06\\
+\addlinespace
+Gerrit Cole & 200.2 & 257 & 50 & 33 & 3.50 & 3.47\\
+Merrill Kelly & 200.1 & 177 & 59 & 21 & 3.37 & 3.62\\
+Shane Bieber & 200.0 & 198 & 36 & 18 & 2.88 & 2.87\\
+Alek Manoah & 196.2 & 180 & 51 & 16 & 2.24 & 3.35\\
+Martín Pérez & 196.1 & 169 & 69 & 11 & 2.89 & 3.26\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(GGally)}
+\NormalTok{mlb22\_pitch }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Name) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggpairs}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-147-1.pdf}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ellipse)}
+\FunctionTok{library}\NormalTok{(RColorBrewer)}
+
+\CommentTok{\# Use of the mtcars data proposed by R}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ mlb22\_pitch }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Name) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{cor}\NormalTok{()}
+
+\CommentTok{\# Build a Pannel of 100 colors with Rcolor Brewer}
+\NormalTok{my\_colors }\OtherTok{\textless{}{-}} \FunctionTok{brewer.pal}\NormalTok{(}\DecValTok{5}\NormalTok{, }\StringTok{"Spectral"}\NormalTok{)}
+\NormalTok{my\_colors }\OtherTok{\textless{}{-}} \FunctionTok{colorRampPalette}\NormalTok{(my\_colors)(}\DecValTok{100}\NormalTok{)}
+
+\CommentTok{\# Order the correlation matrix}
+\NormalTok{ord }\OtherTok{\textless{}{-}} \FunctionTok{order}\NormalTok{(data[}\DecValTok{1}\NormalTok{, ])}
+\NormalTok{data\_ord }\OtherTok{\textless{}{-}}\NormalTok{ data[ord, ord]}
+\FunctionTok{plotcorr}\NormalTok{(data\_ord, }\AttributeTok{col=}\NormalTok{my\_colors[data\_ord}\SpecialCharTok{*}\DecValTok{50}\SpecialCharTok{+}\DecValTok{50}\NormalTok{], }\AttributeTok{mar=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-148-1.pdf}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Example adapted from: }
+\CommentTok{\# https://r{-}graph{-}gallery.com/273{-}custom{-}your{-}scatterplot{-}ggplot2.html}
+\FunctionTok{library}\NormalTok{(ggpubr)}
+\NormalTok{mlb22\_pitch }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{IP,}\AttributeTok{y=}\NormalTok{SO)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}
+    \AttributeTok{color=}\StringTok{"black"}\NormalTok{,}
+    \AttributeTok{fill=}\StringTok{"\#69b3a2"}\NormalTok{,}
+    \AttributeTok{shape=}\DecValTok{22}\NormalTok{,}
+    \AttributeTok{alpha=}\FloatTok{0.5}\NormalTok{,}
+    \AttributeTok{size=}\DecValTok{2}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\NormalTok{lm,}\AttributeTok{se=}\NormalTok{F,}\AttributeTok{color=}\StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Innings Pitched vs. Strikeouts"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"2022 MLB Season | Individual Pitchers"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"Data: Baseball Reference via baseballr"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Innings Pitched (IP)"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Strikeouts (SO)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_cor}\NormalTok{(}\AttributeTok{method =} \StringTok{"pearson"}\NormalTok{, }\AttributeTok{label.x =} \DecValTok{155}\NormalTok{, }\AttributeTok{label.y =} \DecValTok{70}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-149-1.pdf}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggExtra)}
+\NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ mlb22\_pitch }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{SO,}\AttributeTok{y=}\NormalTok{ERA)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}
+\FunctionTok{ggMarginal}\NormalTok{(p, }\AttributeTok{type=}\StringTok{"histogram"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-150-1.pdf}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(RColorBrewer)}
+\NormalTok{color\_pal }\OtherTok{\textless{}{-}} \FunctionTok{brewer.pal}\NormalTok{(}\AttributeTok{n =} \DecValTok{8}\NormalTok{, }\AttributeTok{name =} \StringTok{"Dark2"}\NormalTok{)}
+\NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ mlb22\_pitch }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(ERA }\SpecialCharTok{\textless{}=} \FloatTok{10.00}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{SO,}\AttributeTok{y=}\NormalTok{ERA)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha=}\FloatTok{0.5}\NormalTok{,}\AttributeTok{color=}\NormalTok{color\_pal[}\DecValTok{1}\NormalTok{]) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{,}\AttributeTok{color=}\NormalTok{color\_pal[}\DecValTok{2}\NormalTok{]) }\SpecialCharTok{+}
+  \FunctionTok{stat\_cor}\NormalTok{(}\AttributeTok{method =} \StringTok{"pearson"}\NormalTok{, }\AttributeTok{label.x =} \DecValTok{185}\NormalTok{, }\AttributeTok{label.y =} \FloatTok{5.8}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Strikeouts (SO) vs. Earned Run Average (ERA)"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"2022 MLB Season | Individual Pitchers"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"Data: Baseball Reference via baseballr"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Innings Pitched (IP)"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Earned Run Average (ERA)"}\NormalTok{)}
+\FunctionTok{ggMarginal}\NormalTok{(p, }\AttributeTok{type=}\StringTok{"histogram"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+## `geom_smooth()` using formula = 'y ~ x'
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-151-1.pdf}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mlb22\_pitch }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{ERA,}\AttributeTok{y=}\NormalTok{FIP)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha=}\FloatTok{0.5}\NormalTok{,}\AttributeTok{color=}\NormalTok{color\_pal[}\DecValTok{1}\NormalTok{]) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{5}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{5}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Earned Run Average (ERA) vs. Fielding Independent Pitching (FIP)"}\NormalTok{,}
+    \AttributeTok{subtitle =} \StringTok{"2022 MLB Season | Individual Pitchers"}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Data: Baseball Reference via baseballr"}\NormalTok{, }
+    \AttributeTok{x =} \StringTok{"Earned Run Average (ERA)"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Fielding Independent Pitching (FIP)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-152-1.pdf}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rox22\_pitch }\OtherTok{\textless{}{-}}\NormalTok{ mlb22\_all }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(Name,Team,IP,H,uBB,ERA,FIP) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(Team}\SpecialCharTok{==}\StringTok{"Colorado"}\NormalTok{)}
+\NormalTok{rox22\_pitch }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(IP)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{llrrrrr}
+\toprule
+Name & Team & IP & H & uBB & ERA & FIP\\
+\midrule
+Germán Márquez & Colorado & 181.2 & 185 & 63 & 4.95 & 4.72\\
+Kyle Freeland & Colorado & 174.2 & 193 & 53 & 4.53 & 4.21\\
+Chad Kuhl & Colorado & 137.0 & 155 & 57 & 5.72 & 5.24\\
+Austin Gomber & Colorado & 124.2 & 137 & 33 & 5.56 & 4.52\\
+Ryan Feltner & Colorado & 97.1 & 102 & 35 & 5.83 & 4.76\\
+\addlinespace
+Antonio Senzatela & Colorado & 92.1 & 133 & 23 & 5.07 & 4.06\\
+Daniel Bard & Colorado & 60.1 & 35 & 24 & 1.79 & 2.81\\
+Carlos Estévez & Colorado & 57.0 & 44 & 22 & 3.47 & 4.02\\
+Jake Bird & Colorado & 47.2 & 45 & 20 & 4.91 & 4.79\\
+Jhoulys Chacín & Colorado & 47.1 & 55 & 21 & 7.61 & 4.94\\
+\addlinespace
+Alex Colomé & Colorado & 47.0 & 57 & 20 & 5.74 & 4.41\\
+Ty Blach & Colorado & 44.1 & 51 & 9 & 5.89 & 3.72\\
+Lucas Gilbreath & Colorado & 43.0 & 37 & 26 & 4.19 & 3.53\\
+Justin Lawrence & Colorado & 42.2 & 44 & 22 & 5.70 & 3.40\\
+Tyler Kinley & Colorado & 24.0 & 21 & 6 & 0.75 & 1.74\\
+\addlinespace
+Ashton Goudeau & Colorado & 20.1 & 25 & 10 & 7.08 & 4.95\\
+Chad Smith & Colorado & 18.0 & 16 & 15 & 7.50 & 4.83\\
+Gavin Hollowell & Colorado & 7.0 & 7 & 4 & 7.71 & 4.40\\
+Jordan Sheffield & Colorado & 2.0 & 2 & 2 & 0.00 & 5.11\\
+Noah Davis & Colorado & 1.0 & 3 & 1 & 18.00 & 15.11\\
+\addlinespace
+Brian Serven & Colorado & 1.0 & 0 & 1 & 0.00 & 6.11\\
+Randal Grichuk & Colorado & 1.0 & 0 & 0 & 0.00 & 3.11\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rox22\_pitch }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{H,}\AttributeTok{y=}\NormalTok{uBB,}\AttributeTok{size=}\NormalTok{IP)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha=}\FloatTok{0.5}\NormalTok{,}\AttributeTok{color=}\NormalTok{color\_pal[}\DecValTok{1}\NormalTok{]) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Colorado Rockies Pitchers: Hits Allowed vs. Unintentional Walks"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"2022 MLB Season | Individual Pitchers"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"Data: Baseball Reference via baseballr"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Hits Allowed (H)"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Unintentional Walks (uBB)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-154-1.pdf}
+
+\newpage
+
+\hypertarget{partial-correlation-and-confounding-variables}{%
+\subsection{Partial Correlation and Confounding Variables}\label{partial-correlation-and-confounding-variables}}
+
+As seen in the previous example, counting statistics are often highly correlated. In particular, we may want to speculate that pitchers with poor control (high walks) tend to give up lots of hits due to poor control. This is only due to the presence of a \textbf{\emph{lurking variable}} (innings pitched). To account for a lurking variable, one can calculate partial correlation coefficient in such situations.
+
+\begin{example}
+Let \(X,Y,Z\) be random variables and let \(r_{XY}\) be the (standard) correlation coefficient between \(X\) and \(Y\). The \textbf{\emph{partial correlation coefficient}} of \(X\) and \(Y\), controlling for \(Z\) is:
+
+\(r_{XY \bullet Z} = \frac{r_{XY}-r_{XZ}r_{YZ}}{\sqrt{1-r_{XZ}^2}\sqrt{1-r_{YZ}^2}}\)
+\end{example}
+
+\begin{example}
+Calculate the correlation between strikeouts and (unintentional) walks for pitchers with at least 20 IP during the 2022 season, with and without controlling for innings pitched.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{( cor\_matrix }\OtherTok{\textless{}{-}}\NormalTok{ mlb22\_all }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(H,uBB,IP) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{cor}\NormalTok{() )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             H       uBB        IP
+## H   1.0000000 0.8766316 0.9698289
+## uBB 0.8766316 1.0000000 0.8927844
+## IP  0.9698289 0.8927844 1.0000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{( cor\_without }\OtherTok{\textless{}{-}}\NormalTok{ cor\_matrix[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{] )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8766316
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{( cor\_with }\OtherTok{\textless{}{-}}\NormalTok{ (cor\_matrix[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ cor\_matrix[}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{]}\SpecialCharTok{*}\NormalTok{cor\_matrix[}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{]) }\SpecialCharTok{/}
+\NormalTok{    (}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{cor\_matrix[}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{]}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{cor\_matrix[}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{]}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)) )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.09819068
+\end{verbatim}
+
+\newpage
+
+\hypertarget{properties-of-the-linear-correlation-coefficient}{%
+\subsection{Properties of the Linear Correlation Coefficient}\label{properties-of-the-linear-correlation-coefficient}}
+
+Pearson's correlation coefficient is unaffected by changes in location (adding a constant) or scale (multiplying by a constant) of data. To illustrate this concept, let's consider the correlation between the number of points scored by the winning team of the Super Bowl and 1) the number of the Super Bowl \{1, 2, 3, \ldots{} , 56\} and 2) the year of the Super Bowl \{1967, 1968, 1969, \ldots{} , 2022\}.
+
+\includegraphics{textbook_files/figure-latex/correlation properties 2-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(Super\_Bowl\_Number, Winning\_Team\_Points)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1063479
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(Super\_Bowl\_Year, Winning\_Team\_Points)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1063479
+\end{verbatim}
+
+The only difference between the two plots is that the x-axis is shifted. Since the change is essentially a linear (location) transformation, the correlations are identical.
+
+Note: The correlations were equal only because there has been a one-to-one relationship between Super Bowl number and year since 1967. Major League Baseball has had years in which no World Series was held (1904 - boycott, 1994 - players' strike); thus, the same example applied to the MLB would produce slightly different correlation coefficients.
+
+\newpage
+
+\hypertarget{association-of-categorical-variables}{%
+\section{Association of Categorical Variables}\label{association-of-categorical-variables}}
+
+While Pearson's correlations can be used to find associations between categorical variables, there are better measures to be used.
+
+\begin{example}
+(From \emph{Analytic Methods in Sports}) Suppose we are given the following partial contingency table that tabulates the number of ``complete games'' for a starting pitcher by league.
+
+\begin{tabular}{lllr}
+\toprule
+  & Yes & No & Total\\
+\midrule
+NL &  &  & 2592\\
+AL &  &  & 2268\\
+Total & 128 & 4732 & 4860\\
+\bottomrule
+\end{tabular}
+
+Choose values to give the largest and smallest correlations.
+\end{example}
+
+\textbf{\emph{Example 1: Small correlation}}\\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{League }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{2592}\NormalTok{),}\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2268}\NormalTok{))}
+\NormalTok{Complete }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{4860}\NormalTok{)}
+\NormalTok{Complete[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{68}\NormalTok{] }\OtherTok{=} \DecValTok{1}
+\NormalTok{Complete[}\DecValTok{2593}\SpecialCharTok{:}\NormalTok{(}\DecValTok{2593}\SpecialCharTok{+}\DecValTok{59}\NormalTok{)]}\OtherTok{=}\DecValTok{1}
+\NormalTok{small\_corr }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(League,Complete)}
+\NormalTok{small\_corr\_table }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(small\_corr)}
+\FunctionTok{rownames}\NormalTok{(small\_corr\_table) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"NL"}\NormalTok{,}\StringTok{"AL"}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(small\_corr\_table) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{,}\StringTok{"Yes"}\NormalTok{)}
+\NormalTok{small\_corr\_table }\OtherTok{\textless{}{-}}\NormalTok{ small\_corr\_table[,}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{)]}
+\NormalTok{small\_corr\_table }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrr}
+\toprule
+  & Yes & No\\
+\midrule
+NL & 68 & 2524\\
+AL & 60 & 2208\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(small\_corr) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrr}
+\toprule
+  & League & Complete\\
+\midrule
+League & 1.000 & 0.001\\
+Complete & 0.001 & 1.000\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\textbf{\emph{Example 2: Large correlation (1)}}\\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Complete }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{4860}\NormalTok{)}
+\NormalTok{Complete[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{128}\NormalTok{] }\OtherTok{=} \DecValTok{1}
+\NormalTok{large\_corr1 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(League,Complete)}
+\NormalTok{large\_corr1\_table }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(large\_corr1)}
+\FunctionTok{rownames}\NormalTok{(large\_corr1\_table) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"NL"}\NormalTok{,}\StringTok{"AL"}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(large\_corr1\_table) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{,}\StringTok{"Yes"}\NormalTok{)}
+\NormalTok{large\_corr1\_table }\OtherTok{\textless{}{-}}\NormalTok{ large\_corr1\_table[,}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{)]}
+\NormalTok{large\_corr1\_table }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrr}
+\toprule
+  & Yes & No\\
+\midrule
+NL & 128 & 2464\\
+AL & 0 & 2268\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(large\_corr1) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrr}
+\toprule
+  & League & Complete\\
+\midrule
+League & 1.000 & -0.154\\
+Complete & -0.154 & 1.000\\
+\bottomrule
+\end{tabular}
+
+\textbf{\emph{Example 3: Large correlation (2)}}\\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Complete }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{4860}\NormalTok{)}
+\NormalTok{Complete[}\DecValTok{2593}\SpecialCharTok{:}\NormalTok{(}\DecValTok{2593}\SpecialCharTok{+}\DecValTok{127}\NormalTok{)] }\OtherTok{=} \DecValTok{1}
+\NormalTok{large\_corr2 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(League,Complete)}
+\NormalTok{large\_corr2 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(League,Complete)}
+\NormalTok{large\_corr2\_table }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(large\_corr2)}
+\FunctionTok{rownames}\NormalTok{(large\_corr2\_table) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"NL"}\NormalTok{,}\StringTok{"AL"}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(large\_corr2\_table) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{,}\StringTok{"Yes"}\NormalTok{)}
+\NormalTok{large\_corr2\_table }\OtherTok{\textless{}{-}}\NormalTok{ large\_corr2\_table[,}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{)]}
+\NormalTok{large\_corr2\_table }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrr}
+\toprule
+  & Yes & No\\
+\midrule
+NL & 0 & 2592\\
+AL & 128 & 2140\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(large\_corr2) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrr}
+\toprule
+  & League & Complete\\
+\midrule
+League & 1.000 & 0.176\\
+Complete & 0.176 & 1.000\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\hypertarget{odds-ratios}{%
+\subsection{Odds Ratios}\label{odds-ratios}}
+
+Let \(X\) and \(Y\) be two binary, categorical variables with the following contingency table.
+
+\begin{tabular}{llll}
+\toprule
+  & Yes & No & Total\\
+\midrule
+Yes & a & b & a+b\\
+No & c & d & c+d\\
+Total & a+c & b+d & a+b+c+d\\
+\bottomrule
+\end{tabular}
+
+One possible way to measure the association between two binary variables is to look at the odds ratio.
+
+\begin{definition}
+The odds ratio (OR) is a measure of association between two categorical variables of \(X\) and \(Y\) and is:
+
+\(OR = \frac{ad}{bc}\)
+
+\(OR > 1\) means that \(Y=1\) is more likely when \(X=1\) than when \(X=0\).\\
+\(OR < 1\) means that \(Y=1\) is less likely when \(X=1\) than when \(X=0\).\\
+\(OR = 1\) means that \(Y=1\) is equally likely when \(X=1\) than when \(X=0\).
+
+\(OR\) ranges from 0 to \(\infty\)
+\end{definition}
+
+The odds ratio allows one to compare the relative likelihoods of \(Y=1\) given \(X=1\) vs.~\(X=0\).
+
+\(\text{Ratio of OR} = \frac{P(Y=1|X=1)/P(Y=0|X=1)}{P(Y=1|X=0)/P(Y=0|X=0)}\)
+
+\begin{example}
+The following contingency table summarizes complete games by league during the 2012 MLB season.\\
+
+\end{example}
+
+\begin{tabular}{lrr}
+\toprule
+  & Yes & No\\
+\midrule
+NL & 59 & 2533\\
+AL & 69 & 2199\\
+\bottomrule
+\end{tabular}
+
+\bigskip
+
+Calculate the following:\\
+(a) \(P(CG|AL)\)\\
+(b) \(P(CG|NL)\)\\
+(c) \(OR(CG)\)\\
+
+\vfill
+
+\newpage
+
+\hypertarget{yules-q}{%
+\subsection{Yule's Q}\label{yules-q}}
+
+\begin{definition}
+Yule's Q is a measure of association between two categorical variables and is defined by:
+
+\(Q = \frac{OR-1}{OR+1} = \frac{ad-bc}{ad+bc}\)
+
+\(Q\) ranges from -1 to 1, where \(Q=0\) implies no relationship between the variables.
+
+Some general guidelines:\\
+\(Q=0\): No association\\
+\(|Q| < 0.3\): Weak association\\
+\(0.3 \leq |Q| < 0.5\): Moderate association\\
+\(0.5 \leq |Q| < 1\): Strong assocation\\
+\(|Q|=1\): Perfect association
+\end{definition}
+
+\begin{example}
+Calculate Yule's Q for the four examples (Examples 1-3 and Actual) and determine if there appears to be an association between and complete games for each of these examples
+\end{example}
+
+\newpage
+
+\begin{example}
+(From \emph{Analytic Methods in Sports}) Rafael Nadal is often considered to be the best clay-court tennis player of all-time. Assess this belief by calculating Yule's Q for the Nadal's performances between 2008--2012.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mat }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1660}\NormalTok{,}\DecValTok{3658}\NormalTok{,}\DecValTok{5318}\NormalTok{,}\DecValTok{863}\NormalTok{,}\DecValTok{2715}\NormalTok{,}\DecValTok{3578}\NormalTok{,}\DecValTok{2523}\NormalTok{,}\DecValTok{6373}\NormalTok{,}\DecValTok{8896}\NormalTok{),}\AttributeTok{ncol=}\DecValTok{3}\NormalTok{))}
+\FunctionTok{rownames}\NormalTok{(mat) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Clay"}\NormalTok{,}\StringTok{"Nonclay"}\NormalTok{,}\StringTok{"Total"}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(mat) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Win"}\NormalTok{,}\StringTok{"Loss"}\NormalTok{,}\StringTok{"Total"}\NormalTok{)}
+\NormalTok{mat }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrrr}
+\toprule
+  & Win & Loss & Total\\
+\midrule
+Clay & 1660 & 863 & 2523\\
+Nonclay & 3658 & 2715 & 6373\\
+Total & 5318 & 3578 & 8896\\
+\bottomrule
+\end{tabular}
+
+\vfill
+
+\begin{example}
+(From \emph{Analytic Methods in Sports}) Does the pass rush have an effect on Tom Brady's performance? We can turn numerical variables into categories and calculate Yule's Q to help us answer this question. Use the following table to calculate Yule's Q and assess the belief that the pass rush affects Brady's performance. Data is given for the 2009--2012 seasons
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mat }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{29}\NormalTok{,}\DecValTok{18}\NormalTok{,}\DecValTok{47}\NormalTok{,}\DecValTok{22}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{24}\NormalTok{,}\DecValTok{51}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{71}\NormalTok{),}\AttributeTok{ncol=}\DecValTok{3}\NormalTok{))}
+\FunctionTok{rownames}\NormalTok{(mat) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"0{-}2 sacks"}\NormalTok{,}\StringTok{"3+ sacks"}\NormalTok{,}\StringTok{"Total"}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(mat) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"0{-}2 TDs"}\NormalTok{,}\StringTok{"3+ TDs"}\NormalTok{,}\StringTok{"Total"}\NormalTok{)}
+\NormalTok{mat }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrrr}
+\toprule
+  & 0-2 TDs & 3+ TDs & Total\\
+\midrule
+0-2 sacks & 29 & 22 & 51\\
+3+ sacks & 18 & 2 & 20\\
+Total & 47 & 24 & 71\\
+\bottomrule
+\end{tabular}
+
+\vfill
+
+\newpage
+
+\hypertarget{chi-squared-test-of-independence}{%
+\subsection{Chi-Squared Test of Independence}\label{chi-squared-test-of-independence}}
+
+We can formally test whether two categorical variables are related to each other by use of the Chi-Squared Test of Independence.
+
+\begin{theorem}
+A Chi-Squared Test of Independence (\(\chi^2-test\)) between two categorical variables has the test statistic \(X^2\) which follows a \(\chi^2(df=(r-1)(c-1))\), where:
+
+\(X^2 = \sum_{i=1}^r\sum_{j=1}^c\frac{(E_{ij}-O_{ij})^2}{E_{ij}}\)
+
+\(O_{ij}\) is the \(i^{th}\) row and \(j^{th}\) column observation count and \(E_{ij} = \frac{R_i \cdot C_j}{N}\)
+
+Note: Sometimes, a Yate's chi-squared test (or Yate's correction of continuity) used for 2x2 contingency tables with cell counts under 5. Under this test, the test statistic is:
+
+\(X^2_{Yates} = \sum_{i=1}^r\sum_{j=1}^c\frac{(|E_{ij}-O_{ij}|-0.5)^2}{E_{ij}}\)
+\end{theorem}
+
+\newpage
+
+\begin{example}
+Complete a Chi-Squared Test of Independence for the Tom Brady TDs/Sacks example. Is there evidence of dependence between Touchdowns and Sacks? Explain.
+\end{example}
+
+\vfill
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a1 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{29}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{29}\NormalTok{))}
+\NormalTok{a2 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{18}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{18}\NormalTok{))}
+\NormalTok{a3 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{22}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"0{-}2"}\NormalTok{,}\DecValTok{22}\NormalTok{))}
+\NormalTok{a4 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TDs=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{Sacks=}\FunctionTok{rep}\NormalTok{(}\StringTok{"3+"}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\NormalTok{brady\_data }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(a1,a2,a3,a4)}
+\FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(brady\_data}\SpecialCharTok{$}\NormalTok{TDs,brady\_data}\SpecialCharTok{$}\NormalTok{Sacks))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  table(brady_data$TDs, brady_data$Sacks)
+## X-squared = 5.6468, df = 1, p-value = 0.01749
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(brady\_data}\SpecialCharTok{$}\NormalTok{TDs,brady\_data}\SpecialCharTok{$}\NormalTok{Sacks),}\AttributeTok{correct =}\NormalTok{ F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test
+## 
+## data:  table(brady_data$TDs, brady_data$Sacks)
+## X-squared = 7.0499, df = 1, p-value = 0.007927
+\end{verbatim}
+
+\newpage
+
+\begin{example}
+Complete a Chi-Squared Test of Independence for the AL/NL complete game example. Is there evidence of dependence between League and Complete Games? Explain.
+\end{example}
+
+\vfill
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a1 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Complete=}\FunctionTok{rep}\NormalTok{(}\StringTok{"No"}\NormalTok{,}\DecValTok{2533}\NormalTok{),}\AttributeTok{League=}\FunctionTok{rep}\NormalTok{(}\StringTok{"NL"}\NormalTok{,}\DecValTok{2533}\NormalTok{))}
+\NormalTok{a2 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Complete=}\FunctionTok{rep}\NormalTok{(}\StringTok{"No"}\NormalTok{,}\DecValTok{2199}\NormalTok{),}\AttributeTok{League=}\FunctionTok{rep}\NormalTok{(}\StringTok{"AL"}\NormalTok{,}\DecValTok{2199}\NormalTok{))}
+\NormalTok{a3 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Complete=}\FunctionTok{rep}\NormalTok{(}\StringTok{"Yes"}\NormalTok{,}\DecValTok{59}\NormalTok{),}\AttributeTok{League=}\FunctionTok{rep}\NormalTok{(}\StringTok{"NL"}\NormalTok{,}\DecValTok{59}\NormalTok{))}
+\NormalTok{a4 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Complete=}\FunctionTok{rep}\NormalTok{(}\StringTok{"Yes"}\NormalTok{,}\DecValTok{69}\NormalTok{),}\AttributeTok{League=}\FunctionTok{rep}\NormalTok{(}\StringTok{"AL"}\NormalTok{,}\DecValTok{69}\NormalTok{))}
+\NormalTok{mlb\_data }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(a1,a2,a3,a4)}
+\FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(mlb\_data}\SpecialCharTok{$}\NormalTok{Complete,mlb\_data}\SpecialCharTok{$}\NormalTok{League))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  table(mlb_data$Complete, mlb_data$League)
+## X-squared = 2.4777, df = 1, p-value = 0.1155
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(mlb\_data}\SpecialCharTok{$}\NormalTok{Complete,mlb\_data}\SpecialCharTok{$}\NormalTok{League),}\AttributeTok{correct=}\NormalTok{F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test
+## 
+## data:  table(mlb_data$Complete, mlb_data$League)
+## X-squared = 2.7684, df = 1, p-value = 0.09614
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{table}\NormalTok{(mlb\_data}\SpecialCharTok{$}\NormalTok{Complete,mlb\_data}\SpecialCharTok{$}\NormalTok{League))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Number of cases in table: 4860 
+## Number of factors: 2 
+## Test for independence of all factors:
+##  Chisq = 2.7684, df = 1, p-value = 0.09614
+\end{verbatim}
+
+\newpage
+
+\hypertarget{rank-correlation}{%
+\section{Rank Correlation}\label{rank-correlation}}
+
+Rank correlation is a nonparametric method to measure the ordinal association between two different variables. Rank correlation can investigate non-linear relationships between variables and thus measure monotonicity.
+
+\begin{definition}
+\textbf{\emph{Spearman's rank correlation coefficient}} or \textbf{\emph{Spearman's \(\rho\)}} is a nonparametric measure of rank correlation and is calculated by:
+
+\(r_s = \frac{Cov(R(X),R(Y))}{\sigma_{R(X)}\sigma_{R(Y)}}\)
+
+That is, the Spearman's rank correlation coefficient is Pearson's correlation between the rank values of the two variables.
+\end{definition}
+
+\begin{example}
+\texttt{nfl22.csv} contains NFL team offense statistics for the 2022 season. Investigate the relationship between PF (points scored for) and RPCT (percentage of offensive plays that were rushes). Calculate the ranks for PF and RPCT and use these values to calculate the Spearman correlation coefficient.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl22 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/nfl22.csv"}\NormalTok{,}\AttributeTok{show\_col\_types =}\NormalTok{ F)}
+\NormalTok{nfl22 }\OtherTok{\textless{}{-}}\NormalTok{ nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{32}\NormalTok{)}
+\NormalTok{nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n=}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{rlrrrrrrrr}
+\toprule
+Rk & Tm & G & PF & Yds & Plays & Pass\_Att & Pass\_Yds & Rush\_Att & Rush\_Yds\\
+\midrule
+1 & Kansas City Chiefs & 17 & 496 & 7032 & 1094 & 651 & 5062 & 417 & 1970\\
+2 & Philadelphia Eagles & 17 & 477 & 6614 & 1124 & 536 & 4105 & 544 & 2509\\
+3 & Dallas Cowboys & 17 & 467 & 6034 & 1114 & 556 & 3736 & 531 & 2298\\
+4 & Buffalo Bills & 16 & 455 & 6361 & 1037 & 574 & 4129 & 430 & 2232\\
+5 & Detroit Lions & 17 & 453 & 6460 & 1092 & 588 & 4281 & 480 & 2179\\
+\addlinespace
+6 & San Francisco 49ers & 17 & 450 & 6216 & 1047 & 512 & 3856 & 504 & 2360\\
+7 & Minnesota Vikings & 17 & 424 & 6145 & 1123 & 672 & 4484 & 404 & 1661\\
+8 & Cincinnati Bengals & 16 & 418 & 5768 & 1053 & 610 & 4240 & 399 & 1528\\
+9 & Seattle Seahawks & 17 & 407 & 5976 & 1044 & 573 & 3934 & 425 & 2042\\
+10 & Jacksonville Jaguars & 17 & 404 & 6075 & 1072 & 596 & 3959 & 448 & 2116\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl22 }\OtherTok{\textless{}{-}}\NormalTok{ nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{RPCT}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{100}\SpecialCharTok{*}\NormalTok{Rush\_Att}\SpecialCharTok{/}\NormalTok{Plays)}
+\NormalTok{nfl22 }\OtherTok{\textless{}{-}}\NormalTok{ nfl22 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{PF\_Rank =} \FunctionTok{rank}\NormalTok{(PF),}
+         \AttributeTok{RPCT\_Rank =} \FunctionTok{rank}\NormalTok{(RPCT))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(Tm,PF,PF\_Rank,RPCT,RPCT\_Rank) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits=}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrrrr}
+\toprule
+Tm & PF & PF\_Rank & RPCT & RPCT\_Rank\\
+\midrule
+Kansas City Chiefs & 496 & 32 & 38.1 & 7\\
+Philadelphia Eagles & 477 & 31 & 48.4 & 27\\
+Dallas Cowboys & 467 & 30 & 47.7 & 23\\
+Buffalo Bills & 455 & 29 & 41.5 & 15\\
+Detroit Lions & 453 & 28 & 44.0 & 19\\
+\addlinespace
+San Francisco 49ers & 450 & 27 & 48.1 & 26\\
+Minnesota Vikings & 424 & 26 & 36.0 & 3\\
+Cincinnati Bengals & 418 & 25 & 37.9 & 5\\
+Seattle Seahawks & 407 & 24 & 40.7 & 11\\
+Jacksonville Jaguars & 404 & 23 & 41.8 & 16\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(PF,PF\_Rank,RPCT,RPCT\_Rank) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{cor}\NormalTok{(}\AttributeTok{method =} \StringTok{"pearson"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      PF      PF_Rank        RPCT    RPCT_Rank
+## PF         1.0000000000  0.988409408 -0.02501179 0.0008416183
+## PF_Rank    0.9884094078  1.000000000 -0.01187428 0.0097158572
+## RPCT      -0.0250117927 -0.011874280  1.00000000 0.9759711461
+## RPCT_Rank  0.0008416183  0.009715857  0.97597115 1.0000000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(PF,PF\_Rank,RPCT,RPCT\_Rank) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{cor}\NormalTok{(}\AttributeTok{method =} \StringTok{"spearman"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                    PF     PF_Rank        RPCT   RPCT_Rank
+## PF        1.000000000 1.000000000 0.009715857 0.009715857
+## PF_Rank   1.000000000 1.000000000 0.009715857 0.009715857
+## RPCT      0.009715857 0.009715857 1.000000000 1.000000000
+## RPCT_Rank 0.009715857 0.009715857 1.000000000 1.000000000
+\end{verbatim}
+
+\newpage
+
+\begin{example}
+Investigate the relationship between PPG (points per game), RYPG (rushing yards per game), and PYPG (passing yards per game) using Spearman's rank correlation coefficient.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl22 }\OtherTok{\textless{}{-}}\NormalTok{ nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{PPG=}\NormalTok{PF}\SpecialCharTok{/}\NormalTok{G,}\AttributeTok{RYPG=}\NormalTok{Rush\_Yds}\SpecialCharTok{/}\NormalTok{G,}\AttributeTok{PYPG=}\NormalTok{Pass\_Yds}\SpecialCharTok{/}\NormalTok{G)}
+
+\NormalTok{nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(PPG,RYPG,PYPG) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{cor}\NormalTok{(}\AttributeTok{method =} \StringTok{"spearman"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            PPG       RYPG       PYPG
+## PPG  1.0000000  0.2640264  0.6237052
+## RYPG 0.2640264  1.0000000 -0.4310203
+## PYPG 0.6237052 -0.4310203  1.0000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(GGally)}
+\NormalTok{nfl22 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(PPG,RYPG,PYPG) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggpairs}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-172-1.pdf}
+
+\newpage
+
+\hypertarget{serial-correlation}{%
+\section{Serial Correlation}\label{serial-correlation}}
+
+Another type of correlation that we can utilize to look for patterns in sports data is serial correlation.
+
+\hypertarget{autocorrelation}{%
+\subsection{Autocorrelation}\label{autocorrelation}}
+
+\begin{definition}
+The \textbf{\emph{autocorrelation}} (or \textbf{\emph{serial correlation}}) of a sequence of outcomes is the Pearson correlation coefficient between successive outcomes or the correlation between outcomes and lag delayed outcomes.
+\end{definition}
+
+\begin{example}
+Simulate three sets of Bernoulli trials (zeros and ones) of length 10000. One dataset should exhibit no serial correlation, one should exhibit positive serial correlation, and one should exhibit negative serial correlation.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2023}\NormalTok{)}
+\NormalTok{len }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\CommentTok{\# Easy to simulate independent Bernoulli trials}
+\NormalTok{corr\_none }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}\AttributeTok{size=}\NormalTok{len,}\AttributeTok{prob=}\FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.5}\NormalTok{),}\AttributeTok{replace=}\NormalTok{T)}
+
+\CommentTok{\# initialize vectors for other two examples}
+\NormalTok{corr\_pos }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,len)}
+\NormalTok{corr\_neg }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,len)}
+
+\CommentTok{\# Positive serial correlation}
+\CommentTok{\# Notice that the probability of switching is less than 0.5}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10000}\NormalTok{)\{}
+  \ControlFlowTok{if}\NormalTok{(i }\SpecialCharTok{==} \DecValTok{1}\NormalTok{)\{}
+\NormalTok{    corr\_pos[i] }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}\AttributeTok{size=}\DecValTok{1}\NormalTok{,}\AttributeTok{prob=}\FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.5}\NormalTok{),}\AttributeTok{replace=}\NormalTok{T)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \ControlFlowTok{if}\NormalTok{(}\FunctionTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{)}\SpecialCharTok{\textless{}}\FloatTok{0.8}\NormalTok{)\{}
+\NormalTok{      corr\_pos[i] }\OtherTok{\textless{}{-}}\NormalTok{ corr\_pos[i}\DecValTok{{-}1}\NormalTok{]}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{      corr\_pos[i] }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{{-}}\NormalTok{corr\_pos[i}\DecValTok{{-}1}\NormalTok{]}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+\CommentTok{\# Negative serial correlation}
+\CommentTok{\# Notice that the probability of switching is greater than 0.5}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10000}\NormalTok{)\{}
+  \ControlFlowTok{if}\NormalTok{(i }\SpecialCharTok{==} \DecValTok{1}\NormalTok{)\{}
+\NormalTok{    corr\_neg[i] }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}\AttributeTok{size=}\DecValTok{1}\NormalTok{,}\AttributeTok{prob=}\FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.5}\NormalTok{),}\AttributeTok{replace=}\NormalTok{T)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \ControlFlowTok{if}\NormalTok{(}\FunctionTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{)}\SpecialCharTok{\textless{}}\FloatTok{0.2}\NormalTok{)\{}
+\NormalTok{      corr\_neg[i] }\OtherTok{\textless{}{-}}\NormalTok{ corr\_neg[i}\DecValTok{{-}1}\NormalTok{]}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{      corr\_neg[i] }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{{-}}\NormalTok{corr\_neg[i}\DecValTok{{-}1}\NormalTok{]}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Look at first 20 values of each sequence}
+\NormalTok{corr\_none[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{30}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 1 1 1 1 1 1 1 0 1 1 0 1 1 0 0 1 1 0 1 0 0 1 1 0 0 0 0 1 1 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corr\_pos[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{30}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 0 0 0 0 1 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 1 1 1 1 1 0 0 1 1 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corr\_neg[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{30}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 0 1 0 1 1 1 0 0 1 0 1 0 1 0 1 1 0 1 0 1 1 0 1 0 1 0 0 0 1 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate mean of each sequence}
+\FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(corr\_none),}\FunctionTok{mean}\NormalTok{(corr\_pos),}\FunctionTok{mean}\NormalTok{(corr\_neg))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5068 0.5001 0.5006
+\end{verbatim}
+
+Note that all three sequences have approximately equal probability of 1 and 0, however, the serial correlation differs between them.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corr\_none }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{acf}\NormalTok{(}\AttributeTok{lag.max =} \DecValTok{30}\NormalTok{,}\AttributeTok{main=}\StringTok{"Autocorrelation of Sequence 1 (No Corr.)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-175-1.pdf}
+
+\vfill
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(gridExtra)}
+\FunctionTok{library}\NormalTok{(forecast)}
+\NormalTok{corr\_none }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggAcf}\NormalTok{(}\AttributeTok{lag.max =} \DecValTok{10}\NormalTok{,}\AttributeTok{main=}\StringTok{\textquotesingle{}Autocorrelation of Sequence 1 (No Corr.)\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-176-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{acf}\NormalTok{(corr\_none,}\AttributeTok{lag.max=}\DecValTok{10}\NormalTok{,}\AttributeTok{plot=}\NormalTok{F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Autocorrelations of series 'corr_none', by lag
+## 
+##      0      1      2      3      4      5      6      7      8      9     10 
+##  1.000  0.007  0.011  0.008  0.009  0.010  0.012  0.011 -0.015  0.000  0.009
+\end{verbatim}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corr\_pos }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggAcf}\NormalTok{(}\AttributeTok{lag.max =} \DecValTok{10}\NormalTok{,}\AttributeTok{main=}\StringTok{\textquotesingle{}Autocorrelation of Sequence 2 (Positive Corr.)\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-177-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{acf}\NormalTok{(corr\_pos,}\AttributeTok{lag.max=}\DecValTok{10}\NormalTok{,}\AttributeTok{plot=}\NormalTok{F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Autocorrelations of series 'corr_pos', by lag
+## 
+##      0      1      2      3      4      5      6      7      8      9     10 
+##  1.000  0.608  0.375  0.237  0.156  0.104  0.062  0.037  0.023  0.012 -0.008
+\end{verbatim}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corr\_neg }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggAcf}\NormalTok{(}\AttributeTok{lag.max =} \DecValTok{10}\NormalTok{,}\AttributeTok{main=}\StringTok{\textquotesingle{}Autocorrelation of Sequence 3 (Negative Corr.)\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-178-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{acf}\NormalTok{(corr\_neg,}\AttributeTok{lag.max=}\DecValTok{10}\NormalTok{,}\AttributeTok{plot=}\NormalTok{F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Autocorrelations of series 'corr_neg', by lag
+## 
+##      0      1      2      3      4      5      6      7      8      9     10 
+##  1.000 -0.598  0.348 -0.209  0.134 -0.084  0.060 -0.045  0.027 -0.012  0.002
+\end{verbatim}
+
+\newpage
+
+\hypertarget{run-lengths}{%
+\subsection{Run Lengths}\label{run-lengths}}
+
+Another way to investigate serial correlation is to look at the lengths of ``streaks'' using the \texttt{rle} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t}\NormalTok{(}\FunctionTok{table}\NormalTok{(}\FunctionTok{rle}\NormalTok{(corr\_none)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       lengths
+## values    1    2    3    4    5    6    7    8    9   10   11   12
+##      0 1276  604  289  157   66   45   27    9    9    0    1    0
+##      1 1219  622  308  150  101   46   20    9    5    2    1    1
+\end{verbatim}
+
+\smallskip
+
+\begin{example}
+Which of the three examples has the most ``streaks''? How about fewest streaks?
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Use rle to calculate run lengths}
+\FunctionTok{t}\NormalTok{(}\FunctionTok{table}\NormalTok{(}\FunctionTok{rle}\NormalTok{(corr\_none)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       lengths
+## values    1    2    3    4    5    6    7    8    9   10   11   12
+##      0 1276  604  289  157   66   45   27    9    9    0    1    0
+##      1 1219  622  308  150  101   46   20    9    5    2    1    1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t}\NormalTok{(}\FunctionTok{table}\NormalTok{(}\FunctionTok{rle}\NormalTok{(corr\_pos)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       lengths
+## values   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
+##      0 201 153 119  91  77  69  54  51  27  32  15  19  14   9   9   5   3   6
+##      1 193 174 123  99  77  51  50  35  29  33  26  24   9   2   3   7  10   7
+##       lengths
+## values  19  20  21  22  23  24  25  26  27  29  30  36
+##      0   7   2   4   5   1   2   1   1   0   1   1   0
+##      1   6   5   3   1   5   2   0   1   1   0   2   1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t}\NormalTok{(}\FunctionTok{table}\NormalTok{(}\FunctionTok{rle}\NormalTok{(corr\_neg)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       lengths
+## values    1    2    3    4    5    6    7
+##      0 3189  643  137   18    6    1    0
+##      1 3169  665  138   19    2    0    1
+\end{verbatim}
+
+\newpage
+
+\begin{example}
+Examine the autocorrelation function for Joe DiMaggio's 1941 and 1942 seasons. Also, calculate the length of his streaks that season.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dimaggio41 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/dimaggio41.csv"}\NormalTok{, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{dimaggio41 }\OtherTok{\textless{}{-}}\NormalTok{ dimaggio41 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{139}\NormalTok{)}
+
+\CommentTok{\# Create indicator variable for a hit}
+\NormalTok{hit.game41 }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(dimaggio41}\SpecialCharTok{$}\NormalTok{H }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+
+\NormalTok{hit.game41 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggAcf}\NormalTok{(}\AttributeTok{lag.max =} \DecValTok{10}\NormalTok{,}\AttributeTok{main=}\StringTok{\textquotesingle{}Autocorrelation of DiMaggio 1941 season\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-181-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{acf}\NormalTok{(hit.game41,}\AttributeTok{lag.max=}\DecValTok{10}\NormalTok{,}\AttributeTok{plot=}\NormalTok{F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Autocorrelations of series 'hit.game41', by lag
+## 
+##      0      1      2      3      4      5      6      7      8      9     10 
+##  1.000  0.364  0.070 -0.020  0.125  0.172  0.268  0.120  0.167  0.134  0.190
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t}\NormalTok{(}\FunctionTok{table}\NormalTok{(}\FunctionTok{rle}\NormalTok{(hit.game)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       lengths
+## values 1 2 3 4 5 7 8 16 56
+##      0 5 4 4 0 0 0 0  0  0
+##      1 2 3 2 2 1 1 1  1  1
+\end{verbatim}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dimaggio42 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/dimaggio42.csv"}\NormalTok{)}
+
+\CommentTok{\# Create indicator variable for a hit}
+\NormalTok{hit.game42 }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(dimaggio42}\SpecialCharTok{$}\NormalTok{H }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+
+\NormalTok{hit.game42 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggAcf}\NormalTok{(}\AttributeTok{lag.max =} \DecValTok{10}\NormalTok{,}\AttributeTok{main=}\StringTok{\textquotesingle{}Autocorrelation of DiMaggio 1942 season\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-182-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{acf}\NormalTok{(hit.game42,}\AttributeTok{lag.max=}\DecValTok{10}\NormalTok{,}\AttributeTok{plot=}\NormalTok{F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Autocorrelations of series 'hit.game42', by lag
+## 
+##      0      1      2      3      4      5      6      7      8      9     10 
+##  1.000  0.055 -0.009 -0.098  0.013 -0.007 -0.035 -0.003  0.030 -0.077  0.000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t}\NormalTok{(}\FunctionTok{table}\NormalTok{(}\FunctionTok{rle}\NormalTok{(hit.game)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       lengths
+## values 1 2 3 4 5 7 8 16 56
+##      0 5 4 4 0 0 0 0  0  0
+##      1 2 3 2 2 1 1 1  1  1
+\end{verbatim}
+
+\newpage
+
+\hypertarget{wald-wolfowitz-runs-test}{%
+\subsection{Wald-Wolfowitz Runs Test}\label{wald-wolfowitz-runs-test}}
+
+\begin{theorem}
+The Wald-Wolfowitz runs test is a nonparametric statistical method for testing the hypothesis of an independent sequence of binary data.
+
+\(H_0:\) Elements of sequence are mutually independent\\
+\(H_a:\) Elements of the sequence are mutually dependent
+
+Let \(N_+\) be the number of runs of the indicator/positive values and let \(N_-\) be the number of runs of the negative values.
+
+The number of runs, \(N = N_+ + N_-\), is approximately normally distributed with:
+
+Mean: \(\mu=\frac{2N_+N_-}{N}+1\)\\
+Variance: \(\sigma^2 = \frac{2N_+N_-(2N_+N_- - N)}{N^2(N-1)}\)
+\end{theorem}
+
+\begin{example}
+Complete a WW runs test for the three simulated sequences. State the conclusion of the WW hypothesis test.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(DescTools)}
+\FunctionTok{RunsTest}\NormalTok{(corr\_none)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Runs Test for Randomness
+## 
+## data:  corr_none
+## z = -0.65166, runs = 4967, m = 4932, n = 5068, p-value = 0.5146
+## alternative hypothesis: true number of runs is not equal the expected number
+\end{verbatim}
+
+\vfill
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{RunsTest}\NormalTok{(corr\_pos)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Runs Test for Randomness
+## 
+## data:  corr_pos
+## z = -60.853, runs = 1958, m = 4999, n = 5001, p-value < 2.2e-16
+## alternative hypothesis: true number of runs is not equal the expected number
+\end{verbatim}
+
+\vfill
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{RunsTest}\NormalTok{(corr\_neg)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Runs Test for Randomness
+## 
+## data:  corr_neg
+## z = 59.733, runs = 7988, m = 4994, n = 5006, p-value < 2.2e-16
+## alternative hypothesis: true number of runs is not equal the expected number
+\end{verbatim}
+
+\newpage
+
+\begin{example}
+Complete a WW runs test for DiMaggio's 1941 and 1942 seasons. State the conclusion of the WW hypothesis test.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{RunsTest}\NormalTok{(hit.game41)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Runs Test for Randomness
+## 
+## data:  hit.game41
+## z = -4.2075, runs = 27, m = 25, n = 114, p-value = 2.582e-05
+## alternative hypothesis: true number of runs is not equal the expected number
+\end{verbatim}
+
+\vfill
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{RunsTest}\NormalTok{(hit.game42)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Runs Test for Randomness
+## 
+## data:  hit.game42
+## z = -0.59874, runs = 55, m = 38, n = 116, p-value = 0.5493
+## alternative hypothesis: true number of runs is not equal the expected number
+\end{verbatim}
+
+\vfill
+
+\newpage
+
+\hypertarget{hot-hand}{%
+\subsection{Hot Hand}\label{hot-hand}}
+
+(Scorecasting, page 215)
+
+\hypertarget{streakiness-in-sports}{%
+\subsection{Streakiness in Sports}\label{streakiness-in-sports}}
+
+(Mathletics, chapter 11, page 105)
+
+\newpage
+
+\hypertarget{pythagorean-record}{%
+\section{Pythagorean Record}\label{pythagorean-record}}
+
+Baseball statistican (sabermetrican) Bill James proposed \textbf{Pythagorean expectation} to estimate the percentage (or number) of games that a team is expected to win based on the number of runs they score and the number of runs they allow.
+
+\begin{definition}
+The (basic) \textbf{\emph{Pythagorean expectation}} for a team's win percentage and win total are given by the following:
+
+\[\text{Pythagorean Win Pct} = PythWin\% = 100 * \frac{RS^2}{RS^2 + RA^2}\]
+
+\[\text{Pythagorean Win Total} = PythWin = N \cdot \frac{RS^2}{RS^2 + RA^2}\]
+
+where for a given team, \(N\) is the number of games, \(RS\) is the number of runs scored, and \(RA\) is the number of runs allowed.
+
+Note that \(RS\) and \(RA\) can be based on season totals or per game averages.
+\end{definition}
+
+\begin{example}
+In 2022, the Colorado Rockies baseball team scored an average of 4.3 runs per game and allowed an average of 5.4 runs per game. The Rockies' record in 2022 was 69-94 (0.420 win pct). Calculate the Pythagorean win percentage and win total. Did the Rockies underperform or overperform based on these results?
+\end{example}
+
+\(PythWin\% = 100 * \frac{RS^2}{RS^2+RA^2} = \frac{4.3^2}{4.3^2+5.4^2} = 38.8\%\)
+
+\(PythWin\% = N \cdot \frac{RS^2}{RS^2+RA^2} = 162 * \frac{4.3^2}{4.3^2+5.4^2} = 63\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{( }\AttributeTok{pythwinpct =} \DecValTok{100}\SpecialCharTok{*}\NormalTok{(}\FloatTok{4.3}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\FloatTok{4.3}\SpecialCharTok{\^{}}\DecValTok{2}\FloatTok{+5.4}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 38.80378
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{( }\AttributeTok{pythwins =} \DecValTok{162}\SpecialCharTok{*}\NormalTok{(}\FloatTok{4.3}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\FloatTok{4.3}\SpecialCharTok{\^{}}\DecValTok{2}\FloatTok{+5.4}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 62.86212
+\end{verbatim}
+
+\newpage
+
+It turns out that we can find a more optimal estimate of Pythagorean wins by using an exponent different from 2.
+
+For example, Baseball Reference \href{https://www.sports-reference.com/blog/baseball-reference-faqs/}{(https://www.sports-reference.com/blog/baseball-reference-faqs/)} uses an exponent of 1.83.
+
+\begin{definition}
+The (general) \textbf{\emph{Pythagorean expectation}} for a team's win percentage and win total are given by the following:
+
+\[\text{Pythagorean Win Pct} = PythWin\% = 100 * \frac{RS^n}{RS^2 + RA^n}\]
+
+\[\text{Pythagorean Win Total} = PythWin = N \cdot \frac{RS^n}{RS^n + RA^n}\]
+
+where for a given team, \(N\) is the number of games, \(RS\) is the number of runs scored, and \(RA\) is the number of runs allowed. \(n\) is optimized for predictive accuracy over a large dataset.
+\end{definition}
+
+It will be helpful to have a function to find the optimal Pythagorean exponent. Such a function called \texttt{pyth\_opt} is given below that minimizes mean squared error. Use \texttt{plot\_flag=1} to generate a plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pyth\_opt }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(RS,RA,WinPct,digits,plot\_flag)\{}
+\NormalTok{  exps }\OtherTok{=} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{15}\NormalTok{,}\AttributeTok{by=}\DecValTok{10}\SpecialCharTok{\^{}}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{digits))}
+\NormalTok{  n\_exps }\OtherTok{=} \FunctionTok{length}\NormalTok{(exps)}
+\NormalTok{  MSE }\OtherTok{=} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{,n\_exps)}
+  \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_exps)\{}
+\NormalTok{    temp\_exp }\OtherTok{=}\NormalTok{ exps[i]}
+\NormalTok{    PyWinPct }\OtherTok{=}\NormalTok{ RS}\SpecialCharTok{\^{}}\NormalTok{temp\_exp}\SpecialCharTok{/}\NormalTok{(RS}\SpecialCharTok{\^{}}\NormalTok{temp\_exp }\SpecialCharTok{+}\NormalTok{ RA}\SpecialCharTok{\^{}}\NormalTok{temp\_exp)}
+\NormalTok{    MSE[i] }\OtherTok{=} \FunctionTok{mean}\NormalTok{((PyWinPct}\SpecialCharTok{{-}}\NormalTok{WinPct)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{  \}}
+\NormalTok{  min\_idx }\OtherTok{=} \FunctionTok{which}\NormalTok{(MSE}\SpecialCharTok{==}\FunctionTok{min}\NormalTok{(MSE))}
+\NormalTok{  pyth\_opt }\OtherTok{=}\NormalTok{ exps[min\_idx]}
+  
+  \ControlFlowTok{if}\NormalTok{(plot\_flag)\{}
+\NormalTok{    df }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Exponent=}\NormalTok{exps,}\AttributeTok{MSE=}\NormalTok{MSE)}
+\NormalTok{    df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Exponent,}\AttributeTok{y=}\NormalTok{MSE)) }\SpecialCharTok{+} 
+      \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+} 
+      \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data=}\NormalTok{df[min\_idx,],}\AttributeTok{color=}\StringTok{"blue"}\NormalTok{)  }\SpecialCharTok{+}
+      \FunctionTok{geom\_label}\NormalTok{(}\AttributeTok{data =}\NormalTok{ df[min\_idx,],}
+                 \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Exponent, }\AttributeTok{y =}\NormalTok{ MSE, }\AttributeTok{label =}\NormalTok{ Exponent),}\AttributeTok{vjust=}\SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \FunctionTok{return}\NormalTok{(pyth\_opt)}
+\NormalTok{  \}}
+  
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\newpage
+
+\begin{example}
+Final season MLB standings and related statistics are given in \texttt{mlb\_2022.csv}. Find the optimal value of \(n\) that minimizes mean squared error between actual wins and Pythagorean wins.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mlb\_2022 }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/mlb\_2022.csv"}\NormalTok{)}
+\NormalTok{mlb\_2022 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrrrrrrl}
+\toprule
+Team & W & L & W-L\% & R & RA & Rdiff & pythWL\\
+\midrule
+Los Angeles Dodgers & 111 & 51 & 0.685 & 5.2 & 3.2 & 2.1 & 116-46\\
+Houston Astros & 106 & 56 & 0.654 & 4.5 & 3.2 & 1.4 & 106-56\\
+Atlanta Braves & 101 & 61 & 0.623 & 4.9 & 3.8 & 1.1 & 100-62\\
+New York Mets & 101 & 61 & 0.623 & 4.8 & 3.7 & 1.0 & 99-63\\
+New York Yankees & 99 & 63 & 0.611 & 5.0 & 3.5 & 1.5 & 106-56\\
+\addlinespace
+St. Louis Cardinals & 93 & 69 & 0.574 & 4.8 & 3.9 & 0.8 & 95-67\\
+Cleveland Guardians & 92 & 70 & 0.568 & 4.3 & 3.9 & 0.4 & 88-74\\
+Toronto Blue Jays & 92 & 70 & 0.568 & 4.8 & 4.2 & 0.6 & 91-71\\
+Seattle Mariners & 90 & 72 & 0.556 & 4.3 & 3.8 & 0.4 & 89-73\\
+San Diego Padres & 89 & 73 & 0.549 & 4.4 & 4.1 & 0.3 & 86-76\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pyth\_opt}\NormalTok{(mlb\_2022}\SpecialCharTok{$}\NormalTok{R,mlb\_2022}\SpecialCharTok{$}\NormalTok{RA,mlb\_2022}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{W{-}L\%}\StringTok{\textasciigrave{}}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-191-1.pdf}
+
+\newpage
+
+\begin{example}
+For a more accurate estimate of the optimal Pythagorean exponent, use all MLB final standings data from 2000--2017. This is contained in \texttt{mlb\_standings\_long.csv}.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mlb\_long }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/mlb\_standings\_long.csv"}\NormalTok{)}
+\NormalTok{mlb\_long }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{rllrrrrrrr}
+\toprule
+yearID & lgID & teamID & G & W & L & R & RA & RD & Wpct\\
+\midrule
+2000 & AL & ANA & 162 & 82 & 80 & 864 & 869 & -5 & 0.5062\\
+2000 & NL & ARI & 162 & 85 & 77 & 792 & 754 & 38 & 0.5247\\
+2000 & NL & ATL & 162 & 95 & 67 & 810 & 714 & 96 & 0.5864\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mlb\_long }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_tail}\NormalTok{(}\AttributeTok{n =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{rllrrrrrrr}
+\toprule
+yearID & lgID & teamID & G & W & L & R & RA & RD & Wpct\\
+\midrule
+2017 & AL & TEX & 162 & 78 & 84 & 799 & 816 & -17 & 0.4815\\
+2017 & AL & TOR & 162 & 76 & 86 & 693 & 784 & -91 & 0.4691\\
+2017 & NL & WAS & 162 & 97 & 65 & 819 & 672 & 147 & 0.5988\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pyth\_opt}\NormalTok{(mlb\_long}\SpecialCharTok{$}\NormalTok{R,mlb\_long}\SpecialCharTok{$}\NormalTok{RA,mlb\_long}\SpecialCharTok{$}\NormalTok{Wpct,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-192-1.pdf}
+
+\newpage
+
+As previously mentioned, sabermetricans tend to use \textbf{PyExp = 1.83 for MLB}.
+
+\begin{example}
+Create a scatterplot to compare Team Wins and Team Pythagorean Wins in 2022 and calculate the correlation.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mlb\_2022 }\OtherTok{=}\NormalTok{ mlb\_2022 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{PyWins=}\DecValTok{162}\SpecialCharTok{*}\NormalTok{R}\SpecialCharTok{\^{}}\FloatTok{1.83}\SpecialCharTok{/}\NormalTok{(R}\SpecialCharTok{\^{}}\FloatTok{1.83}\SpecialCharTok{+}\NormalTok{RA}\SpecialCharTok{\^{}}\FloatTok{1.83}\NormalTok{))}
+\NormalTok{mlb\_2022 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{W,}\AttributeTok{y=}\NormalTok{PyWins)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Wins"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{intercept=}\DecValTok{0}\NormalTok{, }\AttributeTok{slope=}\DecValTok{1}\NormalTok{, }\AttributeTok{color=}\StringTok{"blue"}\NormalTok{, }\AttributeTok{linetype=}\StringTok{"dashed"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-193-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(mlb\_2022}\SpecialCharTok{$}\NormalTok{W,mlb\_2022}\SpecialCharTok{$}\NormalTok{PyWins)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9764977
+\end{verbatim}
+
+\begin{example}
+The Rockies scored 4.31 runs per game and allowed 5.4 runs per game in 2022. Did the Rockies underperform or overperform based on their Pythagorean record?
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mlb\_2022 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Team}\SpecialCharTok{==}\StringTok{"Colorado Rockies"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{PyWins =} \DecValTok{162}\SpecialCharTok{*}\FloatTok{4.31}\SpecialCharTok{\^{}}\FloatTok{1.83}\SpecialCharTok{/}\NormalTok{(}\FloatTok{4.31}\SpecialCharTok{\^{}}\FloatTok{1.83+5.39}\SpecialCharTok{\^{}}\FloatTok{1.83}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrrrrrrlr}
+\toprule
+Team & W & L & W-L\% & R & RA & Rdiff & pythWL & PyWins\\
+\midrule
+Colorado Rockies & 68 & 94 & 0.42 & 4.3 & 5.4 & -1.1 & 65-97 & 64.6548\\
+\bottomrule
+\end{tabular}
+
+The Rockies won 68 games and were expected to win 65 games based on their Pythagorean record. The Rockies outperformed their Pythagorean record.
+
+\newpage
+
+\begin{example}
+Calculate the Pythagorean exponent for NFL using 2022 season totals. This data is contained in \texttt{nfl\_2022.csv}.
+\end{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nfl\_2022 }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/nfl\_2022.csv"}\NormalTok{)}
+\NormalTok{nfl\_2022 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n=}\DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs=}\NormalTok{T,}\AttributeTok{digits =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lrrrrrr}
+\toprule
+Team & W & L & T & W-L\% & PF & PA\\
+\midrule
+Buffalo Bills* & 13 & 3 & 0 & 0.813 & 455 & 286\\
+Miami Dolphins+ & 9 & 8 & 0 & 0.529 & 397 & 399\\
+New England Patriots & 8 & 9 & 0 & 0.471 & 364 & 347\\
+New York Jets & 7 & 10 & 0 & 0.412 & 296 & 316\\
+Cincinnati Bengals* & 12 & 4 & 0 & 0.750 & 418 & 322\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pyth\_opt}\NormalTok{(nfl\_2022}\SpecialCharTok{$}\NormalTok{PF,nfl\_2022}\SpecialCharTok{$}\NormalTok{PA,nfl\_2022}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{W{-}L\%}\StringTok{\textasciigrave{}}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{textbook_files/figure-latex/unnamed-chunk-196-1.pdf}
+
+For 2022, there is an optimal Pythagorean exponent of 3.38. Using a larger dataset of more seasons will give a better estimate.
+
+Football Outsiders \href{https://www.footballoutsiders.com/stat-analysis/2017/presenting-adjusted-pythagorean-theorem}{(https://www.footballoutsiders.com/stat-analysis/2017/presenting-adjusted-pythagorean-theorem)} uses \textbf{PyExp = 2.37 for NFL}.
+
+Similar analyses can be done for other sports as well. \textbf{PyExp = 13.91 is often used for NBA and PyExp = 2.15 for NHL.}
 
   \bibliography{book.bib,packages.bib}
 

@@ -1,0 +1,918 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r, echo=F, message=F,warning=F}
+library(tidyverse)
+library(kableExtra)
+knitr::opts_chunk$set(tidy=FALSE)
+
+# kable table global setup
+kt <- function(data) {
+  knitr::kable(data, digits=3, align='c') %>% kable_styling(bootstrap_options='striped', latex_options='HOLD_position', full_width = F, position = "center")
+}
+```
+
+# Measures of Association
+
+This chapter will examine various measures of association betweeen two or more variables. A popular measure of association is Pearson's Correlation Coefficient for two continuous, quantitative variables. Other measures of association are more appropriate for other types of data like qualitative data.
+
+## Pearson Correlation Coefficient
+
+:::{.definition}
+The ***Pearson correlation coefficient*** (also known as ***Pearson's R*** or ***correlation coefficient***) is a measure of linear relationship between two quantitative variables.
+
+For two random variables, $X$ and $Y$, the Pearson correlation coefficient, $\rho$, is:
+
+$\rho = \frac{Cov(X,Y)}{\sigma_X \sigma_Y}$
+
+For two sets of sample data, $\{x_1,x_2,\ldots,x_n\}$ and $\{y_1,y_2,\ldots,y_n\}$, the Pearson correlation coefficient is:
+
+$r_{xy} = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^n(x_i-\bar{x})^2}\sqrt{\sum_{i=1}^n(y_i-\bar{y})^2}}$
+:::
+
+:::{.example}
+Download pitching data for individual pitchers in the 2022 MLB season. Investigate the correlation between common pitching statistics.
+:::
+
+```{r,message=F,warning=F,cache=T}
+library(tidyverse)
+library(knitr)
+library(baseballr)
+mlb22_all <- bref_daily_pitcher("2022-01-01", "2022-12-31") %>% 
+  fip_plus()
+mlb22_pitch <- mlb22_all %>%  
+  dplyr::select(Name, IP, SO, uBB, HR, ERA, FIP) %>%
+  dplyr::arrange(dplyr::desc(IP))
+
+mlb22_pitch %>% 
+  head(n=10) %>%
+  kable(booktabs=T)
+```
+
+
+```{r,message=F,warning=F}
+library(GGally)
+mlb22_pitch %>% select(-Name) %>% ggpairs()
+```
+
+\newpage
+
+```{r}
+library(ellipse)
+library(RColorBrewer)
+
+# Use of the mtcars data proposed by R
+data <- mlb22_pitch %>% select(-Name) %>% cor()
+
+# Build a Pannel of 100 colors with Rcolor Brewer
+my_colors <- brewer.pal(5, "Spectral")
+my_colors <- colorRampPalette(my_colors)(100)
+
+# Order the correlation matrix
+ord <- order(data[1, ])
+data_ord <- data[ord, ord]
+plotcorr(data_ord, col=my_colors[data_ord*50+50], mar=c(1,1,1,1))
+```
+
+\newpage
+
+```{r,warning=F,message=F}
+# Example adapted from: 
+# https://r-graph-gallery.com/273-custom-your-scatterplot-ggplot2.html
+library(ggpubr)
+mlb22_pitch %>%
+  ggplot(aes(x=IP,y=SO)) +
+  geom_point(
+    color="black",
+    fill="#69b3a2",
+    shape=22,
+    alpha=0.5,
+    size=2
+  ) +
+  geom_smooth(method=lm,se=F,color="black") +
+  labs(title = "Innings Pitched vs. Strikeouts",
+       subtitle = "2022 MLB Season | Individual Pitchers",
+       caption = "Data: Baseball Reference via baseballr", 
+       x = "Innings Pitched (IP)",
+       y = "Strikeouts (SO)") +
+  stat_cor(method = "pearson", label.x = 155, label.y = 70)
+```
+
+\newpage
+
+```{r}
+library(ggExtra)
+p <- mlb22_pitch %>%
+  ggplot(aes(x=SO,y=ERA)) +
+  geom_point()
+ggMarginal(p, type="histogram")
+```
+
+\newpage
+
+```{r}
+library(RColorBrewer)
+color_pal <- brewer.pal(n = 8, name = "Dark2")
+p <- mlb22_pitch %>% filter(ERA <= 10.00) %>%
+  ggplot(aes(x=SO,y=ERA)) +
+  geom_point(alpha=0.5,color=color_pal[1]) +
+  geom_smooth(method="lm",color=color_pal[2]) +
+  stat_cor(method = "pearson", label.x = 185, label.y = 5.8) +
+  labs(title = "Strikeouts (SO) vs. Earned Run Average (ERA)",
+       subtitle = "2022 MLB Season | Individual Pitchers",
+       caption = "Data: Baseball Reference via baseballr", 
+       x = "Innings Pitched (IP)",
+       y = "Earned Run Average (ERA)")
+ggMarginal(p, type="histogram")
+```
+
+\newpage
+
+```{r,message=F,warning=F}
+mlb22_pitch %>% 
+  ggplot(aes(x=ERA,y=FIP)) +
+  geom_point(alpha=0.5,color=color_pal[1]) +
+  scale_x_continuous(limits=c(0,5)) +
+  scale_y_continuous(limits=c(0,5)) +
+  labs(
+    title = "Earned Run Average (ERA) vs. Fielding Independent Pitching (FIP)",
+    subtitle = "2022 MLB Season | Individual Pitchers",
+    caption = "Data: Baseball Reference via baseballr", 
+    x = "Earned Run Average (ERA)",
+    y = "Fielding Independent Pitching (FIP)")
+```
+
+\newpage
+
+```{r}
+rox22_pitch <- mlb22_all %>% 
+  select(Name,Team,IP,H,uBB,ERA,FIP) %>% 
+  filter(Team=="Colorado")
+rox22_pitch %>% 
+  arrange(desc(IP)) %>% 
+  kable(booktabs=T)
+```
+
+\newpage
+
+```{r,message=F,warning=F}
+rox22_pitch %>% 
+  ggplot(aes(x=H,y=uBB,size=IP)) +
+  geom_point(alpha=0.5,color=color_pal[1]) +
+  labs(title = "Colorado Rockies Pitchers: Hits Allowed vs. Unintentional Walks",
+       subtitle = "2022 MLB Season | Individual Pitchers",
+       caption = "Data: Baseball Reference via baseballr", 
+       x = "Hits Allowed (H)",
+       y = "Unintentional Walks (uBB)")
+```
+
+\newpage
+
+### Partial Correlation and Confounding Variables
+
+As seen in the previous example, counting statistics are often highly correlated. In particular, we may want to speculate that pitchers with poor control (high walks) tend to give up lots of hits due to poor control. This is only due to the presence of a ***lurking variable*** (innings pitched). To account for a lurking variable, one can calculate partial correlation coefficient in such situations.
+
+:::{.example}
+Let $X,Y,Z$ be random variables and let $r_{XY}$ be the (standard) correlation coefficient between $X$ and $Y$. The ***partial correlation coefficient*** of $X$ and $Y$, controlling for $Z$ is:
+
+$r_{XY \bullet Z} = \frac{r_{XY}-r_{XZ}r_{YZ}}{\sqrt{1-r_{XZ}^2}\sqrt{1-r_{YZ}^2}}$
+:::
+
+:::{.example}
+Calculate the correlation between strikeouts and (unintentional) walks for pitchers with at least 20 IP during the 2022 season, with and without controlling for innings pitched.
+:::
+
+```{r}
+( cor_matrix <- mlb22_all %>% select(H,uBB,IP) %>% cor() )
+( cor_without <- cor_matrix[1,2] )
+( cor_with <- (cor_matrix[1,2] - cor_matrix[1,3]*cor_matrix[2,3]) /
+    (sqrt(1-cor_matrix[1,3]^2)*sqrt(1-cor_matrix[2,3]^2)) )
+```
+\newpage
+
+### Properties of the Linear Correlation Coefficient
+
+Pearson's correlation coefficient is unaffected by changes in location (adding a constant) or scale (multiplying by a constant) of data. To illustrate this concept, let's consider the correlation between the number of points scored by the winning team of the Super Bowl and 1) the number of the Super Bowl {1, 2, 3, ... , 56} and 2) the year of the Super Bowl {1967, 1968, 1969, ... , 2022}.
+
+```{r correlation properties, include=FALSE}
+Super_Bowl_Number <- c(1:56)
+Super_Bowl_Year <- c(1967:2022)
+Winning_Team_Points <- c(35,33,16,23,16,24,14,24,16,21,32,27,25,31,27,26,27,38,38,46,39,42,20,55,20,37,52,30,49,27,35,31,34,23,34,20,48,32,24,21,29,17,27,31,31,21,34,43,28,24,34,41,13,31,31,23)
+
+Super_Bowl_Data <- data.frame(Super_Bowl_Number, Super_Bowl_Year, Winning_Team_Points)
+```
+
+```{r correlation properties 2, echo=FALSE,message=F,warning=F}
+library(gridExtra)
+p1 <- ggplot(Super_Bowl_Data, aes(x=Super_Bowl_Number, y=Winning_Team_Points)) + 
+  geom_point() +
+  geom_line(color="red") +
+  geom_smooth(method="lm",color="steelblue",se=F) +
+  ggtitle("Super Bowl Number and Points Scored by Winning Team") +
+  labs(x="Super Bowl Number",y="Winning Team Points")
+
+p2 <- ggplot(Super_Bowl_Data, aes(x=Super_Bowl_Year, y=Winning_Team_Points)) + 
+  geom_point() +
+  geom_line(color="red") +
+  geom_smooth(method="loess",color="purple3",se=F) +
+  ggtitle("Super Bowl Year and Points Scored by Winning Team") +
+  labs(x="Super Bowl Year",y="Winning Team Points")
+grid.arrange(p1,p2,ncol=1)
+```
+
+```{r correlation properties 3}
+cor(Super_Bowl_Number, Winning_Team_Points)
+cor(Super_Bowl_Year, Winning_Team_Points)
+```
+
+The only difference between the two plots is that the x-axis is shifted. Since the change is essentially a linear (location) transformation, the correlations are identical.
+
+Note: The correlations were equal only because there has been a one-to-one relationship between Super Bowl number and year since 1967. Major League Baseball has had years in which no World Series was held (1904 - boycott, 1994 - players' strike); thus, the same example applied to the MLB would produce slightly different correlation coefficients.
+
+<!-- Q: The correlation coefficient is positive. What does this mean in terms of the trend of number of points scored by Super Bowl winners over time? -->
+
+<!-- A: Winners of more recent Super Bowls are more likely to have scored more points than winners of older Super Bowls. -->
+
+<!-- In a similar way to the example above, the correlation between a basketball player's career field goal attempts and three-pointers made and the correlation between the same player's career FGA and points scored from three-point field goals are exactly the same, due to the scale invariance property of correlation. -->
+
+<!-- Note to Aaron: This could be a good homework exercise. Find data or simulate career FGA and 3PM for basketball players, then show that the two correlations described above are equal. -->
+
+\newpage
+
+## Association of Categorical Variables
+
+While Pearson's correlations can be used to find associations between categorical variables, there are better measures to be used.
+
+:::{.example}
+(From *Analytic Methods in Sports*) Suppose we are given the following partial contingency table that tabulates the number of "complete games" for a starting pitcher by league. 
+
+```{r,echo=F}
+mlb_comp <- data.frame(Yes = c(" ", " ", 128), No = c(" ", " ", 4732), Total = c(2592,2268, 4860))
+row.names(mlb_comp) = c("NL", "AL","Total")
+
+mlb_comp %>% kable(booktabs=T,digits = 3)
+```
+Choose values to give the largest and smallest correlations.
+:::
+
+***Example 1: Small correlation*** \
+
+```{r}
+League <- c(rep(0,2592),rep(1,2268))
+Complete <- rep(0,4860)
+Complete[1:68] = 1
+Complete[2593:(2593+59)]=1
+small_corr <- data.frame(League,Complete)
+small_corr_table <- table(small_corr)
+rownames(small_corr_table) = c("NL","AL")
+colnames(small_corr_table) = c("No","Yes")
+small_corr_table <- small_corr_table[,c(2,1)]
+small_corr_table %>% kable(booktabs=T,digits = 3)
+cor(small_corr) %>% kable(booktabs=T,digits = 3)
+```
+
+\newpage
+
+
+***Example 2: Large correlation (1)*** \
+
+```{r}
+Complete <- rep(0,4860)
+Complete[1:128] = 1
+large_corr1 <- data.frame(League,Complete)
+large_corr1_table <- table(large_corr1)
+rownames(large_corr1_table) = c("NL","AL")
+colnames(large_corr1_table) = c("No","Yes")
+large_corr1_table <- large_corr1_table[,c(2,1)]
+large_corr1_table %>% kable(booktabs=T,digits = 3)
+cor(large_corr1) %>% kable(booktabs=T,digits = 3)
+```
+
+
+***Example 3: Large correlation (2)*** \
+
+```{r}
+Complete <- rep(0,4860)
+Complete[2593:(2593+127)] = 1
+large_corr2 <- data.frame(League,Complete)
+large_corr2 <- data.frame(League,Complete)
+large_corr2_table <- table(large_corr2)
+rownames(large_corr2_table) = c("NL","AL")
+colnames(large_corr2_table) = c("No","Yes")
+large_corr2_table <- large_corr2_table[,c(2,1)]
+large_corr2_table %>% kable(booktabs=T,digits = 3)
+cor(large_corr2) %>% kable(booktabs=T,digits = 3)
+```
+
+\newpage
+
+### Odds Ratios
+
+Let $X$ and $Y$ be two binary, categorical variables with the following contingency table.
+
+```{r, echo=F}
+mat <- data.frame(matrix(c("a","c","a+c","b","d","b+d","a+b","c+d","a+b+c+d"),nrow=3))
+rownames(mat) <- c("Yes","No","Total")
+colnames(mat) <- c("Yes","No","Total")
+mat %>% kable(booktabs=T)
+```
+
+
+One possible way to measure the association between two binary variables is to look at the odds ratio.
+
+:::{.definition}
+The odds ratio (OR) is a measure of association between two categorical variables of $X$ and $Y$ and is:
+
+$OR = \frac{ad}{bc}$
+
+$OR > 1$ means that $Y=1$ is more likely when $X=1$ than when $X=0$. \
+$OR < 1$ means that $Y=1$ is less likely when $X=1$ than when $X=0$. \
+$OR = 1$ means that $Y=1$ is equally likely when $X=1$ than when $X=0$.
+
+$OR$ ranges from 0 to $\infty$
+:::
+
+The odds ratio allows one to compare the relative likelihoods of $Y=1$ given $X=1$ vs. $X=0$.
+
+$\text{Ratio of OR} =  \frac{P(Y=1|X=1)/P(Y=0|X=1)}{P(Y=1|X=0)/P(Y=0|X=0)}$
+
+
+:::{.example}
+The following contingency table summarizes complete games by league during the 2012 MLB season.\
+:::
+
+```{r,echo=F}
+League <- c(rep(0,2592),rep(1,2268))
+Complete <- rep(0,4860)
+Complete[1:59] = 1
+Complete[2593:(2593+68)]=1
+mlb_corr <- data.frame(League,Complete)
+mlb_corr_table <- table(mlb_corr)
+rownames(mlb_corr_table) = c("NL","AL")
+colnames(mlb_corr_table) = c("No","Yes")
+mlb_corr_table <- mlb_corr_table[,c(2,1)]
+mlb_corr_table %>% kable(booktabs=T,digits = 3)
+```
+
+\bigskip
+
+Calculate the following:\
+(a) $P(CG|AL)$ \
+(b) $P(CG|NL)$ \
+(c) $OR(CG)$ \
+
+\vfill
+
+\newpage
+
+### Yule's Q
+
+:::{.definition}
+Yule's Q is a measure of association between two categorical variables and is defined by:
+
+$Q = \frac{OR-1}{OR+1} = \frac{ad-bc}{ad+bc}$
+
+$Q$ ranges from -1 to 1, where $Q=0$ implies no relationship between the variables.
+
+Some general guidelines:\
+$Q=0$: No association \
+$|Q| < 0.3$: Weak association\
+$0.3 \leq |Q| < 0.5$: Moderate association\
+$0.5 \leq |Q| < 1$: Strong assocation\
+$|Q|=1$: Perfect association 
+:::
+
+:::{.example}
+Calculate Yule's Q for the four examples (Examples 1-3 and Actual)  and determine if there appears to be an association between and complete games for each of these examples
+:::
+
+\newpage
+
+:::{.example}
+(From *Analytic Methods in Sports*) Rafael Nadal is often considered to be the best clay-court tennis player of all-time. Assess this belief by calculating Yule's Q for the Nadal's performances between 2008--2012.
+:::
+
+```{r}
+mat <- data.frame(matrix(c(1660,3658,5318,863,2715,3578,2523,6373,8896),ncol=3))
+rownames(mat) <- c("Clay","Nonclay","Total")
+colnames(mat) <- c("Win","Loss","Total")
+mat %>% kable(booktabs=T)
+```
+
+\vfill
+
+:::{.example}
+(From *Analytic Methods in Sports*) Does the pass rush have an effect on Tom Brady's performance? We can turn numerical variables into categories and calculate Yule's Q to help us answer this question. Use the following table to calculate Yule's Q and assess the belief that the pass rush affects Brady's performance. Data is given for the 2009--2012 seasons
+:::
+
+```{r}
+mat <- data.frame(matrix(c(29,18,47,22,2,24,51,20,71),ncol=3))
+rownames(mat) <- c("0-2 sacks","3+ sacks","Total")
+colnames(mat) <- c("0-2 TDs","3+ TDs","Total")
+mat %>% kable(booktabs=T)
+```
+
+\vfill
+
+\newpage
+
+### Chi-Squared Test of Independence
+
+We can formally test whether two categorical variables are related to each other by use of the Chi-Squared Test of Independence.
+
+:::{.theorem}
+A Chi-Squared Test of Independence ($\chi^2-test$) between two categorical variables has the test statistic $X^2$ which follows a $\chi^2(df=(r-1)(c-1))$, where:
+
+$X^2 = \sum_{i=1}^r\sum_{j=1}^c\frac{(E_{ij}-O_{ij})^2}{E_{ij}}$
+
+$O_{ij}$ is the $i^{th}$ row and $j^{th}$ column observation count and $E_{ij} = \frac{R_i \cdot C_j}{N}$
+
+Note: Sometimes, a Yate's chi-squared test (or Yate's correction of continuity) used for 2x2 contingency tables with cell counts under 5. Under this test, the test statistic is:
+
+$X^2_{Yates} = \sum_{i=1}^r\sum_{j=1}^c\frac{(|E_{ij}-O_{ij}|-0.5)^2}{E_{ij}}$
+:::
+
+\newpage
+
+:::{.example}
+Complete a Chi-Squared Test of Independence for the Tom Brady TDs/Sacks example. Is there evidence of dependence between Touchdowns and Sacks? Explain.
+:::
+
+\vfill
+
+```{r}
+a1 <- data.frame(TDs=rep("0-2",29),Sacks=rep("0-2",29))
+a2 <- data.frame(TDs=rep("0-2",18),Sacks=rep("3+",18))
+a3 <- data.frame(TDs=rep("3+",22),Sacks=rep("0-2",22))
+a4 <- data.frame(TDs=rep("3+",2),Sacks=rep("3+",2))
+brady_data = rbind(a1,a2,a3,a4)
+chisq.test(table(brady_data$TDs,brady_data$Sacks))
+chisq.test(table(brady_data$TDs,brady_data$Sacks),correct = F)
+```
+
+
+\newpage
+
+:::{.example}
+Complete a Chi-Squared Test of Independence for the AL/NL complete game example. Is there evidence of dependence between League and Complete Games? Explain.
+:::
+
+\vfill
+
+
+```{r}
+a1 <- data.frame(Complete=rep("No",2533),League=rep("NL",2533))
+a2 <- data.frame(Complete=rep("No",2199),League=rep("AL",2199))
+a3 <- data.frame(Complete=rep("Yes",59),League=rep("NL",59))
+a4 <- data.frame(Complete=rep("Yes",69),League=rep("AL",69))
+mlb_data = rbind(a1,a2,a3,a4)
+chisq.test(table(mlb_data$Complete,mlb_data$League))
+chisq.test(table(mlb_data$Complete,mlb_data$League),correct=F)
+summary(table(mlb_data$Complete,mlb_data$League))
+```
+
+\newpage
+
+## Rank Correlation
+
+Rank correlation is a nonparametric method to measure the ordinal association between two different variables. Rank correlation can investigate non-linear relationships between variables and thus measure monotonicity.
+
+:::{.definition}
+***Spearman's rank correlation coefficient*** or ***Spearman's $\rho$***  is a nonparametric measure of rank correlation and is calculated by:
+
+$r_s = \frac{Cov(R(X),R(Y))}{\sigma_{R(X)}\sigma_{R(Y)}}$
+
+That is, the Spearman's rank correlation coefficient is Pearson's correlation between the rank values of the two variables.
+:::
+
+:::{.example}
+`nfl22.csv` contains NFL team offense statistics for the 2022 season. Investigate the relationship between PF (points scored for) and RPCT (percentage of offensive plays that were rushes). Calculate the ranks for PF and RPCT and use these values to calculate the Spearman correlation coefficient.
+:::
+
+```{r}
+nfl22 <- read_csv("data/nfl22.csv",show_col_types = F)
+nfl22 <- nfl22 %>% slice(1:32)
+nfl22 %>% slice_head(n=10) %>% kable(booktabs=T)
+```
+
+\newpage
+
+
+```{r}
+nfl22 <- nfl22 %>% mutate(`RPCT`=100*Rush_Att/Plays)
+nfl22 <- nfl22 %>% 
+  mutate(PF_Rank = rank(PF),
+         RPCT_Rank = rank(RPCT))
+```
+
+```{r}
+nfl22 %>% select(Tm,PF,PF_Rank,RPCT,RPCT_Rank) %>% slice(1:10) %>% kable(booktabs=T,digits=1)
+```
+
+```{r}
+nfl22 %>% select(PF,PF_Rank,RPCT,RPCT_Rank) %>% cor(method = "pearson")
+```
+
+```{r}
+nfl22 %>% select(PF,PF_Rank,RPCT,RPCT_Rank) %>% cor(method = "spearman")
+```
+
+\newpage
+
+:::{.example}
+Investigate the relationship between PPG (points per game), RYPG (rushing yards per game), and PYPG (passing yards per game) using Spearman's rank correlation coefficient.
+:::
+
+```{r}
+nfl22 <- nfl22 %>% mutate(PPG=PF/G,RYPG=Rush_Yds/G,PYPG=Pass_Yds/G)
+
+nfl22 %>% select(PPG,RYPG,PYPG) %>% cor(method = "spearman")
+```
+
+```{r}
+library(GGally)
+nfl22 %>% select(PPG,RYPG,PYPG) %>% ggpairs()
+```
+
+\newpage
+
+## Serial Correlation
+
+Another type of correlation that we can utilize to look for patterns in sports data is serial correlation.
+
+### Autocorrelation
+
+:::{.definition}
+The ***autocorrelation*** (or ***serial correlation***) of a sequence of outcomes is the Pearson correlation coefficient between successive outcomes or the correlation between outcomes and lag delayed outcomes.
+:::
+
+:::{.example}
+Simulate three sets of Bernoulli trials (zeros and ones) of length 10000. One dataset should exhibit no serial correlation, one should exhibit positive serial correlation, and one should exhibit negative serial correlation.
+:::
+
+```{r}
+set.seed(2023)
+len <- 10000
+# Easy to simulate independent Bernoulli trials
+corr_none <- sample(c(0,1),size=len,prob=c(0.5,0.5),replace=T)
+
+# initialize vectors for other two examples
+corr_pos <- rep(0,len)
+corr_neg <- rep(0,len)
+
+# Positive serial correlation
+# Notice that the probability of switching is less than 0.5
+for(i in 1:10000){
+  if(i == 1){
+    corr_pos[i] <- sample(c(0,1),size=1,prob=c(0.5,0.5),replace=T)
+  } else {
+    if(runif(1)<0.8){
+      corr_pos[i] <- corr_pos[i-1]
+    } else {
+      corr_pos[i] <- 1-corr_pos[i-1]
+    }
+  }
+}
+# Negative serial correlation
+# Notice that the probability of switching is greater than 0.5
+for(i in 1:10000){
+  if(i == 1){
+    corr_neg[i] <- sample(c(0,1),size=1,prob=c(0.5,0.5),replace=T)
+  } else {
+    if(runif(1)<0.2){
+      corr_neg[i] <- corr_neg[i-1]
+    } else {
+      corr_neg[i] <- 1-corr_neg[i-1]
+    }
+  }
+}
+```
+
+\newpage
+
+```{r}
+# Look at first 20 values of each sequence
+corr_none[1:30]
+corr_pos[1:30]
+corr_neg[1:30]
+
+# Calculate mean of each sequence
+c(mean(corr_none),mean(corr_pos),mean(corr_neg))
+```
+
+Note that all three sequences have approximately equal probability of 1 and 0, however, the serial correlation differs between them.
+
+```{r}
+corr_none %>% acf(lag.max = 30,main="Autocorrelation of Sequence 1 (No Corr.)")
+```
+
+\vfill
+
+\newpage
+
+```{r,warning=F}
+library(ggplot2)
+library(gridExtra)
+library(forecast)
+corr_none %>% ggAcf(lag.max = 10,main='Autocorrelation of Sequence 1 (No Corr.)')
+acf(corr_none,lag.max=10,plot=F)
+```
+
+\newpage
+
+```{r,warning=F}
+corr_pos %>% ggAcf(lag.max = 10,main='Autocorrelation of Sequence 2 (Positive Corr.)')
+acf(corr_pos,lag.max=10,plot=F)
+```
+
+\newpage
+
+```{r,warning=F}
+corr_neg %>% ggAcf(lag.max = 10,main='Autocorrelation of Sequence 3 (Negative Corr.)')
+acf(corr_neg,lag.max=10,plot=F)
+```
+
+\newpage
+
+### Run Lengths
+
+Another way to investigate serial correlation is to look at the lengths of "streaks" using the `rle` function.
+
+```{r}
+t(table(rle(corr_none)))
+```
+
+\smallskip
+
+:::{.example}
+Which of the three examples has the most "streaks"? How about fewest streaks?
+:::
+
+```{r}
+# Use rle to calculate run lengths
+t(table(rle(corr_none)))
+t(table(rle(corr_pos)))
+t(table(rle(corr_neg)))
+```
+
+\newpage
+
+:::{.example}
+Examine the autocorrelation function for Joe DiMaggio's 1941 and 1942 seasons. Also, calculate the length of his streaks that season.
+:::
+
+```{r,warning=F}
+dimaggio41 <- read_csv("data/dimaggio41.csv", show_col_types = FALSE)
+dimaggio41 <- dimaggio41 %>% slice(1:139)
+
+# Create indicator variable for a hit
+hit.game41 <- ifelse(dimaggio41$H > 0,1,0)
+
+hit.game41 %>% ggAcf(lag.max = 10,main='Autocorrelation of DiMaggio 1941 season')
+acf(hit.game41,lag.max=10,plot=F)
+
+t(table(rle(hit.game)))
+```
+
+\newpage
+
+```{r,warning=F,message=F}
+dimaggio42 <- read_csv("data/dimaggio42.csv")
+
+# Create indicator variable for a hit
+hit.game42 <- ifelse(dimaggio42$H > 0,1,0)
+
+hit.game42 %>% ggAcf(lag.max = 10,main='Autocorrelation of DiMaggio 1942 season')
+acf(hit.game42,lag.max=10,plot=F)
+
+t(table(rle(hit.game)))
+```
+\newpage
+
+### Wald-Wolfowitz Runs Test
+
+:::{.theorem}
+The Wald-Wolfowitz runs test is a nonparametric statistical method for testing the hypothesis of an independent sequence of binary data.
+
+$H_0:$ Elements of sequence are mutually independent \
+$H_a:$ Elements of the sequence are mutually dependent
+
+Let $N_+$ be the number of runs of the indicator/positive values and let $N_-$ be the number of runs of the negative values.
+
+The number of runs, $N = N_+ + N_-$, is approximately normally distributed with:
+
+Mean: $\mu=\frac{2N_+N_-}{N}+1$ \
+Variance: $\sigma^2 = \frac{2N_+N_-(2N_+N_- - N)}{N^2(N-1)}$
+:::
+
+:::{.example}
+Complete a WW runs test for the three simulated sequences. State the conclusion of the WW hypothesis test.
+:::
+
+```{r,warning=F,message=F}
+library(DescTools)
+RunsTest(corr_none)
+```
+
+\vfill
+
+```{r}
+RunsTest(corr_pos)
+```
+
+\vfill
+
+```{r}
+RunsTest(corr_neg)
+```
+
+\newpage
+
+:::{.example}
+Complete a WW runs test for DiMaggio's 1941 and 1942 seasons. State the conclusion of the WW hypothesis test.
+:::
+
+```{r}
+RunsTest(hit.game41)
+```
+
+\vfill
+
+```{r}
+RunsTest(hit.game42)
+```
+
+\vfill
+
+\newpage
+
+### Hot Hand
+
+(Scorecasting, page 215)
+
+### Streakiness in Sports
+
+(Mathletics, chapter 11, page 105)
+
+\newpage
+
+## Pythagorean Record
+
+Baseball statistican (sabermetrican) Bill James proposed **Pythagorean expectation** to estimate the percentage (or number) of games that a team is expected to win based on the number of runs they score and the number of runs they allow.
+
+:::{.definition}
+The (basic) ***Pythagorean expectation*** for a team's win percentage and win total are given by the following:
+
+\[\text{Pythagorean Win Pct} = PythWin\% = 100 * \frac{RS^2}{RS^2 + RA^2}\]
+
+\[\text{Pythagorean Win Total} = PythWin = N \cdot \frac{RS^2}{RS^2 + RA^2}\]
+
+where for a given team, $N$ is the number of games, $RS$ is the number of runs scored, and $RA$ is the number of runs allowed.
+
+Note that $RS$ and $RA$ can be based on season totals or per game averages.
+:::
+
+:::{.example}
+In 2022, the Colorado Rockies baseball team scored an average of 4.3 runs per game and allowed an average of 5.4 runs per game. The Rockies' record in 2022 was 69-94 (0.420 win pct). Calculate the Pythagorean win percentage and win total. Did the Rockies underperform or overperform based on these results?
+:::
+
+$PythWin\% = 100 * \frac{RS^2}{RS^2+RA^2} = \frac{4.3^2}{4.3^2+5.4^2} = 38.8\%$
+
+$PythWin\% = N \cdot \frac{RS^2}{RS^2+RA^2} = 162 * \frac{4.3^2}{4.3^2+5.4^2} = 63$
+
+```{r}
+( pythwinpct = 100*(4.3^2)/(4.3^2+5.4^2) )
+( pythwins = 162*(4.3^2)/(4.3^2+5.4^2) )
+```
+
+\newpage
+
+It turns out that we can find a more optimal estimate of Pythagorean wins by using an exponent different from 2.
+
+For example, Baseball Reference [(https://www.sports-reference.com/blog/baseball-reference-faqs/)](https://www.sports-reference.com/blog/baseball-reference-faqs/) uses an exponent of 1.83.
+
+:::{.definition}
+The (general) ***Pythagorean expectation*** for a team's win percentage and win total are given by the following:
+
+\[\text{Pythagorean Win Pct} = PythWin\% = 100 * \frac{RS^n}{RS^2 + RA^n}\]
+
+\[\text{Pythagorean Win Total} = PythWin = N \cdot \frac{RS^n}{RS^n + RA^n}\]
+
+where for a given team, $N$ is the number of games, $RS$ is the number of runs scored, and $RA$ is the number of runs allowed. $n$ is optimized for predictive accuracy over a large dataset.
+:::
+
+It will be helpful to have a function to find the optimal Pythagorean exponent. Such a function called `pyth_opt` is given below that minimizes mean squared error. Use `plot_flag=1` to generate a plot.
+
+```{r}
+pyth_opt = function(RS,RA,WinPct,digits,plot_flag){
+  exps = seq(0,15,by=10^(-digits))
+  n_exps = length(exps)
+  MSE = rep(NA,n_exps)
+  for(i in 1:n_exps){
+    temp_exp = exps[i]
+    PyWinPct = RS^temp_exp/(RS^temp_exp + RA^temp_exp)
+    MSE[i] = mean((PyWinPct-WinPct)^2)
+  }
+  min_idx = which(MSE==min(MSE))
+  pyth_opt = exps[min_idx]
+  
+  if(plot_flag){
+    df = data.frame(Exponent=exps,MSE=MSE)
+    df %>% ggplot(aes(x=Exponent,y=MSE)) + 
+      geom_line() + 
+      geom_point(data=df[min_idx,],color="blue")  +
+      geom_label(data = df[min_idx,],
+                 aes(x = Exponent, y = MSE, label = Exponent),vjust=-0.5)
+  } else {
+    return(pyth_opt)
+  }
+  
+}
+```
+
+\newpage
+
+
+:::{.example}
+Final season MLB standings and related statistics are given in `mlb_2022.csv`. Find the optimal value of $n$ that minimizes mean squared error between actual wins and Pythagorean wins.
+:::
+
+```{r, message=F}
+mlb_2022 = read_csv("data/mlb_2022.csv")
+mlb_2022 %>% slice(1:10) %>% kable(booktabs=T,digits = 4)
+```
+
+
+
+```{r,eval=T}
+pyth_opt(mlb_2022$R,mlb_2022$RA,mlb_2022$`W-L%`,2,1)
+```
+
+\newpage
+
+
+:::{.example}
+For a more accurate estimate of the optimal Pythagorean exponent, use all MLB final standings data from 2000--2017. This is contained in `mlb_standings_long.csv`.
+:::
+
+```{r,message=F}
+mlb_long = read_csv("data/mlb_standings_long.csv")
+mlb_long %>% slice_head(n = 3) %>% kable(booktabs=T,digits = 4)
+mlb_long %>% slice_tail(n = 3) %>% kable(booktabs=T,digits = 4)
+pyth_opt(mlb_long$R,mlb_long$RA,mlb_long$Wpct,2,1)
+```
+
+\newpage
+
+As previously mentioned, sabermetricans tend to use **PyExp = 1.83 for MLB**. 
+
+:::{.example}
+Create a scatterplot to compare Team Wins and Team Pythagorean Wins in 2022 and calculate the correlation.
+:::
+
+```{r}
+mlb_2022 = mlb_2022 %>% mutate(PyWins=162*R^1.83/(R^1.83+RA^1.83))
+mlb_2022 %>% ggplot(aes(x=W,y=PyWins)) + geom_point() + labs(x="Wins") + 
+  geom_abline(intercept=0, slope=1, color="blue", linetype="dashed")
+
+cor(mlb_2022$W,mlb_2022$PyWins)
+```
+
+:::{.example}
+The Rockies scored 4.31 runs per game and allowed 5.4 runs per game in 2022. Did the Rockies underperform or overperform based on their Pythagorean record?
+:::
+
+```{r}
+mlb_2022 %>% filter(Team=="Colorado Rockies") %>%
+  mutate(PyWins = 162*4.31^1.83/(4.31^1.83+5.39^1.83)) %>% 
+  kable(booktabs=T,digits = 4)
+```
+
+The Rockies won 68 games and were expected to win 65 games based on their Pythagorean record. The Rockies outperformed their Pythagorean record.
+
+\newpage
+
+:::{.example}
+Calculate the Pythagorean exponent for NFL using 2022 season totals. This data is contained in `nfl_2022.csv`.
+:::
+
+```{r,message=F}
+nfl_2022 = read_csv("data/nfl_2022.csv")
+nfl_2022 %>% 
+  slice_head(n=5) %>% 
+  kable(booktabs=T,digits = 4)
+```
+
+```{r}
+pyth_opt(nfl_2022$PF,nfl_2022$PA,nfl_2022$`W-L%`,2,1)
+```
+
+For 2022, there is an optimal Pythagorean exponent of 3.38. Using a larger dataset of more seasons will give a better estimate.
+
+Football Outsiders [(https://www.footballoutsiders.com/stat-analysis/2017/presenting-adjusted-pythagorean-theorem)](https://www.footballoutsiders.com/stat-analysis/2017/presenting-adjusted-pythagorean-theorem) uses **PyExp = 2.37 for NFL**.
+
+Similar analyses can be done for other sports as well. **PyExp = 13.91 is often used for NBA and PyExp = 2.15 for NHL.**
+
+
