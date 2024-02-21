@@ -118,3 +118,17 @@
 \contentsline {subsection}{\numberline {6.4.4}Hot Hand}{229}{subsection.6.4.4}%
 \contentsline {subsection}{\numberline {6.4.5}Streakiness in Sports}{229}{subsection.6.4.5}%
 \contentsline {section}{\numberline {6.5}Pythagorean Record}{230}{section.6.5}%
+\contentsline {chapter}{\numberline {7}Linear Regression}{237}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Simple Linear Regression}{238}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Residual Analysis}{253}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Polynomial Regression}{256}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Variable Transformations}{262}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Multiple Regression and Model Selection}{268}{section.7.5}%
+\contentsline {subsection}{\numberline {7.5.1}Model Selection using BIC}{270}{subsection.7.5.1}%
+\contentsline {chapter}{\numberline {8}Advanced Regression Methods}{273}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Weighted Least Squares Regression}{273}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Stepwise Regression using Cross-Validation}{276}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Ridge Regression}{277}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Lasso Regression}{280}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Elastic Net}{282}{section.8.5}%
+\contentsline {section}{\numberline {8.6}Mixed Effects Models}{284}{section.8.6}%

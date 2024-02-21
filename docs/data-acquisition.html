@@ -23,7 +23,7 @@
 <meta name="author" content="Aaron Nielsen, Department of Statistics, Colorado State University" />
 
 
-<meta name="date" content="2024-01-21" />
+<meta name="date" content="2024-02-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -307,6 +307,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4.5" data-path="measures-of-association.html"><a href="measures-of-association.html#streakiness-in-sports"><i class="fa fa-check"></i><b>6.4.5</b> Streakiness in Sports</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="measures-of-association.html"><a href="measures-of-association.html#pythagorean-record"><i class="fa fa-check"></i><b>6.5</b> Pythagorean Record</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>7</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>7.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="7.2" data-path="linear-regression.html"><a href="linear-regression.html#residual-analysis"><i class="fa fa-check"></i><b>7.2</b> Residual Analysis</a></li>
+<li class="chapter" data-level="7.3" data-path="linear-regression.html"><a href="linear-regression.html#polynomial-regression"><i class="fa fa-check"></i><b>7.3</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="7.4" data-path="linear-regression.html"><a href="linear-regression.html#variable-transformations"><i class="fa fa-check"></i><b>7.4</b> Variable Transformations</a></li>
+<li class="chapter" data-level="7.5" data-path="linear-regression.html"><a href="linear-regression.html#multiple-regression-and-model-selection"><i class="fa fa-check"></i><b>7.5</b> Multiple Regression and Model Selection</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="linear-regression.html"><a href="linear-regression.html#model-selection-using-bic"><i class="fa fa-check"></i><b>7.5.1</b> Model Selection using BIC</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html"><i class="fa fa-check"></i><b>8</b> Advanced Regression Methods</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#weighted-least-squares-regression"><i class="fa fa-check"></i><b>8.1</b> Weighted Least Squares Regression</a></li>
+<li class="chapter" data-level="8.2" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#stepwise-regression-using-cross-validation"><i class="fa fa-check"></i><b>8.2</b> Stepwise Regression using Cross-Validation</a></li>
+<li class="chapter" data-level="8.3" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#ridge-regression"><i class="fa fa-check"></i><b>8.3</b> Ridge Regression</a></li>
+<li class="chapter" data-level="8.4" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#lasso-regression"><i class="fa fa-check"></i><b>8.4</b> Lasso Regression</a></li>
+<li class="chapter" data-level="8.5" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#elastic-net"><i class="fa fa-check"></i><b>8.5</b> Elastic Net</a></li>
+<li class="chapter" data-level="8.6" data-path="advanced-regression-methods.html"><a href="advanced-regression-methods.html#mixed-effects-models"><i class="fa fa-check"></i><b>8.6</b> Mixed Effects Models</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -1882,7 +1902,7 @@ DEN
 <span id="cb304-15"><a href="data-acquisition.html#cb304-15" tabindex="-1"></a>  <span class="fu">geom_mean_lines</span>(<span class="fu">aes</span>(<span class="at">h_var =</span> off_epa, <span class="at">v_var =</span> def_epa)) <span class="sc">+</span></span>
 <span id="cb304-16"><a href="data-acquisition.html#cb304-16" tabindex="-1"></a>  <span class="fu">geom_nfl_logos</span>(<span class="fu">aes</span>(<span class="at">team_abbr =</span> team), <span class="at">width =</span> <span class="fl">0.07</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
 <span id="cb304-17"><a href="data-acquisition.html#cb304-17" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Offense EPA/play&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Defense EPA/play&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;Data: @nflfastR&quot;</span>,</span>
-<span id="cb304-18"><a href="data-acquisition.html#cb304-18" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;2022 NFL Offensive and Defensive EPA per Play&quot;</span>) <span class="sc">+</span></span>
+<span id="cb304-18"><a href="data-acquisition.html#cb304-18" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;2023 NFL Offensive and Defensive EPA per Play&quot;</span>) <span class="sc">+</span></span>
 <span id="cb304-19"><a href="data-acquisition.html#cb304-19" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb304-20"><a href="data-acquisition.html#cb304-20" tabindex="-1"></a>  <span class="fu">theme</span>( <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>) ) <span class="sc">+</span></span>
 <span id="cb304-21"><a href="data-acquisition.html#cb304-21" tabindex="-1"></a>  <span class="fu">scale_y_reverse</span>()</span></code></pre></div>

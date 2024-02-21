@@ -48,7 +48,7 @@ This book serves as the course textbook for the following courses at Colorado St
 
 \
 
-CSU students contributed to the creation of this book. Many thanks to the following student collaborators: Levi Kipp, Ellie Martinez, Isaac Moorman, Connor Gibbs
+CSU students contributed to the creation of this book. Many thanks to the following student collaborators: Levi Kipp, Ellie Martinez, Isaac Moorman, Connor Gibbs, Brayden Look
 
 <!-- usethis::use_git() -->
 

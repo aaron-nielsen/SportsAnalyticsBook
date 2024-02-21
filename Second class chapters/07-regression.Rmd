@@ -664,161 +664,162 @@ model2 %>% tidy() %>%
         col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
   kable_styling(latex_options = "hold_position")
 ```
-\newpage
 
-## Confounding Variables
+<!-- \newpage -->
 
-:::{.definition}
-A ***confounding variable*** is a variable that is correlated to a predictor variable and response variable that causes a spurious association.
-:::
+<!-- ## Confounding Variables -->
 
-:::{.example}
-A statistician hypothesizes that an NBA team's draft position can be used to predict the number of regular-season wins for the team for the upcoming season. To investigate the relationship, they decide to estimate the following simple linear regression model:
+<!-- :::{.definition} -->
+<!-- A ***confounding variable*** is a variable that is correlated to a predictor variable and response variable that causes a spurious association. -->
+<!-- ::: -->
 
-$Wins\ = \beta_0 + \beta_1(Draft\ Position) + \epsilon_i$
+<!-- :::{.example} -->
+<!-- A statistician hypothesizes that an NBA team's draft position can be used to predict the number of regular-season wins for the team for the upcoming season. To investigate the relationship, they decide to estimate the following simple linear regression model: -->
 
-Using 2021-22 NBA data, the estimated intercept and slope for the model are:
+<!-- $Wins\ = \beta_0 + \beta_1(Draft\ Position) + \epsilon_i$ -->
 
-```{r confounding example}
-# Data: https://en.wikipedia.org/wiki/2021_NBA_draft
+<!-- Using 2021-22 NBA data, the estimated intercept and slope for the model are: -->
 
-NBA_Data <- read.csv("data/NBA_Draft_and_Win_Data.csv")
+<!-- ```{r confounding example} -->
+<!-- # Data: https://en.wikipedia.org/wiki/2021_NBA_draft -->
 
-lm(Wins_2021_2022 ~ Draft_Position_2021, data=NBA_Data)
-```
-Interpret the estimated slope in this model.
-:::
+<!-- NBA_Data <- read.csv("data/NBA_Draft_and_Win_Data.csv") -->
 
-
-Recognizing that the SLR model may lead to erroneous lines of logic, the statistician decides to tackle the confounding by adding the wins for the team in the previous season to the model as a covariate. The theoretical model being estimated is now as follows:
-
-$Wins\ = \beta_0 + \beta_1(Draft\ Position) + \beta_2(Previous\ Season\ Wins) + \epsilon_i$
-
-```{r confounding example 2}
-lm(Wins_2021_2022 ~ Draft_Position_2021 + Wins_2020_2021_Scaled, data=NBA_Data)
-```
-
-When controlling for an NBA team's wins in the previous season, the sign for the slope coefficient for draft position flips to a negative. This suggests that for teams with the same winning percentage in the previous season, a lower draft position is associated with more wins in the following season. The results of this model, which included an important confounding variable, aligned with the conventional wisdom that lower draft positions are helpful for a team's future success. 
+<!-- lm(Wins_2021_2022 ~ Draft_Position_2021, data=NBA_Data) -->
+<!-- ``` -->
+<!-- Interpret the estimated slope in this model. -->
+<!-- ::: -->
 
 
-\newpage
+<!-- Recognizing that the SLR model may lead to erroneous lines of logic, the statistician decides to tackle the confounding by adding the wins for the team in the previous season to the model as a covariate. The theoretical model being estimated is now as follows: -->
 
-## Interaction
+<!-- $Wins\ = \beta_0 + \beta_1(Draft\ Position) + \beta_2(Previous\ Season\ Wins) + \epsilon_i$ -->
 
-Sometimes the relationship between an independent variable and a dependent variable depend on the value of a different independent value. In such a case, we say that the predictor variables interact and we should consider including an interaction term in our model.
+<!-- ```{r confounding example 2} -->
+<!-- lm(Wins_2021_2022 ~ Draft_Position_2021 + Wins_2020_2021_Scaled, data=NBA_Data) -->
+<!-- ``` -->
 
-```{r}
-# load nfl team statistics data from 2022
-nfl22 <- read_csv("data/nfl22.csv",show_col_types = F)
-nfl22 <- nfl22 %>% slice(1:32) %>%
-  mutate(PPG=PF/G,RYPG=Rush_Yds/G,PYPG=Pass_Yds/G) %>% 
-  select(Tm,PPG,RYPG,PYPG) %>%
-  column_to_rownames("Tm")
-nfl22 %>% slice(1:5) %>% kable(booktabs=T,digits=1)
-```
+<!-- When controlling for an NBA team's wins in the previous season, the sign for the slope coefficient for draft position flips to a negative. This suggests that for teams with the same winning percentage in the previous season, a lower draft position is associated with more wins in the following season. The results of this model, which included an important confounding variable, aligned with the conventional wisdom that lower draft positions are helpful for a team's future success.  -->
 
 
-```{r}
-library(gridExtra)
-p1 <- nfl22 %>% ggplot(aes(x=RYPG,y=PPG)) + 
-  geom_point() +
-  geom_smooth(method="lm",se=F) +
-  labs(title="Rushing Yards Per Game vs. Points Per Game",
-       x="Rushing Yards Per Game (RYPG)",
-       y="Points Per Game")
-p2 <- nfl22 %>% ggplot(aes(x=PYPG,y=PPG)) + 
-  geom_point() +
-  geom_smooth(method="lm",se=F) +
-  labs(title="Passing Yards Per Game vs. Points Per Game",
-       x="Passing Yards Per Game (RYPG)",
-       y="Points Per Game")
-p3 <- nfl22 %>% ggplot(aes(x=RYPG,y=PYPG)) + 
-  geom_point() +
-  geom_smooth(method="lm",se=F) +
-  labs(title="Rushing Yards Per Game vs. Passing Yards Per Game",
-       x="Rushing Yards Per Game (RYPG)",
-       y="Passing Yards Per Game")
-```
+<!-- \newpage -->
 
-\vfill
+<!-- ## Interaction -->
 
-\newpage
+<!-- Sometimes the relationship between an independent variable and a dependent variable depend on the value of a different independent value. In such a case, we say that the predictor variables interact and we should consider including an interaction term in our model. -->
 
-```{r,warning=F,message=F,fig.height=8}
-grid.arrange(p1,p2,p3,nrow=3)
-```
+<!-- ```{r} -->
+<!-- # load nfl team statistics data from 2022 -->
+<!-- nfl22 <- read_csv("data/nfl22.csv",show_col_types = F) -->
+<!-- nfl22 <- nfl22 %>% slice(1:32) %>% -->
+<!--   mutate(PPG=PF/G,RYPG=Rush_Yds/G,PYPG=Pass_Yds/G) %>%  -->
+<!--   select(Tm,PPG,RYPG,PYPG) %>% -->
+<!--   column_to_rownames("Tm") -->
+<!-- nfl22 %>% slice(1:5) %>% kable(booktabs=T,digits=1) -->
+<!-- ``` -->
 
-\newpage
 
-```{r}
-model1 <- lm(PPG~RYPG+PYPG,data=nfl22)
-# Nicely output regression information
-model1 %>% tidy() %>%
-  mutate(
-    p.value = scales::pvalue(p.value),
-    term = c("Intercept","RYPG","PYPG")
-  ) %>%
-  kable(booktabs=T,digits=c(3,3,3,3), 
-        caption = "SLR Model Estimating PPG Using RYPG and PYPG",
-        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
-  kable_styling(latex_options = "hold_position")
-```
+<!-- ```{r} -->
+<!-- library(gridExtra) -->
+<!-- p1 <- nfl22 %>% ggplot(aes(x=RYPG,y=PPG)) +  -->
+<!--   geom_point() + -->
+<!--   geom_smooth(method="lm",se=F) + -->
+<!--   labs(title="Rushing Yards Per Game vs. Points Per Game", -->
+<!--        x="Rushing Yards Per Game (RYPG)", -->
+<!--        y="Points Per Game") -->
+<!-- p2 <- nfl22 %>% ggplot(aes(x=PYPG,y=PPG)) +  -->
+<!--   geom_point() + -->
+<!--   geom_smooth(method="lm",se=F) + -->
+<!--   labs(title="Passing Yards Per Game vs. Points Per Game", -->
+<!--        x="Passing Yards Per Game (RYPG)", -->
+<!--        y="Points Per Game") -->
+<!-- p3 <- nfl22 %>% ggplot(aes(x=RYPG,y=PYPG)) +  -->
+<!--   geom_point() + -->
+<!--   geom_smooth(method="lm",se=F) + -->
+<!--   labs(title="Rushing Yards Per Game vs. Passing Yards Per Game", -->
+<!--        x="Rushing Yards Per Game (RYPG)", -->
+<!--        y="Passing Yards Per Game") -->
+<!-- ``` -->
 
-```{r}
-model2 <- lm(PPG~RYPG*PYPG,data=nfl22)
-# Nicely output regression information
-model2 %>% tidy() %>%
-  mutate(
-    p.value = scales::pvalue(p.value),
-    term = c("Intercept","RYPG","PYPG","RYPG:PYPG")
-  ) %>%
-  kable(booktabs=T,digits=c(3,3,3,3), 
-        caption = "SLR Model Estimating PPG Using RYPG and PYPG",
-        col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
-  kable_styling(latex_options = "hold_position")
-```
+<!-- \vfill -->
 
-\newpage
+<!-- \newpage -->
 
-:::{.example}
-Acquire the average fastball and curveball velocities for baseball pitchers in 2022. Assess whether FBv and CBv interact when modeling K/9 (strikeouts per nine innings)
-:::
+<!-- ```{r,warning=F,message=F,fig.height=8} -->
+<!-- grid.arrange(p1,p2,p3,nrow=3) -->
+<!-- ``` -->
 
-```{r}
-# pit22 <- fg_pitch_leaders(x=2022,y=2022,qual = "n") %>%
-#   select(Name,FBv,CBv,`K_9`)
-# pit22 %>% na.omit() %>% arrange(desc(FBv)) %>% slice(1:5) %>% kable(booktabs=T)
-```
+<!-- \newpage -->
 
-```{r}
-# pit_mod1 <- lm(K_9~FBv+CBv,data=pit22)
-```
+<!-- ```{r} -->
+<!-- model1 <- lm(PPG~RYPG+PYPG,data=nfl22) -->
+<!-- # Nicely output regression information -->
+<!-- model1 %>% tidy() %>% -->
+<!--   mutate( -->
+<!--     p.value = scales::pvalue(p.value), -->
+<!--     term = c("Intercept","RYPG","PYPG") -->
+<!--   ) %>% -->
+<!--   kable(booktabs=T,digits=c(3,3,3,3),  -->
+<!--         caption = "SLR Model Estimating PPG Using RYPG and PYPG", -->
+<!--         col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>% -->
+<!--   kable_styling(latex_options = "hold_position") -->
+<!-- ``` -->
 
-```{r,echo=F}
-# pit_mod1 %>% tidy() %>%
-#   mutate(
-#     p.value = scales::pvalue(p.value),
-#     term = c("Intercept","Average Fastball Velocity","Average Curveball Velocity")
-#   ) %>%
-#   kable(booktabs=T,digits=c(3,3,3,3), 
-#         caption = "SLR Model Estimating K/9 using FBv and CBv with no interaction",
-#         col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
-#   kable_styling(latex_options = "hold_position")
-```
+<!-- ```{r} -->
+<!-- model2 <- lm(PPG~RYPG*PYPG,data=nfl22) -->
+<!-- # Nicely output regression information -->
+<!-- model2 %>% tidy() %>% -->
+<!--   mutate( -->
+<!--     p.value = scales::pvalue(p.value), -->
+<!--     term = c("Intercept","RYPG","PYPG","RYPG:PYPG") -->
+<!--   ) %>% -->
+<!--   kable(booktabs=T,digits=c(3,3,3,3),  -->
+<!--         caption = "SLR Model Estimating PPG Using RYPG and PYPG", -->
+<!--         col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>% -->
+<!--   kable_styling(latex_options = "hold_position") -->
+<!-- ``` -->
 
-```{r}
-# pit_mod2 <- lm(K_9~FBv*CBv,data=pit22)
-```
+<!-- \newpage -->
 
-```{r,echo=F}
-# pit_mod2 %>% tidy() %>%
-#   mutate(
-#     p.value = scales::pvalue(p.value),
-#     term = c("Intercept","Average Fastball Velocity","Average Curveball Velocity","Interaction")
-#   ) %>%
-#   kable(booktabs=T,digits=c(3,3,3,3), 
-#         caption = "SLR Model Estimating K/9 using FBv and CBv with interaction",
-#         col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>%
-#   kable_styling(latex_options = "hold_position")
-```
+<!-- :::{.example} -->
+<!-- Acquire the average fastball and curveball velocities for baseball pitchers in 2022. Assess whether FBv and CBv interact when modeling K/9 (strikeouts per nine innings) -->
+<!-- ::: -->
+
+<!-- ```{r} -->
+<!-- pit22 <- fg_pitch_leaders(x=2022,y=2022,qual = "n") %>% -->
+<!--   select(Name,FBv,CBv,`K_9`) -->
+<!-- pit22 %>% na.omit() %>% arrange(desc(FBv)) %>% slice(1:5) %>% kable(booktabs=T) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- pit_mod1 <- lm(K_9~FBv+CBv,data=pit22) -->
+<!-- ``` -->
+
+<!-- ```{r,echo=F} -->
+<!-- pit_mod1 %>% tidy() %>% -->
+<!--   mutate( -->
+<!--     p.value = scales::pvalue(p.value), -->
+<!--     term = c("Intercept","Average Fastball Velocity","Average Curveball Velocity") -->
+<!--   ) %>% -->
+<!--   kable(booktabs=T,digits=c(3,3,3,3), -->
+<!--         caption = "SLR Model Estimating K/9 using FBv and CBv with no interaction", -->
+<!--         col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>% -->
+<!--   kable_styling(latex_options = "hold_position") -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- pit_mod2 <- lm(K_9~FBv*CBv,data=pit22) -->
+<!-- ``` -->
+
+<!-- ```{r,echo=F} -->
+<!-- pit_mod2 %>% tidy() %>% -->
+<!--   mutate( -->
+<!--     p.value = scales::pvalue(p.value), -->
+<!--     term = c("Intercept","Average Fastball Velocity","Average Curveball Velocity","Interaction") -->
+<!--   ) %>% -->
+<!--   kable(booktabs=T,digits=c(3,3,3,3), -->
+<!--         caption = "SLR Model Estimating K/9 using FBv and CBv with interaction", -->
+<!--         col.names = c("Predictor", "Estimate", "Std Error", "t stat", "p-value")) %>% -->
+<!--   kable_styling(latex_options = "hold_position") -->
+<!-- ``` -->
 

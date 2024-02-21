@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  21 JAN 2024 16:48
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.20)  20 FEB 2024 18:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2550,15 +2550,149 @@ Underfull \hbox (badness 4429) in paragraph at lines 8695--8696
 t-analysis/2017/presenting-adjusted-
  []
 
+[235] [236
+
+]
+Chapter 7.
+
+Underfull \hbox (badness 10000) in paragraph at lines 8705--8706
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8707--8708
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8712--8713
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8722--8724
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8724--8726
+
+ []
+
+[237] [238]
+File: textbook_files/figure-latex/unnamed-chunk-199-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-199-1.pdf>
+[239]
+File: textbook_files/figure-latex/unnamed-chunk-200-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-200-1.pdf>
+[240] [241] [242] [243]
+File: textbook_files/figure-latex/unnamed-chunk-206-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-206-1.pdf>
+[244] [245]
+File: textbook_files/figure-latex/unnamed-chunk-208-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-208-1.pdf>
+[246]
+File: textbook_files/figure-latex/unnamed-chunk-209-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-209-1.pdf>
+[247]
+File: textbook_files/figure-latex/unnamed-chunk-210-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-210-1.pdf>
+[248] [249] [250] [251]
+File: textbook_files/figure-latex/unnamed-chunk-214-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-214-1.pdf>
+[252]
+File: textbook_files/figure-latex/unnamed-chunk-215-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-215-1.pdf>
+[253]
+File: textbook_files/figure-latex/unnamed-chunk-216-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-216-1.pdf>
+[254] [255] [256] [257]
+File: textbook_files/figure-latex/unnamed-chunk-220-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-220-1.pdf>
+[258]
+File: textbook_files/figure-latex/unnamed-chunk-221-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-221-1.pdf>
+[259] [260]
+File: textbook_files/figure-latex/unnamed-chunk-223-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-223-1.pdf>
+[261] [262]
+File: textbook_files/figure-latex/unnamed-chunk-226-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-226-1.pdf>
+[263]
+File: textbook_files/figure-latex/unnamed-chunk-227-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-227-1.pdf>
+[264] [265]
+File: textbook_files/figure-latex/unnamed-chunk-229-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-229-1.pdf>
+[266]
+File: textbook_files/figure-latex/unnamed-chunk-230-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-230-1.pdf>
+[267] [268] [269]
+File: textbook_files/figure-latex/unnamed-chunk-234-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-234-1.pdf>
+[270] [271] [272]
+Chapter 8.
+
+Overfull \vbox (3.22458pt too high) detected at line 10133
+ []
+
+[273
+
+]
+File: textbook_files/figure-latex/unnamed-chunk-241-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-241-1.pdf>
+[274] [275] [276] [277]
+File: textbook_files/figure-latex/unnamed-chunk-255-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-255-1.pdf>
+[278]
+File: textbook_files/figure-latex/unnamed-chunk-256-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-256-1.pdf>
+[279]
+File: textbook_files/figure-latex/unnamed-chunk-259-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-259-1.pdf>
+[280]
+File: textbook_files/figure-latex/warning-1.pdf Graphic file (type pdf)
+<use textbook_files/figure-latex/warning-1.pdf>
+[281] [282] [283]
+Underfull \hbox (badness 10000) in paragraph at lines 10670--10671
+
+ []
+
+[284] [285]
+File: textbook_files/figure-latex/unnamed-chunk-265-1.pdf Graphic file (type pd
+f)
+<use textbook_files/figure-latex/unnamed-chunk-265-1.pdf>
+[286] [287]
 No file textbook.bbl.
-[235] (./textbook.aux) ) 
+[288] (./textbook.aux) ) 
 Here is how much of TeX's memory you used:
- 23149 strings out of 476179
- 450809 string characters out of 5809544
- 903780 words of memory out of 5000000
- 43418 multiletter control sequences out of 15000+600000
+ 23377 strings out of 476179
+ 461462 string characters out of 5809544
+ 911784 words of memory out of 5000000
+ 43623 multiletter control sequences out of 15000+600000
  475878 words of font info for 90 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  86i,10n,121p,1131b,516s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on textbook.pdf (235 pages).
+Output written on textbook.pdf (288 pages).
